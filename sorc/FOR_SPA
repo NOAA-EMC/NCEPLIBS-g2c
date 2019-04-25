@@ -1,5 +1,0 @@
-1) module use -a /nwprod/lib/modulefiles 
-2) module load jasper/v1.900.1
-   module load png/v1.2.44
-   module load z/v1.2.6
-3) make
