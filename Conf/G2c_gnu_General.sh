@@ -27,13 +27,13 @@
  export MPICC=mpigcc
  export MPIFC=mpigfortran
 
- INCS="-I${PNG_INC} -I${JASPER_INC} -I${Z_INC}"
-
  export DEBUG="-g -O0"
- export CFLAGS="-O3 -DUNDERSCORE -DLINUX ${INCS} -DUSE_JPEG2000 -DUSE_PNG -D__64BIT__ -fPIC"
+ export CFLAGS="-O3 -fPIC"
  export FFLAGS="-O3 -fPIC"
+ export FREEFORM="-ffree-form"
+ export FPPCPP="-cpp"
  export CPPFLAGS="-P -traditional-cpp"
- export MPICFLAGS="-O3 -DUNDERSCORE -DLINUX -fPIC"
+ export MPICFLAGS="-O3 -fPIC"
  export MPIFFLAGS="-O3 -fPIC"
  export MODPATH="-J"
  export I4R4=""
@@ -41,7 +41,7 @@
  export I8R8="-fdefault-integer-8 -fdefault-real-8"
 
  export CPPDEFS=""
- export CFLAGSDEFS=""
+ export CFLAGSDEFS="-I${PNG_INC} -I${JASPER_INC} -I${Z_INC} -DUNDERSCORE -DLINUX -DUSE_JPEG2000 -DUSE_PNG -D__64BIT__"
  export FFLAGSDEFS="-fno-range-check"
 
  export USECC="YES"
