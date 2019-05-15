@@ -31,6 +31,11 @@
    [[ ${3,,} == installonly ]] && { inst=true; skip=true; }
    [[ ${3,,} == localinstallonly ]] && { local=true; inst=true; skip=true; }
  }
+
+ source ./Conf/Collect_info.sh
+ source ./Conf/Gen_cfunction.sh
+ source ./Conf/Reset_version.sh
+
  if [[ ${sys} == "intel_general" ]]; then
    sys6=${sys:6}
    source ./Conf/G2c_${sys:0:5}_${sys6^}.sh
@@ -44,9 +49,6 @@
    echo "??? G2C: module/environment not set."
    exit 1
  }
-
- source ./Conf/Collect_info.sh
- source ./Conf/Gen_cfunction.sh
 
 set -x
  g2cLib4=$(basename $G2C_LIB4)
@@ -76,13 +78,14 @@ set -x
 #
    $local && {
               LIB_DIR4=..
+              SRC_DIR=
              } || {
-                   LIB_DIR4=$(dirname ${G2C_LIB4})
-                  }
-   [ -d $LIB_DIR4 ] || mkdir -p $LIB_DIR4
-   SRC_DIR=$G2C_SRC
-   $local && SRC_DIR=
-   [ -d $SRC_DIR ] || mkdir -p $SRC_DIR
+              LIB_DIR4=$(dirname ${G2C_LIB4})
+              SRC_DIR=$G2C_SRC
+              [ -d $LIB_DIR4 ] || mkdir -p $LIB_DIR4
+              [ -z $SRC_DIR ] || { [ -d $SRC_DIR ] || mkdir -p $SRC_DIR; }
+             }
+
    make clean LIB=
    make install LIB=$g2cLib4 LIB_DIR=$LIB_DIR4 SRC_DIR=$SRC_DIR
  }

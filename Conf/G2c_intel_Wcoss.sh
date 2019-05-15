@@ -1,9 +1,10 @@
 # *** for WCOSS IBM phase1/phase2 (intel) ***
+ module purge
  module load ics/17.0.3
- module load g2/v3.1.0
  module load jasper/v1.900.1
- module load libpng/v1.2.44
- module load zlib/v1.2.11
+ module load png/v1.2.44
+ module load z/v1.2.6
+ module load g2c/v1.5.0
 
  export CC=icc
  export FC=ifort
