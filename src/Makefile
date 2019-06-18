@@ -22,17 +22,13 @@ dbg_build: $(LIB)
 	$(FC) -c $(FFLAGS) $(FFLAGSDEFS) $<
 
 message: $(MSGSRC)
-	$(CC) -c $(firstword $(MSGSRC))
-	$(FC) -c $(lastword $(MSGSRC))
-	$(AR) $(ARFLAGS) $(LIB) $(patsubst %.c, %.o, $(firstword $(MSGSRC)))
-	$(AR) $(ARFLAGS) $(LIB) $(patsubst %.f, %.o, $(lastword $(MSGSRC)))
-	$(RM) $(patsubst %.c, %.o, $(firstword $(MSGSRC)))
-	$(RM) $(patsubst %.f, %.o, $(lastword $(MSGSRC)))
-	$(RM) $(MSGSRC)
+	$(CC) -c $(MSGSRC)
+	$(AR) $(ARFLAGS) $(LIB) $(patsubst %.c, %.o, $(MSGSRC))
+	$(RM) $(MSGSRC) $(patsubst %.c, %.o, $(MSGSRC))
 
 install:
-	[[ -z "$(LIB)" || -z "$(LIB_DIR)" ]] || mv $(LIB) $(LIB_DIR)
-	[[ -z "$(SRC_DIR)" ]] || cp ./* $(SRC_DIR)
+	if [ -n "$(LIB)" ] && [ -n "$(LIB_DIR)" ]; then mv $(LIB) $(LIB_DIR); fi
+	if [ -n "$(SRC_DIR)" ]; then cp ./* $(SRC_DIR); fi
 
 test:
 	@echo "*** unit test unavailable currently ***"
