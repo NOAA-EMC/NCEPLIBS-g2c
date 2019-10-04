@@ -1,11 +1,4 @@
 # *** for WCOSS Dell (intel) ***
- module purge
- module load EnvVars/1.0.2
- module load ips/18.0.1.163
- module load jasper/1.900.1
- module load libpng/1.2.44
- module load zlib/1.2.11
- module load g2c/1.5.0
 
  export CC=icc
  export FC=ifort

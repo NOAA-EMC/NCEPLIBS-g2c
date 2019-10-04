@@ -11,9 +11,11 @@
  if [[ ${sys} == "intel_general" ]]; then
    sys6=${sys:6}
    source ./Conf/G2c_${sys:0:5}_${sys6^}.sh
+   rinst=false
  elif [[ ${sys} == "gnu_general" ]]; then
    sys4=${sys:4}
    source ./Conf/G2c_${sys:0:3}_${sys4^}.sh
+   rinst=false
  else
    source ./Conf/G2c_intel_${sys^}.sh
  fi
@@ -21,9 +23,13 @@
    echo "??? G2C: compilers not set." >&2
    exit 1
  }
- [[ -z $G2C_VER || -z $G2C_LIB4 ]] && {
-   echo "??? G2C: module/environment not set." >&2
-   exit 1
+ [[ -z ${G2C_VER+x} || -z ${G2C_LIB4+x} ]] && {
+   [[ -z ${libver+x} || -z ${libver} ]] && {
+     echo "??? G2C: \"libver\" not set." >&2
+     exit
+   }
+   G2C_LIB4=lib${libver}_4.a
+   G2C_VER=v${libver##*_v}
  }
 
 set -x
@@ -33,7 +39,6 @@ set -x
  cd src
 #################
 
- $skip || {
 #-------------------------------------------------------------------
 # Start building libraries
 #
@@ -46,7 +51,6 @@ set -x
    $debg && make debug LIB=$g2cLib4 &> $g2cInfo4 \
          || make build LIB=$g2cLib4 &> $g2cInfo4
    make message MSGSRC="$(gen_cfunction $g2cInfo4 OneLine4 LibInfo4)" LIB=$g2cLib4
- }
 
  $inst && {
 #
@@ -54,14 +58,17 @@ set -x
 #
    $local && {
      instloc=..
-     LIB_DIR4=$instloc
+     LIB_DIR=$instloc/lib
+     [ -d $LIB_DIR ] || { mkdir -p $LIB_DIR; }
+     LIB_DIR4=$LIB_DIR
      SRC_DIR=
    } || {
-     [[ $instloc == --- ]] && {
+     $rinst && {
        LIB_DIR4=$(dirname ${G2C_LIB4})
        SRC_DIR=$G2C_SRC
      } || {
-       LIB_DIR4=$instloc
+       LIB_DIR=$instloc/lib
+       LIB_DIR4=$LIB_DIR
        SRC_DIR=$instloc/src
        [[ $instloc == .. ]] && SRC_DIR=
      }

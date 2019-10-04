@@ -1,4 +1,8 @@
-# *** for Theia (intel) ***
+# *** for Hera (intel) ***
+ $rinst && {
+   grep -E "(^|:|/)g2c/" <<< "$LOADEDMODULES" &> /dev/null \
+    || module load g2c/1.5.0
+ }
 
  export CC=icc
  export FC=ifort
@@ -26,5 +30,5 @@
  export FFLAGSDEFS=""
 
  export USECC="YES"
- export USEFC=""
- export DEPS=
+ export USEFC="YES"
+ export DEPS=""

@@ -1,11 +1,4 @@
 # *** for WCOSS Cray (intel) ***
- module purge
- module load jasper-gnu-haswell/1.900.1
- module load png-gnu-haswell/1.2.49
- module load zlib-gnu-haswell/1.2.7
- module load PrgEnv-intel
- module load craype-sandybridge
- module load g2c-intel/1.5.0
 
  export CC=cc
  export FC=ftn
