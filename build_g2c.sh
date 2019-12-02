@@ -69,7 +69,7 @@ set -x
      } || {
        LIB_DIR=$instloc/lib
        LIB_DIR4=$LIB_DIR
-       SRC_DIR=$instloc/src
+       SRC_DIR=$instloc/src/${libver}
        [[ $instloc == .. ]] && SRC_DIR=
      }
      [ -d $LIB_DIR4 ] || mkdir -p $LIB_DIR4
