@@ -40,27 +40,27 @@ set(versioned_lib_name ${PROJECT_NAME}_v${PROJECT_VERSION})
 add_library(${lib_name} STATIC ${c_src})
 
 target_compile_definitions(${lib_name} PUBLIC __64BIT__)
-if (JASPER_FOUND)
-target_compile_definitions(${lib_name} PRIVATE USE_JPEG2000)
+if(JASPER_FOUND)
+  target_compile_definitions(${lib_name} PRIVATE USE_JPEG2000)
 endif()
-if (PNG_FOUND)
-target_compile_definitions(${lib_name} PRIVATE USE_PNG)
+if(PNG_FOUND)
+  target_compile_definitions(${lib_name} PRIVATE USE_PNG)
 endif()
 
 set_target_properties(${lib_name} PROPERTIES OUTPUT_NAME ${versioned_lib_name})
-set_target_properties(${lib_name} PROPERTIES INTERFACE_LINK_LIBRARIES ${lib_name})
 set_target_properties(${lib_name} PROPERTIES PUBLIC_HEADER "src/grib2.h")
 
-target_include_directories(${lib_name}
+target_include_directories(
+  ${lib_name}
   PRIVATE ${ZLIB_INCLUDE_DIRS} ${PNG_INCLUDE_DIRS} ${JASPER_INCLUDE_DIR}
   PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
 
 target_link_libraries(${lib_name} INTERFACE m)
-if (JASPER_FOUND)
-target_link_libraries(${lib_name} INTERFACE ${JASPER_LIBRARIES})
+if(JASPER_FOUND)
+  target_link_libraries(${lib_name} INTERFACE ${JASPER_LIBRARIES})
 endif()
-if (PNG_FOUND)
-target_link_libraries(${lib_name} INTERFACE ${PNG_LIBRARIES})
+if(PNG_FOUND)
+  target_link_libraries(${lib_name} INTERFACE ${PNG_LIBRARIES})
 endif()
 
 install(
