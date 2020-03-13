@@ -40,6 +40,13 @@ set(versioned_lib_name ${PROJECT_NAME}_v${PROJECT_VERSION})
 add_library(${lib_name} STATIC ${c_src})
 
 target_compile_definitions(${lib_name} PUBLIC __64BIT__)
+if (JASPER_FOUND)
+target_compile_definitions(${lib_name} PUBLIC USE_JPEG2000)
+endif()
+if (PNG_FOUND)
+target_compile_definitions(${lib_name} PUBLIC USE_PNG)
+endif()
+
 set_target_properties(${lib_name} PROPERTIES OUTPUT_NAME ${versioned_lib_name})
 set_target_properties(${lib_name} PROPERTIES INTERFACE_LINK_LIBRARIES ${lib_name})
 set_target_properties(${lib_name} PROPERTIES PUBLIC_HEADER "src/grib2.h")
