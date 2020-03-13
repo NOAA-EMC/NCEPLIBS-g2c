@@ -41,10 +41,10 @@ add_library(${lib_name} STATIC ${c_src})
 
 target_compile_definitions(${lib_name} PUBLIC __64BIT__)
 if (JASPER_FOUND)
-target_compile_definitions(${lib_name} PUBLIC USE_JPEG2000)
+target_compile_definitions(${lib_name} PRIVATE USE_JPEG2000)
 endif()
 if (PNG_FOUND)
-target_compile_definitions(${lib_name} PUBLIC USE_PNG)
+target_compile_definitions(${lib_name} PRIVATE USE_PNG)
 endif()
 
 set_target_properties(${lib_name} PROPERTIES OUTPUT_NAME ${versioned_lib_name})
@@ -55,7 +55,13 @@ target_include_directories(${lib_name}
   PRIVATE ${ZLIB_INCLUDE_DIRS} ${PNG_INCLUDE_DIRS} ${JASPER_INCLUDE_DIR}
   PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
 
-target_link_libraries(${lib_name} PUBLIC m)
+target_link_libraries(${lib_name} INTERFACE m)
+if (JASPER_FOUND)
+target_link_libraries(${lib_name} INTERFACE ${JASPER_LIBRARIES})
+endif()
+if (PNG_FOUND)
+target_link_libraries(${lib_name} INTERFACE ${PNG_LIBRARIES})
+endif()
 
 install(
   TARGETS ${lib_name}
