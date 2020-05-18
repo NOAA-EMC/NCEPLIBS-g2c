@@ -20,9 +20,21 @@ if(NOT CMAKE_C_COMPILER_ID MATCHES "^(Intel|GNU|Clang|AppleClang)$")
   message(WARNING "Compiler not officially supported: ${CMAKE_C_COMPILER_ID}")
 endif()
 
-find_package(Jasper REQUIRED)
-find_package(PNG REQUIRED)
-find_package(ZLIB REQUIRED)
+option(USE_PNG      "Use PNG library"      ON)
+option(USE_Jasper   "Use Jasper library"   ON)
+
+if(USE_PNG)
+  find_package(ZLIB REQUIRED)
+  find_package(PNG REQUIRED)
+else()
+  message(STATUS "Will not build PNG support")
+endif()
+
+if(USE_Jasper)
+  find_package(Jasper REQUIRED)
+else()
+  message(STATUS "Will not build Jasper support")
+endif()
 
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
   set(CMAKE_C_FLAGS "-g -O3")
@@ -40,28 +52,38 @@ set(versioned_lib_name ${PROJECT_NAME}_v${PROJECT_VERSION})
 add_library(${lib_name} STATIC ${c_src})
 
 target_compile_definitions(${lib_name} PUBLIC __64BIT__)
-if(JASPER_FOUND)
-  target_compile_definitions(${lib_name} PRIVATE USE_JPEG2000)
-endif()
+
+set(private_includes "")
+
 if(PNG_FOUND)
+  message(STATUS "Found PNG:")
+  message(STATUS "      PNG include directories ${PNG_INCLUDE_DIR}")
+  message(STATUS "      PNG libraries ${PNG_LIBRARIES}")
   target_compile_definitions(${lib_name} PRIVATE USE_PNG)
+  target_link_libraries(${lib_name} INTERFACE ${PNG_LIBRARIES})
+  list(APPEND private_includes "${PNG_INCLUDE_DIRS}")
 endif()
+
+if(JASPER_FOUND)
+  message(STATUS "Found JASPER:")
+  message(STATUS "      JASPER include directories ${JASPER_INCLUDE_DIR}")
+  message(STATUS "      JASPER libraries ${JASPER_LIBRARIES}")
+  target_compile_definitions(${lib_name} PRIVATE USE_JPEG2000)
+  target_link_libraries(${lib_name} INTERFACE ${JASPER_LIBRARIES})
+  list(APPEND private_includes "${JASPER_INCLUDE_DIR}")
+endif()
+
+target_link_libraries(${lib_name} INTERFACE m)
 
 set_target_properties(${lib_name} PROPERTIES OUTPUT_NAME ${versioned_lib_name})
 set_target_properties(${lib_name} PROPERTIES PUBLIC_HEADER "src/grib2.h")
 
 target_include_directories(
   ${lib_name}
-  PRIVATE ${ZLIB_INCLUDE_DIRS} ${PNG_INCLUDE_DIRS} ${JASPER_INCLUDE_DIR}
-  PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
-
-target_link_libraries(${lib_name} INTERFACE m)
-if(JASPER_FOUND)
-  target_link_libraries(${lib_name} INTERFACE ${JASPER_LIBRARIES})
-endif()
-if(PNG_FOUND)
-  target_link_libraries(${lib_name} INTERFACE ${PNG_LIBRARIES})
-endif()
+  PRIVATE ${private_includes}
+  PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+         $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
+)
 
 install(
   TARGETS ${lib_name}
@@ -72,4 +94,4 @@ install(
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
 
 install(EXPORT ${PROJECT_NAME}-config
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/${PROJECT_NAME})
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/${PROJECT_NAME})
