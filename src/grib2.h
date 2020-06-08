@@ -1,6 +1,8 @@
 #ifndef _grib2_H
 #define _grib2_H
-#include<stdio.h>
+
+#include <stdio.h>
+#include <stdint.h>
 
 #define G2_VERSION "g2clib-1.6.0"
 /*                .      .    .                                       .
@@ -11,7 +13,7 @@
 // 2009-01-14  Vuong     Changed struct template to gtemplate
 //
 //   Each element of structure gribfield is defined as:
-//   
+//
 //   gribfield gfld;
 //
 //        gfld->version = GRIB edition number ( currently 2 )
@@ -128,10 +130,10 @@
 //        gfld->unpacked = logical value indicating whether the bitmap and
 //                        data values were unpacked.  If false,
 //                        gfld->bmap and gfld->fld pointers are nullified.
-//        gfld->expanded = Logical value indicating whether the data field 
-//                         was expanded to the grid in the case where a 
+//        gfld->expanded = Logical value indicating whether the data field
+//                         was expanded to the grid in the case where a
 //                         bit-map is present.  If true, the data points in
-//                         gfld->fld match the grid points and zeros were 
+//                         gfld->fld match the grid points and zeros were
 //                         inserted at grid points where data was bit-mapped
 //                         out.  If false, the data values in gfld->fld were
 //                         not expanded to the grid and are just a consecutive
@@ -151,13 +153,8 @@
 //                     that holds the data.
 */
 
-#ifdef __64BIT__
-typedef int g2int;
-typedef unsigned int g2intu;
-#else
-typedef long g2int;
-typedef unsigned long g2intu;
-#endif
+typedef int32_t g2int;
+typedef uint32_t g2intu;
 typedef float g2float;
 
 struct gtemplate {
@@ -215,7 +212,7 @@ void g2_free(gribfield *);
 /*  Prototypes for packing API  */
 g2int g2_create(unsigned char *,g2int *,g2int *);
 g2int g2_addlocal(unsigned char *,unsigned char *,g2int );
-g2int g2_addgrid(unsigned char *,g2int *,g2int *,g2int *,g2int ); 
+g2int g2_addgrid(unsigned char *,g2int *,g2int *,g2int *,g2int );
 g2int g2_addfield(unsigned char *,g2int ,g2int *,
                        g2float *,g2int ,g2int ,g2int *,
                        g2float *,g2int ,g2int ,g2int *);

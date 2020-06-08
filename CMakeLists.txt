@@ -53,8 +53,6 @@ set(versioned_lib_name ${PROJECT_NAME}_v${PROJECT_VERSION})
 
 add_library(${lib_name} STATIC ${c_src})
 
-target_compile_definitions(${lib_name} PUBLIC __64BIT__)
-
 set(private_includes "")
 
 if(PNG_FOUND)
