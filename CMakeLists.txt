@@ -49,7 +49,6 @@ endif()
 add_subdirectory(src)
 
 set(lib_name ${PROJECT_NAME})
-set(versioned_lib_name ${PROJECT_NAME}_v${PROJECT_VERSION})
 
 add_library(${lib_name} STATIC ${c_src})
 
@@ -77,7 +76,6 @@ endif()
 
 target_link_libraries(${lib_name} INTERFACE m)
 
-set_target_properties(${lib_name} PROPERTIES OUTPUT_NAME ${versioned_lib_name})
 set_target_properties(${lib_name} PROPERTIES PUBLIC_HEADER "src/grib2.h")
 
 target_include_directories(
@@ -87,13 +85,40 @@ target_include_directories(
          $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
 )
 
+### Install g2c library
 install(
   TARGETS ${lib_name}
-  EXPORT ${PROJECT_NAME}-config
-  RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
-  LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
+  EXPORT ${PROJECT_NAME}Exports
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  PUBLIC_HEADER DESTINATION include)
 
-install(EXPORT ${PROJECT_NAME}-config
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/${PROJECT_NAME})
+### Package config
+include(CMakePackageConfigHelpers)
+set(CONFIG_INSTALL_DESTINATION lib/cmake/${PROJECT_NAME})
+
+export(EXPORT ${PROJECT_NAME}Exports
+  NAMESPACE ${PROJECT_NAME}::
+  FILE ${PROJECT_NAME}-targets.cmake)
+
+# g2c-config.cmake
+configure_package_config_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/PackageConfig.cmake.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+  INSTALL_DESTINATION ${CONFIG_INSTALL_DESTINATION})
+install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+  DESTINATION ${CONFIG_INSTALL_DESTINATION})
+
+# g2c-config-version.cmake
+write_basic_package_version_file(
+  ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY AnyNewerVersion)
+install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
+  DESTINATION ${CONFIG_INSTALL_DESTINATION})
+
+# g2c-targets.cmake and g2c-targets-<build-type>.cmake
+install(EXPORT ${PROJECT_NAME}Exports
+  NAMESPACE ${PROJECT_NAME}::
+  FILE ${PROJECT_NAME}-targets.cmake
+  DESTINATION ${CONFIG_INSTALL_DESTINATION})
