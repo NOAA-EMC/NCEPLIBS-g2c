@@ -7,6 +7,8 @@ project(
   VERSION ${pVersion}
   LANGUAGES C)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
   set(CMAKE_BUILD_TYPE
@@ -22,6 +24,7 @@ endif()
 
 option(USE_PNG      "Use PNG library"      ON)
 option(USE_Jasper   "Use Jasper library"   ON)
+option(USE_OpenJPEG "Use OpenJPEG library" OFF)
 
 if(USE_PNG)
   find_package(ZLIB REQUIRED)
@@ -34,6 +37,12 @@ if(USE_Jasper)
   find_package(Jasper REQUIRED)
 else()
   message(STATUS "Will not build Jasper support")
+endif()
+
+if(USE_OpenJPEG)
+  find_package(OpenJPEG REQUIRED)
+else()
+  message(STATUS "Will not build OpenJPEG support")
 endif()
 
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
@@ -72,6 +81,15 @@ if(JASPER_FOUND)
   target_compile_definitions(${lib_name} PRIVATE USE_JPEG2000)
   target_link_libraries(${lib_name} INTERFACE ${JASPER_LIBRARIES})
   list(APPEND private_includes "${JASPER_INCLUDE_DIR}")
+endif()
+
+if(OPENJPEG_FOUND)
+  message(STATUS "Found OpenJPEG:")
+  message(STATUS "      OpenJPEG include directories ${OpenJPEG_INCLUDE_DIRS}")
+  message(STATUS "      OpenJPEG libraries ${OpenJPEG_LIBRARIES}")
+  target_compile_definitions(${lib_name} PRIVATE USE_OPENJPEG)
+  target_link_libraries(${lib_name} INTERFACE ${OpenJPEG_LIBRARIES})
+  list(APPEND private_includes "${OpenJPEG_INCLUDE_DIRS}")
 endif()
 
 target_link_libraries(${lib_name} INTERFACE m)

@@ -10,7 +10,7 @@ g2int specunpack(unsigned char *,g2int *,g2int,g2int,g2int, g2int, g2float *);
 #ifdef USE_PNG
   g2int pngunpack(unsigned char *,g2int,g2int *,g2int, g2float *);
 #endif  /* USE_PNG */
-#ifdef USE_JPEG2000
+#if defined USE_JPEG2000 || defined USE_OPENJPEG
   g2int jpcunpack(unsigned char *,g2int,g2int *,g2int, g2float *);
 #endif  /* USE_JPEG2000 */
 
@@ -127,7 +127,7 @@ g2int g2_unpack7(unsigned char *cgrib,g2int *iofst,g2int igdsnum,g2int *igdstmpl
           *fld=0;     //NULL
           return(ierr);
         }
-#ifdef USE_JPEG2000
+#if defined USE_JPEG2000 || defined USE_OPENJPEG
       else if (idrsnum == 40 || idrsnum == 40000) {
         jpcunpack(cgrib+ipos,lensec-5,idrstmpl,ndpts,lfld);
         }
