@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grib2.h"
+#include <string.h>
 #include "jasper/jasper.h"
 #define JAS_1_700_2
 
@@ -121,7 +122,7 @@ int enc_jpeg2000(unsigned char *cin,g2int width,g2int height,g2int nbits,
     image.clrspc_=JAS_CLRSPC_SGRAY;         /* grayscale Image */
     image.cmprof_=0; 
 #endif
-    image.inmem_=1;
+//    image.inmem_=1;
 
     cmpt.tlx_=0;
     cmpt.tly_=0;
