@@ -43,7 +43,7 @@ Code Manager: Boi VUONG
 
 ## Installing
 
-@note This "C" source code conatins many uses of the C++ comment style
+#note This "C" source code conatins many uses of the C++ comment style
 "//".  Please make sure you include the appropriate compiler option in
 the CFLAGS variable in the makefile to allow the use of "//" comment
 indicators.
