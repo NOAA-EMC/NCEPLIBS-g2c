@@ -11,7 +11,7 @@ This is related to the
 
 NCEP/EMC developers.
 
-Code Manager: Boi VUONG
+Code Manager: Boi Vuong
 
 ### Prerequisites
 
