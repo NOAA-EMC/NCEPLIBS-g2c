@@ -19,34 +19,27 @@ Code Manager: Boi VUONG
               Part-1 standard (i.e., ISO/IEC 15444-1).  This library
               is required if JPEG2000 support in GRIB2 is desired.  If
               not, remove the -DUSE_JPEG2000 option from the DEFS
-              variable in the makefile.
-
-              Download version jasper-1.900.1 from the JasPer Project's
-              home page, http://www.ece.uvic.ca/~mdadams/jasper/.
-        
-              More information about JPEG2000 can be found at 
+              variable in the makefile. Download version
+              jasper-1.900.1 from the JasPer Project's home page,
+              http://www.ece.uvic.ca/~mdadams/jasper/. More
+              information about JPEG2000 can be found at
               http://www.jpeg.org/JPEG2000.html.
 
-- libpng.a    This library is a C implementation of the Portable Network
-              Graphics PNG image compression format.  This library is required
-              if PNG support in GRIB2 is desired.  If not, remove
-              the -DUSE_PNG option from the DEFS variable
-              in the makefile.
+- libpng.a This library is a C implementation of the Portable Network
+           Graphics PNG image compression format.  This library is
+           required if PNG support in GRIB2 is desired.  If not,
+           remove the -DUSE_PNG option from the DEFS variable in the
+           makefile. If not already installed on your system, download
+           version libpng-1.2.44 from
+           http://www.libpng.org/pub/png/libpng.html. More information
+           about PNG can be found at http://www.libpng.org/pub/png/.
 
-              If not already installed on your system, download version 
-              libpng-1.2.44 from http://www.libpng.org/pub/png/libpng.html.
-
-              More information about PNG can be found at 
-              http://www.libpng.org/pub/png/.
-
-- libz.a      This library contains compression/decompression routines
-              used by libpng.a for PNG image compression support. 
-              This library is required if PNG support in GRIB2 is desired.  
-              If not, remove the -DUSE_PNG option from the DEFS variable
-              in g2lib/makefile.
-
-              If not already installed on your system, download version 
-              zlib-1.2.6 from http://www.gzip.org/zlib/.
+- libz.a This library contains compression/decompression routines used
+         by libpng.a for PNG image compression support.  This library
+         is required if PNG support in GRIB2 is desired.  If not,
+         remove the -DUSE_PNG option from the DEFS variable in
+         g2lib/makefile. If not already installed on your system,
+         download version zlib-1.2.6 from http://www.gzip.org/zlib/.
 
 ## Installing
 
