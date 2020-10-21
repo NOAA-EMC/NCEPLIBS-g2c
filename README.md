@@ -9,11 +9,11 @@ This is related to the
 
 ## Authors
 
-NCEP/EMC developers.
+Boi VUONG, Hang Lei
 
 Code Manager: Boi VUONG
 
-### Prerequisites
+## Prerequisites
 
 - libjasper.a This library is a C implementation of the JPEG-2000
               Part-1 standard (i.e., ISO/IEC 15444-1).  This library
