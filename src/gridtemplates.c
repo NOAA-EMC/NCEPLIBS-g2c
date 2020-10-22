@@ -4,7 +4,6 @@
 #include "grib2.h"
 #include "gridtemplates.h"
 
-g2int getgridindex(g2int number)
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
 ! SUBPROGRAM:    getgridindex
@@ -36,6 +35,7 @@ g2int getgridindex(g2int number)
 !   MACHINE:  IBM SP
 !
 !$$$*/
+g2int getgridindex(g2int number)
 {
            g2int j,getgridindex=-1;
 
@@ -49,7 +49,6 @@ g2int getgridindex(g2int number)
            return(getgridindex);
 }
 
-gtemplate *getgridtemplate(g2int number)
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
 ! SUBPROGRAM:    getgridtemplate 
@@ -84,6 +83,7 @@ gtemplate *getgridtemplate(g2int number)
 !   MACHINE:  IBM SP
 !
 !$$$*/
+gtemplate *getgridtemplate(g2int number)
 {
            g2int index;
            gtemplate *new;
@@ -110,7 +110,6 @@ gtemplate *getgridtemplate(g2int number)
 }
 
 
-gtemplate *extgridtemplate(g2int number,g2int *list)
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
 ! SUBPROGRAM:    extgridtemplate 
@@ -145,6 +144,7 @@ gtemplate *extgridtemplate(g2int number,g2int *list)
 !   MACHINE:  IBM SP
 !
 !$$$*/
+gtemplate *extgridtemplate(g2int number,g2int *list)
 {
            gtemplate *new;
            g2int index,i;

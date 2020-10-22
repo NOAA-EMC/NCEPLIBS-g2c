@@ -11,7 +11,6 @@
 #define JAS_1_700_2
 
 
-   int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
 /*$$$  SUBPROGRAM DOCUMENTATION BLOCK
 *                .      .    .                                       .
 * SUBPROGRAM:    dec_jpeg2000      Decodes JPEG2000 code stream
@@ -50,7 +49,7 @@
 *   MACHINE:  IBM SP
 *
 *$$$*/
-
+   int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
 {
     int ier;
     g2int i,j,k;

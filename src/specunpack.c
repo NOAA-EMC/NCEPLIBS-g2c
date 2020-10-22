@@ -6,8 +6,6 @@
 #include "grib2.h"
 
 
-g2int specunpack(unsigned char *cpack,g2int *idrstmpl,g2int ndpts,g2int JJ,
-               g2int KK, g2int MM, g2float *fld)
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
 // SUBPROGRAM:    specunpack
@@ -44,6 +42,8 @@ g2int specunpack(unsigned char *cpack,g2int *idrstmpl,g2int ndpts,g2int JJ,
 //   MACHINE:  
 //
 //$$$
+g2int specunpack(unsigned char *cpack,g2int *idrstmpl,g2int ndpts,g2int JJ,
+               g2int KK, g2int MM, g2float *fld)
 {
 
       g2int  *ifld,j,iofst,nbits;

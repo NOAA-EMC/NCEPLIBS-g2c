@@ -18,9 +18,6 @@ void specpack(g2float *,g2int,g2int,g2int,g2int,g2int *,unsigned char *,
 #endif  /* USE_JPEG2000 */
 
 
-g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
-                g2float *coordlist,g2int numcoord,g2int idrsnum,g2int *idrstmpl,
-                g2float *fld,g2int ngrdpts,g2int ibmap,g2int *bmap)
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
 // SUBPROGRAM:    g2_addfield 
@@ -115,6 +112,9 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
 //   MACHINE:  
 //
 //$$$
+g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
+                g2float *coordlist,g2int numcoord,g2int idrsnum,g2int *idrstmpl,
+                g2float *fld,g2int ngrdpts,g2int ibmap,g2int *bmap)
 {
       g2int ierr;
       static unsigned char G=0x47;       // 'G'

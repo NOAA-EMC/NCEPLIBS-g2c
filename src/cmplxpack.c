@@ -2,8 +2,6 @@
  */
 #include "grib2.h"
 
-void cmplxpack(g2float *fld,g2int ndpts, g2int idrsnum,g2int *idrstmpl,
-               unsigned char *cpack, g2int *lcpack)
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
 // SUBPROGRAM:    cmplxpack
@@ -60,6 +58,8 @@ void cmplxpack(g2float *fld,g2int ndpts, g2int idrsnum,g2int *idrstmpl,
 //   MACHINE:  IBM SP
 //
 //$$$
+void cmplxpack(g2float *fld,g2int ndpts, g2int idrsnum,g2int *idrstmpl,
+               unsigned char *cpack, g2int *lcpack)
 {
       
 

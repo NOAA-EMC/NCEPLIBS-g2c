@@ -4,7 +4,6 @@
 #include "grib2.h"
 #include "drstemplates.h"
 
-g2int getdrsindex(g2int number)
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
 ! SUBPROGRAM:    getdrsindex 
@@ -32,6 +31,7 @@ g2int getdrsindex(g2int number)
 !   MACHINE:  IBM SP
 !
 !$$$*/
+g2int getdrsindex(g2int number)
 {
            g2int j,getdrsindex=-1;
 
@@ -46,7 +46,6 @@ g2int getdrsindex(g2int number)
 }
 
 
-gtemplate *getdrstemplate(g2int number)
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
 ! SUBPROGRAM:    getdrstemplate 
@@ -78,6 +77,7 @@ gtemplate *getdrstemplate(g2int number)
 !   MACHINE:  IBM SP
 !
 !$$$*/
+gtemplate *getdrstemplate(g2int number)
 {
            g2int index;
            gtemplate *new;
@@ -103,7 +103,6 @@ gtemplate *getdrstemplate(g2int number)
          return(0);        //NULL
 }
 
-gtemplate *extdrstemplate(g2int number,g2int *list)
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
 ! SUBPROGRAM:    extdrstemplate 
@@ -135,6 +134,7 @@ gtemplate *extdrstemplate(g2int number,g2int *list)
 !   MACHINE:  IBM SP
 !
 !$$$*/
+gtemplate *extdrstemplate(g2int number,g2int *list)
 {
            gtemplate *new;
            g2int index,i;

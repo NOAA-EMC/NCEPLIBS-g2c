@@ -4,9 +4,6 @@
 #include <stdlib.h>
 #include "grib2.h"
 
-
-g2int g2_unpack3(unsigned char *cgrib,g2int *iofst,g2int **igds,g2int **igdstmpl,
-                         g2int *mapgridlen,g2int **ideflist,g2int *idefnum)
 ////$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
 // SUBPROGRAM:    g2_unpack3 
@@ -69,6 +66,8 @@ g2int g2_unpack3(unsigned char *cgrib,g2int *iofst,g2int **igds,g2int **igdstmpl
 //
 //$$$
 
+g2int g2_unpack3(unsigned char *cgrib,g2int *iofst,g2int **igds,g2int **igdstmpl,
+                         g2int *mapgridlen,g2int **ideflist,g2int *idefnum)
 {
       g2int ierr,i,j,nbits,isecnum;
       g2int lensec,ibyttem=0,isign,newlen;

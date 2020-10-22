@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include "grib2.h"
 
-g2int g2_gribend(unsigned char *cgrib)
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
 // SUBPROGRAM:    g2_gribend 
@@ -47,6 +46,7 @@ g2int g2_gribend(unsigned char *cgrib)
 //   MACHINE:
 //
 //$$$
+g2int g2_gribend(unsigned char *cgrib)
 {
 
       g2int iofst,lencurr,len,ilen,isecnum;

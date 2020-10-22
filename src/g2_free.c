@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include  "grib2.h"
 
-void g2_free(gribfield *gfld)
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
 // SUBPROGRAM:    g2_free 
@@ -29,6 +28,7 @@ void g2_free(gribfield *gfld)
 //   MACHINE:  
 //
 //$$$
+void g2_free(gribfield *gfld)
 { 
 
       if (gfld->idsect != 0 ) free(gfld->idsect);

@@ -7,7 +7,6 @@
 g2int g2_unpack3(unsigned char *,g2int *,g2int **,g2int **,
                          g2int *,g2int **,g2int *);
 
-g2int getdim(unsigned char *csec3,g2int *width,g2int *height,g2int *iscan)
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
 // SUBPROGRAM:    getdim 
@@ -37,6 +36,7 @@ g2int getdim(unsigned char *csec3,g2int *width,g2int *height,g2int *iscan)
 //   MACHINE:  IBM SP
 //
 //$$$
+g2int getdim(unsigned char *csec3,g2int *width,g2int *height,g2int *iscan)
 {
     
       g2int  *igdstmpl,*list_opt;

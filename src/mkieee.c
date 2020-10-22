@@ -5,7 +5,6 @@
 #include "grib2.h"
 
 
-void mkieee(g2float *a,g2int *rieee,g2int num)
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
 // SUBPROGRAM:    mkieee 
@@ -35,6 +34,7 @@ void mkieee(g2float *a,g2int *rieee,g2int num)
 //   MACHINE:  
 //
 //$$$
+void mkieee(g2float *a,g2int *rieee,g2int num)
 {
 
       g2int  j,n,ieee,iexp,imant;

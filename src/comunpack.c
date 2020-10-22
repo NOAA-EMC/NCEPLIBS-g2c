@@ -5,7 +5,6 @@
 #include "grib2.h"
 
 
-int comunpack(unsigned char *cpack,g2int lensec,g2int idrsnum,g2int *idrstmpl,g2int ndpts,g2float *fld)
 ////$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
 // SUBPROGRAM:    comunpack
@@ -45,7 +44,8 @@ int comunpack(unsigned char *cpack,g2int lensec,g2int idrsnum,g2int *idrstmpl,g2
 //   LANGUAGE: C
 //   MACHINE: 
 //
-//$$$//
+//$$$
+int comunpack(unsigned char *cpack,g2int lensec,g2int idrsnum,g2int *idrstmpl,g2int ndpts,g2float *fld)//
 {
 
       g2int   nbitsd=0,isign;
