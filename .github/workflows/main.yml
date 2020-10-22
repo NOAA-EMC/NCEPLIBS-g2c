@@ -1,0 +1,58 @@
+name: Build
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    env:
+      FC: gfortran-9
+      CC: gcc-9
+      CXX: g++-9
+
+    steps:
+
+    - name: install-dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev
+
+    - name: checkout-jasper
+      uses: actions/checkout@v2
+      with:
+        repository: mdadams/jasper
+        path: jasper
+        ref: version-2.0.16
+
+    - name: cache-jasper
+      id: cache-jasper
+      uses: actions/cache@v2
+      with:
+        path: ~/Jasper
+        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}
+
+    - name: build-jasper
+      if: steps.cache-jasper.outputs.cache-hit != 'true'
+      run: |
+        cd jasper
+        mkdir cmake_build
+        cd build
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
+        make -j2
+        make install
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        path: g2c
+        submodules: true
+
+    - name: build
+      run: |
+        cd g2c
+        mkdir build
+        cd build
+        cmake .. -DJasper_ROOT=~/Jasper
+        make -j2
+    - name: test
+      run: |
+        cd $GITHUB_WORKSPACE/g2c/build
+        make test
