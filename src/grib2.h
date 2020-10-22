@@ -146,7 +146,6 @@
  *                     that holds the data.
  *   </pre>
 */
- */
 #ifndef _grib2_H
 #define _grib2_H
 #include<stdio.h>
