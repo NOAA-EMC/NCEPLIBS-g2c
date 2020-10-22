@@ -45,7 +45,7 @@
 //   MACHINE: 
 //
 //$$$
-int comunpack(unsigned char *cpack,g2int lensec,g2int idrsnum,g2int *idrstmpl,g2int ndpts,g2float *fld)//
+int comunpack(unsigned char *cpack,g2int lensec,g2int idrsnum,g2int *idrstmpl,g2int ndpts,g2float *fld)
 {
 
       g2int   nbitsd=0,isign;
