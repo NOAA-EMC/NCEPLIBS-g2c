@@ -1,3 +1,5 @@
+/** @file
+ */
 #ifndef _gridtemplates_H
 #define _gridtemplates_H
 #include "grib2.h"

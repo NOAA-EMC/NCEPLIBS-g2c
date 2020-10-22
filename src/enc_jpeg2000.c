@@ -1,3 +1,5 @@
+/** @file
+ */
 #ifndef USE_JPEG2000
  void dummy(void) {}
 #else   /* USE_JPEG2000 */

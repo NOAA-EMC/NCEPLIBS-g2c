@@ -1,3 +1,5 @@
+/** @file
+ */
 #ifndef _drstemplates_H
 #define _drstemplates_H
 #include "grib2.h"

@@ -1,3 +1,5 @@
+/** @file
+ */
 #ifndef _pdstemplates_H
 #define _pdstemplates_H
 #include "grib2.h"
