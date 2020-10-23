@@ -1,3 +1,5 @@
+/** @file
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
@@ -14,8 +16,6 @@ g2int specunpack(unsigned char *,g2int *,g2int,g2int,g2int, g2int, g2float *);
   g2int jpcunpack(unsigned char *,g2int,g2int *,g2int, g2float *);
 #endif  /* USE_JPEG2000 */
 
-g2int g2_unpack7(unsigned char *cgrib,g2int *iofst,g2int igdsnum,g2int *igdstmpl,
-               g2int idrsnum,g2int *idrstmpl,g2int ndpts,g2float **fld)
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
 // SUBPROGRAM:    g2_unpack7 
@@ -77,6 +77,8 @@ g2int g2_unpack7(unsigned char *cgrib,g2int *iofst,g2int igdsnum,g2int *igdstmpl
 //   MACHINE:
 //
 //$$$//
+g2int g2_unpack7(unsigned char *cgrib,g2int *iofst,g2int igdsnum,g2int *igdstmpl,
+               g2int idrsnum,g2int *idrstmpl,g2int ndpts,g2float **fld)
 {
       g2int ierr,isecnum;
       g2int ipos,lensec;

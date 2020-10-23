@@ -11,7 +11,7 @@ This is related to the
 
 Boi VUONG, Hang Lei
 
-Code Manager: Boi VUONG
+Code Manager: Boi Vuong
 
 ## Prerequisites
 

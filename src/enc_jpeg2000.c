@@ -1,3 +1,5 @@
+/** @file
+ */
 #ifndef USE_JPEG2000
  void dummy(void) {}
 #else   /* USE_JPEG2000 */
@@ -9,9 +11,6 @@
 #define JAS_1_700_2
 
 
-int enc_jpeg2000(unsigned char *cin,g2int width,g2int height,g2int nbits,
-                 g2int ltype, g2int ratio, g2int retry, char *outjpc, 
-                 g2int jpclen)
 /*$$$  SUBPROGRAM DOCUMENTATION BLOCK
 *                .      .    .                                       .
 * SUBPROGRAM:    enc_jpeg2000      Encodes JPEG2000 code stream
@@ -68,6 +67,9 @@ int enc_jpeg2000(unsigned char *cin,g2int width,g2int height,g2int nbits,
 *   MACHINE:  IBM SP
 *
 *$$$*/
+int enc_jpeg2000(unsigned char *cin,g2int width,g2int height,g2int nbits,
+                 g2int ltype, g2int ratio, g2int retry, char *outjpc, 
+                 g2int jpclen)
 {
     int ier,rwcnt;
     jas_image_t image;
