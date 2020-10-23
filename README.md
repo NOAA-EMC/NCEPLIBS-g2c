@@ -15,11 +15,20 @@ Code Manager: Boi Vuong
 
 ## Prerequisites
 
-Library | Link | Notes
---------|------|------
-libjasper.a | http://www.ece.uvic.ca/~mdadams/jasper/ | This library is a C implementation of the JPEG-2000 Part-1 standard (i.e., ISO/IEC 15444-1). This library is required if JPEG2000 support in GRIB2 is desired. If not, remove the -DUSE_JPEG2000 option from the DEFS variable in the makefile. Tested version: jasper-1.900.1. More information about JPEG2000 can be found at http://www.jpeg.org/JPEG2000.html.
-libpng.a | http://www.libpng.org/pub/png/libpng.html | This library is a C implementation of the Portable Network Graphics PNG image compression format. This library is required if PNG support in GRIB2 is desired. If not, remove the -DUSE_PNG option from the DEFS variable in the makefile. Tested version: libpng-1.2.44. More information about PNG can be found at http://www.libpng.org/pub/png/.
-libz.a | http://www.gzip.org/zlib/ | This library contains compression/decompression routines used by libpng.a for PNG image compression support. This library is required if PNG support in GRIB2 is desired. If not, remove the -DUSE_PNG option from the DEFS variable in g2lib/makefile. Tested version: zlib-1.2.6.
+- [libjasper.a](http://www.ece.uvic.ca/~mdadams/jasper/) - This
+  library is a C implementation of the JPEG-2000 Part-1 standard
+  (i.e., ISO/IEC 15444-1). Tested version: jasper-1.900.1. More
+  information about JPEG2000 can be found at
+  http://www.jpeg.org/JPEG2000.html.
+
+- [libpng.a](http://www.libpng.org/pub/png/libpng.html) - This library
+  is a C implementation of the Portable Network Graphics PNG image
+  compression format. Tested version: libpng-1.2.44. More information
+  about PNG can be found at http://www.libpng.org/pub/png/.
+
+- [libz.a](http://www.gzip.org/zlib/) - This library contains
+  compression/decompression routines used by libpng.a for PNG image
+  compression support. Tested version: zlib-1.2.6.
 
 ## Installing
 
@@ -29,16 +38,13 @@ CFLAGS variable in the makefile to allow the use of "//" comment
 indicators.
 
 We have added support for PNG and JPEG2000 image compression
-algorithms within the GRIB2 standard. If you would like to compile
-this library to utilize these GRIB2 Templates, make sure that
--DUSE_PNG and -DUSE_JPEG2000 are specified in the DEFS variable in the
-makefile. You will also need to download and install the external
-libraries listed above, if they are not already installed on your
-system.
+algorithms within the GRIB2 standard. You will need to download and
+install the external libraries listed above, if they are not already
+installed on your system.
 
 If you do not wish to bother with the external libs and don't need PNG
-and JPEG2000 support, you can remove the -DUSE_PNG and -DUSE_JPEG2000
-flags from the DEFS variable in the makefile.
+and JPEG2000 support, you can use the CMake options USE_PNG,
+USE_Jasper, and USE_OpenJPEG.
 
 ## Disclaimer
 
