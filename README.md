@@ -9,7 +9,7 @@ This is related to the
 
 ## Authors
 
-Boi VUONG, Hang Lei
+Boi Vuong, Hang Lei
 
 Code Manager: Boi Vuong
 
