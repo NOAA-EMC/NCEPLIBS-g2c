@@ -12,7 +12,11 @@ project(
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
+# Handle user options.
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
+option(USE_PNG      "Use PNG library"      ON)
+option(USE_Jasper   "Use Jasper library"   ON)
+option(USE_OpenJPEG "Use OpenJPEG library" OFF)
 
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
@@ -22,14 +26,6 @@ if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
                                                "MinSizeRel" "RelWithDebInfo")
 endif()
-
-if(NOT CMAKE_C_COMPILER_ID MATCHES "^(Intel|GNU|Clang|AppleClang)$")
-  message(WARNING "Compiler not officially supported: ${CMAKE_C_COMPILER_ID}")
-endif()
-
-option(USE_PNG      "Use PNG library"      ON)
-option(USE_Jasper   "Use Jasper library"   ON)
-option(USE_OpenJPEG "Use OpenJPEG library" OFF)
 
 if(USE_PNG)
   find_package(ZLIB REQUIRED)
