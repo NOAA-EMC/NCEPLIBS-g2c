@@ -7,6 +7,9 @@ The user API for the GRIB2 routines is described in file "grib2c.doc".
 This is related to the
 [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
 
+For complete documentation see
+https://noaa-emc.github.io/NCEPLIBS-g2c/.
+
 ## Authors
 
 Boi Vuong, Hang Lei
