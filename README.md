@@ -1,7 +1,7 @@
 
 # g2clib Library
 
-This library contains "C" decoder/encoder routines for GRIB edition 2.
+This library contains C decoder/encoder routines for GRIB edition 2.
 The user API for the GRIB2 routines is described in file "grib2c.doc".
 
 This is related to the
