@@ -1,10 +1,10 @@
 set(c_src
-    ${CMAKE_CURRENT_SOURCE_DIR}/Alias.c
     ${CMAKE_CURRENT_SOURCE_DIR}/cmplxpack.c
     ${CMAKE_CURRENT_SOURCE_DIR}/compack.c
     ${CMAKE_CURRENT_SOURCE_DIR}/comunpack.c
     ${CMAKE_CURRENT_SOURCE_DIR}/dec_jpeg2000.c
     ${CMAKE_CURRENT_SOURCE_DIR}/dec_png.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/decenc_openjpeg.c
     ${CMAKE_CURRENT_SOURCE_DIR}/drstemplates.c
     ${CMAKE_CURRENT_SOURCE_DIR}/enc_jpeg2000.c
     ${CMAKE_CURRENT_SOURCE_DIR}/enc_png.c
