@@ -198,14 +198,6 @@ int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
     opj_set_default_decoder_parameters(&parameters);
     parameters.decod_format = 1; /* JP2_FMT */
 
-    /* JPEG-2000 codestream */
-#define DUMP_JPEG_STREAM
-#ifdef DUMP_JPEG_STREAM
-    FILE *fp=fopen("dump_openjpeg.j2k", "wb");
-    fwrite(injpc, 1, (size_t)bufsize, fp);
-    fclose(fp);
-#endif
-
     /* get a decoder handle */
     codec = opj_create_decompress(OPJ_CODEC_J2K);
 
