@@ -7,10 +7,10 @@
 
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
-// SUBPROGRAM:    g2_addgrid 
+// SUBPROGRAM:    g2_addgrid
 //   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-11-01
 //
-// ABSTRACT: This routine packs up a Grid Definition Section (Section 3) 
+// ABSTRACT: This routine packs up a Grid Definition Section (Section 3)
 //   and adds it to a GRIB2 message.  It is used with routines "g2_create",
 //   "g2_addlocal", "g2_addfield",
 //   and "g2_gribend" to create a complete GRIB2 message.
@@ -29,17 +29,17 @@
 //                Must be dimensioned >= 5.
 //                igds[0]=Source of grid definition (see Code Table 3.0)
 //                igds[1]=Number of grid points in the defined grid.
-//                igds[2]=Number of octets needed for each 
-//                            additional grid points definition.  
+//                igds[2]=Number of octets needed for each
+//                            additional grid points definition.
 //                            Used to define number of
 //                            points in each row ( or column ) for
-//                            non-regular grids.  
+//                            non-regular grids.
 //                            = 0, if using regular grid.
-//                igds[3]=Interpretation of list for optional points 
+//                igds[3]=Interpretation of list for optional points
 //                            definition.  (Code Table 3.11)
 //                igds[4]=Grid Definition Template Number (Code Table 3.1)
 //     igdstmpl - Contains the data values for the specified Grid Definition
-//                Template ( NN=igds[4] ).  Each element of this integer 
+//                Template ( NN=igds[4] ).  Each element of this integer
 //                array contains an entry (in the order specified) of Grid
 //                Defintion Template 3.NN
 //     ideflist - (Used if igds[2] != 0)  This array contains the
@@ -48,7 +48,7 @@
 //                in array ideflist.  i.e. number of rows ( or columns )
 //                for which optional grid points are defined.
 //
-//   OUTPUT ARGUMENTS:      
+//   OUTPUT ARGUMENTS:
 //     cgrib    - Char array to contain the updated GRIB2 message.
 //                Must be allocated large enough to store the entire
 //                GRIB2 message.
@@ -68,7 +68,7 @@
 //
 // ATTRIBUTES:
 //   LANGUAGE: C
-//   MACHINE:  
+//   MACHINE:
 //
 //$$$
 g2int g2_addgrid(unsigned char *cgrib,g2int *igds,g2int *igdstmpl,g2int *ideflist,g2int idefnum)
@@ -85,7 +85,7 @@ g2int g2_addgrid(unsigned char *cgrib,g2int *igds,g2int *igdstmpl,g2int *ideflis
       g2int   lensec3,iofst,ibeg,lencurr,len;
       g2int   i,j,temp,ilen,isecnum,nbits;
       gtemplate *mapgrid=0;
- 
+
       ierr=0;
 //
 //  Check to see if beginning of GRIB message exists
@@ -98,11 +98,11 @@ g2int g2_addgrid(unsigned char *cgrib,g2int *igds,g2int *igdstmpl,g2int *ideflis
       }
 //
 //  Get current length of GRIB message
-//  
+//
       gbit(cgrib,&lencurr,96,32);
 //
 //  Check to see if GRIB message is already complete
-//  
+//
       if ( cgrib[lencurr-4]==seven && cgrib[lencurr-3]==seven &&
            cgrib[lencurr-2]==seven && cgrib[lencurr-1]==seven ) {
         printf("g2_addgrid: GRIB message already complete.  Cannot add new section.\n");
@@ -114,7 +114,7 @@ g2int g2_addgrid(unsigned char *cgrib,g2int *igds,g2int *igdstmpl,g2int *ideflis
 //  find the last section number.
 //
       len=16;    // length of Section 0
-      for (;;) { 
+      for (;;) {
       //    Get section number and length of next section
         iofst=len*8;
         gbit(cgrib,&ilen,iofst,32);

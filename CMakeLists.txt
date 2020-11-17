@@ -146,4 +146,4 @@ install(EXPORT ${PROJECT_NAME}Exports
 if(ENABLE_DOCS)
   find_package(Doxygen REQUIRED)
 endif()
-add_subdirectory(docs)  
+add_subdirectory(docs)

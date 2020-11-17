@@ -1,7 +1,7 @@
 /** @file
  *  @author Gilbert @date 2002-10-26
  *
- *  This Fortran Module contains info on all the available 
+ *  This Fortran Module contains info on all the available
  *   GRIB2 Data Representation Templates used in Section 5 (DRS).
  *   The information decribing each template is stored in the
  *   drstemplate structure defined below.
@@ -9,12 +9,12 @@
  *   Each Template has three parts: The number of entries in the template
  *   (mapdrslen);  A map of the template (mapdrs), which contains the
  *   number of octets in which to pack each of the template values; and
- *   a logical value (needext) that indicates whether the Template needs 
- *   to be extended.  In some cases the number of entries in a template 
- *   can vary depending upon values specified in the "static" part of 
+ *   a logical value (needext) that indicates whether the Template needs
+ *   to be extended.  In some cases the number of entries in a template
+ *   can vary depending upon values specified in the "static" part of
  *   the template.  ( See Template 5.1 as an example )
  *
- *   NOTE:  Array mapdrs contains the number of octets in which the 
+ *   NOTE:  Array mapdrs contains the number of octets in which the
  *   corresponding template values will be stored.  A negative value in
  *   mapdrs is used to indicate that the corresponding template entry can
  *   contain negative values.  This information is used later when packing
@@ -22,7 +22,7 @@
  *   are stored with the left most bit set to one, and a negative number
  *   of octets value in mapdrs[] indicates that this possibility should
  *   be considered.  The number of octets used to store the data value
- *   in this case would be the absolute value of the negative value in 
+ *   in this case would be the absolute value of the negative value in
  *   mapdrs[].
  */
 #ifndef _drstemplates_H
@@ -48,7 +48,7 @@
          { 3, 18, 0, {4,-2,-2,1,1,1,1,4,4,4,1,1,4,1,4,1,1,1} },
              // 5.50: Spectral Data - Simple Packing
          { 50, 5, 0, {4,-2,-2,1,4} },
-             // 5.51: Spherical Harmonics data - Complex packing 
+             // 5.51: Spherical Harmonics data - Complex packing
          { 51, 10, 0, {4,-2,-2,1,-4,2,2,2,4,1} },
 //           // 5.1: Matrix values at gridpoint - Simple packing
 //         { 1, 15, 1, {4,-2,-2,1,1,1,4,2,2,1,1,1,1,1,1} },

@@ -5,13 +5,13 @@
 
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
-// SUBPROGRAM:    g2_addlocal 
+// SUBPROGRAM:    g2_addlocal
 //   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-11-01
 //
-// ABSTRACT: This routine adds a Local Use Section (Section 2) to 
-//   a GRIB2 message.  It is used with routines "g2_create", 
+// ABSTRACT: This routine adds a Local Use Section (Section 2) to
+//   a GRIB2 message.  It is used with routines "g2_create",
 //   "g2_addgrid", "g2_addfield",
-//   and "g2_gribend" to create a complete GRIB2 message.  
+//   and "g2_gribend" to create a complete GRIB2 message.
 //   g2_create must be called first to initialize a new GRIB2 message.
 //
 // PROGRAM HISTORY LOG:
@@ -27,7 +27,7 @@
 //     lcsec2   - Number of bytes of character array csec2 to be added to
 //                Section 2.
 //
-//   OUTPUT ARGUMENT:      
+//   OUTPUT ARGUMENT:
 //     cgrib    - Char array to contain the updated GRIB2 message.
 //                Must be allocated large enough to store the entire
 //                GRIB2 message.
@@ -46,13 +46,13 @@
 //
 // ATTRIBUTES:
 //   LANGUAGE: C
-//   MACHINE: 
+//   MACHINE:
 //
 //$$$
 g2int g2_addlocal(unsigned char *cgrib,unsigned char *csec2,g2int lcsec2)
 {
 
-      g2int ierr; 
+      g2int ierr;
       static unsigned char G=0x47;       // 'G'
       static unsigned char R=0x52;       // 'R'
       static unsigned char I=0x49;       // 'I'
@@ -62,7 +62,7 @@ g2int g2_addlocal(unsigned char *cgrib,unsigned char *csec2,g2int lcsec2)
       static g2int two=2;
       g2int   j,k,lensec2,iofst,ibeg,lencurr,ilen,len,istart;
       g2int   isecnum;
- 
+
       ierr=0;
 //
 //  Check to see if beginning of GRIB message exists
@@ -75,12 +75,12 @@ g2int g2_addlocal(unsigned char *cgrib,unsigned char *csec2,g2int lcsec2)
       }
 //
 //  Get current length of GRIB message
-//  
+//
       gbit(cgrib,&lencurr,96,32);
 //
 //  Check to see if GRIB message is already complete
-//  
-      if ( cgrib[lencurr-4]==seven && cgrib[lencurr-3]==seven && 
+//
+      if ( cgrib[lencurr-4]==seven && cgrib[lencurr-3]==seven &&
            cgrib[lencurr-2]==seven && cgrib[lencurr-1]==seven ) {
         printf("g2_addlocal: GRIB message already complete.  Cannot add new section.\n");
         ierr=-2;
@@ -91,7 +91,7 @@ g2int g2_addlocal(unsigned char *cgrib,unsigned char *csec2,g2int lcsec2)
 //  find the last section number.
 //
       len=16;    // length of Section 0
-      for (;;) { 
+      for (;;) {
       //    Get section number and length of next section
         iofst=len*8;
         gbit(cgrib,&ilen,iofst,32);

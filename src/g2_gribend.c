@@ -5,14 +5,14 @@
 
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
-// SUBPROGRAM:    g2_gribend 
+// SUBPROGRAM:    g2_gribend
 //   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-31
 //
 // ABSTRACT: This routine finalizes a GRIB2 message after all grids
 //   and fields have been added.  It adds the End Section ( "7777" )
 //   to the end of the GRIB message and calculates the length and stores
 //   it in the appropriate place in Section 0.
-//   This routine is used with routines "g2_create", "g2_addlocal", 
+//   This routine is used with routines "g2_create", "g2_addlocal",
 //   "g2_addgrid", and "g2_addfield" to create a complete GRIB2 message.
 //   g2_create must be called first to initialize a new GRIB2 message.
 //
@@ -25,7 +25,7 @@
 //                be previous calls to g2_create, g2_addlocal, g2_addgrid,
 //                and g2_addfield.
 //
-//   OUTPUT ARGUMENTS:      
+//   OUTPUT ARGUMENTS:
 //     cgrib    - Char array containing the finalized GRIB2 message
 //
 //   RETURN VALUES:
@@ -33,12 +33,12 @@
 //              > 0 = Length of the final GRIB2 message in bytes.
 //               -1 = GRIB message was not initialized.  Need to call
 //                    routine g2_create first.
-//               -2 = GRIB message already complete.  
+//               -2 = GRIB message already complete.
 //               -3 = Sum of Section byte counts doesn't add to total byte count
 //               -4 = Previous Section was not 7.
 //
-// REMARKS: This routine is intended for use with routines "g2_create", 
-//          "g2_addlocal", "g2_addgrid", and "g2_addfield" to create a complete 
+// REMARKS: This routine is intended for use with routines "g2_create",
+//          "g2_addlocal", "g2_addgrid", and "g2_addfield" to create a complete
 //          GRIB2 message.
 //
 // ATTRIBUTES:
@@ -56,7 +56,7 @@ g2int g2_gribend(unsigned char *cgrib)
       static unsigned char I=0x49;       // 'I'
       static unsigned char B=0x42;       // 'B'
       static unsigned char seven=0x37;   // '7'
- 
+
       ierr=0;
 //
 //  Check to see if beginning of GRIB message exists
@@ -68,14 +68,14 @@ g2int g2_gribend(unsigned char *cgrib)
       }
 //
 //  Get current length of GRIB message
-//  
+//
       gbit(cgrib,&lencurr,96,32);
 //
 //  Loop through all current sections of the GRIB message to
 //  find the last section number.
 //
       len=16;    // Length of Section 0
-      for (;;) { 
+      for (;;) {
       //    Get number and length of next section
         iofst=len*8;
         gbit(cgrib,&ilen,iofst,32);

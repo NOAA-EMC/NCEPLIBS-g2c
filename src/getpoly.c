@@ -9,7 +9,7 @@ g2int g2_unpack3(unsigned char *,g2int *,g2int **,g2int **,
 
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
-// SUBPROGRAM:    getpoly 
+// SUBPROGRAM:    getpoly
 //   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-12-11
 //
 // ABSTRACT: This subroutine returns the J, K, and M pentagonal resolution
@@ -23,7 +23,7 @@ g2int g2_unpack3(unsigned char *,g2int *,g2int **,g2int **,
 //   INPUT ARGUMENTS:
 //     csec3    - Character array that contains the packed GRIB2 GDS
 //
-//   OUTPUT ARGUMENTS:      
+//   OUTPUT ARGUMENTS:
 //         JJ   = J - pentagonal resolution parameter
 //         KK   = K - pentagonal resolution parameter
 //         MM   = M - pentagonal resolution parameter
@@ -38,7 +38,7 @@ g2int g2_unpack3(unsigned char *,g2int *,g2int **,g2int **,
 //$$$
 g2int getpoly(unsigned char *csec3,g2int *jj,g2int *kk,g2int *mm)
 {
-    
+
       g2int   *igdstmpl,*list_opt;
       g2int   *igds;
       g2int   iofst,igdtlen,num_opt,jerr;
@@ -73,7 +73,7 @@ g2int getpoly(unsigned char *csec3,g2int *jj,g2int *kk,g2int *mm)
          *kk=0;
          *mm=0;
       }
-        
+
       if (igds != 0) free(igds);
       if (igdstmpl != 0) free(igdstmpl);
       if (list_opt != 0) free(list_opt);

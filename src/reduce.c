@@ -18,9 +18,9 @@
 typedef g2int integer;
 typedef g2float real;
 
-/* Subroutine */ int reduce(integer *kfildo, integer *jmin, integer *jmax, 
+/* Subroutine */ int reduce(integer *kfildo, integer *jmin, integer *jmax,
 	integer *lbit, integer *nov, integer *lx, integer *ndg, integer *ibit,
-	 integer *jbit, integer *kbit, integer *novref, integer *ibxx2, 
+	 integer *jbit, integer *kbit, integer *novref, integer *ibxx2,
 	integer *ier)
 {
     /* Initialized data */
@@ -221,7 +221,7 @@ L190:
 
 	nboxj[j - 1] = newboxt;
 	ntotpr = ntotbt[j];
-	ntotbt[j - 1] = (*ibit + *jbit) * (*lx + newboxt) + j * (*lx + 
+	ntotbt[j - 1] = (*ibit + *jbit) * (*lx + newboxt) + j * (*lx +
 		newboxt);
 
 	if (ntotbt[j - 1] >= ntotpr) {
@@ -337,8 +337,8 @@ L250:
 	    }
 
 	    if (newboxp[l - 1] > 0) {
-		if ((movmin + *novref) * newboxp[l - 1] + *novref <= nov[l] + 
-			*novref && (movmin + *novref) * (newboxp[l - 1] + 1) 
+		if ((movmin + *novref) * newboxp[l - 1] + *novref <= nov[l] +
+			*novref && (movmin + *novref) * (newboxp[l - 1] + 1)
 			>= nov[l] + *novref) {
 		    goto L288;
 		} else {

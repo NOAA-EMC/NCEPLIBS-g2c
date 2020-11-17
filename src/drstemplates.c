@@ -6,10 +6,10 @@
 
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
-! SUBPROGRAM:    getdrsindex 
+! SUBPROGRAM:    getdrsindex
 !   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2001-06-28
 !
-! ABSTRACT: This function returns the index of specified Data 
+! ABSTRACT: This function returns the index of specified Data
 !   Representation Template 5.NN (NN=number) in array templates.
 !
 ! PROGRAM HISTORY LOG:
@@ -18,7 +18,7 @@
 !
 ! USAGE:    index=getdrsindex(number)
 !   INPUT ARGUMENT LIST:
-!     number   - NN, indicating the number of the Data Representation 
+!     number   - NN, indicating the number of the Data Representation
 !                Template 5.NN that is being requested.
 !
 ! RETURNS:  Index of DRT 5.NN in array gtemplates, if gtemplate exists.
@@ -48,10 +48,10 @@ g2int getdrsindex(g2int number)
 
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
-! SUBPROGRAM:    getdrstemplate 
+! SUBPROGRAM:    getdrstemplate
 !   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2000-05-11
 !
-! ABSTRACT: This subroutine returns DRS template information for a 
+! ABSTRACT: This subroutine returns DRS template information for a
 !   specified Data Representation Template 5.NN.
 !   The number of entries in the template is returned along with a map
 !   of the number of octets occupied by each entry.  Also, a flag is
@@ -63,11 +63,11 @@ g2int getdrsindex(g2int number)
 !
 ! USAGE:    new=getdrstemplate(number);
 !   INPUT ARGUMENT LIST:
-!     number   - NN, indicating the number of the Data Representation 
+!     number   - NN, indicating the number of the Data Representation
 !                Template 5.NN that is being requested.
 !
-!   RETURN VALUE:      
-!        - Pointer to the returned template struct. 
+!   RETURN VALUE:
+!        - Pointer to the returned template struct.
 !          Returns NULL pointer, if template not found.
 !
 ! REMARKS: None
@@ -105,12 +105,12 @@ gtemplate *getdrstemplate(g2int number)
 
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
-! SUBPROGRAM:    extdrstemplate 
+! SUBPROGRAM:    extdrstemplate
 !   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2000-05-11
 !
 ! ABSTRACT: This subroutine generates the remaining octet map for a
 !   given Data Representation Template, if required.  Some Templates can
-!   vary depending on data values given in an earlier part of the 
+!   vary depending on data values given in an earlier part of the
 !   Template, and it is necessary to know some of the earlier entry
 !   values to generate the full octet map of the Template.
 !
@@ -120,13 +120,13 @@ gtemplate *getdrstemplate(g2int number)
 !
 ! USAGE:    new=extdrstemplate(number,list);
 !   INPUT ARGUMENT LIST:
-!     number   - NN, indicating the number of the Data Representation 
+!     number   - NN, indicating the number of the Data Representation
 !                Template 5.NN that is being requested.
-!     list()   - The list of values for each entry in the 
+!     list()   - The list of values for each entry in the
 !                the Data Representation Template 5.NN.
 !
-!   RETURN VALUE:      
-!        - Pointer to the returned template struct. 
+!   RETURN VALUE:
+!        - Pointer to the returned template struct.
 !          Returns NULL pointer, if template not found.
 !
 ! ATTRIBUTES:

@@ -51,10 +51,10 @@ g2int getgridindex(g2int number)
 
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
-! SUBPROGRAM:    getgridtemplate 
+! SUBPROGRAM:    getgridtemplate
 !   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2000-05-09
 !
-! ABSTRACT: This subroutine returns grid template information for a 
+! ABSTRACT: This subroutine returns grid template information for a
 !   specified Grid Definition Template 3.NN.
 !   The number of entries in the template is returned along with a map
 !   of the number of octets occupied by each entry.  Also, a flag is
@@ -69,7 +69,7 @@ g2int getgridindex(g2int number)
 !
 ! USAGE:    gtemplate *getgridtemplate(number)
 !   INPUT ARGUMENT LIST:
-!     number   - NN, indicating the number of the Grid Definition 
+!     number   - NN, indicating the number of the Grid Definition
 !                Template 3.NN that is being requested.
 !
 !   RETURN VALUE:
@@ -112,12 +112,12 @@ gtemplate *getgridtemplate(g2int number)
 
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
-! SUBPROGRAM:    extgridtemplate 
+! SUBPROGRAM:    extgridtemplate
 !   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2000-05-09
 !
-! ABSTRACT: This subroutine generates the remaining octet map for a 
-!   given Grid Definition Template, if required.  Some Templates can 
-!   vary depending on data values given in an earlier part of the 
+! ABSTRACT: This subroutine generates the remaining octet map for a
+!   given Grid Definition Template, if required.  Some Templates can
+!   vary depending on data values given in an earlier part of the
 !   Template, and it is necessary to know some of the earlier entry
 !   values to generate the full octet map of the Template.
 !
@@ -130,9 +130,9 @@ gtemplate *getgridtemplate(g2int number)
 !
 ! USAGE:    CALL extgridtemplate(number,list)
 !   INPUT ARGUMENT LIST:
-!     number   - NN, indicating the number of the Grid Definition 
+!     number   - NN, indicating the number of the Grid Definition
 !                Template 3.NN that is being requested.
-!     list()   - The list of values for each entry in 
+!     list()   - The list of values for each entry in
 !                the Grid Definition Template.
 !
 !   RETURN VALUE:

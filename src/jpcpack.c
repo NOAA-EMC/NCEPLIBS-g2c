@@ -15,7 +15,7 @@ int enc_jpeg2000(unsigned char *,g2int ,g2int ,g2int ,
 // ABSTRACT: This subroutine packs up a data field into a JPEG2000 code stream.
 //   After the data field is scaled, and the reference value is subtracted out,
 //   it is treated as a grayscale image and passed to a JPEG2000 encoder.
-//   It also fills in GRIB2 Data Representation Template 5.40 or 5.40000 with 
+//   It also fills in GRIB2 Data Representation Template 5.40 or 5.40000 with
 //   the appropriate values.
 //
 // PROGRAM HISTORY LOG:
@@ -48,7 +48,7 @@ int enc_jpeg2000(unsigned char *,g2int ,g2int ,g2int ,
 //                      Set to 255, if idrstmpl[5]=0.
 //     lcpack   - size of array cpack[]
 //
-//   OUTPUT ARGUMENT LIST: 
+//   OUTPUT ARGUMENT LIST:
 //     idrstmpl - Contains the array of values for Data Representation
 //                Template 5.0
 //                [0] = Reference value - set by jpcpack routine.
@@ -60,7 +60,7 @@ int enc_jpeg2000(unsigned char *,g2int ,g2int ,g2int ,
 //                [5] = 0 - use lossless compression
 //                    = 1 - use lossy compression
 //                [6] = Desired compression ratio, if idrstmpl[5]=1
-//     cpack    - The packed data field 
+//     cpack    - The packed data field
 //     lcpack   - length of packed field in cpack.
 //
 // REMARKS: None
@@ -79,7 +79,7 @@ void jpcpack(g2float *fld,g2int width,g2int height,g2int *idrstmpl,
       g2int  ndpts,nbytes,nsize,retry;
       g2float  bscale,dscale,rmax,rmin,temp;
       unsigned char *ctemp;
-      
+
       ifld=0;
       ndpts=width*height;
       bscale=int_power(2.0,-idrstmpl[1]);
@@ -93,7 +93,7 @@ void jpcpack(g2float *fld,g2int width,g2int height,g2int *idrstmpl,
         if (fld[j] > rmax) rmax=fld[j];
         if (fld[j] < rmin) rmin=fld[j];
       }
-      if (idrstmpl[1] == 0) 
+      if (idrstmpl[1] == 0)
          maxdif = (g2int) (rint(rmax*dscale) - rint(rmin*dscale));
       else
          maxdif = (g2int)rint( (rmax-rmin)*dscale*bscale );
@@ -106,12 +106,12 @@ void jpcpack(g2float *fld,g2int width,g2int height,g2int *idrstmpl,
       if ( rmin != rmax  &&  maxdif != 0 ) {
         ifld=(g2int *)malloc(ndpts*sizeof(g2int));
         //
-        //  Determine which algorithm to use based on user-supplied 
+        //  Determine which algorithm to use based on user-supplied
         //  binary scale factor and number of bits.
         //
         if (idrstmpl[1] == 0) {
            //
-           //  No binary scaling and calculate minumum number of 
+           //  No binary scaling and calculate minumum number of
            //  bits in which the data will fit.
            //
            imin=(g2int)rint(rmin*dscale);
@@ -126,7 +126,7 @@ void jpcpack(g2float *fld,g2int width,g2int height,g2int *idrstmpl,
         }
         else {
            //
-           //  Use binary scaling factor and calculate minumum number of 
+           //  Use binary scaling factor and calculate minumum number of
            //  bits in which the data will fit.
            //
            rmin=rmin*dscale;

@@ -7,13 +7,13 @@
 
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
-// SUBPROGRAM:    g2_create 
+// SUBPROGRAM:    g2_create
 //   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-31
 //
 // ABSTRACT: This routine initializes a new GRIB2 message and packs
 //   GRIB2 sections 0 (Indicator Section) and 1 (Identification Section).
-//   This routine is used with routines "g2_addlocal", "g2_addgrid", 
-//   "g2_addfield", and "g2_gribend" to create a complete GRIB2 message.  
+//   This routine is used with routines "g2_addlocal", "g2_addgrid",
+//   "g2_addfield", and "g2_gribend" to create a complete GRIB2 message.
 //   g2_create must be called first to initialize a new GRIB2 message.
 //   Also, a call to g2_gribend is required to complete GRIB2 message
 //   after all fields have been added.
@@ -45,7 +45,7 @@
 //                listsec1[11]=Production status of data (Code Table 1.3)
 //                listsec1[12]=Type of processed data (Code Table 1.4)
 //
-//   OUTPUT ARGUMENTS:      
+//   OUTPUT ARGUMENTS:
 //     cgrib    - Char array to contain the new GRIB2 message.
 //                Must be allocated large enough to store the entire
 //                GRIB2 message.
@@ -55,13 +55,13 @@
 //              > 0 = Current size of new GRIB2 message
 //               -1 = Tried to use for version other than GRIB Edition 2
 //
-// REMARKS: This routine is intended for use with routines "g2_addlocal", 
-//          "g2_addgrid", "g2_addfield", and "g2_gribend" to create a complete 
+// REMARKS: This routine is intended for use with routines "g2_addlocal",
+//          "g2_addgrid", "g2_addfield", and "g2_gribend" to create a complete
 //          GRIB2 message.
 //
 // ATTRIBUTES:
 //   LANGUAGE: C
-//   MACHINE:  
+//   MACHINE:
 //
 //$$$
 g2int g2_create(unsigned char *cgrib,g2int *listsec0,g2int *listsec1)
@@ -76,14 +76,14 @@ g2int g2_create(unsigned char *cgrib,g2int *listsec0,g2int *listsec1)
       ierr=0;
 //
 //  Currently handles only GRIB Edition 2.
-//  
+//
       if (listsec0[1] != 2) {
         printf("g2_create: can only code GRIB edition 2.");
         ierr=-1;
         return (ierr);
       }
 //
-//  Pack Section 0 - Indicator Section 
+//  Pack Section 0 - Indicator Section
 //  ( except for total length of GRIB message )
 //
       cgrib[0]=0x47;   // 'G'            // Beginning of GRIB message
