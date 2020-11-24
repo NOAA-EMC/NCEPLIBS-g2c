@@ -1,8 +1,7 @@
 
-# g2clib Library
+# NCEPLIBS-g2c
 
 This library contains C decoder/encoder routines for GRIB edition 2.
-The user API for the GRIB2 routines is described in file "grib2c.doc".
 
 This is related to the
 [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
@@ -37,7 +36,7 @@ Code Manager: Boi Vuong
 
 ## Installing
 
-This "C" source code conatins many uses of the C++ comment style "//".
+This C source code conatins many uses of the C++ comment style "//".
 Please make sure you include the appropriate compiler option in the
 CFLAGS variable in the makefile to allow the use of "//" comment
 indicators.
