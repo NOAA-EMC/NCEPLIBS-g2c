@@ -8,7 +8,9 @@ This is related to the
 [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
 
 For complete documentation see
-https://noaa-emc.github.io/NCEPLIBS-g2c/.
+https://noaa-emc.github.io/NCEPLIBS-g2c/. For the NCEP WMO GRIB2
+Documentation see
+https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/.
 
 ## Authors
 
