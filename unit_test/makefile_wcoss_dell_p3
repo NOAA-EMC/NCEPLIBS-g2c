@@ -14,8 +14,8 @@ OBJS=   degrib2c.o
 #
 CF = icc
 LDFLAGS =   -p
-INC=/gpfs/dell2/emc/modeling/noscrub/Boi.Vuong/g2c/NCEPLIBS-g2c/src
-G2C_LIB4=/gpfs/dell2/emc/modeling/noscrub/Boi.Vuong/g2c/lib/libg2c.a
+# INC=/gpfs/dell2/emc/modeling/noscrub/Boi.Vuong/g2c/NCEPLIBS-g2c/src
+# G2C_LIB4=/gpfs/dell2/emc/modeling/noscrub/Boi.Vuong/g2c/lib/libg2c.a
 
 LIBS=-lm ${G2C_LIB4} ${JASPER_LIB} ${PNG_LIB} ${Z_LIB}
 
@@ -37,7 +37,7 @@ CFLAGS =	 -g -O3  -m64 -D__64BIT__
 all:		degrib2c
 
 degrib2c.o:	degrib2c.c
-	$(CF) -c $(CFLAGS) -I $(INC) degrib2c.c
+	$(CF) -c $(CFLAGS) -I $(G2C_INC) degrib2c.c
 
 degrib2c:		degrib2c.o
 	$(CF) $(LDFLAGS) -o $(@) degrib2c.o $(LIBS)
