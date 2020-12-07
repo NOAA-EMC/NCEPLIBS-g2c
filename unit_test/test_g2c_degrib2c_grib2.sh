@@ -9,7 +9,7 @@ set +x
 
 echo " "
 echo "###################################################"
-echo " Test G2C Library for GRIB2"
+echo " Testing G2C Library "
 echo "###################################################"
 echo " "
 
@@ -98,10 +98,10 @@ echo " "
 $exec/degrib2c  $file
 set +x
 $exec/degrib2c   $file  > $output/$file.inv
-if [ $? -eq 0 ]; then echo ""; echo " Execute DEGRIB2C :  PASS ! "; echo ""; else echo ""; echo " Execute DEGRIB2C :  FAIL !" ;echo ""; err=1; fi
+if [ $? -eq 0 ]; then echo ""; echo " Testing G2C library :  PASS ! "; echo ""; else echo ""; echo " Testing G2C library :  FAIL !" ;echo ""; err=1; fi
 sleep 2
 
 echo " "
-echo " The outfile file is following: $output "
+echo " The output file is following: $output "
 ls -l $output
 echo " "
