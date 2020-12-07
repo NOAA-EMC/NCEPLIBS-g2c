@@ -1,0 +1,43 @@
+#%Module######################################################################
+## Eugene Mirvis EMC/NCEP/NOAA
+## Xiaoxue Wang NCO-PMB/NOAA modified to vertical structure
+## Kit Menlove NCO-PMB/NOAA modified for phase 3
+
+proc ModulesHelp { } {
+  puts "Set environment variables for g2c library, including G2C_SRC, G2C_INC and G2C_LIB4"
+}
+
+# Obtain the package name and version
+if { [ regexp {([^/]+)/([^/]+)/([^/]+)/(\d+\.\d+\.\d+)$} [module-info name] -> compiler compiler_ver lname ver ] != 1 } {
+  global ModulesCurrentModulefile
+  if { [ regexp {([^/]+)/([^/]+)/([^/]+)/(\d+\.\d+\.\d+)$} $ModulesCurrentModulefile -> compiler compiler_ver lname ver ] != 1 } {
+    puts stderr "Error: unable to parse module name and version from '$module_name'"
+    puts stderr "Module path:  $ModulesCurrentModulefile"
+    break
+  }
+}
+
+# Make sure another version of the same package is not already loaded
+conflict $lname
+
+# Determine the root directory of the module being loaded
+# Note: This section assumes that the module is installed in the production area.  If this is being installed
+#       in an alternate location, please comment this section out and set the following variable:
+#         set NCEPLIBS (location of the directory that contains the library)
+global ModulesCurrentModulefile
+if { [ regexp {(/gpfs/\w+/nco/ops/nw[^/]+)} $ModulesCurrentModulefile -> NCEPLIBS ] != 1 } {
+  puts stderr "Error: unable to determine library's root directory"
+  break
+}
+
+# Set other necessary variables
+#set sys    [uname sysname]
+set dlib   $NCEPLIBS/lib/$lname/v$ver
+set bname  [string toupper $lname] 
+
+# Export environment variables
+setenv COMP $compiler
+setenv ${bname}_SRC  $dlib/src
+setenv ${bname}_INC  $dlib/$compiler/$compiler_ver/include/lib${lname}_v${ver}_4 
+setenv ${bname}_LIB4 $dlib/$compiler/$compiler_ver/lib/lib${lname}_v${ver}_4.a 
+setenv ${bname}_VER v$ver
