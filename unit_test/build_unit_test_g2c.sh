@@ -20,7 +20,7 @@ if [ $mac = v -o $mac = m  ] ; then            # For Dell (i.e. Mars and Venus)
    module load libpng/1.2.59
    module load zlib/1.2.11
    ###   Load tesing g2c v1.6.2
-   module use module use /usrx/local/nceplibs/dev/NCEPLIBS/modulefiles
+   module use /usrx/local/nceplibs/dev/NCEPLIBS/modulefiles
    module load  g2c/1.6.2
 elif [ $mac = l -o $mac = s ] ; then             #    wcoss_c (i.e. luna and surge)
   export machine=cray-intel
