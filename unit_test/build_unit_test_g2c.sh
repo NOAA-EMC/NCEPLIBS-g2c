@@ -30,9 +30,12 @@ elif [ $mac = l -o $mac = s ] ; then             #    wcoss_c (i.e. luna and sur
   module load PrgEnv-intel/5.2.82
   module unload intel
   module load intel/18.1.163
-  module load jasper-gnu-sandybridge/1.900.29
+  module load jasper-gnu-sandybridge/1.900.1
   module load png-intel-sandybridge/1.2.49
   module load zlib-intel-sandybridge/1.2.7
+  ###   Load tesing g2c v1.6.2
+  module use /usrx/local/nceplibs/NCEPLIBS/modulefiles
+  module load g2c-intel/1.6.2
 fi
 
 makefile=makefile_${machine}
