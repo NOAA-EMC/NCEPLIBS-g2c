@@ -20,25 +20,13 @@ mac=$(hostname | cut -c1-1)
 mac2=$(hostname | cut -c1-2)
 
 if [ $mac = v -o $mac = m  ] ; then            # For Dell (i.e. Mars and Venus)
+   echo ""
    export machine=wcoss_dell_p3
-   module load ips/18.0.1.163
-   module load impi/18.0.1
-   module load cmake/3.16.2
-   module load git/2.14.3
-   module load jasper/1.900.29
-   module load libpng/1.2.59
-   module load zlib/1.2.11
+   echo ""
 elif [ $mac = l -o $mac = s ] ; then             #    wcoss_c (i.e. luna and surge)
-  export machine=cray-intel
-  module unload craype-haswell
-  module load craype-sandybridge
-  module unload PrgEnv-cray
-  module load PrgEnv-intel/5.2.82
-  module unload intel
-  module load intel/18.1.163
-  module load jasper-gnu-sandybridge/1.900.29
-  module load png-intel-sandybridge/1.2.49
-  module load zlib-intel-sandybridge/1.2.7
+   echo ""
+   export machine=cray-intel
+   echo ""
 fi
 
 echo " "
@@ -46,8 +34,6 @@ echo " You are on WCOSS:  $machine "
 echo " "
 
 sleep 2
-
-module list
 
 export cyc=00
 export cycle=t${cyc}z
@@ -73,6 +59,16 @@ fi
 if [ "$(ls -A $data)" ]; then
    echo "Cleaning $data"
    rm $data/*
+fi
+if [ ! -x $exec/degrib2c ]; then
+   echo ""
+   echo " File executable: $exec/degrib2c is not exist"
+   echo ""
+   echo " Please build executable by Running script: "
+   echo ""
+   echo "   build_unit_test_g2c.sh "
+   echo ""
+   exit
 fi
 
 cp /gpfs/sss/emc/global/shared/nceplibs/fix/gfs_grib2/*  $data
