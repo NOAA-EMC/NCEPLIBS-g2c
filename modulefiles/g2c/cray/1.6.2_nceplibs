@@ -1,0 +1,59 @@
+#%Module######################################################################
+
+proc ModulesHelp { } {
+  puts "Set environment variables for g2 libraries, including G2_SRC, G2_INC4, G2_INCd, G2_LIB4 and G2_LIBd"
+}
+
+# Obtain the package name and version
+if { [ regexp {([^/]+)/([^/]+)/(\d+\.\d+\.\d+)$} [module-info name] -> dev_layer lname ver ] != 1 } {
+  global ModulesCurrentModulefile
+  if { [ regexp {([^/]+)/([^/]+)/(\d+\.\d+\.\d+)$} $ModulesCurrentModulefile -> dev_layer lname ver ] != 1 } {
+    puts stderr "Error: unable to parse module name and version from '$module_name'"
+    puts stderr "Module path:  $ModulesCurrentModulefile"
+    break
+  }
+}
+
+# Make sure another version of the same package is not already loaded
+conflict $lname
+
+# Determine the root directory of the module being loaded
+global ModulesCurrentModulefile
+if { [ regexp {^(.*)/modulefiles/.*$} $ModulesCurrentModulefile -> NCEPLIBS ] != 1 } {
+  puts stderr "Error: unable to determine library's root directory"
+  break
+}
+
+# Adjust $dev_layer for inserting to the paths
+if [string equal $dev_layer modulefiles] {
+  set dev_layer ""
+} else {
+  set dev_layer "/${dev_layer}"
+}
+
+# Determine the compiler and version
+foreach dir [glob -nocomplain -directory $NCEPLIBS/compilers${dev_layer} -type d */*] {
+  set compilerModuleName \
+      [string range $dir [string length $NCEPLIBS/compilers${dev_layer}/] end]
+  if [is-loaded $compilerModuleName] {
+    set compModule $compilerModuleName
+    break
+  }
+  set compModule $compilerModuleName
+}
+
+set NCEPLIBS /usrx/local/nceplibs/NCEPLIBS
+set lname g2c
+
+# Set other necessary variables
+set dlib   $NCEPLIBS/compilers${dev_layer}/intel/lib
+set dinc   $NCEPLIBS/compilers${dev_layer}/intel/include
+set dsrc   $NCEPLIBS/src${dev_layer}
+set bname  [string toupper $lname]
+
+# Export environment variables
+setenv COMP          [file dirname $compModule]
+setenv ${bname}_SRC  $dsrc/${lname}_v${ver}/src
+setenv ${bname}_INC $dinc/${lname}_v${ver}_4
+setenv ${bname}_LIB4 $dlib/lib${lname}_v${ver}_4.a
+setenv ${bname}_VER  v$ver
