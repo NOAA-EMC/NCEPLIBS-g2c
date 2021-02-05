@@ -1,0 +1,59 @@
+#%Module######################################################################
+## Eugene Mirvis RAL/NCAR-EMC/NOAA
+## Xiaoxue Wang NCO-PMB/NOAA modified to vertical structure
+## Kit Menlove NCO-IDSB/NOAA modified for phase 2 and Cray xc40
+##    g2c v1.6.2
+
+proc ModulesHelp { } {
+  puts "Set environment variables for g2c library, including G2C_SRC,G2_INC, and G2C_LIB4"
+}
+
+# Obtain the package name and version
+# Note: This section requires that the module name be in the format {package name}-{compiler}/${version}
+#       If you are not following this convention, comment this section out and set the following variables:
+#         set lname (name of the package)
+#         set comp (intel, cray, or gnu)
+#         set ver (version of the package in three-number format (e.g. 1.0.0))
+if { [ regexp {(\w+)-(\w+)(?:-\w+)?/(\d+\.\d+\.\d+)$} [module-info name] -> lname comp ver ] != 1 } {
+  global ModulesCurrentModulefile
+  if { [ regexp {(\w+)-(\w+)(?:-\w+)?/(\d+\.\d+\.\d+)$} $ModulesCurrentModulefile -> lname comp ver ] != 1 } {
+    puts stderr "Error: unable to parse module name and version from '$module_name'"
+    puts stderr "Module path:  $ModulesCurrentModulefile"
+    break
+  }
+}
+
+# Determine the root directory of the module being loaded
+# Note: This section assumes that the module is installed in the production area.  If this is being installed
+#       in an alternate location, please comment this section out and set the following variable:
+#         set NCEPLIBS (location of the directory that contains the library)
+global ModulesCurrentModulefile
+if { [ regexp {(/gpfs/hps/nco/ops/nw[^/]+/lib)} $ModulesCurrentModulefile -> NCEPLIBS ] != 1 } {
+  puts stderr "Error: unable to determine library's root directory"
+  break
+}
+
+# Make sure another version of the same package is not already loaded
+conflict $lname-intel $lname-cray-haswell
+
+switch $comp {
+  cray { if { ( [ module-info mode load ] || [ module-info mode switch2 ] ) && [ is-loaded intel ] } {
+    puts stderr "WARNING: You are loading the $comp-compiled library with the intel compiler loaded"
+  } }
+  intel { if { ( [ module-info mode load ] || [ module-info mode switch2 ] ) && [ is-loaded cce ] } {
+    puts stderr "WARNING: You are loading the $comp-compiled library with the cce compiler loaded"
+  } }
+}
+
+# Set other necessary variables
+#set sys    [uname sysname]
+set dlib   $NCEPLIBS/$lname/v$ver
+set bname  [string toupper $lname] 
+
+# Export environment variables
+setenv COMP $comp
+setenv ${bname}_SRC  $dlib/src
+setenv ${bname}_INC $dlib/${comp}/include/${lname}_v${ver}_4
+setenv ${bname}_LIB4 $dlib/$comp/lib${lname}_v${ver}_4.a 
+setenv ${bname}_VER v$ver
+
