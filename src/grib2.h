@@ -150,15 +150,11 @@
 #define _grib2_H
 #include<stdio.h>
 
-#define G2_VERSION "g2clib-1.6.0"
+#define G2_VERSION "g2clib-1.6.3"
 
-#ifdef __64BIT__
-typedef int g2int;
-typedef unsigned int g2intu;
-#else
 typedef long g2int;
 typedef unsigned long g2intu;
-#endif
+
 typedef float g2float;
 
 struct gtemplate {

@@ -64,7 +64,7 @@ set(lib_name ${PROJECT_NAME})
 
 add_library(${lib_name} STATIC ${c_src})
 
-target_compile_definitions(${lib_name} PUBLIC __64BIT__)
+target_compile_definitions(${lib_name} PUBLIC)
 
 set(private_includes "")
 
