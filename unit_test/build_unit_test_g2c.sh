@@ -19,9 +19,9 @@ if [ $mac = v -o $mac = m  ] ; then            # For Dell (i.e. Mars and Venus)
    module load jasper/1.900.29
    module load libpng/1.2.59
    module load zlib/1.2.11
-   ###   Load tesing g2c v1.6.2
+   ###   Load tesing g2c v1.6.3
    module use /usrx/local/nceplibs/dev/NCEPLIBS/modulefiles
-   module load  g2c/1.6.2
+   module load  g2c/1.6.3
 elif [ $mac = l -o $mac = s ] ; then             #    wcoss_c (i.e. luna and surge)
   export machine=cray-intel
   module unload craype-haswell
@@ -33,9 +33,9 @@ elif [ $mac = l -o $mac = s ] ; then             #    wcoss_c (i.e. luna and sur
   module load jasper-gnu-sandybridge/1.900.1
   module load png-intel-sandybridge/1.2.49
   module load zlib-intel-sandybridge/1.2.7
-  ###   Load tesing g2c v1.6.2
+  ###   Load tesing g2c v1.6.3
   module use /usrx/local/nceplibs/NCEPLIBS/modulefiles
-  module load g2c-intel/1.6.2
+  module load g2c-intel/1.6.3
 fi
 
 echo " "
