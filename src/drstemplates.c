@@ -1,9 +1,8 @@
 /** @file
- */
+*/
 #include <stdlib.h>
 #include "grib2.h"
 #include "drstemplates.h"
-
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
 ! SUBPROGRAM:    getdrsindex 
@@ -33,19 +32,15 @@
 !$$$*/
 g2int getdrsindex(g2int number)
 {
-           g2int j,getdrsindex=-1;
-
-           for (j=0;j<MAXDRSTEMP;j++) {
-              if (number == templatesdrs[j].template_num) {
-                 getdrsindex=j;
-                 return(getdrsindex);
-              }
-           }
-
-           return(getdrsindex);
+g2int j,getdrsindex=-1;
+for (j=0;j<MAXDRSTEMP;j++) {
+if (number == templatesdrs[j].template_num) {
+getdrsindex=j;
+return(getdrsindex);
 }
-
-
+}
+return(getdrsindex);
+}
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
 ! SUBPROGRAM:    getdrstemplate 
@@ -79,30 +74,26 @@ g2int getdrsindex(g2int number)
 !$$$*/
 gtemplate *getdrstemplate(g2int number)
 {
-           g2int index;
-           gtemplate *new;
-
-           index=getdrsindex(number);
-
-           if (index != -1) {
-              new=(gtemplate *)malloc(sizeof(gtemplate));
-              new->type=5;
-              new->num=templatesdrs[index].template_num;
-              new->maplen=templatesdrs[index].mapdrslen;
-              new->needext=templatesdrs[index].needext;
-              new->map=(g2int *)templatesdrs[index].mapdrs;
-              new->extlen=0;
-              new->ext=0;        //NULL
-              return(new);
-           }
-           else {
-             printf("getdrstemplate: DRS Template 5.%d not defined.\n",(int)number);
-             return(0);        //NULL
-           }
-
-         return(0);        //NULL
+g2int index;
+gtemplate *new;
+index=getdrsindex(number);
+if (index != -1) {
+new=(gtemplate *)malloc(sizeof(gtemplate));
+new->type=5;
+new->num=templatesdrs[index].template_num;
+new->maplen=templatesdrs[index].mapdrslen;
+new->needext=templatesdrs[index].needext;
+new->map=(g2int *)templatesdrs[index].mapdrs;
+new->extlen=0;
+new->ext=0;        //NULL
+return(new);
 }
-
+else {
+printf("getdrstemplate: DRS Template 5.%d not defined.\n",(int)number);
+return(0);        //NULL
+}
+return(0);        //NULL
+}
 /*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
 !                .      .    .                                       .
 ! SUBPROGRAM:    extdrstemplate 
@@ -136,24 +127,18 @@ gtemplate *getdrstemplate(g2int number)
 !$$$*/
 gtemplate *extdrstemplate(g2int number,g2int *list)
 {
-           gtemplate *new;
-           g2int index,i;
-
-           index=getdrsindex(number);
-           if (index == -1) return(0);
-
-           new=getdrstemplate(number);
-
-           if ( ! new->needext ) return(new);
-
-           if ( number == 1 ) {
-              new->extlen=list[10]+list[12];
-              new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-              for (i=0;i<new->extlen;i++) {
-                new->ext[i]=4;
-              }
-           }
-           return(new);
-
+gtemplate *new;
+g2int index,i;
+index=getdrsindex(number);
+if (index == -1) return(0);
+new=getdrstemplate(number);
+if ( ! new->needext ) return(new);
+if ( number == 1 ) {
+new->extlen=list[10]+list[12];
+new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
+for (i=0;i<new->extlen;i++) {
+new->ext[i]=4;
 }
-
+}
+return(new);
+}
