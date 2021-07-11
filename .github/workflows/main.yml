@@ -50,6 +50,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
+        doxygen --version
         cmake -DJasper_ROOT=~/Jasper -DENABLE_DOCS=On ..
         make -j2
     - name: test
