@@ -1,10 +1,10 @@
 /** @file
-*/
+ */
 #include <stdlib.h>
 #include  "grib2.h"
 /*$$$  SUBPROGRAM DOCUMENTATION BLOCK
 **                .      .    .                                       .
-** SUBPROGRAM:    g2_free 
+** SUBPROGRAM:    g2_free
 **   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-28
 **
 ** ABSTRACT: This routine frees up memory that was allocated for
@@ -24,21 +24,21 @@
 **
 ** ATTRIBUTES:
 **   LANGUAGE: C
-**   MACHINE:  
+**   MACHINE:
 **
 **$$$
-*/ 
+*/
 void g2_free(gribfield *gfld)
-{ 
-if (gfld->idsect != 0 ) free(gfld->idsect);
-if (gfld->local != 0 ) free(gfld->local);
-if (gfld->list_opt != 0 ) free(gfld->list_opt);
-if (gfld->igdtmpl != 0 ) free(gfld->igdtmpl);
-if (gfld->ipdtmpl != 0 ) free(gfld->ipdtmpl);
-if (gfld->coord_list != 0 ) free(gfld->coord_list);
-if (gfld->idrtmpl != 0 ) free(gfld->idrtmpl);
-if (gfld->bmap != 0 ) free(gfld->bmap);
-if (gfld->fld != 0 ) free(gfld->fld);
-free(gfld);
-return;
+{
+    if (gfld->idsect != 0 ) free(gfld->idsect);
+    if (gfld->local != 0 ) free(gfld->local);
+    if (gfld->list_opt != 0 ) free(gfld->list_opt);
+    if (gfld->igdtmpl != 0 ) free(gfld->igdtmpl);
+    if (gfld->ipdtmpl != 0 ) free(gfld->ipdtmpl);
+    if (gfld->coord_list != 0 ) free(gfld->coord_list);
+    if (gfld->idrtmpl != 0 ) free(gfld->idrtmpl);
+    if (gfld->bmap != 0 ) free(gfld->bmap);
+    if (gfld->fld != 0 ) free(gfld->fld);
+    free(gfld);
+    return;
 }
