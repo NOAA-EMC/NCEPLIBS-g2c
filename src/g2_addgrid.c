@@ -169,7 +169,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
         }
     }
 
-    /* Pack up each input value in array igdstmpl into the the
+    /* Pack up each input value in array igdstmpl into the
      * appropriate number of octets, which are specified in
      * corresponding entries in array mapgrid. */
     for (i=0;i<mapgrid->maplen;i++)
