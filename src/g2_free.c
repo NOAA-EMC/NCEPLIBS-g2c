@@ -1,33 +1,25 @@
-/** @file
+/** 
+ * @file
+ * @brief Free up memory that was allocated for struct gribfield.
+ * @author Gilbert ORG: W/NP11 @date 2002-10-28
  */
+
 #include <stdlib.h>
 #include  "grib2.h"
 
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    g2_free 
-//   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-28
-//
-// ABSTRACT: This routine frees up memory that was allocated for
-//   struct gribfield.
-//
-// PROGRAM HISTORY LOG:
-// 2002-10-28  Gilbert
-//
-// USAGE:    g2_free(gribfield *gfld)
-//   ARGUMENT:
-//     gfld - pointer to gribfield structure (defined in include file grib2.h)
-//            returned from routine g2_getfld.
-//
-// REMARKS:  This routine must be called to free up memory used by
-//           the decode routine, g2_getfld, when user no longer needs to
-//           reference this data.
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:  
-//
-//$$$
+/**
+ * This routine frees up memory that was allocated for struct
+ * gribfield.
+ *
+ * @param gfld pointer to gribfield structure (defined in include file
+ * grib2.h) returned from routine g2_getfld().
+ *
+ * @note This routine must be called to free up memory used by the
+ * decode routine, g2_getfld(), when user no longer needs to reference
+ * this data.
+ *
+ * @author Gilbert ORG: W/NP11 @date 2002-10-28
+ */
 void g2_free(gribfield *gfld)
 { 
 
