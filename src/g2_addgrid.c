@@ -1,4 +1,4 @@
-/** 
+/**
  * @file
  * @brief Pack up a Grid Definition Section (Section 3) and adds it to
  * a GRIB2 message.
@@ -58,7 +58,7 @@
  */
 g2int
 g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
-	   g2int idefnum)
+           g2int idefnum)
 {
 
     g2int ierr;
@@ -72,7 +72,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     g2int   lensec3,iofst,ibeg,lencurr,len;
     g2int   i,j,temp,ilen,isecnum,nbits;
     gtemplate *mapgrid=0;
- 
+
     ierr=0;
 
     /* Check to see if beginning of GRIB message exists. */
@@ -88,7 +88,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
 
     /* Check to see if GRIB message is already complete. */
     if ( cgrib[lencurr-4]==seven && cgrib[lencurr-3]==seven &&
-	 cgrib[lencurr-2]==seven && cgrib[lencurr-1]==seven ) {
+         cgrib[lencurr-2]==seven && cgrib[lencurr-1]==seven ) {
         printf("g2_addgrid: GRIB message already complete.  Cannot add new section.\n");
         ierr=-2;
         return(ierr);
@@ -98,23 +98,23 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
      * the last section number. */
     len=16;    /* length of Section 0 */
     for (;;)
-    { 
-	/* Get section number and length of next section. */
+    {
+        /* Get section number and length of next section. */
         iofst=len*8;
         gbit(cgrib,&ilen,iofst,32);
         iofst=iofst+32;
         gbit(cgrib,&isecnum,iofst,8);
         len=len+ilen;
-	/* Exit loop if last section reached. */
+        /* Exit loop if last section reached. */
         if ( len == lencurr ) break;
-	/* If byte count for each section doesn't match current total
-	 * length, then there is a problem. */
+        /* If byte count for each section doesn't match current total
+         * length, then there is a problem. */
         if ( len > lencurr ) {
-	    printf("g2_addgrid: Section byte counts don''t add to total.\n");
-	    printf("g2_addgrid: Sum of section byte counts = %ld\n",len);
-	    printf("g2_addgrid: Total byte count in Section 0 = %ld\n",lencurr);
-	    ierr=-3;
-	    return(ierr);
+            printf("g2_addgrid: Section byte counts don''t add to total.\n");
+            printf("g2_addgrid: Sum of section byte counts = %ld\n",len);
+            printf("g2_addgrid: Total byte count in Section 0 = %ld\n",lencurr);
+            ierr=-3;
+            return(ierr);
         }
     }
 
@@ -144,9 +144,9 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     /* if Octet 6 is not equal to zero, Grid Definition Template may
      * not be supplied. */
     if ( igds[0] == 0 )
-	sbit(cgrib,igds+4,iofst,16);  /* Store Grid Def Template num. */
+        sbit(cgrib,igds+4,iofst,16);  /* Store Grid Def Template num. */
     else
-	sbit(cgrib,&miss,iofst,16);   /* Store missing value as Grid Def Template num. */
+        sbit(cgrib,&miss,iofst,16);   /* Store missing value as Grid Def Template num. */
     iofst=iofst+16;
 
     /* Get Grid Definition Template. */
@@ -154,18 +154,18 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     {
         mapgrid=getgridtemplate(igds[4]);
         if (mapgrid == 0)
-	{       /* undefined template */
-	    ierr=-5;
-	    return(ierr);
+        {       /* undefined template */
+            ierr=-5;
+            return(ierr);
         }
 
         /* Extend the Grid Definition Template, if necessary. The
-	 *  number of values in a specific template may vary depending
-	 *  on data specified in the "static" part of the template. */
+         *  number of values in a specific template may vary depending
+         *  on data specified in the "static" part of the template. */
         if ( mapgrid->needext )
-	{
-	    free(mapgrid);
-	    mapgrid=extgridtemplate(igds[4],igdstmpl);
+        {
+            free(mapgrid);
+            mapgrid=extgridtemplate(igds[4],igdstmpl);
         }
     }
 
@@ -176,34 +176,34 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     {
         nbits=abs(mapgrid->map[i])*8;
         if ( (mapgrid->map[i] >= 0) || (igdstmpl[i] >= 0) )
-	    sbit(cgrib,igdstmpl+i,iofst,nbits);
+            sbit(cgrib,igdstmpl+i,iofst,nbits);
         else
-	{
-	    sbit(cgrib,&one,iofst,1);
-	    temp=abs(igdstmpl[i]);
-	    sbit(cgrib,&temp,iofst+1,nbits-1);
+        {
+            sbit(cgrib,&one,iofst,1);
+            temp=abs(igdstmpl[i]);
+            sbit(cgrib,&temp,iofst+1,nbits-1);
         }
         iofst=iofst+nbits;
     }
-      
+
     /* Pack template extension, if appropriate. */
     j=mapgrid->maplen;
     if ( mapgrid->needext && (mapgrid->extlen > 0) )
     {
-	for (i=0;i<mapgrid->extlen;i++)
-	{
-	    nbits=abs(mapgrid->ext[i])*8;
-	    if ( (mapgrid->ext[i] >= 0) || (igdstmpl[j] >= 0) )
-		sbit(cgrib,igdstmpl+j,iofst,nbits);
-	    else
-	    {
-		sbit(cgrib,&one,iofst,1);
-		temp=abs(igdstmpl[j]);
-		sbit(cgrib,&temp,iofst+1,nbits-1);
-	    }
-	    iofst=iofst+nbits;
-	    j++;
-	}
+        for (i=0;i<mapgrid->extlen;i++)
+        {
+            nbits=abs(mapgrid->ext[i])*8;
+            if ( (mapgrid->ext[i] >= 0) || (igdstmpl[j] >= 0) )
+                sbit(cgrib,igdstmpl+j,iofst,nbits);
+            else
+            {
+                sbit(cgrib,&one,iofst,1);
+                temp=abs(igdstmpl[j]);
+                sbit(cgrib,&temp,iofst+1,nbits-1);
+            }
+            iofst=iofst+nbits;
+            j++;
+        }
     }
     free(mapgrid);
 
@@ -212,9 +212,9 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
      * grids. */
     if ( igds[2] != 0 )
     {
-	nbits=igds[2]*8;
-	sbits(cgrib,ideflist,iofst,nbits,0,idefnum);
-	iofst=iofst+(nbits*idefnum);
+        nbits=igds[2]*8;
+        sbits(cgrib,ideflist,iofst,nbits,0,idefnum);
+        iofst=iofst+(nbits*idefnum);
     }
 
     /* Calculate length of section 3 and store it in octets 1-4 of section 3. */
