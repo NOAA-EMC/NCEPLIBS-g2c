@@ -1,5 +1,14 @@
-/** @file
+/** 
+ * @file
+ * @brief Pack up a data field using a complex packing
+ * algorithm as defined in the GRIB2 documention.
  *
+ * @author Gilbert W/NP11 @date 2004-08-27
+ */
+
+#include "grib2.h"
+
+/**
  * This subroutine packs up a data field using a complex packing
  * algorithm as defined in the GRIB2 documention. It supports GRIB2
  * complex packing templates with or without spatial differences
@@ -29,7 +38,6 @@
  *
  * @author Gilbert W/NP11 @date 2004-08-27
  */
-#include "grib2.h"
 void cmplxpack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                unsigned char *cpack, g2int *lcpack)
 {
