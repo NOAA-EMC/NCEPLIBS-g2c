@@ -13,13 +13,13 @@
  * message. g2_create() must be called first to initialize a new GRIB2
  * message.
  *
- *     cgrib    - Char array that contains the GRIB2 message to which section
- *                2 should be added. Must be allocated large enough to store the entire
- *                GRIB2 message.
- *     csec2    - Character array containing information to be added in
- *                Section 2.
- *     lcsec2   - Number of bytes of character array csec2 to be added to
- *                Section 2.
+ * @param cgrib Char array that contains the GRIB2 message to which
+ * section 2 should be added. Must be allocated large enough to store
+ * the entire GRIB2 message.
+ * @param csec2 Character array containing information to be added in
+ * Section 2.
+ * @param lcsec2 Number of bytes of character array csec2 to be added
+ * to Section 2.
  *
  * @returns > 0 = Current size of updated GRIB2 message.
  * - -1 GRIB message was not initialized. Need to call
