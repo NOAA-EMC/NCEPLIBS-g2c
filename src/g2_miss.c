@@ -9,7 +9,7 @@
 
 /**
  * This routine checks the Data Representation Template to see if
- * missing value management is used, and returns the missing value(s) 
+ * missing value management is used, and returns the missing value(s)
  * in the data field.
  *
  * @param gfld pointer to gribfield structure (defined in include file
@@ -20,42 +20,48 @@
  * space hold all the missing values.
  *
  * @author Gilbert ORG: W/NP11 @date 2004-12-16
-*/
+ */
 void
 g2_miss( gribfield *gfld, float *rmiss, int *nmiss )
 {
-    g2int     itype;    
+    g2int     itype;
 
     /*
      *  Missing value management currnetly only used in
      *  DRT's 5.2 and 5.3.
      */
-    if ( gfld->idrtnum != 2  &&  gfld->idrtnum != 3 ) {
-       *nmiss=0;
-       return;
+    if (gfld->idrtnum != 2  &&  gfld->idrtnum != 3)
+    {
+        *nmiss=0;
+        return;
     }
-                                                                                
+
     itype = gfld->idrtmpl[4];
-    if ( gfld->idrtmpl[6] == 1 ) {
-         *nmiss=1;
-         if (itype == 0)
+    if (gfld->idrtmpl[6] == 1)
+    {
+        *nmiss=1;
+        if (itype == 0)
             rdieee(gfld->idrtmpl+7,rmiss+0,1);
-         else
+        else
             rmiss[0]=(float)gfld->idrtmpl[7];
     }
-    else if ( gfld->idrtmpl[6] == 2 ) {
-         *nmiss=2;
-         if (itype == 0) {
+    else if (gfld->idrtmpl[6] == 2)
+    {
+        *nmiss=2;
+        if (itype == 0)
+        {
             rdieee(gfld->idrtmpl+7,rmiss+0,1);
             rdieee(gfld->idrtmpl+8,rmiss+1,1);
-         }
-         else {
+        }
+        else
+        {
             rmiss[0]=(float)gfld->idrtmpl[7];
             rmiss[1]=(float)gfld->idrtmpl[8];
-         }
+        }
     }
-    else {
-       *nmiss=0;
+    else
+    {
+        *nmiss=0;
     }
 
 }
