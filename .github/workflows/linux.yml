@@ -1,8 +1,8 @@
-name: Build
+name: Linux Build
 on: [push, pull_request]
 
 jobs:
-  build:
+  linux-build:
     runs-on: ubuntu-latest
     env:
       CC: gcc

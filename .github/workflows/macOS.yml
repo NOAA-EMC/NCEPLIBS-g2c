@@ -1,8 +1,8 @@
-name: Build
+name: macOS Build
 on: [push, pull_request]
 
 jobs:
-  build:
+  macOS-build:
     runs-on: macos-latest
     env:
       CC: gcc
