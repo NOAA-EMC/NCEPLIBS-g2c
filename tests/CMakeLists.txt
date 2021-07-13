@@ -8,5 +8,3 @@ add_dependencies(tst_g2_create g2c)
 target_link_libraries(tst_g2_create PRIVATE g2c)
 add_test(NAME tst_g2_create COMMAND tst_g2_create)
 
-include_directories(${PROJECT_SOURCE_DIR})
-
