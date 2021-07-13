@@ -5,8 +5,8 @@ jobs:
   macOS-build:
     runs-on: macos-latest
     env:
-      CC: gcc
-      CXX: g++
+      CC: gcc-11
+      CXX: g++-11
 
     steps:
     - name: install-dependencies
