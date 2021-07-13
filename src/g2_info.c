@@ -107,9 +107,9 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
     }
 
     /*  Unpack Section 1 - Identification Section */
-    gbit(cgrib,&lensec1,iofst,32);        // Length of Section 1
+    gbit(cgrib,&lensec1,iofst,32);        /* Length of Section 1 */
     iofst=iofst+32;
-    gbit(cgrib,&isecnum,iofst,8);         // Section number ( 1 )
+    gbit(cgrib,&isecnum,iofst,8);         /* Section number (1) */
     iofst=iofst+8;
     if (isecnum != 1)
     {
