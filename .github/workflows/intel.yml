@@ -1,19 +1,34 @@
-name: Linux Build
+name: Intel Build
 on: [push, pull_request]
 
+# Use custom shell with -l so .bash_profile is sourced which loads intel/oneapi/setvars.sh
+# without having to do it in manually every step
+defaults:
+  run:
+    shell: bash -leo pipefail {0}
+
 jobs:
-  linux-build:
+  intel-build:
     runs-on: ubuntu-latest
     env:
-      CC: gcc
-      CXX: g++
+      CC: icc
+      CXX: icpc
 
     steps:
+
+      # See https://software.intel.com/content/www/us/en/develop/articles/oneapi-repo-instructions.html
     - name: install-dependencies
       run: |
         sudo apt-get update
         sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen
-        python3 -m pip install gcovr
+        cd /tmp
+        wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+        sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+        rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+        echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+        sudo apt-get update
+        sudo apt-get install intel-oneapi-dev-utilities intel-oneapi-openmp intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic
+        echo "source /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
 
     - name: checkout-jasper
       uses: actions/checkout@v2
@@ -27,7 +42,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/Jasper
-        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}
+        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}-intel
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
@@ -49,17 +64,10 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DENABLE_DOCS=On -DCMAKE_C_FLAGS="-g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0" .. 
+        cmake -DJasper_ROOT=~/Jasper ..
         make -j2
         
     - name: test
       run: |
         cd $GITHUB_WORKSPACE/g2c/build
         ctest
-        gcovr -r .. -v --html-details -o test-coverage.html
-
-    - name: upload-test-coverage
-      uses: actions/upload-artifact@v2
-      with:
-        name: g2c-test-coverage
-        path: g2c/build/*.html
