@@ -118,7 +118,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         return(ierr);
     }
 
-    /* Unpack each input value in array listsec1 into the the
+    /* Unpack each input value in array listsec1 into the
        appropriate number of octets, which are specified in
        corresponding entries in array mapsec1. */
     for (i=0;i<mapsec1len;i++)
