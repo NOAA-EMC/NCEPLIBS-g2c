@@ -3,32 +3,30 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: macos-latest
     env:
-      FC: gfortran-9
-      CC: gcc-9
-      CXX: g++-9
+      CC: gcc
+      CXX: g++
 
     steps:
-
     - name: install-dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen
+        brew update
+        brew install doxygen
 
     - name: checkout-jasper
       uses: actions/checkout@v2
       with:
-        repository: mdadams/jasper
+        repository: jasper-software/jasper
         path: jasper
-        ref: version-2.0.16
+        ref: version-2.0.25
 
     - name: cache-jasper
       id: cache-jasper
       uses: actions/cache@v2
       with:
         path: ~/Jasper
-        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}
+        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}-macOS
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
@@ -39,19 +37,20 @@ jobs:
         cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
         make -j2
         make install
+
     - name: checkout
       uses: actions/checkout@v2
       with:
         path: g2c
-        submodules: true
 
     - name: build
       run: |
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DENABLE_DOCS=On ..
+        cmake -DJasper_ROOT=~/Jasper -DENABLE_DOCS=ON ..
         make -j2
+        
     - name: test
       run: |
         cd $GITHUB_WORKSPACE/g2c/build
