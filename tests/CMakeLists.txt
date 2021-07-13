@@ -4,10 +4,10 @@
 # Ed Hartnett, 7/11/21
 
 add_executable(tst_g2_create tst_g2_create.c)
+target_link_libraries(tst_g2_create PRIVATE g2c::g2c)
 add_test(NAME tst_g2_create COMMAND tst_g2_create)
 target_link_libraries(tst_g2_create g2c)
 
 target_include_directories(tst_g2_create ${PROJECT_SOURCE_DIR})
-
 
 
