@@ -149,3 +149,7 @@ if(ENABLE_DOCS)
   find_package(Doxygen REQUIRED)
 endif()
 add_subdirectory(docs)  
+
+# Run unit tests.
+include(CTest)
+add_subdirectory(tests)
