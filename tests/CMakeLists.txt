@@ -3,7 +3,7 @@
 #
 # Ed Hartnett, 7/11/21
 
-target_include_directories(tst_g2_create ${PROJECT_SOURCE_DIR})
+target_include_directories(test ${PROJECT_SOURCE_DIR})
 
 add_executable(tst_g2_create tst_g2_create.c)
 add_test(NAME tst_g2_create COMMAND tst_g2_create)
