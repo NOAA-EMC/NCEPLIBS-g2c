@@ -70,13 +70,13 @@ g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
         return(ierr);
     }
 
-    /*printf(" SAGIPO %d \n",(int)ipos);*.
-      for (j=0;j<*lencsec2;j++)
-      {
-      *(*csec2+j)=cgrib[ipos+j];
-      }
-      *iofst=*iofst+(*lencsec2*8);
+    /*printf(" SAGIPO %d \n",(int)ipos);*/
+    for (j=0;j<*lencsec2;j++)
+    {
+	*(*csec2+j)=cgrib[ipos+j];
+    }
+    *iofst=*iofst+(*lencsec2*8);
 
-      return(ierr);    /* End of Section 2 processing */
+    return(ierr);    /* End of Section 2 processing */
 
 }
