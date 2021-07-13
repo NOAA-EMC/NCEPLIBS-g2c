@@ -1,38 +1,28 @@
 /** @file
+ * @brief Check the Data Representation Template to see if missing
+ * value management is used, and returns the missing value(s) in the
+ * data field.
+ * @author Gilbert ORG: W/NP11 @date 2004-12-16
  */
+
 #include "grib2.h"
 
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    g2_miss 
-//   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2004-12-16
-//
-// ABSTRACT: This routine checks the Data Representation Template to see if
-// missing value management is used, and returns the missing value(s) 
-// in the data field.
-//
-// PROGRAM HISTORY LOG:
-// 2004-12-16  Gilbert
-//
-// USAGE:    g2_miss( gribfield *gfld, float *rmiss, int *nmiss )
-//                   
-//   INPUT ARGUMENT LIST:
-//     *gfld    - pointer to gribfield structure (defined in include file 
-//                   grib2.h)
-//
-//   OUTPUT ARGUMENT LIST:      
-//     rmiss    - List of the missing values used
-//     nmiss    - NUmber of the missing values included in the field
-//
-// REMARKS:  rmiss must be allocated in the calling program with enough space 
-//           hold all the missing values.
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:  IBM SP
-//
-//$$$
-void g2_miss( gribfield *gfld, float *rmiss, int *nmiss )
+/**
+ * This routine checks the Data Representation Template to see if
+ * missing value management is used, and returns the missing value(s) 
+ * in the data field.
+ *
+ * @param gfld pointer to gribfield structure (defined in include file
+ * grib2.h).
+ * @param rmiss List of the missing values used.
+ * @param nmiss NUmber of the missing values included in the
+ * field. rmiss must be allocated in the calling program with enough
+ * space hold all the missing values.
+ *
+ * @author Gilbert ORG: W/NP11 @date 2004-12-16
+*/
+void
+g2_miss( gribfield *gfld, float *rmiss, int *nmiss )
 {
     g2int     itype;    
 
