@@ -123,10 +123,10 @@
  *        gfld->unpacked = logical value indicating whether the bitmap and
  *                        data values were unpacked.  If false,
  *                        gfld->bmap and gfld->fld pointers are nullified.
- *        gfld->expanded = Logical value indicating whether the data field 
- *                         was expanded to the grid in the case where a 
+ *        gfld->expanded = Logical value indicating whether the data field
+ *                         was expanded to the grid in the case where a
  *                         bit-map is present.  If true, the data points in
- *                         gfld->fld match the grid points and zeros were 
+ *                         gfld->fld match the grid points and zeros were
  *                         inserted at grid points where data was bit-mapped
  *                         out.  If false, the data values in gfld->fld were
  *                         not expanded to the grid and are just a consecutive

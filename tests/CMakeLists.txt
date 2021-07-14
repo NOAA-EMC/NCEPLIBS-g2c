@@ -1,10 +1,11 @@
-# This is the cmake build file for the tests directory of the
-# NCEPLIBS-g2c_UTILS project.
-#
-# Ed Hartnett, 7/11/21
+# This is the cmake build file for the tests directory of the NCEPLIBS-g2c project.
 
-add_executable(tst_g2_create tst_g2_create.c)
-add_dependencies(tst_g2_create g2c)
-target_link_libraries(tst_g2_create PRIVATE g2c)
-add_test(NAME tst_g2_create COMMAND tst_g2_create)
+function(g2_test name)
+    add_executable(${name} ${name}.c)
+    add_dependencies(${name} g2c)
+    target_link_libraries(${name} PRIVATE g2c)
+    add_test(NAME ${name} COMMAND ${name})
+endfunction()
 
+g2_test(tst_g2_create)
+g2_test(tst_decode)
