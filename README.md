@@ -13,9 +13,9 @@ https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/.
 
 ## Authors
 
-Boi Vuong, Hang Lei
+Stephen Gilbert, Wesley, Boi Vuong
 
-Code Manager: Boi Vuong
+Code Manager: Hang Lei, Edward Hartnett
 
 ## Prerequisites
 

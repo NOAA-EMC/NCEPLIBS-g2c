@@ -1,7 +1,7 @@
 /** @file
  * @brief Unpack Section 2 (Local Use Section) as defined in
  * GRIB Edition 2.
- * @author Gilbert ORG: W/NP11 @date 2002-10-31
+ * @author Stephen Gilbert @date 2002-10-31
  */
 
 #include <stdio.h>
@@ -28,7 +28,7 @@
  * - 2 Array passed is not section 2
  * - 6 memory allocation error
  *
- * @author Gilbert ORG: W/NP11 @date 2002-10-31
+ * @author Stephen Gilbert @date 2002-10-31
  */
 g2int
 g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
