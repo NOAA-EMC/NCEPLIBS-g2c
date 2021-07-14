@@ -1,4 +1,6 @@
 # This is the cmake build file for the tests directory of the NCEPLIBS-g2c project.
+#
+# Ed Hartnett, 7/11/21
 
 function(g2_test name)
     add_executable(${name} ${name}.c)
