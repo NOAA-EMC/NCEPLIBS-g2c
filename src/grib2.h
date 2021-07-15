@@ -1,5 +1,5 @@
 /** @file
- *   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-25
+ * @brief Header file for NCEPLIBS-g2c library.
  *
  * PROGRAM HISTORY LOG:
  * - 2002-10-25  Gilbert
@@ -145,6 +145,8 @@
  *                     This element is a pointer to an array
  *                     that holds the data.
  *   </pre>
+ *
+ * @author Stephen Gilbert @date 2002-10-25
 */
 #ifndef _grib2_H
 #define _grib2_H
