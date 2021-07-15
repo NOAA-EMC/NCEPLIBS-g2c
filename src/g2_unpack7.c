@@ -1,4 +1,5 @@
 /** @file
+ * @brief Unpack Section 7 (Data Section) as defined in GRIB Edition 2.
  * @author Stephen Gilbert @date 2002-10-31
  */
 #include <stdio.h>
@@ -19,8 +20,8 @@ g2int jpcunpack(unsigned char *,g2int,g2int *,g2int, g2float *);
 
 /**
  *
- * ABSTRACT: This subroutine unpacks Section 7 (Data Section)
- *           as defined in GRIB Edition 2.
+ * This subroutine unpacks Section 7 (Data Section) as defined in GRIB
+ * Edition 2.
  *
  * PROGRAM HISTORY LOG:
  * - 2002-10-31  Gilbert
