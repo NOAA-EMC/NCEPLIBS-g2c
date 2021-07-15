@@ -37,7 +37,7 @@ gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)
  * @author NOAA Programmer
  */
 void
-sbit(unsigned char *out,g2int *in,g2int iskip,g2int nbyte)
+sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbyte)
 {
     sbits(out,in,iskip,nbyte,(g2int)0,(g2int)1);
 }
@@ -109,8 +109,8 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte,
  * @author NOAA Programmer
  */
 void
-sbits(unsigned char *out,g2int *in,g2int iskip,g2int nbyte,g2int nskip,
-      g2int n)
+sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte,
+      g2int nskip, g2int n)
 {
     g2int i,bitcnt,tbit,ibit,itmp,imask,itmp2,itmp3;
     g2int nbit,index;
