@@ -2,7 +2,7 @@
  * @file
  * @brief Pack up a data field using a complex packing
  * algorithm as defined in the GRIB2 documention.
- * @author Gilbert ORG: W/NP11 @date 2002-11-07
+ * @author Stephen Gilbert @date 2002-11-07
  */
 
 #include <stdlib.h>
@@ -36,7 +36,7 @@
  * @param[out] cpack The packed data field
  * @param[out] lcpack length of packed field cpack.
  *
- * @author Gilbert ORG: W/NP11 @date 2002-11-07
+ * @author Stephen Gilbert @date 2002-11-07
  */
 void compack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
              unsigned char *cpack,g2int *lcpack)
