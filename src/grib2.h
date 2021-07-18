@@ -123,10 +123,10 @@
  *        gfld->unpacked = logical value indicating whether the bitmap and
  *                        data values were unpacked.  If false,
  *                        gfld->bmap and gfld->fld pointers are nullified.
- *        gfld->expanded = Logical value indicating whether the data field 
- *                         was expanded to the grid in the case where a 
+ *        gfld->expanded = Logical value indicating whether the data field
+ *                         was expanded to the grid in the case where a
  *                         bit-map is present.  If true, the data points in
- *                         gfld->fld match the grid points and zeros were 
+ *                         gfld->fld match the grid points and zeros were
  *                         inserted at grid points where data was bit-mapped
  *                         out.  If false, the data values in gfld->fld were
  *                         not expanded to the grid and are just a consecutive
@@ -147,7 +147,7 @@
  *   </pre>
  *
  * @author Stephen Gilbert @date 2002-10-25
-*/
+ */
 #ifndef _grib2_H
 #define _grib2_H
 #include<stdio.h>
@@ -164,46 +164,46 @@ typedef unsigned long g2intu;
 typedef float g2float;
 
 struct gtemplate {
-   g2int type;           /* 3=Grid Defintion Template.                       */
-                         /* 4=Product Defintion Template.                    */
-                         /* 5=Data Representation Template.                  */
-   g2int num;            /* template number.                                 */
-   g2int maplen;         /* number of entries in the static part             */
-                         /*                    of the template.              */
-   g2int *map;           /* num of octets of each entry in the               */
-                         /*         static part of the template.             */
-   g2int needext;        /* indicates whether or not the template needs      */
-                         /*     to be extended.                              */
-   g2int extlen;         /* number of entries in the template extension.     */
-   g2int *ext;           /* num of octets of each entry in the extension     */
-                         /*                      part of the template.       */
+    g2int type;           /* 3=Grid Defintion Template.                       */
+    /* 4=Product Defintion Template.                    */
+    /* 5=Data Representation Template.                  */
+    g2int num;            /* template number.                                 */
+    g2int maplen;         /* number of entries in the static part             */
+    /*                    of the template.              */
+    g2int *map;           /* num of octets of each entry in the               */
+    /*         static part of the template.             */
+    g2int needext;        /* indicates whether or not the template needs      */
+    /*     to be extended.                              */
+    g2int extlen;         /* number of entries in the template extension.     */
+    g2int *ext;           /* num of octets of each entry in the extension     */
+    /*                      part of the template.       */
 };
 
 typedef struct gtemplate gtemplate;
 
 struct gribfield {
-   g2int   version,discipline;
-   g2int   *idsect;
-   g2int   idsectlen;
-   unsigned char *local;
-   g2int   locallen;
-   g2int   ifldnum;
-   g2int   griddef,ngrdpts;
-   g2int   numoct_opt,interp_opt,num_opt;
-   g2int   *list_opt;
-   g2int   igdtnum,igdtlen;
-   g2int   *igdtmpl;
-   g2int   ipdtnum,ipdtlen;
-   g2int   *ipdtmpl;
-   g2int   num_coord;
-   g2float *coord_list;
-   g2int   ndpts,idrtnum,idrtlen;
-   g2int   *idrtmpl;
-   g2int   unpacked;
-   g2int   expanded;
-   g2int   ibmap;
-   g2int   *bmap;
-   g2float *fld;
+    g2int   version,discipline;
+    g2int   *idsect;
+    g2int   idsectlen;
+    unsigned char *local;
+    g2int   locallen;
+    g2int   ifldnum;
+    g2int   griddef,ngrdpts;
+    g2int   numoct_opt,interp_opt,num_opt;
+    g2int   *list_opt;
+    g2int   igdtnum,igdtlen;
+    g2int   *igdtmpl;
+    g2int   ipdtnum,ipdtlen;
+    g2int   *ipdtmpl;
+    g2int   num_coord;
+    g2float *coord_list;
+    g2int   ndpts,idrtnum,idrtlen;
+    g2int   *idrtmpl;
+    g2int   unpacked;
+    g2int   expanded;
+    g2int   ibmap;
+    g2int   *bmap;
+    g2float *fld;
 };
 
 typedef struct gribfield gribfield;
@@ -225,10 +225,10 @@ void g2_free(gribfield *);
 /*  Prototypes for packing API  */
 g2int g2_create(unsigned char *,g2int *,g2int *);
 g2int g2_addlocal(unsigned char *,unsigned char *,g2int );
-g2int g2_addgrid(unsigned char *,g2int *,g2int *,g2int *,g2int ); 
+g2int g2_addgrid(unsigned char *,g2int *,g2int *,g2int *,g2int );
 g2int g2_addfield(unsigned char *,g2int ,g2int *,
-                       g2float *,g2int ,g2int ,g2int *,
-                       g2float *,g2int ,g2int ,g2int *);
+                  g2float *,g2int ,g2int ,g2int *,
+                  g2float *,g2int ,g2int ,g2int *);
 g2int g2_gribend(unsigned char *);
 
 /*  Prototypes for supporting routines  */
@@ -256,4 +256,3 @@ int pack_gp(g2int *, g2int *, g2int *,
             g2int *, g2int *, g2int *);
 
 #endif  /*  _grib2_H  */
-
