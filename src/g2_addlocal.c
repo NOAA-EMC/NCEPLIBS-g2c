@@ -85,9 +85,9 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
         /* Exit loop if last section reached. */
         if ( len == lencurr ) break;
         /* If byte count for each section doesn't match current total
-	 * length, then there is a problem. */
+         * length, then there is a problem. */
         if ( len > lencurr )
-	{
+        {
             printf("g2_addlocal: Section byte counts don't add to total.\n");
             printf("g2_addlocal: Sum of section byte counts = %ld\n",len);
             printf("g2_addlocal: Total byte count in Section 0 = %ld\n",lencurr);
@@ -95,7 +95,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
             return(ierr);
         }
     }
-    
+
     /* Section 2 can only be added after sections 1 and 7. */
     if ( (isecnum!=1) && (isecnum!=7) )
     {
@@ -116,7 +116,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
     {
         cgrib[j]=csec2[k++];
     }
-    
+
     /* Calculate length of section 2 and store it in octets 1-4 of section 2. */
     lensec2=lcsec2+5;      /* bytes */
     sbit(cgrib,&lensec2,ibeg,32);
