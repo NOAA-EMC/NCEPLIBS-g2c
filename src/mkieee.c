@@ -1,39 +1,23 @@
 /** @file
+ * @author Stephen Gilbert @date 2002-10-29
  */
 #include <stdlib.h>
 #include <math.h>
 #include "grib2.h"
 
 
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    mkieee
-//   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-29
-//
-// ABSTRACT: This subroutine stores a list of real values in
-//   32-bit IEEE floating point format.
-//
-// PROGRAM HISTORY LOG:
-// 2002-10-29  Gilbert
-//
-// USAGE:    mkieee(g2float *a,g2int *rieee,g2int num);
-//   INPUT ARGUMENT LIST:
-//     a        - Input array of floating point values.
-//     num      - Number of floating point values to convert.
-//
-//   OUTPUT ARGUMENT LIST:
-//     rieee    - Output array of data values in 32-bit IEEE format
-//                stored in g2int integer array.  rieee must be allocated
-//                with at least 4*num bytes of memory before calling this
-//                function.
-//
-// REMARKS: None
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:
-//
-//$$$
+/**
+ * This subroutine stores a list of real values in 32-bit IEEE
+ * floating point format.
+ *
+ * @param a Input array of floating point values.
+ * @param num Number of floating point values to convert.
+ * @param rieee Output array of data values in 32-bit IEEE format
+ * stored in g2int integer array. rieee must be allocated with at
+ * least 4*num bytes of memory before calling this function.
+ *
+ * @author Stephen Gilbert @date 2002-10-29
+ */
 void mkieee(g2float *a,g2int *rieee,g2int num)
 {
 

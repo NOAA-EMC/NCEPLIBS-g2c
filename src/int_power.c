@@ -1,14 +1,18 @@
 /** @file
+ * @brief Provide function similar to C pow() power function.
+ * @author Wesley Ebisuzaki
  */
 #include "grib2.h"
-/*
- * w. ebisuzaki
+
+/**
+ * Function similar to C pow() power function.
  *
- *  return x**y
+ * @param x The base value whose power is to be calculated.
+ * @param y The power value.
  *
+ * @return x**y
  *
- *  input: double x
- *         int y
+ * @author Wesley Ebisuzaki
  */
 double int_power(double x, g2int y) {
 
