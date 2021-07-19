@@ -1,42 +1,25 @@
 /** @file
+ * @author Stephen Gilbert @date 2002-10-29
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include "grib2.h"
 
-
-////$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    simunpack
-//   PRGMMR: Gilbert          ORG: W/NP11    DATE: 2002-10-29
-//
-// ABSTRACT: This subroutine unpacks a data field that was packed using a
-//   simple packing algorithm as defined in the GRIB2 documention,
-//   using info from the GRIB2 Data Representation Template 5.0.
-//
-// PROGRAM HISTORY LOG:
-// 2002-10-29  Gilbert
-//
-// USAGE:    int simunpack(unsigned char *cpack,g2int *idrstmpl,g2int ndpts,
-//                         g2float *fld)
-//   INPUT ARGUMENT LIST:
-//     cpack    - pointer to the packed data field.
-//     idrstmpl - pointer to the array of values for Data Representation
-//                Template 5.0
-//     ndpts    - The number of data values to unpack
-//
-//   OUTPUT ARGUMENT LIST:
-//     fld      - Contains the unpacked data values.  fld must be allocated
-//                with at least ndpts*sizeof(g2float) bytes before
-//                calling this routine.
-//
-// REMARKS: None
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:
-//
-//$$$//
+/**
+ * This subroutine unpacks a data field that was packed using a simple
+ * packing algorithm as defined in the GRIB2 documention, using info
+ * from the GRIB2 Data Representation Template 5.0.
+ *
+ * @param cpack pointer to the packed data field.
+ * @param idrstmpl pointer to the array of values for Data
+ * Representation Template 5.0.
+ * @param ndpts The number of data values to unpack.
+ * @param fld Contains the unpacked data values.  fld must be
+ * allocated with at least ndpts*sizeof(g2float) bytes before calling
+ * this routine.
+ *
+ * @author Stephen Gilbert @date 2002-10-29
+ */
 g2int simunpack(unsigned char *cpack,g2int *idrstmpl,g2int ndpts,g2float *fld)
 {
 
