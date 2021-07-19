@@ -70,4 +70,4 @@ jobs:
     - name: test
       run: |
         cd $GITHUB_WORKSPACE/g2c/build
-        ctest
+        ctest  --output-on-failure
