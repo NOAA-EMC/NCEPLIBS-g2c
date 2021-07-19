@@ -1,40 +1,34 @@
 /** @file
+ * @brief Searches a file for the next GRIB message.
+ * @author Stephen Gilbert @date 2002-10-28
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include "grib2.h"
 
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//
-// SUBPROGRAM: seekgb         Searches a file for the next GRIB message.
-//   PRGMMR: Gilbert          ORG: W/NP11      DATE: 2002-10-28
-//
-// ABSTRACT: This subprogram searches a file for the next GRIB Message.
-//   The search is done starting at byte offset iseek of the file referenced 
-//   by lugb for mseek bytes at a time.
-//   If found, the starting position and length of the message are returned
-//   in lskip and lgrib, respectively.
-//   The search is terminated when an EOF or I/O error is encountered.
-//
-// PROGRAM HISTORY LOG:
-// 2002-10-28  GILBERT   Modified from Iredell's skgb subroutine
-// 2009-01-16  VUONG     Changed  lskip to 4 instead of sizof(g2int)
-//
-// USAGE:    seekgb(FILE *lugb,g2int iseek,g2int mseek,int *lskip,int *lgrib)
-//   INPUT ARGUMENTS:
-//     lugb       - FILE pointer for the file to search.  File must be
-//                  opened before this routine is called.
-//     iseek      - number of bytes in the file to skip before search
-//     mseek      - number of bytes to search at a time
-//   OUTPUT ARGUMENTS:
-//     lskip      - number of bytes to skip from the beggining of the file
-//                  to where the GRIB message starts
-//     lgrib      - number of bytes in message (set to 0, if no message found)
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//
-//$$$
+/**
+ * This subprogram searches a file for the next GRIB Message. The
+ * search is done starting at byte offset iseek of the file referenced
+ * by lugb for mseek bytes at a time. If found, the starting position
+ * and length of the message are returned in lskip and lgrib,
+ * respectively. The search is terminated when an EOF or I/O error is
+ * encountered.
+ *
+ * PROGRAM HISTORY LOG:
+ * - 2002-10-28  GILBERT   Modified from Iredell's skgb subroutine
+ * - 2009-01-16  VUONG     Changed  lskip to 4 instead of sizof(g2int)
+ *
+ * @param lugb FILE pointer for the file to search. File must be
+ * opened before this routine is called.
+ * @param iseek number of bytes in the file to skip before search.
+ * @param mseek number of bytes to search at a time.
+ * @param lskip number of bytes to skip from the beggining of the file
+ * to where the GRIB message starts.
+ * @param lgrib number of bytes in message (set to 0, if no message
+ * found).
+ *
+ * @author Stephen Gilbert @date 2002-10-28
+ */
 void seekgb(FILE *lugb,g2int iseek,g2int mseek,g2int *lskip,g2int *lgrib)
 {
       g2int  ret;

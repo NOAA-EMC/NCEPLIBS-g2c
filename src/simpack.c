@@ -1,63 +1,35 @@
 /** @file
+ * @brief Pack up a data field using the simple packing algorithm.
+ * @author Stephen Gilbert @date 2002-11-06
  */
+
 #include <stdlib.h>
 #include <math.h>
 #include "grib2.h"
 
+/**
+ * This subroutine packs up a data field using the simple packing
+ * algorithm as defined in the GRIB2 documention. It also fills in
+ * GRIB2 Data Representation Template 5.0 with the appropriate values.
+ *
+ * @param fld Contains the data values to pack.
+ * @param ndpts The number of data values in array fld.
 
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    simpack
-//   PRGMMR: Gilbert          ORG: W/NP11    DATE: 2002-11-06
-//
-// ABSTRACT: This subroutine packs up a data field using the simple
-//   packing algorithm as defined in the GRIB2 documention.  It
-//   also fills in GRIB2 Data Representation Template 5.0 with the
-//   appropriate values.
-//
-// PROGRAM HISTORY LOG:
-// 2002-11-06  Gilbert
-//
-// USAGE:    CALL simpack(fld,ndpts,idrstmpl,cpack,lcpack)
-//   INPUT ARGUMENT LIST:
-//     fld[]    - Contains the data values to pack
-//     ndpts    - The number of data values in array fld[]
-//     idrstmpl - Contains the array of values for Data Representation
-//                Template 5.0
-//                [0] = Reference value - ignored on input
-//                [1] = Binary Scale Factor
-//                [2] = Decimal Scale Factor
-//                [3] = Number of bits used to pack data, if value is
-//                      > 0 and  <= 31.
-//                      If this input value is 0 or outside above range
-//                      then the num of bits is calculated based on given 
-//                      data and scale factors.
-//                [4] = Original field type - currently ignored on input
-//                      Data values assumed to be reals.
-//
-//   OUTPUT ARGUMENT LIST: 
-//     idrstmpl - Contains the array of values for Data Representation
-//                Template 5.0
-//                [0] = Reference value - set by simpack routine.
-//                [1] = Binary Scale Factor - unchanged from input
-//                [2] = Decimal Scale Factor - unchanged from input
-//                [3] = Number of bits used to pack data, unchanged from 
-//                      input if value is between 0 and 31.
-//                      If this input value is 0 or outside above range
-//                      then the num of bits is calculated based on given 
-//                      data and scale factors.
-//                [4] = Original field type - currently set = 0 on output.
-//                      Data values assumed to be reals.
-//     cpack    - The packed data field
-//     lcpack   - length of packed field starting at cpack.
-//
-// REMARKS: None
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:  
-//
-//$$$
+ * @param idrstmpl Contains the array of values for Data
+ * Representation Template 5.0.
+ * - 0 Reference value - ignored on input - set by simpack routine.
+ * - 1 Binary Scale Factor - unchanged from input.
+ * - 2 Decimal Scale Factor - unchanged from input.
+ * - 3 Number of bits used to pack data, if value is > 0 and <= 31. If
+ * this input value is 0 or outside above range then the num of bits
+ * is calculated based on given data and scale factors.
+ * - 4 Original field type - currently ignored on input. Data values
+ * assumed to be reals. Set to 0 by simpack routine.
+ * @param cpack The packed data field
+ * @param lcpack length of packed field starting at cpack.
+ *
+ * @author Stephen Gilbert @date 2002-11-06
+ */
 void simpack(g2float *fld,g2int ndpts,g2int *idrstmpl,unsigned char *cpack,g2int *lcpack)
 {
 
