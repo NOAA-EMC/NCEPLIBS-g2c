@@ -3,8 +3,14 @@
 #
 # Ed Hartnett, 7/11/21
 
-add_executable(tst_g2_create tst_g2_create.c)
-add_dependencies(tst_g2_create g2c)
-target_link_libraries(tst_g2_create PRIVATE g2c)
-add_test(NAME tst_g2_create COMMAND tst_g2_create)
+function(g2c_test name)
+  add_executable(${name} ${name}.c)
+  add_dependencies(${name} g2c)
+  target_link_libraries(${name} PRIVATE g2c)
+  add_test(NAME ${name} COMMAND ${name})
+endfunction()
+
+g2c_test(tst_g2_create)
+g2c_test(tst_gbits)
+
 
