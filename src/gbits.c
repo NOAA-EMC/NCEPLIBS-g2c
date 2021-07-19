@@ -69,21 +69,21 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte,
         ibit=nbit%8;
         nbit = nbit + nbyte + nskip;
 
-	/*        first byte */
+        /*        first byte */
         tbit= ( bitcnt < (8-ibit) ) ? bitcnt : 8-ibit;  // find min
         itmp = (int)*(in+index) & ones[7-ibit];
         if (tbit != 8-ibit) itmp >>= (8-ibit-tbit);
         index++;
         bitcnt = bitcnt - tbit;
 
-	/*        now transfer whole bytes */
+        /*        now transfer whole bytes */
         while (bitcnt >= 8) {
             itmp = itmp<<8 | (int)*(in+index);
             bitcnt = bitcnt - 8;
             index++;
         }
 
-	/* get data from last byte */
+        /* get data from last byte */
         if (bitcnt > 0) {
             itmp = ( itmp << bitcnt ) | ( ((int)*(in+index) >> (8-bitcnt)) & ones[bitcnt-1] );
         }
@@ -125,7 +125,7 @@ sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte,
         ibit=nbit%8;
         nbit = nbit + nbyte + nskip;
 
-	/*        make byte aligned  */
+        /*        make byte aligned  */
         if (ibit != 7) {
             tbit= ( bitcnt < (ibit+1) ) ? bitcnt : ibit+1;  /* find min */
             imask = ones[tbit-1] << (7-ibit);
@@ -137,9 +137,9 @@ sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte,
             index--;
         }
 
-	/*        now byte aligned */
+        /*        now byte aligned */
 
-	/*        do by bytes */
+        /*        do by bytes */
         while (bitcnt >= 8) {
             out[index] = (unsigned char)(itmp & 255);
             itmp = itmp >> 8;
@@ -147,7 +147,7 @@ sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte,
             index--;
         }
 
-	/*        do last byte */
+        /*        do last byte */
 
         if (bitcnt > 0) {
             itmp2 = itmp & ones[bitcnt-1];
