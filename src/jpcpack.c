@@ -1,4 +1,6 @@
 /** @file
+ * @brief Pack up a data field into a JPEG2000 code stream.
+ * @author Stephen Gilbert @date 2003-08-17
  */
 #include <stdlib.h>
 #include <math.h>
@@ -7,69 +9,43 @@
 int enc_jpeg2000(unsigned char *,g2int ,g2int ,g2int ,
                  g2int , g2int, g2int , char *, g2int );
 
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    jpcpack
-//   PRGMMR: Gilbert          ORG: W/NP11    DATE: 2003-08-17
-//
-// ABSTRACT: This subroutine packs up a data field into a JPEG2000 code stream.
-//   After the data field is scaled, and the reference value is subtracted out,
-//   it is treated as a grayscale image and passed to a JPEG2000 encoder.
-//   It also fills in GRIB2 Data Representation Template 5.40 or 5.40000 with 
-//   the appropriate values.
-//
-// PROGRAM HISTORY LOG:
-// 2003-08-17  Gilbert
-// 2004-11-92  Gilbert  - Fixed bug encountered when packing a near constant
-//                        field.
-// 2004-07-19  Gilbert - Added check on whether the jpeg2000 encoding was
-//                       successful.  If not, try again with different encoder
-//                       options.
-// 2005-05-10  Gilbert - Imposed minimum size on cpack, used to hold encoded
-//                       bit string.
-//
-// USAGE:    jpcpack(g2float *fld,g2int width,g2int height,g2int *idrstmpl,
-//                   unsigned char *cpack,g2int *lcpack);
-//   INPUT ARGUMENT LIST:
-//     fld[]    - Contains the data values to pack
-//     width    - number of points in the x direction
-//     height   - number of points in the y direction
-//     idrstmpl - Contains the array of values for Data Representation
-//                Template 5.40 or 5.40000
-//                [0] = Reference value - ignored on input
-//                [1] = Binary Scale Factor
-//                [2] = Decimal Scale Factor
-//                [3] = number of bits for each data value - ignored on input
-//                [4] = Original field type - currently ignored on input
-//                      Data values assumed to be reals.
-//                [5] = 0 - use lossless compression
-//                    = 1 - use lossy compression
-//                [6] = Desired compression ratio, if idrstmpl[5]=1.
-//                      Set to 255, if idrstmpl[5]=0.
-//     lcpack   - size of array cpack[]
-//
-//   OUTPUT ARGUMENT LIST: 
-//     idrstmpl - Contains the array of values for Data Representation
-//                Template 5.0
-//                [0] = Reference value - set by jpcpack routine.
-//                [1] = Binary Scale Factor - unchanged from input
-//                [2] = Decimal Scale Factor - unchanged from input
-//                [3] = Number of bits containing each grayscale pixel value
-//                [4] = Original field type - currently set = 0 on output.
-//                      Data values assumed to be reals.
-//                [5] = 0 - use lossless compression
-//                    = 1 - use lossy compression
-//                [6] = Desired compression ratio, if idrstmpl[5]=1
-//     cpack    - The packed data field 
-//     lcpack   - length of packed field in cpack.
-//
-// REMARKS: None
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:  IBM SP
-//
-//$$$
+/**
+ * This subroutine packs up a data field into a JPEG2000 code
+ * stream. After the data field is scaled, and the reference value is
+ * subtracted out, it is treated as a grayscale image and passed to a
+ * JPEG2000 encoder. It also fills in GRIB2 Data Representation
+ * Template 5.40 or 5.40000 with the appropriate values.
+ *
+ * PROGRAM HISTORY LOG:
+ * - 2003-08-17  Gilbert
+ * - 2004-11-92 Gilbert - Fixed bug encountered when packing a near
+     constant field.
+ * - 2004-07-19 Gilbert - Added check on whether the jpeg2000 encoding
+     was successful. If not, try again with different encoder options.
+ * - 2005-05-10 Gilbert - Imposed minimum size on cpack, used to hold
+     encoded bit string.
+ *
+ * @param fld Contains the data values to pack.
+ * @param width number of points in the x direction.
+ * @param height number of points in the y direction.
+ * @param idrstmpl Contains the array of values for Data
+ * Representation Template 5.40 or 5.40000.
+ * - 0 Reference value - ignored on input, set by jpcpack routine.
+ * - 1 Binary Scale Factor - used on input, unchanged by jpcpack
+     routine.
+ * - 2 Decimal Scale Factor - used on input, unchanged by jpcpack
+     routine.
+ * - 3 number of bits for each data value - ignored on input
+ * - 4 Original field type - currently ignored on input Data values
+     assumed to be reals. Set to 0 on output.
+ * - 5 if 0 use lossless compression, if 1 use lossy compression.
+ * - 6 Desired compression ratio, if idrstmpl[5]=1. Set to 255, if
+     idrstmpl[5]=0.
+ * @param cpack The packed data field.
+ * @param lcpack length of packed field in cpack.
+ *
+ * @author Stephen Gilbert @date 2003-08-17
+*/
 void jpcpack(g2float *fld,g2int width,g2int height,g2int *idrstmpl,
              unsigned char *cpack,g2int *lcpack)
 {
