@@ -33,10 +33,10 @@ getgridindex(g2int number)
     g2int j,getgridindex=-1;
 
     for (j=0;j<MAXGRIDTEMP;j++) {
-	if (number == templatesgrid[j].template_num) {
-	    getgridindex=j;
-	    return(getgridindex);
-	}
+        if (number == templatesgrid[j].template_num) {
+            getgridindex=j;
+            return(getgridindex);
+        }
     }
 
     return(getgridindex);
@@ -73,19 +73,19 @@ getgridtemplate(g2int number)
     index=getgridindex(number);
 
     if (index != -1) {
-	new=(gtemplate *)malloc(sizeof(gtemplate));
-	new->type=3;
-	new->num=templatesgrid[index].template_num;
-	new->maplen=templatesgrid[index].mapgridlen;
-	new->needext=templatesgrid[index].needext;
-	new->map=(g2int *)templatesgrid[index].mapgrid;
-	new->extlen=0;
-	new->ext=0;        /*NULL */
-	return(new);
+        new=(gtemplate *)malloc(sizeof(gtemplate));
+        new->type=3;
+        new->num=templatesgrid[index].template_num;
+        new->maplen=templatesgrid[index].mapgridlen;
+        new->needext=templatesgrid[index].needext;
+        new->map=(g2int *)templatesgrid[index].mapgrid;
+        new->extlen=0;
+        new->ext=0;        /*NULL */
+        return(new);
     }
     else {
-	printf("getgridtemplate: GDT Template 3.%d not defined.\n",(int)number);
-	return(0);        /* NULL */
+        printf("getgridtemplate: GDT Template 3.%d not defined.\n",(int)number);
+        return(0);        /* NULL */
     }
 
     return(0);        /* NULL */
@@ -130,54 +130,54 @@ extgridtemplate(g2int number, g2int *list)
     if ( ! new->needext ) return(new);
 
     if ( number == 120 ) {
-	new->extlen=list[1]*2;
-	new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-	for (i=0;i<new->extlen;i++) {
-	    if ( i%2 == 0 ) {
-		new->ext[i]=2;
-	    }
-	    else {
-		new->ext[i]=-2;
-	    }
-	}
+        new->extlen=list[1]*2;
+        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
+        for (i=0;i<new->extlen;i++) {
+            if ( i%2 == 0 ) {
+                new->ext[i]=2;
+            }
+            else {
+                new->ext[i]=-2;
+            }
+        }
     }
     else if ( number == 4 ) {
-	new->extlen=list[7];
-	new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-	for (i=0;i<new->extlen;i++) {
-	    new->ext[i]=4;
-	}
-	new->extlen=list[8];
-	new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-	for (i=0;i<new->extlen;i++) {
-	    new->ext[i]=-4;
-	}
+        new->extlen=list[7];
+        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
+        for (i=0;i<new->extlen;i++) {
+            new->ext[i]=4;
+        }
+        new->extlen=list[8];
+        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
+        for (i=0;i<new->extlen;i++) {
+            new->ext[i]=-4;
+        }
     }
     else if ( number == 5 ) {
-	new->extlen=list[7];
-	new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-	for (i=0;i<new->extlen;i++) {
-	    new->ext[i]=4;
-	}
-	new->extlen=list[8];
-	new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-	for (i=0;i<new->extlen;i++) {
-	    new->ext[i]=-4;
-	}
+        new->extlen=list[7];
+        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
+        for (i=0;i<new->extlen;i++) {
+            new->ext[i]=4;
+        }
+        new->extlen=list[8];
+        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
+        for (i=0;i<new->extlen;i++) {
+            new->ext[i]=-4;
+        }
     }
     else if ( number == 1000 ) {
-	new->extlen=list[19];
-	new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-	for (i=0;i<new->extlen;i++) {
-	    new->ext[i]=4;
-	}
+        new->extlen=list[19];
+        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
+        for (i=0;i<new->extlen;i++) {
+            new->ext[i]=4;
+        }
     }
     else if ( number == 1200 ) {
-	new->extlen=list[15];
-	new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-	for (i=0;i<new->extlen;i++) {
-	    new->ext[i]=4;
-	}
+        new->extlen=list[15];
+        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
+        for (i=0;i<new->extlen;i++) {
+            new->ext[i]=4;
+        }
     }
 
     return(new);

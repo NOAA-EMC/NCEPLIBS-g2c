@@ -73,7 +73,7 @@ g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
     /*printf(" SAGIPO %d \n",(int)ipos);*/
     for (j=0;j<*lencsec2;j++)
     {
-	*(*csec2+j)=cgrib[ipos+j];
+        *(*csec2+j)=cgrib[ipos+j];
     }
     *iofst=*iofst+(*lencsec2*8);
 

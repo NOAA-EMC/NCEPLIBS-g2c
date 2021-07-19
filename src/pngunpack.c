@@ -11,7 +11,7 @@ int dec_png(unsigned char *,g2int *,g2int *,char *);
 // SUBPROGRAM:    pngunpack
 //   PRGMMR: Gilbert          ORG: W/NP11    DATE: 2003-08-27
 //
-// ABSTRACT: This subroutine unpacks a data field that was packed into a 
+// ABSTRACT: This subroutine unpacks a data field that was packed into a
 //   PNG image format
 //   using info from the GRIB2 Data Representation Template 5.41 or 5.40010.
 //
@@ -41,38 +41,38 @@ g2int pngunpack(unsigned char *cpack,g2int len,g2int *idrstmpl,g2int ndpts,
                 g2float *fld)
 {
 
-      g2int  *ifld;
-      g2int  j,nbits,iret,width,height;
-      g2float  ref,bscale,dscale;
-      unsigned char *ctemp;
+    g2int  *ifld;
+    g2int  j,nbits,iret,width,height;
+    g2float  ref,bscale,dscale;
+    unsigned char *ctemp;
 
-      rdieee(idrstmpl+0,&ref,1);
-      bscale = int_power(2.0,idrstmpl[1]);
-      dscale = int_power(10.0,-idrstmpl[2]);
-      nbits = idrstmpl[3];
+    rdieee(idrstmpl+0,&ref,1);
+    bscale = int_power(2.0,idrstmpl[1]);
+    dscale = int_power(10.0,-idrstmpl[2]);
+    nbits = idrstmpl[3];
 //
 //  if nbits equals 0, we have a constant field where the reference value
 //  is the data value at each gridpoint
 //
-      if (nbits != 0) {
+    if (nbits != 0) {
 
-         ifld=(g2int *)calloc(ndpts,sizeof(g2int));
-         ctemp=(unsigned char *)calloc(ndpts*4,1);
-         if ( ifld == 0 || ctemp == 0) {
+        ifld=(g2int *)calloc(ndpts,sizeof(g2int));
+        ctemp=(unsigned char *)calloc(ndpts*4,1);
+        if ( ifld == 0 || ctemp == 0) {
             fprintf(stderr,"Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
             return(1);
-         }
-         iret=(g2int)dec_png(cpack,&width,&height,ctemp);
-         gbits(ctemp,ifld,0,nbits,0,ndpts);
-         for (j=0;j<ndpts;j++) {
-           fld[j]=(((g2float)ifld[j]*bscale)+ref)*dscale;
-         }
-         free(ctemp);
-         free(ifld);
-      }
-      else {
-         for (j=0;j<ndpts;j++) fld[j]=ref;
-      }
+        }
+        iret=(g2int)dec_png(cpack,&width,&height,ctemp);
+        gbits(ctemp,ifld,0,nbits,0,ndpts);
+        for (j=0;j<ndpts;j++) {
+            fld[j]=(((g2float)ifld[j]*bscale)+ref)*dscale;
+        }
+        free(ctemp);
+        free(ifld);
+    }
+    else {
+        for (j=0;j<ndpts;j++) fld[j]=ref;
+    }
 
-      return(0);
+    return(0);
 }

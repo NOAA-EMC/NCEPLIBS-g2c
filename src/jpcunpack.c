@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include "grib2.h"
 
-   int dec_jpeg2000(char *,g2int ,g2int *);
+int dec_jpeg2000(char *,g2int ,g2int *);
 
 /**
  * This subroutine unpacks a data field that was packed into a
@@ -27,34 +27,34 @@ g2int jpcunpack(unsigned char *cpack,g2int len,g2int *idrstmpl,g2int ndpts,
                 g2float *fld)
 {
 
-      g2int  *ifld;
-      g2int  j,nbits,iret;
-      g2float  ref,bscale,dscale;
+    g2int  *ifld;
+    g2int  j,nbits,iret;
+    g2float  ref,bscale,dscale;
 
-      rdieee(idrstmpl+0,&ref,1);
-      bscale = int_power(2.0,idrstmpl[1]);
-      dscale = int_power(10.0,-idrstmpl[2]);
-      nbits = idrstmpl[3];
+    rdieee(idrstmpl+0,&ref,1);
+    bscale = int_power(2.0,idrstmpl[1]);
+    dscale = int_power(10.0,-idrstmpl[2]);
+    nbits = idrstmpl[3];
 //
 //  if nbits equals 0, we have a constant field where the reference value
 //  is the data value at each gridpoint
 //
-      if (nbits != 0) {
+    if (nbits != 0) {
 
-         ifld=(g2int *)calloc(ndpts,sizeof(g2int));
-         if ( ifld == 0 ) {
+        ifld=(g2int *)calloc(ndpts,sizeof(g2int));
+        if ( ifld == 0 ) {
             fprintf(stderr,"Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
             return(1);
-         }
-         iret=(g2int)dec_jpeg2000(cpack,len,ifld);
-         for (j=0;j<ndpts;j++) {
-           fld[j]=(((g2float)ifld[j]*bscale)+ref)*dscale;
-         }
-         free(ifld);
-      }
-      else {
-         for (j=0;j<ndpts;j++) fld[j]=ref;
-      }
+        }
+        iret=(g2int)dec_jpeg2000(cpack,len,ifld);
+        for (j=0;j<ndpts;j++) {
+            fld[j]=(((g2float)ifld[j]*bscale)+ref)*dscale;
+        }
+        free(ifld);
+    }
+    else {
+        for (j=0;j<ndpts;j++) fld[j]=ref;
+    }
 
-      return(0);
+    return(0);
 }
