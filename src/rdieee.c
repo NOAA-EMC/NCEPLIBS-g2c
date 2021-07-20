@@ -1,34 +1,22 @@
 /** @file
+ * @brief Read a list of real values in 32-bit IEEE floating
+ * point format.
+ * @author Stephen Gilbert @date 2002-10-25
  */
 #include "grib2.h"
 
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    rdieee
-//   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-25
-//
-// ABSTRACT: This subroutine reads a list of real values in
-//   32-bit IEEE floating point format.
-//
-// PROGRAM HISTORY LOG:
-// 2002-10-25  Gilbert
-//
-// USAGE:    void rdieee(g2int *rieee,g2float *a,g2int num)
-//   INPUT ARGUMENT LIST:
-//     rieee    - g2int array of floating point values in 32-bit IEEE format.
-//     num      - Number of floating point values to convert.
-//
-//   OUTPUT ARGUMENT LIST:
-//     a        - float array of real values.  a must be allocated with at
-//                least 4*num bytes of memory before calling this function.
-//
-// REMARKS: None
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:  IBM SP
-//
-//$$$
+/**
+ * This subroutine reads a list of real values in 32-bit IEEE floating
+ * point format.
+ *
+ * @param rieee g2int array of floating point values in 32-bit IEEE
+ * format.
+ * @param num Number of floating point values to convert.
+ * @param a float array of real values.  a must be allocated with at
+ * least 4*num bytes of memory before calling this function.
+ *
+ * @author Stephen Gilbert @date 2002-10-25
+ */
 void rdieee(g2int *rieee,g2float *a,g2int num)
 {
 

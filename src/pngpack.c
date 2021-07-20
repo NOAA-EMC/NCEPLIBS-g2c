@@ -1,4 +1,5 @@
 /** @file
+ * @author Stephen Gilbert @date 2003-08-27
  */
 #include <stdlib.h>
 #include <math.h>
@@ -6,54 +7,31 @@
 
 int enc_png(char *,g2int ,g2int ,g2int ,char *);
 
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    pngpack
-//   PRGMMR: Gilbert          ORG: W/NP11    DATE: 2003-08-27
-//
-// ABSTRACT: This subroutine packs up a data field into PNG image format.
-//   After the data field is scaled, and the reference value is subtracted out,
-//   it is treated as a grayscale image and passed to a PNG encoder.
-//   It also fills in GRIB2 Data Representation Template 5.41 or 5.40010 with
-//   the appropriate values.
-//
-// PROGRAM HISTORY LOG:
-// 2003-08-27  Gilbert
-//
-// USAGE:    pngpack(g2float *fld,g2int width,g2int height,g2int *idrstmpl,
-//                   unsigned char *cpack,g2int *lcpack);
-//   INPUT ARGUMENT LIST:
-//     fld[]    - Contains the data values to pack
-//     width    - number of points in the x direction
-//     height   - number of points in the y direction
-//     idrstmpl - Contains the array of values for Data Representation
-//                Template 5.41 or 5.40010
-//                [0] = Reference value - ignored on input
-//                [1] = Binary Scale Factor
-//                [2] = Decimal Scale Factor
-//                [3] = number of bits for each data value - ignored on input
-//                [4] = Original field type - currently ignored on input
-//                      Data values assumed to be reals.
-//
-//   OUTPUT ARGUMENT LIST:
-//     idrstmpl - Contains the array of values for Data Representation
-//                Template 5.41 or 5.40010
-//                [0] = Reference value - set by pngpack routine.
-//                [1] = Binary Scale Factor - unchanged from input
-//                [2] = Decimal Scale Factor - unchanged from input
-//                [3] = Number of bits containing each grayscale pixel value
-//                [4] = Original field type - currently set = 0 on output.
-//                      Data values assumed to be reals.
-//     cpack    - The packed data field
-//     lcpack   - length of packed field cpack.
-//
-// REMARKS: None
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:  IBM SP
-//
-//$$$
+/**
+ *
+ * This subroutine packs up a data field into PNG image format. After
+ * the data field is scaled, and the reference value is subtracted
+ * out, it is treated as a grayscale image and passed to a PNG
+ * encoder. It also fills in GRIB2 Data Representation Template 5.41
+ * or 5.40010 with the appropriate values.
+ *
+ * @param fld Contains the data values to pack.
+ * @param width number of points in the x direction.
+ * @param height number of points in the y direction.
+ * @param idrstmpl Contains the array of values for Data
+ * Representation Template 5.41 or 5.40010.
+ * - 0 Reference value - ignored on input, set by pngpack routine.
+ * - 1 Binary Scale Factor - used on input.
+ * - 2 Decimal Scale Factor - used on input.
+ * - 3 number of bits for each grayscale pixel value - ignored on
+     input.
+ * - 4 Original field type - currently ignored on input, set = 0 on
+     output. Data values assumed to be reals.
+ * @param cpack The packed data field.
+ * @param lcpack length of packed field cpack.
+ *
+ * @author Stephen Gilbert @date 2003-08-27
+ */
 void pngpack(g2float *fld,g2int width,g2int height,g2int *idrstmpl,
              unsigned char *cpack,g2int *lcpack)
 {
