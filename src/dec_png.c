@@ -1,5 +1,6 @@
 /** @file
  * @brief PNG functions.
+ * @author Stephen Gilbert
  */
 #ifndef USE_PNG
 void dummy(void) {}
