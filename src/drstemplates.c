@@ -1,36 +1,26 @@
 /** @file
+ * @author Stephen Gilbert @date 2001-06-28
  */
 #include <stdlib.h>
 #include "grib2.h"
 #include "drstemplates.h"
 
-/*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
-  !                .      .    .                                       .
-  ! SUBPROGRAM:    getdrsindex
-  !   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2001-06-28
-  !
-  ! ABSTRACT: This function returns the index of specified Data
-  !   Representation Template 5.NN (NN=number) in array templates.
-  !
-  ! PROGRAM HISTORY LOG:
-  ! 2001-06-28  Gilbert
-  ! 2009-01-14  Vuong     Changed structure name template to gtemplate
-  !
-  ! USAGE:    index=getdrsindex(number)
-  !   INPUT ARGUMENT LIST:
-  !     number   - NN, indicating the number of the Data Representation
-  !                Template 5.NN that is being requested.
-  !
-  ! RETURNS:  Index of DRT 5.NN in array gtemplates, if gtemplate exists.
-  !           = -1, otherwise.
-  !
-  ! REMARKS: None
-  !
-  ! ATTRIBUTES:
-  !   LANGUAGE: C
-  !   MACHINE:  IBM SP
-  !
-  !$$$*/
+/**
+ * This function returns the index of specified Data Representation
+ * Template 5.NN (NN=number) in array templates.
+ *
+ * PROGRAM HISTORY LOG:
+ * - 2001-06-28  Gilbert
+ * - 2009-01-14  Vuong Changed structure name template to gtemplate
+ *
+ * @param number NN, indicating the number of the Data Representation
+ * Template 5.NN that is being requested.
+ *
+ * @return Index of DRT 5.NN in array gtemplates, if gtemplate
+ * exists. -1, otherwise.
+ *
+ * @author Stephen Gilbert @date 2001-06-28
+ */
 g2int getdrsindex(g2int number)
 {
     g2int j,getdrsindex=-1;
@@ -45,38 +35,25 @@ g2int getdrsindex(g2int number)
     return(getdrsindex);
 }
 
-
-/*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
-  !                .      .    .                                       .
-  ! SUBPROGRAM:    getdrstemplate
-  !   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2000-05-11
-  !
-  ! ABSTRACT: This subroutine returns DRS template information for a
-  !   specified Data Representation Template 5.NN.
-  !   The number of entries in the template is returned along with a map
-  !   of the number of octets occupied by each entry.  Also, a flag is
-  !   returned to indicate whether the template would need to be extended.
-  !
-  ! PROGRAM HISTORY LOG:
-  ! 2000-05-11  Gilbert
-  ! 2009-01-14  Vuong     Changed structure name template to gtemplate
-  !
-  ! USAGE:    new=getdrstemplate(number);
-  !   INPUT ARGUMENT LIST:
-  !     number   - NN, indicating the number of the Data Representation
-  !                Template 5.NN that is being requested.
-  !
-  !   RETURN VALUE:
-  !        - Pointer to the returned template struct.
-  !          Returns NULL pointer, if template not found.
-  !
-  ! REMARKS: None
-  !
-  ! ATTRIBUTES:
-  !   LANGUAGE: C
-  !   MACHINE:  IBM SP
-  !
-  !$$$*/
+/**
+ * This subroutine returns DRS template information for a specified
+ * Data Representation Template 5.NN. The number of entries in the
+ * template is returned along with a map of the number of octets
+ * occupied by each entry. Also, a flag is returned to indicate
+ * whether the template would need to be extended.
+ *
+ * PROGRAM HISTORY LOG:
+ * - 2000-05-11  Gilbert
+ * - 2009-01-14  Vuong Changed structure name template to gtemplate
+ *
+ * @param number NN, indicating the number of the Data Representation
+ * Template 5.NN that is being requested.
+ *
+ * @return Pointer to the returned template struct. Returns NULL
+ * pointer, if template not found.
+ *
+ * @author Stephen Gilbert @date 2000-05-11
+ */
 gtemplate *getdrstemplate(g2int number)
 {
     g2int index;
@@ -103,37 +80,27 @@ gtemplate *getdrstemplate(g2int number)
     return(0);        //NULL
 }
 
-/*!$$$  SUBPROGRAM DOCUMENTATION BLOCK
-  !                .      .    .                                       .
-  ! SUBPROGRAM:    extdrstemplate
-  !   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2000-05-11
-  !
-  ! ABSTRACT: This subroutine generates the remaining octet map for a
-  !   given Data Representation Template, if required.  Some Templates can
-  !   vary depending on data values given in an earlier part of the
-  !   Template, and it is necessary to know some of the earlier entry
-  !   values to generate the full octet map of the Template.
-  !
-  ! PROGRAM HISTORY LOG:
-  ! 2000-05-11  Gilbert
-  ! 2009-01-14  Vuong     Changed structure name template to gtemplate
-  !
-  ! USAGE:    new=extdrstemplate(number,list);
-  !   INPUT ARGUMENT LIST:
-  !     number   - NN, indicating the number of the Data Representation
-  !                Template 5.NN that is being requested.
-  !     list()   - The list of values for each entry in the
-  !                the Data Representation Template 5.NN.
-  !
-  !   RETURN VALUE:
-  !        - Pointer to the returned template struct.
-  !          Returns NULL pointer, if template not found.
-  !
-  ! ATTRIBUTES:
-  !   LANGUAGE: C
-  !   MACHINE:  IBM SP
-  !
-  !$$$*/
+/**
+ * This subroutine generates the remaining octet map for a given Data
+ * Representation Template, if required. Some Templates can vary
+ * depending on data values given in an earlier part of the Template,
+ * and it is necessary to know some of the earlier entry values to
+ * generate the full octet map of the Template.
+ *
+ * PROGRAM HISTORY LOG:
+ * - 2000-05-11  Gilbert
+ * - 2009-01-14  Vuong Changed structure name template to gtemplate
+ *
+ * @param number NN, indicating the number of the Data Representation
+ * Template 5.NN that is being requested.
+ * @param list The list of values for each entry in the the Data
+ * Representation Template 5.NN.
+ *
+ * @return Pointer to the returned template struct. Returns NULL
+ * pointer, if template not found.
+ *
+ * @author Stephen Gilbert @date 2000-05-11
+ */
 gtemplate *extdrstemplate(g2int number,g2int *list)
 {
     gtemplate *new;
