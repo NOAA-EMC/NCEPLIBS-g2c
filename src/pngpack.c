@@ -8,7 +8,6 @@
 int enc_png(char *,g2int ,g2int ,g2int ,char *);
 
 /**
- *
  * This subroutine packs up a data field into PNG image format. After
  * the data field is scaled, and the reference value is subtracted
  * out, it is treated as a grayscale image and passed to a PNG
