@@ -1,44 +1,38 @@
 /** @file
+ * @brief Functions for PDS template information.
+ *
+ * PROGRAM HISTORY LOG:
+ * - 2001-06-28  Gilbert
+ * - 2009-01-14  Vuong     Changed structure name template to gtemplate
+ * - 2009-12-15  Vuong     Added Product Definition Template 4.31
+ * Added Product Definition Template 4.15
+ * - 2010-08-03  Vuong     Added Product Definition Template 4.42 and 4.43
+ * - 2010-12-08  Vuong     Corrected Product Definition Template 4.42 and 4.43
+ * - 2012-03-29  Vuong     Added Templates 4.44,4.45,4.46,4.47,4.48,4.50,
+ * 4.51,4.91,4.32 and 4.52
+ * - 2013-08-05  Vuong     Corrected 4.91 and added Templates 4.33,4.34,4.53,4.54
+ * - 2015-10-07  Vuong     Added Templates 4.57, 4.60, 4.61 and
+ * allow a forecast time to be negative
+ *
+ * @author Stephen Gilbert @date 2001-06-28
  */
+
 #include <stdlib.h>
 #include "grib2.h"
 #include "pdstemplates.h"
 
-///$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    getpdsindex
-//   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2001-06-28
-//
-// ABSTRACT: This function returns the index of specified Product
-//   Definition Template 4.NN (NN=number) in array templates.
-//
-// PROGRAM HISTORY LOG:
-// 2001-06-28  Gilbert
-// 2009-01-14  Vuong     Changed structure name template to gtemplate
-// 2009-12-15  Vuong     Added Product Definition Template 4.31
-//                       Added Product Definition Template 4.15
-// 2010-08-03  Vuong     Added Product Definition Template 4.42 and 4.43
-// 2010-12-08  Vuong     Corrected Product Definition Template 4.42 and 4.43
-// 2012-03-29  Vuong     Added Templates 4.44,4.45,4.46,4.47,4.48,4.50,
-//                       4.51,4.91,4.32 and 4.52
-// 2013-08-05  Vuong     Corrected 4.91 and added Templates 4.33,4.34,4.53,4.54
-// 2015-10-07  Vuong     Added Templates 4.57, 4.60, 4.61 and
-//                       allow a forecast time to be negative
-// USAGE:    index=getpdsindex(number)
-//   INPUT ARGUMENT LIST:
-//     number   - NN, indicating the number of the Product Definition
-//                Template 4.NN that is being requested.
-//
-// RETURNS:  Index of PDT 4.NN in array templates, if template exists.
-//           = -1, otherwise.
-//
-// REMARKS: None
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:  IBM SP
-//
-//$$$/
+/**
+ * This function returns the index of specified Product Definition
+ * Template 4.NN (NN=number) in array templates.
+ *
+ * @param number NN, indicating the number of the Product Definition
+ * Template 4.NN that is being requested.
+ *
+ * @return Index of PDT 4.NN in array templates, if template
+ * exists. -1, otherwise.
+ *
+ * @author Stephen Gilbert @date 2001-06-28
+ */
 g2int getpdsindex(g2int number)
 {
     g2int j,getpdsindex=-1;
@@ -53,46 +47,21 @@ g2int getpdsindex(g2int number)
     return(getpdsindex);
 }
 
-
-///$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    getpdstemplate
-//   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2000-05-11
-//
-// ABSTRACT: This subroutine returns PDS template information for a
-//   specified Product Definition Template 4.NN.
-//   The number of entries in the template is returned along with a map
-//   of the number of octets occupied by each entry.  Also, a flag is
-//   returned to indicate whether the template would need to be extended.
-//
-// PROGRAM HISTORY LOG:
-// 2000-05-11  Gilbert
-// 2009-01-14  Vuong     Changed structure name template to gtemplate
-// 2009-08-05  Vuong     Added Product Definition Template 4.31
-// 2010-08-03  Vuong     Added Product Definition Template 4.42 and 4.43
-// 2010-12-08  Vuong     Corrected Product Definition Template 4.42 and 4.43
-// 2012-02-15  Vuong     Added Templates 4.44,4.45,4.46,4.47,4.48,4.50,
-//                       4.51,4.91,4.32 and 4.52
-// 2013-08-05  Vuong     Corrected 4.91 and added Templates 4.33,4.34,4.53,4.54
-// 2015-10-07  Vuong     Added Templates 4.57, 4.60, 4.61 and
-//                       allow a forecast time to be negative
-//
-// USAGE:    CALL getpdstemplate(number)
-//   INPUT ARGUMENT LIST:
-//     number   - NN, indicating the number of the Product Definition
-//                Template 4.NN that is being requested.
-//
-//   RETURN VALUE:
-//        - Pointer to the returned template struct.
-//          Returns NULL pointer, if template not found.
-//
-// REMARKS: None
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:  IBM SP
-//
-//$$$/
+/**
+ * This subroutine returns PDS template information for a specified
+ * Product Definition Template 4.NN. The number of entries in the
+ * template is returned along with a map of the number of octets
+ * occupied by each entry. Also, a flag is returned to indicate
+ * whether the template would need to be extended.
+ *
+ * @param number NN, indicating the number of the Product Definition
+ * Template 4.NN that is being requested.
+ *
+ * @return Pointer to the returned template struct. Returns NULL
+ * pointer, if template not found.
+ *
+ * @author Stephen Gilbert @date 2000-05-11
+ */
 gtemplate *getpdstemplate(g2int number)
 {
     g2int index;
@@ -119,46 +88,23 @@ gtemplate *getpdstemplate(g2int number)
     return(0);        //NULL
 }
 
-
-///$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    extpdstemplate
-//   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2000-05-11
-//
-// ABSTRACT: This subroutine generates the remaining octet map for a
-//   given Product Definition Template, if required.  Some Templates can
-//   vary depending on data values given in an earlier part of the
-//   Template, and it is necessary to know some of the earlier entry
-//   values to generate the full octet map of the Template.
-//
-// PROGRAM HISTORY LOG:
-// 2000-05-11  Gilbert
-// 2009-01-14  Vuong     Changed structure name template to gtemplate
-// 2009-08-05  Vuong     Added Product Definition Template 4.31
-// 2010-08-03  Vuong     Added Product Definition Template 4.42 and 4.43
-// 2010-12-08  Vuong     Corrected Product Definition Template 4.42 and 4.43
-// 2012-02-15  Vuong     Added Templates 4.44,4.45,4.46,4.47,4.48,4.50,
-//                       4.51,4.91,4.32 and 4.52
-// 2013-08-05  Vuong     Corrected 4.91 and added Templates 4.33,4.34,4.53,4.54
-// 2015-10-07  Vuong     Added Templates 4.57, 4.60, 4.61 and
-//                       allow a forecast time to be negative
-//
-// USAGE:    CALL extpdstemplate(number,list)
-//   INPUT ARGUMENT LIST:
-//     number   - NN, indicating the number of the Product Definition
-//                Template 4.NN that is being requested.
-//     list()   - The list of values for each entry in the
-//                the Product Definition Template 4.NN.
-//
-//   RETURN VALUE:
-//        - Pointer to the returned template struct.
-//          Returns NULL pointer, if template not found.
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:  IBM SP
-//
-//$$$
+/**
+ * This subroutine generates the remaining octet map for a given
+ * Product Definition Template, if required. Some Templates can vary
+ * depending on data values given in an earlier part of the Template,
+ * and it is necessary to know some of the earlier entry values to
+ * generate the full octet map of the Template.
+ *
+ * @param number NN, indicating the number of the Product Definition
+ * Template 4.NN that is being requested.
+ * @param list The list of values for each entry in the the Product
+ * Definition Template 4.NN.
+ *
+ * @return Pointer to the returned template struct. Returns NULL
+ * pointer, if template not found.
+ *
+ * @author Stephen Gilbert @date 2000-05-11
+ */
 gtemplate *extpdstemplate(g2int number,g2int *list)
 {
     gtemplate *new;
