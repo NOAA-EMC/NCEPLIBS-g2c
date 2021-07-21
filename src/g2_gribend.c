@@ -1,51 +1,38 @@
 /** @file
+ * @brief Finalize a GRIB2 message after all grids and fields have
+ * been added.
+ * @author Stephen Gilbert @date 2002-10-31
  */
 #include <stdio.h>
 #include "grib2.h"
 
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    g2_gribend
-//   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-31
-//
-// ABSTRACT: This routine finalizes a GRIB2 message after all grids
-//   and fields have been added.  It adds the End Section ( "7777" )
-//   to the end of the GRIB message and calculates the length and stores
-//   it in the appropriate place in Section 0.
-//   This routine is used with routines "g2_create", "g2_addlocal",
-//   "g2_addgrid", and "g2_addfield" to create a complete GRIB2 message.
-//   g2_create must be called first to initialize a new GRIB2 message.
-//
-// PROGRAM HISTORY LOG:
-// 2002-10-31  Gilbert
-//
-// USAGE:    int g2_gribend(unsigned char *cgrib)
-//   INPUT ARGUMENT:
-//     cgrib    - Char array containing all the data sections added
-//                be previous calls to g2_create, g2_addlocal, g2_addgrid,
-//                and g2_addfield.
-//
-//   OUTPUT ARGUMENTS:
-//     cgrib    - Char array containing the finalized GRIB2 message
-//
-//   RETURN VALUES:
-//     ierr     - Return code.
-//              > 0 = Length of the final GRIB2 message in bytes.
-//               -1 = GRIB message was not initialized.  Need to call
-//                    routine g2_create first.
-//               -2 = GRIB message already complete.
-//               -3 = Sum of Section byte counts doesn't add to total byte count
-//               -4 = Previous Section was not 7.
-//
-// REMARKS: This routine is intended for use with routines "g2_create",
-//          "g2_addlocal", "g2_addgrid", and "g2_addfield" to create a complete
-//          GRIB2 message.
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:
-//
-//$$$
+/**
+ * This routine finalizes a GRIB2 message after all grids and fields
+ * have been added. It adds the End Section ("7777") to the end of
+ * the GRIB message and calculates the length and stores it in the
+ * appropriate place in Section 0. This routine is used with routines
+ * g2_create(), g2_addlocal(), g2_addgrid(), and g2_addfield() to
+ * create a complete GRIB2 message. g2_create() must be called first to
+ * initialize a new GRIB2 message.
+ *
+ * @param cgrib Char array containing all the data sections added be
+ * previous calls to g2_create, g2_addlocal, g2_addgrid, and
+ * g2_addfield. After function is called, contains the finalized GRIB2
+ * message.
+ *
+ * @return
+ * - > 0 = Length of the final GRIB2 message in bytes.
+ * - -1 = GRIB message was not initialized. Need to call routine g2_create first.
+ * - -2 = GRIB message already complete.
+ * - -3 = Sum of Section byte counts doesn't add to total byte count
+ * - -4 = Previous Section was not 7.
+ *
+ * @note This routine is intended for use with routines g2_create(),
+ * g2_addlocal(), g2_addgrid(), and g2_addfield() to create a complete
+ * GRIB2 message.
+ *
+ * @author Stephen Gilbert @date 2002-10-31
+ */
 g2int g2_gribend(unsigned char *cgrib)
 {
 
