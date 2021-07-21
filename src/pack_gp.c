@@ -1,15 +1,5 @@
 /** @file
-    pack_gp.f -- translated by f2c (version 20031025).
-    You must link the resulting object file with libf2c:
-    on Microsoft Windows system, link with libf2c.lib;
-    on Linux or Unix systems, link with .../path/to/libf2c.a -lm
-    or, if you install libf2c.a in a standard place, with -lf2c -lm
-    -- in that order, at the end of the command line, as in
-    <pre>
-    cc *.o -lf2c -lm
-    </pre>
-    Source for libf2c is in /netlib/f2c/libf2c.zip, e.g.,
-    http://www.netlib.org/f2c/libf2c.zip
+ * @author Glahn @date february 1994
 */
 
 /*#include "f2c.h"*/
@@ -20,11 +10,250 @@ typedef g2int logical;
 #define TRUE_ (1)
 #define FALSE_ (0)
 
-/* Subroutine */ int pack_gp(integer *kfildo, integer *ic, integer *nxy,
-                             integer *is523, integer *minpk, integer *inc, integer *missp, integer
-                             *misss, integer *jmin, integer *jmax, integer *lbit, integer *nov,
-                             integer *ndg, integer *lx, integer *ibit, integer *jbit, integer *
-                             kbit, integer *novref, integer *lbitref, integer *ier)
+/**
+ * Determines groups of variable size, but at least of size minpk, the
+ * associated max (jmax( )) and min (jmin( )), the number of bits
+ * necessary to hold the values in each group (lbit( )), the number of
+ * values in each group (nov( )), the number of bits necessary to pack
+ * the jmin( ) values (ibit), the number of bits necessary to pack the
+ * lbit( ) values (jbit), and the number of bits necessary to pack the
+ * nov( ) values (kbit). The routine is designed to determine the
+ * groups such that a small number of bits is necessary to pack the
+ * data without excessive computations. If all values in the group are
+ * zero, the number of bits to use in packing is defined as zero when
+ * there can be no missing values; when there can be missing values,
+ * the number of bits must be at least 1 to have the capability to
+ * recognize the missing value. However, if all values in a group are
+ * missing, the number of bits needed is 0, and the unpacker
+ * recognizes this. All variables are integer. Even though the groups
+ * are initially of size minpk or larger, an adjustment between two
+ * groups (the lookback procedure) may make a group smaller than
+ * minpk. The control on group size is that the sum of the sizes of
+ * the two consecutive groups, each of size minpk or larger, is not
+ * decreased. When determining the number of bits necessary for
+ * packing, the largest value that can be accommodated in, say, mbits,
+ * is 2**mbits-1; this largest value (and the next smallest value) is
+ * reserved for the missing value indicator (only) when is523 ne 0. If
+ * the dimension ndg is not large enough to hold all the groups, the
+ * local value of minpk is increased by 50 percent. This is repeated
+ * until ndg will suffice. A diagnostic is printed whenever this
+ * happens, which should be very rarely. If it happens often, ndg in
+ * subroutine pack should be increased and a corresponding increase in
+ * subroutine unpack made. Considerable code is provided so that no
+ * more checking for missing values within loops is done than
+ * necessary; the added efficiency of this is relatively minor, but
+ * does no harm. For grib2, the reference value for the length of
+ * groups in nov( ) and for the number of bits necessary to pack group
+ * values are determined, and subtracted before jbit and kbit are
+ * determined.
+ *
+ * When 1 or more groups are large compared to the others, the width
+ * of all groups must be as large as the largest. A subroutine reduce
+ * breaks up large groups into 2 or more to reduce total bits
+ * required. If reduce should abort, pack_gp will be executed again
+ * without the call to reduce.
+ *
+ * PROGRAM HISTORY LOG:
+ * - February 1994 Glahn tdl mos-2000
+ * - June 1995 Glahn modified for lmiss error.
+ * - July 1996 Glahn added misss
+ * - February 1997 Glahn removed 4 redundant tests for missp.eq.0;
+ * inserted a test to better handle a string of 9999's
+ * - February 1997 Glahn added loops to eliminate test for misss when
+ * misss = 0
+ * - March 1997 Glahn corrected for secondary missing value
+ * - March 1997 Glahn corrected for use of local value of minpk
+ * - March 1997 Glahn corrected for secondary missing value
+ * - March 1997 Glahn changed calculating number of bits through
+ * exponents to an array (improved overall packing performance by
+ * about 35 percent!). allowed 0 bits for packing jmin( ), lbit( ),
+ * and nov( ).
+ * - May 1997 Glahn a number of changes for efficiency.  mod functions
+ * eliminated and one ifthen added. jount removed.  recomputation of
+ * bits not made unless necessary after moving points from one group
+ * to another. nendb adjusted to eliminate possibility of very small
+ * group at the end.  about 8 percent improvement in overall
+ * packing. iskipa removed; there is always a group b that can become
+ * group a. control on size of group b (statement below 150)
+ * added. added adda, and use of ge and le instead of gt and lt in
+ * loops between 150 and 160.  ibitbs added to shorten trips through
+ * loop.
+ * - March 2000 Glahn modified for grib2; changed name from packgp
+ * - january 2001 Glahn comments; ier = 706 substituted for stops;
+ * added return1; removed statement number 110; added ier and * return
+ * - November 2001 Glahn changed some diagnostic formats to allow
+ * printing larger numbers
+ * - November 2001 Glahn added misslx( ) to put maximum value into
+ * jmin( ) when all values missing to agree with grib standard.
+ * - November 2001 Glahn changed two tests on missp and misss eq 0 to
+ * tests on is523. however, missp and misss cannot in general be = 0.
+ * - November 2001 Glahn added call to reduce; defined itest before
+ * loops to reduce computation; started large group when all same
+ * value
+ * - December 2001 Glahn modified and added a few comments
+ * - January 2002 Glahn removed loop before 150 to determine a group
+ * of all same value
+ * - January 2002 Glahn changed mallow from 9999999 to 2**30+1, and
+ * made it a parameter
+ * - March 2002 Glahn added non fatal ier = 716, 717; removed
+ * nendb=nxy above 150; added iersav=0; comments
+ *
+ * DATA SET USE 
+ * - kfildo - unit number for output (print) file. (output) 
+ *
+ * @param kfildo unit number for output (print) file. (input) 
+ * @param ic array to hold data for packing. the values do not have to
+ * be positive at this point, but must be in the range -2**30 to
+ * +2**30 (the the value of mallow). these integer values will be
+ * retained exactly through packing and unpacking. (input)
+ * @param nxy number of values in ic( ). also treated as its
+ * dimension. (input)
+ * @param is523 missing value management 0=data contains no missing
+ * values 1=data contains primary missing values 2=data contains
+ * primary and secondary missing values (input)
+ * @param minpk the minimum size of each group, except possibly the
+ * last one. (input)
+ * @param inc the number of values to add to an already existing group
+ * in determining whether or not to start a new group. ideally, this
+ * would be 1, but each time inc values are attempted, the max and min
+ * of the next minpk values must be found. this is "a loop within a
+ * loop," and a slightly larger value may give about as good results
+ * with slightly less computational time.  if inc is le 0, 1 is used,
+ * and a diagnostic is output. note: it is expected that inc will
+ * equal 1. the code uses inc primarily in the loops starting at
+ * statement 180. if inc were 1, there would not need to be loops as
+ * such. however, kinc (the local value of inc) is set ge 1 when near
+ * the end of the data to forestall a very small group at the end.
+ * (input)
+ * @param missp when missing points can be present in the data, they
+ * will have the value missp or misss.  missp is the primary missing
+ * value and misss is the secondary missing value . these must not be
+ * values that would occur with subtracting the minimum (reference)
+ * value or scaling.  for example, missp = 0 would not be advisable.
+ * (input)
+ * @param misss secondary missing value indicator (see missp).
+ * (input)
+ * @param jmin the minimum of each group (j=1,lx). (output) 
+ * @param jmax the maximum of each group (j=1,lx). this is not really
+ * needed, but since the max of each group must be found, saving it
+ * here is cheap in case the user wants it. (output)
+ * @param lbit the number of bits necessary to pack each group
+ * (j=1,lx). it is assumed the minimum of each group will be removed
+ * before packing, and the values to pack will, therefore, all be
+ * positive.  however, ic( ) does not necessarily contain all positive
+ * values. if the overall minimum has been removed (the usual case),
+ * then ic( ) will contain only positive values. (output)
+ * @param nov the number of values in each group (j=1,lx). (output)
+ * @param ndg the dimension of jmin, jmax, lbit, and nov. (input)
+ * @param lx the number of groups determined. (output) 
+ * @param ibit the number of bits necessary to pack the jmin(j)
+ * values, j=1,lx. (output)
+ * @param jbit the number of bits necessary to pack the lbit(j)
+ * values, j=1,lx. (output)
+ * @param kbit the number of bits necessary to pack the nov(j) values,
+ * j=1,lx. (output)
+ * @param novref reference value for nov( ). (output) 
+ * @param lbitref reference value for lbit( ). (output) 
+ *
+ * @return
+ * - 706 = value will not pack in 30 bits--fatal 
+ * - 714 = error in reduce--non-fatal 
+ * - 715 = ngp not large enough in reduce--non-fatal 
+ * - 716 = minpk inceased--non-fatal 
+ * - 717 = inc set = 1--non-fatal 
+ * * = alternate return when ier ne 0 and fatal error. 
+ *
+ *        INTERNAL VARIABLES 
+ * <pre>
+ *               cfeed = contains the character representation 
+ *                       of a printer form feed. 
+ *               ifeed = contains the integer value of a printer 
+ *                       form feed. 
+ *                kinc = working copy of inc. may be modified. 
+ *                mina = minimum value in group a. 
+ *                maxa = maximum value in group a. 
+ *               nenda = the place in ic( ) where group a ends. 
+ *              kstart = the place in ic( ) where group a starts. 
+ *               ibita = number of bits needed to hold values in group a. 
+ *                minb = minimum value in group b. 
+ *                maxb = maximum value in group b. 
+ *               nendb = the place in ic( ) where group b ends. 
+ *               ibitb = number of bits needed to hold values in group b. 
+ *                minc = minimum value in group c. 
+ *                maxc = maximum value in group c. 
+ *              ktotal = count of number of values in ic( ) processed. 
+ *               nount = number of values added to group a. 
+ *               lmiss = 0 when is523 = 0. when packing into a 
+ *                       specific number of bits, say mbits, 
+ *                       the maximum value that can be handled is 
+ *                       2**mbits-1. when is523 = 1, indicating 
+ *                       primary missing values, this maximum value 
+ *                       is reserved to hold the primary missing value 
+ *                       indicator and lmiss = 1. when is523 = 2, 
+ *                       the value just below the maximum (i.e., 
+ *                       2**mbits-2) is reserved to hold the secondary 
+ *                       missing value indicator and lmiss = 2. 
+ *              lminpk = local value of minpk. this will be adjusted 
+ *                       upward whenever ndg is not large enough to hold 
+ *                       all the groups. 
+ *              mallow = the largest allowable value for packing. 
+ *              mislla = set to 1 when all values in group a are missing. 
+ *                       this is used to distinguish between a real 
+ *                       minimum when all values are not missing 
+ *                       and a minimum that has been set to zero when 
+ *                       all values are missing. 0 otherwise. 
+ *                       note that this does not distinguish between 
+ *                       primary and secondary missings when secondary 
+ *                       missings are present. this means that 
+ *                       lbit( ) will not be zero with the resulting 
+ *                       compression efficiency when secondary missings 
+ *                       are present. also note that a check has been 
+ *                       made earlier to determine that secondary 
+ *                       missings are really there. 
+ *              misllb = set to 1 when all values in group b are missing. 
+ *                       this is used to distinguish between a real 
+ *                       minimum when all values are not missing 
+ *                       and a minimum that has been set to zero when 
+ *                       all values are missing. 0 otherwise. 
+ *              misllc = performs the same function for group c that 
+ *                       mislla and misllb do for groups b and c, 
+ *                       respectively. 
+ *            ibxx2(j) = an array that when this routine is first entered 
+ *                       is set to 2**j, j=0,30. ibxx2(30) = 2**30, which 
+ *                       is the largest value packable, because 2**31 
+ *                       is larger than the integer word size. 
+ *              ifirst = set by data statement to 0. changed to 1 on 
+ *                       first 
+ *                       entry when ibxx2( ) is filled. 
+ *               minak = keeps track of the location in ic( ) where the 
+ *                       minimum value in group a is located. 
+ *               maxak = does the same as minak, except for the maximum. 
+ *               minbk = the same as minak for group b. 
+ *               maxbk = the same as maxak for group b. 
+ *               minck = the same as minak for group c. 
+ *               maxck = the same as maxak for group c. 
+ *                adda = keeps track whether or not an attempt to add 
+ *                       points to group a was made. if so, then adda 
+ *                       keeps from trying to put one back into b. 
+ *                       (logical) 
+ *              ibitbs = keeps current value if ibitb so that loop 
+ *                       ending at 166 doesn't have to start at 
+ *                       ibitb = 0 every time. 
+ *           misslx(j) = mallow except when a group is all one value (and 
+ *                       lbit(j) = 0) and that value is missing. in 
+ *                       that case, misslx(j) is missp or misss. this 
+ *                       gets inserted into jmin(j) later as the 
+ *                       missing indicator; it can't be put in until 
+ *                       the end, because jmin( ) is used to calculate 
+ *                       the maximum number of bits (ibits) needed to 
+ *                       pack jmin( ). 
+ * </pre>
+*/
+int pack_gp(integer *kfildo, integer *ic, integer *nxy,
+	    integer *is523, integer *minpk, integer *inc, integer *missp, integer
+	    *misss, integer *jmin, integer *jmax, integer *lbit, integer *nov,
+	    integer *ndg, integer *lx, integer *ibit, integer *jbit, integer *
+	    kbit, integer *novref, integer *lbitref, integer *ier)
 {
     /* Initialized data */
 
@@ -51,284 +280,6 @@ typedef g2int logical;
     integer *misslx;
 
 
-/*        FEBRUARY 1994   GLAHN   TDL   MOS-2000 */
-/*        JUNE     1995   GLAHN   MODIFIED FOR LMISS ERROR. */
-/*        JULY     1996   GLAHN   ADDED MISSS */
-/*        FEBRUARY 1997   GLAHN   REMOVED 4 REDUNDANT TESTS FOR */
-/*                                MISSP.EQ.0; INSERTED A TEST TO BETTER */
-/*                                HANDLE A STRING OF 9999'S */
-/*        FEBRUARY 1997   GLAHN   ADDED LOOPS TO ELIMINATE TEST FOR */
-/*                                MISSS WHEN MISSS = 0 */
-/*        MARCH    1997   GLAHN   CORRECTED FOR SECONDARY MISSING VALUE */
-/*        MARCH    1997   GLAHN   CORRECTED FOR USE OF LOCAL VALUE */
-/*                                OF MINPK */
-/*        MARCH    1997   GLAHN   CORRECTED FOR SECONDARY MISSING VALUE */
-/*        MARCH    1997   GLAHN   CHANGED CALCULATING NUMBER OF BITS */
-/*                                THROUGH EXPONENTS TO AN ARRAY (IMPROVED */
-/*                                OVERALL PACKING PERFORMANCE BY ABOUT */
-/*                                35 PERCENT!).  ALLOWED 0 BITS FOR */
-/*                                PACKING JMIN( ), LBIT( ), AND NOV( ). */
-/*        MAY      1997   GLAHN   A NUMBER OF CHANGES FOR EFFICIENCY. */
-/*                                MOD FUNCTIONS ELIMINATED AND ONE */
-/*                                IFTHEN ADDED.  JOUNT REMOVED. */
-/*                                RECOMPUTATION OF BITS NOT MADE UNLESS */
-/*                                NECESSARY AFTER MOVING POINTS FROM */
-/*                                ONE GROUP TO ANOTHER.  NENDB ADJUSTED */
-/*                                TO ELIMINATE POSSIBILITY OF VERY */
-/*                                SMALL GROUP AT THE END. */
-/*                                ABOUT 8 PERCENT IMPROVEMENT IN */
-/*                                OVERALL PACKING.  ISKIPA REMOVED; */
-/*                                THERE IS ALWAYS A GROUP B THAT CAN */
-/*                                BECOME GROUP A.  CONTROL ON SIZE */
-/*                                OF GROUP B (STATEMENT BELOW 150) */
-/*                                ADDED.  ADDED ADDA, AND USE */
-/*                                OF GE AND LE INSTEAD OF GT AND LT */
-/*                                IN LOOPS BETWEEN 150 AND 160. */
-/*                                IBITBS ADDED TO SHORTEN TRIPS */
-/*                                THROUGH LOOP. */
-/*        MARCH    2000   GLAHN   MODIFIED FOR GRIB2; CHANGED NAME FROM */
-/*                                PACKGP */
-/*        JANUARY  2001   GLAHN   COMMENTS; IER = 706 SUBSTITUTED FOR */
-/*                                STOPS; ADDED RETURN1; REMOVED STATEMENT */
-/*                                NUMBER 110; ADDED IER AND * RETURN */
-/*        NOVEMBER 2001   GLAHN   CHANGED SOME DIAGNOSTIC FORMATS TO */
-/*                                ALLOW PRINTING LARGER NUMBERS */
-/*        NOVEMBER 2001   GLAHN   ADDED MISSLX( ) TO PUT MAXIMUM VALUE */
-/*                                INTO JMIN( ) WHEN ALL VALUES MISSING */
-/*                                TO AGREE WITH GRIB STANDARD. */
-/*        NOVEMBER 2001   GLAHN   CHANGED TWO TESTS ON MISSP AND MISSS */
-/*                                EQ 0 TO TESTS ON IS523.  HOWEVER, */
-/*                                MISSP AND MISSS CANNOT IN GENERAL BE */
-/*                                = 0. */
-/*        NOVEMBER 2001   GLAHN   ADDED CALL TO REDUCE; DEFINED ITEST */
-/*                                BEFORE LOOPS TO REDUCE COMPUTATION; */
-/*                                STARTED LARGE GROUP WHEN ALL SAME */
-/*                                VALUE */
-/*        DECEMBER 2001   GLAHN   MODIFIED AND ADDED A FEW COMMENTS */
-/*        JANUARY  2002   GLAHN   REMOVED LOOP BEFORE 150 TO DETERMINE */
-/*                                A GROUP OF ALL SAME VALUE */
-/*        JANUARY  2002   GLAHN   CHANGED MALLOW FROM 9999999 TO 2**30+1, */
-/*                                AND MADE IT A PARAMETER */
-/*        MARCH    2002   GLAHN   ADDED NON FATAL IER = 716, 717; */
-/*                                REMOVED NENDB=NXY ABOVE 150; */
-/*                                ADDED IERSAV=0; COMMENTS */
-
-/*        PURPOSE */
-/*            DETERMINES GROUPS OF VARIABLE SIZE, BUT AT LEAST OF */
-/*            SIZE MINPK, THE ASSOCIATED MAX (JMAX( )) AND MIN (JMIN( )), */
-/*            THE NUMBER OF BITS NECESSARY TO HOLD THE VALUES IN EACH */
-/*            GROUP (LBIT( )), THE NUMBER OF VALUES IN EACH GROUP */
-/*            (NOV( )), THE NUMBER OF BITS NECESSARY TO PACK THE JMIN( ) */
-/*            VALUES (IBIT), THE NUMBER OF BITS NECESSARY TO PACK THE */
-/*            LBIT( ) VALUES (JBIT), AND THE NUMBER OF BITS NECESSARY */
-/*            TO PACK THE NOV( ) VALUES (KBIT).  THE ROUTINE IS DESIGNED */
-/*            TO DETERMINE THE GROUPS SUCH THAT A SMALL NUMBER OF BITS */
-/*            IS NECESSARY TO PACK THE DATA WITHOUT EXCESSIVE */
-/*            COMPUTATIONS.  IF ALL VALUES IN THE GROUP ARE ZERO, THE */
-/*            NUMBER OF BITS TO USE IN PACKING IS DEFINED AS ZERO WHEN */
-/*            THERE CAN BE NO MISSING VALUES; WHEN THERE CAN BE MISSING */
-/*            VALUES, THE NUMBER OF BITS MUST BE AT LEAST 1 TO HAVE */
-/*            THE CAPABILITY TO RECOGNIZE THE MISSING VALUE.  HOWEVER, */
-/*            IF ALL VALUES IN A GROUP ARE MISSING, THE NUMBER OF BITS */
-/*            NEEDED IS 0, AND THE UNPACKER RECOGNIZES THIS. */
-/*            ALL VARIABLES ARE INTEGER.  EVEN THOUGH THE GROUPS ARE */
-/*            INITIALLY OF SIZE MINPK OR LARGER, AN ADJUSTMENT BETWEEN */
-/*            TWO GROUPS (THE LOOKBACK PROCEDURE) MAY MAKE A GROUP */
-/*            SMALLER THAN MINPK.  THE CONTROL ON GROUP SIZE IS THAT */
-/*            THE SUM OF THE SIZES OF THE TWO CONSECUTIVE GROUPS, EACH OF */
-/*            SIZE MINPK OR LARGER, IS NOT DECREASED.  WHEN DETERMINING */
-/*            THE NUMBER OF BITS NECESSARY FOR PACKING, THE LARGEST */
-/*            VALUE THAT CAN BE ACCOMMODATED IN, SAY, MBITS, IS */
-/*            2**MBITS-1; THIS LARGEST VALUE (AND THE NEXT SMALLEST */
-/*            VALUE) IS RESERVED FOR THE MISSING VALUE INDICATOR (ONLY) */
-/*            WHEN IS523 NE 0.  IF THE DIMENSION NDG */
-/*            IS NOT LARGE ENOUGH TO HOLD ALL THE GROUPS, THE LOCAL VALUE */
-/*            OF MINPK IS INCREASED BY 50 PERCENT.  THIS IS REPEATED */
-/*            UNTIL NDG WILL SUFFICE.  A DIAGNOSTIC IS PRINTED WHENEVER */
-/*            THIS HAPPENS, WHICH SHOULD BE VERY RARELY.  IF IT HAPPENS */
-/*            OFTEN, NDG IN SUBROUTINE PACK SHOULD BE INCREASED AND */
-/*            A CORRESPONDING INCREASE IN SUBROUTINE UNPACK MADE. */
-/*            CONSIDERABLE CODE IS PROVIDED SO THAT NO MORE CHECKING */
-/*            FOR MISSING VALUES WITHIN LOOPS IS DONE THAN NECESSARY; */
-/*            THE ADDED EFFICIENCY OF THIS IS RELATIVELY MINOR, */
-/*            BUT DOES NO HARM.  FOR GRIB2, THE REFERENCE VALUE FOR */
-/*            THE LENGTH OF GROUPS IN NOV( ) AND FOR THE NUMBER OF */
-/*            BITS NECESSARY TO PACK GROUP VALUES ARE DETERMINED, */
-/*            AND SUBTRACTED BEFORE JBIT AND KBIT ARE DETERMINED. */
-
-/*            WHEN 1 OR MORE GROUPS ARE LARGE COMPARED TO THE OTHERS, */
-/*            THE WIDTH OF ALL GROUPS MUST BE AS LARGE AS THE LARGEST. */
-/*            A SUBROUTINE REDUCE BREAKS UP LARGE GROUPS INTO 2 OR */
-/*            MORE TO REDUCE TOTAL BITS REQUIRED.  IF REDUCE SHOULD */
-/*            ABORT, PACK_GP WILL BE EXECUTED AGAIN WITHOUT THE CALL */
-/*            TO REDUCE. */
-
-/*        DATA SET USE */
-/*           KFILDO - UNIT NUMBER FOR OUTPUT (PRINT) FILE. (OUTPUT) */
-
-/*        VARIABLES IN CALL SEQUENCE */
-/*              KFILDO = UNIT NUMBER FOR OUTPUT (PRINT) FILE.  (INPUT) */
-/*               IC( ) = ARRAY TO HOLD DATA FOR PACKING.  THE VALUES */
-/*                       DO NOT HAVE TO BE POSITIVE AT THIS POINT, BUT */
-/*                       MUST BE IN THE RANGE -2**30 TO +2**30 (THE */
-/*                       THE VALUE OF MALLOW).  THESE INTEGER VALUES */
-/*                       WILL BE RETAINED EXACTLY THROUGH PACKING AND */
-/*                       UNPACKING.  (INPUT) */
-/*                 NXY = NUMBER OF VALUES IN IC( ).  ALSO TREATED */
-/*                       AS ITS DIMENSION.  (INPUT) */
-/*              IS523  = missing value management */
-/*                       0=data contains no missing values */
-/*                       1=data contains Primary missing values */
-/*                       2=data contains Primary and secondary missing values */
-/*                       (INPUT) */
-/*               MINPK = THE MINIMUM SIZE OF EACH GROUP, EXCEPT POSSIBLY */
-/*                       THE LAST ONE.  (INPUT) */
-/*                 INC = THE NUMBER OF VALUES TO ADD TO AN ALREADY */
-/*                       EXISTING GROUP IN DETERMINING WHETHER OR NOT */
-/*                       TO START A NEW GROUP.  IDEALLY, THIS WOULD BE */
-/*                       1, BUT EACH TIME INC VALUES ARE ATTEMPTED, THE */
-/*                       MAX AND MIN OF THE NEXT MINPK VALUES MUST BE */
-/*                       FOUND.  THIS IS "A LOOP WITHIN A LOOP," AND */
-/*                       A SLIGHTLY LARGER VALUE MAY GIVE ABOUT AS GOOD */
-/*                       RESULTS WITH SLIGHTLY LESS COMPUTATIONAL TIME. */
-/*                       IF INC IS LE 0, 1 IS USED, AND A DIAGNOSTIC IS */
-/*                       OUTPUT.  NOTE:  IT IS EXPECTED THAT INC WILL */
-/*                       EQUAL 1.  THE CODE USES INC PRIMARILY IN THE */
-/*                       LOOPS STARTING AT STATEMENT 180.  IF INC */
-/*                       WERE 1, THERE WOULD NOT NEED TO BE LOOPS */
-/*                       AS SUCH.  HOWEVER, KINC (THE LOCAL VALUE OF */
-/*                       INC) IS SET GE 1 WHEN NEAR THE END OF THE DATA */
-/*                       TO FORESTALL A VERY SMALL GROUP AT THE END. */
-/*                       (INPUT) */
-/*               MISSP = WHEN MISSING POINTS CAN BE PRESENT IN THE DATA, */
-/*                       THEY WILL HAVE THE VALUE MISSP OR MISSS. */
-/*                       MISSP IS THE PRIMARY MISSING VALUE AND  MISSS */
-/*                       IS THE SECONDARY MISSING VALUE .  THESE MUST */
-/*                       NOT BE VALUES THAT WOULD OCCUR WITH SUBTRACTING */
-/*                       THE MINIMUM (REFERENCE) VALUE OR SCALING. */
-/*                       FOR EXAMPLE, MISSP = 0 WOULD NOT BE ADVISABLE. */
-/*                       (INPUT) */
-/*               MISSS = SECONDARY MISSING VALUE INDICATOR (SEE MISSP). */
-/*                       (INPUT) */
-/*             JMIN(J) = THE MINIMUM OF EACH GROUP (J=1,LX).  (OUTPUT) */
-/*             JMAX(J) = THE MAXIMUM OF EACH GROUP (J=1,LX).  THIS IS */
-/*                       NOT REALLY NEEDED, BUT SINCE THE MAX OF EACH */
-/*                       GROUP MUST BE FOUND, SAVING IT HERE IS CHEAP */
-/*                       IN CASE THE USER WANTS IT.  (OUTPUT) */
-/*             LBIT(J) = THE NUMBER OF BITS NECESSARY TO PACK EACH GROUP */
-/*                       (J=1,LX).  IT IS ASSUMED THE MINIMUM OF EACH */
-/*                       GROUP WILL BE REMOVED BEFORE PACKING, AND THE */
-/*                       VALUES TO PACK WILL, THEREFORE, ALL BE POSITIVE. */
-/*                       HOWEVER, IC( ) DOES NOT NECESSARILY CONTAIN */
-/*                       ALL POSITIVE VALUES.  IF THE OVERALL MINIMUM */
-/*                       HAS BEEN REMOVED (THE USUAL CASE), THEN IC( ) */
-/*                       WILL CONTAIN ONLY POSITIVE VALUES.  (OUTPUT) */
-/*              NOV(J) = THE NUMBER OF VALUES IN EACH GROUP (J=1,LX). */
-/*                       (OUTPUT) */
-/*                 NDG = THE DIMENSION OF JMIN( ), JMAX( ), LBIT( ), AND */
-/*                       NOV( ).  (INPUT) */
-/*                  LX = THE NUMBER OF GROUPS DETERMINED.  (OUTPUT) */
-/*                IBIT = THE NUMBER OF BITS NECESSARY TO PACK THE JMIN(J) */
-/*                       VALUES, J=1,LX.  (OUTPUT) */
-/*                JBIT = THE NUMBER OF BITS NECESSARY TO PACK THE LBIT(J) */
-/*                       VALUES, J=1,LX.  (OUTPUT) */
-/*                KBIT = THE NUMBER OF BITS NECESSARY TO PACK THE NOV(J) */
-/*                       VALUES, J=1,LX.  (OUTPUT) */
-/*              NOVREF = REFERENCE VALUE FOR NOV( ).  (OUTPUT) */
-/*             LBITREF = REFERENCE VALUE FOR LBIT( ).  (OUTPUT) */
-/*                 IER = ERROR RETURN. */
-/*                       706 = VALUE WILL NOT PACK IN 30 BITS--FATAL */
-/*                       714 = ERROR IN REDUCE--NON-FATAL */
-/*                       715 = NGP NOT LARGE ENOUGH IN REDUCE--NON-FATAL */
-/*                       716 = MINPK INCEASED--NON-FATAL */
-/*                       717 = INC SET = 1--NON-FATAL */
-/*                       (OUTPUT) */
-/*                   * = ALTERNATE RETURN WHEN IER NE 0 AND FATAL ERROR. */
-
-/*        INTERNAL VARIABLES */
-/*               CFEED = CONTAINS THE CHARACTER REPRESENTATION */
-/*                       OF A PRINTER FORM FEED. */
-/*               IFEED = CONTAINS THE INTEGER VALUE OF A PRINTER */
-/*                       FORM FEED. */
-/*                KINC = WORKING COPY OF INC.  MAY BE MODIFIED. */
-/*                MINA = MINIMUM VALUE IN GROUP A. */
-/*                MAXA = MAXIMUM VALUE IN GROUP A. */
-/*               NENDA = THE PLACE IN IC( ) WHERE GROUP A ENDS. */
-/*              KSTART = THE PLACE IN IC( ) WHERE GROUP A STARTS. */
-/*               IBITA = NUMBER OF BITS NEEDED TO HOLD VALUES IN GROUP A. */
-/*                MINB = MINIMUM VALUE IN GROUP B. */
-/*                MAXB = MAXIMUM VALUE IN GROUP B. */
-/*               NENDB = THE PLACE IN IC( ) WHERE GROUP B ENDS. */
-/*               IBITB = NUMBER OF BITS NEEDED TO HOLD VALUES IN GROUP B. */
-/*                MINC = MINIMUM VALUE IN GROUP C. */
-/*                MAXC = MAXIMUM VALUE IN GROUP C. */
-/*              KTOTAL = COUNT OF NUMBER OF VALUES IN IC( ) PROCESSED. */
-/*               NOUNT = NUMBER OF VALUES ADDED TO GROUP A. */
-/*               LMISS = 0 WHEN IS523 = 0.  WHEN PACKING INTO A */
-/*                       SPECIFIC NUMBER OF BITS, SAY MBITS, */
-/*                       THE MAXIMUM VALUE THAT CAN BE HANDLED IS */
-/*                       2**MBITS-1.  WHEN IS523 = 1, INDICATING */
-/*                       PRIMARY MISSING VALUES, THIS MAXIMUM VALUE */
-/*                       IS RESERVED TO HOLD THE PRIMARY MISSING VALUE */
-/*                       INDICATOR AND LMISS = 1.  WHEN IS523 = 2, */
-/*                       THE VALUE JUST BELOW THE MAXIMUM (I.E., */
-/*                       2**MBITS-2) IS RESERVED TO HOLD THE SECONDARY */
-/*                       MISSING VALUE INDICATOR AND LMISS = 2. */
-/*              LMINPK = LOCAL VALUE OF MINPK.  THIS WILL BE ADJUSTED */
-/*                       UPWARD WHENEVER NDG IS NOT LARGE ENOUGH TO HOLD */
-/*                       ALL THE GROUPS. */
-/*              MALLOW = THE LARGEST ALLOWABLE VALUE FOR PACKING. */
-/*              MISLLA = SET TO 1 WHEN ALL VALUES IN GROUP A ARE MISSING. */
-/*                       THIS IS USED TO DISTINGUISH BETWEEN A REAL */
-/*                       MINIMUM WHEN ALL VALUES ARE NOT MISSING */
-/*                       AND A MINIMUM THAT HAS BEEN SET TO ZERO WHEN */
-/*                       ALL VALUES ARE MISSING.  0 OTHERWISE. */
-/*                       NOTE THAT THIS DOES NOT DISTINGUISH BETWEEN */
-/*                       PRIMARY AND SECONDARY MISSINGS WHEN SECONDARY */
-/*                       MISSINGS ARE PRESENT.  THIS MEANS THAT */
-/*                       LBIT( ) WILL NOT BE ZERO WITH THE RESULTING */
-/*                       COMPRESSION EFFICIENCY WHEN SECONDARY MISSINGS */
-/*                       ARE PRESENT.  ALSO NOTE THAT A CHECK HAS BEEN */
-/*                       MADE EARLIER TO DETERMINE THAT SECONDARY */
-/*                       MISSINGS ARE REALLY THERE. */
-/*              MISLLB = SET TO 1 WHEN ALL VALUES IN GROUP B ARE MISSING. */
-/*                       THIS IS USED TO DISTINGUISH BETWEEN A REAL */
-/*                       MINIMUM WHEN ALL VALUES ARE NOT MISSING */
-/*                       AND A MINIMUM THAT HAS BEEN SET TO ZERO WHEN */
-/*                       ALL VALUES ARE MISSING.  0 OTHERWISE. */
-/*              MISLLC = PERFORMS THE SAME FUNCTION FOR GROUP C THAT */
-/*                       MISLLA AND MISLLB DO FOR GROUPS B AND C, */
-/*                       RESPECTIVELY. */
-/*            IBXX2(J) = AN ARRAY THAT WHEN THIS ROUTINE IS FIRST ENTERED */
-/*                       IS SET TO 2**J, J=0,30. IBXX2(30) = 2**30, WHICH */
-/*                       IS THE LARGEST VALUE PACKABLE, BECAUSE 2**31 */
-/*                       IS LARGER THAN THE INTEGER WORD SIZE. */
-/*              IFIRST = SET BY DATA STATEMENT TO 0.  CHANGED TO 1 ON */
-/*                       FIRST */
-/*                       ENTRY WHEN IBXX2( ) IS FILLED. */
-/*               MINAK = KEEPS TRACK OF THE LOCATION IN IC( ) WHERE THE */
-/*                       MINIMUM VALUE IN GROUP A IS LOCATED. */
-/*               MAXAK = DOES THE SAME AS MINAK, EXCEPT FOR THE MAXIMUM. */
-/*               MINBK = THE SAME AS MINAK FOR GROUP B. */
-/*               MAXBK = THE SAME AS MAXAK FOR GROUP B. */
-/*               MINCK = THE SAME AS MINAK FOR GROUP C. */
-/*               MAXCK = THE SAME AS MAXAK FOR GROUP C. */
-/*                ADDA = KEEPS TRACK WHETHER OR NOT AN ATTEMPT TO ADD */
-/*                       POINTS TO GROUP A WAS MADE.  IF SO, THEN ADDA */
-/*                       KEEPS FROM TRYING TO PUT ONE BACK INTO B. */
-/*                       (LOGICAL) */
-/*              IBITBS = KEEPS CURRENT VALUE IF IBITB SO THAT LOOP */
-/*                       ENDING AT 166 DOESN'T HAVE TO START AT */
-/*                       IBITB = 0 EVERY TIME. */
-/*           MISSLX(J) = MALLOW EXCEPT WHEN A GROUP IS ALL ONE VALUE (AND */
-/*                       LBIT(J) = 0) AND THAT VALUE IS MISSING.  IN */
-/*                       THAT CASE, MISSLX(J) IS MISSP OR MISSS.  THIS */
-/*                       GETS INSERTED INTO JMIN(J) LATER AS THE */
-/*                       MISSING INDICATOR; IT CAN'T BE PUT IN UNTIL */
-/*                       THE END, BECAUSE JMIN( ) IS USED TO CALCULATE */
-/*                       THE MAXIMUM NUMBER OF BITS (IBITS) NEEDED TO */
-/*                       PACK JMIN( ). */
-/*        1         2         3         4         5         6         7 X */
 
 /*        NON SYSTEM SUBROUTINES CALLED */
 /*           NONE */
