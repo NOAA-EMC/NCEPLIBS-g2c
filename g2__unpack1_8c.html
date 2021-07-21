@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('g2__unpack1_8c.html',''); initResizabl
 <div class="title">g2_unpack1.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Unpack Section 1 (Identification Section) as defined in GRIB Edition 2.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
@@ -96,10 +99,94 @@ $(document).ready(function(){initNavTree('g2__unpack1_8c.html',''); initResizabl
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5a9f3222320afe0f957406b53ad36223"><td class="memItemLeft" align="right" valign="top"><a id="a5a9f3222320afe0f957406b53ad36223"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_unpack1</b> (unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)</td></tr>
+<tr class="memitem:a5a9f3222320afe0f957406b53ad36223"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__unpack1_8c.html#a5a9f3222320afe0f957406b53ad36223">g2_unpack1</a> (unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)</td></tr>
+<tr class="memdesc:a5a9f3222320afe0f957406b53ad36223"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks Section 1 (Identification Section) as defined in GRIB Edition 2.  <a href="g2__unpack1_8c.html#a5a9f3222320afe0f957406b53ad36223">More...</a><br /></td></tr>
 <tr class="separator:a5a9f3222320afe0f957406b53ad36223"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Unpack Section 1 (Identification Section) as defined in GRIB Edition 2. </p>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-29 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="g2__unpack1_8c_source.html">g2_unpack1.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a5a9f3222320afe0f957406b53ad36223"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a9f3222320afe0f957406b53ad36223">&#9670;&nbsp;</a></span>g2_unpack1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_unpack1 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iofst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>ids</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idslen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine unpacks Section 1 (Identification Section) as defined in GRIB Edition 2. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>char array containing Section 1 of the GRIB2 message. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset for the beginning of Section 1 in cgrib. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset at the end of Section 1, returned. </td></tr>
+    <tr><td class="paramname">ids</td><td>address of pointer to integer array containing information read from Section 1, the Identification section.<ul>
+<li>ids[0] Identification of originating Centre (see Common Code Table C-1).</li>
+<li>ids[1] Identification of originating Sub-centre.</li>
+<li>ids[2] GRIB Master Tables Version Number (see Code Table 1.0).</li>
+<li>ids[3] GRIB Local Tables Version Number (see Code Table 1.1).</li>
+<li>ids[4] Significance of Reference Time (Code Table 1.2)</li>
+<li>ids[5] Year ( 4 digits )</li>
+<li>ids[6] Month</li>
+<li>ids[7] Day</li>
+<li>ids[8] Hour</li>
+<li>ids[9] Minute</li>
+<li>ids[10] Second</li>
+<li>ids[11] Production status of processed data (see Code Table 1.3).</li>
+<li>ids[12] Type of processed data (see Code Table 1.4). </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">idslen</td><td>Number of elements in ids.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>2 Array passed is not section 1</li>
+<li>6 memory allocation error</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-29 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__unpack1_8c_source.html#l00045">45</a> of file <a class="el" href="g2__unpack1_8c_source.html">g2_unpack1.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

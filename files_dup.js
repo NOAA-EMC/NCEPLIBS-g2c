@@ -1,6 +1,5 @@
 var files_dup =
 [
-    [ "Alias.c", "Alias_8c_source.html", null ],
     [ "cmplxpack.c", "cmplxpack_8c.html", "cmplxpack_8c" ],
     [ "compack.c", "compack_8c.html", "compack_8c" ],
     [ "comunpack.c", "comunpack_8c.html", "comunpack_8c" ],

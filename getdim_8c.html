@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('getdim_8c.html',''); initResizable(); 
 <div class="title">getdim.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Return the dimensions and scanning mode of a grid definition packed in GRIB2 Grid Definition Section 3 format.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
@@ -96,13 +99,171 @@ $(document).ready(function(){initNavTree('getdim_8c.html',''); initResizable(); 
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7f3d062f236f46e6835f689a149ef88a"><td class="memItemLeft" align="right" valign="top"><a id="a7f3d062f236f46e6835f689a149ef88a"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_unpack3</b> (unsigned char *, g2int *, g2int **, g2int **, g2int *, g2int **, g2int *)</td></tr>
+<tr class="memitem:a7f3d062f236f46e6835f689a149ef88a"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="getdim_8c.html#a7f3d062f236f46e6835f689a149ef88a">g2_unpack3</a> (unsigned char *, g2int *, g2int **, g2int **, g2int *, g2int **, g2int *)</td></tr>
+<tr class="memdesc:a7f3d062f236f46e6835f689a149ef88a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine unpacks Section 3 (Grid Definition Section) as defined in GRIB Edition 2.  <a href="getdim_8c.html#a7f3d062f236f46e6835f689a149ef88a">More...</a><br /></td></tr>
 <tr class="separator:a7f3d062f236f46e6835f689a149ef88a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabc49a338fae74f6dfc9e98b6cb59de7"><td class="memItemLeft" align="right" valign="top"><a id="aabc49a338fae74f6dfc9e98b6cb59de7"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>getdim</b> (unsigned char *csec3, g2int *width, g2int *height, g2int *iscan)</td></tr>
+<tr class="memitem:aabc49a338fae74f6dfc9e98b6cb59de7"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="getdim_8c.html#aabc49a338fae74f6dfc9e98b6cb59de7">getdim</a> (unsigned char *csec3, g2int *width, g2int *height, g2int *iscan)</td></tr>
+<tr class="memdesc:aabc49a338fae74f6dfc9e98b6cb59de7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns the dimensions and scanning mode of a grid definition packed in GRIB2 Grid Definition Section 3 format.  <a href="getdim_8c.html#aabc49a338fae74f6dfc9e98b6cb59de7">More...</a><br /></td></tr>
 <tr class="separator:aabc49a338fae74f6dfc9e98b6cb59de7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Return the dimensions and scanning mode of a grid definition packed in GRIB2 Grid Definition Section 3 format. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-12-11 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="getdim_8c_source.html">getdim.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a7f3d062f236f46e6835f689a149ef88a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f3d062f236f46e6835f689a149ef88a">&#9670;&nbsp;</a></span>g2_unpack3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_unpack3 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iofst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>igds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>igdstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>mapgridlen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>ideflist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idefnum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine unpacks Section 3 (Grid Definition Section) as defined in GRIB Edition 2. </p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-10-31 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array ontaining Section 3 of the GRIB2 message. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset for the beginning of Section 3 in cgrib. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset at the end of Section 3, returned. </td></tr>
+    <tr><td class="paramname">igds</td><td>Contains information read from the appropriate GRIB Grid Definition Section 3 for the field being returned.<ul>
+<li>igds[0] Source of grid definition (see Code Table 3.0)</li>
+<li>igds[1] Number of grid points in the defined grid.</li>
+<li>igds[2] Number of octets needed for each additional grid points definition. Used to define number of points in each row (or column) for non-regular grids. = 0, if using regular grid.</li>
+<li>igds[3] Interpretation of list for optional points definition. (Code Table 3.11)</li>
+<li>igds[4] Grid Definition Template Number (Code Table 3.1). </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">igdstmpl</td><td>- Pointer to integer array containing the data values for the specified Grid Definition Template (NN=igds[4]). Each element of this integer array contains an entry (in the order specified) of Grid Defintion Template 3.NN </td></tr>
+    <tr><td class="paramname">mapgridlen-</td><td>Number of elements in igdstmpl[]. i.e. number of entries in Grid Defintion Template 3.NN (NN=igds[4]). </td></tr>
+    <tr><td class="paramname">ideflist</td><td>(Used if igds[2] .ne. 0) Pointer to integer array containing the number of grid points contained in each row ( or column ). (part of Section 3). </td></tr>
+    <tr><td class="paramname">idefnum</td><td>(Used if igds[2] .ne. 0) The number of entries in array ideflist. i.e. number of rows (or columns) for which optional grid points are defined.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>2 Not Section 3</li>
+<li>5 "GRIB" message contains an undefined Grid Definition Template.</li>
+<li>6 memory allocation error</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__unpack3_8c_source.html#l00054">54</a> of file <a class="el" href="g2__unpack3_8c_source.html">g2_unpack3.c</a>.</p>
+
+</div>
+</div>
+<a id="aabc49a338fae74f6dfc9e98b6cb59de7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabc49a338fae74f6dfc9e98b6cb59de7">&#9670;&nbsp;</a></span>getdim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int getdim </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>csec3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iscan</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine returns the dimensions and scanning mode of a grid definition packed in GRIB2 Grid Definition Section 3 format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">csec3</td><td>Character array that contains the packed GRIB2 GDS. </td></tr>
+    <tr><td class="paramname">width</td><td>x (or i) dimension of the grid. 0 of grid not recognized. </td></tr>
+    <tr><td class="paramname">height</td><td>y (or j) dimension of the grid. 0 of grid not recognized. </td></tr>
+    <tr><td class="paramname">iscan</td><td>Scanning mode (see Code Table 3.4). 0 of grid not recognized.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Always returns 0.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-12-11 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="getdim_8c_source.html#l00030">30</a> of file <a class="el" href="getdim_8c_source.html">getdim.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

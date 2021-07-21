@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('g2__unpack4_8c.html',''); initResizabl
 <div class="title">g2_unpack4.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Unpack Section 4 (Product Definition Section) as defined in GRIB Edition 2.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
@@ -96,10 +99,104 @@ $(document).ready(function(){initNavTree('g2__unpack4_8c.html',''); initResizabl
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a16eaee8c9cd73c1589475d7af259f950"><td class="memItemLeft" align="right" valign="top"><a id="a16eaee8c9cd73c1589475d7af259f950"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_unpack4</b> (unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl, g2int *mappdslen, g2float **coordlist, g2int *numcoord)</td></tr>
+<tr class="memitem:a16eaee8c9cd73c1589475d7af259f950"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__unpack4_8c.html#a16eaee8c9cd73c1589475d7af259f950">g2_unpack4</a> (unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl, g2int *mappdslen, g2float **coordlist, g2int *numcoord)</td></tr>
+<tr class="memdesc:a16eaee8c9cd73c1589475d7af259f950"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks Section 4 (Product Definition Section) as defined in GRIB Edition 2.  <a href="g2__unpack4_8c.html#a16eaee8c9cd73c1589475d7af259f950">More...</a><br /></td></tr>
 <tr class="separator:a16eaee8c9cd73c1589475d7af259f950"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Unpack Section 4 (Product Definition Section) as defined in GRIB Edition 2. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="g2__unpack4_8c_source.html">g2_unpack4.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a16eaee8c9cd73c1589475d7af259f950"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16eaee8c9cd73c1589475d7af259f950">&#9670;&nbsp;</a></span>g2_unpack4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_unpack4 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iofst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>ipdsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>ipdstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>mappdslen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2float **&#160;</td>
+          <td class="paramname"><em>coordlist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>numcoord</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine unpacks Section 4 (Product Definition Section) as defined in GRIB Edition 2. </p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-10-31 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array containing Section 4 of the GRIB2 message. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset of the beginning of Section 4 in cgrib. Returned with updated bit offset. </td></tr>
+    <tr><td class="paramname">ipdsnum</td><td>Product Definition Template Number (see Code Table 4.0). </td></tr>
+    <tr><td class="paramname">ipdstmpl</td><td>Pointer to integer array containing the data values for the specified Product Definition Template (N=ipdsnum). Each element of this integer array contains an entry (in the order specified) of Product Defintion Template 4.N. </td></tr>
+    <tr><td class="paramname">mappdslen</td><td>Number of elements in ipdstmpl. i.e. number of entries in Product Defintion Template 4.N (N=ipdsnum). </td></tr>
+    <tr><td class="paramname">coordlist</td><td>Pointer to real array containing floating point values intended to document the vertical discretisation associated to model data on hybrid coordinate vertical levels. (part of Section 4). </td></tr>
+    <tr><td class="paramname">numcoord</td><td>number of values in array coordlist.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>2 Not section 4</li>
+<li>5 "GRIB" message contains an undefined Product Definition Template.</li>
+<li>6 memory allocation error</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__unpack4_8c_source.html#l00042">42</a> of file <a class="el" href="g2__unpack4_8c_source.html">g2_unpack4.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

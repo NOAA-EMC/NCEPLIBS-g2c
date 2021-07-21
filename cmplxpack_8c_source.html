@@ -87,84 +87,30 @@ $(document).ready(function(){initNavTree('cmplxpack_8c_source.html',''); initRes
 </div><!--header-->
 <div class="contents">
 <a href="cmplxpack_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//$$$  SUBPROGRAM DOCUMENTATION BLOCK</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//                .      .    .                                       .</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// SUBPROGRAM:    cmplxpack</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//   PRGMMR: Gilbert          ORG: W/NP11    DATE: 2004-08-27</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// ABSTRACT: This subroutine packs up a data field using a complex</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">//   packing algorithm as defined in the GRIB2 documention.  It</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">//   supports GRIB2 complex packing templates with or without</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">//   spatial differences (i.e. DRTs 5.2 and 5.3).</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//   It also fills in GRIB2 Data Representation Template 5.2 or 5.3 </span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">//   with the appropriate values.</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">// PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">// 2004-08-27  Gilbert</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// USAGE:    cmplxpack(g2float *fld,g2int ndpts, g2int idrsnum,g2int *idrstmpl,</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//             unsigned char *cpack, g2int *lcpack)</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">//   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">//     fld[]    - Contains the data values to pack</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">//     ndpts    - The number of data values in array fld[]</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">//     idrsnum  - Data Representation Template number 5.N</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">//                Must equal 2 or 3.</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">//     idrstmpl - Contains the array of values for Data Representation</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//                Template 5.2 or 5.3</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">//                [0] = Reference value - ignored on input</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">//                [1] = Binary Scale Factor</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">//                [2] = Decimal Scale Factor</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">//                    .</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">//                    .</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">//                [6] = Missing value management</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">//                [7] = Primary missing value</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">//                [8] = Secondary missing value</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">//                    .</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">//                    .</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">//               [16] = Order of Spatial Differencing  ( 1 or 2 )</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">//                    .</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">//                    .</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">//   OUTPUT ARGUMENT LIST: </span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//     idrstmpl - Contains the array of values for Data Representation</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//                Template 5.3</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">//                [0] = Reference value - set by compack routine.</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">//                [1] = Binary Scale Factor - unchanged from input</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">//                [2] = Decimal Scale Factor - unchanged from input</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">//                    .</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">//                    .</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">//     cpack    - The packed data field (character*1 array)</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">//     lcpack   - length of packed field cpack[].</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">// REMARKS: None</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">// ATTRIBUTES:</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">//   LANGUAGE: C</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">//   MACHINE:  IBM SP</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">//$$$</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">void</span> cmplxpack(g2float *fld,g2int ndpts, g2int idrsnum,g2int *idrstmpl,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;               <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack, g2int *lcpack)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;{</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">if</span> ( idrstmpl[6] == 0 ) {       <span class="comment">// No internal missing values</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;         compack(fld,ndpts,idrsnum,idrstmpl,cpack,lcpack);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( idrstmpl[6] == 1  ||  idrstmpl[6] == 2) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;         misspack(fld,ndpts,idrsnum,idrstmpl,cpack,lcpack);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;         printf(<span class="stringliteral">&quot;cmplxpack: Don:t recognize Missing value option.&quot;</span>);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;         *lcpack=-1;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">void</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="g2__addfield_8c.html#a65f21910802e4f976ca833f1eca18dfe">   33</a></span>&#160;<a class="code" href="cmplxpack_8c.html#a1866293a23a4f417804e829d30817054">cmplxpack</a>(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;          <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack, g2int *lcpack)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">if</span> ( idrstmpl[6] == 0 ) {       <span class="comment">/* No internal missing values */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="compack_8c.html#a1e3bc6eb03df58e192ded1b429f172e0">compack</a>(fld,ndpts,idrsnum,idrstmpl,cpack,lcpack);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( idrstmpl[6] == 1  ||  idrstmpl[6] == 2) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="grib2_8h.html#a5ed56e006562c2783cbce1ddb811b5c5">misspack</a>(fld,ndpts,idrsnum,idrstmpl,cpack,lcpack);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        printf(<span class="stringliteral">&quot;cmplxpack: Don:t recognize Missing value option.&quot;</span>);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        *lcpack=-1;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a5ed56e006562c2783cbce1ddb811b5c5"><div class="ttname"><a href="grib2_8h.html#a5ed56e006562c2783cbce1ddb811b5c5">misspack</a></div><div class="ttdeci">void misspack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *)</div><div class="ttdoc">This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 docum...</div><div class="ttdef"><b>Definition:</b> <a href="misspack_8c_source.html#l00038">misspack.c:38</a></div></div>
+<div class="ttc" id="acompack_8c_html_a1e3bc6eb03df58e192ded1b429f172e0"><div class="ttname"><a href="compack_8c.html#a1e3bc6eb03df58e192ded1b429f172e0">compack</a></div><div class="ttdeci">void compack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</div><div class="ttdoc">This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 docum...</div><div class="ttdef"><b>Definition:</b> <a href="compack_8c_source.html#l00041">compack.c:41</a></div></div>
+<div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
+<div class="ttc" id="acmplxpack_8c_html_a1866293a23a4f417804e829d30817054"><div class="ttname"><a href="cmplxpack_8c.html#a1866293a23a4f417804e829d30817054">cmplxpack</a></div><div class="ttdeci">void cmplxpack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</div><div class="ttdoc">This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 docum...</div><div class="ttdef"><b>Definition:</b> <a href="cmplxpack_8c_source.html#l00033">cmplxpack.c:33</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

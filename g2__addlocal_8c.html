@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('g2__addlocal_8c.html',''); initResizab
 <div class="title">g2_addlocal.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Add a Local Use Section (Section 2) to a GRIB2 message.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
 </div>
@@ -95,10 +98,74 @@ $(document).ready(function(){initNavTree('g2__addlocal_8c.html',''); initResizab
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa9490d67c089f6a15fd9941f273752c3"><td class="memItemLeft" align="right" valign="top"><a id="aa9490d67c089f6a15fd9941f273752c3"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_addlocal</b> (unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)</td></tr>
+<tr class="memitem:aa9490d67c089f6a15fd9941f273752c3"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3">g2_addlocal</a> (unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)</td></tr>
+<tr class="memdesc:aa9490d67c089f6a15fd9941f273752c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine adds a Local Use Section (Section 2) to a GRIB2 message.  <a href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3">More...</a><br /></td></tr>
 <tr class="separator:aa9490d67c089f6a15fd9941f273752c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Add a Local Use Section (Section 2) to a GRIB2 message. </p>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-01 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="g2__addlocal_8c_source.html">g2_addlocal.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="aa9490d67c089f6a15fd9941f273752c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9490d67c089f6a15fd9941f273752c3">&#9670;&nbsp;</a></span>g2_addlocal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_addlocal </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>csec2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>lcsec2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine adds a Local Use Section (Section 2) to a GRIB2 message. </p>
+<p>It is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array that contains the GRIB2 message to which section 2 should be added. Must be allocated large enough to store the entire GRIB2 message. </td></tr>
+    <tr><td class="paramname">csec2</td><td>Character array containing information to be added in Section 2. </td></tr>
+    <tr><td class="paramname">lcsec2</td><td>Number of bytes of character array csec2 to be added to Section 2.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>&gt; 0 = Current size of updated GRIB2 message.<ul>
+<li>-1 GRIB message was not initialized. Need to call routine gribcreate first.</li>
+<li>-2 GRIB message already complete. Cannot add new section.</li>
+<li>-3 Sum of Section byte counts doesn't add to total byte count</li>
+<li>-4 Previous Section was not 1 or 7.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The Local Use Section (Section 2) can only follow Section 1 or Section 7 in a GRIB2 message.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-01 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__addlocal_8c_source.html#l00037">37</a> of file <a class="el" href="g2__addlocal_8c_source.html">g2_addlocal.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

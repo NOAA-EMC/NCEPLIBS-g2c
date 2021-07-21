@@ -97,10 +97,99 @@ $(document).ready(function(){initNavTree('specpack_8c.html',''); initResizable()
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4464faa396c6e14a740e0ff4b4a0c9a1"><td class="memItemLeft" align="right" valign="top"><a id="a4464faa396c6e14a740e0ff4b4a0c9a1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>specpack</b> (g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</td></tr>
+<tr class="memitem:a4464faa396c6e14a740e0ff4b4a0c9a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="specpack_8c.html#a4464faa396c6e14a740e0ff4b4a0c9a1">specpack</a> (g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</td></tr>
+<tr class="memdesc:a4464faa396c6e14a740e0ff4b4a0c9a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation Template 5.51.  <a href="specpack_8c.html#a4464faa396c6e14a740e0ff4b4a0c9a1">More...</a><br /></td></tr>
 <tr class="separator:a4464faa396c6e14a740e0ff4b4a0c9a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-12-19 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="specpack_8c_source.html">specpack.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a4464faa396c6e14a740e0ff4b4a0c9a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4464faa396c6e14a740e0ff4b4a0c9a1">&#9670;&nbsp;</a></span>specpack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void specpack </td>
+          <td>(</td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>JJ</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>KK</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>MM</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lcpack</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation Template 5.51. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fld</td><td>Contains the packed data values. </td></tr>
+    <tr><td class="paramname">ndpts</td><td>The number of data values to pack. </td></tr>
+    <tr><td class="paramname">JJ</td><td>J - pentagonal resolution parameter. </td></tr>
+    <tr><td class="paramname">KK</td><td>K - pentagonal resolution parameter. </td></tr>
+    <tr><td class="paramname">MM</td><td>M - pentagonal resolution parameter. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.51. </td></tr>
+    <tr><td class="paramname">cpack</td><td>The packed data field (character*1 array). </td></tr>
+    <tr><td class="paramname">lcpack</td><td>length of packed field cpack.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-12-19 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="specpack_8c_source.html#l00026">26</a> of file <a class="el" href="specpack_8c_source.html">specpack.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

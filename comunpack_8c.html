@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('comunpack_8c.html',''); initResizable(
 <div class="title">comunpack.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Unpack a data field that was packed using a complex packing algorithm as defined in the GRIB2 documention.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
@@ -96,10 +99,91 @@ $(document).ready(function(){initNavTree('comunpack_8c.html',''); initResizable(
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7c04fe1475985ae33214a65398cd1d94"><td class="memItemLeft" align="right" valign="top"><a id="a7c04fe1475985ae33214a65398cd1d94"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>comunpack</b> (unsigned char *cpack, g2int lensec, g2int idrsnum, g2int *idrstmpl, g2int ndpts, g2float *fld)</td></tr>
+<tr class="memitem:a7c04fe1475985ae33214a65398cd1d94"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comunpack_8c.html#a7c04fe1475985ae33214a65398cd1d94">comunpack</a> (unsigned char *cpack, g2int lensec, g2int idrsnum, g2int *idrstmpl, g2int ndpts, g2float *fld)</td></tr>
+<tr class="memdesc:a7c04fe1475985ae33214a65398cd1d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks a data field that was packed using a complex packing algorithm as defined in the GRIB2 documention, using info from the GRIB2 Data Representation Template 5.2 or 5.3.  <a href="comunpack_8c.html#a7c04fe1475985ae33214a65398cd1d94">More...</a><br /></td></tr>
 <tr class="separator:a7c04fe1475985ae33214a65398cd1d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Unpack a data field that was packed using a complex packing algorithm as defined in the GRIB2 documention. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-29 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="comunpack_8c_source.html">comunpack.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a7c04fe1475985ae33214a65398cd1d94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c04fe1475985ae33214a65398cd1d94">&#9670;&nbsp;</a></span>comunpack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int comunpack </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>lensec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>idrsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine unpacks a data field that was packed using a complex packing algorithm as defined in the GRIB2 documention, using info from the GRIB2 Data Representation Template 5.2 or 5.3. </p>
+<p>Supports GRIB2 complex packing templates with or without spatial differences (i.e. DRTs 5.2 and 5.3).</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-10-29 Gilbert</li>
+<li>2004-12-16 Gilbert Added test (provided by Arthur Taylor/MDL) to verify that group widths and lengths are consistent with section length.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpack</td><td>pointer to the packed data field. </td></tr>
+    <tr><td class="paramname">lensec</td><td>length of section 7 (used for error checking). </td></tr>
+    <tr><td class="paramname">idrsnum</td><td>Data Representation Template number 5.N Must equal 2 or 3. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>pointer to the array of values for Data Representation Template 5.2 or 5.3 </td></tr>
+    <tr><td class="paramname">ndpts</td><td>The number of data values to unpack </td></tr>
+    <tr><td class="paramname">fld</td><td>Contains the unpacked data values. fld must be allocated with at least ndpts*sizeof(g2float) bytes before calling this routine.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-29 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comunpack_8c_source.html#l00038">38</a> of file <a class="el" href="comunpack_8c_source.html">comunpack.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

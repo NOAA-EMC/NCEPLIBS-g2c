@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('pdstemplates_8c.html',''); initResizab
 <div class="title">pdstemplates.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Functions for PDS template information.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="pdstemplates_8h_source.html">pdstemplates.h</a>&quot;</code><br />
@@ -97,16 +100,32 @@ $(document).ready(function(){initNavTree('pdstemplates_8c.html',''); initResizab
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a64e5f115f7c4ec0b1b7d8af8376d12eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb">extpdstemplate</a> (g2int number, g2int *list)</td></tr>
-<tr class="memdesc:a64e5f115f7c4ec0b1b7d8af8376d12eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK  <a href="pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb">More...</a><br /></td></tr>
+<tr class="memdesc:a64e5f115f7c4ec0b1b7d8af8376d12eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine generates the remaining octet map for a given Product Definition Template, if required.  <a href="pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb">More...</a><br /></td></tr>
 <tr class="separator:a64e5f115f7c4ec0b1b7d8af8376d12eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68d2553a1ef915bd21a491f4105ab0f2"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a> (g2int number)</td></tr>
-<tr class="memdesc:a68d2553a1ef915bd21a491f4105ab0f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK  <a href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">More...</a><br /></td></tr>
+<tr class="memdesc:a68d2553a1ef915bd21a491f4105ab0f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the index of specified Product Definition Template 4.NN (NN=number) in array templates.  <a href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">More...</a><br /></td></tr>
 <tr class="separator:a68d2553a1ef915bd21a491f4105ab0f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad08ad7c4bee0466cd8ccafc1c1e76520"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#ad08ad7c4bee0466cd8ccafc1c1e76520">getpdstemplate</a> (g2int number)</td></tr>
-<tr class="memdesc:ad08ad7c4bee0466cd8ccafc1c1e76520"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK  <a href="pdstemplates_8c.html#ad08ad7c4bee0466cd8ccafc1c1e76520">More...</a><br /></td></tr>
+<tr class="memdesc:ad08ad7c4bee0466cd8ccafc1c1e76520"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns PDS template information for a specified Product Definition Template 4.NN.  <a href="pdstemplates_8c.html#ad08ad7c4bee0466cd8ccafc1c1e76520">More...</a><br /></td></tr>
 <tr class="separator:ad08ad7c4bee0466cd8ccafc1c1e76520"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Functions for PDS template information. </p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2001-06-28 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+<li>2009-12-15 Vuong Added Product Definition Template 4.31 Added Product Definition Template 4.15</li>
+<li>2010-08-03 Vuong Added Product Definition Template 4.42 and 4.43</li>
+<li>2010-12-08 Vuong Corrected Product Definition Template 4.42 and 4.43</li>
+<li>2012-03-29 Vuong Added Templates 4.44,4.45,4.46,4.47,4.48,4.50, 4.51,4.91,4.32 and 4.52</li>
+<li>2013-08-05 Vuong Corrected 4.91 and added Templates 4.33,4.34,4.53,4.54</li>
+<li>2015-10-07 Vuong Added Templates 4.57, 4.60, 4.61 and allow a forecast time to be negative</li>
+</ul>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2001-06-28 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a64e5f115f7c4ec0b1b7d8af8376d12eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a64e5f115f7c4ec0b1b7d8af8376d12eb">&#9670;&nbsp;</a></span>extpdstemplate()</h2>
 
@@ -133,9 +152,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK </p>
+<p>This subroutine generates the remaining octet map for a given Product Definition Template, if required. </p>
+<p>Some Templates can vary depending on data values given in an earlier part of the Template, and it is necessary to know some of the earlier entry values to generate the full octet map of the Template.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Product Definition Template 4.NN that is being requested. </td></tr>
+    <tr><td class="paramname">list</td><td>The list of values for each entry in the the Product Definition Template 4.NN.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the returned template struct. Returns NULL pointer, if template not found.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00162">162</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00108">108</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
 
 </div>
 </div>
@@ -155,9 +185,18 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK </p>
+<p>This function returns the index of specified Product Definition Template 4.NN (NN=number) in array templates. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Product Definition Template 4.NN that is being requested.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Index of PDT 4.NN in array templates, if template exists. -1, otherwise.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2001-06-28 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00042">42</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00036">36</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
 
 </div>
 </div>
@@ -177,9 +216,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK </p>
+<p>This subroutine returns PDS template information for a specified Product Definition Template 4.NN. </p>
+<p>The number of entries in the template is returned along with a map of the number of octets occupied by each entry. Also, a flag is returned to indicate whether the template would need to be extended.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Product Definition Template 4.NN that is being requested.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the returned template struct. Returns NULL pointer, if template not found.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00096">96</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00065">65</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
 
 </div>
 </div>

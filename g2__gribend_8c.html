@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('g2__gribend_8c.html',''); initResizabl
 <div class="title">g2_gribend.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Finalize a GRIB2 message after all grids and fields have been added.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
 </div>
@@ -95,10 +98,57 @@ $(document).ready(function(){initNavTree('g2__gribend_8c.html',''); initResizabl
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a84081fb5d32251234409b9ec2d72a0e8"><td class="memItemLeft" align="right" valign="top"><a id="a84081fb5d32251234409b9ec2d72a0e8"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_gribend</b> (unsigned char *cgrib)</td></tr>
+<tr class="memitem:a84081fb5d32251234409b9ec2d72a0e8"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8">g2_gribend</a> (unsigned char *cgrib)</td></tr>
+<tr class="memdesc:a84081fb5d32251234409b9ec2d72a0e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine finalizes a GRIB2 message after all grids and fields have been added.  <a href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8">More...</a><br /></td></tr>
 <tr class="separator:a84081fb5d32251234409b9ec2d72a0e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Finalize a GRIB2 message after all grids and fields have been added. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="g2__gribend_8c_source.html">g2_gribend.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a84081fb5d32251234409b9ec2d72a0e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84081fb5d32251234409b9ec2d72a0e8">&#9670;&nbsp;</a></span>g2_gribend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_gribend </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine finalizes a GRIB2 message after all grids and fields have been added. </p>
+<p>It adds the End Section ("7777") to the end of the GRIB message and calculates the length and stores it in the appropriate place in Section 0. This routine is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, and <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array containing all the data sections added be previous calls to g2_create, g2_addlocal, g2_addgrid, and g2_addfield. After function is called, contains the finalized GRIB2 message.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>&gt; 0 = Length of the final GRIB2 message in bytes.</li>
+<li>-1 = GRIB message was not initialized. Need to call routine g2_create first.</li>
+<li>-2 = GRIB message already complete.</li>
+<li>-3 = Sum of Section byte counts doesn't add to total byte count</li>
+<li>-4 = Previous Section was not 7.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This routine is intended for use with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, and <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a> to create a complete GRIB2 message.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__gribend_8c_source.html#l00036">36</a> of file <a class="el" href="g2__gribend_8c_source.html">g2_gribend.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

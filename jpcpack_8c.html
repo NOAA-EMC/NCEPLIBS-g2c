@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('jpcpack_8c.html',''); initResizable();
 <div class="title">jpcpack.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Pack up a data field into a JPEG2000 code stream.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
@@ -99,10 +102,102 @@ Functions</h2></td></tr>
 <tr class="memitem:a8a415bdd3beda56d05a706a614608a7c"><td class="memItemLeft" align="right" valign="top"><a id="a8a415bdd3beda56d05a706a614608a7c"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>enc_jpeg2000</b> (unsigned char *, g2int, g2int, g2int, g2int, g2int, g2int, char *, g2int)</td></tr>
 <tr class="separator:a8a415bdd3beda56d05a706a614608a7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9342b7e883d454cc9c9c5051e40cf557"><td class="memItemLeft" align="right" valign="top"><a id="a9342b7e883d454cc9c9c5051e40cf557"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>jpcpack</b> (g2float *fld, g2int width, g2int height, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</td></tr>
+<tr class="memitem:a9342b7e883d454cc9c9c5051e40cf557"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpcpack_8c.html#a9342b7e883d454cc9c9c5051e40cf557">jpcpack</a> (g2float *fld, g2int width, g2int height, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</td></tr>
+<tr class="memdesc:a9342b7e883d454cc9c9c5051e40cf557"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field into a JPEG2000 code stream.  <a href="jpcpack_8c.html#a9342b7e883d454cc9c9c5051e40cf557">More...</a><br /></td></tr>
 <tr class="separator:a9342b7e883d454cc9c9c5051e40cf557"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Pack up a data field into a JPEG2000 code stream. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2003-08-17 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="jpcpack_8c_source.html">jpcpack.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a9342b7e883d454cc9c9c5051e40cf557"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9342b7e883d454cc9c9c5051e40cf557">&#9670;&nbsp;</a></span>jpcpack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jpcpack </td>
+          <td>(</td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lcpack</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine packs up a data field into a JPEG2000 code stream. </p>
+<p>After the data field is scaled, and the reference value is subtracted out, it is treated as a grayscale image and passed to a JPEG2000 encoder. It also fills in GRIB2 Data Representation Template 5.40 or 5.40000 with the appropriate values.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2003-08-17 Gilbert</li>
+<li>2004-11-92 Gilbert - Fixed bug encountered when packing a near constant field.</li>
+<li>2004-07-19 Gilbert - Added check on whether the jpeg2000 encoding was successful. If not, try again with different encoder options.</li>
+<li>2005-05-10 Gilbert - Imposed minimum size on cpack, used to hold encoded bit string.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
+    <tr><td class="paramname">width</td><td>number of points in the x direction. </td></tr>
+    <tr><td class="paramname">height</td><td>number of points in the y direction. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.40 or 5.40000.<ul>
+<li>0 Reference value - ignored on input, set by jpcpack routine.</li>
+<li>1 Binary Scale Factor - used on input, unchanged by jpcpack routine.</li>
+<li>2 Decimal Scale Factor - used on input, unchanged by jpcpack routine.</li>
+<li>3 number of bits for each data value - ignored on input</li>
+<li>4 Original field type - currently ignored on input Data values assumed to be reals. Set to 0 on output.</li>
+<li>5 if 0 use lossless compression, if 1 use lossy compression.</li>
+<li>6 Desired compression ratio, if idrstmpl[5]=1. Set to 255, if idrstmpl[5]=0. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">cpack</td><td>The packed data field. </td></tr>
+    <tr><td class="paramname">lcpack</td><td>length of packed field in cpack.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2003-08-17 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="jpcpack_8c_source.html#l00049">49</a> of file <a class="el" href="jpcpack_8c_source.html">jpcpack.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

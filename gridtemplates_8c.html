@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('gridtemplates_8c.html',''); initResiza
 <div class="title">gridtemplates.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Returns grid template information for a specified Grid Definition Template 3.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="gridtemplates_8h_source.html">gridtemplates.h</a>&quot;</code><br />
@@ -96,50 +99,23 @@ $(document).ready(function(){initNavTree('gridtemplates_8c.html',''); initResiza
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0d65c7c29a06c12ebee26746476d49c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gridtemplates_8c.html#a0d65c7c29a06c12ebee26746476d49c9">extgridtemplate</a> (g2int number, g2int *list)</td></tr>
-<tr class="memdesc:a0d65c7c29a06c12ebee26746476d49c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK ! .  <a href="gridtemplates_8c.html#a0d65c7c29a06c12ebee26746476d49c9">More...</a><br /></td></tr>
+<tr class="memitem:a0d65c7c29a06c12ebee26746476d49c9"><td class="memItemLeft" align="right" valign="top"><a id="a0d65c7c29a06c12ebee26746476d49c9"></a>
+<a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>extgridtemplate</b> (g2int number, g2int *list)</td></tr>
 <tr class="separator:a0d65c7c29a06c12ebee26746476d49c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87376e69f794ea1c07c762e7d359715e"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gridtemplates_8c.html#a87376e69f794ea1c07c762e7d359715e">getgridindex</a> (g2int number)</td></tr>
-<tr class="memdesc:a87376e69f794ea1c07c762e7d359715e"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK ! .  <a href="gridtemplates_8c.html#a87376e69f794ea1c07c762e7d359715e">More...</a><br /></td></tr>
+<tr class="memdesc:a87376e69f794ea1c07c762e7d359715e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the index of specified Grid Definition Template 3.NN (NN=number) in array templates.  <a href="gridtemplates_8c.html#a87376e69f794ea1c07c762e7d359715e">More...</a><br /></td></tr>
 <tr class="separator:a87376e69f794ea1c07c762e7d359715e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af67f9624982c81a36531989254a9b98a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gridtemplates_8c.html#af67f9624982c81a36531989254a9b98a">getgridtemplate</a> (g2int number)</td></tr>
-<tr class="memdesc:af67f9624982c81a36531989254a9b98a"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK ! .  <a href="gridtemplates_8c.html#af67f9624982c81a36531989254a9b98a">More...</a><br /></td></tr>
+<tr class="memdesc:af67f9624982c81a36531989254a9b98a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns grid template information for a specified Grid Definition Template 3.NN.  <a href="gridtemplates_8c.html#af67f9624982c81a36531989254a9b98a">More...</a><br /></td></tr>
 <tr class="separator:af67f9624982c81a36531989254a9b98a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a0d65c7c29a06c12ebee26746476d49c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d65c7c29a06c12ebee26746476d49c9">&#9670;&nbsp;</a></span>extgridtemplate()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Returns grid template information for a specified Grid Definition Template 3. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2001-06-28 </dd></dl>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a>* extgridtemplate </td>
-          <td>(</td>
-          <td class="paramtype">g2int&#160;</td>
-          <td class="paramname"><em>number</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">g2int *&#160;</td>
-          <td class="paramname"><em>list</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK ! . </p>
-<p>. . . ! SUBPROGRAM: extgridtemplate ! PRGMMR: Gilbert ORG: W/NP11 DATE: 2000-05-09 ! ! ABSTRACT: This subroutine generates the remaining octet map for a ! given Grid Definition Template, if required. Some Templates can ! vary depending on data values given in an earlier part of the ! Template, and it is necessary to know some of the earlier entry ! values to generate the full octet map of the Template. ! ! PROGRAM HISTORY LOG: ! 2000-05-09 Gilbert ! 2008-07-08 Vuong - Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa) ! 2009-01-14 Vuong - Changed structure name template to gtemplate ! 2010-05-11 Vuong - Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa) ! 2013-08-06 Vuong - Added GDT 3.4,3.5,3.12,3.101,3.140 ! ! USAGE: CALL extgridtemplate(number,list) ! INPUT ARGUMENT LIST: ! number - NN, indicating the number of the Grid Definition ! Template 3.NN that is being requested. ! list() - The list of values for each entry in ! the Grid Definition Template. ! ! RETURN VALUE: ! - Pointer to the returned template struct. ! Returns NULL pointer, if template not found. ! ! ATTRIBUTES: ! LANGUAGE: C ! MACHINE: IBM SP ! !$$$ </p>
-
-<p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00147">147</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
-
-</div>
-</div>
+<p class="definition">Definition in file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a87376e69f794ea1c07c762e7d359715e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a87376e69f794ea1c07c762e7d359715e">&#9670;&nbsp;</a></span>getgridindex()</h2>
 
@@ -156,10 +132,21 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK ! . </p>
-<p>. . . ! SUBPROGRAM: getgridindex ! PRGMMR: Gilbert ORG: W/NP11 DATE: 2001-06-28 ! ! ABSTRACT: This function returns the index of specified Grid ! Definition Template 3.NN (NN=number) in array templates. ! ! PROGRAM HISTORY LOG: ! 2001-06-28 Gilbert ! 2007-08-16 Vuong - Added GDT 3.204 Curvilinear Orthogonal Grid ! 2008-07-08 Vuong - Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa) ! 2009-01-14 Vuong - Changed structure name template to gtemplate ! 2010-05-11 Vuong - Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa) ! 2013-08-06 Vuong - Added GDT 3.4,3.5,3.12,3.101,3.140 ! ! USAGE: index=getgridindex(number) ! INPUT ARGUMENT LIST: ! number - NN, indicating the number of the Grid Definition ! Template 3.NN that is being requested. ! ! RETURNS: Index of GDT 3.NN in array templates, if template exists. ! = -1, otherwise. ! ! REMARKS: None ! ! ATTRIBUTES: ! LANGUAGE: C ! MACHINE: IBM SP ! !$$$ </p>
+<p>This function returns the index of specified Grid Definition Template 3.NN (NN=number) in array templates. </p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2001-06-28 Gilbert</li>
+<li>2007-08-16 Vuong - Added GDT 3.204 Curvilinear Orthogonal Grid</li>
+<li>2008-07-08 Vuong - Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa)</li>
+<li>2009-01-14 Vuong - Changed structure name template to gtemplate</li>
+<li>2010-05-11 Vuong - Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)</li>
+<li>2013-08-06 Vuong - Added GDT 3.4,3.5,3.12,3.101,3.140</li>
+</ul>
+<p>@paran number NN, indicating the number of the Grid Definition Template 3.NN that is being requested.</p>
+<dl class="section return"><dt>Returns</dt><dd>Index of GDT 3.NN in array templates, if template exists. -1, otherwise.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2001-06-28 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00038">38</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00031">31</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
 
 </div>
 </div>
@@ -179,10 +166,26 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK ! . </p>
-<p>. . . ! SUBPROGRAM: getgridtemplate ! PRGMMR: Gilbert ORG: W/NP11 DATE: 2000-05-09 ! ! ABSTRACT: This subroutine returns grid template information for a ! specified Grid Definition Template 3.NN. ! The number of entries in the template is returned along with a map ! of the number of octets occupied by each entry. Also, a flag is ! returned to indicate whether the template would need to be extended. ! ! PROGRAM HISTORY LOG: ! 2000-05-09 Gilbert ! 2007-08-16 Vuong - Added GDT 3.204 Curvilinear Orthogonal Grid ! 2008-07-08 Vuong - Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa) ! 2010-05-11 Vuong - Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa) ! 2009-01-14 Vuong - Changed structure name template to gtemplate ! ! USAGE: gtemplate *getgridtemplate(number) ! INPUT ARGUMENT LIST: ! number - NN, indicating the number of the Grid Definition ! Template 3.NN that is being requested. ! ! RETURN VALUE: ! - Pointer to the returned template struct. ! Returns NULL pointer, if template not found. ! ! REMARKS: None ! ! ATTRIBUTES: ! LANGUAGE: C ! MACHINE: IBM SP ! !$$$ </p>
+<p>This subroutine returns grid template information for a specified Grid Definition Template 3.NN. </p>
+<p>The number of entries in the template is returned along with a map of the number of octets occupied by each entry. Also, a flag is returned to indicate whether the template would need to be extended.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2000-05-09 Gilbert</li>
+<li>2007-08-16 Vuong - Added GDT 3.204 Curvilinear Orthogonal Grid</li>
+<li>2008-07-08 Vuong - Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa)</li>
+<li>2010-05-11 Vuong - Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)</li>
+<li>2009-01-14 Vuong - Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Grid Definition Template 3.NN that is being requested.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the returned template struct. Returns NULL pointer, if template not found.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-05-09 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00086">86</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00068">68</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
 
 </div>
 </div>

@@ -87,79 +87,58 @@ $(document).ready(function(){initNavTree('g2__miss_8c_source.html',''); initResi
 </div><!--header-->
 <div class="contents">
 <a href="g2__miss_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//$$$  SUBPROGRAM DOCUMENTATION BLOCK</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//                .      .    .                                       .</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// SUBPROGRAM:    g2_miss </span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2004-12-16</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// ABSTRACT: This routine checks the Data Representation Template to see if</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// missing value management is used, and returns the missing value(s) </span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// in the data field.</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// 2004-12-16  Gilbert</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">// USAGE:    g2_miss( gribfield *gfld, float *rmiss, int *nmiss )</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//                   </span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//   INPUT ARGUMENT LIST:</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//     *gfld    - pointer to gribfield structure (defined in include file </span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//                   grib2.h)</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">//   OUTPUT ARGUMENT LIST:      </span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">//     rmiss    - List of the missing values used</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">//     nmiss    - NUmber of the missing values included in the field</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">// REMARKS:  rmiss must be allocated in the calling program with enough space </span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//           hold all the missing values.</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">// ATTRIBUTES:</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">//   LANGUAGE: C</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">//   MACHINE:  IBM SP</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">//$$$</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> g2_miss( <a class="code" href="grib2_8h.html#structgribfield">gribfield</a> *gfld, <span class="keywordtype">float</span> *rmiss, <span class="keywordtype">int</span> *nmiss )</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    g2int     itype;    </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">void</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="g2__miss_8c.html#a5ededd2735de5cd446ee17c2415592e6">   25</a></span>&#160;<a class="code" href="g2__miss_8c.html#a5ededd2735de5cd446ee17c2415592e6">g2_miss</a>( <a class="code" href="grib2_8h.html#structgribfield">gribfield</a> *gfld, <span class="keywordtype">float</span> *rmiss, <span class="keywordtype">int</span> *nmiss )</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    g2int     itype;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">     *  Missing value management currnetly only used in</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">     *  DRT&#39;s 5.2 and 5.3.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">if</span> (gfld-&gt;idrtnum != 2  &amp;&amp;  gfld-&gt;idrtnum != 3)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        *nmiss=0;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">     *  Missing value management currnetly only used in</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">     *  DRT&#39;s 5.2 and 5.3.</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span> ( gfld-&gt;idrtnum != 2  &amp;&amp;  gfld-&gt;idrtnum != 3 ) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;       *nmiss=0;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;       <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                                                                                </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    itype = gfld-&gt;idrtmpl[4];</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">if</span> ( gfld-&gt;idrtmpl[6] == 1 ) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;         *nmiss=1;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;         <span class="keywordflow">if</span> (itype == 0)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            rdieee(gfld-&gt;idrtmpl+7,rmiss+0,1);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;         <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            rmiss[0]=(float)gfld-&gt;idrtmpl[7];</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( gfld-&gt;idrtmpl[6] == 2 ) {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;         *nmiss=2;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;         <span class="keywordflow">if</span> (itype == 0) {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            rdieee(gfld-&gt;idrtmpl+7,rmiss+0,1);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            rdieee(gfld-&gt;idrtmpl+8,rmiss+1,1);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;         }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;         <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            rmiss[0]=(float)gfld-&gt;idrtmpl[7];</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            rmiss[1]=(<span class="keywordtype">float</span>)gfld-&gt;idrtmpl[8];</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;         }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;       *nmiss=0;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    itype = gfld-&gt;idrtmpl[4];</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> (gfld-&gt;idrtmpl[6] == 1)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        *nmiss=1;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">if</span> (itype == 0)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <a class="code" href="grib2_8h.html#afdcb02bbf4c7f835fb19f5501d27cf57">rdieee</a>(gfld-&gt;idrtmpl+7,rmiss+0,1);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            rmiss[0]=(float)gfld-&gt;idrtmpl[7];</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (gfld-&gt;idrtmpl[6] == 2)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        *nmiss=2;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">if</span> (itype == 0)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <a class="code" href="grib2_8h.html#afdcb02bbf4c7f835fb19f5501d27cf57">rdieee</a>(gfld-&gt;idrtmpl+7,rmiss+0,1);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <a class="code" href="grib2_8h.html#afdcb02bbf4c7f835fb19f5501d27cf57">rdieee</a>(gfld-&gt;idrtmpl+8,rmiss+1,1);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            rmiss[0]=(float)gfld-&gt;idrtmpl[7];</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            rmiss[1]=(<span class="keywordtype">float</span>)gfld-&gt;idrtmpl[8];</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        *nmiss=0;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div></div>
-<div class="ttc" id="agrib2_8h_html_structgribfield"><div class="ttname"><a href="grib2_8h.html#structgribfield">gribfield</a></div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00182">grib2.h:182</a></div></div>
+<div class="ttc" id="ag2__miss_8c_html_a5ededd2735de5cd446ee17c2415592e6"><div class="ttname"><a href="g2__miss_8c.html#a5ededd2735de5cd446ee17c2415592e6">g2_miss</a></div><div class="ttdeci">void g2_miss(gribfield *gfld, float *rmiss, int *nmiss)</div><div class="ttdoc">This routine checks the Data Representation Template to see if missing value management is used,...</div><div class="ttdef"><b>Definition:</b> <a href="g2__miss_8c_source.html#l00025">g2_miss.c:25</a></div></div>
+<div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
+<div class="ttc" id="agrib2_8h_html_structgribfield"><div class="ttname"><a href="grib2_8h.html#structgribfield">gribfield</a></div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00184">grib2.h:184</a></div></div>
+<div class="ttc" id="agrib2_8h_html_afdcb02bbf4c7f835fb19f5501d27cf57"><div class="ttname"><a href="grib2_8h.html#afdcb02bbf4c7f835fb19f5501d27cf57">rdieee</a></div><div class="ttdeci">void rdieee(g2int *, g2float *, g2int)</div><div class="ttdoc">This subroutine reads a list of real values in 32-bit IEEE floating point format.</div><div class="ttdef"><b>Definition:</b> <a href="rdieee_8c_source.html#l00020">rdieee.c:20</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

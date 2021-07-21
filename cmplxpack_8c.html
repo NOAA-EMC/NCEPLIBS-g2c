@@ -88,16 +88,105 @@ $(document).ready(function(){initNavTree('cmplxpack_8c.html',''); initResizable(
 <div class="title">cmplxpack.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Pack up a data field using a complex packing algorithm as defined in the GRIB2 documention.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
 </div>
 <p><a href="cmplxpack_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1866293a23a4f417804e829d30817054"><td class="memItemLeft" align="right" valign="top"><a id="a1866293a23a4f417804e829d30817054"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>cmplxpack</b> (g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</td></tr>
+<tr class="memitem:a1866293a23a4f417804e829d30817054"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cmplxpack_8c.html#a1866293a23a4f417804e829d30817054">cmplxpack</a> (g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</td></tr>
+<tr class="memdesc:a1866293a23a4f417804e829d30817054"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 documention.  <a href="cmplxpack_8c.html#a1866293a23a4f417804e829d30817054">More...</a><br /></td></tr>
 <tr class="separator:a1866293a23a4f417804e829d30817054"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Pack up a data field using a complex packing algorithm as defined in the GRIB2 documention. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2004-08-27 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="cmplxpack_8c_source.html">cmplxpack.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a1866293a23a4f417804e829d30817054"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1866293a23a4f417804e829d30817054">&#9670;&nbsp;</a></span>cmplxpack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cmplxpack </td>
+          <td>(</td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>idrsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lcpack</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 documention. </p>
+<p>It supports GRIB2 complex packing templates with or without spatial differences (i.e. DRTs 5.2 and 5.3). It also fills in GRIB2 Data Representation Template 5.2 or 5.3 with the appropriate values.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
+    <tr><td class="paramname">ndpts</td><td>The number of data values in array fld </td></tr>
+    <tr><td class="paramname">idrsnum</td><td>Data Representation Template number 5.N. Must equal 2 or 3. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.2 or 5.3<ul>
+<li>0 Reference value - ignored on input, set by compack routine.</li>
+<li>1 Binary Scale Factor</li>
+<li>2 Decimal Scale Factor</li>
+<li>6 Missing value management</li>
+<li>7 Primary missing value</li>
+<li>8 Secondary missing value</li>
+<li>16 Order of Spatial Differencing ( 1 or 2 ) </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">cpack</td><td>The packed data field (character*1 array) </td></tr>
+    <tr><td class="paramname">lcpack</td><td>length of packed field cpack.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2004-08-27 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmplxpack_8c_source.html#l00033">33</a> of file <a class="el" href="cmplxpack_8c_source.html">cmplxpack.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

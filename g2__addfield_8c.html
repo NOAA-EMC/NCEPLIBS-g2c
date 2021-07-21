@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('g2__addfield_8c.html',''); initResizab
 <div class="title">g2_addfield.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Pack up Sections 4 through 7 for a given field and adds them to a GRIB2 message.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
@@ -96,25 +99,506 @@ $(document).ready(function(){initNavTree('g2__addfield_8c.html',''); initResizab
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a65f21910802e4f976ca833f1eca18dfe"><td class="memItemLeft" align="right" valign="top"><a id="a65f21910802e4f976ca833f1eca18dfe"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>cmplxpack</b> (g2float *, g2int, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memitem:a65f21910802e4f976ca833f1eca18dfe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#a65f21910802e4f976ca833f1eca18dfe">cmplxpack</a> (g2float *, g2int, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memdesc:a65f21910802e4f976ca833f1eca18dfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 documention.  <a href="g2__addfield_8c.html#a65f21910802e4f976ca833f1eca18dfe">More...</a><br /></td></tr>
 <tr class="separator:a65f21910802e4f976ca833f1eca18dfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdf096f036ed768ec874389f5389ee26"><td class="memItemLeft" align="right" valign="top"><a id="afdf096f036ed768ec874389f5389ee26"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_addfield</b> (unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl, g2float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl, g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap)</td></tr>
+<tr class="memitem:afdf096f036ed768ec874389f5389ee26"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26">g2_addfield</a> (unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl, g2float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl, g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap)</td></tr>
+<tr class="memdesc:afdf096f036ed768ec874389f5389ee26"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.  <a href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26">More...</a><br /></td></tr>
 <tr class="separator:afdf096f036ed768ec874389f5389ee26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a082494772d42da82adfd50c68d77971a"><td class="memItemLeft" align="right" valign="top"><a id="a082494772d42da82adfd50c68d77971a"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>getdim</b> (unsigned char *, g2int *, g2int *, g2int *)</td></tr>
+<tr class="memitem:a082494772d42da82adfd50c68d77971a"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#a082494772d42da82adfd50c68d77971a">getdim</a> (unsigned char *, g2int *, g2int *, g2int *)</td></tr>
+<tr class="memdesc:a082494772d42da82adfd50c68d77971a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns the dimensions and scanning mode of a grid definition packed in GRIB2 Grid Definition Section 3 format.  <a href="g2__addfield_8c.html#a082494772d42da82adfd50c68d77971a">More...</a><br /></td></tr>
 <tr class="separator:a082494772d42da82adfd50c68d77971a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0532897a31a122af171633b075a150c6"><td class="memItemLeft" align="right" valign="top"><a id="a0532897a31a122af171633b075a150c6"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>getpoly</b> (unsigned char *, g2int *, g2int *, g2int *)</td></tr>
+<tr class="memitem:a0532897a31a122af171633b075a150c6"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#a0532897a31a122af171633b075a150c6">getpoly</a> (unsigned char *, g2int *, g2int *, g2int *)</td></tr>
+<tr class="memdesc:a0532897a31a122af171633b075a150c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns the J, K, and M pentagonal resolution parameters specified in a GRIB Grid Definition Section used spherical harmonic coefficients using GDT 5.50 through 5.53.  <a href="g2__addfield_8c.html#a0532897a31a122af171633b075a150c6">More...</a><br /></td></tr>
 <tr class="separator:a0532897a31a122af171633b075a150c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6296345c25609fc7443aba106dc0cb2"><td class="memItemLeft" align="right" valign="top"><a id="ad6296345c25609fc7443aba106dc0cb2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>simpack</b> (g2float *, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memitem:ad6296345c25609fc7443aba106dc0cb2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#ad6296345c25609fc7443aba106dc0cb2">simpack</a> (g2float *, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memdesc:ad6296345c25609fc7443aba106dc0cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field using the simple packing algorithm as defined in the GRIB2 documention.  <a href="g2__addfield_8c.html#ad6296345c25609fc7443aba106dc0cb2">More...</a><br /></td></tr>
 <tr class="separator:ad6296345c25609fc7443aba106dc0cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8873944e9960b8fcf6e200cdb71b64b"><td class="memItemLeft" align="right" valign="top"><a id="aa8873944e9960b8fcf6e200cdb71b64b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>specpack</b> (g2float *, g2int, g2int, g2int, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memitem:aa8873944e9960b8fcf6e200cdb71b64b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#aa8873944e9960b8fcf6e200cdb71b64b">specpack</a> (g2float *, g2int, g2int, g2int, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memdesc:aa8873944e9960b8fcf6e200cdb71b64b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation Template 5.51.  <a href="g2__addfield_8c.html#aa8873944e9960b8fcf6e200cdb71b64b">More...</a><br /></td></tr>
 <tr class="separator:aa8873944e9960b8fcf6e200cdb71b64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Pack up Sections 4 through 7 for a given field and adds them to a GRIB2 message. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-05 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="g2__addfield_8c_source.html">g2_addfield.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a65f21910802e4f976ca833f1eca18dfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65f21910802e4f976ca833f1eca18dfe">&#9670;&nbsp;</a></span>cmplxpack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cmplxpack </td>
+          <td>(</td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>idrsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lcpack</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 documention. </p>
+<p>It supports GRIB2 complex packing templates with or without spatial differences (i.e. DRTs 5.2 and 5.3). It also fills in GRIB2 Data Representation Template 5.2 or 5.3 with the appropriate values.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
+    <tr><td class="paramname">ndpts</td><td>The number of data values in array fld </td></tr>
+    <tr><td class="paramname">idrsnum</td><td>Data Representation Template number 5.N. Must equal 2 or 3. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.2 or 5.3<ul>
+<li>0 Reference value - ignored on input, set by compack routine.</li>
+<li>1 Binary Scale Factor</li>
+<li>2 Decimal Scale Factor</li>
+<li>6 Missing value management</li>
+<li>7 Primary missing value</li>
+<li>8 Secondary missing value</li>
+<li>16 Order of Spatial Differencing ( 1 or 2 ) </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">cpack</td><td>The packed data field (character*1 array) </td></tr>
+    <tr><td class="paramname">lcpack</td><td>length of packed field cpack.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2004-08-27 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmplxpack_8c_source.html#l00033">33</a> of file <a class="el" href="cmplxpack_8c_source.html">cmplxpack.c</a>.</p>
+
+</div>
+</div>
+<a id="afdf096f036ed768ec874389f5389ee26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdf096f036ed768ec874389f5389ee26">&#9670;&nbsp;</a></span>g2_addfield()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_addfield </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ipdsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>ipdstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>coordlist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>numcoord</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>idrsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ngrdpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ibmap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>bmap</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message. </p>
+<p>They are Product Definition Section, Data Representation Section, Bit-Map Section and Data Section, respectively.</p>
+<p>This routine is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message. Also, routine <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a> must be called after <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> and before this routine to add the appropriate grid description to the GRIB2 message. Also, a call to <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> is required to complete GRIB2 message after all fields have been added.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-11-05 Gilbert</li>
+<li>2002-12-23 Gilbert - Added complex spherical harmonic packing</li>
+<li>2003-08-27 Gilbert - Added support for new templates using PNG and JPEG2000 algorithms/templates.</li>
+<li>2004-11-29 Gilbert - JPEG2000 now allowed to use WMO Template no. 5.40 PNG now allowed to use WMO Template no. 5.41<ul>
+<li>Added check to determine if packing algorithm failed.</li>
+</ul>
+</li>
+<li>2005-05-10 Gilbert - Imposed minimum size on cpack, used to hold encoded bit string.</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array that contains the GRIB2 message to which sections 4 through 7 should be added. Must be allocated large enough to store the entire GRIB2 message. </td></tr>
+    <tr><td class="paramname">ipdsnum</td><td>Product Definition Template Number (see Code Table 4.0). </td></tr>
+    <tr><td class="paramname">ipdstmpl</td><td>Contains the data values for the specified Product Definition Template (N=ipdsnum). Each element of this integer array contains an entry (in the order specified) of Product Defintion Template 4.N. </td></tr>
+    <tr><td class="paramname">coordlistArray</td><td>containg floating point values intended to document the vertical discretisation associated to model data on hybrid coordinate vertical levels. </td></tr>
+    <tr><td class="paramname">numcoord</td><td>number of values in array coordlist. </td></tr>
+    <tr><td class="paramname">idrsnum</td><td>Data Representation Template Number (see Code Table 5.0). </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the data values for the specified Data Representation Template (N=idrsnum). Each element of this integer array contains an entry (in the order specified) of Data Representation Template 5.N. Note that some values in this template (eg. reference values, number of bits, etc...) may be changed by the data packing algorithms. Use this to specify scaling factors and order of spatial differencing, if desired. </td></tr>
+    <tr><td class="paramname">fld</td><td>Array of data points to pack. </td></tr>
+    <tr><td class="paramname">ngrdpts-</td><td>Number of data points in grid. i.e. size of fld and bmap. </td></tr>
+    <tr><td class="paramname">ibmap</td><td>- Bitmap indicator (see Code Table 6.0)<ul>
+<li>0 = bitmap applies and is included in Section 6.</li>
+<li>1-253 = Predefined bitmap applies.</li>
+<li>254 = Previously defined bitmap applies to this field.</li>
+<li>255 = Bit map does not apply to this product. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">bmap</td><td>Integer array containing bitmap to be added. (if ibmap=0).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>&gt; 0 Current size of updated GRIB2 message</li>
+<li>-1 GRIB message was not initialized. Need to call routine <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> first.</li>
+<li>-2 GRIB message already complete. Cannot add new section.</li>
+<li>-3 Sum of Section byte counts doesn't add to total byte count.</li>
+<li>-4 Previous Section was not 3 or 7.</li>
+<li>-5 Could not find requested Product Definition Template.</li>
+<li>-6 Section 3 (GDS) not previously defined in message.</li>
+<li>-7 Tried to use unsupported Data Representationi Template.</li>
+<li>-8 Specified use of a previously defined bitmap, but one does not exist in the GRIB message.</li>
+<li>-9 GDT of one of 5.50 through 5.53 required to pack field using DRT 5.51.</li>
+<li>-10 Error packing data field.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Note that the Sections 4 through 7 can only follow Section 3 or Section 7 in a GRIB2 message.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-05 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__addfield_8c_source.html#l00102">102</a> of file <a class="el" href="g2__addfield_8c_source.html">g2_addfield.c</a>.</p>
+
+</div>
+</div>
+<a id="a082494772d42da82adfd50c68d77971a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a082494772d42da82adfd50c68d77971a">&#9670;&nbsp;</a></span>getdim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int getdim </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>csec3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iscan</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine returns the dimensions and scanning mode of a grid definition packed in GRIB2 Grid Definition Section 3 format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">csec3</td><td>Character array that contains the packed GRIB2 GDS. </td></tr>
+    <tr><td class="paramname">width</td><td>x (or i) dimension of the grid. 0 of grid not recognized. </td></tr>
+    <tr><td class="paramname">height</td><td>y (or j) dimension of the grid. 0 of grid not recognized. </td></tr>
+    <tr><td class="paramname">iscan</td><td>Scanning mode (see Code Table 3.4). 0 of grid not recognized.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Always returns 0.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-12-11 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="getdim_8c_source.html#l00030">30</a> of file <a class="el" href="getdim_8c_source.html">getdim.c</a>.</p>
+
+</div>
+</div>
+<a id="a0532897a31a122af171633b075a150c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0532897a31a122af171633b075a150c6">&#9670;&nbsp;</a></span>getpoly()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int getpoly </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>csec3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>jj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>kk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>mm</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine returns the J, K, and M pentagonal resolution parameters specified in a GRIB Grid Definition Section used spherical harmonic coefficients using GDT 5.50 through 5.53. </p>
+<p>csec3 - Character array that contains the packed GRIB2 GDS JJ = J - pentagonal resolution parameter KK = K - pentagonal resolution parameter MM = M - pentagonal resolution parameter</p>
+<dl class="section note"><dt>Note</dt><dd>Returns JJ, KK, and MM set to zero, if grid template not recognized.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-12-11 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="getpoly_8c_source.html#l00029">29</a> of file <a class="el" href="getpoly_8c_source.html">getpoly.c</a>.</p>
+
+</div>
+</div>
+<a id="ad6296345c25609fc7443aba106dc0cb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6296345c25609fc7443aba106dc0cb2">&#9670;&nbsp;</a></span>simpack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void simpack </td>
+          <td>(</td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lcpack</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine packs up a data field using the simple packing algorithm as defined in the GRIB2 documention. </p>
+<p>It also fills in GRIB2 Data Representation Template 5.0 with the appropriate values.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
+    <tr><td class="paramname">ndpts</td><td>The number of data values in array fld. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.0.<ul>
+<li>0 Reference value - ignored on input - set by simpack routine.</li>
+<li>1 Binary Scale Factor - unchanged from input.</li>
+<li>2 Decimal Scale Factor - unchanged from input.</li>
+<li>3 Number of bits used to pack data, if value is &gt; 0 and &lt;= 31. If this input value is 0 or outside above range then the num of bits is calculated based on given data and scale factors.</li>
+<li>4 Original field type - currently ignored on input. Data values assumed to be reals. Set to 0 by simpack routine. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">cpack</td><td>The packed data field </td></tr>
+    <tr><td class="paramname">lcpack</td><td>length of packed field starting at cpack.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-06 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="simpack_8c_source.html#l00032">32</a> of file <a class="el" href="simpack_8c_source.html">simpack.c</a>.</p>
+
+</div>
+</div>
+<a id="aa8873944e9960b8fcf6e200cdb71b64b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8873944e9960b8fcf6e200cdb71b64b">&#9670;&nbsp;</a></span>specpack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void specpack </td>
+          <td>(</td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>JJ</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>KK</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>MM</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lcpack</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation Template 5.51. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fld</td><td>Contains the packed data values. </td></tr>
+    <tr><td class="paramname">ndpts</td><td>The number of data values to pack. </td></tr>
+    <tr><td class="paramname">JJ</td><td>J - pentagonal resolution parameter. </td></tr>
+    <tr><td class="paramname">KK</td><td>K - pentagonal resolution parameter. </td></tr>
+    <tr><td class="paramname">MM</td><td>M - pentagonal resolution parameter. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.51. </td></tr>
+    <tr><td class="paramname">cpack</td><td>The packed data field (character*1 array). </td></tr>
+    <tr><td class="paramname">lcpack</td><td>length of packed field cpack.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-12-19 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="specpack_8c_source.html#l00026">26</a> of file <a class="el" href="specpack_8c_source.html">specpack.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

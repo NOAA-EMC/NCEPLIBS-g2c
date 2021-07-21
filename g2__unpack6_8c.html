@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('g2__unpack6_8c.html',''); initResizabl
 <div class="title">g2_unpack6.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Unpack Section 6 (Bit-Map Section) as defined in GRIB Edition 2.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
@@ -96,10 +99,93 @@ $(document).ready(function(){initNavTree('g2__unpack6_8c.html',''); initResizabl
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a83638f96ee10ef44c4dddcebf41d8ee6"><td class="memItemLeft" align="right" valign="top"><a id="a83638f96ee10ef44c4dddcebf41d8ee6"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_unpack6</b> (unsigned char *cgrib, g2int *iofst, g2int ngpts, g2int *ibmap, g2int **bmap)</td></tr>
+<tr class="memitem:a83638f96ee10ef44c4dddcebf41d8ee6"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__unpack6_8c.html#a83638f96ee10ef44c4dddcebf41d8ee6">g2_unpack6</a> (unsigned char *cgrib, g2int *iofst, g2int ngpts, g2int *ibmap, g2int **bmap)</td></tr>
+<tr class="memdesc:a83638f96ee10ef44c4dddcebf41d8ee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks Section 6 (Bit-Map Section) as defined in GRIB Edition 2.  <a href="g2__unpack6_8c.html#a83638f96ee10ef44c4dddcebf41d8ee6">More...</a><br /></td></tr>
 <tr class="separator:a83638f96ee10ef44c4dddcebf41d8ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Unpack Section 6 (Bit-Map Section) as defined in GRIB Edition 2. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="g2__unpack6_8c_source.html">g2_unpack6.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a83638f96ee10ef44c4dddcebf41d8ee6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83638f96ee10ef44c4dddcebf41d8ee6">&#9670;&nbsp;</a></span>g2_unpack6()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_unpack6 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iofst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ngpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>ibmap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>bmap</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine unpacks Section 6 (Bit-Map Section) as defined in GRIB Edition 2. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>char array containing Section 6 of the GRIB2 message. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset of the beginning of Section 6 in cgrib. </td></tr>
+    <tr><td class="paramname">ngpts</td><td>Number of grid points specified in the bit-map </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset at the end of Section 6, returned. </td></tr>
+    <tr><td class="paramname">ibmap</td><td>Bitmap indicator (see Code Table 6.0)<ul>
+<li>0 bitmap applies and is included in Section 6.</li>
+<li>1-253 Predefined bitmap applies</li>
+<li>254 Previously defined bitmap applies to this field</li>
+<li>255 Bit map does not apply to this product. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">bmap</td><td>Pointer to an integer array containing decoded bitmap. (if ibmap=0)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>2 Not Section 6</li>
+<li>4 Unrecognized pre-defined bit-map.</li>
+<li>6 memory allocation error</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__unpack6_8c_source.html#l00034">34</a> of file <a class="el" href="g2__unpack6_8c_source.html">g2_unpack6.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -91,90 +91,90 @@ $(document).ready(function(){initNavTree('gridtemplates_8h_source.html',''); ini
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#define _gridtemplates_H</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">      #define MAXGRIDTEMP 31              // maximum number of templates</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">      #define MAXGRIDMAPLEN 200           // maximum template map length</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#define MAXGRIDTEMP 31              // maximum number of templates</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#define MAXGRIDMAPLEN 200           // maximum template map length</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="gridtemplates_8h.html">   44</a></span>&#160;      <span class="keyword">struct </span><a class="code" href="gridtemplates_8h.html#structgridtemplate">gridtemplate</a></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;          g2int template_num;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;          g2int mapgridlen;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;          g2int needext;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;          g2int mapgrid[MAXGRIDMAPLEN];</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      };</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="gridtemplates_8h.html">   44</a></span>&#160;<span class="keyword">struct </span><a class="code" href="gridtemplates_8h.html#structgridtemplate">gridtemplate</a></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    g2int template_num;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    g2int mapgridlen;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    g2int needext;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    g2int mapgrid[MAXGRIDMAPLEN];</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keyword">const</span> <span class="keyword">struct </span><a class="code" href="gridtemplates_8h.html#structgridtemplate">gridtemplate</a> templatesgrid[MAXGRIDTEMP] = {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;             <span class="comment">// 3.0: Lat/Lon grid</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;         { 0, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;             <span class="comment">// 3.1: Rotated Lat/Lon grid</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;         { 1, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4} },</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;             <span class="comment">// 3.2: Stretched Lat/Lon grid</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;         { 2, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,-4} },</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;             <span class="comment">// 3.3: Stretched &amp; Rotated Lat/Lon grid</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;         { 3, 25, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4,-4,4,-4} },</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">const</span> <span class="keyword">struct </span><a class="code" href="gridtemplates_8h.html#structgridtemplate">gridtemplate</a> templatesgrid[MAXGRIDTEMP] = {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// 3.0: Lat/Lon grid</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    { 0, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="comment">// 3.1: Rotated Lat/Lon grid</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    { 1, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4} },</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// 3.2: Stretched Lat/Lon grid</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    { 2, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,-4} },</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">// 3.3: Stretched &amp; Rotated Lat/Lon grid</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    { 3, 25, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4,-4,4,-4} },</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">// Added GDT 3.4,3.5    (08/05/2013)</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;             <span class="comment">// 3.4: Variable resolution Latitude/Longitude</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;         { 4, 13, 1, {1,1,4,1,4,1,4,4,4,4,4,1,1} },</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;             <span class="comment">// 3.5: Variable resolution rotate Latitude/Longitude</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;         { 5, 16, 1, {1,1,4,1,4,1,4,4,4,4,4,1,1,-4,4,4} },</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;             <span class="comment">// 3.12: Transverse Mercator</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;         {12, 22, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,1,4,4,-4,-4,-4,-4} },</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;             <span class="comment">// 3.101: General unstructured grid</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;         {101, 4, 0, {1,4,1,-4} },</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;             <span class="comment">// 3.140: Lambert Azimuthal Equal Area Projection</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;         {140, 17, 0, {1,1,4,1,4,1,4,4,4,-4,4,4,4,1,4,4,1} },</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">// 3.4: Variable resolution Latitude/Longitude</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    { 4, 13, 1, {1,1,4,1,4,1,4,4,4,4,4,1,1} },</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">// 3.5: Variable resolution rotate Latitude/Longitude</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    { 5, 16, 1, {1,1,4,1,4,1,4,4,4,4,4,1,1,-4,4,4} },</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// 3.12: Transverse Mercator</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    {12, 22, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,1,4,4,-4,-4,-4,-4} },</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// 3.101: General unstructured grid</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    {101, 4, 0, {1,4,1,-4} },</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// 3.140: Lambert Azimuthal Equal Area Projection</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    {140, 17, 0, {1,1,4,1,4,1,4,4,4,-4,4,4,4,1,4,4,1} },</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;             <span class="comment">// 3.10: Mercator</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;         {10, 19, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,-4,4,1,4,4,4} },</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;             <span class="comment">// 3.20: Polar Stereographic Projection</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;         {20, 18, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1} },</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;             <span class="comment">// 3.30: Lambert Conformal</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;         {30, 22, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1,-4,-4,-4,4} },</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;             <span class="comment">// 3.31: Albers equal area</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;         {31, 22, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1,-4,-4,-4,4} },</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;             <span class="comment">// 3.40: Guassian Lat/Lon</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;         {40, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;             <span class="comment">// 3.41: Rotated Gaussian Lat/Lon</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;         {41, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4} },</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;             <span class="comment">// 3.42: Stretched Gaussian Lat/Lon</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;         {42, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,-4} },</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;             <span class="comment">// 3.43: Stretched and Rotated Gaussian Lat/Lon</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;         {43, 25, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4,-4,4,-4} },</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;             <span class="comment">// 3.50: Spherical Harmonic Coefficients</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;         {50, 5, 0, {4,4,4,1,1} },</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;             <span class="comment">// 3.51: Rotated Spherical Harmonic Coefficients</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;         {51, 8, 0, {4,4,4,1,1,-4,4,4} },</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;             <span class="comment">// 3.52: Stretched Spherical Harmonic Coefficients</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;         {52, 8, 0, {4,4,4,1,1,-4,4,-4} },</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;             <span class="comment">// 3.53: Stretched and Rotated Spherical Harmonic Coefficients</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;         {53, 11, 0, {4,4,4,1,1,-4,4,4,-4,4,-4} },</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;             <span class="comment">// 3.90: Space View Perspective or orthographic</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;         {90, 21, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,4,4,4,4,1,4,4,4,4} },</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;             <span class="comment">// 3.100: Triangular grid based on an icosahedron</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;         {100, 11, 0, {1,1,2,1,-4,4,4,1,1,1,4} },</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;             <span class="comment">// 3.110: Equatorial Azimuthal equidistant</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;         {110, 16, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,4,4,1,1} },</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;             <span class="comment">// 3.120: Azimuth-range projection</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;         {120, 7, 1, {4,4,-4,4,4,4,1} },</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;             <span class="comment">// 3.204: Curvilinear Orthogonal Grid</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;         {204, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;             <span class="comment">// 3.32768: Rot Lat/Lon E-grid (Arakawa)</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;         {32768, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;             <span class="comment">// 3.32769: Rot Lat/Lon Non-E Staggered grid (Arakawa)</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;         {32769, 21, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,4,4} },</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;             <span class="comment">// 3.1000: Cross Section Grid</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;         {1000, 20, 1, {1,1,4,1,4,1,4,4,4,4,-4,4,1,4,4,1,2,1,1,2} },</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;             <span class="comment">// 3.1100: Hovmoller Diagram Grid</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;         {1100, 28, 0, {1,1,4,1,4,1,4,4,4,4,-4,4,1,-4,4,1,4,1,-4,1,1,-4,2,1,1,1,1,1} },</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;             <span class="comment">// 3.1200: Time Section Grid</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;         {1200, 16, 1, {4,1,-4,1,1,-4,2,1,1,1,1,1,2,1,1,2} }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// 3.10: Mercator</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    {10, 19, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,-4,4,1,4,4,4} },</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// 3.20: Polar Stereographic Projection</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    {20, 18, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1} },</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">// 3.30: Lambert Conformal</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {30, 22, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1,-4,-4,-4,4} },</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment">// 3.31: Albers equal area</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    {31, 22, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1,-4,-4,-4,4} },</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="comment">// 3.40: Guassian Lat/Lon</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    {40, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="comment">// 3.41: Rotated Gaussian Lat/Lon</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    {41, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4} },</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="comment">// 3.42: Stretched Gaussian Lat/Lon</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    {42, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,-4} },</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="comment">// 3.43: Stretched and Rotated Gaussian Lat/Lon</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    {43, 25, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4,-4,4,-4} },</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">// 3.50: Spherical Harmonic Coefficients</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    {50, 5, 0, {4,4,4,1,1} },</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">// 3.51: Rotated Spherical Harmonic Coefficients</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    {51, 8, 0, {4,4,4,1,1,-4,4,4} },</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="comment">// 3.52: Stretched Spherical Harmonic Coefficients</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    {52, 8, 0, {4,4,4,1,1,-4,4,-4} },</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">// 3.53: Stretched and Rotated Spherical Harmonic Coefficients</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    {53, 11, 0, {4,4,4,1,1,-4,4,4,-4,4,-4} },</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">// 3.90: Space View Perspective or orthographic</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    {90, 21, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,4,4,4,4,1,4,4,4,4} },</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="comment">// 3.100: Triangular grid based on an icosahedron</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    {100, 11, 0, {1,1,2,1,-4,4,4,1,1,1,4} },</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="comment">// 3.110: Equatorial Azimuthal equidistant</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    {110, 16, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,4,4,1,1} },</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// 3.120: Azimuth-range projection</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    {120, 7, 1, {4,4,-4,4,4,4,1} },</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="comment">// 3.204: Curvilinear Orthogonal Grid</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    {204, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="comment">// 3.32768: Rot Lat/Lon E-grid (Arakawa)</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    {32768, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="comment">// 3.32769: Rot Lat/Lon Non-E Staggered grid (Arakawa)</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    {32769, 21, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,4,4} },</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// 3.1000: Cross Section Grid</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    {1000, 20, 1, {1,1,4,1,4,1,4,4,4,4,-4,4,1,4,4,1,2,1,1,2} },</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="comment">// 3.1100: Hovmoller Diagram Grid</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    {1100, 28, 0, {1,1,4,1,4,1,4,4,4,4,-4,4,1,-4,4,1,4,1,-4,1,1,-4,2,1,1,1,1,1} },</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="comment">// 3.1200: Time Section Grid</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    {1200, 16, 1, {4,1,-4,1,1,-4,2,1,1,1,1,1,2,1,1,2} }</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      } ;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;} ;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/*  _gridtemplates_H  */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div></div>
+<div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
 <div class="ttc" id="agridtemplates_8h_html_structgridtemplate"><div class="ttname"><a href="gridtemplates_8h.html#structgridtemplate">gridtemplate</a></div><div class="ttdef"><b>Definition:</b> <a href="gridtemplates_8h_source.html#l00044">gridtemplates.h:44</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

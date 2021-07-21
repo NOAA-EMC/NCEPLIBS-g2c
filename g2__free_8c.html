@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('g2__free_8c.html',''); initResizable()
 <div class="title">g2_free.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Free up memory that was allocated for struct gribfield.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
 </div>
@@ -95,10 +98,48 @@ $(document).ready(function(){initNavTree('g2__free_8c.html',''); initResizable()
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a084c47c8f83bb5a5c7799753ac7b6f02"><td class="memItemLeft" align="right" valign="top"><a id="a084c47c8f83bb5a5c7799753ac7b6f02"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>g2_free</b> (<a class="el" href="grib2_8h.html#structgribfield">gribfield</a> *gfld)</td></tr>
+<tr class="memitem:a084c47c8f83bb5a5c7799753ac7b6f02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__free_8c.html#a084c47c8f83bb5a5c7799753ac7b6f02">g2_free</a> (<a class="el" href="grib2_8h.html#structgribfield">gribfield</a> *gfld)</td></tr>
+<tr class="memdesc:a084c47c8f83bb5a5c7799753ac7b6f02"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine frees up memory that was allocated for struct gribfield.  <a href="g2__free_8c.html#a084c47c8f83bb5a5c7799753ac7b6f02">More...</a><br /></td></tr>
 <tr class="separator:a084c47c8f83bb5a5c7799753ac7b6f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Free up memory that was allocated for struct gribfield. </p>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-28 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="g2__free_8c_source.html">g2_free.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a084c47c8f83bb5a5c7799753ac7b6f02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a084c47c8f83bb5a5c7799753ac7b6f02">&#9670;&nbsp;</a></span>g2_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void g2_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#structgribfield">gribfield</a> *&#160;</td>
+          <td class="paramname"><em>gfld</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine frees up memory that was allocated for struct gribfield. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gfld</td><td>pointer to gribfield structure (defined in include file <a class="el" href="grib2_8h.html" title="Header file for NCEPLIBS-g2c library.">grib2.h</a>) returned from routine <a class="el" href="g2__getfld_8c.html#abad9d3ba0ee798acd442850573fc6b8e" title="This subroutine returns all the metadata, template values, Bit-map (if applicable),...">g2_getfld()</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This routine must be called to free up memory used by the decode routine, <a class="el" href="g2__getfld_8c.html#abad9d3ba0ee798acd442850573fc6b8e" title="This subroutine returns all the metadata, template values, Bit-map (if applicable),...">g2_getfld()</a>, when user no longer needs to reference this data.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-28 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__free_8c_source.html#l00024">24</a> of file <a class="el" href="g2__free_8c_source.html">g2_free.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

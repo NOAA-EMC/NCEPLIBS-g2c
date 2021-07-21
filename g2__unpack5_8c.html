@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('g2__unpack5_8c.html',''); initResizabl
 <div class="title">g2_unpack5.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Unpack Section 5 (Data Representation Section) as defined in GRIB Edition 2.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
@@ -96,10 +99,97 @@ $(document).ready(function(){initNavTree('g2__unpack5_8c.html',''); initResizabl
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0127b9d6f3a258a9d0dd87f986d86b93"><td class="memItemLeft" align="right" valign="top"><a id="a0127b9d6f3a258a9d0dd87f986d86b93"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_unpack5</b> (unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum, g2int **idrstmpl, g2int *mapdrslen)</td></tr>
+<tr class="memitem:a0127b9d6f3a258a9d0dd87f986d86b93"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__unpack5_8c.html#a0127b9d6f3a258a9d0dd87f986d86b93">g2_unpack5</a> (unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum, g2int **idrstmpl, g2int *mapdrslen)</td></tr>
+<tr class="memdesc:a0127b9d6f3a258a9d0dd87f986d86b93"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks Section 5 (Data Representation Section) as defined in GRIB Edition 2.  <a href="g2__unpack5_8c.html#a0127b9d6f3a258a9d0dd87f986d86b93">More...</a><br /></td></tr>
 <tr class="separator:a0127b9d6f3a258a9d0dd87f986d86b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Unpack Section 5 (Data Representation Section) as defined in GRIB Edition 2. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="g2__unpack5_8c_source.html">g2_unpack5.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a0127b9d6f3a258a9d0dd87f986d86b93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0127b9d6f3a258a9d0dd87f986d86b93">&#9670;&nbsp;</a></span>g2_unpack5()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_unpack5 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iofst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>mapdrslen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine unpacks Section 5 (Data Representation Section) as defined in GRIB Edition 2. </p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-10-31 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>char array containing Section 5 of the GRIB2 message. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset for the beginning of Section 5 in cgrib. Returned with bit offset at the end of Section 5. </td></tr>
+    <tr><td class="paramname">ndpts</td><td>Number of data points unpacked and returned. </td></tr>
+    <tr><td class="paramname">idrsnum</td><td>Data Representation Template Number (see Code Table 5.0). </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Pointer to an integer array containing the data values for the specified Data Representation Template (N=idrsnum). Each element of this integer array contains an entry (in the order specified) of Data Representation Template 5.N. </td></tr>
+    <tr><td class="paramname">mapdrslen-</td><td>Number of elements in idrstmpl. i.e. number of entries in Data Representation Template 5.N (N=idrsnum).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>2 Not Section 5</li>
+<li>6 memory allocation error</li>
+<li>7 "GRIB" message contains an undefined Data Representation Template.</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__unpack5_8c_source.html#l00040">40</a> of file <a class="el" href="g2__unpack5_8c_source.html">g2_unpack5.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

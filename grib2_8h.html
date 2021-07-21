@@ -91,6 +91,9 @@ $(document).ready(function(){initNavTree('grib2_8h.html',''); initResizable(); }
 <div class="title">grib2.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Header file for NCEPLIBS-g2c library.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 </div>
 <p><a href="grib2_8h_source.html">Go to the source code of this file.</a></p>
@@ -128,87 +131,105 @@ typedef struct <a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a>&
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af29cd0a48b10eb36018a46cee9d3b51b"><td class="memItemLeft" align="right" valign="top"><a id="af29cd0a48b10eb36018a46cee9d3b51b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>compack</b> (g2float *, g2int, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memitem:af29cd0a48b10eb36018a46cee9d3b51b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#af29cd0a48b10eb36018a46cee9d3b51b">compack</a> (g2float *, g2int, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memdesc:af29cd0a48b10eb36018a46cee9d3b51b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 documention.  <a href="grib2_8h.html#af29cd0a48b10eb36018a46cee9d3b51b">More...</a><br /></td></tr>
 <tr class="separator:af29cd0a48b10eb36018a46cee9d3b51b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f9e059d95b70f538f9c2c8991e32cd4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a3f9e059d95b70f538f9c2c8991e32cd4">extdrstemplate</a> (g2int, g2int *)</td></tr>
-<tr class="memdesc:a3f9e059d95b70f538f9c2c8991e32cd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK ! .  <a href="grib2_8h.html#a3f9e059d95b70f538f9c2c8991e32cd4">More...</a><br /></td></tr>
+<tr class="memdesc:a3f9e059d95b70f538f9c2c8991e32cd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine generates the remaining octet map for a given Data Representation Template, if required.  <a href="grib2_8h.html#a3f9e059d95b70f538f9c2c8991e32cd4">More...</a><br /></td></tr>
 <tr class="separator:a3f9e059d95b70f538f9c2c8991e32cd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9558def8f621d909934341dae971e4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#ae9558def8f621d909934341dae971e4d">extgridtemplate</a> (g2int, g2int *)</td></tr>
-<tr class="memdesc:ae9558def8f621d909934341dae971e4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK ! .  <a href="grib2_8h.html#ae9558def8f621d909934341dae971e4d">More...</a><br /></td></tr>
+<tr class="memitem:ae9558def8f621d909934341dae971e4d"><td class="memItemLeft" align="right" valign="top"><a id="ae9558def8f621d909934341dae971e4d"></a>
+<a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>extgridtemplate</b> (g2int, g2int *)</td></tr>
 <tr class="separator:ae9558def8f621d909934341dae971e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfcda5b8de694e1e37e1343f8dae0980"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#abfcda5b8de694e1e37e1343f8dae0980">extpdstemplate</a> (g2int, g2int *)</td></tr>
-<tr class="memdesc:abfcda5b8de694e1e37e1343f8dae0980"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK  <a href="grib2_8h.html#abfcda5b8de694e1e37e1343f8dae0980">More...</a><br /></td></tr>
+<tr class="memdesc:abfcda5b8de694e1e37e1343f8dae0980"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine generates the remaining octet map for a given Product Definition Template, if required.  <a href="grib2_8h.html#abfcda5b8de694e1e37e1343f8dae0980">More...</a><br /></td></tr>
 <tr class="separator:abfcda5b8de694e1e37e1343f8dae0980"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad246d411efa50751af412bb9c79fa2af"><td class="memItemLeft" align="right" valign="top"><a id="ad246d411efa50751af412bb9c79fa2af"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_addfield</b> (unsigned char *, g2int, g2int *, g2float *, g2int, g2int, g2int *, g2float *, g2int, g2int, g2int *)</td></tr>
+<tr class="memitem:ad246d411efa50751af412bb9c79fa2af"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#ad246d411efa50751af412bb9c79fa2af">g2_addfield</a> (unsigned char *, g2int, g2int *, g2float *, g2int, g2int, g2int *, g2float *, g2int, g2int, g2int *)</td></tr>
+<tr class="memdesc:ad246d411efa50751af412bb9c79fa2af"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.  <a href="grib2_8h.html#ad246d411efa50751af412bb9c79fa2af">More...</a><br /></td></tr>
 <tr class="separator:ad246d411efa50751af412bb9c79fa2af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a232f92335d98c2b6eb4f0d831691817e"><td class="memItemLeft" align="right" valign="top"><a id="a232f92335d98c2b6eb4f0d831691817e"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_addgrid</b> (unsigned char *, g2int *, g2int *, g2int *, g2int)</td></tr>
+<tr class="memitem:a232f92335d98c2b6eb4f0d831691817e"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a232f92335d98c2b6eb4f0d831691817e">g2_addgrid</a> (unsigned char *, g2int *, g2int *, g2int *, g2int)</td></tr>
+<tr class="memdesc:a232f92335d98c2b6eb4f0d831691817e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.  <a href="grib2_8h.html#a232f92335d98c2b6eb4f0d831691817e">More...</a><br /></td></tr>
 <tr class="separator:a232f92335d98c2b6eb4f0d831691817e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4f951ffae2dfca49cd53ef71985d721"><td class="memItemLeft" align="right" valign="top"><a id="ab4f951ffae2dfca49cd53ef71985d721"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_addlocal</b> (unsigned char *, unsigned char *, g2int)</td></tr>
+<tr class="memitem:ab4f951ffae2dfca49cd53ef71985d721"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#ab4f951ffae2dfca49cd53ef71985d721">g2_addlocal</a> (unsigned char *, unsigned char *, g2int)</td></tr>
+<tr class="memdesc:ab4f951ffae2dfca49cd53ef71985d721"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine adds a Local Use Section (Section 2) to a GRIB2 message.  <a href="grib2_8h.html#ab4f951ffae2dfca49cd53ef71985d721">More...</a><br /></td></tr>
 <tr class="separator:ab4f951ffae2dfca49cd53ef71985d721"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac286696ed3f69ac01d472c43a5b5d02"><td class="memItemLeft" align="right" valign="top"><a id="aac286696ed3f69ac01d472c43a5b5d02"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_create</b> (unsigned char *, g2int *, g2int *)</td></tr>
+<tr class="memitem:aac286696ed3f69ac01d472c43a5b5d02"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#aac286696ed3f69ac01d472c43a5b5d02">g2_create</a> (unsigned char *, g2int *, g2int *)</td></tr>
+<tr class="memdesc:aac286696ed3f69ac01d472c43a5b5d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Identification Section).  <a href="grib2_8h.html#aac286696ed3f69ac01d472c43a5b5d02">More...</a><br /></td></tr>
 <tr class="separator:aac286696ed3f69ac01d472c43a5b5d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad99dd0bc820e765764b331384ad9a5d9"><td class="memItemLeft" align="right" valign="top"><a id="ad99dd0bc820e765764b331384ad9a5d9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>g2_free</b> (<a class="el" href="grib2_8h.html#structgribfield">gribfield</a> *)</td></tr>
+<tr class="memitem:ad99dd0bc820e765764b331384ad9a5d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#ad99dd0bc820e765764b331384ad9a5d9">g2_free</a> (<a class="el" href="grib2_8h.html#structgribfield">gribfield</a> *)</td></tr>
+<tr class="memdesc:ad99dd0bc820e765764b331384ad9a5d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine frees up memory that was allocated for struct gribfield.  <a href="grib2_8h.html#ad99dd0bc820e765764b331384ad9a5d9">More...</a><br /></td></tr>
 <tr class="separator:ad99dd0bc820e765764b331384ad9a5d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c569e4ca36f7027411b10331386459c"><td class="memItemLeft" align="right" valign="top"><a id="a4c569e4ca36f7027411b10331386459c"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_getfld</b> (unsigned char *, g2int, g2int, g2int, <a class="el" href="grib2_8h.html#structgribfield">gribfield</a> **)</td></tr>
+<tr class="memitem:a4c569e4ca36f7027411b10331386459c"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a4c569e4ca36f7027411b10331386459c">g2_getfld</a> (unsigned char *, g2int, g2int, g2int, <a class="el" href="grib2_8h.html#structgribfield">gribfield</a> **)</td></tr>
+<tr class="memdesc:a4c569e4ca36f7027411b10331386459c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns all the metadata, template values, Bit-map (if applicable), and the unpacked data for a given data field.  <a href="grib2_8h.html#a4c569e4ca36f7027411b10331386459c">More...</a><br /></td></tr>
 <tr class="separator:a4c569e4ca36f7027411b10331386459c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5879573202b0fed6eca832fabb9ebb4a"><td class="memItemLeft" align="right" valign="top"><a id="a5879573202b0fed6eca832fabb9ebb4a"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_gribend</b> (unsigned char *)</td></tr>
+<tr class="memitem:a5879573202b0fed6eca832fabb9ebb4a"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a5879573202b0fed6eca832fabb9ebb4a">g2_gribend</a> (unsigned char *)</td></tr>
+<tr class="memdesc:a5879573202b0fed6eca832fabb9ebb4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine finalizes a GRIB2 message after all grids and fields have been added.  <a href="grib2_8h.html#a5879573202b0fed6eca832fabb9ebb4a">More...</a><br /></td></tr>
 <tr class="separator:a5879573202b0fed6eca832fabb9ebb4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bd1cfb013499982dea5eee69bc95a6e"><td class="memItemLeft" align="right" valign="top"><a id="a8bd1cfb013499982dea5eee69bc95a6e"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_info</b> (unsigned char *, g2int *, g2int *, g2int *, g2int *)</td></tr>
+<tr class="memitem:a8bd1cfb013499982dea5eee69bc95a6e"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a8bd1cfb013499982dea5eee69bc95a6e">g2_info</a> (unsigned char *, g2int *, g2int *, g2int *, g2int *)</td></tr>
+<tr class="memdesc:a8bd1cfb013499982dea5eee69bc95a6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine searches through a GRIB2 message and returns the number of gridded fields found in the message and the number (and maximum size) of Local Use Sections.  <a href="grib2_8h.html#a8bd1cfb013499982dea5eee69bc95a6e">More...</a><br /></td></tr>
 <tr class="separator:a8bd1cfb013499982dea5eee69bc95a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aceafa00632b779e830443ef1869f7bb9"><td class="memItemLeft" align="right" valign="top"><a id="aceafa00632b779e830443ef1869f7bb9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>gbit</b> (unsigned char *, g2int *, g2int, g2int)</td></tr>
+<tr class="memitem:a3796bb89e5b8aba66fc624bc8b377a3b"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a3796bb89e5b8aba66fc624bc8b377a3b">g2_unpack1</a> (unsigned char *, g2int *, g2int **, g2int *)</td></tr>
+<tr class="memdesc:a3796bb89e5b8aba66fc624bc8b377a3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks Section 1 (Identification Section) as defined in GRIB Edition 2.  <a href="grib2_8h.html#a3796bb89e5b8aba66fc624bc8b377a3b">More...</a><br /></td></tr>
+<tr class="separator:a3796bb89e5b8aba66fc624bc8b377a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f3d062f236f46e6835f689a149ef88a"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a7f3d062f236f46e6835f689a149ef88a">g2_unpack3</a> (unsigned char *, g2int *, g2int **, g2int **, g2int *, g2int **, g2int *)</td></tr>
+<tr class="memdesc:a7f3d062f236f46e6835f689a149ef88a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine unpacks Section 3 (Grid Definition Section) as defined in GRIB Edition 2.  <a href="grib2_8h.html#a7f3d062f236f46e6835f689a149ef88a">More...</a><br /></td></tr>
+<tr class="separator:a7f3d062f236f46e6835f689a149ef88a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91d98f7e471cce705c43b039b7d87533"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a91d98f7e471cce705c43b039b7d87533">g2_unpack4</a> (unsigned char *, g2int *, g2int *, g2int **, g2int *, g2float **, g2int *)</td></tr>
+<tr class="memdesc:a91d98f7e471cce705c43b039b7d87533"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks Section 4 (Product Definition Section) as defined in GRIB Edition 2.  <a href="grib2_8h.html#a91d98f7e471cce705c43b039b7d87533">More...</a><br /></td></tr>
+<tr class="separator:a91d98f7e471cce705c43b039b7d87533"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37ec4c9e3f74008a74bd11828152df5c"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a37ec4c9e3f74008a74bd11828152df5c">g2_unpack5</a> (unsigned char *, g2int *, g2int *, g2int *, g2int **, g2int *)</td></tr>
+<tr class="memdesc:a37ec4c9e3f74008a74bd11828152df5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks Section 5 (Data Representation Section) as defined in GRIB Edition 2.  <a href="grib2_8h.html#a37ec4c9e3f74008a74bd11828152df5c">More...</a><br /></td></tr>
+<tr class="separator:a37ec4c9e3f74008a74bd11828152df5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a12127e9cfe2155056e19b035f9256"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a27a12127e9cfe2155056e19b035f9256">g2_unpack6</a> (unsigned char *, g2int *, g2int, g2int *, g2int **)</td></tr>
+<tr class="memdesc:a27a12127e9cfe2155056e19b035f9256"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks Section 6 (Bit-Map Section) as defined in GRIB Edition 2.  <a href="grib2_8h.html#a27a12127e9cfe2155056e19b035f9256">More...</a><br /></td></tr>
+<tr class="separator:a27a12127e9cfe2155056e19b035f9256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1783305479f24e498089dd59309215f6"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a1783305479f24e498089dd59309215f6">g2_unpack7</a> (unsigned char *, g2int *, g2int, g2int *, g2int, g2int *, g2int, g2float **)</td></tr>
+<tr class="memdesc:a1783305479f24e498089dd59309215f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks Section 7 (Data Section) as defined in GRIB Edition 2.  <a href="grib2_8h.html#a1783305479f24e498089dd59309215f6">More...</a><br /></td></tr>
+<tr class="separator:a1783305479f24e498089dd59309215f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceafa00632b779e830443ef1869f7bb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#aceafa00632b779e830443ef1869f7bb9">gbit</a> (unsigned char *, g2int *, g2int, g2int)</td></tr>
+<tr class="memdesc:aceafa00632b779e830443ef1869f7bb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each value in the unpacked iout array.  <a href="grib2_8h.html#aceafa00632b779e830443ef1869f7bb9">More...</a><br /></td></tr>
 <tr class="separator:aceafa00632b779e830443ef1869f7bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43257e455b339d9ec75d1959f280224c"><td class="memItemLeft" align="right" valign="top"><a id="a43257e455b339d9ec75d1959f280224c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>gbits</b> (unsigned char *, g2int *, g2int, g2int, g2int, g2int)</td></tr>
+<tr class="memitem:a43257e455b339d9ec75d1959f280224c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a43257e455b339d9ec75d1959f280224c">gbits</a> (unsigned char *, g2int *, g2int, g2int, g2int, g2int)</td></tr>
+<tr class="memdesc:a43257e455b339d9ec75d1959f280224c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each value in the unpacked iout array.  <a href="grib2_8h.html#a43257e455b339d9ec75d1959f280224c">More...</a><br /></td></tr>
 <tr class="separator:a43257e455b339d9ec75d1959f280224c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f643c0f52bd4f76a0fa0e9e713ac489"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a7f643c0f52bd4f76a0fa0e9e713ac489">getdrstemplate</a> (g2int)</td></tr>
-<tr class="memdesc:a7f643c0f52bd4f76a0fa0e9e713ac489"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK ! .  <a href="grib2_8h.html#a7f643c0f52bd4f76a0fa0e9e713ac489">More...</a><br /></td></tr>
+<tr class="memdesc:a7f643c0f52bd4f76a0fa0e9e713ac489"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns DRS template information for a specified Data Representation Template 5.NN.  <a href="grib2_8h.html#a7f643c0f52bd4f76a0fa0e9e713ac489">More...</a><br /></td></tr>
 <tr class="separator:a7f643c0f52bd4f76a0fa0e9e713ac489"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92118ff293a94c42b11d1a39f4994392"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a92118ff293a94c42b11d1a39f4994392">getgridtemplate</a> (g2int)</td></tr>
-<tr class="memdesc:a92118ff293a94c42b11d1a39f4994392"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK ! .  <a href="grib2_8h.html#a92118ff293a94c42b11d1a39f4994392">More...</a><br /></td></tr>
+<tr class="memdesc:a92118ff293a94c42b11d1a39f4994392"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns grid template information for a specified Grid Definition Template 3.NN.  <a href="grib2_8h.html#a92118ff293a94c42b11d1a39f4994392">More...</a><br /></td></tr>
 <tr class="separator:a92118ff293a94c42b11d1a39f4994392"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19df3971bf764abc547d897f841cef61"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a19df3971bf764abc547d897f841cef61">getpdstemplate</a> (g2int)</td></tr>
-<tr class="memdesc:a19df3971bf764abc547d897f841cef61"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK  <a href="grib2_8h.html#a19df3971bf764abc547d897f841cef61">More...</a><br /></td></tr>
+<tr class="memdesc:a19df3971bf764abc547d897f841cef61"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns PDS template information for a specified Product Definition Template 4.NN.  <a href="grib2_8h.html#a19df3971bf764abc547d897f841cef61">More...</a><br /></td></tr>
 <tr class="separator:a19df3971bf764abc547d897f841cef61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3681c8c54464e3e97b3f48de09a5ed92"><td class="memItemLeft" align="right" valign="top"><a id="a3681c8c54464e3e97b3f48de09a5ed92"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>int_power</b> (double, g2int)</td></tr>
+<tr class="memitem:a3681c8c54464e3e97b3f48de09a5ed92"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a> (double, g2int)</td></tr>
+<tr class="memdesc:a3681c8c54464e3e97b3f48de09a5ed92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function similar to C pow() power function.  <a href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">More...</a><br /></td></tr>
 <tr class="separator:a3681c8c54464e3e97b3f48de09a5ed92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ed56e006562c2783cbce1ddb811b5c5"><td class="memItemLeft" align="right" valign="top"><a id="a5ed56e006562c2783cbce1ddb811b5c5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>misspack</b> (g2float *, g2int, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memitem:a5ed56e006562c2783cbce1ddb811b5c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a5ed56e006562c2783cbce1ddb811b5c5">misspack</a> (g2float *, g2int, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memdesc:a5ed56e006562c2783cbce1ddb811b5c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 documention.  <a href="grib2_8h.html#a5ed56e006562c2783cbce1ddb811b5c5">More...</a><br /></td></tr>
 <tr class="separator:a5ed56e006562c2783cbce1ddb811b5c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06ba2196366d23a6a06feb820c1456b0"><td class="memItemLeft" align="right" valign="top"><a id="a06ba2196366d23a6a06feb820c1456b0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mkieee</b> (g2float *, g2int *, g2int)</td></tr>
+<tr class="memitem:a06ba2196366d23a6a06feb820c1456b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a06ba2196366d23a6a06feb820c1456b0">mkieee</a> (g2float *, g2int *, g2int)</td></tr>
+<tr class="memdesc:a06ba2196366d23a6a06feb820c1456b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine stores a list of real values in 32-bit IEEE floating point format.  <a href="grib2_8h.html#a06ba2196366d23a6a06feb820c1456b0">More...</a><br /></td></tr>
 <tr class="separator:a06ba2196366d23a6a06feb820c1456b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82727fba138c096a0efbf936803d892a"><td class="memItemLeft" align="right" valign="top"><a id="a82727fba138c096a0efbf936803d892a"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>pack_gp</b> (g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *)</td></tr>
+<tr class="memitem:a82727fba138c096a0efbf936803d892a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a82727fba138c096a0efbf936803d892a">pack_gp</a> (g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *)</td></tr>
+<tr class="memdesc:a82727fba138c096a0efbf936803d892a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines groups of variable size, but at least of size minpk, the associated max (jmax( )) and min (jmin( )), the number of bits necessary to hold the values in each group (lbit( )), the number of values in each group (nov( )), the number of bits necessary to pack the jmin( ) values (ibit), the number of bits necessary to pack the lbit( ) values (jbit), and the number of bits necessary to pack the nov( ) values (kbit).  <a href="grib2_8h.html#a82727fba138c096a0efbf936803d892a">More...</a><br /></td></tr>
 <tr class="separator:a82727fba138c096a0efbf936803d892a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdcb02bbf4c7f835fb19f5501d27cf57"><td class="memItemLeft" align="right" valign="top"><a id="afdcb02bbf4c7f835fb19f5501d27cf57"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>rdieee</b> (g2int *, g2float *, g2int)</td></tr>
+<tr class="memitem:afdcb02bbf4c7f835fb19f5501d27cf57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#afdcb02bbf4c7f835fb19f5501d27cf57">rdieee</a> (g2int *, g2float *, g2int)</td></tr>
+<tr class="memdesc:afdcb02bbf4c7f835fb19f5501d27cf57"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine reads a list of real values in 32-bit IEEE floating point format.  <a href="grib2_8h.html#afdcb02bbf4c7f835fb19f5501d27cf57">More...</a><br /></td></tr>
 <tr class="separator:afdcb02bbf4c7f835fb19f5501d27cf57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52d2f723b1a656b67fac76d59442a5ac"><td class="memItemLeft" align="right" valign="top"><a id="a52d2f723b1a656b67fac76d59442a5ac"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sbit</b> (unsigned char *, g2int *, g2int, g2int)</td></tr>
+<tr class="memitem:a52d2f723b1a656b67fac76d59442a5ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#a52d2f723b1a656b67fac76d59442a5ac">sbit</a> (unsigned char *, g2int *, g2int, g2int)</td></tr>
+<tr class="memdesc:a52d2f723b1a656b67fac76d59442a5ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store bits - pack bits: Put arbitrary size values into a packed bit string, taking the low order bits from each value in the unpacked array.  <a href="grib2_8h.html#a52d2f723b1a656b67fac76d59442a5ac">More...</a><br /></td></tr>
 <tr class="separator:a52d2f723b1a656b67fac76d59442a5ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1a424b880c33be2d0c3c20939a2567b"><td class="memItemLeft" align="right" valign="top"><a id="af1a424b880c33be2d0c3c20939a2567b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sbits</b> (unsigned char *, g2int *, g2int, g2int, g2int, g2int)</td></tr>
+<tr class="memitem:af1a424b880c33be2d0c3c20939a2567b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#af1a424b880c33be2d0c3c20939a2567b">sbits</a> (unsigned char *, g2int *, g2int, g2int, g2int, g2int)</td></tr>
+<tr class="memdesc:af1a424b880c33be2d0c3c20939a2567b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store bits - pack bits: Put arbitrary size values into a packed bit string, taking the low order bits from each value in the unpacked array.  <a href="grib2_8h.html#af1a424b880c33be2d0c3c20939a2567b">More...</a><br /></td></tr>
 <tr class="separator:af1a424b880c33be2d0c3c20939a2567b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0ccb44cd5adec3a64d997b7a21bf828"><td class="memItemLeft" align="right" valign="top"><a id="ae0ccb44cd5adec3a64d997b7a21bf828"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>seekgb</b> (FILE *, g2int, g2int, g2int *, g2int *)</td></tr>
+<tr class="memitem:ae0ccb44cd5adec3a64d997b7a21bf828"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#ae0ccb44cd5adec3a64d997b7a21bf828">seekgb</a> (FILE *, g2int, g2int, g2int *, g2int *)</td></tr>
+<tr class="memdesc:ae0ccb44cd5adec3a64d997b7a21bf828"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subprogram searches a file for the next GRIB Message.  <a href="grib2_8h.html#ae0ccb44cd5adec3a64d997b7a21bf828">More...</a><br /></td></tr>
 <tr class="separator:ae0ccb44cd5adec3a64d997b7a21bf828"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6296345c25609fc7443aba106dc0cb2"><td class="memItemLeft" align="right" valign="top"><a id="ad6296345c25609fc7443aba106dc0cb2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>simpack</b> (g2float *, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memitem:ad6296345c25609fc7443aba106dc0cb2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2_8h.html#ad6296345c25609fc7443aba106dc0cb2">simpack</a> (g2float *, g2int, g2int *, unsigned char *, g2int *)</td></tr>
+<tr class="memdesc:ad6296345c25609fc7443aba106dc0cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field using the simple packing algorithm as defined in the GRIB2 documention.  <a href="grib2_8h.html#ad6296345c25609fc7443aba106dc0cb2">More...</a><br /></td></tr>
 <tr class="separator:ad6296345c25609fc7443aba106dc0cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>PRGMMR: Gilbert ORG: W/NP11 DATE: 2002-10-25</p>
+<div class="textblock"><p>Header file for NCEPLIBS-g2c library. </p>
 <p>PROGRAM HISTORY LOG:</p><ul>
 <li>2002-10-25 Gilbert</li>
 <li><p class="startli">2009-01-14 Vuong Changed struct template to gtemplate</p>
@@ -327,10 +348,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>simpack</b> (g2float 
        gfld-&gt;unpacked = logical value indicating whether the bitmap and
                        data values were unpacked.  If false,
                        gfld-&gt;bmap and gfld-&gt;fld pointers are nullified.
-       gfld-&gt;expanded = Logical value indicating whether the data field 
-                        was expanded to the grid in the case where a 
+       gfld-&gt;expanded = Logical value indicating whether the data field
+                        was expanded to the grid in the case where a
                         bit-map is present.  If true, the data points in
-                        gfld-&gt;fld match the grid points and zeros were 
+                        gfld-&gt;fld match the grid points and zeros were
                         inserted at grid points where data was bit-mapped
                         out.  If false, the data values in gfld-&gt;fld were
                         not expanded to the grid and are just a consecutive
@@ -348,8 +369,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>simpack</b> (g2float 
        gfld-&gt;fld  = Array of gfld-&gt;ndpts unpacked data points.
                     This element is a pointer to an array
                     that holds the data.
-  </pre> </li>
+  </pre></li>
 </ul>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-25 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="grib2_8h_source.html">grib2.h</a>.</p>
 </div><hr/><h2 class="groupheader">Data Type Documentation</h2>
@@ -365,7 +388,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>simpack</b> (g2float 
       </table>
 </div><div class="memdoc">
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="grib2_8h_source.html#l00182">182</a> of file <a class="el" href="grib2_8h_source.html">grib2.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="grib2_8h_source.html#l00184">184</a> of file <a class="el" href="grib2_8h_source.html">grib2.h</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
@@ -564,7 +587,7 @@ version</td>
       </table>
 </div><div class="memdoc">
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="grib2_8h_source.html#l00164">164</a> of file <a class="el" href="grib2_8h_source.html">grib2.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="grib2_8h_source.html#l00166">166</a> of file <a class="el" href="grib2_8h_source.html">grib2.h</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
@@ -614,6 +637,91 @@ type</td>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="af29cd0a48b10eb36018a46cee9d3b51b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af29cd0a48b10eb36018a46cee9d3b51b">&#9670;&nbsp;</a></span>compack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void compack </td>
+          <td>(</td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>idrsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lcpack</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 documention. </p>
+<p>It supports GRIB2 complex packing templates with or without spatial differences (i.e. DRTs 5.2 and 5.3). It also fills in GRIB2 Data Representation Template 5.2 or 5.3 with the appropriate values.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">fld</td><td>Contains the data values to pack </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ndpts</td><td>The number of data values in array fld </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">idrsnum</td><td>Data Representation Template number 5.N Must equal 2 or 3. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.2 or 5.3<ul>
+<li>0 Reference value - ignored on input</li>
+<li>1 Binary Scale Factor</li>
+<li>2 Decimal Scale Factor</li>
+<li>6 Missing value management</li>
+<li>7 Primary missing value</li>
+<li>8 Secondary missing value</li>
+<li>16 Order of Spatial Differencing ( 1 or 2 ) </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.3<ul>
+<li>0 Reference value - set by compack routine.</li>
+<li>1 Binary Scale Factor - unchanged from input</li>
+<li>2 Decimal Scale Factor - unchanged from input </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">cpack</td><td>The packed data field </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">lcpack</td><td>length of packed field cpack.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-07 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="compack_8c_source.html#l00041">41</a> of file <a class="el" href="compack_8c_source.html">compack.c</a>.</p>
+
+</div>
+</div>
 <a id="a3f9e059d95b70f538f9c2c8991e32cd4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3f9e059d95b70f538f9c2c8991e32cd4">&#9670;&nbsp;</a></span>extdrstemplate()</h2>
 
@@ -640,22 +748,35 @@ type</td>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK ! . </p>
-<p>. . . ! SUBPROGRAM: extdrstemplate ! PRGMMR: Gilbert ORG: W/NP11 DATE: 2000-05-11 ! ! ABSTRACT: This subroutine generates the remaining octet map for a ! given Data Representation Template, if required. Some Templates can ! vary depending on data values given in an earlier part of the ! Template, and it is necessary to know some of the earlier entry ! values to generate the full octet map of the Template. ! ! PROGRAM HISTORY LOG: ! 2000-05-11 Gilbert ! 2009-01-14 Vuong Changed structure name template to gtemplate ! ! USAGE: new=extdrstemplate(number,list); ! INPUT ARGUMENT LIST: ! number - NN, indicating the number of the Data Representation ! Template 5.NN that is being requested. ! list() - The list of values for each entry in the ! the Data Representation Template 5.NN. ! ! RETURN VALUE: <br  />
- ! - Pointer to the returned template struct. ! Returns NULL pointer, if template not found. ! ! ATTRIBUTES: ! LANGUAGE: C ! MACHINE: IBM SP ! !$$$ </p>
+<p>This subroutine generates the remaining octet map for a given Data Representation Template, if required. </p>
+<p>Some Templates can vary depending on data values given in an earlier part of the Template, and it is necessary to know some of the earlier entry values to generate the full octet map of the Template.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2000-05-11 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Data Representation Template 5.NN that is being requested. </td></tr>
+    <tr><td class="paramname">list</td><td>The list of values for each entry in the the Data Representation Template 5.NN.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the returned template struct. Returns NULL pointer, if template not found.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00137">137</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00104">104</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
 
 </div>
 </div>
-<a id="ae9558def8f621d909934341dae971e4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9558def8f621d909934341dae971e4d">&#9670;&nbsp;</a></span>extgridtemplate()</h2>
+<a id="abfcda5b8de694e1e37e1343f8dae0980"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfcda5b8de694e1e37e1343f8dae0980">&#9670;&nbsp;</a></span>extpdstemplate()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a>* extgridtemplate </td>
+          <td class="memname"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a>* extpdstemplate </td>
           <td>(</td>
           <td class="paramtype">g2int&#160;</td>
           <td class="paramname"><em>number</em>, </td>
@@ -674,30 +795,94 @@ type</td>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK ! . </p>
-<p>. . . ! SUBPROGRAM: extgridtemplate ! PRGMMR: Gilbert ORG: W/NP11 DATE: 2000-05-09 ! ! ABSTRACT: This subroutine generates the remaining octet map for a ! given Grid Definition Template, if required. Some Templates can ! vary depending on data values given in an earlier part of the ! Template, and it is necessary to know some of the earlier entry ! values to generate the full octet map of the Template. ! ! PROGRAM HISTORY LOG: ! 2000-05-09 Gilbert ! 2008-07-08 Vuong - Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa) ! 2009-01-14 Vuong - Changed structure name template to gtemplate ! 2010-05-11 Vuong - Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa) ! 2013-08-06 Vuong - Added GDT 3.4,3.5,3.12,3.101,3.140 ! ! USAGE: CALL extgridtemplate(number,list) ! INPUT ARGUMENT LIST: ! number - NN, indicating the number of the Grid Definition ! Template 3.NN that is being requested. ! list() - The list of values for each entry in ! the Grid Definition Template. ! ! RETURN VALUE: ! - Pointer to the returned template struct. ! Returns NULL pointer, if template not found. ! ! ATTRIBUTES: ! LANGUAGE: C ! MACHINE: IBM SP ! !$$$ </p>
+<p>This subroutine generates the remaining octet map for a given Product Definition Template, if required. </p>
+<p>Some Templates can vary depending on data values given in an earlier part of the Template, and it is necessary to know some of the earlier entry values to generate the full octet map of the Template.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Product Definition Template 4.NN that is being requested. </td></tr>
+    <tr><td class="paramname">list</td><td>The list of values for each entry in the the Product Definition Template 4.NN.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the returned template struct. Returns NULL pointer, if template not found.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00147">147</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00108">108</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
 
 </div>
 </div>
-<a id="abfcda5b8de694e1e37e1343f8dae0980"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfcda5b8de694e1e37e1343f8dae0980">&#9670;&nbsp;</a></span>extpdstemplate()</h2>
+<a id="ad246d411efa50751af412bb9c79fa2af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad246d411efa50751af412bb9c79fa2af">&#9670;&nbsp;</a></span>g2_addfield()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a>* extpdstemplate </td>
+          <td class="memname">g2int g2_addfield </td>
           <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">g2int&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramname"><em>ipdsnum</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">g2int *&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>ipdstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>coordlist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>numcoord</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>idrsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ngrdpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ibmap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>bmap</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -707,9 +892,1319 @@ type</td>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK </p>
+<p>This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message. </p>
+<p>They are Product Definition Section, Data Representation Section, Bit-Map Section and Data Section, respectively.</p>
+<p>This routine is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message. Also, routine <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a> must be called after <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> and before this routine to add the appropriate grid description to the GRIB2 message. Also, a call to <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> is required to complete GRIB2 message after all fields have been added.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-11-05 Gilbert</li>
+<li>2002-12-23 Gilbert - Added complex spherical harmonic packing</li>
+<li>2003-08-27 Gilbert - Added support for new templates using PNG and JPEG2000 algorithms/templates.</li>
+<li>2004-11-29 Gilbert - JPEG2000 now allowed to use WMO Template no. 5.40 PNG now allowed to use WMO Template no. 5.41<ul>
+<li>Added check to determine if packing algorithm failed.</li>
+</ul>
+</li>
+<li>2005-05-10 Gilbert - Imposed minimum size on cpack, used to hold encoded bit string.</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array that contains the GRIB2 message to which sections 4 through 7 should be added. Must be allocated large enough to store the entire GRIB2 message. </td></tr>
+    <tr><td class="paramname">ipdsnum</td><td>Product Definition Template Number (see Code Table 4.0). </td></tr>
+    <tr><td class="paramname">ipdstmpl</td><td>Contains the data values for the specified Product Definition Template (N=ipdsnum). Each element of this integer array contains an entry (in the order specified) of Product Defintion Template 4.N. </td></tr>
+    <tr><td class="paramname">coordlistArray</td><td>containg floating point values intended to document the vertical discretisation associated to model data on hybrid coordinate vertical levels. </td></tr>
+    <tr><td class="paramname">numcoord</td><td>number of values in array coordlist. </td></tr>
+    <tr><td class="paramname">idrsnum</td><td>Data Representation Template Number (see Code Table 5.0). </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the data values for the specified Data Representation Template (N=idrsnum). Each element of this integer array contains an entry (in the order specified) of Data Representation Template 5.N. Note that some values in this template (eg. reference values, number of bits, etc...) may be changed by the data packing algorithms. Use this to specify scaling factors and order of spatial differencing, if desired. </td></tr>
+    <tr><td class="paramname">fld</td><td>Array of data points to pack. </td></tr>
+    <tr><td class="paramname">ngrdpts-</td><td>Number of data points in grid. i.e. size of fld and bmap. </td></tr>
+    <tr><td class="paramname">ibmap</td><td>- Bitmap indicator (see Code Table 6.0)<ul>
+<li>0 = bitmap applies and is included in Section 6.</li>
+<li>1-253 = Predefined bitmap applies.</li>
+<li>254 = Previously defined bitmap applies to this field.</li>
+<li>255 = Bit map does not apply to this product. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">bmap</td><td>Integer array containing bitmap to be added. (if ibmap=0).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>&gt; 0 Current size of updated GRIB2 message</li>
+<li>-1 GRIB message was not initialized. Need to call routine <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> first.</li>
+<li>-2 GRIB message already complete. Cannot add new section.</li>
+<li>-3 Sum of Section byte counts doesn't add to total byte count.</li>
+<li>-4 Previous Section was not 3 or 7.</li>
+<li>-5 Could not find requested Product Definition Template.</li>
+<li>-6 Section 3 (GDS) not previously defined in message.</li>
+<li>-7 Tried to use unsupported Data Representationi Template.</li>
+<li>-8 Specified use of a previously defined bitmap, but one does not exist in the GRIB message.</li>
+<li>-9 GDT of one of 5.50 through 5.53 required to pack field using DRT 5.51.</li>
+<li>-10 Error packing data field.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Note that the Sections 4 through 7 can only follow Section 3 or Section 7 in a GRIB2 message.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-05 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00162">162</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2__addfield_8c_source.html#l00102">102</a> of file <a class="el" href="g2__addfield_8c_source.html">g2_addfield.c</a>.</p>
+
+</div>
+</div>
+<a id="a232f92335d98c2b6eb4f0d831691817e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a232f92335d98c2b6eb4f0d831691817e">&#9670;&nbsp;</a></span>g2_addgrid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_addgrid </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>igds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>igdstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>ideflist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>idefnum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message. </p>
+<p>It is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array that contains the GRIB2 message to which section should be added. Must be allocated large enough to store the entire GRIB2 message.</td></tr>
+    <tr><td class="paramname">igds</td><td>Contains information needed for GRIB Grid Definition Section 3. Must be dimensioned &gt;= 5.<ul>
+<li>igds[0] Source of grid definition (see Code Table 3.0)</li>
+<li>igds[1] Number of grid points in the defined grid.</li>
+<li>igds[2] Number of octets needed for each additional grid points definition. Used to define number of points in each row (or column) for non-regular grids. = 0, if using regular grid.</li>
+<li>igds[3] Interpretation of list for optional points definition. (Code Table 3.11)</li>
+<li>igds[4] Grid Definition Template Number (Code Table 3.1) </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">igdstmpl</td><td>Contains the data values for the specified Grid Definition Template (NN=igds[4]). Each element of this integer array contains an entry (in the order specified) of Grid Defintion Template 3.NN </td></tr>
+    <tr><td class="paramname">ideflist</td><td>(Used if igds[2] != 0) This array contains the number of grid points contained in each row (or column). </td></tr>
+    <tr><td class="paramname">idefnum</td><td>(Used if igds[2] != 0) The number of entries in array ideflist. i.e. number of rows (or columns) for which optional grid points are defined.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>&gt; 0 Current size of updated GRIB2 message</li>
+<li>-1 GRIB message was not initialized. Need to call routine gribcreate first.</li>
+<li>-2 GRIB message already complete. Cannot add new section.</li>
+<li>-3 Sum of Section byte counts doesn't add to total byte count</li>
+<li>-4 Previous Section was not 1, 2 or 7.</li>
+<li>-5 Could not find requested Grid Definition Template.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The Grid Def Section ( Section 3 ) can only follow Section 1, 2 or Section 7 in a GRIB2 message.</dd></dl>
+<p>PROGRAM HISTORY LOG</p><ul>
+<li>2002-11-01 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-01 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__addgrid_8c_source.html#l00060">60</a> of file <a class="el" href="g2__addgrid_8c_source.html">g2_addgrid.c</a>.</p>
+
+</div>
+</div>
+<a id="ab4f951ffae2dfca49cd53ef71985d721"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4f951ffae2dfca49cd53ef71985d721">&#9670;&nbsp;</a></span>g2_addlocal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_addlocal </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>csec2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>lcsec2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine adds a Local Use Section (Section 2) to a GRIB2 message. </p>
+<p>It is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array that contains the GRIB2 message to which section 2 should be added. Must be allocated large enough to store the entire GRIB2 message. </td></tr>
+    <tr><td class="paramname">csec2</td><td>Character array containing information to be added in Section 2. </td></tr>
+    <tr><td class="paramname">lcsec2</td><td>Number of bytes of character array csec2 to be added to Section 2.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>&gt; 0 = Current size of updated GRIB2 message.<ul>
+<li>-1 GRIB message was not initialized. Need to call routine gribcreate first.</li>
+<li>-2 GRIB message already complete. Cannot add new section.</li>
+<li>-3 Sum of Section byte counts doesn't add to total byte count</li>
+<li>-4 Previous Section was not 1 or 7.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The Local Use Section (Section 2) can only follow Section 1 or Section 7 in a GRIB2 message.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-01 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__addlocal_8c_source.html#l00037">37</a> of file <a class="el" href="g2__addlocal_8c_source.html">g2_addlocal.c</a>.</p>
+
+</div>
+</div>
+<a id="aac286696ed3f69ac01d472c43a5b5d02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac286696ed3f69ac01d472c43a5b5d02">&#9670;&nbsp;</a></span>g2_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_create </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>listsec0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>listsec1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Identification Section). </p>
+<p>This routine is used with routines <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message. Also, a call to <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> is required to complete GRIB2 message after all fields have been added.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cgrib</td><td>Character array to contain the GRIB2 message. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">listsec0</td><td>Contains information needed for GRIB Indicator Section 0. Must be dimensioned &gt;= 2.<ul>
+<li>listsec0[0]=Discipline-GRIB Master Table Number (see Code Table 0.0)</li>
+<li>listsec0[1]=GRIB Edition Number (currently 2) </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">listsec1</td><td>Contains information needed for GRIB Identification Section 1. Must be dimensioned &gt;= 13.<ul>
+<li>listsec1[0]=Id of orginating centre (Common Code Table C-1)</li>
+<li>listsec1[1]=Id of orginating sub-centre (local table)</li>
+<li>listsec1[2]=GRIB Master Tables Version Number (Code Table 1.0)</li>
+<li>listsec1[3]=GRIB Local Tables Version Number (Code Table 1.1)</li>
+<li>listsec1[4]=Significance of Reference Time (Code Table 1.2)</li>
+<li>listsec1[5]=Reference Time - Year (4 digits)</li>
+<li>listsec1[6]=Reference Time - Month</li>
+<li>listsec1[7]=Reference Time - Day</li>
+<li>listsec1[8]=Reference Time - Hour</li>
+<li>listsec1[9]=Reference Time - Minute</li>
+<li>listsec1[10]=Reference Time - Second</li>
+<li>listsec1[11]=Production status of data (Code Table 1.3)</li>
+<li>listsec1[12]=Type of processed data (Code Table 1.4) </li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">cgrib</td><td>Char array to contain the new GRIB2 message. Must be allocated large enough to store the entire GRIB2 message.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>- &gt; 0 Current size of new GRIB2 message<ul>
+<li>-1 Tried to use for version other than GRIB Edition 2</li>
+</ul>
+</dd></dl>
+<p>This routine is intended for use with routines <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message.</p>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__create_8c_source.html#l00050">50</a> of file <a class="el" href="g2__create_8c_source.html">g2_create.c</a>.</p>
+
+</div>
+</div>
+<a id="ad99dd0bc820e765764b331384ad9a5d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad99dd0bc820e765764b331384ad9a5d9">&#9670;&nbsp;</a></span>g2_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void g2_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#structgribfield">gribfield</a> *&#160;</td>
+          <td class="paramname"><em>gfld</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine frees up memory that was allocated for struct gribfield. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gfld</td><td>pointer to gribfield structure (defined in include file <a class="el" href="grib2_8h.html" title="Header file for NCEPLIBS-g2c library.">grib2.h</a>) returned from routine <a class="el" href="g2__getfld_8c.html#abad9d3ba0ee798acd442850573fc6b8e" title="This subroutine returns all the metadata, template values, Bit-map (if applicable),...">g2_getfld()</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This routine must be called to free up memory used by the decode routine, <a class="el" href="g2__getfld_8c.html#abad9d3ba0ee798acd442850573fc6b8e" title="This subroutine returns all the metadata, template values, Bit-map (if applicable),...">g2_getfld()</a>, when user no longer needs to reference this data.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-28 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__free_8c_source.html#l00024">24</a> of file <a class="el" href="g2__free_8c_source.html">g2_free.c</a>.</p>
+
+</div>
+</div>
+<a id="a4c569e4ca36f7027411b10331386459c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c569e4ca36f7027411b10331386459c">&#9670;&nbsp;</a></span>g2_getfld()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_getfld </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ifldnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>unpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>expand</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#structgribfield">gribfield</a> **&#160;</td>
+          <td class="paramname"><em>gfld</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine returns all the metadata, template values, Bit-map (if applicable), and the unpacked data for a given data field. </p>
+<p>All of the information returned is stored in a gribfield structure, which is defined in file <a class="el" href="grib2_8h.html" title="Header file for NCEPLIBS-g2c library.">grib2.h</a>. Users of this routine will need to include <a class="el" href="grib2_8h.html" title="Header file for NCEPLIBS-g2c library.">grib2.h</a> in their source code that calls this routine.</p>
+<p>Since there can be multiple data fields packed into a GRIB2 message, the calling routine indicates which field is being requested with the ifldnum argument.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-10-28 Gilbert</li>
+<li>2013-08-08 Vuong Free up memory in array igds - free(igds)</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Character pointer to the GRIB2 message. </td></tr>
+    <tr><td class="paramname">ifldnum</td><td>Specifies which field in the GRIB2 message to return. </td></tr>
+    <tr><td class="paramname">unpack</td><td>Boolean value indicating whether to unpack bitmap/data field.<ul>
+<li>1 unpack bitmap (if present) and data values.</li>
+<li>0 do not unpack bitmap and data values. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">expand</td><td>Boolean value indicating whether the data points should be expanded to the correspond grid, if a bit-map is present. This argument is ignored if unpack == 0 OR if the returned field does not contain a bit-map.<ul>
+<li>1 if possible, expand data field to grid, inserting zero values at gridpoints that are bitmapped out. (SEE REMARKS2)</li>
+<li>0 do not expand data field, leaving it an array of consecutive data points for each "1" in the bitmap. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">gfld</td><td>pointer to structure gribfield containing all decoded data for the data field.</td></tr>
+  </table>
+  </dd>
+</dl>
+<pre>
+       gfld-&gt;version = GRIB edition number ( currently 2 )
+       gfld-&gt;discipline = Message Discipline ( see Code Table 0.0 )
+       gfld-&gt;idsect = Contains the entries in the Identification
+                       Section ( Section 1 )
+                       This element is a pointer to an array
+                       that holds the data.
+           gfld-&gt;idsect[0]  = Identification of originating Centre
+                                   ( see Common Code Table C-1 )
+                            7 - US National Weather Service
+           gfld-&gt;idsect[1]  = Identification of originating Sub-centre
+           gfld-&gt;idsect[2]  = GRIB Master Tables Version Number
+                                   ( see Code Table 1.0 )
+                            0 - Experimental
+                            1 - Initial operational version number
+           gfld-&gt;idsect[3]  = GRIB Local Tables Version Number
+                                   ( see Code Table 1.1 )
+                            0     - Local tables not used
+                            1-254 - Number of local tables version used
+           gfld-&gt;idsect[4]  = Significance of Reference Time (Code Table 1.2)
+                            0 - Analysis
+                            1 - Start of forecast
+                            2 - Verifying time of forecast
+                            3 - Observation time
+           gfld-&gt;idsect[5]  = Year ( 4 digits )
+           gfld-&gt;idsect[6]  = Month
+           gfld-&gt;idsect[7)  = Day
+           gfld-&gt;idsect[8]  = Hour
+           gfld-&gt;idsect[9]  = Minute
+           gfld-&gt;idsect[10]  = Second
+           gfld-&gt;idsect[11]  = Production status of processed data
+                                   ( see Code Table 1.3 )
+                             0 - Operational products
+                             1 - Operational test products
+                             2 - Research products
+                             3 - Re-analysis products
+           gfld-&gt;idsect[12]  = Type of processed data ( see Code Table 1.4 )
+                             0  - Analysis products
+                             1  - Forecast products
+                             2  - Analysis and forecast products
+                             3  - Control forecast products
+                             4  - Perturbed forecast products
+                             5  - Control and perturbed forecast products
+                             6  - Processed satellite observations
+                             7  - Processed radar observations
+       gfld-&gt;idsectlen = Number of elements in gfld-&gt;idsect[].
+       gfld-&gt;local   = Pointer to character array containing contents
+                      of Local Section 2, if included
+       gfld-&gt;locallen = length of array gfld-&gt;local[]
+       gfld-&gt;ifldnum = field number within GRIB message
+       gfld-&gt;griddef = Source of grid definition (see Code Table 3.0)
+                     0 - Specified in Code table 3.1
+                     1 - Predetermined grid Defined by originating centre
+       gfld-&gt;ngrdpts = Number of grid points in the defined grid.
+       gfld-&gt;numoct_opt = Number of octets needed for each
+                         additional grid points definition.
+                         Used to define number of
+                         points in each row ( or column ) for
+                         non-regular grids.
+                         = 0, if using regular grid.
+       gfld-&gt;interp_opt = Interpretation of list for optional points
+                         definition. (Code Table 3.11)
+       gfld-&gt;igdtnum = Grid Definition Template Number (Code Table 3.1)
+       gfld-&gt;igdtmpl  = Contains the data values for the specified Grid
+                        Definition Template ( NN=gfld-&gt;igdtnum ). Each
+                        element of this integer array contains an entry (in
+                        the order specified) of Grid Defintion Template 3.NN
+                        This element is a pointer to an array
+                        that holds the data.
+       gfld-&gt;igdtlen = Number of elements in gfld-&gt;igdtmpl[]. i.e. number of
+                      entries in Grid Defintion Template 3.NN
+                      ( NN=gfld-&gt;igdtnum ).
+       gfld-&gt;list_opt  = (Used if gfld-&gt;numoct_opt .ne. 0)  This array
+                         contains the number of grid points contained in
+                         each row ( or column ). (part of Section 3)
+                         This element is a pointer to an array
+                         that holds the data. This pointer is nullified
+                         if gfld-&gt;numoct_opt=0.
+       gfld-&gt;num_opt = (Used if gfld-&gt;numoct_opt .ne. 0)
+                       The number of entries
+                      in array ideflist. i.e. number of rows ( or columns )
+                      for which optional grid points are defined. This value
+                      is set to zero, if gfld-&gt;numoct_opt=0.
+       gfdl-&gt;ipdtnum = Product Definition Template Number(see Code Table 4.0)
+       gfld-&gt;ipdtmpl  = Contains the data values for the specified Product
+                        Definition Template ( N=gfdl-&gt;ipdtnum ). Each element
+                        of this integer array contains an entry (in the
+                        order specified) of Product Defintion Template 4.N.
+                        This element is a pointer to an array
+                        that holds the data.
+       gfld-&gt;ipdtlen = Number of elements in gfld-&gt;ipdtmpl[]. i.e. number of
+                      entries in Product Defintion Template 4.N
+                      ( N=gfdl-&gt;ipdtnum ).
+       gfld-&gt;coord_list  = Real array containing floating point values
+                           intended to document the vertical discretisation
+                           associated to model data on hybrid coordinate
+                           vertical levels. (part of Section 4)
+                           This element is a pointer to an array
+                           that holds the data.
+       gfld-&gt;num_coord = number of values in array gfld-&gt;coord_list[].
+       gfld-&gt;ndpts = Number of data points unpacked and returned.
+       gfld-&gt;idrtnum = Data Representation Template Number
+                      ( see Code Table 5.0)
+       gfld-&gt;idrtmpl  = Contains the data values for the specified Data
+                        Representation Template ( N=gfld-&gt;idrtnum ). Each
+                        element of this integer array contains an entry
+                        (in the order specified) of Product Defintion
+                        Template 5.N.
+                        This element is a pointer to an array
+                        that holds the data.
+       gfld-&gt;idrtlen = Number of elements in gfld-&gt;idrtmpl[]. i.e. number
+                      of entries in Data Representation Template 5.N
+                      ( N=gfld-&gt;idrtnum ).
+       gfld-&gt;unpacked = logical value indicating whether the bitmap and
+                       data values were unpacked. If false,
+                       gfld-&gt;bmap and gfld-&gt;fld pointers are nullified.
+       gfld-&gt;expanded = Logical value indicating whether the data field
+                        was expanded to the grid in the case where a
+                        bit-map is present. If true, the data points in
+                        gfld-&gt;fld match the grid points and zeros were
+                        inserted at grid points where data was bit-mapped
+                        out. If false, the data values in gfld-&gt;fld were
+                        not expanded to the grid and are just a consecutive
+                        array of data points corresponding to each value of
+                        "1" in gfld-&gt;bmap.
+       gfld-&gt;ibmap = Bitmap indicator ( see Code Table 6.0 )
+                    0 = bitmap applies and is included in Section 6.
+                    1-253 = Predefined bitmap applies
+                    254 = Previously defined bitmap applies to this field
+                    255 = Bit map does not apply to this product.
+       gfld-&gt;bmap  = integer array containing decoded bitmap,
+                     if gfld-&gt;ibmap=0 or gfld-&gt;ibap=254. Otherwise nullified
+                     This element is a pointer to an array
+                     that holds the data.
+       gfld-&gt;fld  = Array of gfld-&gt;ndpts unpacked data points.
+                    This element is a pointer to an array
+                    that holds the data.
+</pre><dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>1 Beginning characters "GRIB" not found.</li>
+<li>2 GRIB message is not Edition 2.</li>
+<li>3 The data field request number was not positive.</li>
+<li>4 End string "7777" found, but not where expected.</li>
+<li>6 GRIB message did not contain the requested number of data fields.</li>
+<li>7 End string "7777" not found at end of message.</li>
+<li>8 Unrecognized Section encountered.</li>
+<li>9 Data Representation Template 5.NN not yet implemented.</li>
+<li>15 Error unpacking Section 1.</li>
+<li>16 Error unpacking Section 2.</li>
+<li>10 Error unpacking Section 3.</li>
+<li>11 Error unpacking Section 4.</li>
+<li>12 Error unpacking Section 5.</li>
+<li>13 Error unpacking Section 6.</li>
+<li>14 Error unpacking Section 7.</li>
+<li>17 Previous bitmap specified, yet none exists.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Struct gribfield is allocated by this routine and it also contains pointers to many arrays of data that were allocated during decoding. Users are encouraged to free up this memory, when it is no longer needed, by an explicit call to routine g2_free. <pre class="fragment">     EXAMPLE:
+</pre> <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
+<div class="line"><a class="code" href="grib2_8h.html#structgribfield">gribfield</a> *gfld;</div>
+<div class="line">ret=<a class="code" href="g2__getfld_8c.html#abad9d3ba0ee798acd442850573fc6b8e">g2_getfld</a>(cgrib,1,1,1,&amp;gfld);</div>
+<div class="line">  ...</div>
+<div class="line">g2_free(gfld);</div>
+</div><!-- fragment --></dd></dl>
+<p>Routine g2_info can be used to first determine how many data fields exist in a given GRIB message.</p>
+<dl class="section note"><dt>Note</dt><dd>It may not always be possible to expand a bit-mapped data field. If a pre-defined bit-map is used and not included in the GRIB2 message itself, this routine would not have the necessary information to expand the data. In this case, gfld-&gt;expanded would would be set to 0 (false), regardless of the value of input argument expand.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-28 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__getfld_8c_source.html#l00237">237</a> of file <a class="el" href="g2__getfld_8c_source.html">g2_getfld.c</a>.</p>
+
+</div>
+</div>
+<a id="a5879573202b0fed6eca832fabb9ebb4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5879573202b0fed6eca832fabb9ebb4a">&#9670;&nbsp;</a></span>g2_gribend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_gribend </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine finalizes a GRIB2 message after all grids and fields have been added. </p>
+<p>It adds the End Section ("7777") to the end of the GRIB message and calculates the length and stores it in the appropriate place in Section 0. This routine is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, and <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array containing all the data sections added be previous calls to g2_create, g2_addlocal, g2_addgrid, and g2_addfield. After function is called, contains the finalized GRIB2 message.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>&gt; 0 = Length of the final GRIB2 message in bytes.</li>
+<li>-1 = GRIB message was not initialized. Need to call routine g2_create first.</li>
+<li>-2 = GRIB message already complete.</li>
+<li>-3 = Sum of Section byte counts doesn't add to total byte count</li>
+<li>-4 = Previous Section was not 7.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This routine is intended for use with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, and <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a> to create a complete GRIB2 message.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__gribend_8c_source.html#l00036">36</a> of file <a class="el" href="g2__gribend_8c_source.html">g2_gribend.c</a>.</p>
+
+</div>
+</div>
+<a id="a8bd1cfb013499982dea5eee69bc95a6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bd1cfb013499982dea5eee69bc95a6e">&#9670;&nbsp;</a></span>g2_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_info </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>listsec0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>listsec1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>numfields</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>numlocal</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine searches through a GRIB2 message and returns the number of gridded fields found in the message and the number (and maximum size) of Local Use Sections. </p>
+<p>Also various checks are performed to see if the message is a valid GRIB2 message.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Character pointer to the GRIB2 message. </td></tr>
+    <tr><td class="paramname">listsec0</td><td>pointer to an array containing information decoded from GRIB Indicator Section 0. Must be allocated with &gt;= 3 elements.<ul>
+<li>listsec0[0] Discipline-GRIB Master Table Number (see Code Table 0.0).</li>
+<li>listsec0[1] GRIB Edition Number (currently 2).</li>
+<li>listsec0[2] Length of GRIB message. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">listsec1</td><td>Pointer to an array containing information read from GRIB Identification Section 1. Must be allocated with &gt;= 13 elements.<ul>
+<li>listsec1[0] Id of orginating centre (Common Code Table C-1)</li>
+<li>listsec1[1] Id of orginating sub-centre (local table)</li>
+<li>listsec1[2] GRIB Master Tables Version Number (Code Table 1.0)</li>
+<li>listsec1[3] GRIB Local Tables Version Number</li>
+<li>listsec1[4] Significance of Reference Time (Code Table 1.1)</li>
+<li>listsec1[5] Reference Time - Year (4 digits)</li>
+<li>listsec1[6] Reference Time - Month</li>
+<li>listsec1[7] Reference Time - Day</li>
+<li>listsec1[8] Reference Time - Hour</li>
+<li>listsec1[9] Reference Time - Minute</li>
+<li>listsec1[10] Reference Time - Second</li>
+<li>listsec1[11] Production status of data (Code Table 1.2)</li>
+<li>listsec1[12] Type of processed data (Code Table 1.3) </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">numfields</td><td>The number of gridded fields found in the GRIB message. That is, the number of occurences of Sections 4 - 7. </td></tr>
+    <tr><td class="paramname">numlocal</td><td>The number of Local Use Sections ( Section 2 ) found in the GRIB message.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 foe success, otherwise:<ul>
+<li>1 Beginning characters "GRIB" not found.</li>
+<li>2 GRIB message is not Edition 2.</li>
+<li>3 Could not find Section 1, where expected.</li>
+<li>4 End string "7777" found, but not where expected.</li>
+<li>5 End string "7777" not found at end of message.</li>
+<li>6 Invalid section number found.</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-28 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__info_8c_source.html#l00059">59</a> of file <a class="el" href="g2__info_8c_source.html">g2_info.c</a>.</p>
+
+</div>
+</div>
+<a id="a3796bb89e5b8aba66fc624bc8b377a3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3796bb89e5b8aba66fc624bc8b377a3b">&#9670;&nbsp;</a></span>g2_unpack1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_unpack1 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iofst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>ids</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idslen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine unpacks Section 1 (Identification Section) as defined in GRIB Edition 2. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>char array containing Section 1 of the GRIB2 message. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset for the beginning of Section 1 in cgrib. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset at the end of Section 1, returned. </td></tr>
+    <tr><td class="paramname">ids</td><td>address of pointer to integer array containing information read from Section 1, the Identification section.<ul>
+<li>ids[0] Identification of originating Centre (see Common Code Table C-1).</li>
+<li>ids[1] Identification of originating Sub-centre.</li>
+<li>ids[2] GRIB Master Tables Version Number (see Code Table 1.0).</li>
+<li>ids[3] GRIB Local Tables Version Number (see Code Table 1.1).</li>
+<li>ids[4] Significance of Reference Time (Code Table 1.2)</li>
+<li>ids[5] Year ( 4 digits )</li>
+<li>ids[6] Month</li>
+<li>ids[7] Day</li>
+<li>ids[8] Hour</li>
+<li>ids[9] Minute</li>
+<li>ids[10] Second</li>
+<li>ids[11] Production status of processed data (see Code Table 1.3).</li>
+<li>ids[12] Type of processed data (see Code Table 1.4). </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">idslen</td><td>Number of elements in ids.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>2 Array passed is not section 1</li>
+<li>6 memory allocation error</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-29 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__unpack1_8c_source.html#l00045">45</a> of file <a class="el" href="g2__unpack1_8c_source.html">g2_unpack1.c</a>.</p>
+
+</div>
+</div>
+<a id="a7f3d062f236f46e6835f689a149ef88a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f3d062f236f46e6835f689a149ef88a">&#9670;&nbsp;</a></span>g2_unpack3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_unpack3 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iofst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>igds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>igdstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>mapgridlen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>ideflist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idefnum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine unpacks Section 3 (Grid Definition Section) as defined in GRIB Edition 2. </p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-10-31 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array ontaining Section 3 of the GRIB2 message. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset for the beginning of Section 3 in cgrib. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset at the end of Section 3, returned. </td></tr>
+    <tr><td class="paramname">igds</td><td>Contains information read from the appropriate GRIB Grid Definition Section 3 for the field being returned.<ul>
+<li>igds[0] Source of grid definition (see Code Table 3.0)</li>
+<li>igds[1] Number of grid points in the defined grid.</li>
+<li>igds[2] Number of octets needed for each additional grid points definition. Used to define number of points in each row (or column) for non-regular grids. = 0, if using regular grid.</li>
+<li>igds[3] Interpretation of list for optional points definition. (Code Table 3.11)</li>
+<li>igds[4] Grid Definition Template Number (Code Table 3.1). </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">igdstmpl</td><td>- Pointer to integer array containing the data values for the specified Grid Definition Template (NN=igds[4]). Each element of this integer array contains an entry (in the order specified) of Grid Defintion Template 3.NN </td></tr>
+    <tr><td class="paramname">mapgridlen-</td><td>Number of elements in igdstmpl[]. i.e. number of entries in Grid Defintion Template 3.NN (NN=igds[4]). </td></tr>
+    <tr><td class="paramname">ideflist</td><td>(Used if igds[2] .ne. 0) Pointer to integer array containing the number of grid points contained in each row ( or column ). (part of Section 3). </td></tr>
+    <tr><td class="paramname">idefnum</td><td>(Used if igds[2] .ne. 0) The number of entries in array ideflist. i.e. number of rows (or columns) for which optional grid points are defined.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>2 Not Section 3</li>
+<li>5 "GRIB" message contains an undefined Grid Definition Template.</li>
+<li>6 memory allocation error</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__unpack3_8c_source.html#l00054">54</a> of file <a class="el" href="g2__unpack3_8c_source.html">g2_unpack3.c</a>.</p>
+
+</div>
+</div>
+<a id="a91d98f7e471cce705c43b039b7d87533"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91d98f7e471cce705c43b039b7d87533">&#9670;&nbsp;</a></span>g2_unpack4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_unpack4 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iofst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>ipdsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>ipdstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>mappdslen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2float **&#160;</td>
+          <td class="paramname"><em>coordlist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>numcoord</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine unpacks Section 4 (Product Definition Section) as defined in GRIB Edition 2. </p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-10-31 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array containing Section 4 of the GRIB2 message. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset of the beginning of Section 4 in cgrib. Returned with updated bit offset. </td></tr>
+    <tr><td class="paramname">ipdsnum</td><td>Product Definition Template Number (see Code Table 4.0). </td></tr>
+    <tr><td class="paramname">ipdstmpl</td><td>Pointer to integer array containing the data values for the specified Product Definition Template (N=ipdsnum). Each element of this integer array contains an entry (in the order specified) of Product Defintion Template 4.N. </td></tr>
+    <tr><td class="paramname">mappdslen</td><td>Number of elements in ipdstmpl. i.e. number of entries in Product Defintion Template 4.N (N=ipdsnum). </td></tr>
+    <tr><td class="paramname">coordlist</td><td>Pointer to real array containing floating point values intended to document the vertical discretisation associated to model data on hybrid coordinate vertical levels. (part of Section 4). </td></tr>
+    <tr><td class="paramname">numcoord</td><td>number of values in array coordlist.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>2 Not section 4</li>
+<li>5 "GRIB" message contains an undefined Product Definition Template.</li>
+<li>6 memory allocation error</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__unpack4_8c_source.html#l00042">42</a> of file <a class="el" href="g2__unpack4_8c_source.html">g2_unpack4.c</a>.</p>
+
+</div>
+</div>
+<a id="a37ec4c9e3f74008a74bd11828152df5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37ec4c9e3f74008a74bd11828152df5c">&#9670;&nbsp;</a></span>g2_unpack5()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_unpack5 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iofst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>mapdrslen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine unpacks Section 5 (Data Representation Section) as defined in GRIB Edition 2. </p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-10-31 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>char array containing Section 5 of the GRIB2 message. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset for the beginning of Section 5 in cgrib. Returned with bit offset at the end of Section 5. </td></tr>
+    <tr><td class="paramname">ndpts</td><td>Number of data points unpacked and returned. </td></tr>
+    <tr><td class="paramname">idrsnum</td><td>Data Representation Template Number (see Code Table 5.0). </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Pointer to an integer array containing the data values for the specified Data Representation Template (N=idrsnum). Each element of this integer array contains an entry (in the order specified) of Data Representation Template 5.N. </td></tr>
+    <tr><td class="paramname">mapdrslen-</td><td>Number of elements in idrstmpl. i.e. number of entries in Data Representation Template 5.N (N=idrsnum).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>2 Not Section 5</li>
+<li>6 memory allocation error</li>
+<li>7 "GRIB" message contains an undefined Data Representation Template.</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__unpack5_8c_source.html#l00040">40</a> of file <a class="el" href="g2__unpack5_8c_source.html">g2_unpack5.c</a>.</p>
+
+</div>
+</div>
+<a id="a27a12127e9cfe2155056e19b035f9256"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27a12127e9cfe2155056e19b035f9256">&#9670;&nbsp;</a></span>g2_unpack6()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_unpack6 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iofst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ngpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>ibmap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramname"><em>bmap</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine unpacks Section 6 (Bit-Map Section) as defined in GRIB Edition 2. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>char array containing Section 6 of the GRIB2 message. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset of the beginning of Section 6 in cgrib. </td></tr>
+    <tr><td class="paramname">ngpts</td><td>Number of grid points specified in the bit-map </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset at the end of Section 6, returned. </td></tr>
+    <tr><td class="paramname">ibmap</td><td>Bitmap indicator (see Code Table 6.0)<ul>
+<li>0 bitmap applies and is included in Section 6.</li>
+<li>1-253 Predefined bitmap applies</li>
+<li>254 Previously defined bitmap applies to this field</li>
+<li>255 Bit map does not apply to this product. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">bmap</td><td>Pointer to an integer array containing decoded bitmap. (if ibmap=0)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>2 Not Section 6</li>
+<li>4 Unrecognized pre-defined bit-map.</li>
+<li>6 memory allocation error</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__unpack6_8c_source.html#l00034">34</a> of file <a class="el" href="g2__unpack6_8c_source.html">g2_unpack6.c</a>.</p>
+
+</div>
+</div>
+<a id="a1783305479f24e498089dd59309215f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1783305479f24e498089dd59309215f6">&#9670;&nbsp;</a></span>g2_unpack7()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_unpack7 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iofst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>igdsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>igdstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>idrsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2float **&#160;</td>
+          <td class="paramname"><em>fld</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine unpacks Section 7 (Data Section) as defined in GRIB Edition 2. </p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-10-31 Gilbert</li>
+<li>2002-12-20 Gilbert - Added GDT info to arguments and added 5.51 processing.</li>
+<li>2003-08-29 Gilbert - Added support for new templates using PNG and JPEG2000 algorithms/templates.</li>
+<li>2004-11-29 Gilbert - JPEG2000 now allowed to use WMO Template no. 5.40 PNG now allowed to use WMO Template no. 5.41</li>
+<li>2004-12-16 Taylor - Added check on comunpack return code.</li>
+<li>2008-12-23 Wesley - Initialize Number of data points unpacked</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>char array containing Section 7 of the GRIB2 message </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset of the beginning of Section 7 in cgrib. </td></tr>
+    <tr><td class="paramname">igdsnum</td><td>Grid Definition Template Number (see Code Table 3.0) (Only used for DRS Template 5.51) </td></tr>
+    <tr><td class="paramname">igdstmpl</td><td>Pointer to an integer array containing the data values for the specified Grid Definition Template (N=igdsnum). Each element of this integer array contains an entry (in the order specified) of Grid Definition Template 3.N. (Only used for DRS Template 5.51). </td></tr>
+    <tr><td class="paramname">idrsnum</td><td>Data Representation Template Number (see Code Table 5.0) </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Pointer to an integer array containing the data values for the specified Data Representation Template (N=idrsnum). Each element of this integer array contains an entry (in the order specified) of Data Representation Template 5.N </td></tr>
+    <tr><td class="paramname">ndpts</td><td>Number of data points unpacked and returned. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Bit offset at the end of Section 7, returned. </td></tr>
+    <tr><td class="paramname">fld</td><td>Pointer to a float array containing the unpacked data field.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 no error</li>
+<li>2 Not section 7</li>
+<li>4 Unrecognized Data Representation Template</li>
+<li>5 need one of GDT 3.50 through 3.53 to decode DRT 5.51</li>
+<li>6 memory allocation error</li>
+<li>7 corrupt section 7.</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__unpack7_8c_source.html#l00067">67</a> of file <a class="el" href="g2__unpack7_8c_source.html">g2_unpack7.c</a>.</p>
+
+</div>
+</div>
+<a id="aceafa00632b779e830443ef1869f7bb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceafa00632b779e830443ef1869f7bb9">&#9670;&nbsp;</a></span>gbit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gbit </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>iskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nbyte</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each value in the unpacked iout array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>pointer to character array input. </td></tr>
+    <tr><td class="paramname">iout</td><td>pointer to unpacked array output. </td></tr>
+    <tr><td class="paramname">iskip</td><td>initial number of bits to skip. </td></tr>
+    <tr><td class="paramname">nbyte</td><td>number of bits to take.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>NOAA Programmer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="gbits_8c_source.html#l00020">20</a> of file <a class="el" href="gbits_8c_source.html">gbits.c</a>.</p>
+
+</div>
+</div>
+<a id="a43257e455b339d9ec75d1959f280224c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43257e455b339d9ec75d1959f280224c">&#9670;&nbsp;</a></span>gbits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gbits </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>iskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nbyte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each value in the unpacked iout array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>pointer to character array input. </td></tr>
+    <tr><td class="paramname">iout</td><td>pointer to unpacked array output. </td></tr>
+    <tr><td class="paramname">iskip</td><td>initial number of bits to skip. </td></tr>
+    <tr><td class="paramname">nbyte</td><td>number of bits to take. </td></tr>
+    <tr><td class="paramname">nskip</td><td>additional number of bits to skip on each iteration. </td></tr>
+    <tr><td class="paramname">n</td><td>number of iterations.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>NOAA Programmer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="gbits_8c_source.html#l00059">59</a> of file <a class="el" href="gbits_8c_source.html">gbits.c</a>.</p>
 
 </div>
 </div>
@@ -729,11 +2224,23 @@ type</td>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK ! . </p>
-<p>. . . ! SUBPROGRAM: getdrstemplate ! PRGMMR: Gilbert ORG: W/NP11 DATE: 2000-05-11 ! ! ABSTRACT: This subroutine returns DRS template information for a ! specified Data Representation Template 5.NN. ! The number of entries in the template is returned along with a map ! of the number of octets occupied by each entry. Also, a flag is ! returned to indicate whether the template would need to be extended. ! ! PROGRAM HISTORY LOG: ! 2000-05-11 Gilbert ! 2009-01-14 Vuong Changed structure name template to gtemplate ! ! USAGE: new=getdrstemplate(number); ! INPUT ARGUMENT LIST: ! number - NN, indicating the number of the Data Representation ! Template 5.NN that is being requested. ! ! RETURN VALUE: <br  />
- ! - Pointer to the returned template struct. ! Returns NULL pointer, if template not found. ! ! REMARKS: None ! ! ATTRIBUTES: ! LANGUAGE: C ! MACHINE: IBM SP ! !$$$ </p>
+<p>This subroutine returns DRS template information for a specified Data Representation Template 5.NN. </p>
+<p>The number of entries in the template is returned along with a map of the number of octets occupied by each entry. Also, a flag is returned to indicate whether the template would need to be extended.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2000-05-11 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Data Representation Template 5.NN that is being requested.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the returned template struct. Returns NULL pointer, if template not found.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00080">80</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00057">57</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
 
 </div>
 </div>
@@ -753,10 +2260,26 @@ type</td>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK ! . </p>
-<p>. . . ! SUBPROGRAM: getgridtemplate ! PRGMMR: Gilbert ORG: W/NP11 DATE: 2000-05-09 ! ! ABSTRACT: This subroutine returns grid template information for a ! specified Grid Definition Template 3.NN. ! The number of entries in the template is returned along with a map ! of the number of octets occupied by each entry. Also, a flag is ! returned to indicate whether the template would need to be extended. ! ! PROGRAM HISTORY LOG: ! 2000-05-09 Gilbert ! 2007-08-16 Vuong - Added GDT 3.204 Curvilinear Orthogonal Grid ! 2008-07-08 Vuong - Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa) ! 2010-05-11 Vuong - Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa) ! 2009-01-14 Vuong - Changed structure name template to gtemplate ! ! USAGE: gtemplate *getgridtemplate(number) ! INPUT ARGUMENT LIST: ! number - NN, indicating the number of the Grid Definition ! Template 3.NN that is being requested. ! ! RETURN VALUE: ! - Pointer to the returned template struct. ! Returns NULL pointer, if template not found. ! ! REMARKS: None ! ! ATTRIBUTES: ! LANGUAGE: C ! MACHINE: IBM SP ! !$$$ </p>
+<p>This subroutine returns grid template information for a specified Grid Definition Template 3.NN. </p>
+<p>The number of entries in the template is returned along with a map of the number of octets occupied by each entry. Also, a flag is returned to indicate whether the template would need to be extended.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2000-05-09 Gilbert</li>
+<li>2007-08-16 Vuong - Added GDT 3.204 Curvilinear Orthogonal Grid</li>
+<li>2008-07-08 Vuong - Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa)</li>
+<li>2010-05-11 Vuong - Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)</li>
+<li>2009-01-14 Vuong - Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Grid Definition Template 3.NN that is being requested.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the returned template struct. Returns NULL pointer, if template not found.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-05-09 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00086">86</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00068">68</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
 
 </div>
 </div>
@@ -770,20 +2293,795 @@ type</td>
           <td class="memname"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a>* getpdstemplate </td>
           <td>(</td>
           <td class="paramtype">g2int&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><em>number</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK </p>
+<p>This subroutine returns PDS template information for a specified Product Definition Template 4.NN. </p>
+<p>The number of entries in the template is returned along with a map of the number of octets occupied by each entry. Also, a flag is returned to indicate whether the template would need to be extended.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Product Definition Template 4.NN that is being requested.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the returned template struct. Returns NULL pointer, if template not found.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00096">96</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00065">65</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+
+</div>
+</div>
+<a id="a3681c8c54464e3e97b3f48de09a5ed92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3681c8c54464e3e97b3f48de09a5ed92">&#9670;&nbsp;</a></span>int_power()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double int_power </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function similar to C pow() power function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The base value whose power is to be calculated. </td></tr>
+    <tr><td class="paramname">y</td><td>The power value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>x**y</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Wesley Ebisuzaki </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="int__power_8c_source.html#l00017">17</a> of file <a class="el" href="int__power_8c_source.html">int_power.c</a>.</p>
+
+</div>
+</div>
+<a id="a5ed56e006562c2783cbce1ddb811b5c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ed56e006562c2783cbce1ddb811b5c5">&#9670;&nbsp;</a></span>misspack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void misspack </td>
+          <td>(</td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>idrsnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lcpack</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 documention. </p>
+<p>It supports GRIB2 complex packing templates with or without spatial differences (i.e. DRTs 5.2 and 5.3). It also fills in GRIB2 Data Representation Template 5.2 or 5.3 with the appropriate values. This version assumes that Missing Value Management is being used and that 1 or 2 missing values appear in the data.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fld</td><td>Contains the data values to pack </td></tr>
+    <tr><td class="paramname">ndpts</td><td>The number of data values in array fld </td></tr>
+    <tr><td class="paramname">idrsnum</td><td>Data Representation Template number 5.N Must equal 2 or 3. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.2 or 5.3.<ul>
+<li>0 Reference value - ignored on input, set by misspack routine.</li>
+<li>1 Binary Scale Factor - used on input.</li>
+<li>2 Decimal Scale Factor- used on input.</li>
+<li>6 Missing value management.</li>
+<li>7 Primary missing value.</li>
+<li>8 Secondary missing value.</li>
+<li>16 Order of Spatial Differencing (1 or 2). </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">cpack</td><td>The packed data field (character*1 array). </td></tr>
+    <tr><td class="paramname">lcpack</td><td>length of packed field cpack.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-06-21 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="misspack_8c_source.html#l00038">38</a> of file <a class="el" href="misspack_8c_source.html">misspack.c</a>.</p>
+
+</div>
+</div>
+<a id="a06ba2196366d23a6a06feb820c1456b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06ba2196366d23a6a06feb820c1456b0">&#9670;&nbsp;</a></span>mkieee()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mkieee </td>
+          <td>(</td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>rieee</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine stores a list of real values in 32-bit IEEE floating point format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Input array of floating point values. </td></tr>
+    <tr><td class="paramname">num</td><td>Number of floating point values to convert. </td></tr>
+    <tr><td class="paramname">rieee</td><td>Output array of data values in 32-bit IEEE format stored in g2int integer array. rieee must be allocated with at least 4*num bytes of memory before calling this function.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-29 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="mkieee_8c_source.html#l00021">21</a> of file <a class="el" href="mkieee_8c_source.html">mkieee.c</a>.</p>
+
+</div>
+</div>
+<a id="a82727fba138c096a0efbf936803d892a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82727fba138c096a0efbf936803d892a">&#9670;&nbsp;</a></span>pack_gp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int pack_gp </td>
+          <td>(</td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>kfildo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>ic</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>nxy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>is523</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>minpk</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>inc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>missp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>misss</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>jmin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>jmax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>lbit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>nov</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>ndg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>lx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>ibit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>jbit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>kbit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>novref</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>lbitref</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>ier</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determines groups of variable size, but at least of size minpk, the associated max (jmax( )) and min (jmin( )), the number of bits necessary to hold the values in each group (lbit( )), the number of values in each group (nov( )), the number of bits necessary to pack the jmin( ) values (ibit), the number of bits necessary to pack the lbit( ) values (jbit), and the number of bits necessary to pack the nov( ) values (kbit). </p>
+<p>The routine is designed to determine the groups such that a small number of bits is necessary to pack the data without excessive computations. If all values in the group are zero, the number of bits to use in packing is defined as zero when there can be no missing values; when there can be missing values, the number of bits must be at least 1 to have the capability to recognize the missing value. However, if all values in a group are missing, the number of bits needed is 0, and the unpacker recognizes this. All variables are integer. Even though the groups are initially of size minpk or larger, an adjustment between two groups (the lookback procedure) may make a group smaller than minpk. The control on group size is that the sum of the sizes of the two consecutive groups, each of size minpk or larger, is not decreased. When determining the number of bits necessary for packing, the largest value that can be accommodated in, say, mbits, is 2**mbits-1; this largest value (and the next smallest value) is reserved for the missing value indicator (only) when is523 ne 0. If the dimension ndg is not large enough to hold all the groups, the local value of minpk is increased by 50 percent. This is repeated until ndg will suffice. A diagnostic is printed whenever this happens, which should be very rarely. If it happens often, ndg in subroutine pack should be increased and a corresponding increase in subroutine unpack made. Considerable code is provided so that no more checking for missing values within loops is done than necessary; the added efficiency of this is relatively minor, but does no harm. For grib2, the reference value for the length of groups in nov( ) and for the number of bits necessary to pack group values are determined, and subtracted before jbit and kbit are determined.</p>
+<p>When 1 or more groups are large compared to the others, the width of all groups must be as large as the largest. A subroutine reduce breaks up large groups into 2 or more to reduce total bits required. If reduce should abort, pack_gp will be executed again without the call to reduce.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>February 1994 Glahn tdl mos-2000</li>
+<li>June 1995 Glahn modified for lmiss error.</li>
+<li>July 1996 Glahn added misss</li>
+<li>February 1997 Glahn removed 4 redundant tests for missp.eq.0; inserted a test to better handle a string of 9999's</li>
+<li>February 1997 Glahn added loops to eliminate test for misss when misss = 0</li>
+<li>March 1997 Glahn corrected for secondary missing value</li>
+<li>March 1997 Glahn corrected for use of local value of minpk</li>
+<li>March 1997 Glahn corrected for secondary missing value</li>
+<li>March 1997 Glahn changed calculating number of bits through exponents to an array (improved overall packing performance by about 35 percent!). allowed 0 bits for packing jmin( ), lbit( ), and nov( ).</li>
+<li>May 1997 Glahn a number of changes for efficiency. mod functions eliminated and one ifthen added. jount removed. recomputation of bits not made unless necessary after moving points from one group to another. nendb adjusted to eliminate possibility of very small group at the end. about 8 percent improvement in overall packing. iskipa removed; there is always a group b that can become group a. control on size of group b (statement below 150) added. added adda, and use of ge and le instead of gt and lt in loops between 150 and 160. ibitbs added to shorten trips through loop.</li>
+<li>March 2000 Glahn modified for grib2; changed name from packgp</li>
+<li>january 2001 Glahn comments; ier = 706 substituted for stops; added return1; removed statement number 110; added ier and * return</li>
+<li>November 2001 Glahn changed some diagnostic formats to allow printing larger numbers</li>
+<li>November 2001 Glahn added misslx( ) to put maximum value into jmin( ) when all values missing to agree with grib standard.</li>
+<li>November 2001 Glahn changed two tests on missp and misss eq 0 to tests on is523. however, missp and misss cannot in general be = 0.</li>
+<li>November 2001 Glahn added call to reduce; defined itest before loops to reduce computation; started large group when all same value</li>
+<li>December 2001 Glahn modified and added a few comments</li>
+<li>January 2002 Glahn removed loop before 150 to determine a group of all same value</li>
+<li>January 2002 Glahn changed mallow from 9999999 to 2**30+1, and made it a parameter</li>
+<li>March 2002 Glahn added non fatal ier = 716, 717; removed nendb=nxy above 150; added iersav=0; comments</li>
+</ul>
+<p>DATA SET USE</p><ul>
+<li>kfildo - unit number for output (print) file. (output)</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">kfildo</td><td>unit number for output (print) file. (input) </td></tr>
+    <tr><td class="paramname">ic</td><td>array to hold data for packing. the values do not have to be positive at this point, but must be in the range -2**30 to +2**30 (the the value of mallow). these integer values will be retained exactly through packing and unpacking. (input) </td></tr>
+    <tr><td class="paramname">nxy</td><td>number of values in ic( ). also treated as its dimension. (input) </td></tr>
+    <tr><td class="paramname">is523</td><td>missing value management 0=data contains no missing values 1=data contains primary missing values 2=data contains primary and secondary missing values (input) </td></tr>
+    <tr><td class="paramname">minpk</td><td>the minimum size of each group, except possibly the last one. (input) </td></tr>
+    <tr><td class="paramname">inc</td><td>the number of values to add to an already existing group in determining whether or not to start a new group. ideally, this would be 1, but each time inc values are attempted, the max and min of the next minpk values must be found. this is "a loop within a
+loop," and a slightly larger value may give about as good results with slightly less computational time. if inc is le 0, 1 is used, and a diagnostic is output. note: it is expected that inc will equal 1. the code uses inc primarily in the loops starting at statement 180. if inc were 1, there would not need to be loops as such. however, kinc (the local value of inc) is set ge 1 when near the end of the data to forestall a very small group at the end. (input) </td></tr>
+    <tr><td class="paramname">missp</td><td>when missing points can be present in the data, they will have the value missp or misss. missp is the primary missing value and misss is the secondary missing value . these must not be values that would occur with subtracting the minimum (reference) value or scaling. for example, missp = 0 would not be advisable. (input) </td></tr>
+    <tr><td class="paramname">misss</td><td>secondary missing value indicator (see missp). (input) </td></tr>
+    <tr><td class="paramname">jmin</td><td>the minimum of each group (j=1,lx). (output) </td></tr>
+    <tr><td class="paramname">jmax</td><td>the maximum of each group (j=1,lx). this is not really needed, but since the max of each group must be found, saving it here is cheap in case the user wants it. (output) </td></tr>
+    <tr><td class="paramname">lbit</td><td>the number of bits necessary to pack each group (j=1,lx). it is assumed the minimum of each group will be removed before packing, and the values to pack will, therefore, all be positive. however, ic( ) does not necessarily contain all positive values. if the overall minimum has been removed (the usual case), then ic( ) will contain only positive values. (output) </td></tr>
+    <tr><td class="paramname">nov</td><td>the number of values in each group (j=1,lx). (output) </td></tr>
+    <tr><td class="paramname">ndg</td><td>the dimension of jmin, jmax, lbit, and nov. (input) </td></tr>
+    <tr><td class="paramname">lx</td><td>the number of groups determined. (output) </td></tr>
+    <tr><td class="paramname">ibit</td><td>the number of bits necessary to pack the jmin(j) values, j=1,lx. (output) </td></tr>
+    <tr><td class="paramname">jbit</td><td>the number of bits necessary to pack the lbit(j) values, j=1,lx. (output) </td></tr>
+    <tr><td class="paramname">kbit</td><td>the number of bits necessary to pack the nov(j) values, j=1,lx. (output) </td></tr>
+    <tr><td class="paramname">novref</td><td>reference value for nov( ). (output) </td></tr>
+    <tr><td class="paramname">lbitref</td><td>reference value for lbit( ). (output)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>706 = value will not pack in 30 bits&ndash;fatal</li>
+<li>714 = error in reduce&ndash;non-fatal</li>
+<li>715 = ngp not large enough in reduce&ndash;non-fatal</li>
+<li>716 = minpk inceased&ndash;non-fatal</li>
+<li>717 = inc set = 1&ndash;non-fatal</li>
+<li>= alternate return when ier ne 0 and fatal error. <pre class="fragment"> INTERNAL VARIABLES 
+</pre> <pre>
+              cfeed = contains the character representation 
+                      of a printer form feed. 
+              ifeed = contains the integer value of a printer 
+                      form feed. 
+               kinc = working copy of inc. may be modified. 
+               mina = minimum value in group a. 
+               maxa = maximum value in group a. 
+              nenda = the place in ic( ) where group a ends. 
+             kstart = the place in ic( ) where group a starts. 
+              ibita = number of bits needed to hold values in group a. 
+               minb = minimum value in group b. 
+               maxb = maximum value in group b. 
+              nendb = the place in ic( ) where group b ends. 
+              ibitb = number of bits needed to hold values in group b. 
+               minc = minimum value in group c. 
+               maxc = maximum value in group c. 
+             ktotal = count of number of values in ic( ) processed. 
+              nount = number of values added to group a. 
+              lmiss = 0 when is523 = 0. when packing into a 
+                      specific number of bits, say mbits, 
+                      the maximum value that can be handled is 
+                      2**mbits-1. when is523 = 1, indicating 
+                      primary missing values, this maximum value 
+                      is reserved to hold the primary missing value 
+                      indicator and lmiss = 1. when is523 = 2, 
+                      the value just below the maximum (i.e., 
+                      2**mbits-2) is reserved to hold the secondary 
+                      missing value indicator and lmiss = 2. 
+             lminpk = local value of minpk. this will be adjusted 
+                      upward whenever ndg is not large enough to hold 
+                      all the groups. 
+             mallow = the largest allowable value for packing. 
+             mislla = set to 1 when all values in group a are missing. 
+                      this is used to distinguish between a real 
+                      minimum when all values are not missing 
+                      and a minimum that has been set to zero when 
+                      all values are missing. 0 otherwise. 
+                      note that this does not distinguish between 
+                      primary and secondary missings when secondary 
+                      missings are present. this means that 
+                      lbit( ) will not be zero with the resulting 
+                      compression efficiency when secondary missings 
+                      are present. also note that a check has been 
+                      made earlier to determine that secondary 
+                      missings are really there. 
+             misllb = set to 1 when all values in group b are missing. 
+                      this is used to distinguish between a real 
+                      minimum when all values are not missing 
+                      and a minimum that has been set to zero when 
+                      all values are missing. 0 otherwise. 
+             misllc = performs the same function for group c that 
+                      mislla and misllb do for groups b and c, 
+                      respectively. 
+           ibxx2(j) = an array that when this routine is first entered 
+                      is set to 2**j, j=0,30. ibxx2(30) = 2**30, which 
+                      is the largest value packable, because 2**31 
+                      is larger than the integer word size. 
+             ifirst = set by data statement to 0. changed to 1 on 
+                      first 
+                      entry when ibxx2( ) is filled. 
+              minak = keeps track of the location in ic( ) where the 
+                      minimum value in group a is located. 
+              maxak = does the same as minak, except for the maximum. 
+              minbk = the same as minak for group b. 
+              maxbk = the same as maxak for group b. 
+              minck = the same as minak for group c. 
+              maxck = the same as maxak for group c. 
+               adda = keeps track whether or not an attempt to add 
+                      points to group a was made. if so, then adda 
+                      keeps from trying to put one back into b. 
+                      (logical) 
+             ibitbs = keeps current value if ibitb so that loop 
+                      ending at 166 doesn't have to start at 
+                      ibitb = 0 every time. 
+          misslx(j) = mallow except when a group is all one value (and 
+                      lbit(j) = 0) and that value is missing. in 
+                      that case, misslx(j) is missp or misss. this 
+                      gets inserted into jmin(j) later as the 
+                      missing indicator; it can't be put in until 
+                      the end, because jmin( ) is used to calculate 
+                      the maximum number of bits (ibits) needed to 
+                      pack jmin( ). 
+</pre> </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="pack__gp_8c_source.html#l00252">252</a> of file <a class="el" href="pack__gp_8c_source.html">pack_gp.c</a>.</p>
+
+</div>
+</div>
+<a id="afdcb02bbf4c7f835fb19f5501d27cf57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdcb02bbf4c7f835fb19f5501d27cf57">&#9670;&nbsp;</a></span>rdieee()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rdieee </td>
+          <td>(</td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>rieee</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine reads a list of real values in 32-bit IEEE floating point format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rieee</td><td>g2int array of floating point values in 32-bit IEEE format. </td></tr>
+    <tr><td class="paramname">num</td><td>Number of floating point values to convert. </td></tr>
+    <tr><td class="paramname">a</td><td>float array of real values. a must be allocated with at least 4*num bytes of memory before calling this function.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-25 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="rdieee_8c_source.html#l00020">20</a> of file <a class="el" href="rdieee_8c_source.html">rdieee.c</a>.</p>
+
+</div>
+</div>
+<a id="a52d2f723b1a656b67fac76d59442a5ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52d2f723b1a656b67fac76d59442a5ac">&#9670;&nbsp;</a></span>sbit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sbit </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>iskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nbyte</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Store bits - pack bits: Put arbitrary size values into a packed bit string, taking the low order bits from each value in the unpacked array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iout</td><td>pointer to packed array output. </td></tr>
+    <tr><td class="paramname">in</td><td>pointer to unpacked array input. </td></tr>
+    <tr><td class="paramname">iskip</td><td>initial number of bits to skip. </td></tr>
+    <tr><td class="paramname">nbyte</td><td>number of bits to pack. </td></tr>
+    <tr><td class="paramname">nskip</td><td>additional number of bits to skip on each iteration. </td></tr>
+    <tr><td class="paramname">n</td><td>number of iterations.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>NOAA Programmer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="gbits_8c_source.html#l00040">40</a> of file <a class="el" href="gbits_8c_source.html">gbits.c</a>.</p>
+
+</div>
+</div>
+<a id="af1a424b880c33be2d0c3c20939a2567b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1a424b880c33be2d0c3c20939a2567b">&#9670;&nbsp;</a></span>sbits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sbits </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>iskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nbyte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Store bits - pack bits: Put arbitrary size values into a packed bit string, taking the low order bits from each value in the unpacked array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iout</td><td>pointer to packed array output. </td></tr>
+    <tr><td class="paramname">in</td><td>pointer to unpacked array input. </td></tr>
+    <tr><td class="paramname">iskip</td><td>initial number of bits to skip. </td></tr>
+    <tr><td class="paramname">nbyte</td><td>number of bits to pack. </td></tr>
+    <tr><td class="paramname">nskip</td><td>additional number of bits to skip on each iteration. </td></tr>
+    <tr><td class="paramname">n</td><td>number of iterations.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>NOAA Programmer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="gbits_8c_source.html#l00112">112</a> of file <a class="el" href="gbits_8c_source.html">gbits.c</a>.</p>
+
+</div>
+</div>
+<a id="ae0ccb44cd5adec3a64d997b7a21bf828"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0ccb44cd5adec3a64d997b7a21bf828">&#9670;&nbsp;</a></span>seekgb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void seekgb </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>lugb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>iseek</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>mseek</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lgrib</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subprogram searches a file for the next GRIB Message. </p>
+<p>The search is done starting at byte offset iseek of the file referenced by lugb for mseek bytes at a time. If found, the starting position and length of the message are returned in lskip and lgrib, respectively. The search is terminated when an EOF or I/O error is encountered.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-10-28 GILBERT Modified from Iredell's skgb subroutine</li>
+<li>2009-01-16 VUONG Changed lskip to 4 instead of sizof(g2int)</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lugb</td><td>FILE pointer for the file to search. File must be opened before this routine is called. </td></tr>
+    <tr><td class="paramname">iseek</td><td>number of bytes in the file to skip before search. </td></tr>
+    <tr><td class="paramname">mseek</td><td>number of bytes to search at a time. </td></tr>
+    <tr><td class="paramname">lskip</td><td>number of bytes to skip from the beggining of the file to where the GRIB message starts. </td></tr>
+    <tr><td class="paramname">lgrib</td><td>number of bytes in message (set to 0, if no message found).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-28 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="seekgb_8c_source.html#l00032">32</a> of file <a class="el" href="seekgb_8c_source.html">seekgb.c</a>.</p>
+
+</div>
+</div>
+<a id="ad6296345c25609fc7443aba106dc0cb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6296345c25609fc7443aba106dc0cb2">&#9670;&nbsp;</a></span>simpack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void simpack </td>
+          <td>(</td>
+          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lcpack</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine packs up a data field using the simple packing algorithm as defined in the GRIB2 documention. </p>
+<p>It also fills in GRIB2 Data Representation Template 5.0 with the appropriate values.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
+    <tr><td class="paramname">ndpts</td><td>The number of data values in array fld. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.0.<ul>
+<li>0 Reference value - ignored on input - set by simpack routine.</li>
+<li>1 Binary Scale Factor - unchanged from input.</li>
+<li>2 Decimal Scale Factor - unchanged from input.</li>
+<li>3 Number of bits used to pack data, if value is &gt; 0 and &lt;= 31. If this input value is 0 or outside above range then the num of bits is calculated based on given data and scale factors.</li>
+<li>4 Original field type - currently ignored on input. Data values assumed to be reals. Set to 0 by simpack routine. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">cpack</td><td>The packed data field </td></tr>
+    <tr><td class="paramname">lcpack</td><td>length of packed field starting at cpack.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-06 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="simpack_8c_source.html#l00032">32</a> of file <a class="el" href="simpack_8c_source.html">simpack.c</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
+<div class="ttc" id="agrib2_8h_html_structgribfield"><div class="ttname"><a href="grib2_8h.html#structgribfield">gribfield</a></div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00184">grib2.h:184</a></div></div>
+<div class="ttc" id="ag2__getfld_8c_html_abad9d3ba0ee798acd442850573fc6b8e"><div class="ttname"><a href="g2__getfld_8c.html#abad9d3ba0ee798acd442850573fc6b8e">g2_getfld</a></div><div class="ttdeci">g2int g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand, gribfield **gfld)</div><div class="ttdoc">This subroutine returns all the metadata, template values, Bit-map (if applicable),...</div><div class="ttdef"><b>Definition:</b> <a href="g2__getfld_8c_source.html#l00237">g2_getfld.c:237</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

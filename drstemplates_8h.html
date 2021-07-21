@@ -114,11 +114,11 @@ Variables</h2></td></tr>
 <tr class="separator:a08f7c019317d1e6235a863ee8ce6e9e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Gilbert </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2002-10-26</dd></dl>
-<p>This Fortran Module contains info on all the available GRIB2 Data Representation Templates used in Section 5 (DRS). The information decribing each template is stored in the drstemplate structure defined below.</p>
-<p>Each Template has three parts: The number of entries in the template (mapdrslen); A map of the template (mapdrs), which contains the number of octets in which to pack each of the template values; and a logical value (needext) that indicates whether the Template needs to be extended. In some cases the number of entries in a template can vary depending upon values specified in the "static" part of the template. ( See Template 5.1 as an example )</p>
-<p>NOTE: Array mapdrs contains the number of octets in which the corresponding template values will be stored. A negative value in mapdrs is used to indicate that the corresponding template entry can contain negative values. This information is used later when packing (or unpacking) the template data values. Negative data values in GRIB are stored with the left most bit set to one, and a negative number of octets value in mapdrs[] indicates that this possibility should be considered. The number of octets used to store the data value in this case would be the absolute value of the negative value in mapdrs[]. </p>
+<div class="textblock"><p>This C struct contains info on all the available GRIB2 Data Representation Templates used in Section 5 (DRS). The information decribing each template is stored in the drstemplate structure defined below.</p>
+<p>Each Template has three parts: The number of entries in the template (mapdrslen); A map of the template (mapdrs), which contains the number of octets in which to pack each of the template values; and a logical value (needext) that indicates whether the Template needs to be extended. In some cases the number of entries in a template can vary depending upon values specified in the "static" part of the template. (See Template 5.1 as an example.)</p>
+<dl class="section note"><dt>Note</dt><dd>Array mapdrs contains the number of octets in which the corresponding template values will be stored. A negative value in mapdrs is used to indicate that the corresponding template entry can contain negative values. This information is used later when packing (or unpacking) the template data values. Negative data values in GRIB are stored with the left most bit set to one, and a negative number of octets value in mapdrs indicates that this possibility should be considered. The number of octets used to store the data value in this case would be the absolute value of the negative value in mapdrs.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-26 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="drstemplates_8h_source.html">drstemplates.h</a>.</p>
 </div><hr/><h2 class="groupheader">Data Type Documentation</h2>
@@ -134,7 +134,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="drstemplates_8h_source.html#l00034">34</a> of file <a class="el" href="drstemplates_8h_source.html">drstemplates.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="drstemplates_8h_source.html#l00036">36</a> of file <a class="el" href="drstemplates_8h_source.html">drstemplates.h</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Data Fields</th></tr>
 <tr><td class="fieldtype">
@@ -178,29 +178,29 @@ template_num</td>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">             </div>
-<div class="line">         { 0, 5, 0, {4,-2,-2,1,1} },</div>
-<div class="line">             </div>
-<div class="line">         { 2, 16, 0, {4,-2,-2,1,1,1,1,4,4,4,1,1,4,1,4,1} },</div>
-<div class="line">             </div>
-<div class="line">         { 3, 18, 0, {4,-2,-2,1,1,1,1,4,4,4,1,1,4,1,4,1,1,1} },</div>
-<div class="line">             </div>
-<div class="line">         { 50, 5, 0, {4,-2,-2,1,4} },</div>
-<div class="line">             </div>
-<div class="line">         { 51, 10, 0, {4,-2,-2,1,-4,2,2,2,4,1} },</div>
+<div class="line">    </div>
+<div class="line">    { 0, 5, 0, {4,-2,-2,1,1} },</div>
+<div class="line">    </div>
+<div class="line">    { 2, 16, 0, {4,-2,-2,1,1,1,1,4,4,4,1,1,4,1,4,1} },</div>
+<div class="line">    </div>
+<div class="line">    { 3, 18, 0, {4,-2,-2,1,1,1,1,4,4,4,1,1,4,1,4,1,1,1} },</div>
+<div class="line">    </div>
+<div class="line">    { 50, 5, 0, {4,-2,-2,1,4} },</div>
+<div class="line">    </div>
+<div class="line">    { 51, 10, 0, {4,-2,-2,1,-4,2,2,2,4,1} },</div>
 <div class="line"> </div>
 <div class="line"> </div>
-<div class="line">             </div>
-<div class="line">         { 40, 7, 0, {4,-2,-2,1,1,1,1} },</div>
-<div class="line">             </div>
-<div class="line">         { 41, 5, 0, {4,-2,-2,1,1} },</div>
-<div class="line">             </div>
-<div class="line">         { 40000, 7, 0, {4,-2,-2,1,1,1,1} },</div>
-<div class="line">             </div>
-<div class="line">         { 40010, 5, 0, {4,-2,-2,1,1} }</div>
-<div class="line">      }</div>
+<div class="line">    </div>
+<div class="line">    { 40, 7, 0, {4,-2,-2,1,1,1,1} },</div>
+<div class="line">    </div>
+<div class="line">    { 41, 5, 0, {4,-2,-2,1,1} },</div>
+<div class="line">    </div>
+<div class="line">    { 40000, 7, 0, {4,-2,-2,1,1,1,1} },</div>
+<div class="line">    </div>
+<div class="line">    { 40010, 5, 0, {4,-2,-2,1,1} }</div>
+<div class="line">}</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="drstemplates_8h_source.html#l00042">42</a> of file <a class="el" href="drstemplates_8h_source.html">drstemplates.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="drstemplates_8h_source.html#l00044">44</a> of file <a class="el" href="drstemplates_8h_source.html">drstemplates.h</a>.</p>
 
 </div>
 </div>

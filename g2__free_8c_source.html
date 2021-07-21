@@ -87,54 +87,30 @@ $(document).ready(function(){initNavTree('g2__free_8c_source.html',''); initResi
 </div><!--header-->
 <div class="contents">
 <a href="g2__free_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include  &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//$$$  SUBPROGRAM DOCUMENTATION BLOCK</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//                .      .    .                                       .</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// SUBPROGRAM:    g2_free </span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-10-28</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// ABSTRACT: This routine frees up memory that was allocated for</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">//   struct gribfield.</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// PROGRAM HISTORY LOG:</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// 2002-10-28  Gilbert</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">// USAGE:    g2_free(gribfield *gfld)</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//   ARGUMENT:</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//     gfld - pointer to gribfield structure (defined in include file grib2.h)</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//            returned from routine g2_getfld.</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// REMARKS:  This routine must be called to free up memory used by</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">//           the decode routine, g2_getfld, when user no longer needs to</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">//           reference this data.</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// ATTRIBUTES:</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">//   LANGUAGE: C</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//   MACHINE:  </span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">//$$$</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">void</span> g2_free(<a class="code" href="grib2_8h.html#structgribfield">gribfield</a> *gfld)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{ </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <span class="keywordflow">if</span> (gfld-&gt;idsect != 0 ) free(gfld-&gt;idsect);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keywordflow">if</span> (gfld-&gt;local != 0 ) free(gfld-&gt;local);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      <span class="keywordflow">if</span> (gfld-&gt;list_opt != 0 ) free(gfld-&gt;list_opt);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordflow">if</span> (gfld-&gt;igdtmpl != 0 ) free(gfld-&gt;igdtmpl);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordflow">if</span> (gfld-&gt;ipdtmpl != 0 ) free(gfld-&gt;ipdtmpl);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordflow">if</span> (gfld-&gt;coord_list != 0 ) free(gfld-&gt;coord_list);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordflow">if</span> (gfld-&gt;idrtmpl != 0 ) free(gfld-&gt;idrtmpl);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordflow">if</span> (gfld-&gt;bmap != 0 ) free(gfld-&gt;bmap);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordflow">if</span> (gfld-&gt;fld != 0 ) free(gfld-&gt;fld);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      free(gfld);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include  &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="grib2_8h.html#ad99dd0bc820e765764b331384ad9a5d9">   24</a></span>&#160;<a class="code" href="g2__free_8c.html#a084c47c8f83bb5a5c7799753ac7b6f02">g2_free</a>(<a class="code" href="grib2_8h.html#structgribfield">gribfield</a> *gfld)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (gfld-&gt;idsect != 0 ) free(gfld-&gt;idsect);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">if</span> (gfld-&gt;local != 0 ) free(gfld-&gt;local);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">if</span> (gfld-&gt;list_opt != 0 ) free(gfld-&gt;list_opt);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">if</span> (gfld-&gt;igdtmpl != 0 ) free(gfld-&gt;igdtmpl);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (gfld-&gt;ipdtmpl != 0 ) free(gfld-&gt;ipdtmpl);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">if</span> (gfld-&gt;coord_list != 0 ) free(gfld-&gt;coord_list);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (gfld-&gt;idrtmpl != 0 ) free(gfld-&gt;idrtmpl);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">if</span> (gfld-&gt;bmap != 0 ) free(gfld-&gt;bmap);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> (gfld-&gt;fld != 0 ) free(gfld-&gt;fld);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    free(gfld);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div></div>
-<div class="ttc" id="agrib2_8h_html_structgribfield"><div class="ttname"><a href="grib2_8h.html#structgribfield">gribfield</a></div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00182">grib2.h:182</a></div></div>
+<div class="ttc" id="ag2__free_8c_html_a084c47c8f83bb5a5c7799753ac7b6f02"><div class="ttname"><a href="g2__free_8c.html#a084c47c8f83bb5a5c7799753ac7b6f02">g2_free</a></div><div class="ttdeci">void g2_free(gribfield *gfld)</div><div class="ttdoc">This routine frees up memory that was allocated for struct gribfield.</div><div class="ttdef"><b>Definition:</b> <a href="g2__free_8c_source.html#l00024">g2_free.c:24</a></div></div>
+<div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
+<div class="ttc" id="agrib2_8h_html_structgribfield"><div class="ttname"><a href="grib2_8h.html#structgribfield">gribfield</a></div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00184">grib2.h:184</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

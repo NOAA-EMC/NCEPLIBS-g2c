@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('g2__addgrid_8c.html',''); initResizabl
 <div class="title">g2_addgrid.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Pack up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
@@ -96,10 +99,101 @@ $(document).ready(function(){initNavTree('g2__addgrid_8c.html',''); initResizabl
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a14908ea75d83021b0ec10ae8c084567c"><td class="memItemLeft" align="right" valign="top"><a id="a14908ea75d83021b0ec10ae8c084567c"></a>
-g2int&#160;</td><td class="memItemRight" valign="bottom"><b>g2_addgrid</b> (unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist, g2int idefnum)</td></tr>
+<tr class="memitem:a14908ea75d83021b0ec10ae8c084567c"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c">g2_addgrid</a> (unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist, g2int idefnum)</td></tr>
+<tr class="memdesc:a14908ea75d83021b0ec10ae8c084567c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.  <a href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c">More...</a><br /></td></tr>
 <tr class="separator:a14908ea75d83021b0ec10ae8c084567c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Pack up a Grid Definition Section (Section 3) and adds it to a GRIB2 message. </p>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-01 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="g2__addgrid_8c_source.html">g2_addgrid.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a14908ea75d83021b0ec10ae8c084567c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14908ea75d83021b0ec10ae8c084567c">&#9670;&nbsp;</a></span>g2_addgrid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">g2int g2_addgrid </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cgrib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>igds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>igdstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>ideflist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>idefnum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message. </p>
+<p>It is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cgrib</td><td>Char array that contains the GRIB2 message to which section should be added. Must be allocated large enough to store the entire GRIB2 message.</td></tr>
+    <tr><td class="paramname">igds</td><td>Contains information needed for GRIB Grid Definition Section 3. Must be dimensioned &gt;= 5.<ul>
+<li>igds[0] Source of grid definition (see Code Table 3.0)</li>
+<li>igds[1] Number of grid points in the defined grid.</li>
+<li>igds[2] Number of octets needed for each additional grid points definition. Used to define number of points in each row (or column) for non-regular grids. = 0, if using regular grid.</li>
+<li>igds[3] Interpretation of list for optional points definition. (Code Table 3.11)</li>
+<li>igds[4] Grid Definition Template Number (Code Table 3.1) </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">igdstmpl</td><td>Contains the data values for the specified Grid Definition Template (NN=igds[4]). Each element of this integer array contains an entry (in the order specified) of Grid Defintion Template 3.NN </td></tr>
+    <tr><td class="paramname">ideflist</td><td>(Used if igds[2] != 0) This array contains the number of grid points contained in each row (or column). </td></tr>
+    <tr><td class="paramname">idefnum</td><td>(Used if igds[2] != 0) The number of entries in array ideflist. i.e. number of rows (or columns) for which optional grid points are defined.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>&gt; 0 Current size of updated GRIB2 message</li>
+<li>-1 GRIB message was not initialized. Need to call routine gribcreate first.</li>
+<li>-2 GRIB message already complete. Cannot add new section.</li>
+<li>-3 Sum of Section byte counts doesn't add to total byte count</li>
+<li>-4 Previous Section was not 1, 2 or 7.</li>
+<li>-5 Could not find requested Grid Definition Template.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The Grid Def Section ( Section 3 ) can only follow Section 1, 2 or Section 7 in a GRIB2 message.</dd></dl>
+<p>PROGRAM HISTORY LOG</p><ul>
+<li>2002-11-01 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="section author"><dt>Author</dt><dd>Gilbert ORG: W/NP11 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-11-01 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2__addgrid_8c_source.html#l00060">60</a> of file <a class="el" href="g2__addgrid_8c_source.html">g2_addgrid.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

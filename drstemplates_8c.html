@@ -97,16 +97,21 @@ $(document).ready(function(){initNavTree('drstemplates_8c.html',''); initResizab
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a29eb8a2ca16e15e491d7115725ff907c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drstemplates_8c.html#a29eb8a2ca16e15e491d7115725ff907c">extdrstemplate</a> (g2int number, g2int *list)</td></tr>
-<tr class="memdesc:a29eb8a2ca16e15e491d7115725ff907c"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK ! .  <a href="drstemplates_8c.html#a29eb8a2ca16e15e491d7115725ff907c">More...</a><br /></td></tr>
+<tr class="memdesc:a29eb8a2ca16e15e491d7115725ff907c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine generates the remaining octet map for a given Data Representation Template, if required.  <a href="drstemplates_8c.html#a29eb8a2ca16e15e491d7115725ff907c">More...</a><br /></td></tr>
 <tr class="separator:a29eb8a2ca16e15e491d7115725ff907c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a9ca8f896b19b546743be48393c8330"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drstemplates_8c.html#a6a9ca8f896b19b546743be48393c8330">getdrsindex</a> (g2int number)</td></tr>
-<tr class="memdesc:a6a9ca8f896b19b546743be48393c8330"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK ! .  <a href="drstemplates_8c.html#a6a9ca8f896b19b546743be48393c8330">More...</a><br /></td></tr>
+<tr class="memdesc:a6a9ca8f896b19b546743be48393c8330"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the index of specified Data Representation Template 5.NN (NN=number) in array templates.  <a href="drstemplates_8c.html#a6a9ca8f896b19b546743be48393c8330">More...</a><br /></td></tr>
 <tr class="separator:a6a9ca8f896b19b546743be48393c8330"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf3195b5cecc028727faa8a921eba03e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="drstemplates_8c.html#acf3195b5cecc028727faa8a921eba03e">getdrstemplate</a> (g2int number)</td></tr>
-<tr class="memdesc:acf3195b5cecc028727faa8a921eba03e"><td class="mdescLeft">&#160;</td><td class="mdescRight">$$$ SUBPROGRAM DOCUMENTATION BLOCK ! .  <a href="drstemplates_8c.html#acf3195b5cecc028727faa8a921eba03e">More...</a><br /></td></tr>
+<tr class="memdesc:acf3195b5cecc028727faa8a921eba03e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns DRS template information for a specified Data Representation Template 5.NN.  <a href="drstemplates_8c.html#acf3195b5cecc028727faa8a921eba03e">More...</a><br /></td></tr>
 <tr class="separator:acf3195b5cecc028727faa8a921eba03e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2001-06-28 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a29eb8a2ca16e15e491d7115725ff907c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a29eb8a2ca16e15e491d7115725ff907c">&#9670;&nbsp;</a></span>extdrstemplate()</h2>
 
@@ -133,11 +138,24 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK ! . </p>
-<p>. . . ! SUBPROGRAM: extdrstemplate ! PRGMMR: Gilbert ORG: W/NP11 DATE: 2000-05-11 ! ! ABSTRACT: This subroutine generates the remaining octet map for a ! given Data Representation Template, if required. Some Templates can ! vary depending on data values given in an earlier part of the ! Template, and it is necessary to know some of the earlier entry ! values to generate the full octet map of the Template. ! ! PROGRAM HISTORY LOG: ! 2000-05-11 Gilbert ! 2009-01-14 Vuong Changed structure name template to gtemplate ! ! USAGE: new=extdrstemplate(number,list); ! INPUT ARGUMENT LIST: ! number - NN, indicating the number of the Data Representation ! Template 5.NN that is being requested. ! list() - The list of values for each entry in the ! the Data Representation Template 5.NN. ! ! RETURN VALUE: <br  />
- ! - Pointer to the returned template struct. ! Returns NULL pointer, if template not found. ! ! ATTRIBUTES: ! LANGUAGE: C ! MACHINE: IBM SP ! !$$$ </p>
+<p>This subroutine generates the remaining octet map for a given Data Representation Template, if required. </p>
+<p>Some Templates can vary depending on data values given in an earlier part of the Template, and it is necessary to know some of the earlier entry values to generate the full octet map of the Template.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2000-05-11 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Data Representation Template 5.NN that is being requested. </td></tr>
+    <tr><td class="paramname">list</td><td>The list of values for each entry in the the Data Representation Template 5.NN.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the returned template struct. Returns NULL pointer, if template not found.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00137">137</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00104">104</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
 
 </div>
 </div>
@@ -157,10 +175,22 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK ! . </p>
-<p>. . . ! SUBPROGRAM: getdrsindex ! PRGMMR: Gilbert ORG: W/NP11 DATE: 2001-06-28 ! ! ABSTRACT: This function returns the index of specified Data ! Representation Template 5.NN (NN=number) in array templates. ! ! PROGRAM HISTORY LOG: ! 2001-06-28 Gilbert ! 2009-01-14 Vuong Changed structure name template to gtemplate ! ! USAGE: index=getdrsindex(number) ! INPUT ARGUMENT LIST: ! number - NN, indicating the number of the Data Representation ! Template 5.NN that is being requested. ! ! RETURNS: Index of DRT 5.NN in array gtemplates, if gtemplate exists. ! = -1, otherwise. ! ! REMARKS: None ! ! ATTRIBUTES: ! LANGUAGE: C ! MACHINE: IBM SP ! !$$$ </p>
+<p>This function returns the index of specified Data Representation Template 5.NN (NN=number) in array templates. </p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2001-06-28 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Data Representation Template 5.NN that is being requested.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Index of DRT 5.NN in array gtemplates, if gtemplate exists. -1, otherwise.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2001-06-28 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00034">34</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00024">24</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
 
 </div>
 </div>
@@ -180,11 +210,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>$$$ SUBPROGRAM DOCUMENTATION BLOCK ! . </p>
-<p>. . . ! SUBPROGRAM: getdrstemplate ! PRGMMR: Gilbert ORG: W/NP11 DATE: 2000-05-11 ! ! ABSTRACT: This subroutine returns DRS template information for a ! specified Data Representation Template 5.NN. ! The number of entries in the template is returned along with a map ! of the number of octets occupied by each entry. Also, a flag is ! returned to indicate whether the template would need to be extended. ! ! PROGRAM HISTORY LOG: ! 2000-05-11 Gilbert ! 2009-01-14 Vuong Changed structure name template to gtemplate ! ! USAGE: new=getdrstemplate(number); ! INPUT ARGUMENT LIST: ! number - NN, indicating the number of the Data Representation ! Template 5.NN that is being requested. ! ! RETURN VALUE: <br  />
- ! - Pointer to the returned template struct. ! Returns NULL pointer, if template not found. ! ! REMARKS: None ! ! ATTRIBUTES: ! LANGUAGE: C ! MACHINE: IBM SP ! !$$$ </p>
+<p>This subroutine returns DRS template information for a specified Data Representation Template 5.NN. </p>
+<p>The number of entries in the template is returned along with a map of the number of octets occupied by each entry. Also, a flag is returned to indicate whether the template would need to be extended.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2000-05-11 Gilbert</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Data Representation Template 5.NN that is being requested.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the returned template struct. Returns NULL pointer, if template not found.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00080">80</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00057">57</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
 
 </div>
 </div>

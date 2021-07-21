@@ -88,25 +88,280 @@ $(document).ready(function(){initNavTree('gbits_8c.html',''); initResizable(); }
 <div class="title">gbits.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Functions to pack and unpack bits to/from a packed bit string.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
 </div>
 <p><a href="gbits_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5d36ba9d46c32188872d0e9ab86f3e47"><td class="memItemLeft" align="right" valign="top"><a id="a5d36ba9d46c32188872d0e9ab86f3e47"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>gbit</b> (unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)</td></tr>
+<tr class="memitem:a5d36ba9d46c32188872d0e9ab86f3e47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a> (unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)</td></tr>
+<tr class="memdesc:a5d36ba9d46c32188872d0e9ab86f3e47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each value in the unpacked iout array.  <a href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">More...</a><br /></td></tr>
 <tr class="separator:a5d36ba9d46c32188872d0e9ab86f3e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3ebb34ac18fa0ad9baa48eb894689e7"><td class="memItemLeft" align="right" valign="top"><a id="ab3ebb34ac18fa0ad9baa48eb894689e7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>gbits</b> (unsigned char *in, g2int *iout, g2int iskip, g2int nbyte, g2int nskip, g2int n)</td></tr>
+<tr class="memitem:ab3ebb34ac18fa0ad9baa48eb894689e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gbits_8c.html#ab3ebb34ac18fa0ad9baa48eb894689e7">gbits</a> (unsigned char *in, g2int *iout, g2int iskip, g2int nbyte, g2int nskip, g2int n)</td></tr>
+<tr class="memdesc:ab3ebb34ac18fa0ad9baa48eb894689e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each value in the unpacked iout array.  <a href="gbits_8c.html#ab3ebb34ac18fa0ad9baa48eb894689e7">More...</a><br /></td></tr>
 <tr class="separator:ab3ebb34ac18fa0ad9baa48eb894689e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f475eed9a6d6f6d3d8fc26b38572950"><td class="memItemLeft" align="right" valign="top"><a id="a7f475eed9a6d6f6d3d8fc26b38572950"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sbit</b> (unsigned char *out, g2int *in, g2int iskip, g2int nbyte)</td></tr>
+<tr class="memitem:a7f475eed9a6d6f6d3d8fc26b38572950"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gbits_8c.html#a7f475eed9a6d6f6d3d8fc26b38572950">sbit</a> (unsigned char *out, g2int *in, g2int iskip, g2int nbyte)</td></tr>
+<tr class="memdesc:a7f475eed9a6d6f6d3d8fc26b38572950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store bits - pack bits: Put arbitrary size values into a packed bit string, taking the low order bits from each value in the unpacked array.  <a href="gbits_8c.html#a7f475eed9a6d6f6d3d8fc26b38572950">More...</a><br /></td></tr>
 <tr class="separator:a7f475eed9a6d6f6d3d8fc26b38572950"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5a2832a80724dc38d71de38d0a9d6e8"><td class="memItemLeft" align="right" valign="top"><a id="ad5a2832a80724dc38d71de38d0a9d6e8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sbits</b> (unsigned char *out, g2int *in, g2int iskip, g2int nbyte, g2int nskip, g2int n)</td></tr>
+<tr class="memitem:ad5a2832a80724dc38d71de38d0a9d6e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gbits_8c.html#ad5a2832a80724dc38d71de38d0a9d6e8">sbits</a> (unsigned char *out, g2int *in, g2int iskip, g2int nbyte, g2int nskip, g2int n)</td></tr>
+<tr class="memdesc:ad5a2832a80724dc38d71de38d0a9d6e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store bits - pack bits: Put arbitrary size values into a packed bit string, taking the low order bits from each value in the unpacked array.  <a href="gbits_8c.html#ad5a2832a80724dc38d71de38d0a9d6e8">More...</a><br /></td></tr>
 <tr class="separator:ad5a2832a80724dc38d71de38d0a9d6e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Functions to pack and unpack bits to/from a packed bit string. </p>
+<dl class="section author"><dt>Author</dt><dd>NOAA Programmer </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="gbits_8c_source.html">gbits.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a5d36ba9d46c32188872d0e9ab86f3e47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d36ba9d46c32188872d0e9ab86f3e47">&#9670;&nbsp;</a></span>gbit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gbit </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>iskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nbyte</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each value in the unpacked iout array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>pointer to character array input. </td></tr>
+    <tr><td class="paramname">iout</td><td>pointer to unpacked array output. </td></tr>
+    <tr><td class="paramname">iskip</td><td>initial number of bits to skip. </td></tr>
+    <tr><td class="paramname">nbyte</td><td>number of bits to take.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>NOAA Programmer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="gbits_8c_source.html#l00020">20</a> of file <a class="el" href="gbits_8c_source.html">gbits.c</a>.</p>
+
+</div>
+</div>
+<a id="ab3ebb34ac18fa0ad9baa48eb894689e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3ebb34ac18fa0ad9baa48eb894689e7">&#9670;&nbsp;</a></span>gbits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gbits </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>iout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>iskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nbyte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each value in the unpacked iout array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>pointer to character array input. </td></tr>
+    <tr><td class="paramname">iout</td><td>pointer to unpacked array output. </td></tr>
+    <tr><td class="paramname">iskip</td><td>initial number of bits to skip. </td></tr>
+    <tr><td class="paramname">nbyte</td><td>number of bits to take. </td></tr>
+    <tr><td class="paramname">nskip</td><td>additional number of bits to skip on each iteration. </td></tr>
+    <tr><td class="paramname">n</td><td>number of iterations.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>NOAA Programmer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="gbits_8c_source.html#l00059">59</a> of file <a class="el" href="gbits_8c_source.html">gbits.c</a>.</p>
+
+</div>
+</div>
+<a id="a7f475eed9a6d6f6d3d8fc26b38572950"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f475eed9a6d6f6d3d8fc26b38572950">&#9670;&nbsp;</a></span>sbit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sbit </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>iskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nbyte</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Store bits - pack bits: Put arbitrary size values into a packed bit string, taking the low order bits from each value in the unpacked array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iout</td><td>pointer to packed array output. </td></tr>
+    <tr><td class="paramname">in</td><td>pointer to unpacked array input. </td></tr>
+    <tr><td class="paramname">iskip</td><td>initial number of bits to skip. </td></tr>
+    <tr><td class="paramname">nbyte</td><td>number of bits to pack. </td></tr>
+    <tr><td class="paramname">nskip</td><td>additional number of bits to skip on each iteration. </td></tr>
+    <tr><td class="paramname">n</td><td>number of iterations.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>NOAA Programmer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="gbits_8c_source.html#l00040">40</a> of file <a class="el" href="gbits_8c_source.html">gbits.c</a>.</p>
+
+</div>
+</div>
+<a id="ad5a2832a80724dc38d71de38d0a9d6e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5a2832a80724dc38d71de38d0a9d6e8">&#9670;&nbsp;</a></span>sbits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sbits </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>iskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nbyte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>nskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Store bits - pack bits: Put arbitrary size values into a packed bit string, taking the low order bits from each value in the unpacked array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iout</td><td>pointer to packed array output. </td></tr>
+    <tr><td class="paramname">in</td><td>pointer to unpacked array input. </td></tr>
+    <tr><td class="paramname">iskip</td><td>initial number of bits to skip. </td></tr>
+    <tr><td class="paramname">nbyte</td><td>number of bits to pack. </td></tr>
+    <tr><td class="paramname">nskip</td><td>additional number of bits to skip on each iteration. </td></tr>
+    <tr><td class="paramname">n</td><td>number of iterations.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>NOAA Programmer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="gbits_8c_source.html#l00112">112</a> of file <a class="el" href="gbits_8c_source.html">gbits.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

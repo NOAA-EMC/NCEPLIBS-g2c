@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: "cdegijmprs",
   1: "dgp",
   2: "cdegijmprs",
-  3: "eg"
+  3: "cegijmprs"
 };
 
 var indexSectionNames =

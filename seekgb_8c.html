@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('seekgb_8c.html',''); initResizable(); 
 <div class="title">seekgb.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Searches a file for the next GRIB message.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
@@ -96,10 +99,84 @@ $(document).ready(function(){initNavTree('seekgb_8c.html',''); initResizable(); 
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a27edb1018106a2e02743be31afc5ea0c"><td class="memItemLeft" align="right" valign="top"><a id="a27edb1018106a2e02743be31afc5ea0c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>seekgb</b> (FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)</td></tr>
+<tr class="memitem:a27edb1018106a2e02743be31afc5ea0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="seekgb_8c.html#a27edb1018106a2e02743be31afc5ea0c">seekgb</a> (FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)</td></tr>
+<tr class="memdesc:a27edb1018106a2e02743be31afc5ea0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subprogram searches a file for the next GRIB Message.  <a href="seekgb_8c.html#a27edb1018106a2e02743be31afc5ea0c">More...</a><br /></td></tr>
 <tr class="separator:a27edb1018106a2e02743be31afc5ea0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Searches a file for the next GRIB message. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-28 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="seekgb_8c_source.html">seekgb.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a27edb1018106a2e02743be31afc5ea0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27edb1018106a2e02743be31afc5ea0c">&#9670;&nbsp;</a></span>seekgb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void seekgb </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>lugb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>iseek</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int&#160;</td>
+          <td class="paramname"><em>mseek</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lskip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramname"><em>lgrib</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subprogram searches a file for the next GRIB Message. </p>
+<p>The search is done starting at byte offset iseek of the file referenced by lugb for mseek bytes at a time. If found, the starting position and length of the message are returned in lskip and lgrib, respectively. The search is terminated when an EOF or I/O error is encountered.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2002-10-28 GILBERT Modified from Iredell's skgb subroutine</li>
+<li>2009-01-16 VUONG Changed lskip to 4 instead of sizof(g2int)</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lugb</td><td>FILE pointer for the file to search. File must be opened before this routine is called. </td></tr>
+    <tr><td class="paramname">iseek</td><td>number of bytes in the file to skip before search. </td></tr>
+    <tr><td class="paramname">mseek</td><td>number of bytes to search at a time. </td></tr>
+    <tr><td class="paramname">lskip</td><td>number of bytes to skip from the beggining of the file to where the GRIB message starts. </td></tr>
+    <tr><td class="paramname">lgrib</td><td>number of bytes in message (set to 0, if no message found).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2002-10-28 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="seekgb_8c_source.html#l00032">32</a> of file <a class="el" href="seekgb_8c_source.html">seekgb.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

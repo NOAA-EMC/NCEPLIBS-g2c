@@ -89,6 +89,9 @@ $(document).ready(function(){initNavTree('reduce_8c.html',''); initResizable(); 
 <div class="title">reduce.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Determines whether the number of groups should be increased in order to reduce the size of the large groups, and to make that adjustment.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
 </div>
@@ -105,17 +108,168 @@ typedef g2float&#160;</td><td class="memItemRight" valign="bottom"><b>real</b></
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af04821cf86c45e835953c94f4d9db177"><td class="memItemLeft" align="right" valign="top"><a id="af04821cf86c45e835953c94f4d9db177"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>reduce</b> (integer *kfildo, integer *jmin, integer *jmax, integer *lbit, integer *nov, integer *lx, integer *ndg, integer *ibit, integer *jbit, integer *kbit, integer *novref, integer *ibxx2, integer *ier)</td></tr>
+<tr class="memitem:af04821cf86c45e835953c94f4d9db177"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="reduce_8c.html#af04821cf86c45e835953c94f4d9db177">reduce</a> (integer *kfildo, integer *jmin, integer *jmax, integer *lbit, integer *nov, integer *lx, integer *ndg, integer *ibit, integer *jbit, integer *kbit, integer *novref, integer *ibxx2, integer *ier)</td></tr>
+<tr class="memdesc:af04821cf86c45e835953c94f4d9db177"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the number of groups should be increased in order to reduce the size of the large groups, and to make that adjustment.  <a href="reduce_8c.html#af04821cf86c45e835953c94f4d9db177">More...</a><br /></td></tr>
 <tr class="separator:af04821cf86c45e835953c94f4d9db177"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>reduce.f &ndash; translated by f2c (version 20031025). You must link the resulting object file with libf2c: on Microsoft Windows system, link with libf2c.lib; on Linux or Unix systems, link with .../path/to/libf2c.a -lm or, if you install libf2c.a in a standard place, with -lf2c -lm &ndash; in that order, at the end of the command line, as in </p><pre>
-        cc *.o -lf2c -lm
-</pre><p> Source for libf2c is in /netlib/f2c/libf2c.zip, e.g., <a href="http://www.netlib.org/f2c/libf2c.zip">http://www.netlib.org/f2c/libf2c.zip</a> </p>
+<div class="textblock"><p>Determines whether the number of groups should be increased in order to reduce the size of the large groups, and to make that adjustment. </p>
+<dl class="section author"><dt>Author</dt><dd>Glahn </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>November 2001 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="reduce_8c_source.html">reduce.c</a>.</p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="af04821cf86c45e835953c94f4d9db177"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af04821cf86c45e835953c94f4d9db177">&#9670;&nbsp;</a></span>reduce()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int reduce </td>
+          <td>(</td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>kfildo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>jmin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>jmax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>lbit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>nov</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>lx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>ndg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>ibit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>jbit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>kbit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>novref</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>ibxx2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer *&#160;</td>
+          <td class="paramname"><em>ier</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determines whether the number of groups should be increased in order to reduce the size of the large groups, and to make that adjustment. </p>
+<p>By reducing the size of the large groups, less bits may be necessary for packing the group sizes and all the information about the groups.</p>
+<p>The reference for nov was removed in the calling routine so that kbit could be determined. This furnishes a starting point for the iterations in reduce. However, the reference must be considered.</p>
+<p>PROGRAM HISTORY LOG</p><ul>
+<li>November 2001 Glahn tdl grib2</li>
+<li>March 2002 Glahn comment ier = 715</li>
+<li>March 2002 Glahn modified to accommodate lx=1 on entry</li>
+</ul>
+<p>DATA SET USE</p><ul>
+<li>kfildo - unit number for output (print) file. (output)</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">kfildo</td><td>unit number for output (print) file. (input) </td></tr>
+    <tr><td class="paramname">jmin(j)</td><td>the minimum of each group (j=1,lx). it is possible after splitting the groups, jmin( ) will not be the minimum of the new group. this doesn't matter; jmin( ) is really the group reference and doesn't have to be the smallest value. (input/output) </td></tr>
+    <tr><td class="paramname">jmax(j)</td><td>the maximum of each group (j=1,lx). (input/output) </td></tr>
+    <tr><td class="paramname">lbit(j)</td><td>the number of bits necessary to pack each group (j=1,lx). (input/output) </td></tr>
+    <tr><td class="paramname">nov(j)</td><td>the number of values in each group (j=1,lx). (input/output) </td></tr>
+    <tr><td class="paramname">lx</td><td>the number of groups. this will be increased if groups are split. (input/output) </td></tr>
+    <tr><td class="paramname">ndg</td><td>the dimension of jmin( ), jmax( ), lbit( ), and nov( ). (input) </td></tr>
+    <tr><td class="paramname">ibit</td><td>the number of bits necessary to pack the jmin(j) values, j=1,lx. (input) </td></tr>
+    <tr><td class="paramname">jbit</td><td>the number of bits necessary to pack the lbit(j) values, j=1,lx. (input) </td></tr>
+    <tr><td class="paramname">kbit</td><td>the number of bits necessary to pack the nov(j) values, j=1,lx. if the groups are split, kbit is reduced. (input/output) </td></tr>
+    <tr><td class="paramname">novref</td><td>reference value for nov( ). (input) </td></tr>
+    <tr><td class="paramname">ibxx2(j)</td><td>2**j (j=0,30). (input) </td></tr>
+    <tr><td class="paramname">ier</td><td>error return. (output)<ul>
+<li>0 = good return.</li>
+<li>714 = problem in algorithm. reduce aborted.</li>
+<li>715 = ngp not large enough. reduce aborted.</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<pre>
+ntotbt(j) = the total bits used for the packing bits j 
+                      (j=1,30). (internal) 
+ nboxj(j) = new boxes needed for the packing bits j 
+                      (j=1,30). (internal) 
+          newbox(l) = number of new boxes (groups) for each original 
+                      group (l=1,lx) for the current j. (automatic) 
+                      (internal) 
+         newboxp(l) = same as newbox( ) but for the previous j. 
+                      this eliminates recomputation. (automatic) 
+                      (internal) 
+              cfeed = contains the character representation 
+                      of a printer form feed. (character) (internal) 
+              ifeed = contains the integer value of a printer 
+                      form feed. (internal) 
+             iorigb = the original number of bits necessary 
+                      for the group values. (internal) 
+</pre><dl class="section author"><dt>Author</dt><dd>Glahn </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>November 2001 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="reduce_8c_source.html#l00081">81</a> of file <a class="el" href="reduce_8c_source.html">reduce.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
