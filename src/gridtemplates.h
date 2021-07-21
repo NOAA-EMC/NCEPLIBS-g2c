@@ -41,6 +41,9 @@
 #define MAXGRIDTEMP 31              // maximum number of templates
 #define MAXGRIDMAPLEN 200           // maximum template map length
 
+/**
+ * Struct for grid template.
+ */
 struct gridtemplate
 {
     g2int template_num;

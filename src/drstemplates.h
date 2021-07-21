@@ -34,14 +34,14 @@
 #define MAXDRSMAPLEN 200 /*< maximum template map length */
 
 /**
- * Struct for GRIB2 Data Representation Templates.
+ * Stuct for GRIB2 Data Representation Section (DRS) template.
  */
 struct drstemplate
 {
-    g2int template_num;
-    g2int mapdrslen;
-    g2int needext;
-    g2int mapdrs[MAXDRSMAPLEN];
+    g2int template_num; /*< The number of entries in the template. */
+    g2int mapdrslen; /*< Length of map of the template. */
+    g2int needext; /*< Whether the Template needs to be extended. */
+    g2int mapdrs[MAXDRSMAPLEN]; /*< A map of the template. */
 };
 
 const struct drstemplate templatesdrs[MAXDRSTEMP] = {

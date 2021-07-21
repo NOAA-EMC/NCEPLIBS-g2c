@@ -49,6 +49,9 @@
 #define MAXPDSTEMP 47           // maximum number of templates
 #define MAXPDSMAPLEN 200        // maximum template map length
 
+/**
+ * Struct for PDS template.
+ */
 struct pdstemplate
 {
     g2int template_num;
