@@ -1,4 +1,5 @@
-/** @file
+/** 
+ * @file
  * @brief JPEG functions, originally from ECMWF, modified for use in NCEPLIBS-g2c.
  *
  * Copyright 2005-2019 ECMWF.
