@@ -3,6 +3,11 @@
  * @author Stephen Gilbert
  */
 #ifndef USE_PNG
+/** 
+ * Dummy function used if USE_JPEG2000 is not defined.
+ *
+ * @author Stephen Gilbert
+*/
 void dummy(void) {}
 #else   /* USE_PNG */
 
