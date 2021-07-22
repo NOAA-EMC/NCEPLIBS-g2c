@@ -32,7 +32,8 @@ void user_flush_data(png_structp );
  *
  * @author Stephen Gilbert
 */
-void user_write_data(png_structp png_ptr,png_bytep data, png_uint_32 length)
+void
+user_write_data(png_structp png_ptr, png_bytep data, png_uint_32 length)
 {
     unsigned char *ptr;
     g2int offset;

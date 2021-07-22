@@ -51,9 +51,10 @@ void dummy(void) {}
  *
  * @author Stephen Gilbert @date 2002-12-02
  */
-int enc_jpeg2000(unsigned char *cin,g2int width,g2int height,g2int nbits,
-                 g2int ltype, g2int ratio, g2int retry, char *outjpc,
-                 g2int jpclen)
+int
+enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
+	     g2int ltype, g2int ratio, g2int retry, char *outjpc,
+	     g2int jpclen)
 {
     int ier,rwcnt;
     jas_image_t image;

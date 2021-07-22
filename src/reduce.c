@@ -8,8 +8,8 @@
 /*#include "f2c.h"*/
 #include <stdlib.h>
 #include "grib2.h"
-typedef g2int integer; /*< Integer type. */
-typedef g2float real; /*< Float type. */
+typedef g2int integer; /**< Integer type. */
+typedef g2float real; /**< Float type. */
 
 /**
  * Determines whether the number of groups should be increased in
