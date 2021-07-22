@@ -1,4 +1,6 @@
 /** @file
+ * @brief Functions for dealing with PNG.
+ * @author Stephen Gilbert
  */
 #ifndef USE_PNG
 void dummy(void) {}
@@ -20,11 +22,17 @@ typedef struct png_stream png_stream;
 void user_write_data(png_structp ,png_bytep , png_uint_32 );
 void user_flush_data(png_structp );
 
-void user_write_data(png_structp png_ptr,png_bytep data, png_uint_32 length)
-/*
-  Custom write function used to that libpng will write
-  to memory location instead of a file on disk
+/**
+ * Custom write function used to that libpng will write to memory
+ * location instead of a file on disk.
+ *
+ * @param png_ptr pointer
+ * @param data data
+ * @param length length
+ *
+ * @author Stephen Gilbert
 */
+void user_write_data(png_structp png_ptr,png_bytep data, png_uint_32 length)
 {
     unsigned char *ptr;
     g2int offset;
@@ -40,16 +48,30 @@ void user_write_data(png_structp png_ptr,png_bytep data, png_uint_32 length)
 }
 
 
-void user_flush_data(png_structp png_ptr)
-/*
-  Dummy Custom flush function
+/**
+ * Dummy Custom flush function.
+ *
+ * @param png_ptr Pointer to PNG struct.
+ *
+ * @author Stephen Gilbert
 */
+void user_flush_data(png_structp png_ptr)
 {
     int *do_nothing;
     do_nothing=NULL;
 }
 
-
+/**
+ * Encode PNG.
+ *
+ * @param data data.
+ * @param width width.
+ * @param height height.
+ * @param nbits number of bits.
+ * @param pngbuf PNG buffer.
+ *
+ * @author Stephen Gilbert
+*/
 int enc_png(char *data,g2int width,g2int height,g2int nbits,char *pngbuf)
 {
 

@@ -1,47 +1,33 @@
 /** @file
+ * @brief Unpack a spectral data field that was packed using the
+ * complex packing algorithm for spherical harmonic data
+ * @author Stephen Gilbert @date 2000-06-21
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "grib2.h"
 
-
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    specunpack
-//   PRGMMR: Gilbert          ORG: W/NP11    DATE: 2000-06-21
-//
-// ABSTRACT: This subroutine unpacks a spectral data field that was packed
-//   using the complex packing algorithm for spherical harmonic data as
-//   defined in the GRIB2 documention,
-//   using info from the GRIB2 Data Representation Template 5.51.
-//
-// PROGRAM HISTORY LOG:
-// 2000-06-21  Gilbert
-//
-// USAGE:    int specunpack(unsigned char *cpack,g2int *idrstmpl,
-//                          g2int ndpts,g2int JJ,g2int KK,g2int MM,g2float *fld)
-//   INPUT ARGUMENT LIST:
-//     cpack    - pointer to the packed data field.
-//     idrstmpl - pointer to the array of values for Data Representation
-//                Template 5.51
-//     ndpts    - The number of data values to unpack (real and imaginary parts)
-//     JJ       - J - pentagonal resolution parameter
-//     KK       - K - pentagonal resolution parameter
-//     MM       - M - pentagonal resolution parameter
-//
-//   OUTPUT ARGUMENT LIST:
-//     fld()    - Contains the unpacked data values.   fld must be allocated
-//                with at least ndpts*sizeof(g2float) bytes before
-//                calling this routine.
-//
-// REMARKS: None
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:
-//
-//$$$
+/**
+ * This subroutine unpacks a spectral data field that was packed using
+ * the complex packing algorithm for spherical harmonic data as
+ * defined in the GRIB2 documention, using info from the GRIB2 Data
+ * Representation Template 5.51.
+ *
+ * @param cpack pointer to the packed data field.
+ * @param idrstmpl pointer to the array of values for Data
+ * Representation Template 5.51.
+ * @param ndpts The number of data values to unpack (real and
+ * imaginary parts).
+ * @param JJ pentagonal resolution parameter.
+ * @param KK pentagonal resolution parameter.
+ * @param MM pentagonal resolution parameter.
+ * @param fld Contains the unpacked data values. fld must be allocated
+ * with at least ndpts*sizeof(g2float) bytes before calling this
+ * routine.
+ *
+ * @author Stephen Gilbert @date 2000-06-21
+ */
 g2int specunpack(unsigned char *cpack,g2int *idrstmpl,g2int ndpts,g2int JJ,
                  g2int KK, g2int MM, g2float *fld)
 {

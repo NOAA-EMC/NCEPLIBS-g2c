@@ -1,45 +1,28 @@
 /** @file
+ * @author Stephen Gilbert @date 2002-12-19
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "grib2.h"
 
-
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    specpack
-//   PRGMMR: Gilbert          ORG: W/NP11    DATE: 2002-12-19
-//
-// ABSTRACT: This subroutine packs a spectral data field using the complex
-//   packing algorithm for spherical harmonic data as
-//   defined in the GRIB2 Data Representation Template 5.51.
-//
-// PROGRAM HISTORY LOG:
-// 2002-12-19  Gilbert
-//
-// USAGE:    void specpack(g2float *fld,g2int ndpts,g2int JJ,g2int KK,g2int MM,
-//                        g2int *idrstmpl,insigned char *cpack,g2int *lcpack)
-//   INPUT ARGUMENT LIST:
-//     fld[]    - Contains the packed data values
-//     ndpts    - The number of data values to pack
-//     JJ       - J - pentagonal resolution parameter
-//     KK       - K - pentagonal resolution parameter
-//     MM       - M - pentagonal resolution parameter
-//     idrstmpl - Contains the array of values for Data Representation
-//                Template 5.51
-//
-//   OUTPUT ARGUMENT LIST:
-//     cpack    - The packed data field (character*1 array)
-//     lcpack   - length of packed field cpack().
-//
-// REMARKS: None
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:  IBM SP
-//
-//$$$
+/**
+ * This subroutine packs a spectral data field using the complex
+ * packing algorithm for spherical harmonic data as defined in the
+ * GRIB2 Data Representation Template 5.51.
+ *
+ * @param fld Contains the packed data values.
+ * @param ndpts The number of data values to pack.
+ * @param JJ J - pentagonal resolution parameter.
+ * @param KK K - pentagonal resolution parameter.
+ * @param MM M - pentagonal resolution parameter.
+ * @param idrstmpl Contains the array of values for Data
+ * Representation Template 5.51.
+ * @param cpack The packed data field (character*1 array).
+ * @param lcpack length of packed field cpack.
+ *
+ * @author Stephen Gilbert @date 2002-12-19
+ */
 void specpack(g2float *fld,g2int ndpts,g2int JJ,g2int KK,g2int MM,
               g2int *idrstmpl,unsigned char *cpack,g2int *lcpack)
 {

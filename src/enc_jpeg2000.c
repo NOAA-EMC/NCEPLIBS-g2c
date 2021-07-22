@@ -1,4 +1,6 @@
 /** @file
+ * @brief Encodes JPEG2000 code stream.
+ * @author Stephen Gilbert @date 2002-12-02
  */
 #ifndef USE_JPEG2000
 void dummy(void) {}
@@ -10,63 +12,45 @@ void dummy(void) {}
 #include "jasper/jasper.h"
 #define JAS_1_700_2
 
-
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
- *                .      .    .                                       .
- * SUBPROGRAM:    enc_jpeg2000      Encodes JPEG2000 code stream
- *   PRGMMR: Gilbert          ORG: W/NP11     DATE: 2002-12-02
- *
- * ABSTRACT: This Function encodes a grayscale image into a JPEG2000 code stream
- *   specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1)
- *   using JasPer Software version 1.500.4 (or 1.700.2 ) written by the
- *   University of British Columbia, Image Power Inc, and others.
- *   JasPer is available at http://www.ece.uvic.ca/~mdadams/jasper/.
+/**
+ * This Function encodes a grayscale image into a JPEG2000 code stream
+ * specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1)
+ * using JasPer Software version 1.500.4 (or 1.700.2) written by the
+ * University of British Columbia, Image Power Inc, and others.
+ * JasPer is available at http://www.ece.uvic.ca/~mdadams/jasper/.
  *
  * PROGRAM HISTORY LOG:
- * 2002-12-02  Gilbert
- * 2004-12-16  Gilbert - Added retry argument/option to allow option of
- *                       increasing the maximum number of guard bits to the
- *                       JPEG2000 algorithm.
+ * - 2002-12-02  Gilbert
+ * - 2004-12-16  Gilbert - Added retry argument/option to allow option of
+ * increasing the maximum number of guard bits to the
+ * JPEG2000 algorithm.
  *
- * USAGE:    int enc_jpeg2000(unsigned char *cin,g2int width,g2int height,
- *                            g2int nbits, g2int ltype, g2int ratio,
- *                            g2int retry, char *outjpc, g2int jpclen)
+ * @param cin Packed matrix of Grayscale image values to encode.
+ * @param width width of image.
+ * @param height height of image.
+ * @param nbits depth (in bits) of image.  i.e number of bits used to
+ * hold each data value.
+ * @param ltype indicator of lossless or lossy compression.
+ * - 1, for lossy compression
+ * - != 1, for lossless compression
+ * @param ratio target compression ratio. (ratio:1) Used only when
+ * ltype == 1.
+ * @param retry Pointer to option type. If 1 try increasing number of
+ * guard bits otherwise, no additional options.
+ * @param outjpc Output encoded JPEG2000 code stream.
+ * @param jpclen Number of bytes allocated for new JPEG2000 code
+ * stream in outjpc.
  *
- *   INPUT ARGUMENTS:
- *      cin   - Packed matrix of Grayscale image values to encode.
- *     width  - width of image
- *     height - height of image
- *     nbits  - depth (in bits) of image.  i.e number of bits
- *              used to hold each data value
- *    ltype   - indicator of lossless or lossy compression
- *              = 1, for lossy compression
- *              != 1, for lossless compression
- *    ratio   - target compression ratio.  (ratio:1)
- *              Used only when ltype == 1.
- *    retry   - Pointer to option type.
- *              1 = try increasing number of guard bits
- *              otherwise, no additional options
- *    jpclen  - Number of bytes allocated for new JPEG2000 code stream in
- *              outjpc.
+ * @return
+ * - > 0 = Length in bytes of encoded JPEG2000 code stream
+ * - -3 = Error decode jpeg2000 code stream.
+ * - -5 = decoded image had multiple color components. Only grayscale
+ *    is expected.
  *
- *   INPUT ARGUMENTS:
- *     outjpc - Output encoded JPEG2000 code stream
+ * @note Requires JasPer Software version 1.500.4 or 1.700.2.
  *
- *   RETURN VALUES :
- *        > 0 = Length in bytes of encoded JPEG2000 code stream
- *         -3 = Error decode jpeg2000 code stream.
- *         -5 = decoded image had multiple color components.
- *              Only grayscale is expected.
- *
- * REMARKS:
- *
- *      Requires JasPer Software version 1.500.4 or 1.700.2
- *
- * ATTRIBUTES:
- *   LANGUAGE: C
- *   MACHINE:  IBM SP
- *
- *$$$*/
+ * @author Stephen Gilbert @date 2002-12-02
+ */
 int enc_jpeg2000(unsigned char *cin,g2int width,g2int height,g2int nbits,
                  g2int ltype, g2int ratio, g2int retry, char *outjpc,
                  g2int jpclen)

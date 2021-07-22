@@ -1,4 +1,7 @@
 /** @file
+ * @brief Pack up Sections 4 through 7 for a given field and adds them
+ * to a GRIB2 message.
+ * @author Stephen Gilbert @date 2002-11-05
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,100 +21,84 @@ void jpcpack(g2float *,g2int,g2int,g2int *,unsigned char *,g2int *);
 #endif  /* USE_JPEG2000 */
 
 
-//$$$  SUBPROGRAM DOCUMENTATION BLOCK
-//                .      .    .                                       .
-// SUBPROGRAM:    g2_addfield
-//   PRGMMR: Gilbert         ORG: W/NP11    DATE: 2002-11-05
-//
-// ABSTRACT: This routine packs up Sections 4 through 7 for a given field
-//   and adds them to a GRIB2 message.  They are Product Definition Section,
-//   Data Representation Section, Bit-Map Section and Data Section,
-//   respectively.
-//   This routine is used with routines "g2_create", "g2_addlocal",
-//   "g2_addgrid", and "g2_gribend" to create a complete GRIB2 message.
-//   g2_create must be called first to initialize a new GRIB2 message.
-//   Also, routine g2_addgrid must be called after g2_create and
-//   before this routine to add the appropriate grid description to
-//   the GRIB2 message.   Also, a call to g2_gribend is required to complete
-//   GRIB2 message after all fields have been added.
-//
-// PROGRAM HISTORY LOG:
-// 2002-11-05  Gilbert
-// 2002-12-23  Gilbert  -  Added complex spherical harmonic packing
-// 2003-08-27  Gilbert  - Added support for new templates using
-//                        PNG and JPEG2000 algorithms/templates.
-// 2004-11-29  Gilbert  - JPEG2000 now allowed to use WMO Template no. 5.40
-//                        PNG now allowed to use WMO Template no. 5.41
-//                      - Added check to determine if packing algorithm failed.
-// 2005-05-10  Gilbert -  Imposed minimum size on cpack, used to hold encoded
-//                        bit string.
-// 2009-01-14  Vuong     Changed structure name template to gtemplate
-//
-// USAGE:    int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
-//              g2float *coordlist,g2int numcoord,g2int idrsnum,g2int *idrstmpl,
-//              g2float *fld,g2int ngrdpts,g2int ibmap,g2int *bmap)
-//   INPUT ARGUMENT LIST:
-//     cgrib    - Char array that contains the GRIB2 message to which sections
-//                4 through 7 should be added.
-//     ipdsnum  - Product Definition Template Number ( see Code Table 4.0)
-//     ipdstmpl - Contains the data values for the specified Product Definition
-//                Template ( N=ipdsnum ).  Each element of this integer
-//                array contains an entry (in the order specified) of Product
-//                Defintion Template 4.N
-//     coordlist- Array containg floating point values intended to document
-//                the vertical discretisation associated to model data
-//                on hybrid coordinate vertical levels.
-//     numcoord - number of values in array coordlist.
-//     idrsnum  - Data Representation Template Number ( see Code Table 5.0 )
-//     idrstmpl - Contains the data values for the specified Data Representation
-//                Template ( N=idrsnum ).  Each element of this integer
-//                array contains an entry (in the order specified) of Data
-//                Representation Template 5.N
-//                Note that some values in this template (eg. reference
-//                values, number of bits, etc...) may be changed by the
-//                data packing algorithms.
-//                Use this to specify scaling factors and order of
-//                spatial differencing, if desired.
-//     fld[]    - Array of data points to pack.
-//     ngrdpts  - Number of data points in grid.
-//                i.e.  size of fld and bmap.
-//     ibmap    - Bitmap indicator ( see Code Table 6.0 )
-//                0 = bitmap applies and is included in Section 6.
-//                1-253 = Predefined bitmap applies
-//                254 = Previously defined bitmap applies to this field
-//                255 = Bit map does not apply to this product.
-//     bmap[]   - Integer array containing bitmap to be added. ( if ibmap=0 )
-//
-//   OUTPUT ARGUMENT LIST:
-//     cgrib    - Character array to contain the updated GRIB2 message.
-//                Must be allocated large enough to store the entire
-//                GRIB2 message.
-//
-//   RETURN VALUES:
-//     ierr     - Return code.
-//              > 0 = Current size of updated GRIB2 message
-//               -1 = GRIB message was not initialized.  Need to call
-//                    routine g2_create first.
-//               -2 = GRIB message already complete.  Cannot add new section.
-//               -3 = Sum of Section byte counts doesn't add to total byte count
-//               -4 = Previous Section was not 3 or 7.
-//               -5 = Could not find requested Product Definition Template.
-//               -6 = Section 3 (GDS) not previously defined in message
-//               -7 = Tried to use unsupported Data Representationi Template
-//               -8 = Specified use of a previously defined bitmap, but one
-//                    does not exist in the GRIB message.
-//               -9 = GDT of one of 5.50 through 5.53 required to pack field
-//                    using DRT 5.51.
-//              -10 = Error packing data field.
-//
-// REMARKS: Note that the Sections 4 through 7 can only follow
-//          Section 3 or Section 7 in a GRIB2 message.
-//
-// ATTRIBUTES:
-//   LANGUAGE: C
-//   MACHINE:
-//
-//$$$
+/**
+ * This routine packs up Sections 4 through 7 for a given field and
+ * adds them to a GRIB2 message. They are Product Definition Section,
+ * Data Representation Section, Bit-Map Section and Data Section,
+ * respectively. 
+ *
+ * This routine is used with routines g2_create(), g2_addlocal(),
+ * g2_addgrid(), and g2_gribend() to create a complete GRIB2
+ * message. g2_create() must be called first to initialize a new GRIB2
+ * message. Also, routine g2_addgrid() must be called after
+ * g2_create() and before this routine to add the appropriate grid
+ * description to the GRIB2 message. Also, a call to g2_gribend() is
+ * required to complete GRIB2 message after all fields have been
+ * added.
+ *
+ * PROGRAM HISTORY LOG:
+ * - 2002-11-05  Gilbert
+ * - 2002-12-23  Gilbert  -  Added complex spherical harmonic packing
+ * - 2003-08-27  Gilbert  - Added support for new templates using
+ *                        PNG and JPEG2000 algorithms/templates.
+ * - 2004-11-29  Gilbert  - JPEG2000 now allowed to use WMO Template no. 5.40
+ *                        PNG now allowed to use WMO Template no. 5.41
+ *                      - Added check to determine if packing algorithm failed.
+ * - 2005-05-10  Gilbert -  Imposed minimum size on cpack, used to hold encoded
+ *                        bit string.
+ * - 2009-01-14  Vuong     Changed structure name template to gtemplate
+ *
+ * @param cgrib Char array that contains the GRIB2 message to which
+ * sections 4 through 7 should be added. Must be allocated large
+ * enough to store the entire GRIB2 message.
+ * @param ipdsnum Product Definition Template Number (see Code Table
+ * 4.0). 
+ * @param ipdstmpl Contains the data values for the specified Product
+ * Definition Template (N=ipdsnum). Each element of this integer array
+ * contains an entry (in the order specified) of Product Defintion
+ * Template 4.N.
+ * @param coordlistArray containg floating point values intended to
+ * document the vertical discretisation associated to model data on
+ * hybrid coordinate vertical levels.
+ * @param numcoord number of values in array coordlist.
+ * @param idrsnum Data Representation Template Number (see Code Table 5.0).
+ * @param idrstmpl Contains the data values for the specified Data
+ * Representation Template (N=idrsnum). Each element of this integer
+ * array contains an entry (in the order specified) of Data
+ * Representation Template 5.N. Note that some values in this template
+ * (eg. reference values, number of bits, etc...) may be changed by
+ * the data packing algorithms. Use this to specify scaling factors
+ * and order of spatial differencing, if desired.
+ * @param fld Array of data points to pack.
+ * @param ngrdpts- Number of data points in grid. i.e.  size of fld and bmap.
+ * @param ibmap  - Bitmap indicator (see Code Table 6.0)
+ * - 0 = bitmap applies and is included in Section 6.
+ * - 1-253 = Predefined bitmap applies.
+ * - 254 = Previously defined bitmap applies to this field.
+ * - 255 = Bit map does not apply to this product.
+ * @param bmap Integer array containing bitmap to be added. (if ibmap=0).
+ *
+ * @return
+ * - > 0 Current size of updated GRIB2 message
+ * - -1 GRIB message was not initialized. Need to call routine
+ *   g2_create() first.
+ * - -2 GRIB message already complete. Cannot add new section.
+ * - -3 Sum of Section byte counts doesn't add to total byte count.
+ * - -4 Previous Section was not 3 or 7.
+ * - -5 Could not find requested Product Definition Template.
+ * - -6 Section 3 (GDS) not previously defined in message.
+ * - -7 Tried to use unsupported Data Representationi Template.
+ * - -8 Specified use of a previously defined bitmap, but one
+ * does not exist in the GRIB message.
+ * - -9 GDT of one of 5.50 through 5.53 required to pack field
+ * using DRT 5.51.
+ * - -10 Error packing data field.
+ *
+ * @note Note that the Sections 4 through 7 can only follow Section 3
+ * or Section 7 in a GRIB2 message.
+ *
+ * @author Stephen Gilbert @date 2002-11-05
+ */
 g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
                   g2float *coordlist,g2int numcoord,g2int idrsnum,g2int *idrstmpl,
                   g2float *fld,g2int ngrdpts,g2int ibmap,g2int *bmap)
