@@ -150,18 +150,18 @@
  */
 #ifndef _grib2_H
 #define _grib2_H
-#include<stdio.h>
+#include <stdio.h>
 
-#define G2_VERSION "g2clib-1.6.0"
+#define G2_VERSION "g2clib-1.6.2" /*< Current version of NCEPLIBS-g2c library. */
 
 #ifdef __64BIT__
-typedef int g2int;
-typedef unsigned int g2intu;
+typedef int g2int; /*< Integer type. */
+typedef unsigned int g2intu; /*< Unsigned integer type. */
 #else
-typedef long g2int;
-typedef unsigned long g2intu;
+typedef long g2int; /*< Long integer type. */
+typedef unsigned long g2intu; /*< Unsigned long integer type. */
 #endif
-typedef float g2float;
+typedef float g2float; /*< Float type. */
 
 /**
  * Struct for GRIB template.
@@ -182,7 +182,7 @@ struct gtemplate {
     /*< part of the template.       */
 };
 
-typedef struct gtemplate gtemplate;
+typedef struct gtemplate gtemplate; /*< Struct for GRIB template. */
 
 /**
  * Struct for GRIB field.
@@ -212,7 +212,7 @@ struct gribfield {
     g2float *fld;
 };
 
-typedef struct gribfield gribfield;
+typedef struct gribfield gribfield; /*< Struct for GRIB field. */
 
 /*  Prototypes for unpacking sections API  */
 g2int g2_unpack1(unsigned char *,g2int *,g2int **,g2int *);

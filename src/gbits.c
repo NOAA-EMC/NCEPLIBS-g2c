@@ -27,12 +27,10 @@ gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)
  * packed bit string, taking the low order bits from each value
  * in the unpacked array.
  *
- * @param iout pointer to packed array output.
+ * @param out pointer to packed array output.
  * @param in pointer to unpacked array input.
  * @param iskip initial number of bits to skip.
  * @param nbyte number of bits to pack.
- * @param nskip additional number of bits to skip on each iteration.
- * @param n number of iterations.
  *
  * @author NOAA Programmer
  */
@@ -99,7 +97,7 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte,
  * packed bit string, taking the low order bits from each value
  * in the unpacked array.
  *
- * @param iout pointer to packed array output.
+ * @param out pointer to packed array output.
  * @param in pointer to unpacked array input.
  * @param iskip initial number of bits to skip.
  * @param nbyte number of bits to pack.
