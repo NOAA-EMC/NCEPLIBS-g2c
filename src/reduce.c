@@ -57,6 +57,8 @@ typedef g2float real; /**< Float type. */
  * - 714 = problem in algorithm. reduce aborted. 
  * - 715 = ngp not large enough. reduce aborted. 
  *
+ * @return always returns 0, see parameter ier for error code.
+ *
  * <pre>
  * ntotbt(j) = the total bits used for the packing bits j 
  *                       (j=1,30). (internal) 
