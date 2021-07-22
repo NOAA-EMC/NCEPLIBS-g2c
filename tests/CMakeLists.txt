@@ -13,5 +13,4 @@ endfunction()
 
 g2c_test(tst_g2_create)
 g2c_test(tst_decode)
-
-
+g2c_test(tst_gbits)
