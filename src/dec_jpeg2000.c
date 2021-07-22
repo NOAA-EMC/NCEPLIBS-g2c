@@ -4,6 +4,11 @@
  */
 
 #ifndef USE_JPEG2000
+/** 
+ * Dummy function used if USE_JPEG2000 is not defined.
+ *
+ * @author Stephen Gilbert @date 2002-12-02 
+*/
 void dummy(void) {}
 #else   /* USE_JPEG2000 */
 #include <stdio.h>
