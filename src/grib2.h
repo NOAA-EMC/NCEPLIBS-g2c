@@ -163,24 +163,30 @@ typedef unsigned long g2intu;
 #endif
 typedef float g2float;
 
+/**
+ * Struct for GRIB template.
+ */
 struct gtemplate {
-    g2int type;           /* 3=Grid Defintion Template.                       */
-    /* 4=Product Defintion Template.                    */
-    /* 5=Data Representation Template.                  */
-    g2int num;            /* template number.                                 */
-    g2int maplen;         /* number of entries in the static part             */
-    /*                    of the template.              */
-    g2int *map;           /* num of octets of each entry in the               */
-    /*         static part of the template.             */
-    g2int needext;        /* indicates whether or not the template needs      */
-    /*     to be extended.                              */
-    g2int extlen;         /* number of entries in the template extension.     */
-    g2int *ext;           /* num of octets of each entry in the extension     */
-    /*                      part of the template.       */
+    g2int type; /*< 3=Grid Defintion Template. */
+    /*< 4=Product Defintion Template. */
+    /*< 5=Data Representation Template. */
+    g2int num;            /*< template number.                                 */
+    g2int maplen;         /*< number of entries in the static part             */
+    /*< of the template.              */
+    g2int *map;           /*< num of octets of each entry in the               */
+    /*< static part of the template.             */
+    g2int needext;        /*< indicates whether or not the template needs      */
+    /*< to be extended.                              */
+    g2int extlen; /*< number of entries in the template extension.     */
+    g2int *ext; /*< num of octets of each entry in the extension     */
+    /*< part of the template.       */
 };
 
 typedef struct gtemplate gtemplate;
 
+/**
+ * Struct for GRIB field.
+ */
 struct gribfield {
     g2int   version,discipline;
     g2int   *idsect;

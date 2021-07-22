@@ -1,6 +1,14 @@
 /** @file
+ * @brief Decodes JPEG2000 code stream.
+ * @author Stephen Gilbert @date 2002-12-02
  */
+
 #ifndef USE_JPEG2000
+/** 
+ * Dummy function used if USE_JPEG2000 is not defined.
+ *
+ * @author Stephen Gilbert @date 2002-12-02 
+*/
 void dummy(void) {}
 #else   /* USE_JPEG2000 */
 #include <stdio.h>
@@ -10,45 +18,28 @@ void dummy(void) {}
 #include "jasper/jasper.h"
 #define JAS_1_700_2
 
-
-/*$$$  SUBPROGRAM DOCUMENTATION BLOCK
- *                .      .    .                                       .
- * SUBPROGRAM:    dec_jpeg2000      Decodes JPEG2000 code stream
- *   PRGMMR: Gilbert          ORG: W/NP11     DATE: 2002-12-02
+/**
+ * This Function decodes a JPEG2000 code stream specified in the
+ * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer
+ * Software version 1.500.4 (or 1.700.2) written by the University of
+ * British Columbia and Image Power Inc, and others. JasPer is
+ * available at http://www.ece.uvic.ca/~mdadams/jasper/.
  *
- * ABSTRACT: This Function decodes a JPEG2000 code stream specified in the
- *   JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer
- *   Software version 1.500.4 (or 1.700.2) written by the University of British
- *   Columbia and Image Power Inc, and others.
- *   JasPer is available at http://www.ece.uvic.ca/~mdadams/jasper/.
+ * @param injpc Input JPEG2000 code stream.
+ * @param bufsize Length (in bytes) of the input JPEG2000 code stream.
  *
- * PROGRAM HISTORY LOG:
- * 2002-12-02  Gilbert
+ * @param outfld Output matrix of grayscale image values.
  *
- * USAGE:     int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
+ * @return
+ * - 0 Successful decode
+ * - -3 Error decode jpeg2000 code stream.
+ * - -5 decoded image had multiple color components. Only grayscale is
+ *     expected.
  *
- *   INPUT ARGUMENTS:
- *      injpc - Input JPEG2000 code stream.
- *    bufsize - Length (in bytes) of the input JPEG2000 code stream.
+ * @note Requires JasPer Software version 1.500.4 or 1.700.2.
  *
- *   OUTPUT ARGUMENTS:
- *     outfld - Output matrix of grayscale image values.
- *
- *   RETURN VALUES :
- *          0 = Successful decode
- *         -3 = Error decode jpeg2000 code stream.
- *         -5 = decoded image had multiple color components.
- *              Only grayscale is expected.
- *
- * REMARKS:
- *
- *      Requires JasPer Software version 1.500.4 or 1.700.2
- *
- * ATTRIBUTES:
- *   LANGUAGE: C
- *   MACHINE:  IBM SP
- *
- *$$$*/
+ * @author Stephen Gilbert @date 2002-12-02
+ */
 int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
 {
     int ier;
