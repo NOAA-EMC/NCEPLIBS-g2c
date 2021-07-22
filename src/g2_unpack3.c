@@ -17,7 +17,6 @@
  *
  * @param cgrib Char array ontaining Section 3 of the GRIB2 message.
  * @param iofst Bit offset for the beginning of Section 3 in cgrib.
- * @param iofst Bit offset at the end of Section 3, returned.
  * @param igds Contains information read from the appropriate GRIB
  * Grid Definition Section 3 for the field being returned.
  * - igds[0] Source of grid definition (see Code Table 3.0)

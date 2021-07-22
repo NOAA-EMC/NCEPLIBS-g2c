@@ -19,7 +19,7 @@
  * - 2010-05-11  Vuong     -  Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
  * - 2013-08-06  Vuong     -  Added GDT 3.4,3.5,3.12,3.101,3.140
  *
- * @paran number NN, indicating the number of the Grid Definition
+ * @param number NN, indicating the number of the Grid Definition
  * Template 3.NN that is being requested.
  *
  * @return Index of GDT 3.NN in array templates, if template
@@ -91,8 +91,7 @@ getgridtemplate(g2int number)
     return(0);        /* NULL */
 }
 
-
-/*
+/**
  * This subroutine generates the remaining octet map for a given Grid
  * Definition Template, if required. Some Templates can vary
  * depending on data values given in an earlier part of the Template,

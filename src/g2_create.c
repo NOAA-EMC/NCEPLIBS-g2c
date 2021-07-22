@@ -4,7 +4,7 @@
  */
 #include <stdio.h>
 #include "grib2.h"
-#define MAPSEC1LEN 13
+#define MAPSEC1LEN 13 /*< Length of Map Section 1. */
 
 /**
  * This routine initializes a new GRIB2 message and packs GRIB2
@@ -15,28 +15,27 @@
  * Also, a call to g2_gribend() is required to complete GRIB2 message
  * after all fields have been added.
  *
- * @param[in] cgrib Character array to contain the GRIB2 message.
+ * @param[in] cgrib Character array to contain the GRIB2 message. Must
+ * be allocated large enough to store the entire GRIB2 message.
  * @param[in] listsec0 Contains information needed for GRIB Indicator
  * Section 0. Must be dimensioned >= 2.
  * - listsec0[0]=Discipline-GRIB Master Table Number (see Code Table 0.0)
  * - listsec0[1]=GRIB Edition Number (currently 2)
  * @param[in] listsec1 Contains information needed for GRIB
  * Identification Section 1. Must be dimensioned >= 13.
- * - listsec1[0]=Id of orginating centre (Common Code Table C-1)
- * - listsec1[1]=Id of orginating sub-centre (local table)
- * - listsec1[2]=GRIB Master Tables Version Number (Code Table 1.0)
- * - listsec1[3]=GRIB Local Tables Version Number (Code Table 1.1)
- * - listsec1[4]=Significance of Reference Time (Code Table 1.2)
- * - listsec1[5]=Reference Time - Year (4 digits)
- * - listsec1[6]=Reference Time - Month
- * - listsec1[7]=Reference Time - Day
- * - listsec1[8]=Reference Time - Hour
- * - listsec1[9]=Reference Time - Minute
- * - listsec1[10]=Reference Time - Second
- * - listsec1[11]=Production status of data (Code Table 1.3)
- * - listsec1[12]=Type of processed data (Code Table 1.4)
- * @param[out] cgrib Char array to contain the new GRIB2 message. Must
- * be allocated large enough to store the entire GRIB2 message.
+ * - listsec1[0] Id of orginating centre (Common Code Table C-1)
+ * - listsec1[1] Id of orginating sub-centre (local table)
+ * - listsec1[2] GRIB Master Tables Version Number (Code Table 1.0)
+ * - listsec1[3] GRIB Local Tables Version Number (Code Table 1.1)
+ * - listsec1[4] Significance of Reference Time (Code Table 1.2)
+ * - listsec1[5] Reference Time - Year (4 digits)
+ * - listsec1[6] Reference Time - Month
+ * - listsec1[7] Reference Time - Day
+ * - listsec1[8] Reference Time - Hour
+ * - listsec1[9] Reference Time - Minute
+ * - listsec1[10] Reference Time - Second
+ * - listsec1[11] Production status of data (Code Table 1.3)
+ * - listsec1[12] Type of processed data (Code Table 1.4)
  *
  * @return - > 0 Current size of new GRIB2 message
  *         - -1 Tried to use for version other than GRIB Edition 2
@@ -47,7 +46,8 @@
  *
  * @author Gilbert ORG: W/NP11 @date 2002-10-31
  */
-g2int g2_create(unsigned char *cgrib,g2int *listsec0,g2int *listsec1)
+g2int
+g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1)
 {
     g2int  ierr;
     g2int   zero=0,one=1;

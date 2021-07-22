@@ -49,7 +49,6 @@ g2int jpcunpack(unsigned char *,g2int,g2int *,g2int, g2float *);
  * (N=idrsnum). Each element of this integer array contains an entry
  * (in the order specified) of Data Representation Template 5.N
  * @param ndpts Number of data points unpacked and returned.
- * @param iofst Bit offset at the end of Section 7, returned.
  * @param fld Pointer to a float array containing the unpacked data
  * field.
  *

@@ -13,7 +13,6 @@
  * @param cgrib char array containing Section 6 of the GRIB2 message.
  * @param iofst Bit offset of the beginning of Section 6 in cgrib.
  * @param ngpts Number of grid points specified in the bit-map
- * @param iofst Bit offset at the end of Section 6, returned.
  * @param ibmap Bitmap indicator (see Code Table 6.0)
  * - 0 bitmap applies and is included in Section 6.
  * - 1-253 Predefined bitmap applies

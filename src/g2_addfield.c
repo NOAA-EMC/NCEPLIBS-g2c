@@ -57,7 +57,7 @@ void jpcpack(g2float *,g2int,g2int,g2int *,unsigned char *,g2int *);
  * Definition Template (N=ipdsnum). Each element of this integer array
  * contains an entry (in the order specified) of Product Defintion
  * Template 4.N.
- * @param coordlistArray containg floating point values intended to
+ * @param coordlist Array containg floating point values intended to
  * document the vertical discretisation associated to model data on
  * hybrid coordinate vertical levels.
  * @param numcoord number of values in array coordlist.
@@ -99,9 +99,10 @@ void jpcpack(g2float *,g2int,g2int,g2int *,unsigned char *,g2int *);
  *
  * @author Stephen Gilbert @date 2002-11-05
  */
-g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
-                  g2float *coordlist,g2int numcoord,g2int idrsnum,g2int *idrstmpl,
-                  g2float *fld,g2int ngrdpts,g2int ibmap,g2int *bmap)
+g2int
+g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
+	    g2float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl,
+	    g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap)
 {
     g2int ierr;
     static unsigned char G=0x47;       // 'G'
