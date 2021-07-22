@@ -30,8 +30,8 @@
 #ifndef _drstemplates_H
 #define _drstemplates_H
 #include "grib2.h"
-#define MAXDRSTEMP 9              // maximum number of templates
-#define MAXDRSMAPLEN 200          // maximum template map length
+#define MAXDRSTEMP 9 /*< maximum number of templates */
+#define MAXDRSMAPLEN 200 /*< maximum template map length */
 
 /**
  * Stuct for GRIB2 Data Representation Section (DRS) template.
