@@ -4,7 +4,7 @@
  */
 #include <stdio.h>
 #include "grib2.h"
-#define MAPSEC1LEN 13 /*< Length of Map Section 1. */
+#define MAPSEC1LEN 13 /**< Length of Map Section 1. */
 
 /**
  * This routine initializes a new GRIB2 message and packs GRIB2

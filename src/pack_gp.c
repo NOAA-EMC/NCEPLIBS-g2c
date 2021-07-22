@@ -5,10 +5,10 @@
 /*#include "f2c.h"*/
 #include <stdlib.h>
 #include "grib2.h"
-typedef g2int integer;
-typedef g2int logical;
-#define TRUE_ (1)
-#define FALSE_ (0)
+typedef g2int integer; /**< Integer type. */
+typedef g2int logical; /**< Logical type. */
+#define TRUE_ (1) /**< True. */
+#define FALSE_ (0) /**< False. */
 
 /**
  * Determines groups of variable size, but at least of size minpk, the
@@ -154,14 +154,17 @@ typedef g2int logical;
  * j=1,lx. (output)
  * @param novref reference value for nov( ). (output) 
  * @param lbitref reference value for lbit( ). (output) 
+ * @param ier Error code
+ * - 0 No error.
+ * - 706 value will not pack in 30 bits--fatal 
+ * - 714 error in reduce--non-fatal 
+ * - 715 ngp not large enough in reduce--non-fatal 
+ * - 716 minpk inceased--non-fatal 
+ * - 717 inc set 
+ * - 1--non-fatal 
+ * * alternate return when ier ne 0 and fatal error. 
  *
- * @return
- * - 706 = value will not pack in 30 bits--fatal 
- * - 714 = error in reduce--non-fatal 
- * - 715 = ngp not large enough in reduce--non-fatal 
- * - 716 = minpk inceased--non-fatal 
- * - 717 = inc set = 1--non-fatal 
- * * = alternate return when ier ne 0 and fatal error. 
+ * @return 0 - check ier for error code.
  *
  *        INTERNAL VARIABLES 
  * <pre>
@@ -249,11 +252,12 @@ typedef g2int logical;
  *                       pack jmin( ). 
  * </pre>
 */
-int pack_gp(integer *kfildo, integer *ic, integer *nxy,
-	    integer *is523, integer *minpk, integer *inc, integer *missp, integer
-	    *misss, integer *jmin, integer *jmax, integer *lbit, integer *nov,
-	    integer *ndg, integer *lx, integer *ibit, integer *jbit, integer *
-	    kbit, integer *novref, integer *lbitref, integer *ier)
+int
+pack_gp(integer *kfildo, integer *ic, integer *nxy,
+	integer *is523, integer *minpk, integer *inc, integer *missp, integer
+	*misss, integer *jmin, integer *jmax, integer *lbit, integer *nov,
+	integer *ndg, integer *lx, integer *ibit, integer *jbit, integer *
+	kbit, integer *novref, integer *lbitref, integer *ier)
 {
     /* Initialized data */
 

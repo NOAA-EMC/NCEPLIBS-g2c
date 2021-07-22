@@ -8,8 +8,8 @@
 /*#include "f2c.h"*/
 #include <stdlib.h>
 #include "grib2.h"
-typedef g2int integer; /*< Integer type. */
-typedef g2float real; /*< Float type. */
+typedef g2int integer; /**< Integer type. */
+typedef g2float real; /**< Float type. */
 
 /**
  * Determines whether the number of groups should be increased in
@@ -56,6 +56,8 @@ typedef g2float real; /*< Float type. */
  * - 0 = good return. 
  * - 714 = problem in algorithm. reduce aborted. 
  * - 715 = ngp not large enough. reduce aborted. 
+ *
+ * @return always returns 0, see parameter ier for error code.
  *
  * <pre>
  * ntotbt(j) = the total bits used for the packing bits j 

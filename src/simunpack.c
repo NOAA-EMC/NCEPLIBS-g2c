@@ -18,11 +18,13 @@
  * allocated with at least ndpts*sizeof(g2float) bytes before calling
  * this routine.
  *
+ * @return 0 for success, error code otherwise.
+ *
  * @author Stephen Gilbert @date 2002-10-29
  */
-g2int simunpack(unsigned char *cpack,g2int *idrstmpl,g2int ndpts,g2float *fld)
+g2int
+simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2float *fld)
 {
-
     g2int  *ifld;
     g2int  j,nbits,itype;
     g2float ref,bscale,dscale;

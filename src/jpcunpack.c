@@ -21,10 +21,13 @@ int dec_jpeg2000(char *,g2int ,g2int *);
  * @param ndpts The number of data values to unpack.
  * @param fld Contains the unpacked data values.
  *
+ * @return 0 for success, 1 for memory allocation error.
+ *
  * @author Stephem Gilbert @date 2003-08-27
  */
-g2int jpcunpack(unsigned char *cpack,g2int len,g2int *idrstmpl,g2int ndpts,
-                g2float *fld)
+g2int
+jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+	  g2float *fld)
 {
 
     g2int  *ifld;

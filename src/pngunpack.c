@@ -19,12 +19,14 @@ int dec_png(unsigned char *,g2int *,g2int *,char *);
  * @param ndpts The number of data values to unpack.
  * @param fld Contains the unpacked data values.
  *
+ * @return 0 for success, 1 for memory allocation error.
+ *
  * @author Stephen Gilbert @date 2003-08-27
  */
-g2int pngunpack(unsigned char *cpack,g2int len,g2int *idrstmpl,g2int ndpts,
-                g2float *fld)
+g2int
+pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+	  g2float *fld)
 {
-
     g2int  *ifld;
     g2int  j,nbits,iret,width,height;
     g2float  ref,bscale,dscale;

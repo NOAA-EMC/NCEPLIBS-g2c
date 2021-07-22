@@ -38,8 +38,8 @@
 #define _gridtemplates_H
 #include "grib2.h"
 
-#define MAXGRIDTEMP 31              // maximum number of templates
-#define MAXGRIDMAPLEN 200           // maximum template map length
+#define MAXGRIDTEMP 31 /**< maximum number of templates */
+#define MAXGRIDMAPLEN 200 /**< maximum template map length */
 
 /**
  * Struct for grid template.
@@ -52,6 +52,9 @@ struct gridtemplate
     g2int mapgrid[MAXGRIDMAPLEN];
 };
 
+/**
+ * Templates grid. 
+ */
 const struct gridtemplate templatesgrid[MAXGRIDTEMP] = {
     // 3.0: Lat/Lon grid
     { 0, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },

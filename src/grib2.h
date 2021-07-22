@@ -152,37 +152,37 @@
 #define _grib2_H
 #include <stdio.h>
 
-#define G2_VERSION "g2clib-1.6.2" /*< Current version of NCEPLIBS-g2c library. */
+#define G2_VERSION "g2clib-1.6.2" /**< Current version of NCEPLIBS-g2c library. */
 
 #ifdef __64BIT__
-typedef int g2int; /*< Integer type. */
-typedef unsigned int g2intu; /*< Unsigned integer type. */
+typedef int g2int; /**< Integer type. */
+typedef unsigned int g2intu; /**< Unsigned integer type. */
 #else
-typedef long g2int; /*< Long integer type. */
-typedef unsigned long g2intu; /*< Unsigned long integer type. */
+typedef long g2int; /**< Long integer type. */
+typedef unsigned long g2intu; /**< Unsigned long integer type. */
 #endif
-typedef float g2float; /*< Float type. */
+typedef float g2float; /**< Float type. */
 
 /**
  * Struct for GRIB template.
  */
 struct gtemplate {
-    g2int type; /*< 3=Grid Defintion Template. */
-    /*< 4=Product Defintion Template. */
-    /*< 5=Data Representation Template. */
-    g2int num;            /*< template number.                                 */
-    g2int maplen;         /*< number of entries in the static part             */
-    /*< of the template.              */
-    g2int *map;           /*< num of octets of each entry in the               */
-    /*< static part of the template.             */
-    g2int needext;        /*< indicates whether or not the template needs      */
-    /*< to be extended.                              */
-    g2int extlen; /*< number of entries in the template extension.     */
-    g2int *ext; /*< num of octets of each entry in the extension     */
-    /*< part of the template.       */
+    g2int type; /**< 3=Grid Defintion Template. */
+    /**< 4=Product Defintion Template. */
+    /**< 5=Data Representation Template. */
+    g2int num;            /**< template number.                                 */
+    g2int maplen;         /**< number of entries in the static part             */
+    /**< of the template.              */
+    g2int *map;           /**< num of octets of each entry in the               */
+    /**< static part of the template.             */
+    g2int needext;        /**< indicates whether or not the template needs      */
+    /**< to be extended.                              */
+    g2int extlen; /**< number of entries in the template extension.     */
+    g2int *ext; /**< num of octets of each entry in the extension     */
+    /**< part of the template.       */
 };
 
-typedef struct gtemplate gtemplate; /*< Struct for GRIB template. */
+typedef struct gtemplate gtemplate; /**< Struct for GRIB template. */
 
 /**
  * Struct for GRIB field.
@@ -212,7 +212,7 @@ struct gribfield {
     g2float *fld;
 };
 
-typedef struct gribfield gribfield; /*< Struct for GRIB field. */
+typedef struct gribfield gribfield; /**< Struct for GRIB field. */
 
 /*  Prototypes for unpacking sections API  */
 g2int g2_unpack1(unsigned char *,g2int *,g2int **,g2int *);
