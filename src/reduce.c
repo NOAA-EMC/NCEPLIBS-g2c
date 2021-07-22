@@ -8,8 +8,8 @@
 /*#include "f2c.h"*/
 #include <stdlib.h>
 #include "grib2.h"
-typedef g2int integer;
-typedef g2float real;
+typedef g2int integer; /*< Integer type. */
+typedef g2float real; /*< Float type. */
 
 /**
  * Determines whether the number of groups should be increased in
@@ -31,14 +31,14 @@ typedef g2float real;
  * - kfildo - unit number for output (print) file. (output) 
  *
  * @param kfildo unit number for output (print) file. (input)
- * @param jmin(j) the minimum of each group (j=1,lx). it is possible
+ * @param jmin the minimum of each group (j=1,lx). it is possible
  * after splitting the groups, jmin( ) will not be the minimum of the
  * new group.  this doesn't matter; jmin( ) is really the group
  * reference and doesn't have to be the smallest value. (input/output)
- * @param jmax(j) the maximum of each group (j=1,lx). (input/output)
- * @param lbit(j) the number of bits necessary to pack each group
+ * @param jmax the maximum of each group (j=1,lx). (input/output)
+ * @param lbit the number of bits necessary to pack each group
  * (j=1,lx). (input/output)
- * @param nov(j) the number of values in each group (j=1,lx).
+ * @param nov the number of values in each group (j=1,lx).
  * (input/output)
  * @param lx the number of groups. this will be increased if groups
  * are split. (input/output)
@@ -51,7 +51,7 @@ typedef g2float real;
  * @param kbit the number of bits necessary to pack the nov(j) values,
  * j=1,lx. if the groups are split, kbit is reduced. (input/output)
  * @param novref reference value for nov( ). (input) 
- * @param ibxx2(j) 2**j (j=0,30). (input) 
+ * @param ibxx2 2**j (j=0,30). (input) 
  * @param ier error return. (output) 
  * - 0 = good return. 
  * - 714 = problem in algorithm. reduce aborted. 
@@ -78,10 +78,11 @@ typedef g2float real;
  *
  * @author Glahn @date November 2001 
  */
-int reduce(integer *kfildo, integer *jmin, integer *jmax,
-	   integer *lbit, integer *nov, integer *lx, integer *ndg, integer *ibit,
-	   integer *jbit, integer *kbit, integer *novref, integer *ibxx2,
-	   integer *ier)
+int
+reduce(integer *kfildo, integer *jmin, integer *jmax,
+       integer *lbit, integer *nov, integer *lx, integer *ndg, integer *ibit,
+       integer *jbit, integer *kbit, integer *novref, integer *ibxx2,
+       integer *ier)
 {
     /* Initialized data */
 
