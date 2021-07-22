@@ -16,7 +16,6 @@
  *
  * @param cgrib char array containing Section 1 of the GRIB2 message.
  * @param iofst Bit offset for the beginning of Section 1 in cgrib.
- * @param iofst Bit offset at the end of Section 1, returned.
  * @param ids address of pointer to integer array containing
  * information read from Section 1, the Identification section.
  * - ids[0] Identification of originating Centre (see Common Code Table C-1).
