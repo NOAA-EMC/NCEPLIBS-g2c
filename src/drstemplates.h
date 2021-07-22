@@ -30,18 +30,18 @@
 #ifndef _drstemplates_H
 #define _drstemplates_H
 #include "grib2.h"
-#define MAXDRSTEMP 9 /*< maximum number of templates */
-#define MAXDRSMAPLEN 200 /*< maximum template map length */
+#define MAXDRSTEMP 9 /**< maximum number of templates */
+#define MAXDRSMAPLEN 200 /**< maximum template map length */
 
 /**
  * Stuct for GRIB2 Data Representation Section (DRS) template.
  */
 struct drstemplate
 {
-    g2int template_num; /*< The number of entries in the template. */
-    g2int mapdrslen; /*< Length of map of the template. */
-    g2int needext; /*< Whether the Template needs to be extended. */
-    g2int mapdrs[MAXDRSMAPLEN]; /*< A map of the template. */
+    g2int template_num; /**< The number of entries in the template. */
+    g2int mapdrslen; /**< Length of map of the template. */
+    g2int needext; /**< Whether the Template needs to be extended. */
+    g2int mapdrs[MAXDRSMAPLEN]; /**< A map of the template. */
 };
 
 const struct drstemplate templatesdrs[MAXDRSTEMP] = {
