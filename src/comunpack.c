@@ -8,7 +8,6 @@
 #include "grib2.h"
 
 /**
- *
  * This subroutine unpacks a data field that was packed using a
  * complex packing algorithm as defined in the GRIB2 documention,
  * using info from the GRIB2 Data Representation Template 5.2 or 5.3.
@@ -31,6 +30,8 @@
  * @param fld Contains the unpacked data values.  fld must be
  * allocated with at least ndpts*sizeof(g2float) bytes before calling
  * this routine.
+ *
+ * @return 0 for success, error code otherwise.
  *
  * @author Stephen Gilbert @date 2002-10-29
  */

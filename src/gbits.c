@@ -23,11 +23,11 @@ gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)
 }
 
 /**
- * Store bits - pack bits:  Put arbitrary size values into a
- * packed bit string, taking the low order bits from each value
- * in the unpacked array.
+ * Store bits - put arbitrary size values into a packed bit string,
+ * taking the low order bits from each value in the unpacked array.
  *
- * @param out pointer to packed array output.
+ * @param out pointer to packed array output. Must be allocated large
+ * enough to hold output.
  * @param in pointer to unpacked array input.
  * @param iskip initial number of bits to skip.
  * @param nbyte number of bits to pack.
@@ -37,7 +37,7 @@ gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)
 void
 sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbyte)
 {
-    sbits(out,in,iskip,nbyte,(g2int)0,(g2int)1);
+    sbits(out, in, iskip, nbyte, (g2int)0, (g2int)1);
 }
 
 /**
@@ -93,11 +93,11 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte,
 }
 
 /**
- * Store bits - pack bits:  Put arbitrary size values into a
- * packed bit string, taking the low order bits from each value
- * in the unpacked array.
+ * Store bits - put arbitrary size values into a packed bit string,
+ * taking the low order bits from each value in the unpacked array.
  *
- * @param out pointer to packed array output.
+ * @param out pointer to packed array output. Must be allocated large
+ * enough to hold output.
  * @param in pointer to unpacked array input.
  * @param iskip initial number of bits to skip.
  * @param nbyte number of bits to pack.
