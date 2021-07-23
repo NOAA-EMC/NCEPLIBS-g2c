@@ -1,7 +1,7 @@
 /**
  * @file
  * @brief Free up memory that was allocated for struct gribfield.
- * @author Gilbert ORG: W/NP11 @date 2002-10-28
+ * @author Stephen Gilbeert @date 2002-10-28
  */
 
 #include <stdlib.h>
@@ -18,7 +18,7 @@
  * decode routine, g2_getfld(), when user no longer needs to reference
  * this data.
  *
- * @author Gilbert ORG: W/NP11 @date 2002-10-28
+ * @author Stephen Gilbeert @date 2002-10-28
  */
 void
 g2_free(gribfield *gfld)

@@ -2,7 +2,7 @@
  * @file
  * @brief Pack up a Grid Definition Section (Section 3) and adds it to
  * a GRIB2 message.
- * @author Gilbert ORG: W/NP11 @date 2002-11-01
+ * @author Stephen Gilbeert @date 2002-11-01
  */
 
 #include <stdio.h>
@@ -54,7 +54,7 @@
  * - 2002-11-01  Gilbert
  * - 2009-01-14  Vuong Changed structure name template to gtemplate
  *
- * @author Gilbert ORG: W/NP11 @date 2002-11-01
+ * @author Stephen Gilbeert @date 2002-11-01
  */
 g2int
 g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,

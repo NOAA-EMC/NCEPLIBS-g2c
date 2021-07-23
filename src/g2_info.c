@@ -4,7 +4,7 @@
  * gridded fields found in the message and the number (and maximum
  * size) of Local Use Sections.
  *
- * @author Gilbert ORG: W/NP11 @date 2002-10-28
+ * @author Stephen Gilbeert @date 2002-10-28
  */
 
 #include <stdio.h>
@@ -53,7 +53,7 @@
  * - 5 End string "7777" not found at end of message.
  * - 6 Invalid section number found.
  *
- * @author Gilbert ORG: W/NP11 @date 2002-10-28
+ * @author Stephen Gilbeert @date 2002-10-28
  */
 g2int
 g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,

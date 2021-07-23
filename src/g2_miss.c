@@ -2,7 +2,7 @@
  * @brief Check the Data Representation Template to see if missing
  * value management is used, and returns the missing value(s) in the
  * data field.
- * @author Gilbert ORG: W/NP11 @date 2004-12-16
+ * @author Stephen Gilbeert @date 2004-12-16
  */
 
 #include "grib2.h"
@@ -19,7 +19,7 @@
  * field. rmiss must be allocated in the calling program with enough
  * space hold all the missing values.
  *
- * @author Gilbert ORG: W/NP11 @date 2004-12-16
+ * @author Stephen Gilbeert @date 2004-12-16
  */
 void
 g2_miss( gribfield *gfld, float *rmiss, int *nmiss )
