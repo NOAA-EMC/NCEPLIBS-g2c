@@ -24,7 +24,7 @@
  * store the data value in this case would be the absolute value of
  * the negative value in mapdrs.
  *
- * @author Gilbert @date 2002-10-26
+ * @author Stephen Gilbeert @date 2002-10-26
  */
 
 #ifndef _drstemplates_H

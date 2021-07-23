@@ -3,7 +3,7 @@
  * @brief Unpack Section 1 (Identification Section) as defined in GRIB
  * Edition 2.
  *
- * @author Gilbert ORG: W/NP11 @date 2002-10-29
+ * @author Stephen Gilbert @date 2002-10-29
  */
 
 #include <stdio.h>
@@ -38,7 +38,7 @@
  * - 2 Array passed is not section 1
  * - 6 memory allocation error
  *
- * @author Gilbert ORG: W/NP11 @date 2002-10-29
+ * @author Stephen Gilbert @date 2002-10-29
  */
 g2int
 g2_unpack1(unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)

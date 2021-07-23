@@ -1,6 +1,6 @@
 /** @file
  * @brief Add a Local Use Section (Section 2) to a GRIB2 message.
- * @author Gilbert ORG: W/NP11 @date 2002-11-01
+ * @author Stephen Gilbeert @date 2002-11-01
  */
 
 #include <stdio.h>
@@ -31,7 +31,7 @@
  * @note The Local Use Section (Section 2) can only follow Section 1
  * or Section 7 in a GRIB2 message.
  *
- * @author Gilbert ORG: W/NP11 @date 2002-11-01
+ * @author Stephen Gilbeert @date 2002-11-01
  */
 g2int
 g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
