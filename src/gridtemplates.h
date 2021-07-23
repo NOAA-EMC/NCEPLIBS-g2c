@@ -1,5 +1,5 @@
 /** @file
- * @author Gilbert @date 2001-10-26
+ * @author Stephen Gilbert @date 2001-10-26
  *
  * This Fortran Module contains info on all the available
  *   GRIB2 Grid Definition Templates used in Section 3 (GDS).

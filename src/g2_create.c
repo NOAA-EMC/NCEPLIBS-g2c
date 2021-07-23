@@ -1,7 +1,9 @@
 /** @file
  * @brief Initializes a new GRIB2 message and packs GRIB2 sections 0
  * (Indicator Section) and 1 (Identification Section).
+ * @author Stephen Gilbeert @date 2002-10-31
  */
+
 #include <stdio.h>
 #include "grib2.h"
 #define MAPSEC1LEN 13 /**< Length of Map Section 1. */
@@ -44,7 +46,7 @@
  * g2_addgrid(), g2_addfield(), and g2_gribend() to create a complete
  * GRIB2 message.
  *
- * @author Gilbert ORG: W/NP11 @date 2002-10-31
+ * @author Stephen Gilbeert @date 2002-10-31
  */
 g2int
 g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1)
