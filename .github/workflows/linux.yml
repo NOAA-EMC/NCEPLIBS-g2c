@@ -49,7 +49,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DENABLE_DOCS=On -DCMAKE_C_FLAGS="-g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0" .. 
+        cmake -DJasper_ROOT=~/Jasper -DENABLE_DOCS=On -DENABLE_OpenJPEG=ON -DCMAKE_C_FLAGS="-g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0" .. 
         make -j2
         
     - name: test
