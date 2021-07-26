@@ -34,6 +34,10 @@ Code Manager: Hang Lei, Edward Hartnett
   compression/decompression routines used by libpng.a for PNG image
   compression support. Tested version: zlib-1.2.6.
 
+- [openjpeg.a](https://www.openjpeg.org/) - OpenJPEG is an open-source
+  JPEG 2000 codec written in C language. OpenJPEG is only used if
+  CMake build option USE_OpenJPEG is turned on.
+
 ## Installing
 
 This C source code conatins many uses of the C++ comment style "//".
