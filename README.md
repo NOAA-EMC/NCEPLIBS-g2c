@@ -54,6 +54,14 @@ If you do not wish to bother with the external libs and don't need PNG
 and JPEG2000 support, you can use the CMake options USE_PNG,
 USE_Jasper, and USE_OpenJPEG.
 
+## References
+
+Kumar, V. Krishna, Gilbert, Stephen A., [GRIB2 conversion and its
+usage at NCEP](docs/GRIB2_conversion_and_its_usage_at_NCEP.pdf), 14-18
+November 2005, 10th Workshop on Meteorological Operational Systems
+ECMWF User Orientation, retrieved on July 27, 2021 from
+https://www.yumpu.com/en/document/view/11925806/grib2-conversion-and-its-usage-at-ncep.
+
 ## Disclaimer
 
 The United States Department of Commerce (DOC) GitHub project code is
