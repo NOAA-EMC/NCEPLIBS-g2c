@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('g2__unpack6_8c.html',''); initResizabl
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a83638f96ee10ef44c4dddcebf41d8ee6"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__unpack6_8c.html#a83638f96ee10ef44c4dddcebf41d8ee6">g2_unpack6</a> (unsigned char *cgrib, g2int *iofst, g2int ngpts, g2int *ibmap, g2int **bmap)</td></tr>
+<tr class="memitem:a83638f96ee10ef44c4dddcebf41d8ee6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__unpack6_8c.html#a83638f96ee10ef44c4dddcebf41d8ee6">g2_unpack6</a> (unsigned char *cgrib, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *iofst, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> ngpts, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *ibmap, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> **bmap)</td></tr>
 <tr class="memdesc:a83638f96ee10ef44c4dddcebf41d8ee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks Section 6 (Bit-Map Section) as defined in GRIB Edition 2.  <a href="g2__unpack6_8c.html#a83638f96ee10ef44c4dddcebf41d8ee6">More...</a><br /></td></tr>
 <tr class="separator:a83638f96ee10ef44c4dddcebf41d8ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -117,7 +117,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">g2int g2_unpack6 </td>
+          <td class="memname"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> g2_unpack6 </td>
           <td>(</td>
           <td class="paramtype">unsigned char *&#160;</td>
           <td class="paramname"><em>cgrib</em>, </td>
@@ -125,25 +125,25 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *&#160;</td>
           <td class="paramname"><em>iofst</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">g2int&#160;</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>&#160;</td>
           <td class="paramname"><em>ngpts</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *&#160;</td>
           <td class="paramname"><em>ibmap</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">g2int **&#160;</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> **&#160;</td>
           <td class="paramname"><em>bmap</em>&#160;</td>
         </tr>
         <tr>
@@ -160,7 +160,6 @@ Functions</h2></td></tr>
     <tr><td class="paramname">cgrib</td><td>char array containing Section 6 of the GRIB2 message. </td></tr>
     <tr><td class="paramname">iofst</td><td>Bit offset of the beginning of Section 6 in cgrib. </td></tr>
     <tr><td class="paramname">ngpts</td><td>Number of grid points specified in the bit-map </td></tr>
-    <tr><td class="paramname">iofst</td><td>Bit offset at the end of Section 6, returned. </td></tr>
     <tr><td class="paramname">ibmap</td><td>Bitmap indicator (see Code Table 6.0)<ul>
 <li>0 bitmap applies and is included in Section 6.</li>
 <li>1-253 Predefined bitmap applies</li>
@@ -182,7 +181,11 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2__unpack6_8c_source.html#l00034">34</a> of file <a class="el" href="g2__unpack6_8c_source.html">g2_unpack6.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2__unpack6_8c_source.html#l00033">33</a> of file <a class="el" href="g2__unpack6_8c_source.html">g2_unpack6.c</a>.</p>
+
+<p class="reference">References <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, and <a class="el" href="gbits_8c_source.html#l00057">gbits()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="g2__getfld_8c_source.html#l00237">g2_getfld()</a>.</p>
 
 </div>
 </div>

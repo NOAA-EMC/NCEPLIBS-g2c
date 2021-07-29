@@ -99,13 +99,13 @@ $(document).ready(function(){initNavTree('gridtemplates_8c.html',''); initResiza
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0d65c7c29a06c12ebee26746476d49c9"><td class="memItemLeft" align="right" valign="top"><a id="a0d65c7c29a06c12ebee26746476d49c9"></a>
-<a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>extgridtemplate</b> (g2int number, g2int *list)</td></tr>
+<tr class="memitem:a0d65c7c29a06c12ebee26746476d49c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gridtemplates_8c.html#a0d65c7c29a06c12ebee26746476d49c9">extgridtemplate</a> (<a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> number, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *list)</td></tr>
+<tr class="memdesc:a0d65c7c29a06c12ebee26746476d49c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine generates the remaining octet map for a given Grid Definition Template, if required.  <a href="gridtemplates_8c.html#a0d65c7c29a06c12ebee26746476d49c9">More...</a><br /></td></tr>
 <tr class="separator:a0d65c7c29a06c12ebee26746476d49c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87376e69f794ea1c07c762e7d359715e"><td class="memItemLeft" align="right" valign="top">g2int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gridtemplates_8c.html#a87376e69f794ea1c07c762e7d359715e">getgridindex</a> (g2int number)</td></tr>
+<tr class="memitem:a87376e69f794ea1c07c762e7d359715e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gridtemplates_8c.html#a87376e69f794ea1c07c762e7d359715e">getgridindex</a> (<a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> number)</td></tr>
 <tr class="memdesc:a87376e69f794ea1c07c762e7d359715e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the index of specified Grid Definition Template 3.NN (NN=number) in array templates.  <a href="gridtemplates_8c.html#a87376e69f794ea1c07c762e7d359715e">More...</a><br /></td></tr>
 <tr class="separator:a87376e69f794ea1c07c762e7d359715e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af67f9624982c81a36531989254a9b98a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gridtemplates_8c.html#af67f9624982c81a36531989254a9b98a">getgridtemplate</a> (g2int number)</td></tr>
+<tr class="memitem:af67f9624982c81a36531989254a9b98a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gridtemplates_8c.html#af67f9624982c81a36531989254a9b98a">getgridtemplate</a> (<a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> number)</td></tr>
 <tr class="memdesc:af67f9624982c81a36531989254a9b98a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns grid template information for a specified Grid Definition Template 3.NN.  <a href="gridtemplates_8c.html#af67f9624982c81a36531989254a9b98a">More...</a><br /></td></tr>
 <tr class="separator:af67f9624982c81a36531989254a9b98a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -116,6 +116,60 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a0d65c7c29a06c12ebee26746476d49c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d65c7c29a06c12ebee26746476d49c9">&#9670;&nbsp;</a></span>extgridtemplate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a>* extgridtemplate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>&#160;</td>
+          <td class="paramname"><em>number</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *&#160;</td>
+          <td class="paramname"><em>list</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This subroutine generates the remaining octet map for a given Grid Definition Template, if required. </p>
+<p>Some Templates can vary depending on data values given in an earlier part of the Template, and it is necessary to know some of the earlier entry values to generate the full octet map of the Template.</p>
+<p>PROGRAM HISTORY LOG:</p><ul>
+<li>2000-05-09 Gilbert</li>
+<li>2008-07-08 Vuong Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa)</li>
+<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
+<li>2010-05-11 Vuong Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)</li>
+<li>2013-08-06 Vuong Added GDT 3.4,3.5,3.12,3.101,3.140</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Grid Definition Template 3.NN that is being requested. </td></tr>
+    <tr><td class="paramname">list</td><td>The list of values for each entry in the Grid Definition Template.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the returned template struct. Returns NULL pointer, if template not found.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2000-05-09 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00119">119</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
+
+<p class="reference">References <a class="el" href="gridtemplates_8c_source.html#l00031">getgridindex()</a>, and <a class="el" href="gridtemplates_8c_source.html#l00068">getgridtemplate()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="g2__addgrid_8c_source.html#l00060">g2_addgrid()</a>, and <a class="el" href="g2__unpack3_8c_source.html#l00053">g2_unpack3()</a>.</p>
+
+</div>
+</div>
 <a id="a87376e69f794ea1c07c762e7d359715e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a87376e69f794ea1c07c762e7d359715e">&#9670;&nbsp;</a></span>getgridindex()</h2>
 
@@ -123,9 +177,9 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">g2int getgridindex </td>
+          <td class="memname"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> getgridindex </td>
           <td>(</td>
-          <td class="paramtype">g2int&#160;</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>&#160;</td>
           <td class="paramname"><em>number</em></td><td>)</td>
           <td></td>
         </tr>
@@ -141,12 +195,21 @@ Functions</h2></td></tr>
 <li>2010-05-11 Vuong - Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)</li>
 <li>2013-08-06 Vuong - Added GDT 3.4,3.5,3.12,3.101,3.140</li>
 </ul>
-<p>@paran number NN, indicating the number of the Grid Definition Template 3.NN that is being requested.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>NN, indicating the number of the Grid Definition Template 3.NN that is being requested.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of GDT 3.NN in array templates, if template exists. -1, otherwise.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2001-06-28 </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00031">31</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
+
+<p class="reference">References <a class="el" href="gridtemplates_8h_source.html#l00041">MAXGRIDTEMP</a>, and <a class="el" href="gridtemplates_8h_source.html#l00058">templatesgrid</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="gridtemplates_8c_source.html#l00119">extgridtemplate()</a>, and <a class="el" href="gridtemplates_8c_source.html#l00068">getgridtemplate()</a>.</p>
 
 </div>
 </div>
@@ -159,7 +222,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a>* getgridtemplate </td>
           <td>(</td>
-          <td class="paramtype">g2int&#160;</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>&#160;</td>
           <td class="paramname"><em>number</em></td><td>)</td>
           <td></td>
         </tr>
@@ -186,6 +249,10 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2000-05-09 </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00068">68</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
+
+<p class="reference">References <a class="el" href="gridtemplates_8c_source.html#l00031">getgridindex()</a>, and <a class="el" href="gridtemplates_8h_source.html#l00058">templatesgrid</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="gridtemplates_8c_source.html#l00119">extgridtemplate()</a>, <a class="el" href="g2__addgrid_8c_source.html#l00060">g2_addgrid()</a>, and <a class="el" href="g2__unpack3_8c_source.html#l00053">g2_unpack3()</a>.</p>
 
 </div>
 </div>

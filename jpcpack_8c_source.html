@@ -91,17 +91,17 @@ $(document).ready(function(){initNavTree('jpcpack_8c_source.html',''); initResiz
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;math.h&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">int</span> enc_jpeg2000(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *,g2int ,g2int ,g2int ,</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                 g2int , g2int, g2int , <span class="keywordtype">char</span> *, g2int );</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">int</span> <a class="code" href="jpcpack_8c.html#a8a415bdd3beda56d05a706a614608a7c">enc_jpeg2000</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> ,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> ,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> ,</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                 <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> , <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> , <span class="keywordtype">char</span> *, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> );</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="jpcpack_8c.html#a9342b7e883d454cc9c9c5051e40cf557">   49</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="jpcpack_8c.html#a9342b7e883d454cc9c9c5051e40cf557">jpcpack</a>(g2float *fld,g2int width,g2int height,g2int *idrstmpl,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;             <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack,g2int *lcpack)</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="jpcpack_8c.html#a9342b7e883d454cc9c9c5051e40cf557">   49</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="jpcpack_8c.html#a9342b7e883d454cc9c9c5051e40cf557">jpcpack</a>(<a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *fld,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> width,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> height,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *idrstmpl,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;             <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *lcpack)</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    g2int  *ifld;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">static</span> g2float alog2=0.69314718;       <span class="comment">//  ln(2.0)</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    g2int  j,nbits,imin,imax,maxdif;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    g2int  ndpts,nbytes,nsize,retry;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    g2float  bscale,dscale,rmax,rmin,temp;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  *ifld;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">static</span> <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> alog2=0.69314718;       <span class="comment">//  ln(2.0)</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  j,nbits,imin,imax,maxdif;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  ndpts,nbytes,nsize,retry;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a>  bscale,dscale,rmax,rmin,temp;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ctemp;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    ifld=0;</div>
@@ -118,9 +118,9 @@ $(document).ready(function(){initNavTree('jpcpack_8c_source.html',''); initResiz
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span> (fld[j] &lt; rmin) rmin=fld[j];</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">if</span> (idrstmpl[1] == 0)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        maxdif = (g2int) (rint(rmax*dscale) - rint(rmin*dscale));</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        maxdif = (<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>) (rint(rmax*dscale) - rint(rmin*dscale));</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        maxdif = (g2int)rint( (rmax-rmin)*dscale*bscale );</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        maxdif = (<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)rint( (rmax-rmin)*dscale*bscale );</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">//  If max and min values are not equal, pack up field.</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">//  If they are equal, we have a constant field, and the reference</span></div>
@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('jpcpack_8c_source.html',''); initResiz
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">//  set nbits to 0.</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">if</span> ( rmin != rmax  &amp;&amp;  maxdif != 0 ) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        ifld=(g2int *)malloc(ndpts*<span class="keyword">sizeof</span>(g2int));</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        ifld=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(ndpts*<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="comment">//</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="comment">//  Determine which algorithm to use based on user-supplied</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="comment">//  binary scale factor and number of bits.</span></div>
@@ -138,15 +138,15 @@ $(document).ready(function(){initNavTree('jpcpack_8c_source.html',''); initResiz
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <span class="comment">//  No binary scaling and calculate minumum number of</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="comment">//  bits in which the data will fit.</span></div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            <span class="comment">//</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            imin=(g2int)rint(rmin*dscale);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            imax=(g2int)rint(rmax*dscale);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            imin=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)rint(rmin*dscale);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            imax=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)rint(rmax*dscale);</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            maxdif=imax-imin;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            temp=log((<span class="keywordtype">double</span>)(maxdif+1))/alog2;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            nbits=(g2int)ceil(temp);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            rmin=(g2float)imin;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            nbits=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)ceil(temp);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            rmin=(<a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a>)imin;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="comment">//   scale data</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">for</span>(j=0;j&lt;ndpts;j++)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                ifld[j]=(g2int)rint(fld[j]*dscale)-imin;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                ifld[j]=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)rint(fld[j]*dscale)-imin;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        }</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="comment">//</span></div>
@@ -155,12 +155,12 @@ $(document).ready(function(){initNavTree('jpcpack_8c_source.html',''); initResiz
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="comment">//</span></div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            rmin=rmin*dscale;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            rmax=rmax*dscale;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            maxdif=(g2int)rint((rmax-rmin)*bscale);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            maxdif=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)rint((rmax-rmin)*bscale);</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            temp=log((<span class="keywordtype">double</span>)(maxdif+1))/alog2;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            nbits=(g2int)ceil(temp);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            nbits=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)ceil(temp);</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="comment">//   scale data</span></div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">for</span> (j=0;j&lt;ndpts;j++)</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                ifld[j]=(g2int)rint(((fld[j]*dscale)-rmin)*bscale);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                ifld[j]=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)rint(((fld[j]*dscale)-rmin)*bscale);</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        }</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="comment">//</span></div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="comment">//  Pack data into full octets, then do JPEG 2000 encode.</span></div>
@@ -171,12 +171,12 @@ $(document).ready(function(){initNavTree('jpcpack_8c_source.html',''); initResiz
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        nsize=*lcpack;          <span class="comment">// needed for input to enc_jpeg2000</span></div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        ctemp=calloc(ndpts,nbytes);</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <a class="code" href="gbits_8c.html#ad5a2832a80724dc38d71de38d0a9d6e8">sbits</a>(ctemp,ifld,0,nbytes*8,0,ndpts);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        *lcpack=(g2int)enc_jpeg2000(ctemp,width,height,nbits,idrstmpl[5],idrstmpl[6],retry,(<span class="keywordtype">char</span> *)cpack,nsize);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        *lcpack=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)<a class="code" href="jpcpack_8c.html#a8a415bdd3beda56d05a706a614608a7c">enc_jpeg2000</a>(ctemp,width,height,nbits,idrstmpl[5],idrstmpl[6],retry,(<span class="keywordtype">char</span> *)cpack,nsize);</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordflow">if</span> (*lcpack &lt;= 0) {</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            printf(<span class="stringliteral">&quot;jpcpack: ERROR Packing JPC = %d\n&quot;</span>,(<span class="keywordtype">int</span>)*lcpack);</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="keywordflow">if</span> ( *lcpack == -3 ) {</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                retry=1;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                *lcpack=(g2int)enc_jpeg2000(ctemp,width,height,nbits,idrstmpl[5],idrstmpl[6],retry,(<span class="keywordtype">char</span> *)cpack,nsize);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                *lcpack=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)<a class="code" href="jpcpack_8c.html#a8a415bdd3beda56d05a706a614608a7c">enc_jpeg2000</a>(ctemp,width,height,nbits,idrstmpl[5],idrstmpl[6],retry,(<span class="keywordtype">char</span> *)cpack,nsize);</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                <span class="keywordflow">if</span> ( *lcpack &lt;= 0 ) printf(<span class="stringliteral">&quot;jpcpack: Retry Failed.\n&quot;</span>);</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                <span class="keywordflow">else</span> printf(<span class="stringliteral">&quot;jpcpack: Retry Successful.\n&quot;</span>);</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            }</div>
@@ -201,9 +201,12 @@ $(document).ready(function(){initNavTree('jpcpack_8c_source.html',''); initResiz
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="agbits_8c_html_ad5a2832a80724dc38d71de38d0a9d6e8"><div class="ttname"><a href="gbits_8c.html#ad5a2832a80724dc38d71de38d0a9d6e8">sbits</a></div><div class="ttdeci">void sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte, g2int nskip, g2int n)</div><div class="ttdoc">Store bits - pack bits: Put arbitrary size values into a packed bit string, taking the low order bits...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00112">gbits.c:112</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a2e615ee29fc8d17a681017e4384847c2"><div class="ttname"><a href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a></div><div class="ttdeci">float g2float</div><div class="ttdoc">Float type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00164">grib2.h:164</a></div></div>
+<div class="ttc" id="agbits_8c_html_ad5a2832a80724dc38d71de38d0a9d6e8"><div class="ttname"><a href="gbits_8c.html#ad5a2832a80724dc38d71de38d0a9d6e8">sbits</a></div><div class="ttdeci">void sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte, g2int nskip, g2int n)</div><div class="ttdoc">Store bits - put arbitrary size values into a packed bit string, taking the low order bits from each ...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00110">gbits.c:110</a></div></div>
 <div class="ttc" id="ajpcpack_8c_html_a9342b7e883d454cc9c9c5051e40cf557"><div class="ttname"><a href="jpcpack_8c.html#a9342b7e883d454cc9c9c5051e40cf557">jpcpack</a></div><div class="ttdeci">void jpcpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</div><div class="ttdoc">This subroutine packs up a data field into a JPEG2000 code stream.</div><div class="ttdef"><b>Definition:</b> <a href="jpcpack_8c_source.html#l00049">jpcpack.c:49</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a09f53c0d5cd3cb3b7864b7dd4983211e"><div class="ttname"><a href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a></div><div class="ttdeci">long g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00161">grib2.h:161</a></div></div>
 <div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
+<div class="ttc" id="ajpcpack_8c_html_a8a415bdd3beda56d05a706a614608a7c"><div class="ttname"><a href="jpcpack_8c.html#a8a415bdd3beda56d05a706a614608a7c">enc_jpeg2000</a></div><div class="ttdeci">int enc_jpeg2000(unsigned char *, g2int, g2int, g2int, g2int, g2int, g2int, char *, g2int)</div><div class="ttdoc">This Function encodes a grayscale image into a JPEG2000 code stream specified in the JPEG2000 Part-1 ...</div><div class="ttdef"><b>Definition:</b> <a href="enc__jpeg2000_8c_source.html#l00056">enc_jpeg2000.c:56</a></div></div>
 <div class="ttc" id="agrib2_8h_html_a06ba2196366d23a6a06feb820c1456b0"><div class="ttname"><a href="grib2_8h.html#a06ba2196366d23a6a06feb820c1456b0">mkieee</a></div><div class="ttdeci">void mkieee(g2float *, g2int *, g2int)</div><div class="ttdoc">This subroutine stores a list of real values in 32-bit IEEE floating point format.</div><div class="ttdef"><b>Definition:</b> <a href="mkieee_8c_source.html#l00021">mkieee.c:21</a></div></div>
 <div class="ttc" id="agrib2_8h_html_a3681c8c54464e3e97b3f48de09a5ed92"><div class="ttname"><a href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a></div><div class="ttdeci">double int_power(double, g2int)</div><div class="ttdoc">Function similar to C pow() power function.</div><div class="ttdef"><b>Definition:</b> <a href="int__power_8c_source.html#l00017">int_power.c:17</a></div></div>
 <!-- start footer part -->

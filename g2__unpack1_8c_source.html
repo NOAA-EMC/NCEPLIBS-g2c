@@ -91,52 +91,53 @@ $(document).ready(function(){initNavTree('g2__unpack1_8c_source.html',''); initR
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;g2int</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="grib2_8h.html#a3796bb89e5b8aba66fc624bc8b377a3b">   45</a></span>&#160;<a class="code" href="g2__unpack1_8c.html#a5a9f3222320afe0f957406b53ad36223">g2_unpack1</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cgrib, g2int *iofst, g2int **ids, g2int *idslen)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    g2int i,lensec,nbits,ierr,isecnum;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    g2int mapid[13]={2,2,1,1,1,2,1,1,1,1,1,1,1};</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    ierr=0;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    *idslen=13;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    *ids=0;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a>(cgrib,&amp;lensec,*iofst,32);        <span class="comment">/* Get Length of Section */</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    *iofst=*iofst+32;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a>(cgrib,&amp;isecnum,*iofst,8);         <span class="comment">/* Get Section Number */</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    *iofst=*iofst+8;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">if</span> ( isecnum != 1 )</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        ierr=2;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        *idslen=13;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;g2_unpack1: Not Section 1 data.\n&quot;</span>);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">return</span>(ierr);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">/*   Unpack each value into array ids from the appropriate</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">     *   number of octets, which are specified in` corresponding</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">     *   entries in array mapid. */</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    *ids=(g2int *)calloc(*idslen,<span class="keyword">sizeof</span>(g2int));</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">if</span> (*ids == 0)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        ierr=6;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">return</span>(ierr);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">for</span> (i=0;i&lt;*idslen;i++)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        nbits=mapid[i]*8;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <a class="code" href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a>(cgrib,*ids+i,*iofst,nbits);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        *iofst=*iofst+nbits;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span>(ierr);    <span class="comment">// End of Section 1 processing</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a></div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="grib2_8h.html#a3796bb89e5b8aba66fc624bc8b377a3b">   44</a></span>&#160;<a class="code" href="g2__unpack1_8c.html#a5a9f3222320afe0f957406b53ad36223">g2_unpack1</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cgrib, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *iofst, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> **ids, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *idslen)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> i,lensec,nbits,ierr,isecnum;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> mapid[13]={2,2,1,1,1,2,1,1,1,1,1,1,1};</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    ierr=0;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    *idslen=13;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    *ids=0;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a>(cgrib,&amp;lensec,*iofst,32);        <span class="comment">/* Get Length of Section */</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    *iofst=*iofst+32;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a>(cgrib,&amp;isecnum,*iofst,8);         <span class="comment">/* Get Section Number */</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    *iofst=*iofst+8;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span> ( isecnum != 1 )</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        ierr=2;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        *idslen=13;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;g2_unpack1: Not Section 1 data.\n&quot;</span>);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">return</span>(ierr);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">/*   Unpack each value into array ids from the appropriate</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">     *   number of octets, which are specified in` corresponding</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">     *   entries in array mapid. */</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    *ids=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)calloc(*idslen,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> (*ids == 0)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        ierr=6;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">return</span>(ierr);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">for</span> (i=0;i&lt;*idslen;i++)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        nbits=mapid[i]*8;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <a class="code" href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a>(cgrib,*ids+i,*iofst,nbits);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        *iofst=*iofst+nbits;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">return</span>(ierr);    <span class="comment">// End of Section 1 processing</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="ag2__unpack1_8c_html_a5a9f3222320afe0f957406b53ad36223"><div class="ttname"><a href="g2__unpack1_8c.html#a5a9f3222320afe0f957406b53ad36223">g2_unpack1</a></div><div class="ttdeci">g2int g2_unpack1(unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)</div><div class="ttdoc">This subroutine unpacks Section 1 (Identification Section) as defined in GRIB Edition 2.</div><div class="ttdef"><b>Definition:</b> <a href="g2__unpack1_8c_source.html#l00045">g2_unpack1.c:45</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a09f53c0d5cd3cb3b7864b7dd4983211e"><div class="ttname"><a href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a></div><div class="ttdeci">long g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00161">grib2.h:161</a></div></div>
+<div class="ttc" id="ag2__unpack1_8c_html_a5a9f3222320afe0f957406b53ad36223"><div class="ttname"><a href="g2__unpack1_8c.html#a5a9f3222320afe0f957406b53ad36223">g2_unpack1</a></div><div class="ttdeci">g2int g2_unpack1(unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)</div><div class="ttdoc">This subroutine unpacks Section 1 (Identification Section) as defined in GRIB Edition 2.</div><div class="ttdef"><b>Definition:</b> <a href="g2__unpack1_8c_source.html#l00044">g2_unpack1.c:44</a></div></div>
 <div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
 <div class="ttc" id="agbits_8c_html_a5d36ba9d46c32188872d0e9ab86f3e47"><div class="ttname"><a href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a></div><div class="ttdeci">void gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)</div><div class="ttdoc">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00020">gbits.c:20</a></div></div>
 <!-- start footer part -->

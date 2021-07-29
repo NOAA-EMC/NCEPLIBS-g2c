@@ -91,10 +91,10 @@ $(document).ready(function(){initNavTree('seekgb_8c_source.html',''); initResiza
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="seekgb_8c.html#a27edb1018106a2e02743be31afc5ea0c">   32</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="seekgb_8c.html#a27edb1018106a2e02743be31afc5ea0c">seekgb</a>(FILE *lugb,g2int iseek,g2int mseek,g2int *lskip,g2int *lgrib)</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="seekgb_8c.html#a27edb1018106a2e02743be31afc5ea0c">   32</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="seekgb_8c.html#a27edb1018106a2e02743be31afc5ea0c">seekgb</a>(FILE *lugb,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> iseek,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> mseek,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *lskip,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *lgrib)</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    g2int  ret;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    g2int k,k4,ipos,nread,lim,start,vers,lengrib;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  ret;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> k,k4,ipos,nread,lim,start,vers,lengrib;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">int</span>    end;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cbuf;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
@@ -141,6 +141,7 @@ $(document).ready(function(){initNavTree('seekgb_8c_source.html',''); initResiza
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="agrib2_8h_html_a09f53c0d5cd3cb3b7864b7dd4983211e"><div class="ttname"><a href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a></div><div class="ttdeci">long g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00161">grib2.h:161</a></div></div>
 <div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
 <div class="ttc" id="aseekgb_8c_html_a27edb1018106a2e02743be31afc5ea0c"><div class="ttname"><a href="seekgb_8c.html#a27edb1018106a2e02743be31afc5ea0c">seekgb</a></div><div class="ttdeci">void seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)</div><div class="ttdoc">This subprogram searches a file for the next GRIB Message.</div><div class="ttdef"><b>Definition:</b> <a href="seekgb_8c_source.html#l00032">seekgb.c:32</a></div></div>
 <div class="ttc" id="agbits_8c_html_a5d36ba9d46c32188872d0e9ab86f3e47"><div class="ttname"><a href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a></div><div class="ttdeci">void gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)</div><div class="ttdoc">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00020">gbits.c:20</a></div></div>

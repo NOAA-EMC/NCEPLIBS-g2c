@@ -91,49 +91,51 @@ $(document).ready(function(){initNavTree('simunpack_8c_source.html',''); initRes
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="simunpack_8c.html#aee9904f7aa97792022274de23107ba09">   23</a></span>&#160;g2int <a class="code" href="simunpack_8c.html#aee9904f7aa97792022274de23107ba09">simunpack</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack,g2int *idrstmpl,g2int ndpts,g2float *fld)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    g2int  *ifld;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    g2int  j,nbits,itype;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    g2float ref,bscale,dscale;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="grib2_8h.html#afdcb02bbf4c7f835fb19f5501d27cf57">rdieee</a>(idrstmpl+0,&amp;ref,1);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    bscale = <a class="code" href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a>(2.0,idrstmpl[1]);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    dscale = <a class="code" href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a>(10.0,-idrstmpl[2]);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    nbits = idrstmpl[3];</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    itype = idrstmpl[4];</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    ifld=(g2int *)calloc(ndpts,<span class="keyword">sizeof</span>(g2int));</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">if</span> ( ifld == 0 ) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;Could not allocate space in simunpack.\n  Data field NOT upacked.\n&quot;</span>);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">return</span>(1);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//  if nbits equals 0, we have a constant field where the reference value</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//  is the data value at each gridpoint</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> (nbits != 0) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="gbits_8c.html#ab3ebb34ac18fa0ad9baa48eb894689e7">gbits</a>(cpack,ifld,0,nbits,0,ndpts);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">for</span> (j=0;j&lt;ndpts;j++) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            fld[j]=(((g2float)ifld[j]*bscale)+ref)*dscale;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">for</span> (j=0;j&lt;ndpts;j++) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            fld[j]=ref;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    free(ifld);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span>(0);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="simunpack_8c.html#aee9904f7aa97792022274de23107ba09">   26</a></span>&#160;<a class="code" href="simunpack_8c.html#aee9904f7aa97792022274de23107ba09">simunpack</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *idrstmpl, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> ndpts, <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *fld)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  *ifld;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  j,nbits,itype;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> ref,bscale,dscale;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="grib2_8h.html#afdcb02bbf4c7f835fb19f5501d27cf57">rdieee</a>(idrstmpl+0,&amp;ref,1);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    bscale = <a class="code" href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a>(2.0,idrstmpl[1]);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    dscale = <a class="code" href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a>(10.0,-idrstmpl[2]);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    nbits = idrstmpl[3];</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    itype = idrstmpl[4];</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    ifld=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)calloc(ndpts,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> ( ifld == 0 ) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;Could not allocate space in simunpack.\n  Data field NOT upacked.\n&quot;</span>);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span>(1);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">//  if nbits equals 0, we have a constant field where the reference value</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">//  is the data value at each gridpoint</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">if</span> (nbits != 0) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="gbits_8c.html#ab3ebb34ac18fa0ad9baa48eb894689e7">gbits</a>(cpack,ifld,0,nbits,0,ndpts);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">for</span> (j=0;j&lt;ndpts;j++) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            fld[j]=(((<a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a>)ifld[j]*bscale)+ref)*dscale;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">for</span> (j=0;j&lt;ndpts;j++) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            fld[j]=ref;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    free(ifld);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">return</span>(0);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="asimunpack_8c_html_aee9904f7aa97792022274de23107ba09"><div class="ttname"><a href="simunpack_8c.html#aee9904f7aa97792022274de23107ba09">simunpack</a></div><div class="ttdeci">g2int simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2float *fld)</div><div class="ttdoc">This subroutine unpacks a data field that was packed using a simple packing algorithm as defined in t...</div><div class="ttdef"><b>Definition:</b> <a href="simunpack_8c_source.html#l00023">simunpack.c:23</a></div></div>
-<div class="ttc" id="agbits_8c_html_ab3ebb34ac18fa0ad9baa48eb894689e7"><div class="ttname"><a href="gbits_8c.html#ab3ebb34ac18fa0ad9baa48eb894689e7">gbits</a></div><div class="ttdeci">void gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte, g2int nskip, g2int n)</div><div class="ttdoc">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00059">gbits.c:59</a></div></div>
+<div class="ttc" id="asimunpack_8c_html_aee9904f7aa97792022274de23107ba09"><div class="ttname"><a href="simunpack_8c.html#aee9904f7aa97792022274de23107ba09">simunpack</a></div><div class="ttdeci">g2int simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2float *fld)</div><div class="ttdoc">This subroutine unpacks a data field that was packed using a simple packing algorithm as defined in t...</div><div class="ttdef"><b>Definition:</b> <a href="simunpack_8c_source.html#l00026">simunpack.c:26</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a2e615ee29fc8d17a681017e4384847c2"><div class="ttname"><a href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a></div><div class="ttdeci">float g2float</div><div class="ttdoc">Float type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00164">grib2.h:164</a></div></div>
+<div class="ttc" id="agbits_8c_html_ab3ebb34ac18fa0ad9baa48eb894689e7"><div class="ttname"><a href="gbits_8c.html#ab3ebb34ac18fa0ad9baa48eb894689e7">gbits</a></div><div class="ttdeci">void gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte, g2int nskip, g2int n)</div><div class="ttdoc">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00057">gbits.c:57</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a09f53c0d5cd3cb3b7864b7dd4983211e"><div class="ttname"><a href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a></div><div class="ttdeci">long g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00161">grib2.h:161</a></div></div>
 <div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
 <div class="ttc" id="agrib2_8h_html_a3681c8c54464e3e97b3f48de09a5ed92"><div class="ttname"><a href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a></div><div class="ttdeci">double int_power(double, g2int)</div><div class="ttdoc">Function similar to C pow() power function.</div><div class="ttdef"><b>Definition:</b> <a href="int__power_8c_source.html#l00017">int_power.c:17</a></div></div>
 <div class="ttc" id="agrib2_8h_html_afdcb02bbf4c7f835fb19f5501d27cf57"><div class="ttname"><a href="grib2_8h.html#afdcb02bbf4c7f835fb19f5501d27cf57">rdieee</a></div><div class="ttdeci">void rdieee(g2int *, g2float *, g2int)</div><div class="ttdoc">This subroutine reads a list of real values in 32-bit IEEE floating point format.</div><div class="ttdef"><b>Definition:</b> <a href="rdieee_8c_source.html#l00020">rdieee.c:20</a></div></div>

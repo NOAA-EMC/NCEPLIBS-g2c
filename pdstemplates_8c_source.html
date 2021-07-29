@@ -91,12 +91,12 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pdstemplates_8h.html">pdstemplates.h</a>&quot;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">   36</a></span>&#160;g2int <a class="code" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a>(g2int number)</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">   36</a></span>&#160;<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> <a class="code" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> number)</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    g2int j,<a class="code" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a>=-1;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> j,<a class="code" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a>=-1;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">for</span> (j=0;j&lt;MAXPDSTEMP;j++) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (number == templatespds[j].template_num) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">for</span> (j=0;j&lt;<a class="code" href="pdstemplates_8h.html#a11c588e7671155abba68b92678fc2071">MAXPDSTEMP</a>;j++) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (number == <a class="code" href="pdstemplates_8h.html#a87d5723cb60a9b598bc574cd31673a26">templatespds</a>[j].template_num) {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <a class="code" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a>=j;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordflow">return</span>(<a class="code" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a>);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        }</div>
@@ -105,9 +105,9 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span>(<a class="code" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a>);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="pdstemplates_8c.html#ad08ad7c4bee0466cd8ccafc1c1e76520">   65</a></span>&#160;<a class="code" href="grib2_8h.html#structgtemplate">gtemplate</a> *<a class="code" href="pdstemplates_8c.html#ad08ad7c4bee0466cd8ccafc1c1e76520">getpdstemplate</a>(g2int number)</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="pdstemplates_8c.html#ad08ad7c4bee0466cd8ccafc1c1e76520">   65</a></span>&#160;<a class="code" href="grib2_8h.html#structgtemplate">gtemplate</a> *<a class="code" href="pdstemplates_8c.html#ad08ad7c4bee0466cd8ccafc1c1e76520">getpdstemplate</a>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> number)</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    g2int index;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> index;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="grib2_8h.html#structgtemplate">gtemplate</a> *<span class="keyword">new</span>;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    index=<a class="code" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a>(number);</div>
@@ -115,10 +115,10 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">if</span> (index != -1) {</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">new</span>=(<a class="code" href="grib2_8h.html#structgtemplate">gtemplate</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#structgtemplate">gtemplate</a>));</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keyword">new</span>-&gt;type=4;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">new</span>-&gt;num=templatespds[index].template_num;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keyword">new</span>-&gt;maplen=templatespds[index].mappdslen;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">new</span>-&gt;needext=templatespds[index].needext;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keyword">new</span>-&gt;map=(g2int *)templatespds[index].mappds;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">new</span>-&gt;num=<a class="code" href="pdstemplates_8h.html#a87d5723cb60a9b598bc574cd31673a26">templatespds</a>[index].template_num;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keyword">new</span>-&gt;maplen=<a class="code" href="pdstemplates_8h.html#a87d5723cb60a9b598bc574cd31673a26">templatespds</a>[index].mappdslen;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">new</span>-&gt;needext=<a class="code" href="pdstemplates_8h.html#a87d5723cb60a9b598bc574cd31673a26">templatespds</a>[index].needext;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keyword">new</span>-&gt;map=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)<a class="code" href="pdstemplates_8h.html#a87d5723cb60a9b598bc574cd31673a26">templatespds</a>[index].mappds;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keyword">new</span>-&gt;extlen=0;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keyword">new</span>-&gt;ext=0;        <span class="comment">//NULL</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span>(<span class="keyword">new</span>);</div>
@@ -131,10 +131,10 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span>(0);        <span class="comment">//NULL</span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb">  108</a></span>&#160;<a class="code" href="grib2_8h.html#structgtemplate">gtemplate</a> *<a class="code" href="pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb">extpdstemplate</a>(g2int number,g2int *list)</div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb">  108</a></span>&#160;<a class="code" href="grib2_8h.html#structgtemplate">gtemplate</a> *<a class="code" href="pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb">extpdstemplate</a>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> number,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *list)</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;{</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="grib2_8h.html#structgtemplate">gtemplate</a> *<span class="keyword">new</span>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    g2int index,i,j,k,l;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> index,i,j,k,l;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    index=<a class="code" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a>(number);</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">if</span> (index == -1) <span class="keywordflow">return</span>(0);</div>
@@ -145,14 +145,14 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">if</span> ( number == 3 ) {</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keyword">new</span>-&gt;extlen=list[26];</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">for</span> (i=0;i&lt;<span class="keyword">new</span>-&gt;extlen;i++) {</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keyword">new</span>-&gt;ext[i]=1;</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        }</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 4 ) {</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keyword">new</span>-&gt;extlen=list[25];</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">for</span> (i=0;i&lt;<span class="keyword">new</span>-&gt;extlen;i++) {</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="keyword">new</span>-&gt;ext[i]=1;</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        }</div>
@@ -160,7 +160,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 8 ) {</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">if</span> ( list[21] &gt; 1 ) {</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="keyword">new</span>-&gt;extlen=(list[21]-1)*6;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="keywordflow">for</span> (j=2;j&lt;=list[21];j++) {</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                l=(j-2)*6;</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                <span class="keywordflow">for</span> (k=0;k&lt;6;k++) {</div>
@@ -172,7 +172,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 9 ) {</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">if</span> ( list[28] &gt; 1 ) {</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            <span class="keyword">new</span>-&gt;extlen=(list[28]-1)*6;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keywordflow">for</span> (j=2;j&lt;=list[28];j++) {</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                l=(j-2)*6;</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                <span class="keywordflow">for</span> (k=0;k&lt;6;k++) {</div>
@@ -184,7 +184,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 10 ) {</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordflow">if</span> ( list[22] &gt; 1 ) {</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            <span class="keyword">new</span>-&gt;extlen=(list[22]-1)*6;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            <span class="keywordflow">for</span> (j=2;j&lt;=list[22];j++) {</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                l=(j-2)*6;</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                <span class="keywordflow">for</span> (k=0;k&lt;6;k++) {</div>
@@ -196,7 +196,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 11 ) {</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keywordflow">if</span> ( list[24] &gt; 1 ) {</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <span class="keyword">new</span>-&gt;extlen=(list[24]-1)*6;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            <span class="keywordflow">for</span> (j=2;j&lt;=list[24];j++) {</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                l=(j-2)*6;</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                <span class="keywordflow">for</span> (k=0;k&lt;6;k++) {</div>
@@ -208,7 +208,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 12 ) {</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keywordflow">if</span> ( list[23] &gt; 1 ) {</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            <span class="keyword">new</span>-&gt;extlen=(list[23]-1)*6;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <span class="keywordflow">for</span> (j=2;j&lt;=list[23];j++) {</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                l=(j-2)*6;</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                <span class="keywordflow">for</span> (k=0;k&lt;6;k++) {</div>
@@ -219,7 +219,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    }</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 13 ) {</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keyword">new</span>-&gt;extlen=((list[37]-1)*6)+list[26];</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keywordflow">if</span> ( list[37] &gt; 1 ) {</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <span class="keywordflow">for</span> (j=2;j&lt;=list[37];j++) {</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                l=(j-2)*6;</div>
@@ -236,7 +236,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    }</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 14 ) {</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <span class="keyword">new</span>-&gt;extlen=((list[36]-1)*6)+list[25];</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <span class="keywordflow">if</span> ( list[36] &gt; 1 ) {</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            <span class="keywordflow">for</span> (j=2;j&lt;=list[36];j++) {</div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                l=(j-2)*6;</div>
@@ -253,7 +253,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    }</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 30 ) {</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keyword">new</span>-&gt;extlen=list[4]*5;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        <span class="keywordflow">for</span> (i=0;i&lt;list[4];i++) {</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;            l=i*5;</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            <span class="keyword">new</span>-&gt;ext[l]=2;</div>
@@ -265,7 +265,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    }</div>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 31 ) {</div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        <span class="keyword">new</span>-&gt;extlen=list[4]*5;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keywordflow">for</span> (i=0;i&lt;list[4];i++) {</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            l=i*5;</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            <span class="keyword">new</span>-&gt;ext[l]=2;</div>
@@ -278,7 +278,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 42 ) {</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        <span class="keywordflow">if</span> ( list[22] &gt; 1 ) {</div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            <span class="keyword">new</span>-&gt;extlen=(list[22]-1)*6;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            <span class="keywordflow">for</span> (j=2;j&lt;=list[22];j++) {</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                l=(j-2)*6;</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                <span class="keywordflow">for</span> (k=0;k&lt;6;k++) {</div>
@@ -290,7 +290,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 43 ) {</div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <span class="keywordflow">if</span> ( list[25] &gt; 1 ) {</div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            <span class="keyword">new</span>-&gt;extlen=(list[25]-1)*6;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            <span class="keywordflow">for</span> (j=2;j&lt;=list[25];j++) {</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                l=(j-2)*6;</div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                <span class="keywordflow">for</span> (k=0;k&lt;6;k++) {</div>
@@ -301,7 +301,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    }</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 32 ) {</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        <span class="keyword">new</span>-&gt;extlen=list[9]*10;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <span class="keywordflow">for</span> (i=0;i&lt;list[9];i++) {</div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;            l=i*5;</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            <span class="keyword">new</span>-&gt;ext[l]=2;</div>
@@ -314,7 +314,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 46 ) {</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        <span class="keywordflow">if</span> ( list[27] &gt; 1 ) {</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;            <span class="keyword">new</span>-&gt;extlen=(list[27]-1)*6;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;            <span class="keywordflow">for</span> (j=2;j&lt;=list[27];j++) {</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                l=(j-2)*6;</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                <span class="keywordflow">for</span> (k=0;k&lt;6;k++) {</div>
@@ -326,7 +326,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 47 ) {</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        <span class="keywordflow">if</span> ( list[30] &gt; 1 ) {</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;            <span class="keyword">new</span>-&gt;extlen=(list[30]-1)*6;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;            <span class="keywordflow">for</span> (j=2;j&lt;=list[30];j++) {</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;                l=(j-2)*6;</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;                <span class="keywordflow">for</span> (k=0;k&lt;6;k++) {</div>
@@ -336,7 +336,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        }</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 51 ) {</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;            <span class="keyword">new</span>-&gt;extlen=list[15]*11;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            <span class="keywordflow">for</span> (i=0;i&lt;list[15];i++) {</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;                l=i*6;</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;                <span class="keyword">new</span>-&gt;ext[l]=1;</div>
@@ -349,14 +349,14 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        }</div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 33 ) {</div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;            <span class="keyword">new</span>-&gt;extlen=list[9];</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;            <span class="keywordflow">for</span> (i=0;i&lt;<span class="keyword">new</span>-&gt;extlen;i++) {</div>
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                <span class="keyword">new</span>-&gt;ext[i]=1;</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;            }</div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        }</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 34 ) {</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;            <span class="keyword">new</span>-&gt;extlen=((list[24]-1)*6)+list[9];</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            <span class="keywordflow">if</span> ( list[24] &gt; 1 ) {</div>
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                <span class="keywordflow">for</span> (j=2;j&lt;=list[24];j++) {</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                    l=(j-2)*6;</div>
@@ -373,21 +373,21 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        }</div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 53 ) {</div>
 <div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;            <span class="keyword">new</span>-&gt;extlen=list[3];</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;            <span class="keywordflow">for</span> (i=0;i&lt;<span class="keyword">new</span>-&gt;extlen;i++) {</div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;                <span class="keyword">new</span>-&gt;ext[i]=1;</div>
 <div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;            }</div>
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        }</div>
 <div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 54 ) {</div>
 <div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;            <span class="keyword">new</span>-&gt;extlen=list[3];</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;            <span class="keywordflow">for</span> (i=0;i&lt;<span class="keyword">new</span>-&gt;extlen;i++) {</div>
 <div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                <span class="keyword">new</span>-&gt;ext[i]=1;</div>
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;            }</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        }</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 91 ) {</div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;            <span class="keyword">new</span>-&gt;extlen=((list[28]-1)*6)+list[15];</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;            <span class="keywordflow">if</span> ( list[28] &gt; 1 ) {</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                <span class="keywordflow">for</span> (j=2;j&lt;=list[28];j++) {</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                    l=(j-2)*6;</div>
@@ -405,7 +405,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="comment">// PDT 4.57  (10/07/2015)</span></div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 57 ) {</div>
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;            <span class="keyword">new</span>-&gt;extlen=list[6]*15;</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;            <span class="keywordflow">for</span> (i=0;i&lt;list[6];i++) {</div>
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;                l=i*15;</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;                <span class="keyword">new</span>-&gt;ext[l]=1;</div>
@@ -429,7 +429,7 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( number == 61 ) {</div>
 <div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;            <span class="keywordflow">if</span> ( list[30] &gt; 1 ) {</div>
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;                <span class="keyword">new</span>-&gt;extlen=(list[30]-1)*6;</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                <span class="keyword">new</span>-&gt;ext=(g2int *)malloc(<span class="keyword">sizeof</span>(g2int)*<span class="keyword">new</span>-&gt;extlen);</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                <span class="keyword">new</span>-&gt;ext=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *)malloc(<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)*<span class="keyword">new</span>-&gt;extlen);</div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;                <span class="keywordflow">for</span> (j=2;j&lt;=list[30];j++) {</div>
 <div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                    l=(j-2)*6;</div>
 <div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                    <span class="keywordflow">for</span> (k=0;k&lt;6;k++) {</div>
@@ -447,9 +447,12 @@ $(document).ready(function(){initNavTree('pdstemplates_8c_source.html',''); init
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="apdstemplates_8c_html_ad08ad7c4bee0466cd8ccafc1c1e76520"><div class="ttname"><a href="pdstemplates_8c.html#ad08ad7c4bee0466cd8ccafc1c1e76520">getpdstemplate</a></div><div class="ttdeci">gtemplate * getpdstemplate(g2int number)</div><div class="ttdoc">This subroutine returns PDS template information for a specified Product Definition Template 4....</div><div class="ttdef"><b>Definition:</b> <a href="pdstemplates_8c_source.html#l00065">pdstemplates.c:65</a></div></div>
-<div class="ttc" id="agrib2_8h_html_structgtemplate"><div class="ttname"><a href="grib2_8h.html#structgtemplate">gtemplate</a></div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00166">grib2.h:166</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a09f53c0d5cd3cb3b7864b7dd4983211e"><div class="ttname"><a href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a></div><div class="ttdeci">long g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00161">grib2.h:161</a></div></div>
+<div class="ttc" id="apdstemplates_8h_html_a87d5723cb60a9b598bc574cd31673a26"><div class="ttname"><a href="pdstemplates_8h.html#a87d5723cb60a9b598bc574cd31673a26">templatespds</a></div><div class="ttdeci">const struct pdstemplate templatespds[MAXPDSTEMP]</div><div class="ttdoc">Date for struct for PDS template.</div><div class="ttdef"><b>Definition:</b> <a href="pdstemplates_8h_source.html#l00066">pdstemplates.h:66</a></div></div>
+<div class="ttc" id="agrib2_8h_html_structgtemplate"><div class="ttname"><a href="grib2_8h.html#structgtemplate">gtemplate</a></div><div class="ttdoc">Struct for GRIB template.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00169">grib2.h:169</a></div></div>
 <div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
 <div class="ttc" id="apdstemplates_8c_html_a64e5f115f7c4ec0b1b7d8af8376d12eb"><div class="ttname"><a href="pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb">extpdstemplate</a></div><div class="ttdeci">gtemplate * extpdstemplate(g2int number, g2int *list)</div><div class="ttdoc">This subroutine generates the remaining octet map for a given Product Definition Template,...</div><div class="ttdef"><b>Definition:</b> <a href="pdstemplates_8c_source.html#l00108">pdstemplates.c:108</a></div></div>
+<div class="ttc" id="apdstemplates_8h_html_a11c588e7671155abba68b92678fc2071"><div class="ttname"><a href="pdstemplates_8h.html#a11c588e7671155abba68b92678fc2071">MAXPDSTEMP</a></div><div class="ttdeci">#define MAXPDSTEMP</div><div class="ttdoc">maximum number of templates</div><div class="ttdef"><b>Definition:</b> <a href="pdstemplates_8h_source.html#l00049">pdstemplates.h:49</a></div></div>
 <div class="ttc" id="apdstemplates_8h_html"><div class="ttname"><a href="pdstemplates_8h.html">pdstemplates.h</a></div><div class="ttdoc">This inculde file contains info on all the available GRIB2 Product Definition Templates used in Secti...</div></div>
 <div class="ttc" id="apdstemplates_8c_html_a68d2553a1ef915bd21a491f4105ab0f2"><div class="ttname"><a href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a></div><div class="ttdeci">g2int getpdsindex(g2int number)</div><div class="ttdoc">This function returns the index of specified Product Definition Template 4.NN (NN=number) in array te...</div><div class="ttdef"><b>Definition:</b> <a href="pdstemplates_8c_source.html#l00036">pdstemplates.c:36</a></div></div>
 <!-- start footer part -->

@@ -25,13 +25,20 @@ var NAVTREE =
   [ "NCEPLIBS-g2c", "index.html", [
     [ "Data Types List", "annotated.html", [
       [ "NCEPLIBS-g2c", "index.html#autotoc_md0", null ],
-      [ "Data Types List", "annotated.html", "annotated_dup" ]
+      [ "Data Types List", "annotated.html", "annotated_dup" ],
+      [ "Data Fields", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "Globals", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Functions/Subroutines", "globals_func.html", null ]
+        [ "Functions/Subroutines", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ],
+        [ "Typedefs", "globals_type.html", null ],
+        [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
   ] ]
@@ -40,7 +47,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"pdstemplates_8h.html#a87d5723cb60a9b598bc574cd31673a26"
+"pack__gp_8c.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

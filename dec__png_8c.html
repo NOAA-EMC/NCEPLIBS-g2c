@@ -83,6 +83,7 @@ $(document).ready(function(){initNavTree('dec__png_8c.html',''); initResizable()
 
 <div class="header">
   <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">dec_png.c File Reference</div>  </div>
@@ -91,21 +92,163 @@ $(document).ready(function(){initNavTree('dec__png_8c.html',''); initResizable()
 
 <p>PNG functions.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;png.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
+</div>
 <p><a href="dec__png_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a51736c0c137626d13b71ea12021c10f3"><td class="memItemLeft" align="right" valign="top">typedef struct png_stream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dec__png_8c.html#a51736c0c137626d13b71ea12021c10f3">png_stream</a></td></tr>
+<tr class="memdesc:a51736c0c137626d13b71ea12021c10f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typedef for PNG stream.  <a href="dec__png_8c.html#a51736c0c137626d13b71ea12021c10f3">More...</a><br /></td></tr>
+<tr class="separator:a51736c0c137626d13b71ea12021c10f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aeaf02fa61f51f6cb0799bd2a1c289333"><td class="memItemLeft" align="right" valign="top"><a id="aeaf02fa61f51f6cb0799bd2a1c289333"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>dummy</b> (void)</td></tr>
-<tr class="separator:aeaf02fa61f51f6cb0799bd2a1c289333"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d370c4ca9daeca099b249a1ed3e4500"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dec__png_8c.html#a2d370c4ca9daeca099b249a1ed3e4500">dec_png</a> (unsigned char *pngbuf, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *width, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *height, char *cout)</td></tr>
+<tr class="memdesc:a2d370c4ca9daeca099b249a1ed3e4500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode PNG.  <a href="dec__png_8c.html#a2d370c4ca9daeca099b249a1ed3e4500">More...</a><br /></td></tr>
+<tr class="separator:a2d370c4ca9daeca099b249a1ed3e4500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe576ea8faea4144cac413a8d2cc6ec7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dec__png_8c.html#abe576ea8faea4144cac413a8d2cc6ec7">user_read_data</a> (png_structp png_ptr, png_bytep data, png_uint_32 length)</td></tr>
+<tr class="memdesc:abe576ea8faea4144cac413a8d2cc6ec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom read function used so that libpng will read a PNG stream from memory instead of a file on disk.  <a href="dec__png_8c.html#abe576ea8faea4144cac413a8d2cc6ec7">More...</a><br /></td></tr>
+<tr class="separator:abe576ea8faea4144cac413a8d2cc6ec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>PNG functions. </p>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="dec__png_8c_source.html">dec_png.c</a>.</p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a51736c0c137626d13b71ea12021c10f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51736c0c137626d13b71ea12021c10f3">&#9670;&nbsp;</a></span>png_stream</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct png_stream png_stream</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Typedef for PNG stream. </p>
+
+<p class="definition">Definition at line <a class="el" href="dec__png_8c_source.html#l00027">27</a> of file <a class="el" href="dec__png_8c_source.html">dec_png.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a2d370c4ca9daeca099b249a1ed3e4500"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d370c4ca9daeca099b249a1ed3e4500">&#9670;&nbsp;</a></span>dec_png()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int dec_png </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>pngbuf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>cout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Decode PNG. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pngbuf</td><td>Pointer to PNG buffer. </td></tr>
+    <tr><td class="paramname">width</td><td>Pointer to width. </td></tr>
+    <tr><td class="paramname">height</td><td>Pointer to height. </td></tr>
+    <tr><td class="paramname">cout</td><td>Output buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 for success, error code otherwise.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="dec__png_8c_source.html#l00067">67</a> of file <a class="el" href="dec__png_8c_source.html">dec_png.c</a>.</p>
+
+<p class="reference">References <a class="el" href="dec__png_8c_source.html#l00041">user_read_data()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="pngunpack_8c_source.html#l00027">pngunpack()</a>.</p>
+
+</div>
+</div>
+<a id="abe576ea8faea4144cac413a8d2cc6ec7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe576ea8faea4144cac413a8d2cc6ec7">&#9670;&nbsp;</a></span>user_read_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void user_read_data </td>
+          <td>(</td>
+          <td class="paramtype">png_structp&#160;</td>
+          <td class="paramname"><em>png_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">png_bytep&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">png_uint_32&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Custom read function used so that libpng will read a PNG stream from memory instead of a file on disk. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">png_ptr</td><td>Pointer to PNG. </td></tr>
+    <tr><td class="paramname">data</td><td>Pointer to data. </td></tr>
+    <tr><td class="paramname">length</td><td>Length.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="dec__png_8c_source.html#l00041">41</a> of file <a class="el" href="dec__png_8c_source.html">dec_png.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dec__png_8c_source.html#l00067">dec_png()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -91,26 +91,26 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;math.h&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="misspack_8c.html#a33440a1e301c24cf2996122f63ee3cae">   38</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="misspack_8c.html#a33440a1e301c24cf2996122f63ee3cae">misspack</a>(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;              <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack, g2int *lcpack)</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="misspack_8c.html#a33440a1e301c24cf2996122f63ee3cae">   38</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="misspack_8c.html#a33440a1e301c24cf2996122f63ee3cae">misspack</a>(<a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *fld,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> ndpts,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> idrsnum,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *idrstmpl,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;              <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *lcpack)</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    g2int  *ifld, *ifldmiss, *jfld;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    g2int  *jmin, *jmax, *lbit;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">static</span> g2int zero=0;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    g2int  *gref, *gwidth, *glen;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    g2int  glength, grpwidth;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    g2int  i, n, iofst, imin, ival1, ival2, isd, minsd, nbitsd;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    g2int  nbitsgref, left, iwmax, ngwidthref, nbitsgwidth, ilmax;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    g2int  nglenref, nglenlast, nbitsglen, ij;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    g2int  j, missopt, nonmiss, itemp, maxorig, nbitorig, miss1, miss2;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    g2int  ngroups, ng, num0, num1, num2;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    g2int  imax, lg, mtemp, ier, igmax;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    g2int  kfildo, minpk, inc, maxgrps, ibit, jbit, kbit, novref, lbitref;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    g2float  rmissp, rmisss, bscale, dscale, rmin, temp;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">static</span> g2int simple_alg = 0;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">static</span> g2float alog2=0.69314718;       <span class="comment">//  ln(2.0)</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">static</span> g2int one=1;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  *ifld, *ifldmiss, *jfld;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  *jmin, *jmax, *lbit;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">static</span> <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> zero=0;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  *gref, *gwidth, *glen;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  glength, grpwidth;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  i, n, iofst, imin, ival1, ival2, isd, minsd, nbitsd;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  nbitsgref, left, iwmax, ngwidthref, nbitsgwidth, ilmax;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  nglenref, nglenlast, nbitsglen, ij;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  j, missopt, nonmiss, itemp, maxorig, nbitorig, miss1, miss2;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  ngroups, ng, num0, num1, num2;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  imax, lg, mtemp, ier, igmax;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  kfildo, minpk, inc, maxgrps, ibit, jbit, kbit, novref, lbitref;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a>  rmissp, rmisss, bscale, dscale, rmin, temp;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">static</span> <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> simple_alg = 0;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">static</span> <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> alog2=0.69314718;       <span class="comment">//  ln(2.0)</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">static</span> <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> one=1;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    bscale=<a class="code" href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a>(2.0,-idrstmpl[1]);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    dscale=<a class="code" href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a>(10.0,idrstmpl[2]);</div>
@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">//  Find min value of non-missing values in the data,</span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">//  AND set up missing value mapping of the field.</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    ifldmiss = calloc(ndpts,<span class="keyword">sizeof</span>(g2int));</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    ifldmiss = calloc(ndpts,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    rmin=1E+37;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">if</span> ( missopt ==  1 ) {        <span class="comment">// Primary missing value only</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">for</span> ( j=0; j&lt;ndpts; j++) {</div>
@@ -165,22 +165,22 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">//if (rmin != rmax) {</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    iofst=0;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    ifld = calloc(ndpts,<span class="keyword">sizeof</span>(g2int));</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    jfld = calloc(ndpts,<span class="keyword">sizeof</span>(g2int));</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    gref = calloc(ndpts,<span class="keyword">sizeof</span>(g2int));</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    gwidth = calloc(ndpts,<span class="keyword">sizeof</span>(g2int));</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    glen = calloc(ndpts,<span class="keyword">sizeof</span>(g2int));</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    ifld = calloc(ndpts,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    jfld = calloc(ndpts,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    gref = calloc(ndpts,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    gwidth = calloc(ndpts,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    glen = calloc(ndpts,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="comment">//</span></div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="comment">//  Scale original data</span></div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="comment">//</span></div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    nonmiss=0;</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span> (idrstmpl[1] == 0) {        <span class="comment">//  No binary scaling</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        imin=(g2int)rint(rmin*dscale);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        imin=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)rint(rmin*dscale);</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="comment">//imax=(g2int)rint(rmax*dscale);</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        rmin=(g2float)imin;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        rmin=(<a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a>)imin;</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">for</span> ( j=0; j&lt;ndpts; j++) {</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordflow">if</span> (ifldmiss[j] == 0) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                jfld[nonmiss]=(g2int)rint(fld[j]*dscale)-imin;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                jfld[nonmiss]=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)rint(fld[j]*dscale)-imin;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                nonmiss++;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            }</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        }</div>
@@ -190,7 +190,7 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="comment">//rmax=rmax*dscale;</span></div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">for</span> ( j=0; j&lt;ndpts; j++ ) {</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="keywordflow">if</span> (ifldmiss[j] == 0) {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                jfld[nonmiss]=(g2int)rint(((fld[j]*dscale)-rmin)*bscale);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                jfld[nonmiss]=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)rint(((fld[j]*dscale)-rmin)*bscale);</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                nonmiss++;</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            }</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        }</div>
@@ -226,7 +226,7 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="comment">//   to indicate sign</span></div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="comment">//</span></div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        temp=log((<span class="keywordtype">double</span>)(abs(minsd)+1))/alog2;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        nbitsd=(g2int)ceil(temp)+1;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        nbitsd=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)ceil(temp)+1;</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="comment">//</span></div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="comment">//   find num of bits need to store ifld[0] ( and ifld[1]</span></div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="comment">//   if using 2nd order differencing )</span></div>
@@ -234,7 +234,7 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        maxorig=ival1;</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keywordflow">if</span> (idrstmpl[16]==2 &amp;&amp; ival2&gt;ival1) maxorig=ival2;</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        temp=log((<span class="keywordtype">double</span>)(maxorig+1))/alog2;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        nbitorig=(g2int)ceil(temp)+1;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        nbitorig=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)ceil(temp)+1;</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">if</span> (nbitorig &gt; nbitsd) nbitsd=nbitorig;</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="comment">//   increase number of bits to even multiple of 8 ( octet )</span></div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordflow">if</span> ( (nbitsd%8) != 0) nbitsd=nbitsd+(8-(nbitsd%8));</div>
@@ -325,9 +325,9 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        minpk=10;</div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        inc=1;</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        maxgrps=(ndpts/minpk)+1;</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        jmin = calloc(maxgrps,<span class="keyword">sizeof</span>(g2int));</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        jmax = calloc(maxgrps,<span class="keyword">sizeof</span>(g2int));</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        lbit = calloc(maxgrps,<span class="keyword">sizeof</span>(g2int));</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        jmin = calloc(maxgrps,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        jmax = calloc(maxgrps,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        lbit = calloc(maxgrps,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>));</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        <a class="code" href="grib2_8h.html#a82727fba138c096a0efbf936803d892a">pack_gp</a>(&amp;kfildo,ifld,&amp;ndpts,&amp;missopt,&amp;minpk,&amp;inc,&amp;miss1,&amp;miss2,</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                jmin,jmax,lbit,glen,&amp;maxgrps,&amp;ngroups,&amp;ibit,&amp;jbit,</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                &amp;kbit,&amp;novref,&amp;lbitref,&amp;ier);</div>
@@ -381,7 +381,7 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;            <span class="comment">//   calc num of bits needed to hold data</span></div>
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;            <span class="keywordflow">if</span> ( gref[ng] != imax ) {</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                temp=log((<span class="keywordtype">double</span>)(imax-gref[ng]+1))/alog2;</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                gwidth[ng]=(g2int)ceil(temp);</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                gwidth[ng]=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)ceil(temp);</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;            }</div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;            <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                gwidth[ng]=0;</div>
@@ -389,7 +389,7 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        }</div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="comment">//   Subtract min from data</span></div>
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        j=n;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        mtemp=(g2int)<a class="code" href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a>(2.,gwidth[ng]);</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        mtemp=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)<a class="code" href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a>(2.,gwidth[ng]);</div>
 <div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        <span class="keywordflow">for</span> ( lg=0; lg&lt;glen[ng]; lg++ ) {</div>
 <div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;            <span class="keywordflow">if</span> (ifldmiss[j] == 0)            <span class="comment">// non-missing</span></div>
 <div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                ifld[j]=ifld[j]-gref[ng];</div>
@@ -416,9 +416,9 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    <span class="keywordflow">if</span> (missopt == 2) igmax=igmax+2;</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="keywordflow">if</span> (igmax != 0) {</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        temp=log((<span class="keywordtype">double</span>)(igmax+1))/alog2;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        nbitsgref=(g2int)ceil(temp);</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        nbitsgref=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)ceil(temp);</div>
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <span class="comment">// reset the ref values of any &quot;missing only&quot; groups.</span></div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        mtemp=(g2int)<a class="code" href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a>(2.,nbitsgref);</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        mtemp=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)<a class="code" href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a>(2.,nbitsgref);</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        <span class="keywordflow">for</span> ( j=0; j&lt;ngroups; j++ ) {</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;            <span class="keywordflow">if</span> (gref[j] == -1) gref[j]=mtemp-1;</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            <span class="keywordflow">if</span> (gref[j] == -2) gref[j]=mtemp-2;</div>
@@ -450,7 +450,7 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    }</div>
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <span class="keywordflow">if</span> (iwmax != ngwidthref) {</div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        temp=log((<span class="keywordtype">double</span>)(iwmax-ngwidthref+1))/alog2;</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        nbitsgwidth=(g2int)ceil(temp);</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        nbitsgwidth=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)ceil(temp);</div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        <span class="keywordflow">for</span> ( i=0; i&lt;ngroups; i++) gwidth[i]=gwidth[i]-ngwidthref;</div>
 <div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        <a class="code" href="gbits_8c.html#ad5a2832a80724dc38d71de38d0a9d6e8">sbits</a>(cpack,gwidth,iofst,nbitsgwidth,0,ngroups);</div>
 <div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        itemp=nbitsgwidth*ngroups;</div>
@@ -482,7 +482,7 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 <div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    nglenlast=glen[ngroups-1];</div>
 <div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    <span class="keywordflow">if</span> (ilmax != nglenref) {</div>
 <div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        temp=log((<span class="keywordtype">double</span>)(ilmax-nglenref+1))/alog2;</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        nbitsglen=(g2int)ceil(temp);</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        nbitsglen=(<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>)ceil(temp);</div>
 <div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        <span class="keywordflow">for</span> ( i=0; i&lt;ngroups-1; i++) glen[i]=glen[i]-nglenref;</div>
 <div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        <a class="code" href="gbits_8c.html#ad5a2832a80724dc38d71de38d0a9d6e8">sbits</a>(cpack,glen,iofst,nbitsglen,0,ngroups);</div>
 <div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        itemp=nbitsglen*ngroups;</div>
@@ -564,10 +564,12 @@ $(document).ready(function(){initNavTree('misspack_8c_source.html',''); initResi
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="amisspack_8c_html_a33440a1e301c24cf2996122f63ee3cae"><div class="ttname"><a href="misspack_8c.html#a33440a1e301c24cf2996122f63ee3cae">misspack</a></div><div class="ttdeci">void misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</div><div class="ttdoc">This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 docum...</div><div class="ttdef"><b>Definition:</b> <a href="misspack_8c_source.html#l00038">misspack.c:38</a></div></div>
-<div class="ttc" id="agbits_8c_html_ad5a2832a80724dc38d71de38d0a9d6e8"><div class="ttname"><a href="gbits_8c.html#ad5a2832a80724dc38d71de38d0a9d6e8">sbits</a></div><div class="ttdeci">void sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte, g2int nskip, g2int n)</div><div class="ttdoc">Store bits - pack bits: Put arbitrary size values into a packed bit string, taking the low order bits...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00112">gbits.c:112</a></div></div>
-<div class="ttc" id="agbits_8c_html_a7f475eed9a6d6f6d3d8fc26b38572950"><div class="ttname"><a href="gbits_8c.html#a7f475eed9a6d6f6d3d8fc26b38572950">sbit</a></div><div class="ttdeci">void sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbyte)</div><div class="ttdoc">Store bits - pack bits: Put arbitrary size values into a packed bit string, taking the low order bits...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00040">gbits.c:40</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a2e615ee29fc8d17a681017e4384847c2"><div class="ttname"><a href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a></div><div class="ttdeci">float g2float</div><div class="ttdoc">Float type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00164">grib2.h:164</a></div></div>
+<div class="ttc" id="agbits_8c_html_ad5a2832a80724dc38d71de38d0a9d6e8"><div class="ttname"><a href="gbits_8c.html#ad5a2832a80724dc38d71de38d0a9d6e8">sbits</a></div><div class="ttdeci">void sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte, g2int nskip, g2int n)</div><div class="ttdoc">Store bits - put arbitrary size values into a packed bit string, taking the low order bits from each ...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00110">gbits.c:110</a></div></div>
+<div class="ttc" id="agbits_8c_html_a7f475eed9a6d6f6d3d8fc26b38572950"><div class="ttname"><a href="gbits_8c.html#a7f475eed9a6d6f6d3d8fc26b38572950">sbit</a></div><div class="ttdeci">void sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbyte)</div><div class="ttdoc">Store bits - put arbitrary size values into a packed bit string, taking the low order bits from each ...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00038">gbits.c:38</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a09f53c0d5cd3cb3b7864b7dd4983211e"><div class="ttname"><a href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a></div><div class="ttdeci">long g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00161">grib2.h:161</a></div></div>
 <div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
-<div class="ttc" id="agrib2_8h_html_a82727fba138c096a0efbf936803d892a"><div class="ttname"><a href="grib2_8h.html#a82727fba138c096a0efbf936803d892a">pack_gp</a></div><div class="ttdeci">int pack_gp(g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *)</div><div class="ttdoc">Determines groups of variable size, but at least of size minpk, the associated max (jmax( )) and min ...</div><div class="ttdef"><b>Definition:</b> <a href="pack__gp_8c_source.html#l00252">pack_gp.c:252</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a82727fba138c096a0efbf936803d892a"><div class="ttname"><a href="grib2_8h.html#a82727fba138c096a0efbf936803d892a">pack_gp</a></div><div class="ttdeci">int pack_gp(g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *)</div><div class="ttdoc">Determines groups of variable size, but at least of size minpk, the associated max (jmax( )) and min ...</div><div class="ttdef"><b>Definition:</b> <a href="pack__gp_8c_source.html#l00256">pack_gp.c:256</a></div></div>
 <div class="ttc" id="agrib2_8h_html_a06ba2196366d23a6a06feb820c1456b0"><div class="ttname"><a href="grib2_8h.html#a06ba2196366d23a6a06feb820c1456b0">mkieee</a></div><div class="ttdeci">void mkieee(g2float *, g2int *, g2int)</div><div class="ttdoc">This subroutine stores a list of real values in 32-bit IEEE floating point format.</div><div class="ttdef"><b>Definition:</b> <a href="mkieee_8c_source.html#l00021">mkieee.c:21</a></div></div>
 <div class="ttc" id="agrib2_8h_html_a3681c8c54464e3e97b3f48de09a5ed92"><div class="ttname"><a href="grib2_8h.html#a3681c8c54464e3e97b3f48de09a5ed92">int_power</a></div><div class="ttdeci">double int_power(double, g2int)</div><div class="ttdoc">Function similar to C pow() power function.</div><div class="ttdef"><b>Definition:</b> <a href="int__power_8c_source.html#l00017">int_power.c:17</a></div></div>
 <div class="ttc" id="agrib2_8h_html_afdcb02bbf4c7f835fb19f5501d27cf57"><div class="ttname"><a href="grib2_8h.html#afdcb02bbf4c7f835fb19f5501d27cf57">rdieee</a></div><div class="ttdeci">void rdieee(g2int *, g2float *, g2int)</div><div class="ttdoc">This subroutine reads a list of real values in 32-bit IEEE floating point format.</div><div class="ttdef"><b>Definition:</b> <a href="rdieee_8c_source.html#l00020">rdieee.c:20</a></div></div>

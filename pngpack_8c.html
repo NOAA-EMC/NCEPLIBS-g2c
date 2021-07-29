@@ -96,10 +96,10 @@ $(document).ready(function(){initNavTree('pngpack_8c.html',''); initResizable();
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:acc060bdd051b1ac2419e8573098e67e3"><td class="memItemLeft" align="right" valign="top"><a id="acc060bdd051b1ac2419e8573098e67e3"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>enc_png</b> (char *, g2int, g2int, g2int, char *)</td></tr>
+<tr class="memitem:acc060bdd051b1ac2419e8573098e67e3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pngpack_8c.html#acc060bdd051b1ac2419e8573098e67e3">enc_png</a> (char *, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>, char *)</td></tr>
+<tr class="memdesc:acc060bdd051b1ac2419e8573098e67e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode PNG.  <a href="pngpack_8c.html#acc060bdd051b1ac2419e8573098e67e3">More...</a><br /></td></tr>
 <tr class="separator:acc060bdd051b1ac2419e8573098e67e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aead12707dbe31153a792ec922eb2fec7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pngpack_8c.html#aead12707dbe31153a792ec922eb2fec7">pngpack</a> (g2float *fld, g2int width, g2int height, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</td></tr>
+<tr class="memitem:aead12707dbe31153a792ec922eb2fec7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pngpack_8c.html#aead12707dbe31153a792ec922eb2fec7">pngpack</a> (<a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *fld, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> width, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> height, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *idrstmpl, unsigned char *cpack, <a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *lcpack)</td></tr>
 <tr class="memdesc:aead12707dbe31153a792ec922eb2fec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field into PNG image format.  <a href="pngpack_8c.html#aead12707dbe31153a792ec922eb2fec7">More...</a><br /></td></tr>
 <tr class="separator:aead12707dbe31153a792ec922eb2fec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -109,6 +109,72 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>enc_png</b> (char *, g
 
 <p class="definition">Definition in file <a class="el" href="pngpack_8c_source.html">pngpack.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="acc060bdd051b1ac2419e8573098e67e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc060bdd051b1ac2419e8573098e67e3">&#9670;&nbsp;</a></span>enc_png()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int enc_png </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>&#160;</td>
+          <td class="paramname"><em>nbits</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>pngbuf</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Encode PNG. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>data. </td></tr>
+    <tr><td class="paramname">width</td><td>width. </td></tr>
+    <tr><td class="paramname">height</td><td>height. </td></tr>
+    <tr><td class="paramname">nbits</td><td>number of bits. </td></tr>
+    <tr><td class="paramname">pngbuf</td><td>PNG buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>PNG length, or negative number for error.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="enc__png_8c_source.html#l00081">81</a> of file <a class="el" href="enc__png_8c_source.html">enc_png.c</a>.</p>
+
+<p class="reference">References <a class="el" href="enc__png_8c_source.html#l00061">user_flush_data()</a>, and <a class="el" href="enc__png_8c_source.html#l00038">user_write_data()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="pngpack_8c_source.html#l00034">pngpack()</a>.</p>
+
+</div>
+</div>
 <a id="aead12707dbe31153a792ec922eb2fec7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aead12707dbe31153a792ec922eb2fec7">&#9670;&nbsp;</a></span>pngpack()</h2>
 
@@ -118,25 +184,25 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>enc_png</b> (char *, g
         <tr>
           <td class="memname">void pngpack </td>
           <td>(</td>
-          <td class="paramtype">g2float *&#160;</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *&#160;</td>
           <td class="paramname"><em>fld</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">g2int&#160;</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>&#160;</td>
           <td class="paramname"><em>width</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">g2int&#160;</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>&#160;</td>
           <td class="paramname"><em>height</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *&#160;</td>
           <td class="paramname"><em>idrstmpl</em>, </td>
         </tr>
         <tr>
@@ -148,7 +214,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>enc_png</b> (char *, g
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">g2int *&#160;</td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *&#160;</td>
           <td class="paramname"><em>lcpack</em>&#160;</td>
         </tr>
         <tr>
@@ -183,6 +249,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>enc_png</b> (char *, g
 <dl class="section date"><dt>Date</dt><dd>2003-08-27 </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="pngpack_8c_source.html#l00034">34</a> of file <a class="el" href="pngpack_8c_source.html">pngpack.c</a>.</p>
+
+<p class="reference">References <a class="el" href="enc__png_8c_source.html#l00081">enc_png()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00110">sbits()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00103">g2_addfield()</a>.</p>
 
 </div>
 </div>

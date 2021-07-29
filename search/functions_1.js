@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['extdrstemplate_159',['extdrstemplate',['../drstemplates_8c.html#a29eb8a2ca16e15e491d7115725ff907c',1,'extdrstemplate(g2int number, g2int *list):&#160;drstemplates.c'],['../grib2_8h.html#a3f9e059d95b70f538f9c2c8991e32cd4',1,'extdrstemplate(g2int, g2int *):&#160;drstemplates.c']]],
-  ['extpdstemplate_160',['extpdstemplate',['../grib2_8h.html#abfcda5b8de694e1e37e1343f8dae0980',1,'extpdstemplate(g2int, g2int *):&#160;pdstemplates.c'],['../pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb',1,'extpdstemplate(g2int number, g2int *list):&#160;pdstemplates.c']]]
+  ['dec_5fjpeg2000_199',['dec_jpeg2000',['../dec__jpeg2000_8c.html#aecc47ef133bb090df718275d41098613',1,'dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld):&#160;dec_jpeg2000.c'],['../jpcunpack_8c.html#ab5842a1a8efddeee4661a9cd4607750d',1,'dec_jpeg2000(char *, g2int, g2int *):&#160;dec_jpeg2000.c']]],
+  ['dec_5fpng_200',['dec_png',['../dec__png_8c.html#a2d370c4ca9daeca099b249a1ed3e4500',1,'dec_png(unsigned char *pngbuf, g2int *width, g2int *height, char *cout):&#160;dec_png.c'],['../pngunpack_8c.html#a40ac90d38dd9b8d7a28df5f35c1230de',1,'dec_png(unsigned char *, g2int *, g2int *, char *):&#160;dec_png.c']]]
 ];

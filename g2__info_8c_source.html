@@ -91,14 +91,14 @@ $(document).ready(function(){initNavTree('g2__info_8c_source.html',''); initResi
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;g2int</div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="grib2_8h.html#a8bd1cfb013499982dea5eee69bc95a6e">   59</a></span>&#160;<a class="code" href="g2__info_8c.html#abf8ecb0fe00805abfce20115357b4fa3">g2_info</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cgrib, g2int *listsec0, g2int *listsec1,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        g2int *numfields,g2int *numlocal)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a></div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="grib2_8h.html#a8bd1cfb013499982dea5eee69bc95a6e">   59</a></span>&#160;<a class="code" href="g2__info_8c.html#abf8ecb0fe00805abfce20115357b4fa3">g2_info</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cgrib, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *listsec0, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *listsec1,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *numfields,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *numlocal)</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;{</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    g2int ierr,mapsec1len=13;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    g2int mapsec1[13]={2,2,1,1,1,2,1,1,1,1,1,1,1};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    g2int  i,j,istart,iofst,lengrib,lensec0,lensec1;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    g2int ipos,isecnum,nbits,lensec;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> ierr,mapsec1len=13;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> mapsec1[13]={2,2,1,1,1,2,1,1,1,1,1,1,1};</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>  i,j,istart,iofst,lengrib,lensec0,lensec1;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> ipos,isecnum,nbits,lensec;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    ierr=0;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    *numlocal=0;</div>
@@ -219,6 +219,7 @@ $(document).ready(function(){initNavTree('g2__info_8c_source.html',''); initResi
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="ag2__info_8c_html_abf8ecb0fe00805abfce20115357b4fa3"><div class="ttname"><a href="g2__info_8c.html#abf8ecb0fe00805abfce20115357b4fa3">g2_info</a></div><div class="ttdeci">g2int g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1, g2int *numfields, g2int *numlocal)</div><div class="ttdoc">This subroutine searches through a GRIB2 message and returns the number of gridded fields found in th...</div><div class="ttdef"><b>Definition:</b> <a href="g2__info_8c_source.html#l00059">g2_info.c:59</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a09f53c0d5cd3cb3b7864b7dd4983211e"><div class="ttname"><a href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a></div><div class="ttdeci">long g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00161">grib2.h:161</a></div></div>
 <div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
 <div class="ttc" id="agbits_8c_html_a5d36ba9d46c32188872d0e9ab86f3e47"><div class="ttname"><a href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a></div><div class="ttdeci">void gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)</div><div class="ttdoc">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00020">gbits.c:20</a></div></div>
 <!-- start footer part -->

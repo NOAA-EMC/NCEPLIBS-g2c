@@ -87,336 +87,339 @@ $(document).ready(function(){initNavTree('decenc__openjpeg_8c_source.html',''); 
 </div><!--header-->
 <div class="contents">
 <a href="decenc__openjpeg_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#if !defined USE_JPEG2000 &amp;&amp; defined USE_OPENJPEG</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;openjpeg.h&quot;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;assert.h&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> openjpeg_warning(<span class="keyword">const</span> <span class="keywordtype">char</span> *msg, <span class="keywordtype">void</span> *client_data)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    (void)client_data;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    fprintf(stderr,<span class="stringliteral">&quot;openjpeg: %s&quot;</span>,msg);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> openjpeg_error(<span class="keyword">const</span> <span class="keywordtype">char</span> *msg, <span class="keywordtype">void</span> *client_data)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    (void)client_data;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    fprintf(stderr,<span class="stringliteral">&quot;openjpeg: %s&quot;</span>,msg);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> openjpeg_info(<span class="keyword">const</span> <span class="keywordtype">char</span> *msg, <span class="keywordtype">void</span> *client_data)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;{</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    (void)msg;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    (void)client_data;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">/* fprintf(stderr,&quot;openjpeg: %s&quot;,msg); */</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">/* opj_* Helper code from</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"> * https://groups.google.com/forum/#!topic/openjpeg/8cebr0u7JgY</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">/* These routines are added to use memory instead of a file for input and output */</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">/* struct need to treat memory as a stream */</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    OPJ_UINT8* pData;       <span class="comment">/* our data */</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    OPJ_SIZE_T dataSize;    <span class="comment">/* how big is our data */</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    OPJ_SIZE_T offset;      <span class="comment">/* where we are currently in our data */</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} opj_memory_stream;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">static</span> OPJ_SIZE_T opj_memory_stream_read(<span class="keywordtype">void</span> *buffer, OPJ_SIZE_T nb_bytes, <span class="keywordtype">void</span> * p_user_data)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;{</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    opj_memory_stream* mstream = (opj_memory_stream*) p_user_data; <span class="comment">/* Our data */</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    OPJ_SIZE_T nb_bytes_read = nb_bytes; <span class="comment">/* Amount to move to buffer */</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="comment">/* Check if the current offset is outside our data buffer */</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">if</span> (mstream-&gt;offset &gt;= mstream-&gt;dataSize)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">return</span> (OPJ_SIZE_T) -1;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">/* Check if we are reading more than we have */</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">if</span> (nb_bytes &gt; (mstream-&gt;dataSize - mstream-&gt;offset))</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        nb_bytes_read = mstream-&gt;dataSize - mstream-&gt;offset;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    memcpy(buffer, &amp;(mstream-&gt;pData[mstream-&gt;offset]), nb_bytes_read);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    mstream-&gt;offset += nb_bytes_read; <span class="comment">/* Update the pointer to the new location */</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> nb_bytes_read;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">static</span> OPJ_SIZE_T opj_memory_stream_write(<span class="keywordtype">void</span> *buffer, OPJ_SIZE_T nb_bytes, <span class="keywordtype">void</span> *user_data)</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;{</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    opj_memory_stream* mstream = (opj_memory_stream*) user_data; <span class="comment">/* our data */</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    OPJ_SIZE_T nb_bytes_write = nb_bytes; <span class="comment">/* Amount to move to buffer */</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="comment">/* Check if the current offset is outside our data buffer */</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">if</span> (mstream-&gt;offset &gt;= mstream-&gt;dataSize)</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">return</span> (OPJ_SIZE_T)-1;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="comment">/* Check if we are writing more than we have space for */</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">if</span> (nb_bytes &gt; (mstream-&gt;dataSize - mstream-&gt;offset))</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        nb_bytes_write = mstream-&gt;dataSize - mstream-&gt;offset;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="comment">/* Copy the data from the internal buffer */</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    memcpy(&amp;(mstream-&gt;pData[mstream-&gt;offset]), buffer, nb_bytes_write);</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    mstream-&gt;offset += nb_bytes_write; <span class="comment">/* Update the pointer to the new location */</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">return</span> nb_bytes_write;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;}</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="keyword">static</span> OPJ_OFF_T opj_memory_stream_skip(OPJ_OFF_T nb_bytes, <span class="keywordtype">void</span> *user_data)</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;{</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    opj_memory_stream* mstream = (opj_memory_stream*) user_data;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    OPJ_SIZE_T l_nb_bytes;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">if</span> (nb_bytes &lt; 0)</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">return</span> -1; <span class="comment">/* No skipping backwards */</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    l_nb_bytes = (OPJ_SIZE_T) nb_bytes; <span class="comment">/* Allowed because it is positive */</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="comment">/* Do not allow jumping past the end */</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">if</span> (l_nb_bytes &gt; mstream-&gt;dataSize - mstream-&gt;offset)</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        l_nb_bytes = mstream-&gt;dataSize - mstream-&gt;offset;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    mstream-&gt;offset += l_nb_bytes;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">return</span> (OPJ_OFF_T)l_nb_bytes; <span class="comment">/* Return how far we jumped */</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;}</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="keyword">static</span> OPJ_BOOL opj_memory_stream_seek(OPJ_OFF_T nb_bytes, <span class="keywordtype">void</span> * user_data)</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;{</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    opj_memory_stream* mstream = (opj_memory_stream*) user_data;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">if</span> (nb_bytes &lt; 0)</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">return</span> OPJ_FALSE; <span class="comment">/* Not before the buffer */</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">if</span> (nb_bytes &gt;(OPJ_OFF_T) mstream-&gt;dataSize)</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordflow">return</span> OPJ_FALSE; <span class="comment">/* Not after the buffer */</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    mstream-&gt;offset = (OPJ_SIZE_T) nb_bytes; <span class="comment">/* Move to new position */</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">return</span> OPJ_TRUE;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> opj_memory_stream_do_nothing(<span class="keywordtype">void</span> * p_user_data)</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;{</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    OPJ_ARG_NOT_USED(p_user_data);</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;}</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="keyword">static</span> opj_stream_t* opj_stream_create_default_memory_stream(opj_memory_stream* memoryStream, OPJ_BOOL is_read_stream)</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;{</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    opj_stream_t* stream;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keywordflow">if</span> (!(stream = opj_stream_default_create(is_read_stream)))</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keywordflow">return</span> (NULL);</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="comment">/* Set how to work with the frame buffer */</span></div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keywordflow">if</span> (is_read_stream)</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        opj_stream_set_read_function(stream, opj_memory_stream_read);</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        opj_stream_set_write_function(stream, opj_memory_stream_write);</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    opj_stream_set_seek_function(stream, opj_memory_stream_seek);</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    opj_stream_set_skip_function(stream, opj_memory_stream_skip);</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    opj_stream_set_user_data(stream, memoryStream, opj_memory_stream_do_nothing);</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    opj_stream_set_user_data_length(stream, memoryStream-&gt;dataSize);</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordflow">return</span> stream;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;}</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="keywordtype">int</span> dec_jpeg2000(<span class="keywordtype">char</span> *injpc,g2int bufsize,g2int *outfld)</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;{</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordtype">int</span> iret = 0;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    OPJ_INT32 mask;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    opj_stream_t *stream = NULL;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    opj_image_t *image = NULL;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    opj_codec_t *codec = NULL;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="comment">/* set decoding parameters to default values */</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    opj_dparameters_t parameters = {0,};        <span class="comment">/* decompression parameters */</span></div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    opj_set_default_decoder_parameters(&amp;parameters);</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    parameters.decod_format = 1; <span class="comment">/* JP2_FMT */</span></div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <span class="comment">/* JPEG-2000 codestream */</span></div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="preprocessor">#define DUMP_JPEG_STREAM</span></div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="preprocessor">#ifdef DUMP_JPEG_STREAM</span></div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    FILE *fp=fopen(<span class="stringliteral">&quot;dump_openjpeg.j2k&quot;</span>, <span class="stringliteral">&quot;wb&quot;</span>);</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    fwrite(injpc, 1, (<span class="keywordtype">size_t</span>)bufsize, fp);</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    fclose(fp);</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="comment">/* get a decoder handle */</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    codec = opj_create_decompress(OPJ_CODEC_J2K);</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="comment">/* catch events using our callbacks */</span></div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    opj_set_info_handler(codec, openjpeg_info, NULL);</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    opj_set_warning_handler(codec, openjpeg_warning, NULL);</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    opj_set_error_handler(codec, openjpeg_error,NULL);</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="comment">/* initialize our memory stream */</span></div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    opj_memory_stream mstream;</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    mstream.pData = (OPJ_UINT8 *)injpc;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    mstream.dataSize = (OPJ_SIZE_T)bufsize;</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    mstream.offset = 0;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="comment">/* open a byte stream from memory stream */</span></div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    stream = opj_stream_create_default_memory_stream( &amp;mstream, OPJ_STREAM_READ);</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="comment">/* setup the decoder decoding parameters using user parameters */</span></div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keywordflow">if</span> (!opj_setup_decoder(codec, &amp;parameters)) {</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed to setup decoder&quot;</span>);</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        iret = -3;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    }</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keywordflow">if</span>  (!opj_read_header(stream, codec, &amp;image)) {</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed to read the header&quot;</span>);</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        iret = -3;</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    }</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keywordflow">if</span> (!opj_decode(codec, stream, image)) {</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed to decode&quot;</span>);</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        iret = -3;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    }</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160; </div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keywordflow">if</span> ( (image-&gt;numcomps != 1) || (image-&gt;x1 * image-&gt;y1)==0 ) {</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        iret = -3;</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    }</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160; </div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    assert(image-&gt;comps[0].sgnd == 0);</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    assert(image-&gt;comps[0].prec &lt; <span class="keyword">sizeof</span>(mask)*8-1);</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    mask = (1 &lt;&lt; image-&gt;comps[0].prec) - 1;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; image-&gt;comps[0].w * image-&gt;comps[0].h ; i++)</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        outfld[i] = (g2int) (image-&gt;comps[0].data[i] &amp; mask);</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keywordflow">if</span> (!opj_end_decompress(codec, stream)) {</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed in opj_end_decompress&quot;</span>);</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        iret = -3;</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    }</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;cleanup:</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="comment">/* close the byte stream */</span></div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keywordflow">if</span> (codec)  opj_destroy_codec(codec);</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordflow">if</span> (stream) opj_stream_destroy(stream);</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keywordflow">if</span> (image)  opj_image_destroy(image);</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordflow">return</span> iret;</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;}</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="keywordtype">int</span> enc_jpeg2000(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cin, g2int width, g2int height, g2int nbits,</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                 g2int ltype, g2int ratio, g2int retry, <span class="keywordtype">char</span> *outjpc,</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                 g2int jpclen)</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;{</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    (void) retry;</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <span class="keywordtype">int</span> iret = 0;</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> numcomps = 1;</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160; </div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    opj_codec_t *codec = NULL;</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    opj_image_t *image = NULL;</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    opj_stream_t *stream = NULL;</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="comment">/* set encoding parameters to default values */</span></div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    opj_cparameters_t parameters = {0,};        <span class="comment">/* compression parameters */</span></div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    opj_set_default_encoder_parameters(&amp;parameters);</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    parameters.tcp_numlayers  = 1;</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    parameters.cp_disto_alloc = 1;</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="keywordflow">if</span> (ltype == 1) {</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        assert(ratio != 255);</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        parameters.tcp_rates[0] = 1.0f/(float)ratio;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    }</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    <span class="comment">/* By default numresolution = 6 (must be between 1 and 32)</span></div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="comment">     * This may be too large for some of our datasets, eg. 1xn, so adjust ...</span></div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    parameters.numresolution = 6;</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    <span class="keywordflow">while</span> ( (width &lt; (1 &lt;&lt; (parameters.numresolution - 1)) ) ||</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;            (height &lt; (1 &lt;&lt; (parameters.numresolution - 1)) ))</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    {</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        parameters.numresolution--;</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    }</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <span class="comment">/* initialize image component */</span></div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    opj_image_cmptparm_t cmptparm = {0,};</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    cmptparm.prec = (OPJ_UINT32)nbits;</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    cmptparm.bpp  = (OPJ_UINT32)nbits;</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    cmptparm.sgnd = 0;</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    cmptparm.dx   = 1;</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    cmptparm.dy   = 1;</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    cmptparm.w    = (OPJ_UINT32)width;</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    cmptparm.h    = (OPJ_UINT32)height;</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160; </div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    <span class="comment">/* create the image */</span></div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    image = opj_image_create(numcomps, &amp;cmptparm, OPJ_CLRSPC_GRAY);</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <span class="keywordflow">if</span>(!image) {</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        iret = -3;</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    }</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    image-&gt;x0 = 0;</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    image-&gt;y0 = 0;</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    image-&gt;x1 = (OPJ_UINT32)width;</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    image-&gt;y1 = (OPJ_UINT32)height;</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160; </div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    assert(cmptparm.prec &lt;= <span class="keyword">sizeof</span>(image-&gt;comps[0].data[0])*8 - 1); <span class="comment">/* BR: -1 because I don&#39;t know what happens if the sign bit is set */</span></div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160; </div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    <span class="comment">/* Simple packing */</span></div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i&lt; width*height; i++){</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        image-&gt;comps[0].data[i] = cin[i];</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    }</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160; </div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    <span class="comment">/* get a J2K compressor handle */</span></div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    codec = opj_create_compress(OPJ_CODEC_J2K);</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160; </div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    opj_set_info_handler(codec, openjpeg_info, NULL);</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    opj_set_warning_handler(codec, openjpeg_warning, NULL);</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    opj_set_error_handler(codec, openjpeg_error,NULL);</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160; </div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    <span class="comment">/* setup the encoder parameters using the current image and user parameters */</span></div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    <span class="keywordflow">if</span> (!opj_setup_encoder(codec, &amp;parameters, image)) {</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed to setup encoder&quot;</span>);</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        iret = -3;</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    }</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160; </div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <span class="comment">/* open a byte stream for writing */</span></div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    opj_memory_stream mstream;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    mstream.pData = (OPJ_UINT8*) outjpc;</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    mstream.offset = 0;</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    mstream.dataSize = (OPJ_SIZE_T)jpclen;</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    stream = opj_stream_create_default_memory_stream(&amp;mstream, OPJ_STREAM_WRITE);</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    <span class="keywordflow">if</span> (stream == NULL) {</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed create default memory stream&quot;</span>);</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;        iret = -3;</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    }</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160; </div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="keywordflow">if</span> (!opj_start_compress(codec, image, stream)) {</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed to setup encoder&quot;</span>);</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;        iret = -3;</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    }</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160; </div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="comment">/* encode image */</span></div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    <span class="keywordflow">if</span> (!opj_encode(codec, stream)) {</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: opj_encode failed&quot;</span>);</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;        iret = -3;</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    }</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160; </div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    <span class="keywordflow">if</span> (!opj_end_compress(codec, stream)) {</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: opj_end_compress failed&quot;</span>);</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;        iret = -3;</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;    }</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;    iret = (int)mstream.offset;</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160; </div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;cleanup:</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    if (codec)  opj_destroy_codec(codec);</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    <span class="keywordflow">if</span> (stream) opj_stream_destroy(stream);</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;    <span class="keywordflow">if</span> (image)  opj_image_destroy(image);</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160; </div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;    <span class="keywordflow">return</span> iret;</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;}</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160; </div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#if !defined USE_JPEG2000 &amp;&amp; defined USE_OPENJPEG</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;openjpeg.h&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;assert.h&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> openjpeg_warning(<span class="keyword">const</span> <span class="keywordtype">char</span> *msg, <span class="keywordtype">void</span> *client_data)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    (void)client_data;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    fprintf(stderr,<span class="stringliteral">&quot;openjpeg: %s&quot;</span>,msg);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> openjpeg_error(<span class="keyword">const</span> <span class="keywordtype">char</span> *msg, <span class="keywordtype">void</span> *client_data)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    (void)client_data;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    fprintf(stderr,<span class="stringliteral">&quot;openjpeg: %s&quot;</span>,msg);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> openjpeg_info(<span class="keyword">const</span> <span class="keywordtype">char</span> *msg, <span class="keywordtype">void</span> *client_data)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    (void)msg;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    (void)client_data;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="comment">/* fprintf(stderr,&quot;openjpeg: %s&quot;,msg); */</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">/* opj_* Helper code from</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"> * https://groups.google.com/forum/#!topic/openjpeg/8cebr0u7JgY</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">/* These routines are added to use memory instead of a file for input and output */</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">/* struct need to treat memory as a stream */</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;{</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    OPJ_UINT8* pData;       <span class="comment">/* our data */</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    OPJ_SIZE_T dataSize;    <span class="comment">/* how big is our data */</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    OPJ_SIZE_T offset;      <span class="comment">/* where we are currently in our data */</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} opj_memory_stream;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">static</span> OPJ_SIZE_T opj_memory_stream_read(<span class="keywordtype">void</span> *buffer, OPJ_SIZE_T nb_bytes, <span class="keywordtype">void</span> * p_user_data)</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;{</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    opj_memory_stream* mstream = (opj_memory_stream*) p_user_data; <span class="comment">/* Our data */</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    OPJ_SIZE_T nb_bytes_read = nb_bytes; <span class="comment">/* Amount to move to buffer */</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="comment">/* Check if the current offset is outside our data buffer */</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">if</span> (mstream-&gt;offset &gt;= mstream-&gt;dataSize)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">return</span> (OPJ_SIZE_T) -1;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">/* Check if we are reading more than we have */</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">if</span> (nb_bytes &gt; (mstream-&gt;dataSize - mstream-&gt;offset))</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        nb_bytes_read = mstream-&gt;dataSize - mstream-&gt;offset;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    memcpy(buffer, &amp;(mstream-&gt;pData[mstream-&gt;offset]), nb_bytes_read);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    mstream-&gt;offset += nb_bytes_read; <span class="comment">/* Update the pointer to the new location */</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">return</span> nb_bytes_read;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">static</span> OPJ_SIZE_T opj_memory_stream_write(<span class="keywordtype">void</span> *buffer, OPJ_SIZE_T nb_bytes, <span class="keywordtype">void</span> *user_data)</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;{</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    opj_memory_stream* mstream = (opj_memory_stream*) user_data; <span class="comment">/* our data */</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    OPJ_SIZE_T nb_bytes_write = nb_bytes; <span class="comment">/* Amount to move to buffer */</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="comment">/* Check if the current offset is outside our data buffer */</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">if</span> (mstream-&gt;offset &gt;= mstream-&gt;dataSize)</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">return</span> (OPJ_SIZE_T)-1;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="comment">/* Check if we are writing more than we have space for */</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">if</span> (nb_bytes &gt; (mstream-&gt;dataSize - mstream-&gt;offset))</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        nb_bytes_write = mstream-&gt;dataSize - mstream-&gt;offset;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="comment">/* Copy the data from the internal buffer */</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    memcpy(&amp;(mstream-&gt;pData[mstream-&gt;offset]), buffer, nb_bytes_write);</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    mstream-&gt;offset += nb_bytes_write; <span class="comment">/* Update the pointer to the new location */</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">return</span> nb_bytes_write;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="keyword">static</span> OPJ_OFF_T opj_memory_stream_skip(OPJ_OFF_T nb_bytes, <span class="keywordtype">void</span> *user_data)</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;{</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    opj_memory_stream* mstream = (opj_memory_stream*) user_data;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    OPJ_SIZE_T l_nb_bytes;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">if</span> (nb_bytes &lt; 0)</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordflow">return</span> -1; <span class="comment">/* No skipping backwards */</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    l_nb_bytes = (OPJ_SIZE_T) nb_bytes; <span class="comment">/* Allowed because it is positive */</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="comment">/* Do not allow jumping past the end */</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordflow">if</span> (l_nb_bytes &gt; mstream-&gt;dataSize - mstream-&gt;offset)</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        l_nb_bytes = mstream-&gt;dataSize - mstream-&gt;offset;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    mstream-&gt;offset += l_nb_bytes;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">return</span> (OPJ_OFF_T)l_nb_bytes; <span class="comment">/* Return how far we jumped */</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="keyword">static</span> OPJ_BOOL opj_memory_stream_seek(OPJ_OFF_T nb_bytes, <span class="keywordtype">void</span> * user_data)</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;{</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    opj_memory_stream* mstream = (opj_memory_stream*) user_data;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordflow">if</span> (nb_bytes &lt; 0)</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keywordflow">return</span> OPJ_FALSE; <span class="comment">/* Not before the buffer */</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordflow">if</span> (nb_bytes &gt;(OPJ_OFF_T) mstream-&gt;dataSize)</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">return</span> OPJ_FALSE; <span class="comment">/* Not after the buffer */</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    mstream-&gt;offset = (OPJ_SIZE_T) nb_bytes; <span class="comment">/* Move to new position */</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordflow">return</span> OPJ_TRUE;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;}</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> opj_memory_stream_do_nothing(<span class="keywordtype">void</span> * p_user_data)</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;{</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    OPJ_ARG_NOT_USED(p_user_data);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;}</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="keyword">static</span> opj_stream_t* opj_stream_create_default_memory_stream(opj_memory_stream* memoryStream, OPJ_BOOL is_read_stream)</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;{</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    opj_stream_t* stream;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordflow">if</span> (!(stream = opj_stream_default_create(is_read_stream)))</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        <span class="keywordflow">return</span> (NULL);</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="comment">/* Set how to work with the frame buffer */</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordflow">if</span> (is_read_stream)</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        opj_stream_set_read_function(stream, opj_memory_stream_read);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        opj_stream_set_write_function(stream, opj_memory_stream_write);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    opj_stream_set_seek_function(stream, opj_memory_stream_seek);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    opj_stream_set_skip_function(stream, opj_memory_stream_skip);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    opj_stream_set_user_data(stream, memoryStream, opj_memory_stream_do_nothing);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    opj_stream_set_user_data_length(stream, memoryStream-&gt;dataSize);</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordflow">return</span> stream;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;}</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="keywordtype">int</span> <a class="code" href="dec__jpeg2000_8c.html#aecc47ef133bb090df718275d41098613">dec_jpeg2000</a>(<span class="keywordtype">char</span> *injpc,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> bufsize,<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> *outfld)</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;{</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordtype">int</span> iret = 0;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    OPJ_INT32 mask;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    opj_stream_t *stream = NULL;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    opj_image_t *image = NULL;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    opj_codec_t *codec = NULL;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="comment">/* set decoding parameters to default values */</span></div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    opj_dparameters_t parameters = {0,};        <span class="comment">/* decompression parameters */</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    opj_set_default_decoder_parameters(&amp;parameters);</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    parameters.decod_format = 1; <span class="comment">/* JP2_FMT */</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="comment">/* JPEG-2000 codestream */</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="preprocessor">#define DUMP_JPEG_STREAM</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="preprocessor">#ifdef DUMP_JPEG_STREAM</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    FILE *fp=fopen(<span class="stringliteral">&quot;dump_openjpeg.j2k&quot;</span>, <span class="stringliteral">&quot;wb&quot;</span>);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    fwrite(injpc, 1, (<span class="keywordtype">size_t</span>)bufsize, fp);</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    fclose(fp);</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="comment">/* get a decoder handle */</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    codec = opj_create_decompress(OPJ_CODEC_J2K);</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="comment">/* catch events using our callbacks */</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    opj_set_info_handler(codec, openjpeg_info, NULL);</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    opj_set_warning_handler(codec, openjpeg_warning, NULL);</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    opj_set_error_handler(codec, openjpeg_error,NULL);</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="comment">/* initialize our memory stream */</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    opj_memory_stream mstream;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    mstream.pData = (OPJ_UINT8 *)injpc;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    mstream.dataSize = (OPJ_SIZE_T)bufsize;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    mstream.offset = 0;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="comment">/* open a byte stream from memory stream */</span></div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    stream = opj_stream_create_default_memory_stream( &amp;mstream, OPJ_STREAM_READ);</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="comment">/* setup the decoder decoding parameters using user parameters */</span></div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">if</span> (!opj_setup_decoder(codec, &amp;parameters)) {</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed to setup decoder&quot;</span>);</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        iret = -3;</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    }</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">if</span>  (!opj_read_header(stream, codec, &amp;image)) {</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed to read the header&quot;</span>);</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        iret = -3;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    }</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">if</span> (!opj_decode(codec, stream, image)) {</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed to decode&quot;</span>);</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        iret = -3;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    }</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">if</span> ( (image-&gt;numcomps != 1) || (image-&gt;x1 * image-&gt;y1)==0 ) {</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        iret = -3;</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    }</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    assert(image-&gt;comps[0].sgnd == 0);</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    assert(image-&gt;comps[0].prec &lt; <span class="keyword">sizeof</span>(mask)*8-1);</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    mask = (1 &lt;&lt; image-&gt;comps[0].prec) - 1;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; image-&gt;comps[0].w * image-&gt;comps[0].h ; i++)</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        outfld[i] = (<a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a>) (image-&gt;comps[0].data[i] &amp; mask);</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keywordflow">if</span> (!opj_end_decompress(codec, stream)) {</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed in opj_end_decompress&quot;</span>);</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        iret = -3;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    }</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;cleanup:</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="comment">/* close the byte stream */</span></div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordflow">if</span> (codec)  opj_destroy_codec(codec);</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keywordflow">if</span> (stream) opj_stream_destroy(stream);</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordflow">if</span> (image)  opj_image_destroy(image);</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordflow">return</span> iret;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;}</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160; </div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="keywordtype">int</span> <a class="code" href="enc__jpeg2000_8c.html#af4af6d586d2f9ca5da713d025dccf781">enc_jpeg2000</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cin, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> width, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> height, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> nbits,</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                 <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> ltype, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> ratio, <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> retry, <span class="keywordtype">char</span> *outjpc,</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;                 <a class="code" href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a> jpclen)</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;{</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    (void) retry;</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    <span class="keywordtype">int</span> iret = 0;</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> numcomps = 1;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160; </div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    opj_codec_t *codec = NULL;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    opj_image_t *image = NULL;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    opj_stream_t *stream = NULL;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <span class="comment">/* set encoding parameters to default values */</span></div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    opj_cparameters_t parameters = {0,};        <span class="comment">/* compression parameters */</span></div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    opj_set_default_encoder_parameters(&amp;parameters);</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160; </div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    parameters.tcp_numlayers  = 1;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    parameters.cp_disto_alloc = 1;</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    <span class="keywordflow">if</span> (ltype == 1) {</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        assert(ratio != 255);</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        parameters.tcp_rates[0] = 1.0f/(float)ratio;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    }</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="comment">/* By default numresolution = 6 (must be between 1 and 32)</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="comment">     * This may be too large for some of our datasets, eg. 1xn, so adjust ...</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    parameters.numresolution = 6;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <span class="keywordflow">while</span> ( (width &lt; (1 &lt;&lt; (parameters.numresolution - 1)) ) ||</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;            (height &lt; (1 &lt;&lt; (parameters.numresolution - 1)) ))</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    {</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        parameters.numresolution--;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    }</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160; </div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <span class="comment">/* initialize image component */</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    opj_image_cmptparm_t cmptparm = {0,};</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    cmptparm.prec = (OPJ_UINT32)nbits;</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    cmptparm.bpp  = (OPJ_UINT32)nbits;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    cmptparm.sgnd = 0;</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    cmptparm.dx   = 1;</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    cmptparm.dy   = 1;</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    cmptparm.w    = (OPJ_UINT32)width;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    cmptparm.h    = (OPJ_UINT32)height;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160; </div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    <span class="comment">/* create the image */</span></div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    image = opj_image_create(numcomps, &amp;cmptparm, OPJ_CLRSPC_GRAY);</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <span class="keywordflow">if</span>(!image) {</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        iret = -3;</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    }</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    image-&gt;x0 = 0;</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    image-&gt;y0 = 0;</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    image-&gt;x1 = (OPJ_UINT32)width;</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    image-&gt;y1 = (OPJ_UINT32)height;</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160; </div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    assert(cmptparm.prec &lt;= <span class="keyword">sizeof</span>(image-&gt;comps[0].data[0])*8 - 1); <span class="comment">/* BR: -1 because I don&#39;t know what happens if the sign bit is set */</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160; </div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <span class="comment">/* Simple packing */</span></div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i&lt; width*height; i++){</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        image-&gt;comps[0].data[i] = cin[i];</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    }</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160; </div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    <span class="comment">/* get a J2K compressor handle */</span></div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    codec = opj_create_compress(OPJ_CODEC_J2K);</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160; </div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    opj_set_info_handler(codec, openjpeg_info, NULL);</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    opj_set_warning_handler(codec, openjpeg_warning, NULL);</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    opj_set_error_handler(codec, openjpeg_error,NULL);</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160; </div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    <span class="comment">/* setup the encoder parameters using the current image and user parameters */</span></div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keywordflow">if</span> (!opj_setup_encoder(codec, &amp;parameters, image)) {</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed to setup encoder&quot;</span>);</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        iret = -3;</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    }</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160; </div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    <span class="comment">/* open a byte stream for writing */</span></div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    opj_memory_stream mstream;</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    mstream.pData = (OPJ_UINT8*) outjpc;</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    mstream.offset = 0;</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    mstream.dataSize = (OPJ_SIZE_T)jpclen;</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    stream = opj_stream_create_default_memory_stream(&amp;mstream, OPJ_STREAM_WRITE);</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    <span class="keywordflow">if</span> (stream == NULL) {</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed create default memory stream&quot;</span>);</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;        iret = -3;</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    }</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160; </div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    <span class="keywordflow">if</span> (!opj_start_compress(codec, image, stream)) {</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: failed to setup encoder&quot;</span>);</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        iret = -3;</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    }</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160; </div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    <span class="comment">/* encode image */</span></div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <span class="keywordflow">if</span> (!opj_encode(codec, stream)) {</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: opj_encode failed&quot;</span>);</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        iret = -3;</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    }</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160; </div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    <span class="keywordflow">if</span> (!opj_end_compress(codec, stream)) {</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;openjpeg: opj_end_compress failed&quot;</span>);</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;        iret = -3;</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        <span class="keywordflow">goto</span> cleanup;</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;    }</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;    iret = (int)mstream.offset;</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160; </div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;cleanup:</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    if (codec)  opj_destroy_codec(codec);</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;    <span class="keywordflow">if</span> (stream) opj_stream_destroy(stream);</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;    <span class="keywordflow">if</span> (image)  opj_image_destroy(image);</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160; </div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;    <span class="keywordflow">return</span> iret;</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;}</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160; </div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="agrib2_8h_html_a09f53c0d5cd3cb3b7864b7dd4983211e"><div class="ttname"><a href="grib2_8h.html#a09f53c0d5cd3cb3b7864b7dd4983211e">g2int</a></div><div class="ttdeci">long g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00161">grib2.h:161</a></div></div>
+<div class="ttc" id="adec__jpeg2000_8c_html_aecc47ef133bb090df718275d41098613"><div class="ttname"><a href="dec__jpeg2000_8c.html#aecc47ef133bb090df718275d41098613">dec_jpeg2000</a></div><div class="ttdeci">int dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)</div><div class="ttdoc">This Function decodes a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i....</div><div class="ttdef"><b>Definition:</b> <a href="dec__jpeg2000_8c_source.html#l00043">dec_jpeg2000.c:43</a></div></div>
 <div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
+<div class="ttc" id="aenc__jpeg2000_8c_html_af4af6d586d2f9ca5da713d025dccf781"><div class="ttname"><a href="enc__jpeg2000_8c.html#af4af6d586d2f9ca5da713d025dccf781">enc_jpeg2000</a></div><div class="ttdeci">int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits, g2int ltype, g2int ratio, g2int retry, char *outjpc, g2int jpclen)</div><div class="ttdoc">This Function encodes a grayscale image into a JPEG2000 code stream specified in the JPEG2000 Part-1 ...</div><div class="ttdef"><b>Definition:</b> <a href="enc__jpeg2000_8c_source.html#l00056">enc_jpeg2000.c:56</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
