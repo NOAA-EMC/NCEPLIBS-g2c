@@ -10,7 +10,8 @@ void dummy(void) {}
 #include <stdlib.h>
 #include "grib2.h"
 #include "jasper/jasper.h"
-#define JAS_1_700_2
+#define JAS_1_700_2 /**< Define for JAS. */
+#define MAXOPTSSIZE 1024 /**< Maximum size of options. */
 
 /**
  * This Function encodes a grayscale image into a JPEG2000 code stream
@@ -60,7 +61,6 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     jas_image_t image;
     jas_stream_t *jpcstream,*istream;
     jas_image_cmpt_t cmpt,*pcmpt;
-#define MAXOPTSSIZE 1024
     char opts[MAXOPTSSIZE];
 
 /*

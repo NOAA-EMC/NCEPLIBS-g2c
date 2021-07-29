@@ -12,12 +12,14 @@ void dummy(void) {}
 #include <png.h>
 #include "grib2.h"
 
-
+/**
+ * Stuct for PNG stream.
+ */
 struct png_stream {
-    unsigned char *stream_ptr;     /*  location to write PNG stream  */
-    g2int stream_len;               /*  number of bytes written       */
+    unsigned char *stream_ptr; /**< Location to write PNG stream. */
+    g2int stream_len; /**< Number of bytes written. */
 };
-typedef struct png_stream png_stream;
+typedef struct png_stream png_stream; /**< Typedef for PNG stream. */
 
 void user_write_data(png_structp ,png_bytep , png_uint_32 );
 void user_flush_data(png_structp );
@@ -71,9 +73,12 @@ void user_flush_data(png_structp png_ptr)
  * @param nbits number of bits.
  * @param pngbuf PNG buffer.
  *
+ * @return PNG length, or negative number for error.
+ *
  * @author Stephen Gilbert
 */
-int enc_png(char *data,g2int width,g2int height,g2int nbits,char *pngbuf)
+int
+enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf)
 {
 
     int color_type;
