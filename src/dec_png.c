@@ -17,12 +17,14 @@ void dummy(void) {}
 #include <png.h>
 #include "grib2.h"
 
-
+/**
+ * Struct for PNG stream.
+ */
 struct png_stream {
-    unsigned char *stream_ptr;     /*  location to write PNG stream  */
-    g2int stream_len;               /*  number of bytes written       */
+    unsigned char *stream_ptr; /**<  location to write PNG stream. */
+    g2int stream_len; /**<  number of bytes written. */
 };
-typedef struct png_stream png_stream;
+typedef struct png_stream png_stream; /**<  Typedef for PNG stream. */
 
 void user_read_data(png_structp , png_bytep , png_uint_32 );
 

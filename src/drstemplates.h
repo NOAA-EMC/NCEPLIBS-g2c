@@ -45,7 +45,8 @@ struct drstemplate
 };
 
 /**
- * Struct for Data Representation Section (DRS) template with data. 
+ * Stuct holding data for GRIB2 Data Representation Section (DRS)
+ * template.
  */
 const struct drstemplate templatesdrs[MAXDRSTEMP] = {
     /** 5.0: Grid point data - Simple Packing */
