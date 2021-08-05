@@ -154,13 +154,8 @@
 
 #define G2_VERSION "g2clib-1.6.4" /**< Current version of NCEPLIBS-g2c library. */
 
-#ifdef __64BIT__
-typedef int g2int; /**< Integer type. */
-typedef unsigned int g2intu; /**< Unsigned integer type. */
-#else
 typedef long g2int; /**< Long integer type. */
 typedef unsigned long g2intu; /**< Unsigned long integer type. */
-#endif
 typedef float g2float; /**< Float type. */
 
 /**
