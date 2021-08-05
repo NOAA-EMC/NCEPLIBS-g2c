@@ -152,7 +152,7 @@
 #define _grib2_H
 #include <stdio.h>
 
-#define G2_VERSION "g2clib-1.6.2" /**< Current version of NCEPLIBS-g2c library. */
+#define G2_VERSION "g2clib-1.6.4" /**< Current version of NCEPLIBS-g2c library. */
 
 #ifdef __64BIT__
 typedef int g2int; /**< Integer type. */
