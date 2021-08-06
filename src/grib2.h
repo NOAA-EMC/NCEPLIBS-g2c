@@ -151,6 +151,7 @@
 #ifndef _grib2_H
 #define _grib2_H
 #include <stdio.h>
+#include <stdint.h>
 
 #define G2_VERSION "g2clib-1.6.4" /**< Current version of NCEPLIBS-g2c library. */
 
