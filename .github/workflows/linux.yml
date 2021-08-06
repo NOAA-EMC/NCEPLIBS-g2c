@@ -34,7 +34,7 @@ jobs:
       run: |
         cd jasper
         mkdir cmake_build
-        cd build
+        cd cmake_build
         cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
         make -j2
         make install
@@ -49,9 +49,9 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DENABLE_DOCS=On -DENABLE_OpenJPEG=ON -DCMAKE_C_FLAGS="-g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0" .. 
+        cmake -DJasper_ROOT=~/Jasper -DENABLE_DOCS=On -DENABLE_OpenJPEG=ON -DCMAKE_C_FLAGS="-g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0" ..
         make -j2
-        
+
     - name: test
       run: |
         cd $GITHUB_WORKSPACE/g2c/build
