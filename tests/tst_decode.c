@@ -66,11 +66,12 @@ int main()
     if ((ret = g2_info(cgrib, listsec0, listsec1, &numfields, &numlocal)) != 0)
         return G2C_ERROR;
 
-    for (int i = 0; i < 3; i++) {
+    int i;
+    for (i = 0; i < 3; i++) {
         if (listsec0[i] != listsec0_ok[i])
             return G2C_ERROR;
     }
-    for (int i = 0; i < 13; i++) {
+    for (i = 0; i < 13; i++) {
         if (listsec1[i] != listsec1_ok[i])
             return G2C_ERROR;
     }
@@ -88,7 +89,7 @@ int main()
     if (gfld->ndpts != 121) /* 11x11 grid */
         return G2C_ERROR;
 
-    for (int i = 0; i < gfld->ndpts; i++) {
+    for (i = 0; i < gfld->ndpts; i++) {
         if (gfld->fld[i] != fld_ok[i])
             return G2C_ERROR;
     }
