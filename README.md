@@ -47,16 +47,21 @@ Code Manager: Hang Lei, Edward Hartnett
   JPEG 2000 codec written in C language. OpenJPEG is only used if
   CMake build option USE_OpenJPEG is turned on.
 
-## Installing
+## Building
 
-Download the tarball from the release page and unpack in, and cd into
-the main directory of the library. Then do:
+Download the tarball from the release page and unpack it, and cd into
+the main directory of the library. Then run the following commands,
+substituting your directory locations for the CMAKE_INSTALL_PREFIX
+(where the NCEPLIBS-g2c library will be installed), and the
+CMAKE_PREFIX_PATH (where the build will look for dependencies):
 
 <pre>
 mkdir build
-cmake -DCMAKE_PREFIX_PATH="/usr/local/jasper-2.0.22" ..
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local/NCEPLIBS-g2c -DCMAKE_PREFIX_PATH=/usr/local/jasper-2.0.22 ..
 make
 make test
+make install
 </pre>
 
 The NCEPLIBS-g2c library supports the PNG and JPEG2000 methods of image compression
