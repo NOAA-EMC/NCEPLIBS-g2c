@@ -11,6 +11,9 @@ https://noaa-emc.github.io/NCEPLIBS-g2c/. For the NCEP WMO GRIB2
 Documentation see
 https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/.
 
+For a Fortran implementation of the GRIB 2 functions, see project
+[NCEPLIBS-g2](https://github.com/NOAA-EMC/NCEPLIBS-g2).
+
 ## Authors
 
 Stephen Gilbert, Wesley Ebisuzaki, Boi Vuong
@@ -40,19 +43,21 @@ Code Manager: Hang Lei, Edward Hartnett
 
 ## Installing
 
-This C source code conatins many uses of the C++ comment style "//".
-Please make sure you include the appropriate compiler option in the
-CFLAGS variable in the makefile to allow the use of "//" comment
-indicators.
+Download the tarball from the release page and unpack in, and cd into
+the main directory of the library. Then do:
 
-We have added support for PNG and JPEG2000 image compression
-algorithms within the GRIB2 standard. You will need to download and
-install the external libraries listed above, if they are not already
-installed on your system.
+<pre>
+mkdir build
+cmake -DCMAKE_PREFIX_PATH="/usr/local/jasper-2.0.22" ..
+make
+make test
+</pre>
 
-If you do not wish to bother with the external libs and don't need PNG
-and JPEG2000 support, you can use the CMake options USE_PNG,
-USE_Jasper, and USE_OpenJPEG.
+The NCEPLIBS-g2c library supports the PNG and JPEG2000 methods of image compression
+algorithms within the GRIB2 standard.
+
+By default the library uses Jasper for JPEG functionality, use the
+USE_OpenJPEG to use the OpenJPEG library instead.
 
 ## References
 
