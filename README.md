@@ -11,6 +11,15 @@ https://noaa-emc.github.io/NCEPLIBS-g2c/. For the NCEP WMO GRIB2
 Documentation see
 https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/.
 
+The NCEPLIBS-g2c library is used by the
+[wgrib2](https://www.cpc.ncep.noaa.gov/products/wesley/wgrib2/),
+[GRaDS](http://cola.gmu.edu/grads/), and [Model Evaluation Tools
+(MET)](https://metplus.readthedocs.io/en/latest/) projects, among
+others.
+
+For a Fortran implementation of the GRIB 2 functions, see project
+[NCEPLIBS-g2](https://github.com/NOAA-EMC/NCEPLIBS-g2).
+
 ## Authors
 
 Stephen Gilbert, Wesley Ebisuzaki, Boi Vuong
@@ -38,21 +47,28 @@ Code Manager: Hang Lei, Edward Hartnett
   JPEG 2000 codec written in C language. OpenJPEG is only used if
   CMake build option USE_OpenJPEG is turned on.
 
-## Installing
+## Building
 
-This C source code conatins many uses of the C++ comment style "//".
-Please make sure you include the appropriate compiler option in the
-CFLAGS variable in the makefile to allow the use of "//" comment
-indicators.
+Download the tarball from the release page and unpack it, and cd into
+the main directory of the library. Then run the following commands,
+substituting your directory locations for the CMAKE_INSTALL_PREFIX
+(where the NCEPLIBS-g2c library will be installed), and the
+CMAKE_PREFIX_PATH (where the build will look for dependencies):
 
-We have added support for PNG and JPEG2000 image compression
-algorithms within the GRIB2 standard. You will need to download and
-install the external libraries listed above, if they are not already
-installed on your system.
+<pre>
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local/NCEPLIBS-g2c -DCMAKE_PREFIX_PATH=/usr/local/jasper-2.0.22 ..
+make
+make test
+make install
+</pre>
 
-If you do not wish to bother with the external libs and don't need PNG
-and JPEG2000 support, you can use the CMake options USE_PNG,
-USE_Jasper, and USE_OpenJPEG.
+The NCEPLIBS-g2c library supports the PNG and JPEG2000 methods of image compression
+algorithms within the GRIB2 standard.
+
+By default the library uses Jasper for JPEG functionality, use the
+USE_OpenJPEG to use the OpenJPEG library instead.
 
 ## References
 
