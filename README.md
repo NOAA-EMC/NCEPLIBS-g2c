@@ -11,6 +11,12 @@ https://noaa-emc.github.io/NCEPLIBS-g2c/. For the NCEP WMO GRIB2
 Documentation see
 https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/.
 
+The NCEPLIBS-g2c library is used by the
+[wgrib2](https://www.cpc.ncep.noaa.gov/products/wesley/wgrib2/),
+[GRaDS](http://cola.gmu.edu/grads/), and [Model Evaluation Tools
+(MET)](https://metplus.readthedocs.io/en/latest/) projects, among
+others.
+
 For a Fortran implementation of the GRIB 2 functions, see project
 [NCEPLIBS-g2](https://github.com/NOAA-EMC/NCEPLIBS-g2).
 
