@@ -93,8 +93,8 @@
  *        gfdl->ipdtnum = Product Definition Template Number (see Code Table 4.0)
  *        gfld->ipdtmpl  = Contains the data values for the specified Product
  *                         Definition Template ( N=gfdl->ipdtnum ).  Each element
- *                         of this integer array contains an entry (in the
- *                         order specified) of Product Defintion Template 4.N.
+ *                         of this integer array contains an entry in the
+ *                         order specified of Product Defintion Template 4.N.
  *                         This element is a pointer to an array
  *                         that holds the data.
  *        gfld->ipdtlen = Number of elements in gfld->ipdtmpl[].  i.e. number of

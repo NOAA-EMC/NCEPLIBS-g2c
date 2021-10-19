@@ -25,7 +25,7 @@ void jpcpack(g2float *,g2int,g2int,g2int *,unsigned char *,g2int *);
  * This routine packs up Sections 4 through 7 for a given field and
  * adds them to a GRIB2 message. They are Product Definition Section,
  * Data Representation Section, Bit-Map Section and Data Section,
- * respectively. 
+ * respectively.
  *
  * This routine is used with routines g2_create(), g2_addlocal(),
  * g2_addgrid(), and g2_gribend() to create a complete GRIB2
@@ -52,7 +52,7 @@ void jpcpack(g2float *,g2int,g2int,g2int *,unsigned char *,g2int *);
  * sections 4 through 7 should be added. Must be allocated large
  * enough to store the entire GRIB2 message.
  * @param ipdsnum Product Definition Template Number (see Code Table
- * 4.0). 
+ * 4.0).
  * @param ipdstmpl Contains the data values for the specified Product
  * Definition Template (N=ipdsnum). Each element of this integer array
  * contains an entry (in the order specified) of Product Defintion
@@ -101,8 +101,8 @@ void jpcpack(g2float *,g2int,g2int,g2int *,unsigned char *,g2int *);
  */
 g2int
 g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
-	    g2float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl,
-	    g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap)
+            g2float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl,
+            g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap)
 {
     g2int ierr;
     static unsigned char G=0x47;       // 'G'

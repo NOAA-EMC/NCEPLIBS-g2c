@@ -19,11 +19,11 @@ int enc_jpeg2000(unsigned char *,g2int ,g2int ,g2int ,
  * PROGRAM HISTORY LOG:
  * - 2003-08-17  Gilbert
  * - 2004-11-92 Gilbert - Fixed bug encountered when packing a near
-     constant field.
+ constant field.
  * - 2004-07-19 Gilbert - Added check on whether the jpeg2000 encoding
-     was successful. If not, try again with different encoder options.
+ was successful. If not, try again with different encoder options.
  * - 2005-05-10 Gilbert - Imposed minimum size on cpack, used to hold
-     encoded bit string.
+ encoded bit string.
  *
  * @param fld Contains the data values to pack.
  * @param width number of points in the x direction.
@@ -32,20 +32,20 @@ int enc_jpeg2000(unsigned char *,g2int ,g2int ,g2int ,
  * Representation Template 5.40 or 5.40000.
  * - 0 Reference value - ignored on input, set by jpcpack routine.
  * - 1 Binary Scale Factor - used on input, unchanged by jpcpack
-     routine.
+ routine.
  * - 2 Decimal Scale Factor - used on input, unchanged by jpcpack
-     routine.
+ routine.
  * - 3 number of bits for each data value - ignored on input
  * - 4 Original field type - currently ignored on input Data values
-     assumed to be reals. Set to 0 on output.
+ assumed to be reals. Set to 0 on output.
  * - 5 if 0 use lossless compression, if 1 use lossy compression.
  * - 6 Desired compression ratio, if idrstmpl[5]=1. Set to 255, if
-     idrstmpl[5]=0.
+ idrstmpl[5]=0.
  * @param cpack The packed data field.
  * @param lcpack length of packed field in cpack.
  *
  * @author Stephen Gilbert @date 2003-08-17
-*/
+ */
 void jpcpack(g2float *fld,g2int width,g2int height,g2int *idrstmpl,
              unsigned char *cpack,g2int *lcpack)
 {
