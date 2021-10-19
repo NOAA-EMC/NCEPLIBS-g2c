@@ -2,8 +2,8 @@
  * @brief Determines whether the number of groups should be increased in
  * order to reduce the size of the large groups, and to make that
  * adjustment.
- * @author Glahn @date November 2001 
-*/
+ * @author Glahn @date November 2001
+ */
 
 /*#include "f2c.h"*/
 #include <stdlib.h>
@@ -23,12 +23,12 @@ typedef g2float real; /**< Float type. */
  * iterations in reduce. However, the reference must be considered.
  *
  * PROGRAM HISTORY LOG
- * - November 2001 Glahn tdl grib2 
+ * - November 2001 Glahn tdl grib2
  * - March 2002 Glahn comment ier = 715
  * - March 2002 Glahn modified to accommodate lx=1 on entry
  *
- * DATA SET USE 
- * - kfildo - unit number for output (print) file. (output) 
+ * DATA SET USE
+ * - kfildo - unit number for output (print) file. (output)
  *
  * @param kfildo unit number for output (print) file. (input)
  * @param jmin the minimum of each group (j=1,lx). it is possible
@@ -50,35 +50,35 @@ typedef g2float real; /**< Float type. */
  * values, j=1,lx. (input)
  * @param kbit the number of bits necessary to pack the nov(j) values,
  * j=1,lx. if the groups are split, kbit is reduced. (input/output)
- * @param novref reference value for nov( ). (input) 
- * @param ibxx2 2**j (j=0,30). (input) 
- * @param ier error return. (output) 
- * - 0 = good return. 
- * - 714 = problem in algorithm. reduce aborted. 
- * - 715 = ngp not large enough. reduce aborted. 
+ * @param novref reference value for nov( ). (input)
+ * @param ibxx2 2**j (j=0,30). (input)
+ * @param ier error return. (output)
+ * - 0 = good return.
+ * - 714 = problem in algorithm. reduce aborted.
+ * - 715 = ngp not large enough. reduce aborted.
  *
  * @return always returns 0, see parameter ier for error code.
  *
  * <pre>
- * ntotbt(j) = the total bits used for the packing bits j 
- *                       (j=1,30). (internal) 
- *  nboxj(j) = new boxes needed for the packing bits j 
- *                       (j=1,30). (internal) 
- *           newbox(l) = number of new boxes (groups) for each original 
- *                       group (l=1,lx) for the current j. (automatic) 
- *                       (internal) 
- *          newboxp(l) = same as newbox( ) but for the previous j. 
- *                       this eliminates recomputation. (automatic) 
- *                       (internal) 
- *               cfeed = contains the character representation 
- *                       of a printer form feed. (character) (internal) 
- *               ifeed = contains the integer value of a printer 
- *                       form feed. (internal) 
- *              iorigb = the original number of bits necessary 
- *                       for the group values. (internal) 
+ * ntotbt(j) = the total bits used for the packing bits j
+ *                       (j=1,30). (internal)
+ *  nboxj(j) = new boxes needed for the packing bits j
+ *                       (j=1,30). (internal)
+ *           newbox(l) = number of new boxes (groups) for each original
+ *                       group (l=1,lx) for the current j. (automatic)
+ *                       (internal)
+ *          newboxp(l) = same as newbox( ) but for the previous j.
+ *                       this eliminates recomputation. (automatic)
+ *                       (internal)
+ *               cfeed = contains the character representation
+ *                       of a printer form feed. (character) (internal)
+ *               ifeed = contains the integer value of a printer
+ *                       form feed. (internal)
+ *              iorigb = the original number of bits necessary
+ *                       for the group values. (internal)
  * </pre>
  *
- * @author Glahn @date November 2001 
+ * @author Glahn @date November 2001
  */
 int
 reduce(integer *kfildo, integer *jmin, integer *jmax,

@@ -37,7 +37,7 @@
  */
 void
 compack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
-	unsigned char *cpack, g2int *lcpack)
+        unsigned char *cpack, g2int *lcpack)
 {
 
     static g2int zero=0;

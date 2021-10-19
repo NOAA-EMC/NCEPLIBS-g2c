@@ -3,11 +3,11 @@
  * @author Stephen Gilbert
  */
 #ifndef USE_PNG
-/** 
+/**
  * Dummy function used if USE_JPEG2000 is not defined.
  *
  * @author Stephen Gilbert
-*/
+ */
 void dummy(void) {}
 #else   /* USE_PNG */
 
@@ -31,13 +31,13 @@ void user_read_data(png_structp , png_bytep , png_uint_32 );
 /**
  * Custom read function used so that libpng will read a PNG stream
  * from memory instead of a file on disk.
- * 
+ *
  * @param png_ptr Pointer to PNG.
  * @param data Pointer to data.
  * @param length Length.
  *
  * @author Stephen Gilbert
-*/
+ */
 void user_read_data(png_structp png_ptr,png_bytep data, png_uint_32 length)
 {
     char *ptr;
@@ -54,7 +54,7 @@ void user_read_data(png_structp png_ptr,png_bytep data, png_uint_32 length)
 
 /**
  * Decode PNG.
- * 
+ *
  * @param pngbuf Pointer to PNG buffer.
  * @param width Pointer to width.
  * @param height Pointer to height.
@@ -63,7 +63,7 @@ void user_read_data(png_structp png_ptr,png_bytep data, png_uint_32 length)
  * @return 0 for success, error code otherwise.
  *
  * @author Stephen Gilbert
-*/
+ */
 int dec_png(unsigned char *pngbuf,g2int *width,g2int *height,char *cout)
 {
     int interlace,color,compres,filter,bit_depth;

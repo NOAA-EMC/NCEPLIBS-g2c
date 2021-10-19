@@ -1,6 +1,6 @@
 /** @file
  * @author Glahn @date february 1994
-*/
+ */
 
 /*#include "f2c.h"*/
 #include <stdlib.h>
@@ -98,10 +98,10 @@ typedef g2int logical; /**< Logical type. */
  * - March 2002 Glahn added non fatal ier = 716, 717; removed
  * nendb=nxy above 150; added iersav=0; comments
  *
- * DATA SET USE 
- * - kfildo - unit number for output (print) file. (output) 
+ * DATA SET USE
+ * - kfildo - unit number for output (print) file. (output)
  *
- * @param kfildo unit number for output (print) file. (input) 
+ * @param kfildo unit number for output (print) file. (input)
  * @param ic array to hold data for packing. the values do not have to
  * be positive at this point, but must be in the range -2**30 to
  * +2**30 (the the value of mallow). these integer values will be
@@ -133,7 +133,7 @@ typedef g2int logical; /**< Logical type. */
  * (input)
  * @param misss secondary missing value indicator (see missp).
  * (input)
- * @param jmin the minimum of each group (j=1,lx). (output) 
+ * @param jmin the minimum of each group (j=1,lx). (output)
  * @param jmax the maximum of each group (j=1,lx). this is not really
  * needed, but since the max of each group must be found, saving it
  * here is cheap in case the user wants it. (output)
@@ -145,119 +145,119 @@ typedef g2int logical; /**< Logical type. */
  * then ic( ) will contain only positive values. (output)
  * @param nov the number of values in each group (j=1,lx). (output)
  * @param ndg the dimension of jmin, jmax, lbit, and nov. (input)
- * @param lx the number of groups determined. (output) 
+ * @param lx the number of groups determined. (output)
  * @param ibit the number of bits necessary to pack the jmin(j)
  * values, j=1,lx. (output)
  * @param jbit the number of bits necessary to pack the lbit(j)
  * values, j=1,lx. (output)
  * @param kbit the number of bits necessary to pack the nov(j) values,
  * j=1,lx. (output)
- * @param novref reference value for nov( ). (output) 
- * @param lbitref reference value for lbit( ). (output) 
+ * @param novref reference value for nov( ). (output)
+ * @param lbitref reference value for lbit( ). (output)
  * @param ier Error code
  * - 0 No error.
- * - 706 value will not pack in 30 bits--fatal 
- * - 714 error in reduce--non-fatal 
- * - 715 ngp not large enough in reduce--non-fatal 
- * - 716 minpk inceased--non-fatal 
- * - 717 inc set 
- * - 1--non-fatal 
- * * alternate return when ier ne 0 and fatal error. 
+ * - 706 value will not pack in 30 bits--fatal
+ * - 714 error in reduce--non-fatal
+ * - 715 ngp not large enough in reduce--non-fatal
+ * - 716 minpk inceased--non-fatal
+ * - 717 inc set
+ * - 1--non-fatal
+ * * alternate return when ier ne 0 and fatal error.
  *
  * @return 0 - check ier for error code.
  *
- *        INTERNAL VARIABLES 
+ *        INTERNAL VARIABLES
  * <pre>
- *               cfeed = contains the character representation 
- *                       of a printer form feed. 
- *               ifeed = contains the integer value of a printer 
- *                       form feed. 
- *                kinc = working copy of inc. may be modified. 
- *                mina = minimum value in group a. 
- *                maxa = maximum value in group a. 
- *               nenda = the place in ic( ) where group a ends. 
- *              kstart = the place in ic( ) where group a starts. 
- *               ibita = number of bits needed to hold values in group a. 
- *                minb = minimum value in group b. 
- *                maxb = maximum value in group b. 
- *               nendb = the place in ic( ) where group b ends. 
- *               ibitb = number of bits needed to hold values in group b. 
- *                minc = minimum value in group c. 
- *                maxc = maximum value in group c. 
- *              ktotal = count of number of values in ic( ) processed. 
- *               nount = number of values added to group a. 
- *               lmiss = 0 when is523 = 0. when packing into a 
- *                       specific number of bits, say mbits, 
- *                       the maximum value that can be handled is 
- *                       2**mbits-1. when is523 = 1, indicating 
- *                       primary missing values, this maximum value 
- *                       is reserved to hold the primary missing value 
- *                       indicator and lmiss = 1. when is523 = 2, 
- *                       the value just below the maximum (i.e., 
- *                       2**mbits-2) is reserved to hold the secondary 
- *                       missing value indicator and lmiss = 2. 
- *              lminpk = local value of minpk. this will be adjusted 
- *                       upward whenever ndg is not large enough to hold 
- *                       all the groups. 
- *              mallow = the largest allowable value for packing. 
- *              mislla = set to 1 when all values in group a are missing. 
- *                       this is used to distinguish between a real 
- *                       minimum when all values are not missing 
- *                       and a minimum that has been set to zero when 
- *                       all values are missing. 0 otherwise. 
- *                       note that this does not distinguish between 
- *                       primary and secondary missings when secondary 
- *                       missings are present. this means that 
- *                       lbit( ) will not be zero with the resulting 
- *                       compression efficiency when secondary missings 
- *                       are present. also note that a check has been 
- *                       made earlier to determine that secondary 
- *                       missings are really there. 
- *              misllb = set to 1 when all values in group b are missing. 
- *                       this is used to distinguish between a real 
- *                       minimum when all values are not missing 
- *                       and a minimum that has been set to zero when 
- *                       all values are missing. 0 otherwise. 
- *              misllc = performs the same function for group c that 
- *                       mislla and misllb do for groups b and c, 
- *                       respectively. 
- *            ibxx2(j) = an array that when this routine is first entered 
- *                       is set to 2**j, j=0,30. ibxx2(30) = 2**30, which 
- *                       is the largest value packable, because 2**31 
- *                       is larger than the integer word size. 
- *              ifirst = set by data statement to 0. changed to 1 on 
- *                       first 
- *                       entry when ibxx2( ) is filled. 
- *               minak = keeps track of the location in ic( ) where the 
- *                       minimum value in group a is located. 
- *               maxak = does the same as minak, except for the maximum. 
- *               minbk = the same as minak for group b. 
- *               maxbk = the same as maxak for group b. 
- *               minck = the same as minak for group c. 
- *               maxck = the same as maxak for group c. 
- *                adda = keeps track whether or not an attempt to add 
- *                       points to group a was made. if so, then adda 
- *                       keeps from trying to put one back into b. 
- *                       (logical) 
- *              ibitbs = keeps current value if ibitb so that loop 
- *                       ending at 166 doesn't have to start at 
- *                       ibitb = 0 every time. 
- *           misslx(j) = mallow except when a group is all one value (and 
- *                       lbit(j) = 0) and that value is missing. in 
- *                       that case, misslx(j) is missp or misss. this 
- *                       gets inserted into jmin(j) later as the 
- *                       missing indicator; it can't be put in until 
- *                       the end, because jmin( ) is used to calculate 
- *                       the maximum number of bits (ibits) needed to 
- *                       pack jmin( ). 
- * </pre>
-*/
+ *               cfeed = contains the character representation
+ *                       of a printer form feed.
+ *               ifeed = contains the integer value of a printer
+ *                       form feed.
+ *                kinc = working copy of inc. may be modified.
+ *                mina = minimum value in group a.
+ *                maxa = maximum value in group a.
+ *               nenda = the place in ic( ) where group a ends.
+ *              kstart = the place in ic( ) where group a starts.
+ *               ibita = number of bits needed to hold values in group a.
+ *                minb = minimum value in group b.
+ *                maxb = maximum value in group b.
+ *               nendb = the place in ic( ) where group b ends.
+ *               ibitb = number of bits needed to hold values in group b.
+ *                minc = minimum value in group c.
+ *                maxc = maximum value in group c.
+ *              ktotal = count of number of values in ic( ) processed.
+ *               nount = number of values added to group a.
+ *               lmiss = 0 when is523 = 0. when packing into a
+ *                       specific number of bits, say mbits,
+ *                       the maximum value that can be handled is
+ *                       2**mbits-1. when is523 = 1, indicating
+ *                       primary missing values, this maximum value
+ *                       is reserved to hold the primary missing value
+ *                       indicator and lmiss = 1. when is523 = 2,
+ *                       the value just below the maximum (i.e.,
+                                                           *                       2**mbits-2) is reserved to hold the secondary
+                                                           *                       missing value indicator and lmiss = 2.
+                                                           *              lminpk = local value of minpk. this will be adjusted
+                                                           *                       upward whenever ndg is not large enough to hold
+                                                           *                       all the groups.
+                                                           *              mallow = the largest allowable value for packing.
+                                                           *              mislla = set to 1 when all values in group a are missing.
+                                                           *                       this is used to distinguish between a real
+                                                           *                       minimum when all values are not missing
+                                                           *                       and a minimum that has been set to zero when
+                                                           *                       all values are missing. 0 otherwise.
+                                                           *                       note that this does not distinguish between
+                                                           *                       primary and secondary missings when secondary
+                                                           *                       missings are present. this means that
+                                                           *                       lbit( ) will not be zero with the resulting
+                                                           *                       compression efficiency when secondary missings
+                                                           *                       are present. also note that a check has been
+                                                           *                       made earlier to determine that secondary
+                                                           *                       missings are really there.
+                                                           *              misllb = set to 1 when all values in group b are missing.
+                                                           *                       this is used to distinguish between a real
+                                                           *                       minimum when all values are not missing
+                                                           *                       and a minimum that has been set to zero when
+                                                           *                       all values are missing. 0 otherwise.
+                                                           *              misllc = performs the same function for group c that
+                                                           *                       mislla and misllb do for groups b and c,
+                                                           *                       respectively.
+                                                           *            ibxx2(j) = an array that when this routine is first entered
+                                                           *                       is set to 2**j, j=0,30. ibxx2(30) = 2**30, which
+                                                           *                       is the largest value packable, because 2**31
+                                                           *                       is larger than the integer word size.
+                                                           *              ifirst = set by data statement to 0. changed to 1 on
+                                                           *                       first
+                                                           *                       entry when ibxx2( ) is filled.
+                                                           *               minak = keeps track of the location in ic( ) where the
+                                                           *                       minimum value in group a is located.
+                                                           *               maxak = does the same as minak, except for the maximum.
+                                                           *               minbk = the same as minak for group b.
+                                                           *               maxbk = the same as maxak for group b.
+                                                           *               minck = the same as minak for group c.
+                                                           *               maxck = the same as maxak for group c.
+                                                           *                adda = keeps track whether or not an attempt to add
+                                                           *                       points to group a was made. if so, then adda
+                                                           *                       keeps from trying to put one back into b.
+                                                           *                       (logical)
+                                                           *              ibitbs = keeps current value if ibitb so that loop
+                                                           *                       ending at 166 doesn't have to start at
+                                                           *                       ibitb = 0 every time.
+                                                           *           misslx(j) = mallow except when a group is all one value (and
+                                                           *                       lbit(j) = 0) and that value is missing. in
+                                                           *                       that case, misslx(j) is missp or misss. this
+                                                           *                       gets inserted into jmin(j) later as the
+                                                           *                       missing indicator; it can't be put in until
+                                                           *                       the end, because jmin( ) is used to calculate
+                                                           *                       the maximum number of bits (ibits) needed to
+                                                           *                       pack jmin( ).
+                                                           * </pre>
+                                                           */
 int
 pack_gp(integer *kfildo, integer *ic, integer *nxy,
-	integer *is523, integer *minpk, integer *inc, integer *missp, integer
-	*misss, integer *jmin, integer *jmax, integer *lbit, integer *nov,
-	integer *ndg, integer *lx, integer *ibit, integer *jbit, integer *
-	kbit, integer *novref, integer *lbitref, integer *ier)
+        integer *is523, integer *minpk, integer *inc, integer *missp, integer
+        *misss, integer *jmin, integer *jmax, integer *lbit, integer *nov,
+        integer *ndg, integer *lx, integer *ibit, integer *jbit, integer *
+        kbit, integer *novref, integer *lbitref, integer *ier)
 {
     /* Initialized data */
 

@@ -53,7 +53,7 @@ struct gridtemplate
 };
 
 /**
- * Templates grid. 
+ * Templates grid.
  */
 const struct gridtemplate templatesgrid[MAXGRIDTEMP] = {
     // 3.0: Lat/Lon grid
