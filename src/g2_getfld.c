@@ -115,125 +115,125 @@ g2int g2_unpack7(unsigned char *,g2int *,g2int ,g2int *,
  *        gfld->igdtnum = Grid Definition Template Number (Code Table 3.1)
  *        gfld->igdtmpl  = Contains the data values for the specified Grid
  *                         Definition Template ( NN=gfld->igdtnum ). Each
- *                         element of this integer array contains an entry (in
-                                                                            *                         the order specified) of Grid Defintion Template 3.NN
-                                                                            *                         This element is a pointer to an array
-                                                                            *                         that holds the data.
-                                                                            *        gfld->igdtlen = Number of elements in gfld->igdtmpl[]. i.e. number of
-                                                                            *                       entries in Grid Defintion Template 3.NN
-                                                                            *                       ( NN=gfld->igdtnum ).
-                                                                            *        gfld->list_opt  = (Used if gfld->numoct_opt .ne. 0)  This array
-                                                                            *                          contains the number of grid points contained in
-                                                                            *                          each row ( or column ). (part of Section 3)
-                                                                            *                          This element is a pointer to an array
-                                                                            *                          that holds the data. This pointer is nullified
-                                                                            *                          if gfld->numoct_opt=0.
-                                                                            *        gfld->num_opt = (Used if gfld->numoct_opt .ne. 0)
-                                                                            *                        The number of entries
-                                                                            *                       in array ideflist. i.e. number of rows ( or columns )
-                                                                            *                       for which optional grid points are defined. This value
-                                                                            *                       is set to zero, if gfld->numoct_opt=0.
-                                                                            *        gfdl->ipdtnum = Product Definition Template Number(see Code Table 4.0)
-                                                                            *        gfld->ipdtmpl  = Contains the data values for the specified Product
-                                                                            *                         Definition Template ( N=gfdl->ipdtnum ). Each element
-                                                                            *                         of this integer array contains an entry (in the
-                                                                            *                         order specified) of Product Defintion Template 4.N.
-                                                                            *                         This element is a pointer to an array
-                                                                            *                         that holds the data.
-                                                                            *        gfld->ipdtlen = Number of elements in gfld->ipdtmpl[]. i.e. number of
-                                                                            *                       entries in Product Defintion Template 4.N
-                                                                            *                       ( N=gfdl->ipdtnum ).
-                                                                            *        gfld->coord_list  = Real array containing floating point values
-                                                                            *                            intended to document the vertical discretisation
-                                                                            *                            associated to model data on hybrid coordinate
-                                                                            *                            vertical levels. (part of Section 4)
-                                                                            *                            This element is a pointer to an array
-                                                                            *                            that holds the data.
-                                                                            *        gfld->num_coord = number of values in array gfld->coord_list[].
-                                                                            *        gfld->ndpts = Number of data points unpacked and returned.
-                                                                            *        gfld->idrtnum = Data Representation Template Number
-                                                                            *                       ( see Code Table 5.0)
-                                                                            *        gfld->idrtmpl  = Contains the data values for the specified Data
-                                                                            *                         Representation Template ( N=gfld->idrtnum ). Each
-                                                                            *                         element of this integer array contains an entry
-                                                                            *                         (in the order specified) of Product Defintion
-                                                                            *                         Template 5.N.
-                                                                            *                         This element is a pointer to an array
-                                                                            *                         that holds the data.
-                                                                            *        gfld->idrtlen = Number of elements in gfld->idrtmpl[]. i.e. number
-                                                                            *                       of entries in Data Representation Template 5.N
-                                                                            *                       ( N=gfld->idrtnum ).
-                                                                            *        gfld->unpacked = logical value indicating whether the bitmap and
-                                                                            *                        data values were unpacked. If false,
-                                                                            *                        gfld->bmap and gfld->fld pointers are nullified.
-                                                                            *        gfld->expanded = Logical value indicating whether the data field
-                                                                            *                         was expanded to the grid in the case where a
-                                                                            *                         bit-map is present. If true, the data points in
-                                                                            *                         gfld->fld match the grid points and zeros were
-                                                                            *                         inserted at grid points where data was bit-mapped
-                                                                            *                         out. If false, the data values in gfld->fld were
-                                                                            *                         not expanded to the grid and are just a consecutive
-                                                                            *                         array of data points corresponding to each value of
-                                                                            *                         "1" in gfld->bmap.
-                                                                            *        gfld->ibmap = Bitmap indicator ( see Code Table 6.0 )
-                                                                            *                     0 = bitmap applies and is included in Section 6.
-                                                                            *                     1-253 = Predefined bitmap applies
-                                                                            *                     254 = Previously defined bitmap applies to this field
-                                                                            *                     255 = Bit map does not apply to this product.
-                                                                            *        gfld->bmap  = integer array containing decoded bitmap,
-                                                                            *                      if gfld->ibmap=0 or gfld->ibap=254. Otherwise nullified
-                                                                            *                      This element is a pointer to an array
-                                                                            *                      that holds the data.
-                                                                            *        gfld->fld  = Array of gfld->ndpts unpacked data points.
-                                                                            *                     This element is a pointer to an array
-                                                                            *                     that holds the data.
-                                                                            * </pre>
-                                                                            *
-                                                                            * @return
-                                                                            * - 0 no error
-                                                                            * - 1 Beginning characters "GRIB" not found.
-                                                                            * - 2 GRIB message is not Edition 2.
-                                                                            * - 3 The data field request number was not positive.
-                                                                            * - 4 End string "7777" found, but not where expected.
-                                                                            * - 6 GRIB message did not contain the requested number of data fields.
-                                                                            * - 7 End string "7777" not found at end of message.
-                                                                            * - 8 Unrecognized Section encountered.
-                                                                            * - 9 Data Representation Template 5.NN not yet implemented.
-                                                                            * - 15 Error unpacking Section 1.
-                                                                            * - 16 Error unpacking Section 2.
-                                                                            * - 10 Error unpacking Section 3.
-                                                                            * - 11 Error unpacking Section 4.
-                                                                            * - 12 Error unpacking Section 5.
-                                                                            * - 13 Error unpacking Section 6.
-                                                                            * - 14 Error unpacking Section 7.
-                                                                            * - 17 Previous bitmap specified, yet none exists.
-                                                                            *
-                                                                            * @note Struct gribfield is allocated by this routine and it also
-                                                                            * contains pointers to many arrays of data that were allocated during
-                                                                            * decoding. Users are encouraged to free up this memory, when it is
-                                                                            * no longer needed, by an explicit call to routine g2_free.
-                                                                            *
-                                                                            *          EXAMPLE:
-                                                                            * @code
-                                                                            *              #include "grib2.h"
-                                                                            *              gribfield *gfld;
-                                                                            *              ret=g2_getfld(cgrib,1,1,1,&gfld);
-                                                                            *                ...
-                                                                            *              g2_free(gfld);
-                                                                            * @endcode
-                                                                            *
-                                                                            * Routine g2_info can be used to first determine how many data fields
-                                                                            * exist in a given GRIB message.
-                                                                            *
-                                                                            * @note It may not always be possible to expand a bit-mapped data
-                                                                            * field. If a pre-defined bit-map is used and not included in the
-                                                                            * GRIB2 message itself, this routine would not have the necessary
-                                                                            * information to expand the data. In this case, gfld->expanded would
-                                                                            * would be set to 0 (false), regardless of the value of input
-                                                                            * argument expand.
-                                                                            *
-                                                                            * @author Stephen Gilbert @date 2002-10-28
-                                                                            */
+ *                         element of this integer array contains an entry in
+ *                         the order specified of Grid Defintion Template 3.NN
+ *                         This element is a pointer to an array
+ *                         that holds the data.
+ *        gfld->igdtlen = Number of elements in gfld->igdtmpl[]. i.e. number of
+ *                       entries in Grid Defintion Template 3.NN
+ *                       ( NN=gfld->igdtnum ).
+ *        gfld->list_opt  = (Used if gfld->numoct_opt .ne. 0)  This array
+ *                          contains the number of grid points contained in
+ *                          each row ( or column ). (part of Section 3)
+ *                          This element is a pointer to an array
+ *                          that holds the data. This pointer is nullified
+ *                          if gfld->numoct_opt=0.
+ *        gfld->num_opt = (Used if gfld->numoct_opt .ne. 0)
+ *                        The number of entries
+ *                       in array ideflist. i.e. number of rows ( or columns )
+ *                       for which optional grid points are defined. This value
+ *                       is set to zero, if gfld->numoct_opt=0.
+ *        gfdl->ipdtnum = Product Definition Template Number(see Code Table 4.0)
+ *        gfld->ipdtmpl  = Contains the data values for the specified Product
+ *                         Definition Template ( N=gfdl->ipdtnum ). Each element
+ *                         of this integer array contains an entry in the
+ *                         order specified of Product Defintion Template 4.N.
+ *                         This element is a pointer to an array
+ *                         that holds the data.
+ *        gfld->ipdtlen = Number of elements in gfld->ipdtmpl[]. i.e. number of
+ *                       entries in Product Defintion Template 4.N
+ *                       ( N=gfdl->ipdtnum ).
+ *        gfld->coord_list  = Real array containing floating point values
+ *                            intended to document the vertical discretisation
+ *                            associated to model data on hybrid coordinate
+ *                            vertical levels. (part of Section 4)
+ *                            This element is a pointer to an array
+ *                            that holds the data.
+ *        gfld->num_coord = number of values in array gfld->coord_list[].
+ *        gfld->ndpts = Number of data points unpacked and returned.
+ *        gfld->idrtnum = Data Representation Template Number
+ *                       ( see Code Table 5.0)
+ *        gfld->idrtmpl  = Contains the data values for the specified Data
+ *                         Representation Template ( N=gfld->idrtnum ). Each
+ *                         element of this integer array contains an entry
+ *                         (in the order specified) of Product Defintion
+ *                         Template 5.N.
+ *                         This element is a pointer to an array
+ *                         that holds the data.
+ *        gfld->idrtlen = Number of elements in gfld->idrtmpl[]. i.e. number
+ *                       of entries in Data Representation Template 5.N
+ *                       ( N=gfld->idrtnum ).
+ *        gfld->unpacked = logical value indicating whether the bitmap and
+ *                        data values were unpacked. If false,
+ *                        gfld->bmap and gfld->fld pointers are nullified.
+ *        gfld->expanded = Logical value indicating whether the data field
+ *                         was expanded to the grid in the case where a
+ *                         bit-map is present. If true, the data points in
+ *                         gfld->fld match the grid points and zeros were
+ *                         inserted at grid points where data was bit-mapped
+ *                         out. If false, the data values in gfld->fld were
+ *                         not expanded to the grid and are just a consecutive
+ *                         array of data points corresponding to each value of
+ *                         "1" in gfld->bmap.
+ *        gfld->ibmap = Bitmap indicator ( see Code Table 6.0 )
+ *                     0 = bitmap applies and is included in Section 6.
+ *                     1-253 = Predefined bitmap applies
+ *                     254 = Previously defined bitmap applies to this field
+ *                     255 = Bit map does not apply to this product.
+ *        gfld->bmap  = integer array containing decoded bitmap,
+ *                      if gfld->ibmap=0 or gfld->ibap=254. Otherwise nullified
+ *                      This element is a pointer to an array
+ *                      that holds the data.
+ *        gfld->fld  = Array of gfld->ndpts unpacked data points.
+ *                     This element is a pointer to an array
+ *                     that holds the data.
+ * </pre>
+ *
+ * @return
+ * - 0 no error
+ * - 1 Beginning characters "GRIB" not found.
+ * - 2 GRIB message is not Edition 2.
+ * - 3 The data field request number was not positive.
+ * - 4 End string "7777" found, but not where expected.
+ * - 6 GRIB message did not contain the requested number of data fields.
+ * - 7 End string "7777" not found at end of message.
+ * - 8 Unrecognized Section encountered.
+ * - 9 Data Representation Template 5.NN not yet implemented.
+ * - 15 Error unpacking Section 1.
+ * - 16 Error unpacking Section 2.
+ * - 10 Error unpacking Section 3.
+ * - 11 Error unpacking Section 4.
+ * - 12 Error unpacking Section 5.
+ * - 13 Error unpacking Section 6.
+ * - 14 Error unpacking Section 7.
+ * - 17 Previous bitmap specified, yet none exists.
+ *
+ * @note Struct gribfield is allocated by this routine and it also
+ * contains pointers to many arrays of data that were allocated during
+ * decoding. Users are encouraged to free up this memory, when it is
+ * no longer needed, by an explicit call to routine g2_free.
+ *
+ *          EXAMPLE:
+ * @code
+ *              #include "grib2.h"
+ *              gribfield *gfld;
+ *              ret=g2_getfld(cgrib,1,1,1,&gfld);
+ *                ...
+ *              g2_free(gfld);
+ * @endcode
+ *
+ * Routine g2_info can be used to first determine how many data fields
+ * exist in a given GRIB message.
+ *
+ * @note It may not always be possible to expand a bit-mapped data
+ * field. If a pre-defined bit-map is used and not included in the
+ * GRIB2 message itself, this routine would not have the necessary
+ * information to expand the data. In this case, gfld->expanded would
+ * would be set to 0 (false), regardless of the value of input
+ * argument expand.
+ *
+ * @author Stephen Gilbert @date 2002-10-28
+ */
 g2int g2_getfld(unsigned char *cgrib,g2int ifldnum,g2int unpack,g2int expand,
                 gribfield **gfld)
 {
