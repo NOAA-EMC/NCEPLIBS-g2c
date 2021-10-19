@@ -65,6 +65,7 @@ set(lib_name ${PROJECT_NAME})
 add_library(${lib_name} STATIC ${c_src})
 
 target_compile_definitions(${lib_name} PUBLIC)
+set_property(TARGET ${lib_name} PROPERTY C_STANDARD 99)
 
 set(private_includes "")
 
