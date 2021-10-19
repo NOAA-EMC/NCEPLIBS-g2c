@@ -8,6 +8,7 @@ function(g2c_test name)
   add_executable(${name} ${name}.c)
   add_dependencies(${name} g2c)
   target_link_libraries(${name} PRIVATE g2c)
+  target_include_directories(${name} PRIVATE ${CMAKE_BINARY_DIR}/src)
   add_test(NAME ${name} COMMAND ${name})
 endfunction()
 

@@ -65,9 +65,10 @@ set(lib_name ${PROJECT_NAME})
 add_library(${lib_name} STATIC ${c_src})
 
 target_compile_definitions(${lib_name} PUBLIC)
+target_include_directories(${lib_name} PRIVATE ${CMAKE_BINARY_DIR}/src)
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 99)
 
-set(private_includes "${CMAKE_BINARY_DIR}/src")
+set(private_includes "")
 
 
 if(PNG_FOUND)
