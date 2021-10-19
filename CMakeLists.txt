@@ -47,7 +47,7 @@ if(USE_Jasper AND USE_OpenJPEG)
 endif()
 
 if(USE_Jasper)
-  find_package(Jasper REQUIRED)
+  find_package(Jasper 2.0.25 REQUIRED)
 else()
   message(STATUS "Will not build Jasper support")
 endif()
