@@ -1,3 +1,8 @@
+# This is the CMake file for the src directory of the NCEPLIBS-g2c
+# project.
+#
+# Mark Potts, Kyle Gerheiser
+
 set(c_src
     ${CMAKE_CURRENT_SOURCE_DIR}/cmplxpack.c
     ${CMAKE_CURRENT_SOURCE_DIR}/compack.c
