@@ -153,7 +153,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define G2_VERSION "g2clib-1.6.4" /**< Current version of NCEPLIBS-g2c library. */
+#define G2_VERSION "g2clib-@pVersion@" /**< Current version of NCEPLIBS-g2c library. */
 
 typedef int64_t g2int; /**< Long integer type. */
 typedef uint64_t g2intu; /**< Unsigned long integer type. */

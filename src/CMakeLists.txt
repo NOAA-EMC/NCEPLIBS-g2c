@@ -3,6 +3,11 @@
 #
 # Mark Potts, Kyle Gerheiser
 
+# Create this header file, which has the contents of the VERSION file
+# substituted in.
+CONFIGURE_FILE("${CMAKE_SOURCE_DIR}/src/grib2.h.in" "${CMAKE_BINARY_DIR}/src/grib2.h"
+  @ONLY)
+
 set(c_src
     ${CMAKE_CURRENT_SOURCE_DIR}/cmplxpack.c
     ${CMAKE_CURRENT_SOURCE_DIR}/compack.c
