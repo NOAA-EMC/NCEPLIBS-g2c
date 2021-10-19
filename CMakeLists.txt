@@ -70,14 +70,9 @@ set(lib_name ${PROJECT_NAME})
 add_library(${lib_name} STATIC ${c_src})
 
 target_compile_definitions(${lib_name} PUBLIC)
-target_include_directories(${lib_name} PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/src>
-    $<INSTALL_INTERFACE:include>)
-#  target_include_directories(${lib_name} PRIVATE ${CMAKE_BINARY_DIR}/src)
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 99)
 
 set(private_includes "")
-
 
 if(PNG_FOUND)
   message(STATUS "Found PNG:")
@@ -113,7 +108,7 @@ set_target_properties(${lib_name} PROPERTIES PUBLIC_HEADER "src/grib2.h")
 target_include_directories(
   ${lib_name}
   PRIVATE ${private_includes}
-  PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+  PUBLIC $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/src>
          $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
 )
 
