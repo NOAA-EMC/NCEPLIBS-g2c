@@ -193,65 +193,65 @@ typedef g2int logical; /**< Logical type. */
  *                       primary missing values, this maximum value
  *                       is reserved to hold the primary missing value
  *                       indicator and lmiss = 1. when is523 = 2,
- *                       the value just below the maximum (i.e.,
-                                                           *                       2**mbits-2) is reserved to hold the secondary
-                                                           *                       missing value indicator and lmiss = 2.
-                                                           *              lminpk = local value of minpk. this will be adjusted
-                                                           *                       upward whenever ndg is not large enough to hold
-                                                           *                       all the groups.
-                                                           *              mallow = the largest allowable value for packing.
-                                                           *              mislla = set to 1 when all values in group a are missing.
-                                                           *                       this is used to distinguish between a real
-                                                           *                       minimum when all values are not missing
-                                                           *                       and a minimum that has been set to zero when
-                                                           *                       all values are missing. 0 otherwise.
-                                                           *                       note that this does not distinguish between
-                                                           *                       primary and secondary missings when secondary
-                                                           *                       missings are present. this means that
-                                                           *                       lbit( ) will not be zero with the resulting
-                                                           *                       compression efficiency when secondary missings
-                                                           *                       are present. also note that a check has been
-                                                           *                       made earlier to determine that secondary
-                                                           *                       missings are really there.
-                                                           *              misllb = set to 1 when all values in group b are missing.
-                                                           *                       this is used to distinguish between a real
-                                                           *                       minimum when all values are not missing
-                                                           *                       and a minimum that has been set to zero when
-                                                           *                       all values are missing. 0 otherwise.
-                                                           *              misllc = performs the same function for group c that
-                                                           *                       mislla and misllb do for groups b and c,
-                                                           *                       respectively.
-                                                           *            ibxx2(j) = an array that when this routine is first entered
-                                                           *                       is set to 2**j, j=0,30. ibxx2(30) = 2**30, which
-                                                           *                       is the largest value packable, because 2**31
-                                                           *                       is larger than the integer word size.
-                                                           *              ifirst = set by data statement to 0. changed to 1 on
-                                                           *                       first
-                                                           *                       entry when ibxx2( ) is filled.
-                                                           *               minak = keeps track of the location in ic( ) where the
-                                                           *                       minimum value in group a is located.
-                                                           *               maxak = does the same as minak, except for the maximum.
-                                                           *               minbk = the same as minak for group b.
-                                                           *               maxbk = the same as maxak for group b.
-                                                           *               minck = the same as minak for group c.
-                                                           *               maxck = the same as maxak for group c.
-                                                           *                adda = keeps track whether or not an attempt to add
-                                                           *                       points to group a was made. if so, then adda
-                                                           *                       keeps from trying to put one back into b.
-                                                           *                       (logical)
-                                                           *              ibitbs = keeps current value if ibitb so that loop
-                                                           *                       ending at 166 doesn't have to start at
-                                                           *                       ibitb = 0 every time.
-                                                           *           misslx(j) = mallow except when a group is all one value (and
-                                                           *                       lbit(j) = 0) and that value is missing. in
-                                                           *                       that case, misslx(j) is missp or misss. this
-                                                           *                       gets inserted into jmin(j) later as the
-                                                           *                       missing indicator; it can't be put in until
-                                                           *                       the end, because jmin( ) is used to calculate
-                                                           *                       the maximum number of bits (ibits) needed to
-                                                           *                       pack jmin( ).
-                                                           * </pre>
-                                                           */
+ *                       the value just below the maximum i.e.,
+ *                       2**mbits-2 is reserved to hold the secondary
+ *                       missing value indicator and lmiss = 2.
+ *              lminpk = local value of minpk. this will be adjusted
+ *                       upward whenever ndg is not large enough to hold
+ *                       all the groups.
+ *              mallow = the largest allowable value for packing.
+ *              mislla = set to 1 when all values in group a are missing.
+ *                       this is used to distinguish between a real
+ *                       minimum when all values are not missing
+ *                       and a minimum that has been set to zero when
+ *                       all values are missing. 0 otherwise.
+ *                       note that this does not distinguish between
+ *                       primary and secondary missings when secondary
+ *                       missings are present. this means that
+ *                       lbit( ) will not be zero with the resulting
+ *                       compression efficiency when secondary missings
+ *                       are present. also note that a check has been
+ *                       made earlier to determine that secondary
+ *                       missings are really there.
+ *              misllb = set to 1 when all values in group b are missing.
+ *                       this is used to distinguish between a real
+ *                       minimum when all values are not missing
+ *                       and a minimum that has been set to zero when
+ *                       all values are missing. 0 otherwise.
+ *              misllc = performs the same function for group c that
+ *                       mislla and misllb do for groups b and c,
+ *                       respectively.
+ *            ibxx2(j) = an array that when this routine is first entered
+ *                       is set to 2**j, j=0,30. ibxx2(30) = 2**30, which
+ *                       is the largest value packable, because 2**31
+ *                       is larger than the integer word size.
+ *              ifirst = set by data statement to 0. changed to 1 on
+ *                       first
+ *                       entry when ibxx2( ) is filled.
+ *               minak = keeps track of the location in ic( ) where the
+ *                       minimum value in group a is located.
+ *               maxak = does the same as minak, except for the maximum.
+ *               minbk = the same as minak for group b.
+ *               maxbk = the same as maxak for group b.
+ *               minck = the same as minak for group c.
+ *               maxck = the same as maxak for group c.
+ *                adda = keeps track whether or not an attempt to add
+ *                       points to group a was made. if so, then adda
+ *                       keeps from trying to put one back into b.
+ *                       (logical)
+ *              ibitbs = keeps current value if ibitb so that loop
+ *                       ending at 166 doesn't have to start at
+ *                       ibitb = 0 every time.
+ *           misslx(j) = mallow except when a group is all one value (and
+ *                       lbit(j) = 0) and that value is missing. in
+ *                       that case, misslx(j) is missp or misss. this
+ *                       gets inserted into jmin(j) later as the
+ *                       missing indicator; it can't be put in until
+ *                       the end, because jmin( ) is used to calculate
+ *                       the maximum number of bits (ibits) needed to
+ *                       pack jmin( ).
+ * </pre>
+ */
 int
 pack_gp(integer *kfildo, integer *ic, integer *nxy,
         integer *is523, integer *minpk, integer *inc, integer *missp, integer
