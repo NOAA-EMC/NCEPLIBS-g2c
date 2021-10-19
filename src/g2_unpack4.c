@@ -89,7 +89,7 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
     if (lipdstmpl == 0) {
         ierr=6;
         *mappdslen=0;
-        *ipdstmpl=0;     //NULL
+        *ipdstmpl=0;     /*NULL */
         if ( mappds != 0 ) free(mappds);
         return(ierr);
     }

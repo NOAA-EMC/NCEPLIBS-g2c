@@ -71,21 +71,21 @@ g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1)
 **  ( except for total length of GRIB message )
 **
 */
-    cgrib[0]=0x47;   // 'G'            // Beginning of GRIB message
-    cgrib[1]=0x52;   // 'R'
-    cgrib[2]=0x49;   // 'I'
-    cgrib[3]=0x42;   // 'B'
-    sbit(cgrib,&zero,32,16);           // reserved for future use
-    sbit(cgrib,listsec0+0,48,8);       // Discipline
-    sbit(cgrib,listsec0+1,56,8);       // GRIB edition number
-    lensec0=16;      // bytes (octets)
+    cgrib[0]=0x47;   /* 'G'            // Beginning of GRIB message */
+    cgrib[1]=0x52;   /* 'R' */
+    cgrib[2]=0x49;   /* 'I' */
+    cgrib[3]=0x42;   /* 'B' */
+    sbit(cgrib,&zero,32,16);           /* reserved for future use */
+    sbit(cgrib,listsec0+0,48,8);       /* Discipline */
+    sbit(cgrib,listsec0+1,56,8);       /* GRIB edition number */
+    lensec0=16;      /* bytes (octets) */
 /*
 **  Pack Section 1 - Identification Section
 **
 */
-    ibeg=lensec0*8;        //   Calculate offset for beginning of section 1
-    iofst=ibeg+32;         //   leave space for length of section
-    sbit(cgrib,&one,iofst,8);     // Store section number ( 1 )
+    ibeg=lensec0*8;        /*   Calculate offset for beginning of section 1 */
+    iofst=ibeg+32;         /*   leave space for length of section */
+    sbit(cgrib,&one,iofst,8);     /* Store section number ( 1 ) */
     iofst=iofst+8;
 /*
 **   Pack up each input value in array listsec1 into the

@@ -42,10 +42,10 @@ simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2float *fld)
         return(1);
     }
 
-//
-//  if nbits equals 0, we have a constant field where the reference value
-//  is the data value at each gridpoint
-//
+/* */
+/*  if nbits equals 0, we have a constant field where the reference value */
+/*  is the data value at each gridpoint */
+/* */
     if (nbits != 0) {
         gbits(cpack,ifld,0,nbits,0,ndpts);
         for (j=0;j<ndpts;j++) {

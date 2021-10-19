@@ -81,5 +81,5 @@ g2_unpack1(unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)
         *iofst=*iofst+nbits;
     }
 
-    return(ierr);    // End of Section 1 processing
+    return(ierr);    /* End of Section 1 processing */
 }

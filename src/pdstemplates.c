@@ -77,15 +77,15 @@ gtemplate *getpdstemplate(g2int number)
         new->needext=templatespds[index].needext;
         new->map=(g2int *)templatespds[index].mappds;
         new->extlen=0;
-        new->ext=0;        //NULL
+        new->ext=0;        /*NULL */
         return(new);
     }
     else {
         printf("getpdstemplate: PDS Template 4.%d not defined.\n",(int)number);
-        return(0);        //NULL
+        return(0);        /*NULL */
     }
 
-    return(0);        //NULL
+    return(0);        /*NULL */
 }
 
 /**
@@ -376,7 +376,7 @@ gtemplate *extpdstemplate(g2int number,g2int *list)
                 new->ext[l+i]=1;
             }
         }
-// PDT 4.57  (10/07/2015)
+/* PDT 4.57  (10/07/2015) */
         else if ( number == 57 ) {
             new->extlen=list[6]*15;
             new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
@@ -399,7 +399,7 @@ gtemplate *extpdstemplate(g2int number,g2int *list)
                 new->ext[l+14]=-4;
             }
         }
-// PDT 4.61  (10/07/2015)
+/* PDT 4.61  (10/07/2015) */
         else if ( number == 61 ) {
             if ( list[30] > 1 ) {
                 new->extlen=(list[30]-1)*6;

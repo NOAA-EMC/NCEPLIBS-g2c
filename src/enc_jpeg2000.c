@@ -18,7 +18,7 @@ void dummy(void) {}
  * specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1)
  * using JasPer Software version 1.500.4 (or 1.700.2) written by the
  * University of British Columbia, Image Power Inc, and others.
- * JasPer is available at http://www.ece.uvic.ca/~mdadams/jasper/.
+ * JasPer is available at http://www.ece.uvic.ca/~mdadams/jasper/. 
  *
  * PROGRAM HISTORY LOG:
  * - 2002-12-02  Gilbert
@@ -69,18 +69,18 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
   printf(" enc_jpeg2000:nbits %ld\n",nbits);
   printf(" enc_jpeg2000:jpclen %ld\n",jpclen);
 */
-//    jas_init();
+/*    jas_init(); */
 
-//
-//    Set lossy compression options, if requested.
-//
+/* */
+/*    Set lossy compression options, if requested. */
+/* */--
     if ( ltype != 1 ) {
         opts[0]=(char)0;
     }
     else {
         snprintf(opts,MAXOPTSSIZE,"mode=real\nrate=%f",1.0/(float)ratio);
     }
-    if ( retry == 1 ) {             // option to increase number of guard bits
+    if ( retry == 1 ) {             /* option to increase number of guard bits */
         strcat(opts,"\nnumgbits=4");
     }
     //printf("SAGopts: %s\n",opts);

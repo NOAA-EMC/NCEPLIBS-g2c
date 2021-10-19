@@ -110,7 +110,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
     iofst=ibeg+32;         /*   leave space for length of section */
     sbit(cgrib,&two,iofst,8);     /* Store section number (2) */
     istart=lencurr+5;
-    //cgrib(istart+1:istart+lcsec2)=csec2(1:lcsec2)
+    /*cgrib(istart+1:istart+lcsec2)=csec2(1:lcsec2) */
     k=0;
     for (j=istart;j<istart+lcsec2;j++)
     {

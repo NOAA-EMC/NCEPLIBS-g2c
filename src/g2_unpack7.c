@@ -112,7 +112,7 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
             fprintf(stderr,"g2_unpack7: Cannot use GDT 3.%d to unpack Data Section 5.51.\n",(int)igdsnum);
             ierr=5;
             if ( lfld != 0 ) free(lfld);
-            *fld=0;     //NULL
+            *fld=0;     /*NULL */
             return(ierr);
         }
 #if defined USE_JPEG2000 || defined USE_OPENJPEG

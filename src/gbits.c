@@ -70,7 +70,7 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte,
         nbit = nbit + nbyte + nskip;
 
         /*        first byte */
-        tbit= ( bitcnt < (8-ibit) ) ? bitcnt : 8-ibit;  // find min
+        tbit= ( bitcnt < (8-ibit) ) ? bitcnt : 8-ibit;  /* find min */
         itmp = (int)*(in+index) & ones[7-ibit];
         if (tbit != 8-ibit) itmp >>= (8-ibit-tbit);
         index++;

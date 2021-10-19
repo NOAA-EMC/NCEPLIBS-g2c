@@ -105,11 +105,11 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
             g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap)
 {
     g2int ierr;
-    static unsigned char G=0x47;       // 'G'
-    static unsigned char R=0x52;       // 'R'
-    static unsigned char I=0x49;       // 'I'
-    static unsigned char B=0x42;       // 'B'
-    static unsigned char s7=0x37;   // '7'
+    static unsigned char G=0x47;       /* 'G' */
+    static unsigned char R=0x52;       /* 'R' */
+    static unsigned char I=0x49;       /* 'I' */
+    static unsigned char B=0x42;       /* 'B' */
+    static unsigned char s7=0x37;   /* '7' */
 
     unsigned char *cpack;
     static g2int  zero=0,one=1,four=4,five=5,six=6,seven=7;
@@ -126,58 +126,58 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     unsigned int allones=4294967295u;
 
     ierr=0;
-//
-//  Check to see if beginning of GRIB message exists
-//
+/* */
+/*  Check to see if beginning of GRIB message exists */
+/* */
     if ( cgrib[0]!=G || cgrib[1]!=R || cgrib[2]!=I || cgrib[3]!=B ) {
         printf("g2_addfield: GRIB not found in given message.\n");
         printf("g2_addfield: Call to routine g2_create required to initialize GRIB messge.\n");
         ierr=-1;
         return(ierr);
     }
-//
-//  Get current length of GRIB message
-//
+/* */
+/*  Get current length of GRIB message */
+/* */
     gbit(cgrib,&lencurr,96,32);
-//
-//  Check to see if GRIB message is already complete
-//
+/* */
+/*  Check to see if GRIB message is already complete */
+/* */
     if ( cgrib[lencurr-4]==s7 && cgrib[lencurr-3]==s7 &&
          cgrib[lencurr-2]==s7 && cgrib[lencurr-1]==s7 ) {
         printf("g2_addfield: GRIB message already complete.  Cannot add new section.\n");
         ierr=-2;
         return(ierr);
     }
-//
-//  Loop through all current sections of the GRIB message to
-//  find the last section number.
-//
+/* */
+/*  Loop through all current sections of the GRIB message to */
+/*  find the last section number. */
+/* */
     issec3=0;
     isprevbmap=0;
-    len=16;    // length of Section 0
+    len=16;    /* length of Section 0 */
     for (;;) {
-        //    Get number and length of next section
+        /*    Get number and length of next section */
         iofst=len*8;
         gbit(cgrib,&ilen,iofst,32);
         iofst=iofst+32;
         gbit(cgrib,&isecnum,iofst,8);
         iofst=iofst+8;
-        //  Check if previous Section 3 exists
+        /*  Check if previous Section 3 exists */
         if (isecnum == 3) {
             issec3=1;
             lpos3=len;
         }
-        //  Check if a previous defined bitmap exists
+        /*  Check if a previous defined bitmap exists */
         if (isecnum == 6) {
             gbit(cgrib,&ibmprev,iofst,8);
             iofst=iofst+8;
             if ((ibmprev >= 0) && (ibmprev <= 253)) isprevbmap=1;
         }
         len=len+ilen;
-        //    Exit loop if last section reached
+        /*    Exit loop if last section reached */
         if ( len == lencurr ) break;
-        //    If byte count for each section doesn't match current
-        //    total length, then there is a problem.
+        /*    If byte count for each section doesn't match current */
+        /*    total length, then there is a problem. */
         if ( len > lencurr ) {
             printf("g2_addfield: Section byte counts don''t add to total.\n");
             printf("g2_addfield: Sum of section byte counts = %ld\n",len);
@@ -186,17 +186,17 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
             return(ierr);
         }
     }
-//
-//  Sections 4 through 7 can only be added after section 3 or 7.
-//
+/* */
+/*  Sections 4 through 7 can only be added after section 3 or 7. */
+/* */
     if ( (isecnum != 3) && (isecnum != 7) ) {
         printf("g2_addfield: Sections 4-7 can only be added after Section 3 or 7.\n");
         printf("g2_addfield: Section ',isecnum,' was the last found in given GRIB message.\n");
         ierr=-4;
         return(ierr);
-//
-//  Sections 4 through 7 can only be added if section 3 was previously defined.
-//
+/* */
+/*  Sections 4 through 7 can only be added if section 3 was previously defined. */
+/* */
     }
     else if ( ! issec3) {
         printf("g2_addfield: Sections 4-7 can only be added if Section 3 was previously included.\n");
@@ -205,40 +205,40 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         ierr=-6;
         return(ierr);
     }
-//
-//  Add Section 4  - Product Definition Section
-//
-    ibeg=lencurr*8;        //   Calculate offset for beginning of section 4
-    iofst=ibeg+32;         //   leave space for length of section
-    sbit(cgrib,&four,iofst,8);     // Store section number ( 4 )
+/* */
+/*  Add Section 4  - Product Definition Section */
+/* */
+    ibeg=lencurr*8;        /*   Calculate offset for beginning of section 4 */
+    iofst=ibeg+32;         /*   leave space for length of section */
+    sbit(cgrib,&four,iofst,8);     /* Store section number ( 4 ) */
     iofst=iofst+8;
-    sbit(cgrib,&numcoord,iofst,16);   // Store num of coordinate values
+    sbit(cgrib,&numcoord,iofst,16);   /* Store num of coordinate values */
     iofst=iofst+16;
-    sbit(cgrib,&ipdsnum,iofst,16);    // Store Prod Def Template num.
+    sbit(cgrib,&ipdsnum,iofst,16);    /* Store Prod Def Template num. */
     iofst=iofst+16;
-    //
-    //   Get Product Definition Template
-    //
+    /* */
+    /*   Get Product Definition Template */
+    /* */
     mappds=getpdstemplate(ipdsnum);
-    if (mappds == 0) {          // undefined template
+    if (mappds == 0) {          /* undefined template */
         ierr=-5;
         return(ierr);
     }
-    //
-    //   Extend the Product Definition Template, if necessary.
-    //   The number of values in a specific template may vary
-    //   depending on data specified in the "static" part of the
-    //   template.
-    //
+    /* */
+    /*   Extend the Product Definition Template, if necessary. */
+    /*   The number of values in a specific template may vary */
+    /*   depending on data specified in the "static" part of the */
+    /*   template. */
+    /* */
     if ( mappds->needext ) {
         free(mappds);
         mappds=extpdstemplate(ipdsnum,ipdstmpl);
     }
-    //
-    //   Pack up each input value in array ipdstmpl into the
-    //   the appropriate number of octets, which are specified in
-    //   corresponding entries in array mappds.
-    //
+    /* */
+    /*   Pack up each input value in array ipdstmpl into the */
+    /*   the appropriate number of octets, which are specified in */
+    /*   corresponding entries in array mappds. */
+    /* */
     for (i=0;i<mappds->maplen;i++) {
         nbits=abs(mappds->map[i])*8;
         if ( (mappds->map[i] >= 0) || (ipdstmpl[i] >= 0) )
@@ -250,7 +250,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         }
         iofst=iofst+nbits;
     }
-    //  Pack template extension, if appropriate
+    /*  Pack template extension, if appropriate */
     j=mappds->maplen;
     if ( mappds->needext && (mappds->extlen > 0) ) {
         for (i=0;i<mappds->extlen;i++) {
@@ -267,10 +267,10 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         }
     }
     free(mappds);
-    //
-    //   Add Optional list of vertical coordinate values
-    //   after the Product Definition Template, if necessary.
-    //
+    /* */
+    /*   Add Optional list of vertical coordinate values */
+    /*   after the Product Definition Template, if necessary. */
+    /* */
     if ( numcoord != 0 ) {
         coordieee=(g2int *)calloc(numcoord,sizeof(g2int));
         mkieee(coordlist,coordieee,numcoord);
@@ -278,27 +278,27 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         iofst=iofst+(32*numcoord);
         free(coordieee);
     }
-    //
-    //   Calculate length of section 4 and store it in octets
-    //   1-4 of section 4.
-    //
+    /* */
+    /*   Calculate length of section 4 and store it in octets */
+    /*   1-4 of section 4. */
+    /* */
     lensec4=(iofst-ibeg)/8;
     sbit(cgrib,&lensec4,ibeg,32);
-//
-//  Pack Data using appropriate algorithm
-//
-    //
-    //   Get Data Representation Template
-    //
+/* */
+/*  Pack Data using appropriate algorithm */
+/* */
+    /* */
+    /*   Get Data Representation Template */
+    /* */
     mapdrs=getdrstemplate(idrsnum);
     if (mapdrs == 0) {
         ierr=-5;
         return(ierr);
     }
-    //
-    //  contract data field, removing data at invalid grid points,
-    //  if bit-map is provided with field.
-    //
+    /* */
+    /*  contract data field, removing data at invalid grid points, */
+    /*  if bit-map is provided with field. */
+    /* */
     if ( ibmap == 0 || ibmap==254 ) {
         pfld=(g2float *)malloc(ngrdpts*sizeof(g2float));
         ndpts=0;
@@ -313,15 +313,15 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     nsize=ndpts*4;
     if ( nsize < minsize ) nsize=minsize;
     cpack=malloc(nsize);
-    if (idrsnum == 0)           //  Simple Packing
+    if (idrsnum == 0)           /*  Simple Packing */
         simpack(pfld,ndpts,idrstmpl,cpack,&lcpack);
-    else if (idrsnum==2 || idrsnum==3)           //  Complex Packing
+    else if (idrsnum==2 || idrsnum==3)           /*  Complex Packing */
         cmplxpack(pfld,ndpts,idrsnum,idrstmpl,cpack,&lcpack);
-    else if (idrsnum == 50) {         //  Sperical Harmonic Simple Packing
+    else if (idrsnum == 50) {         /*  Sperical Harmonic Simple Packing */
         simpack(pfld+1,ndpts-1,idrstmpl,cpack,&lcpack);
-        mkieee(pfld+0,idrstmpl+4,1);  // ensure RE(0,0) value is IEEE format
+        mkieee(pfld+0,idrstmpl+4,1);  /* ensure RE(0,0) value is IEEE format */
     }
-    else if (idrsnum == 51) {         //  Sperical Harmonic Complex Packing
+    else if (idrsnum == 51) {         /*  Sperical Harmonic Complex Packing */
         getpoly(cgrib+lpos3,&JJ,&KK,&MM);
         if ( JJ!=0 && KK!=0 && MM!=0 )
             specpack(pfld,ndpts,JJ,KK,MM,idrstmpl,cpack,&lcpack);
@@ -386,7 +386,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         ierr=-7;
         return(ierr);
     }
-    if ( ibmap == 0 || ibmap==254 ) {      // free temp space
+    if ( ibmap == 0 || ibmap==254 ) {      /* free temp space */
         if (fld != pfld) free(pfld);
     }
     if ( lcpack < 0 ) {
@@ -395,22 +395,22 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         return(ierr);
     }
 
-//
-//  Add Section 5  - Data Representation Section
-//
-    ibeg=iofst;            //   Calculate offset for beginning of section 5
-    iofst=ibeg+32;         //   leave space for length of section
-    sbit(cgrib,&five,iofst,8);     // Store section number ( 5 )
+/* */
+/*  Add Section 5  - Data Representation Section */
+/* */
+    ibeg=iofst;            /*   Calculate offset for beginning of section 5 */
+    iofst=ibeg+32;         /*   leave space for length of section */
+    sbit(cgrib,&five,iofst,8);     /* Store section number ( 5 ) */
     iofst=iofst+8;
-    sbit(cgrib,&ndpts,iofst,32);    // Store num of actual data points
+    sbit(cgrib,&ndpts,iofst,32);    /* Store num of actual data points */
     iofst=iofst+32;
-    sbit(cgrib,&idrsnum,iofst,16);    // Store Data Repr. Template num.
+    sbit(cgrib,&idrsnum,iofst,16);    /* Store Data Repr. Template num. */
     iofst=iofst+16;
-    //
-    //   Pack up each input value in array idrstmpl into the
-    //   the appropriate number of octets, which are specified in
-    //   corresponding entries in array mapdrs.
-    //
+    /* */
+    /*   Pack up each input value in array idrstmpl into the */
+    /*   the appropriate number of octets, which are specified in */
+    /*   corresponding entries in array mapdrs. */
+    /* */
     for (i=0;i<mapdrs->maplen;i++) {
         nbits=abs(mapdrs->map[i])*8;
         if ( (mapdrs->map[i] >= 0) || (idrstmpl[i] >= 0) )
@@ -423,76 +423,76 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         iofst=iofst+nbits;
     }
     free(mapdrs);
-    //
-    //   Calculate length of section 5 and store it in octets
-    //   1-4 of section 5.
-    //
+    /* */
+    /*   Calculate length of section 5 and store it in octets */
+    /*   1-4 of section 5. */
+    /* */
     lensec5=(iofst-ibeg)/8;
     sbit(cgrib,&lensec5,ibeg,32);
 
-//
-//  Add Section 6  - Bit-Map Section
-//
-    ibeg=iofst;            //   Calculate offset for beginning of section 6
-    iofst=ibeg+32;         //   leave space for length of section
-    sbit(cgrib,&six,iofst,8);     // Store section number ( 6 )
+/* */
+/*  Add Section 6  - Bit-Map Section */
+/* */
+    ibeg=iofst;            /*   Calculate offset for beginning of section 6 */
+    iofst=ibeg+32;         /*   leave space for length of section */
+    sbit(cgrib,&six,iofst,8);     /* Store section number ( 6 ) */
     iofst=iofst+8;
-    sbit(cgrib,&ibmap,iofst,8);    // Store Bit Map indicator
+    sbit(cgrib,&ibmap,iofst,8);    /* Store Bit Map indicator */
     iofst=iofst+8;
-    //
-    //  Store bitmap, if supplied
-    //
+    /* */
+    /*  Store bitmap, if supplied */
+    /* */
     if (ibmap == 0) {
-        sbits(cgrib,bmap,iofst,1,0,ngrdpts);    // Store BitMap
+        sbits(cgrib,bmap,iofst,1,0,ngrdpts);    /* Store BitMap */
         iofst=iofst+ngrdpts;
     }
-    //
-    //  If specifying a previously defined bit-map, make sure
-    //  one already exists in the current GRIB message.
-    //
+    /* */
+    /*  If specifying a previously defined bit-map, make sure */
+    /*  one already exists in the current GRIB message. */
+    /* */
     if ((ibmap==254) && ( ! isprevbmap)) {
         printf("g2_addfield: Requested previously defined bitmap,");
         printf(" but one does not exist in the current GRIB message.\n");
         ierr=-8;
         return(ierr);
     }
-    //
-    //   Calculate length of section 6 and store it in octets
-    //   1-4 of section 6.  Pad to end of octect, if necessary.
-    //
+    /* */
+    /*   Calculate length of section 6 and store it in octets */
+    /*   1-4 of section 6.  Pad to end of octect, if necessary. */
+    /* */
     left=8-(iofst%8);
     if (left != 8) {
-        sbit(cgrib,&zero,iofst,left);     // Pad with zeros to fill Octet
+        sbit(cgrib,&zero,iofst,left);     /* Pad with zeros to fill Octet */
         iofst=iofst+left;
     }
     lensec6=(iofst-ibeg)/8;
     sbit(cgrib,&lensec6,ibeg,32);
 
-//
-//  Add Section 7  - Data Section
-//
-    ibeg=iofst;            //   Calculate offset for beginning of section 7
-    iofst=ibeg+32;        //   leave space for length of section
-    sbit(cgrib,&seven,iofst,8);    // Store section number ( 7 )
+/* */
+/*  Add Section 7  - Data Section */
+/* */
+    ibeg=iofst;            /*   Calculate offset for beginning of section 7 */
+    iofst=ibeg+32;        /*   leave space for length of section */
+    sbit(cgrib,&seven,iofst,8);    /* Store section number ( 7 ) */
     iofst=iofst+8;
-    //      Store Packed Binary Data values, if non-constant field
+    /*      Store Packed Binary Data values, if non-constant field */
     if (lcpack != 0) {
         ioctet=iofst/8;
-        //cgrib(ioctet+1:ioctet+lcpack)=cpack(1:lcpack)
+        /*cgrib(ioctet+1:ioctet+lcpack)=cpack(1:lcpack) */
         for (j=0;j<lcpack;j++) cgrib[ioctet+j]=cpack[j];
         iofst=iofst+(8*lcpack);
     }
-    //
-    //   Calculate length of section 7 and store it in octets
-    //   1-4 of section 7.
-    //
+    /* */
+    /*   Calculate length of section 7 and store it in octets */
+    /*   1-4 of section 7. */
+    /* */
     lensec7=(iofst-ibeg)/8;
     sbit(cgrib,&lensec7,ibeg,32);
 
     if( cpack != 0 ) free(cpack);
-//
-//  Update current byte total of message in Section 0
-//
+/* */
+/*  Update current byte total of message in Section 0 */
+/* */
     newlen=lencurr+lensec4+lensec5+lensec6+lensec7;
     sbit(cgrib,&newlen,96,32);
 

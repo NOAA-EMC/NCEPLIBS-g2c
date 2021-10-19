@@ -69,15 +69,15 @@ gtemplate *getdrstemplate(g2int number)
         new->needext=templatesdrs[index].needext;
         new->map=(g2int *)templatesdrs[index].mapdrs;
         new->extlen=0;
-        new->ext=0;        //NULL
+        new->ext=0;        /*NULL */
         return(new);
     }
     else {
         printf("getdrstemplate: DRS Template 5.%d not defined.\n",(int)number);
-        return(0);        //NULL
+        return(0);        /*NULL */
     }
 
-    return(0);        //NULL
+    return(0);        /*NULL */
 }
 
 /**
