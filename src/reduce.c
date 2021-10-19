@@ -1,8 +1,11 @@
-/** @file
- * @brief Determines whether the number of groups should be increased in
- * order to reduce the size of the large groups, and to make that
+/** 
+ * @file
+ * @brief Determines whether the number of groups should be increased
+ * in order to reduce the size of the large groups, and to make that
  * adjustment.
- * @author Glahn @date November 2001
+ *
+ * @author Harry Glahn, The Meteorological Development Lab (MDL) 
+ * @date November 2001
  */
 
 /*#include "f2c.h"*/
@@ -23,9 +26,12 @@ typedef g2float real; /**< Float type. */
  * iterations in reduce. However, the reference must be considered.
  *
  * PROGRAM HISTORY LOG
- * - November 2001 Glahn tdl grib2
- * - March 2002 Glahn comment ier = 715
- * - March 2002 Glahn modified to accommodate lx=1 on entry
+ * - November 2001 Harry Glahn, The Meteorological Development Lab
+ *    (MDL) tdl grib2
+ * - March 2002 Harry Glahn, The Meteorological Development Lab (MDL)
+ *   comment ier = 715
+ * - March 2002 Harry Glahn, The Meteorological Development Lab (MDL)
+ *   modified to accommodate lx=1 on entry
  *
  * DATA SET USE
  * - kfildo - unit number for output (print) file. (output)
@@ -78,7 +84,8 @@ typedef g2float real; /**< Float type. */
  *                       for the group values. (internal)
  * </pre>
  *
- * @author Glahn @date November 2001
+ * @author Harry Glahn, The Meteorological Development Lab (MDL) 
+ * @date November 2001
  */
 int
 reduce(integer *kfildo, integer *jmin, integer *jmax,
