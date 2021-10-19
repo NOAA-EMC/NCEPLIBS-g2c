@@ -103,7 +103,7 @@ endif()
 
 target_link_libraries(${lib_name} INTERFACE m)
 
-set_target_properties(${lib_name} PROPERTIES PUBLIC_HEADER "src/grib2.h")
+set_target_properties(${lib_name} PROPERTIES PUBLIC_HEADER "${CMAKE_BINARY_DIR}/src/grib2.h")
 
 target_include_directories(
   ${lib_name}
