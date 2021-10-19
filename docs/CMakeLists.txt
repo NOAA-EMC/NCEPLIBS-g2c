@@ -6,6 +6,7 @@ if(ENABLE_DOCS)
 
   # Create doxyfile.
   set(abs_top_srcdir "${CMAKE_SOURCE_DIR}")
+  set(abs_top_builddir "${CMAKE_BINARY_DIR}")  
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
 
   # Build documentation with target all.
