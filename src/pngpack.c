@@ -23,9 +23,9 @@ int enc_png(char *,g2int ,g2int ,g2int ,char *);
  * - 1 Binary Scale Factor - used on input.
  * - 2 Decimal Scale Factor - used on input.
  * - 3 number of bits for each grayscale pixel value - ignored on
-     input.
+ input.
  * - 4 Original field type - currently ignored on input, set = 0 on
-     output. Data values assumed to be reals.
+ output. Data values assumed to be reals.
  * @param cpack The packed data field.
  * @param lcpack length of packed field cpack.
  *

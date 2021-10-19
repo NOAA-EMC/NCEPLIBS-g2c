@@ -25,7 +25,7 @@ int dec_png(unsigned char *,g2int *,g2int *,char *);
  */
 g2int
 pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-	  g2float *fld)
+          g2float *fld)
 {
     g2int  *ifld;
     g2int  j,nbits,iret,width,height;

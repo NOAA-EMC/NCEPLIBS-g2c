@@ -32,7 +32,7 @@
  */
 g2int
 specunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2int JJ,
-                 g2int KK, g2int MM, g2float *fld)
+           g2int KK, g2int MM, g2float *fld)
 {
     g2int  *ifld,j,iofst,nbits;
     g2float  ref,bscale,dscale,*unpk;

@@ -33,7 +33,7 @@ void user_flush_data(png_structp );
  * @param length length
  *
  * @author Stephen Gilbert
-*/
+ */
 void
 user_write_data(png_structp png_ptr, png_bytep data, png_uint_32 length)
 {
@@ -57,7 +57,7 @@ user_write_data(png_structp png_ptr, png_bytep data, png_uint_32 length)
  * @param png_ptr Pointer to PNG struct.
  *
  * @author Stephen Gilbert
-*/
+ */
 void user_flush_data(png_structp png_ptr)
 {
     int *do_nothing;
@@ -76,7 +76,7 @@ void user_flush_data(png_structp png_ptr)
  * @return PNG length, or negative number for error.
  *
  * @author Stephen Gilbert
-*/
+ */
 int
 enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf)
 {

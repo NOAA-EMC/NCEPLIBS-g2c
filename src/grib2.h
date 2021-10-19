@@ -93,8 +93,8 @@
  *        gfdl->ipdtnum = Product Definition Template Number (see Code Table 4.0)
  *        gfld->ipdtmpl  = Contains the data values for the specified Product
  *                         Definition Template ( N=gfdl->ipdtnum ).  Each element
- *                         of this integer array contains an entry (in the
- *                         order specified) of Product Defintion Template 4.N.
+ *                         of this integer array contains an entry in the
+ *                         order specified of Product Defintion Template 4.N.
  *                         This element is a pointer to an array
  *                         that holds the data.
  *        gfld->ipdtlen = Number of elements in gfld->ipdtmpl[].  i.e. number of
@@ -151,11 +151,12 @@
 #ifndef _grib2_H
 #define _grib2_H
 #include <stdio.h>
+#include <stdint.h>
 
 #define G2_VERSION "g2clib-1.6.4" /**< Current version of NCEPLIBS-g2c library. */
 
-typedef long g2int; /**< Long integer type. */
-typedef unsigned long g2intu; /**< Unsigned long integer type. */
+typedef int64_t g2int; /**< Long integer type. */
+typedef uint64_t g2intu; /**< Unsigned long integer type. */
 typedef float g2float; /**< Float type. */
 
 /**

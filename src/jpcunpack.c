@@ -27,7 +27,7 @@ int dec_jpeg2000(char *,g2int ,g2int *);
  */
 g2int
 jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-	  g2float *fld)
+          g2float *fld)
 {
 
     g2int  *ifld;

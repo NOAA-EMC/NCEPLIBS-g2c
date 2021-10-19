@@ -1,4 +1,4 @@
-/** 
+/**
  * @file
  * @brief JPEG functions, originally from ECMWF, modified for use in NCEPLIBS-g2c.
  *
@@ -81,7 +81,7 @@ typedef struct
     OPJ_SIZE_T offset;      /* where we are currently in our data */
 } opj_memory_stream;
 
-/** 
+/**
  * This will read from our memory to the buffer.
  *
  * @param buffer Buffer.
@@ -110,7 +110,7 @@ static OPJ_SIZE_T opj_memory_stream_read(void *buffer, OPJ_SIZE_T nb_bytes, void
     return nb_bytes_read;
 }
 
-/** 
+/**
  * This will Write from the buffer to our memory.
  *
  * @param buffer Buffer.
@@ -174,7 +174,7 @@ static OPJ_OFF_T opj_memory_stream_skip(OPJ_OFF_T nb_bytes, void *user_data)
  * @return true if successful.
  *
  * @author ECMWF programmer
-*/
+ */
 static OPJ_BOOL opj_memory_stream_seek(OPJ_OFF_T nb_bytes, void * user_data)
 {
     opj_memory_stream* mstream = (opj_memory_stream*) user_data;
@@ -193,7 +193,7 @@ static OPJ_BOOL opj_memory_stream_seek(OPJ_OFF_T nb_bytes, void * user_data)
  * @param p_user_data User data.
  *
  * @author ECMWF programmer
-*/
+ */
 static void opj_memory_stream_do_nothing(void * p_user_data)
 {
     OPJ_ARG_NOT_USED(p_user_data);

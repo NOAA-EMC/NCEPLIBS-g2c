@@ -115,8 +115,8 @@ g2int g2_unpack7(unsigned char *,g2int *,g2int ,g2int *,
  *        gfld->igdtnum = Grid Definition Template Number (Code Table 3.1)
  *        gfld->igdtmpl  = Contains the data values for the specified Grid
  *                         Definition Template ( NN=gfld->igdtnum ). Each
- *                         element of this integer array contains an entry (in
- *                         the order specified) of Grid Defintion Template 3.NN
+ *                         element of this integer array contains an entry in
+ *                         the order specified of Grid Defintion Template 3.NN
  *                         This element is a pointer to an array
  *                         that holds the data.
  *        gfld->igdtlen = Number of elements in gfld->igdtmpl[]. i.e. number of
@@ -136,8 +136,8 @@ g2int g2_unpack7(unsigned char *,g2int *,g2int ,g2int *,
  *        gfdl->ipdtnum = Product Definition Template Number(see Code Table 4.0)
  *        gfld->ipdtmpl  = Contains the data values for the specified Product
  *                         Definition Template ( N=gfdl->ipdtnum ). Each element
- *                         of this integer array contains an entry (in the
- *                         order specified) of Product Defintion Template 4.N.
+ *                         of this integer array contains an entry in the
+ *                         order specified of Product Defintion Template 4.N.
  *                         This element is a pointer to an array
  *                         that holds the data.
  *        gfld->ipdtlen = Number of elements in gfld->ipdtmpl[]. i.e. number of
