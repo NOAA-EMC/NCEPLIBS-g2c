@@ -36,6 +36,11 @@ else()
   message(STATUS "Will not build PNG support")
 endif()
 
+# The user must select either Jasper of OpenJPG
+if(USE_Jasper AND USE_OpenJPEG)
+  message(FATAL_ERROR, "Either Jasper or OpenJPEG should be used, not both.")
+endif()
+
 if(USE_Jasper)
   find_package(Jasper REQUIRED)
 else()
