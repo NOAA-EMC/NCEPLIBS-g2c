@@ -14,7 +14,6 @@ set(c_src
     ${CMAKE_CURRENT_SOURCE_DIR}/comunpack.c
     ${CMAKE_CURRENT_SOURCE_DIR}/dec_jpeg2000.c
     ${CMAKE_CURRENT_SOURCE_DIR}/dec_png.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/decenc_openjpeg.c
     ${CMAKE_CURRENT_SOURCE_DIR}/drstemplates.c
     ${CMAKE_CURRENT_SOURCE_DIR}/enc_jpeg2000.c
     ${CMAKE_CURRENT_SOURCE_DIR}/enc_png.c
@@ -56,3 +55,9 @@ set(c_src
     ${CMAKE_CURRENT_SOURCE_DIR}/specunpack.c
     ${CMAKE_CURRENT_BINARY_DIR}/grib2.h
     PARENT_SCOPE)
+
+# If OpenJPEG is in use, add this file.  
+if(USE_OpenJPEG)
+  set(c_src ${c_src} ${CMAKE_CURRENT_SOURCE_DIR}/decenc_openjpeg.c PARENT_SCOPE)
+endif()
+  
