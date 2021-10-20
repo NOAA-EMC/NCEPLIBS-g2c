@@ -22,7 +22,7 @@ void mkieee(g2float *a,g2int *rieee,g2int num)
 {
 
     g2int  j,n,ieee,iexp,imant;
-    double  alog2,atemp;
+    double  atemp;
 
     static double  two23,two126;
     static g2int test=0;
@@ -35,8 +35,6 @@ void mkieee(g2float *a,g2int *rieee,g2int num)
         two126=(double)int_power(2.0,126);
         test=1;
     }
-
-    alog2=0.69314718;       //  ln(2.0)
 
     for (j=0;j<num;j++) {
 
@@ -74,7 +72,6 @@ void mkieee(g2float *a,g2int *rieee,g2int num)
                 n--;
             }
         }
-        //n=(g2int)floor(log(atemp)/alog2);
         iexp=n+127;
         if (n >  127) iexp=255;     // overflow
         if (n < -127) iexp=0;

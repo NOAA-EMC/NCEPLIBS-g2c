@@ -42,7 +42,6 @@ void dummy(void) {}
  */
 int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
 {
-    int ier;
     g2int i,j,k;
     jas_image_t *image=0;
     jas_stream_t *jpcstream;
@@ -52,8 +51,6 @@ int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
 
 //    jas_init();
 
-    ier=0;
-//
 //     Create jas_stream_t containing input JPEG200 codestream in memory.
 //
 
@@ -125,7 +122,7 @@ int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
 //     Clean up JasPer work structures.
 //
     jas_matrix_destroy(data);
-    ier=jas_stream_close(jpcstream);
+    jas_stream_close(jpcstream);
     jas_image_destroy(image);
 
     return 0;
