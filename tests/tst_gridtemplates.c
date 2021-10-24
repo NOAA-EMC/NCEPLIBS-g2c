@@ -44,6 +44,7 @@ main()
         if (tmpl->type != 3 || tmpl->num != 1 || tmpl->maplen != 22 || tmpl->needext ||
             tmpl->extlen || tmpl->ext)
             return G2C_ERROR;
+        free(tmpl);
 
         /* Check for one that's not there. */
         if ((tmpl = getgridtemplate(-1)))

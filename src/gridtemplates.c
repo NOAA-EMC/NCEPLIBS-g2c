@@ -60,11 +60,14 @@ getgridindex(g2int number)
  * returned to indicate whether the template would need to be
  * extended.
  *
+ * This function allocates storage for the template. The returned
+ * pointer must be freed by the caller.
+ *
  * @param number The number of the Grid Definition Template that is
  * being requested.
  *
- * @return Pointer to the returned template struct. Returns NULL
- * pointer, if template not found.
+ * @return Pointer to the returned template struct (must be freed by
+ * caller). Returns NULL pointer, if template not found.
  *
  * @author Stephen Gilbert @date 2000-05-09
  */
@@ -104,8 +107,11 @@ getgridtemplate(g2int number)
  * and it is necessary to know some of the earlier entry values to
  * generate the full octet map of the Template.
  *
- * @param number NN, indicating the number of the Grid Definition
- * Template 3.NN that is being requested.
+ * This function allocates memory for the extension. The pointer ext
+ * in the gtemplate struct must be freed to prevent memory leaks.
+ *
+ * @param number The number of the Grid Definition
+ * Template that is being requested.
  * @param list The list of values for each entry in the Grid
  * Definition Template.
  *
