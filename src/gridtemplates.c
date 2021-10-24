@@ -9,7 +9,7 @@
 
 /**
  * This function returns the index of specified Grid Definition
- * Template 3.NN (NN=number) in array templates.
+ * Template in array templates.
  *
  * PROGRAM HISTORY LOG:
  * - 2001-06-28  Gilbert
@@ -17,7 +17,7 @@
  * - 2008-07-08  Vuong     -  Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa)
  * - 2009-01-14  Vuong     -  Changed structure name template to gtemplate
  * - 2010-05-11  Vuong     -  Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
- * - 2013-08-06  Vuong     -  Added GDT 3.4,3.5,3.12,3.101,3.140
+ * - 2013-08-06  Vuong     -  Added GDT 3.4, 3.5, 3.12, 3.101, 3.140
  *
  * @param number NN, indicating the number of the Grid Definition
  * Template 3.NN that is being requested.
@@ -30,11 +30,13 @@
 g2int
 getgridindex(g2int number)
 {
-    g2int j,getgridindex=-1;
+    g2int j, getgridindex = -1;
 
-    for (j=0;j<MAXGRIDTEMP;j++) {
-        if (number == templatesgrid[j].template_num) {
-            getgridindex=j;
+    for (j = 0; j < MAXGRIDTEMP; j++)
+    {
+        if (number == templatesgrid[j].template_num)
+        {
+            getgridindex = j;
             return(getgridindex);
         }
     }
@@ -70,21 +72,23 @@ getgridtemplate(g2int number)
     g2int index;
     gtemplate *new;
 
-    index=getgridindex(number);
+    index = getgridindex(number);
 
-    if (index != -1) {
-        new=(gtemplate *)malloc(sizeof(gtemplate));
-        new->type=3;
-        new->num=templatesgrid[index].template_num;
-        new->maplen=templatesgrid[index].mapgridlen;
-        new->needext=templatesgrid[index].needext;
-        new->map=(g2int *)templatesgrid[index].mapgrid;
-        new->extlen=0;
-        new->ext=0;        /*NULL */
+    if (index != -1)
+    {
+        new = malloc(sizeof(gtemplate));
+        new->type = 3;
+        new->num = templatesgrid[index].template_num;
+        new->maplen = templatesgrid[index].mapgridlen;
+        new->needext = templatesgrid[index].needext;
+        new->map = (g2int *)templatesgrid[index].mapgrid;
+        new->extlen = 0;
+        new->ext = 0;        /*NULL */
         return(new);
     }
-    else {
-        printf("getgridtemplate: GDT Template 3.%d not defined.\n",(int)number);
+    else
+    {
+        printf("getgridtemplate: GDT Template 3.%d not defined.\n", (int)number);
         return(0);        /* NULL */
     }
 
@@ -103,7 +107,7 @@ getgridtemplate(g2int number)
  * - 2008-07-08  Vuong Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa)
  * - 2009-01-14  Vuong Changed structure name template to gtemplate
  * - 2010-05-11  Vuong Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
- * - 2013-08-06  Vuong Added GDT 3.4,3.5,3.12,3.101,3.140
+ * - 2013-08-06  Vuong Added GDT 3.4, 3.5, 3.12, 3.101, 3.140
  *
  * @param number NN, indicating the number of the Grid Definition
  * Template 3.NN that is being requested.
@@ -119,66 +123,77 @@ gtemplate *
 extgridtemplate(g2int number, g2int *list)
 {
     gtemplate *new;
-    g2int index,i;
+    g2int index, i;
 
-    index=getgridindex(number);
-    if (index == -1) return(0);
+    index = getgridindex(number);
+    if (index == -1)
+        return(0);
 
-    new=getgridtemplate(number);
+    new = getgridtemplate(number);
 
-    if ( ! new->needext ) return(new);
+    if (!new->needext)
+        return(new);
 
-    if ( number == 120 ) {
-        new->extlen=list[1]*2;
-        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-        for (i=0;i<new->extlen;i++) {
-            if ( i%2 == 0 ) {
-                new->ext[i]=2;
-            }
-            else {
-                new->ext[i]=-2;
-            }
+    if (number == 120)
+    {
+        new->extlen = list[1] * 2;
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < new->extlen; i++)
+        {
+            if (i % 2 == 0)
+                new->ext[i] = 2;
+            else
+                new->ext[i] = -2;
         }
     }
-    else if ( number == 4 ) {
-        new->extlen=list[7];
-        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-        for (i=0;i<new->extlen;i++) {
-            new->ext[i]=4;
+    else if (number == 4)
+    {
+        new->extlen = list[7];
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < new->extlen; i++)
+        {
+            new->ext[i] = 4;
         }
-        new->extlen=list[8];
-        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-        for (i=0;i<new->extlen;i++) {
-            new->ext[i]=-4;
-        }
-    }
-    else if ( number == 5 ) {
-        new->extlen=list[7];
-        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-        for (i=0;i<new->extlen;i++) {
-            new->ext[i]=4;
-        }
-        new->extlen=list[8];
-        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-        for (i=0;i<new->extlen;i++) {
-            new->ext[i]=-4;
+        new->extlen = list[8];
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < new->extlen; i++)
+        {
+            new->ext[i] = -4;
         }
     }
-    else if ( number == 1000 ) {
-        new->extlen=list[19];
-        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-        for (i=0;i<new->extlen;i++) {
-            new->ext[i]=4;
+    else if (number == 5)
+    {
+        new->extlen = list[7];
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < new->extlen; i++)
+        {
+            new->ext[i] = 4;
+        }
+        new->extlen = list[8];
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < new->extlen; i++)
+        {
+            new->ext[i] = -4;
         }
     }
-    else if ( number == 1200 ) {
-        new->extlen=list[15];
-        new->ext=(g2int *)malloc(sizeof(g2int)*new->extlen);
-        for (i=0;i<new->extlen;i++) {
-            new->ext[i]=4;
+    else if (number == 1000)
+    {
+        new->extlen = list[19];
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < new->extlen; i++)
+        {
+            new->ext[i] = 4;
+        }
+    }
+    else if (number == 1200)
+    {
+        new->extlen = list[15];
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < new->extlen; i++)
+        {
+            new->ext[i] = 4;
         }
     }
 
     return(new);
-
 }
