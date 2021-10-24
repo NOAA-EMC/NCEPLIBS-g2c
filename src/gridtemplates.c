@@ -2,6 +2,17 @@
  * @brief Returns grid template information for a specified Grid
  * Definition Template for Section 3 - the Grid Definition Section
  * (GDS).
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|--------- 
+ * 2001-06-28 | Gilbert | Initial
+ * 2007-08-16 | Vuong | Added GDT 3.204  Curvilinear Orthogonal Grid
+ * 2008-07-08 | Vuong | Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa)
+ * 2009-01-14 | Vuong | Changed structure name template to gtemplate
+ * 2010-05-11 | Vuong | Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
+ * 2013-08-06 | Vuong | Added GDT 3.4, 3.5, 3.12, 3.101, 3.140
+ *
  * @author Stephen Gilbert @date 2001-06-28
  */
 #include <stdlib.h>
@@ -13,14 +24,6 @@
  * Template in array templates for [Section 3 - the Grid Definition
  * Section
  * (GDS)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml).
- *
- * PROGRAM HISTORY LOG:
- * - 2001-06-28  Gilbert
- * - 2007-08-16  Vuong     -  Added GDT 3.204  Curvilinear Orthogonal Grid
- * - 2008-07-08  Vuong     -  Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa)
- * - 2009-01-14  Vuong     -  Changed structure name template to gtemplate
- * - 2010-05-11  Vuong     -  Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
- * - 2013-08-06  Vuong     -  Added GDT 3.4, 3.5, 3.12, 3.101, 3.140
  *
  * @param number The number of the Grid Definition Template being
  * requested.
@@ -57,13 +60,6 @@ getgridindex(g2int number)
  * returned to indicate whether the template would need to be
  * extended.
  *
- * PROGRAM HISTORY LOG:
- * - 2000-05-09  Gilbert
- * - 2007-08-16  Vuong     -  Added GDT 3.204  Curvilinear Orthogonal Grid
- * - 2008-07-08  Vuong     -  Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa)
- * - 2010-05-11  Vuong     -  Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
- * - 2009-01-14  Vuong     -  Changed structure name template to gtemplate
- *
  * @param number The number of the Grid Definition Template that is
  * being requested.
  *
@@ -89,16 +85,16 @@ getgridtemplate(g2int number)
         new->needext = templatesgrid[index].needext;
         new->map = (g2int *)templatesgrid[index].mapgrid;
         new->extlen = 0;
-        new->ext = 0;        /*NULL */
+        new->ext = NULL;
         return(new);
     }
     else
     {
         printf("getgridtemplate: GDT Template 3.%d not defined.\n", (int)number);
-        return(0);        /* NULL */
+        return(NULL);
     }
 
-    return(0);        /* NULL */
+    return(NULL);
 }
 
 /**
@@ -107,13 +103,6 @@ getgridtemplate(g2int number)
  * depending on data values given in an earlier part of the Template,
  * and it is necessary to know some of the earlier entry values to
  * generate the full octet map of the Template.
- *
- * PROGRAM HISTORY LOG:
- * - 2000-05-09  Gilbert
- * - 2008-07-08  Vuong Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa)
- * - 2009-01-14  Vuong Changed structure name template to gtemplate
- * - 2010-05-11  Vuong Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
- * - 2013-08-06  Vuong Added GDT 3.4, 3.5, 3.12, 3.101, 3.140
  *
  * @param number NN, indicating the number of the Grid Definition
  * Template 3.NN that is being requested.
