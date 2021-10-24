@@ -6,7 +6,9 @@
 
 #include <stdio.h>
 #include "grib2.h"
+
 #define MAPSEC1LEN 13 /**< Length of Map Section 1. */
+#define LENSEC0 16
 
 /**
  * This routine initializes a new GRIB2 message and packs GRIB2
@@ -36,7 +38,7 @@
  * - listsec1(3) GRIB Local Tables Version Number ([Table 1.1]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-1.shtml)).
  * - listsec1(4) Significance of Reference Time ([Table 1.2]
- * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-1.shtml))
+ * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-2.shtml))
  * - listsec1[5] Reference Time - Year (4 digits)
  * - listsec1[6] Reference Time - Month
  * - listsec1[7] Reference Time - Day
@@ -62,11 +64,17 @@ g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1)
 {
     g2int ierr = 0;
     g2int zero = 0, one = 1;
-    g2int mapsec1len = MAPSEC1LEN;
-    g2int mapsec1[MAPSEC1LEN] = {2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};
-    g2int i, lensec0, lensec1, iofst, ibeg, nbits, len;
 
-    /* Currently handles only GRIB Edition 2. */
+    /* The mapsec1 array tells us how many bytes are used in the GRIB
+     * message by each element of the listsec1 array. For example the
+     * first two elements of listsec1 are identifcation of originating
+     * section and sub-section - these are each 2-byte entries in the
+     * GRIB section 1 table, the IDENTIFICATION SECTION. (See
+     * https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect1.shtml). */
+    g2int mapsec1[MAPSEC1LEN] = {2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};
+    g2int i, lensec1, iofst, ibeg, nbits, len;
+
+    /* Only GRIB Edition 2 is acceptable. */
     if (listsec0[1] != 2)
     {
         printf("g2_create: can only code GRIB edition 2.");
@@ -83,10 +91,9 @@ g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1)
     sbit(cgrib, &zero, 32, 16); /* reserved for future use */
     sbit(cgrib, listsec0 + 0, 48, 8); /* Discipline */
     sbit(cgrib, listsec0 + 1, 56, 8); /* GRIB edition number */
-    lensec0 = 16; /* bytes (octets) */
 
     /* Pack Section 1 - Identification Section. */
-    ibeg = lensec0 * 8; /* Calculate offset for beginning of section 1. */
+    ibeg = LENSEC0 * 8; /* Calculate offset for beginning of section 1. */
     iofst = ibeg + 32; /* Leave space for length of section. */
     sbit(cgrib, &one, iofst, 8); /* Store section number (1). */
     iofst = iofst + 8;
@@ -94,7 +101,7 @@ g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1)
     /* Pack up each input value in array listsec1 into the the
      * appropriate number of octets, which are specified in
      * corresponding entries in array mapsec1. */
-    for (i = 0; i < mapsec1len; i++)
+    for (i = 0; i < MAPSEC1LEN; i++)
     {
         nbits = mapsec1[i] * 8;
         sbit(cgrib, listsec1 + i, iofst, nbits);
@@ -108,7 +115,7 @@ g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1)
 
     /* Put current byte total of message into Section 0. */
     sbit(cgrib, &zero, 64, 32);
-    len = lensec0 + lensec1;
+    len = LENSEC0 + lensec1;
     sbit(cgrib, &len, 96, 32);
     return (len);
 }
