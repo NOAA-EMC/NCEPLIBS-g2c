@@ -89,7 +89,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
 
     /* Check to see if GRIB message is already complete. */
     if (cgrib[lencurr - 4] == seven && cgrib[lencurr - 3] == seven &&
-         cgrib[lencurr - 2] == seven && cgrib[lencurr - 1] == seven)
+        cgrib[lencurr - 2] == seven && cgrib[lencurr - 1] == seven)
     {
         printf("g2_addgrid: GRIB message already complete.  Cannot add new section.\n");
         ierr = -2;
