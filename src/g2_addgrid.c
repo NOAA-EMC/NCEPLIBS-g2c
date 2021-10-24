@@ -16,9 +16,11 @@
  * GRIB2 message. g2_create() must be called first to initialize a new
  * GRIB2 message.
  *
- * PROGRAM HISTORY LOG
- * - 2002-11-01  Gilbert
- * - 2009-01-14  Vuong Changed structure name template to gtemplate
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|--------- 
+ * 2002-11-01 | Gilbert | Initial.
+ * 2009-01-14 | Vuong | Changed structure name template to gtemplate
  *
  * @param cgrib Char array that contains the GRIB2 message to which
  * section should be added. Must be allocated large enough to store

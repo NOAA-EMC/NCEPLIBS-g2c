@@ -14,7 +14,7 @@
  * depending upon values specified in the "static" part of the
  * template. (See Template 3.120 as an example).
  *
- * NOTE: Array mapgrid contains the number of octets in which the
+ * @note Array mapgrid contains the number of octets in which the
  * corresponding template values will be stored. A negative value in
  * mapgrid is used to indicate that the corresponding template entry
  * can contain negative values. This information is used later when
@@ -25,12 +25,14 @@
  * store the data value in this case would be the absolute value of
  * the negative value in mapgrid.
  *
- * PROGRAM HISTORY LOG:
- * -2001-10-26  Gilbert
- * -2007-08-16  Vuong Added GDT 3.204  Curvilinear Orthogonal Grid
- * -2008-07-08  Vuong Added GDT 3.32768 Rot Lat/Lon E-grid (Arakawa)
- * -2010-05-11  Vuong Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
- * -2013-08-06  Vuong Added GDT 3.4,3.5,3.12,3.101,3.140
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|--------- 
+ * 2001-10-26 | Gilbert | Initial
+ * 2007-08-16 | Vuong | Added GDT 3.204  Curvilinear Orthogonal Grid
+ * 2008-07-08 | Vuong | Added GDT 3.32768 Rot Lat/Lon E-grid (Arakawa)
+ * 2010-05-11 | Vuong | Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
+ * 2013-08-06 | Vuong | Added GDT 3.4, 3.5, 3.12, 3.101, 3.140
  *
  * @author Stephen Gilbert @date 2001-10-26
  */
