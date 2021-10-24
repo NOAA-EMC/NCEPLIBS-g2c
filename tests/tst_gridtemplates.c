@@ -35,10 +35,14 @@ main()
     printf("ok!\n");
     printf("Testing simple getgridtemplate() calls...");
     {
+        /* Note that gtemplate is not the same as gribtemplate. */
         gtemplate *tmpl;
 
         /* Check for one that's there. */
         if (!(tmpl = getgridtemplate(1)))
+            return G2C_ERROR;
+        if (tmpl->type != 3 || tmpl->num != 1 || tmpl->maplen != 22 || tmpl->needext ||
+            tmpl->extlen || tmpl->ext)
             return G2C_ERROR;
 
         /* Check for one that's not there. */
