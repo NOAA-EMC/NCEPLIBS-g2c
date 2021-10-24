@@ -1,6 +1,7 @@
 /** @file
- * @brief Returns grid template information for a specified
- * Grid Definition Template 3.
+ * @brief Returns grid template information for a specified Grid
+ * Definition Template for Section 3 - the Grid Definition Section
+ * (GDS).
  * @author Stephen Gilbert @date 2001-06-28
  */
 #include <stdlib.h>
@@ -9,7 +10,9 @@
 
 /**
  * This function returns the index of specified Grid Definition
- * Template in array templates.
+ * Template in array templates for [Section 3 - the Grid Definition
+ * Section
+ * (GDS)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml).
  *
  * PROGRAM HISTORY LOG:
  * - 2001-06-28  Gilbert
@@ -19,11 +22,11 @@
  * - 2010-05-11  Vuong     -  Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
  * - 2013-08-06  Vuong     -  Added GDT 3.4, 3.5, 3.12, 3.101, 3.140
  *
- * @param number NN, indicating the number of the Grid Definition
- * Template 3.NN that is being requested.
+ * @param number The number of the Grid Definition Template being
+ * requested.
  *
- * @return Index of GDT 3.NN in array templates, if template
- * exists. -1, otherwise.
+ * @return Index of the Grid Definition Template(GDT) in array
+ * templates, if template exists. -1, otherwise.
  *
  * @author Stephen Gilbert @date 2001-06-28
  */
@@ -46,10 +49,13 @@ getgridindex(g2int number)
 
 /**
  * This subroutine returns grid template information for a specified
- * Grid Definition Template 3.NN. The number of entries in the
- * template is returned along with a map of the number of octets
- * occupied by each entry. Also, a flag is returned to indicate
- * whether the template would need to be extended.
+ * Grid Definition Template for [Section 3 - the Grid Definition
+ * Section
+ * (GDS)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml). The
+ * number of entries in the template is returned along with a map of
+ * the number of octets occupied by each entry. Also, a flag is
+ * returned to indicate whether the template would need to be
+ * extended.
  *
  * PROGRAM HISTORY LOG:
  * - 2000-05-09  Gilbert
@@ -58,8 +64,8 @@ getgridindex(g2int number)
  * - 2010-05-11  Vuong     -  Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
  * - 2009-01-14  Vuong     -  Changed structure name template to gtemplate
  *
- * @param number NN, indicating the number of the Grid Definition
- * Template 3.NN that is being requested.
+ * @param number The number of the Grid Definition Template that is
+ * being requested.
  *
  * @return Pointer to the returned template struct. Returns NULL
  * pointer, if template not found.

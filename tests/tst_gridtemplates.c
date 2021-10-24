@@ -9,6 +9,10 @@
 
 #define G2C_ERROR 2
 
+/* Prototypes. */
+g2int getgridindex(g2int number);
+
+
 int
 main()
 {
@@ -16,6 +20,17 @@ main()
     printf("Testing gridtemplates.\n");
     printf("Testing simple getgridtemplate() call...");
     {
+        g2int idx;
+
+        /* Check for one that's there. */
+        idx = getgridindex(1);
+        if (idx != 1)
+            return G2C_ERROR;
+
+        /* Check for one that's not there. */
+        idx = getgridindex(-1);
+        if (idx != -1)
+            return G2C_ERROR;
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
