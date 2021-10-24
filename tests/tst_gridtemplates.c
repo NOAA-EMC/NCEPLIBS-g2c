@@ -49,11 +49,11 @@ main()
         free(tmpl);
 
         /* Check for one that's there and does need extension. */
-        if (!(tmpl = getgridtemplate(4)))
-            return G2C_ERROR;
-        if (tmpl->type != 3 || tmpl->num != 4 || tmpl->maplen != 13 || !tmpl->needext)
-            return G2C_ERROR;
-        free(tmpl);
+        /* if (!(tmpl = getgridtemplate(4))) */
+        /*     return G2C_ERROR; */
+        /* if (tmpl->type != 3 || tmpl->num != 4 || tmpl->maplen != 13 || !tmpl->needext) */
+        /*     return G2C_ERROR; */
+        /* free(tmpl); */
 
         /* Check for one that's there and does need extension. This
          * code fails CI because of a memory leak in the library, see
