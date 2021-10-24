@@ -26,11 +26,11 @@ gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)
  * Store bits - put arbitrary size values into a packed bit string,
  * taking the low order bits from each value in the unpacked array.
  *
- * @param out pointer to packed array output. Must be allocated large
+ * @param out Pointer to packed array output. Must be allocated large
  * enough to hold output.
- * @param in pointer to unpacked array input.
- * @param iskip initial number of bits to skip.
- * @param nbyte number of bits to pack.
+ * @param in Pointer to unpacked array input.
+ * @param iskip Initial number of bits to skip.
+ * @param nbyte Number of bits to pack.
  *
  * @author NOAA Programmer
  */

@@ -11,11 +11,12 @@
 /**
  * This routine initializes a new GRIB2 message and packs GRIB2
  * sections 0 (Indicator Section) and 1 (Identification Section).
+ *
  * This routine is used with routines g2_addlocal(), g2_addgrid(),
  * g2_addfield(), and g2_gribend() to create a complete GRIB2 message.
  * g2_create() must be called first to initialize a new GRIB2 message.
- * Also, a call to g2_gribend() is required to complete GRIB2 message
- * after all fields have been added.
+ * A call to g2_gribend() is required to complete GRIB2 message after
+ * all fields have been added.
  *
  * @param[in] cgrib Character array to contain the GRIB2 message. Must
  * be allocated large enough to store the entire GRIB2 message.
@@ -69,7 +70,7 @@ g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1)
     if (listsec0[1] != 2)
     {
         printf("g2_create: can only code GRIB edition 2.");
-        ierr=-1;
+        ierr = -1;
         return (ierr);
     }
 
