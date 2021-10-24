@@ -16,23 +16,30 @@
  * GRIB2 message. g2_create() must be called first to initialize a new
  * GRIB2 message.
  *
+ * PROGRAM HISTORY LOG
+ * - 2002-11-01  Gilbert
+ * - 2009-01-14  Vuong Changed structure name template to gtemplate
+ *
  * @param cgrib Char array that contains the GRIB2 message to which
  * section should be added. Must be allocated large enough to store
  * the entire GRIB2 message.
-
  * @param igds Contains information needed for GRIB Grid Definition
  * Section 3. Must be dimensioned >= 5.
- * - igds[0] Source of grid definition (see Code Table 3.0)
+ * - igds[0] Source of grid definition (see [Code Table
+ * 3.0](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-0.shtml)).
  * - igds[1] Number of grid points in the defined grid.
  * - igds[2] Number of octets needed for each additional grid points
- definition. Used to define number of points in each row (or
- column) for non-regular grids. = 0, if using regular grid.
- * - igds[3] Interpretation of list for optional points definition. (Code Table 3.11)
- * - igds[4] Grid Definition Template Number (Code Table 3.1)
+ * definition. Used to define number of points in each row (or column)
+ * for non-regular grids. = 0, if using regular grid.
+ * - igds[3] Interpretation of list for optional points
+ * definition. (See [Code Table
+ * 3.11](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-11.shtml)).
+ * - igds[4] Grid Definition Template Number (See [Code Table
+ * 3.1](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-1.shtml)).
  * @param igdstmpl Contains the data values for the specified Grid
- * Definition Template (NN=igds[4]). Each element of this integer
+ * Definition Template (igds[4]). Each element of this integer
  * array contains an entry (in the order specified) of Grid Defintion
- * Template 3.NN
+ * Template.
  * @param ideflist (Used if igds[2] != 0) This array contains the
  * number of grid points contained in each row (or column).
  * @param idefnum (Used if igds[2] != 0) The number of entries in
@@ -49,10 +56,6 @@
  *
  * @note The Grid Def Section ( Section 3 ) can only follow Section 1,
  * 2 or Section 7 in a GRIB2 message.
- *
- * PROGRAM HISTORY LOG
- * - 2002-11-01  Gilbert
- * - 2009-01-14  Vuong Changed structure name template to gtemplate
  *
  * @author Stephen Gilbeert @date 2002-11-01
  */

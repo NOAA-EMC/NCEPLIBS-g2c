@@ -28,15 +28,15 @@
  * @param listsec1 Pointer to an array containing information read
  * from GRIB Identification Section 1. Must be allocated with >= 13
  * elements.
- * - listsec1(0) Id of orginating centre ([Table 0]
+ * - listsec1[0] Id of orginating centre ([Table 0]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/on388/table0.html)).
- * - listsec1(1) Id of orginating sub-centre ([Table C]
+ * - listsec1[1] Id of orginating sub-centre ([Table C]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/on388/tablec.html)).
- * - listsec1(2) GRIB Master Tables Version Number ([Table 1.0]
+ * - listsec1[2] GRIB Master Tables Version Number ([Table 1.0]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-0.shtml)).
- * - listsec1(3) GRIB Local Tables Version Number ([Table 1.1]
+ * - listsec1[3] GRIB Local Tables Version Number ([Table 1.1]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-1.shtml)).
- * - listsec1(4) Significance of Reference Time ([Table 1.2]
+ * - listsec1[4] Significance of Reference Time ([Table 1.2]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-1.shtml))
  * - listsec1[5] Reference Time - Year (4 digits)
  * - listsec1[6] Reference Time - Month
@@ -44,9 +44,9 @@
  * - listsec1[8] Reference Time - Hour
  * - listsec1[9] Reference Time - Minute
  * - listsec1[10] Reference Time - Second
- * - listsec1(11) Production status of data ([Table 1.3]
+ * - listsec1[11] Production status of data ([Table 1.3]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-3.shtml)).
- * - listsec1(12) Type of processed data ([Table 1.4]
+ * - listsec1[12] Type of processed data ([Table 1.4]
  *  (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-4.shtml)).
  * @param numfields The number of gridded fields found in the GRIB
  * message. That is, the number of occurences of Sections 4 - 7.
