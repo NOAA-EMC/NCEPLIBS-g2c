@@ -38,18 +38,19 @@ on a number of different grids, several routines are used to encode a
 message. This should give users more flexibility in how to organize
 data within one or more GRIB2 messages.
 
-To start a new GRIB2 message, call subroutine g2_create(). It encodes
+To start a new GRIB2 message, call function g2_create(). It encodes
 Sections 0 and 1 at the beginning of the message. This routine must be
 used to create each message.
 
-Subroutine g2_addlocal() can be used to add a Local Use Section (Section
+Function g2_addlocal() can be used to add a Local Use Section (Section
 2). Note that section is optional and need not appear in a GRIB2
 message.
 
-Subroutine g2_addgrid() is used to encode a grid definition into Section
-3. This grid definition defines the geometry of the the data values in
-the fields that follow it. addgrid() can be called again to change the
-grid definition describing subsequent data fields.
+Function g2_addgrid() is used to encode a grid definition into Section
+3 - The Grid Definition Section. This grid definition defines the
+geometry of the the data values in the fields that follow it. Function
+addgrid() can be called again to change the grid definition describing
+subsequent data fields.
 
 Each data field is added to the GRIB2 message using routine
 g2_addfield(), which adds Sections 4, 5, 6, and 7 to the message.
@@ -61,19 +62,19 @@ is required for each GRIB2 message.
 
 # GRIB2 Decoding Routines
 
-Subroutine g2_info() can be used to find out how many Local Use
+Function g2_info() can be used to find out how many Local Use
 sections and data fields are contained in a given GRIB2 message. In
 addition, this routine also returns the number of octets of the
 largest Local Use section in the message.
 
 g2_getfld() can be used to get all information pertaining to the nth
 data field in the message. An option exists that lets the user decide
-if the subroutine should unpack the Bit-map (if applicable) and the
+if the function should unpack the Bit-map (if applicable) and the
 data values or just return the field description information.
 
 # Extracting GRIB2 Fields from a GRIB2 file
 
-Subroutine g2_info() can be used to find out how many Local Use
+Function g2_info() can be used to find out how many Local Use
 sections and data fields are contained in a given GRIB2 message.
 
 # GRIB2 Tables/Templates
