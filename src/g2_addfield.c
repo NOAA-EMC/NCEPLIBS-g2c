@@ -23,8 +23,14 @@ void jpcpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
 
 /**
  * This routine packs up Sections 4 through 7 for a given field and
- * adds them to a GRIB2 message. They are Product Definition Section,
- * Data Representation Section, Bit-Map Section and Data Section,
+ * adds them to a GRIB2 message. They are [Product Definition
+ * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml),
+ * [Data Representation
+ * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect5.shtml),
+ * [Bit-Map
+ * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect6.shtml)
+ * and [Data
+ * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect7.shtml),
  * respectively.
  *
  * This routine is used with routines g2_create(), g2_addlocal(),
@@ -49,32 +55,31 @@ void jpcpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
  * @param cgrib Char array that contains the GRIB2 message to which
  * sections 4 through 7 should be added. Must be allocated large
  * enough to store the entire GRIB2 message.
- * @param ipdsnum Product Definition Template Number (see Code Table
- * 4.0).
- * @param ipdstmpl Contains the data values for the specified Product
- * Definition Template (N=ipdsnum). Each element of this integer array
- * contains an entry (in the order specified) of Product Defintion
- * Template 4.N.
+ * @param ipdsnum Product Definition Template Number (see [Code Table
+ * 4.0](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table4-0.shtml)).
+ * @param ipdstmpl Contains the data values for the Product Definition
+ * Template specified by ipdsnum. 
  * @param coordlist Array containg floating point values intended to
  * document the vertical discretisation associated to model data on
  * hybrid coordinate vertical levels.
  * @param numcoord number of values in array coordlist.
- * @param idrsnum Data Representation Template Number (see Code Table 5.0).
- * @param idrstmpl Contains the data values for the specified Data
- * Representation Template (N=idrsnum). Each element of this integer
- * array contains an entry (in the order specified) of Data
- * Representation Template 5.N. Note that some values in this template
- * (eg. reference values, number of bits, etc...) may be changed by
- * the data packing algorithms. Use this to specify scaling factors
- * and order of spatial differencing, if desired.
+ * @param idrsnum Data Representation Template Number (see [Code Table
+ * 5.0](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table5-0.shtml)).
+ * @param idrstmpl The data values for the Data Representation
+ * Template specified by idrsnum. Note that some values in this
+ * template (eg. reference values, number of bits, etc...) may be
+ * changed by the data packing algorithms. Use this to specify scaling
+ * factors and order of spatial differencing, if desired.
  * @param fld Array of data points to pack.
- * @param ngrdpts- Number of data points in grid. i.e.  size of fld and bmap.
- * @param ibmap  - Bitmap indicator (see Code Table 6.0)
+ * @param ngrdpts Number of data points in grid. i.e.  size of fld and bmap.
+ * @param ibmap Bitmap indicator (see [Code Table
+ * 6.0](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table6-0.shtml))
  * - 0 = bitmap applies and is included in Section 6.
  * - 1-253 = Predefined bitmap applies.
  * - 254 = Previously defined bitmap applies to this field.
  * - 255 = Bit map does not apply to this product.
- * @param bmap Integer array containing bitmap to be added. (if ibmap=0).
+ * @param bmap Integer array containing bitmap to be added (if ibmap =
+ * 0).
  *
  * @return
  * - > 0 Current size of updated GRIB2 message
