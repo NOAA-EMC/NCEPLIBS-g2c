@@ -43,7 +43,13 @@ main()
             if (cgrib[i] != expected_cgrib[i])
                 return G2C_ERROR;
         }
-    }
+
+        /* if ((ret = g2_addfield()) != 0) */
+        /* { */
+        /*     printf("%d\n", ret); */
+        /*     return G2C_ERROR; */
+        /* } */
+}
     printf("ok!\n");
     printf("SUCCESS!\n");
     return 0;
