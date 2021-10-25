@@ -58,6 +58,9 @@ getpdsindex(g2int number)
  * occupied by each entry. Also, a flag is returned to indicate
  * whether the template would need to be extended.
  *
+ * This function allocates memory for the gtemplate struct, which must
+ * be freed by the caller.
+ *
  * @param number the number of the Product Definition
  * Template that is being requested.
  *

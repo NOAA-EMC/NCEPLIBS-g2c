@@ -41,6 +41,9 @@ main()
         tmpl = getpdstemplate(1);
         if (!tmpl)
             return G2C_ERROR;
+        if (tmpl->num != 1 || tmpl->maplen != 18 || tmpl->needext)
+            return G2C_ERROR;
+        free(tmpl);
 
         /* Check for one that's not there. */
         tmpl = getpdstemplate(-1);
