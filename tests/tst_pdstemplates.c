@@ -11,6 +11,7 @@
 #define G2C_ERROR 2
 
 /* Prototypes. */
+g2int getpdsindex(g2int number);
 
 int
 main()
@@ -19,17 +20,32 @@ main()
     printf("Testing pdstemplates.\n");
     printf("Testing simple getpdsindex() calls...");
     {
-        /* g2int idx; */
+        g2int idx;
 
-        /* /\* Check for one that's there. *\/ */
-        /* idx = getgridindex(1); */
-        /* if (idx != 1) */
-        /*     return G2C_ERROR; */
+        /* Check for one that's there. */
+        idx = getpdsindex(1);
+        if (idx != 1)
+            return G2C_ERROR;
 
-        /* /\* Check for one that's not there. *\/ */
-        /* idx = getgridindex(-1); */
-        /* if (idx != -1) */
-        /*     return G2C_ERROR; */
+        /* Check for one that's not there. */
+        idx = getpdsindex(-1);
+        if (idx != -1)
+            return G2C_ERROR;
+    }
+    printf("ok!\n");
+    printf("Testing simple getpdstemplate() calls...");
+    {
+        gtemplate *tmpl;
+
+        /* Check for one that's there. */
+        tmpl = getpdstemplate(1);
+        if (!tmpl)
+            return G2C_ERROR;
+
+        /* Check for one that's not there. */
+        tmpl = getpdstemplate(-1);
+        if (tmpl)
+            return G2C_ERROR;
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
