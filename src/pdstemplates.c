@@ -104,6 +104,9 @@ getpdstemplate(g2int number)
  * and it is necessary to know some of the earlier entry values to
  * generate the full octet map of the Template.
  *
+ * This function allocates memory in the ext field of the gtemplate
+ * struct. This memory must be freed by the caller.
+ *
  * @param number number of the Product Definition Template 4.NN that
  * is being requested.
  * @param list The list of values for each entry in the the Product
@@ -469,9 +472,9 @@ extpdstemplate(g2int number, g2int *list)
         /* PDT 4.57  (10/07/2015) */
         else if (number == 57)
         {
-            new->extlen = list[6]*15;
+            new->extlen = list[6] * 15;
             new->ext = malloc(sizeof(g2int) * new->extlen);
-            for (i = 0;i<list[6];i++)
+            for (i = 0; i < list[6]; i++)
             {
                 l = i*15;
                 new->ext[l] = 1;
