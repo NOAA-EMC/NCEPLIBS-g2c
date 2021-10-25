@@ -88,6 +88,9 @@ main()
                 return G2C_ERROR;
     }
     printf("ok!\n");
+    /* THis works on my local machine, but not on GitHUb CI
+     * machines. A mystery! */
+
     /* printf("Testing more sbit() calls..."); */
     /* { */
     /*     unsigned char out; */
