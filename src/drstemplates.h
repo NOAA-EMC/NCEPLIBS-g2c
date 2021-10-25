@@ -5,10 +5,11 @@
  * decribing each template is stored in the drstemplate structure
  * defined below.
  *
- * Each Template has three parts: The number of entries in the
- * template (mapdrslen); A map of the template (mapdrs), which
- * contains the number of octets in which to pack each of the template
- * values; and a logical value (needext) that indicates whether the
+ * Each Template has three parts: 
+ * 1. The number of entries in the template (mapdrslen). 
+ * 2. A map of the template (mapdrs), which contains the number of
+ * octets in which to pack each of the template values.
+ * 3. A logical value (needext) that indicates whether the
  * Template needs to be extended. In some cases the number of entries
  * in a template can vary depending upon values specified in the
  * "static" part of the template. (See Template 5.1 as an example.)
@@ -29,7 +30,9 @@
 
 #ifndef _drstemplates_H
 #define _drstemplates_H
+
 #include "grib2.h"
+
 #define MAXDRSTEMP 9 /**< maximum number of templates */
 #define MAXDRSMAPLEN 200 /**< maximum template map length */
 
@@ -48,7 +51,8 @@ struct drstemplate
  * Stuct holding data for GRIB2 Data Representation Section (DRS)
  * template.
  */
-const struct drstemplate templatesdrs[MAXDRSTEMP] = {
+const struct drstemplate templatesdrs[MAXDRSTEMP] =
+{
     /** 5.0: Grid point data - Simple Packing */
     { 0, 5, 0, {4,-2,-2,1,1} },
     /** 5.2: Grid point data - Complex Packing */
@@ -70,6 +74,5 @@ const struct drstemplate templatesdrs[MAXDRSTEMP] = {
     /** 5.40010: Grid point data - PNG encoding */
     { 40010, 5, 0, {4,-2,-2,1,1} }
 } ;
-
 
 #endif  /*  _drstemplates_H  */
