@@ -10,11 +10,12 @@
 #include "grib2.h"
 
 /**
- * This routine packs up a Grid Definition Section (Section 3) and
- * adds it to a GRIB2 message. It is used with routines g2_create(),
- * g2_addlocal(), g2_addfield(), and g2_gribend() to create a complete
- * GRIB2 message. g2_create() must be called first to initialize a new
- * GRIB2 message.
+ * This routine packs up a [Grid Definition Section (Section
+ * 3)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml)
+ * and adds it to a GRIB2 message. It is used with routines
+ * g2_create(), g2_addlocal(), g2_addfield(), and g2_gribend() to
+ * create a complete GRIB2 message. g2_create() must be called first
+ * to initialize a new GRIB2 message.
  *
  * ### Program History Log
  * Date | Programmer | Comments
@@ -56,7 +57,7 @@
  * - -4 Previous Section was not 1, 2 or 7.
  * - -5 Could not find requested Grid Definition Template.
  *
- * @note The Grid Def Section ( Section 3 ) can only follow Section 1,
+ * @note The Grid Def Section (Section 3) can only follow Section 1,
  * 2 or Section 7 in a GRIB2 message.
  *
  * @author Stephen Gilbeert @date 2002-11-01

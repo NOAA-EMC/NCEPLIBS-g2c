@@ -12,6 +12,7 @@ function(g2c_test name)
 endfunction()
 
 g2c_test(tst_g2_create)
+g2c_test(tst_g2_addgrid)
 g2c_test(tst_decode)
 g2c_test(tst_gbits)
 g2c_test(tst_gridtemplates)
