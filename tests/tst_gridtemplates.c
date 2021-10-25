@@ -39,6 +39,7 @@ main()
         /* Note that gtemplate is not the same as gribtemplate. */
         gtemplate *tmpl;
         g2int list[9] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+        g2int list2[20] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
         
         /* Check for one that's there and does not need extension. */
         if (!(tmpl = getgridtemplate(1)))
@@ -68,6 +69,20 @@ main()
         if (!(tmpl = extgridtemplate(120, list)))
             return G2C_ERROR;
         if (tmpl->type != 3 || tmpl->num != 120 || tmpl->maplen != 7 || !tmpl->needext)
+            return G2C_ERROR;
+        free(tmpl->ext);
+        free(tmpl);
+
+        if (!(tmpl = extgridtemplate(1000, list2)))
+            return G2C_ERROR;
+        if (tmpl->type != 3 || tmpl->num != 1000 || tmpl->maplen != 20 || !tmpl->needext)
+            return G2C_ERROR;
+        free(tmpl->ext);
+        free(tmpl);
+
+        if (!(tmpl = extgridtemplate(1200, list2)))
+            return G2C_ERROR;
+        if (tmpl->type != 3 || tmpl->num != 1200 || tmpl->maplen != 16 || !tmpl->needext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
