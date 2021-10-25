@@ -11,46 +11,46 @@
 #define G2C_ERROR 2
 
 /* Prototypes. */
+g2int getdrsindex(g2int number);
 
 int
 main()
 {
-    
-    printf("Testing pdstemplates.\n");
-    printf("Testing simple getpdsindex() calls...");
+    printf("Testing drstemplates.\n");
+    printf("Testing simple getdrsindex() calls...");
     {
-        /* g2int idx; */
+        g2int idx;
 
-        /* /\* Check for one that's there. *\/ */
-        /* idx = getpdsindex(1); */
-        /* if (idx != 1) */
-        /*     return G2C_ERROR; */
+        /* Check for one that's there. */
+        idx = getdrsindex(0);
+        if (idx != 0)
+            return G2C_ERROR;
 
-        /* /\* Check for one that's not there. *\/ */
-        /* idx = getpdsindex(-1); */
-        /* if (idx != -1) */
-        /*     return G2C_ERROR; */
+        /* Check for one that's not there. */
+        idx = getdrsindex(-1);
+        if (idx != -1)
+            return G2C_ERROR;
     }
     printf("ok!\n");
-    printf("Testing simple getpdstemplate() calls...");
+    printf("Testing simple getdrstemplate() calls...");
     {
-        /* gtemplate *tmpl; */
+        gtemplate *tmpl;
 
-        /* /\* Check for one that's there. *\/ */
-        /* tmpl = getpdstemplate(1); */
-        /* if (!tmpl) */
-        /*     return G2C_ERROR; */
-        /* if (tmpl->num != 1 || tmpl->maplen != 18 || tmpl->needext) */
-        /*     return G2C_ERROR; */
-        /* free(tmpl); */
+        /* Check for one that's there. */
+        tmpl = getdrstemplate(0);
+        if (!tmpl)
+            return G2C_ERROR;
+        if (tmpl->num != 0 || tmpl->maplen != 5 || tmpl->needext)
+            return G2C_ERROR;
+        free(tmpl);
 
-        /* /\* Check for one that's not there. *\/ */
-        /* tmpl = getpdstemplate(-1); */
-        /* if (tmpl) */
-        /*     return G2C_ERROR; */
+        /* Check for one that's not there. */
+        tmpl = getdrstemplate(-1);
+        if (tmpl)
+            return G2C_ERROR;
     }
     printf("ok!\n");
-    printf("Testing extpdstemplate() calls...");
+    printf("Testing extdrstemplate() calls...");
     {
 /* #define MAX_LIST 40 */
 /*         gtemplate *tmpl; */
@@ -61,7 +61,7 @@ main()
 /*             list[i] = 2; */
 
 /*         /\* Check for one that's there but does not need an extension. *\/ */
-/*         tmpl = extpdstemplate(1, list); */
+/*         tmpl = extdrstemplate(1, list); */
 /*         if (!tmpl) */
 /*             return G2C_ERROR; */
 /*         if (tmpl->num != 1 || tmpl->maplen != 18 || tmpl->needext) */
@@ -69,12 +69,12 @@ main()
 /*         free(tmpl); */
 
 /*         /\* Check for one that's not there. *\/ */
-/*         tmpl = extpdstemplate(-1, list); */
+/*         tmpl = extdrstemplate(-1, list); */
 /*         if (tmpl) */
 /*             return G2C_ERROR; */
 
 /*         /\* Check for one that's there but does need an extension. *\/ */
-/*         tmpl = extpdstemplate(3, list); */
+/*         tmpl = extdrstemplate(3, list); */
 /*         if (!tmpl) */
 /*             return G2C_ERROR; */
 /*         if (tmpl->num != 3 || tmpl->maplen != 31 || !tmpl->needext) */
@@ -83,7 +83,7 @@ main()
 /*         free(tmpl); */
 
 /*         /\* Check for one that's there but does need an extension. *\/ */
-/*         tmpl = extpdstemplate(4, list); */
+/*         tmpl = extdrstemplate(4, list); */
 /*         if (!tmpl) */
 /*             return G2C_ERROR; */
 /*         if (tmpl->num != 4 || tmpl->maplen != 30 || !tmpl->needext) */
@@ -92,7 +92,7 @@ main()
 /*         free(tmpl); */
 
 /*         /\* Check for one that's there but does need an extension. *\/ */
-/*         tmpl = extpdstemplate(8, list); */
+/*         tmpl = extdrstemplate(8, list); */
 /*         if (!tmpl) */
 /*             return G2C_ERROR; */
 /*         if (tmpl->num != 8 || tmpl->maplen != 29 || !tmpl->needext) */
@@ -101,7 +101,7 @@ main()
 /*         free(tmpl); */
 
 /*         /\* Check for one that's there but does need an extension. *\/ */
-/*         tmpl = extpdstemplate(9, list); */
+/*         tmpl = extdrstemplate(9, list); */
 /*         if (!tmpl) */
 /*             return G2C_ERROR; */
 /*         if (tmpl->num != 9 || tmpl->maplen != 36 || !tmpl->needext) */
@@ -110,7 +110,7 @@ main()
 /*         free(tmpl); */
 
 /*         /\* Check for one that's there but does need an extension. *\/ */
-/*         tmpl = extpdstemplate(10, list); */
+/*         tmpl = extdrstemplate(10, list); */
 /*         if (!tmpl) */
 /*             return G2C_ERROR; */
 /*         if (tmpl->num != 10 || tmpl->maplen != 30 || !tmpl->needext) */
@@ -119,7 +119,7 @@ main()
 /*         free(tmpl); */
 
 /*         /\* Check for one that's there but does need an extension. *\/ */
-/*         tmpl = extpdstemplate(11, list); */
+/*         tmpl = extdrstemplate(11, list); */
 /*         if (!tmpl) */
 /*             return G2C_ERROR; */
 /*         if (tmpl->num != 11 || tmpl->maplen != 32 || !tmpl->needext) */
@@ -128,7 +128,7 @@ main()
 /*         free(tmpl); */
 
 /*         /\* Check for one that's there but does need an extension. *\/ */
-/*         tmpl = extpdstemplate(12, list); */
+/*         tmpl = extdrstemplate(12, list); */
 /*         if (!tmpl) */
 /*             return G2C_ERROR; */
 /*         if (tmpl->num != 12 || tmpl->maplen != 31 || !tmpl->needext) */
@@ -137,7 +137,7 @@ main()
 /*         free(tmpl); */
 
 /*         /\* Check for one that's there but does need an extension. *\/ */
-/*         tmpl = extpdstemplate(13, list); */
+/*         tmpl = extdrstemplate(13, list); */
 /*         if (!tmpl) */
 /*             return G2C_ERROR; */
 /*         if (tmpl->num != 13 || tmpl->maplen != 45 || !tmpl->needext) */
