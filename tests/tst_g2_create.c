@@ -47,10 +47,12 @@ main()
     printf("ok!\n");
     printf("Testing g2_create() call...");
     {
-	unsigned char expected_cgrib[MSG_LEN] = {71, 82, 73, 66, 0, 0, 0, 2, 0, 0,
+        g2int listsec0[2] = {1, 2};
+        g2int listsec1[13] = {7, 4, 24, 0, 0, 2021, 10, 24, 6, 54, 59, 7, 192};
+	unsigned char expected_cgrib[MSG_LEN] = {71, 82, 73, 66, 0, 0, 1, 2, 0, 0,
 						 0, 0, 0, 0, 0, 37, 0, 0, 0, 21, 1,
-						 0, 0, 0, 0, 0, 0, 0, 7, 229, 9, 22,
-						 0, 0, 0, 0, 0};
+						 0, 7, 0, 4, 24, 0, 0, 7, 229, 10, 24,
+						 6, 54, 59, 7, 192};
 	int i;
 	int ret;
     
@@ -58,9 +60,9 @@ main()
 	    return G2C_ERROR;
 	for (i = 0; i < MSG_LEN; i++)
 	{
-	    /* printf("%d %d %d\n", i, cgrib[i], expected_cgrib[i]); */
+	    /* printf("%d %d %d\n", i, cgrib[i], expected_cgrib[i]);  */
 	    if (cgrib[i] != expected_cgrib[i])
-	    	return G2C_ERROR;
+		return G2C_ERROR;
 	}
     }
     printf("ok!\n");
