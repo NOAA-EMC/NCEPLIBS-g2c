@@ -299,7 +299,7 @@ main()
         free(tmpl->ext);
         free(tmpl);
     }
-    printf("SUCCESS!\n");
     printf("ok!\n");
+    printf("SUCCESS!\n");
     return 0;
 }
