@@ -50,7 +50,7 @@ main()
             return G2C_ERROR;
     }
     printf("ok!\n");
-    printf("Testing extdrstemplate() calls...");
+    printf("Testing extdrstemplate() calls (expect and ignore error messages)...");
     {
 #define MAX_LIST 40
         gtemplate *tmpl;
@@ -73,14 +73,14 @@ main()
         if (tmpl)
             return G2C_ERROR;
 
-/*         /\* Check for one that's there but does need an extension. *\/ */
-/*         tmpl = extdrstemplate(3, list); */
-/*         if (!tmpl) */
-/*             return G2C_ERROR; */
-/*         if (tmpl->num != 3 || tmpl->maplen != 31 || !tmpl->needext) */
-/*             return G2C_ERROR; */
-/*         free(tmpl->ext); */
-/*         free(tmpl); */
+        /* Check for one that's there but does need an extension. */
+        tmpl = extdrstemplate(3, list);
+        if (!tmpl)
+            return G2C_ERROR;
+        if (tmpl->num != 3 || tmpl->maplen != 31 || !tmpl->needext)
+            return G2C_ERROR;
+        free(tmpl->ext);
+        free(tmpl);
 
 /*         /\* Check for one that's there but does need an extension. *\/ */
 /*         tmpl = extdrstemplate(4, list); */
