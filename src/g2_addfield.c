@@ -29,24 +29,22 @@ void jpcpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
  *
  * This routine is used with routines g2_create(), g2_addlocal(),
  * g2_addgrid(), and g2_gribend() to create a complete GRIB2
- * message. g2_create() must be called first to initialize a new GRIB2
- * message. Also, routine g2_addgrid() must be called after
+ * message. Function g2_create() must be called first to initialize a
+ * new GRIB2 message. Function g2_addgrid() must be called after
  * g2_create() and before this routine to add the appropriate grid
- * description to the GRIB2 message. Also, a call to g2_gribend() is
+ * description to the GRIB2 message. A call to g2_gribend() is
  * required to complete GRIB2 message after all fields have been
  * added.
  *
- * PROGRAM HISTORY LOG:
- * - 2002-11-05  Gilbert
- * - 2002-12-23  Gilbert  -  Added complex spherical harmonic packing
- * - 2003-08-27  Gilbert  - Added support for new templates using
- *                        PNG and JPEG2000 algorithms/templates.
- * - 2004-11-29  Gilbert  - JPEG2000 now allowed to use WMO Template no. 5.40
- *                        PNG now allowed to use WMO Template no. 5.41
- *                      - Added check to determine if packing algorithm failed.
- * - 2005-05-10  Gilbert -  Imposed minimum size on cpack, used to hold encoded
- *                        bit string.
- * - 2009-01-14  Vuong     Changed structure name template to gtemplate
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|--------- 
+ * 2002-11-05 | Gilbert | Initial
+ * 2002-12-23 | Gilbert | Added complex spherical harmonic packing
+ * 2003-08-27 | Gilbert | Added support for new templates using PNG and JPEG2000 algorithms/templates.
+ * 2004-11-29 | Gilbert | JPEG2000 now can use WMO Template 5.40 PNG can use WMO Template 5.41. Added packing algorithm check.
+ * 2005-05-10 | Gilbert | Imposed minimum size on cpack.
+ * 2009-01-14 | Vuong | Changed structure name template to gtemplate
  *
  * @param cgrib Char array that contains the GRIB2 message to which
  * sections 4 through 7 should be added. Must be allocated large
