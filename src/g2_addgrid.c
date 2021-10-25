@@ -73,8 +73,8 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     static unsigned char seven = 0x37;   /* '7' */
 
     static g2int one = 1, three = 3, miss = 65535;
-    g2int   lensec3, iofst, ibeg, lencurr, len;
-    g2int   i, j, temp, ilen, isecnum, nbits;
+    g2int lensec3, iofst, ibeg, lencurr, len;
+    g2int i, j, temp, ilen, isecnum, nbits;
     gtemplate *mapgrid = 0;
 
     /* Check to see if beginning of GRIB message exists. */
