@@ -5,6 +5,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "grib2.h"
 
 #define SEC0_LEN 16
@@ -136,6 +137,29 @@ main()
 
         /* Change value back. */
         cgrib[7] = old_val;
+
+        /* Try g2_getfld(). */
+        g2int ifldnum = 1, unpack = 1, expand = 0;
+        gribfield *gfld;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)))
+            return G2C_ERROR;
+
+        /* Check some stuff. */
+        if (gfld->version != 2 || gfld->discipline != 1 || gfld->idsectlen != 13 ||
+            gfld->local || gfld->locallen || gfld->ifldnum != 1 || gfld->griddef ||
+            gfld->ngrdpts != 4 || gfld->numoct_opt || gfld->coord_list || gfld->ndpts != 4 ||
+            gfld->idrtnum || gfld->idrtlen != 5 || gfld->unpacked != 1 || gfld->expanded ||
+            gfld->ibmap)
+            return G2C_ERROR;
+        for (i = 0; i < 13; i++)
+            if (gfld->idsect[i] != listsec1[i])
+                return G2C_ERROR;
+        for (i = 0; i < 19; i++)
+            if (gfld->igdtmpl[i] != igdstmpl[i])
+                return G2C_ERROR;
+
+        /* Free the memory. */
+        free(gfld);
 
     }
     printf("ok!\n");

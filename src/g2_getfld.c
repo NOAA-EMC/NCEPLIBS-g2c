@@ -97,8 +97,9 @@ g2int g2_unpack7(unsigned char *,g2int *,g2int ,g2int *,
  *
  * @author Stephen Gilbert @date 2002-10-28
  */
-g2int g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand, 
-                gribfield **gfld)
+g2int
+g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand, 
+          gribfield **gfld)
 {
 
     g2int have3, have4, have5, have6, have7, ierr, jerr;
@@ -154,7 +155,7 @@ g2int g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     }
 
     /*  Unpack Section 0 - Indicator Section. */
-    iofst = 8*(istart + 6);
+    iofst = 8 * (istart + 6);
     gbit(cgrib, &disc, iofst, 8);     /* Discipline */
     iofst = iofst + 8;
     gbit(cgrib, &ver, iofst, 8);     /* GRIB edition number */
@@ -361,8 +362,8 @@ g2int g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
 
         /*   Check to see if we read pass the end of the GRIB message
          *   and missed the terminator string '7777'. */
-        ipos = ipos+lensec;                /* Update beginning of section pointer */
-        if (ipos > (istart+lengrib)) {
+        ipos = ipos + lensec;                /* Update beginning of section pointer */
+        if (ipos > (istart + lengrib)) {
             printf("g2_getfld: '7777'  not found at end of GRIB message.\n");
             ierr = 7;
             return(ierr);

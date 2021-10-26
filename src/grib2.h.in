@@ -62,7 +62,8 @@ struct gribfield
     /** GRIB edition number (2). */
     g2int version;
 
-    /** Message Discipline (see Code Table 0.0). */
+    /** Message Discipline (see [Table
+     * 0.0](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table0-0.shtml)). */
     g2int discipline;
 
     /** Contains the entries in the [Identification Section (Section
