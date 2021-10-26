@@ -87,7 +87,8 @@ main()
         /* Add section 8. */
         if ((ret = g2_gribend(cgrib)) != FULL_MSG_LEN)
             return G2C_ERROR;
-            
+
+        /* Check the contents of the message for correctness. */
         for (i = 0; i < FULL_MSG_LEN; i++)
         {
             /* printf("0x%2.2lx, ", cgrib[i]); */
@@ -98,6 +99,24 @@ main()
         /* Try to re-add section 3 - this will fail. */
         if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != -2)
             return G2C_ERROR;
+
+        {
+            g2int listsec0_in[3], listsec1_in[13];
+            g2int numfields, numlocal;
+            int i;
+            
+            /* Use g2_info() to learn about our messaage. */
+            if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)))
+                return G2C_ERROR;
+
+            /* Check results. */
+            if (numlocal || numfields != 1 || listsec0_in[0] != 1 || listsec0_in[1] != 2 ||
+                listsec0_in[2] != FULL_MSG_LEN)
+                return G2C_ERROR;
+            for (i = 0; i < 13; i++)
+                if (listsec1_in[i] != listsec1[i])
+                    return G2C_ERROR;
+        }
         
     }
     printf("ok!\n");
