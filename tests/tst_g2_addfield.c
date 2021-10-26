@@ -157,6 +157,9 @@ main()
         for (i = 0; i < 19; i++)
             if (gfld->igdtmpl[i] != igdstmpl[i])
                 return G2C_ERROR;
+        for (i = 0; i < 15; i++)
+            if (gfld->ipdtmpl[i] != ipdstmpl[i])
+                return G2C_ERROR;
 
         /* Free the memory. */
         free(gfld);
