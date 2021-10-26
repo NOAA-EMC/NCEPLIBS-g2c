@@ -126,7 +126,7 @@ Variables</h2></td></tr>
 <li>A logical value (needext) that indicates whether the Template needs to be extended. In some cases the number of entries in a template can vary depending upon values specified in the "static" part of the template. (See Template 4.3 as an example).</li>
 </ol>
 <dl class="section note"><dt>Note</dt><dd>Array mappds contains the number of octets in which the corresponding template values will be stored. A negative value in mappds is used to indicate that the corresponding template entry can contain negative values. This information is used later when packing (or unpacking) the template data values. Negative data values in GRIB are stored with the left most bit set to one, and a negative number of octets value in mappds[] indicates that this possibility should be considered. The number of octets used to store the data value in this case would be the absolute value of the negative value in mappds.</dd></dl>
-<h3><a class="anchor" id="autotoc_md10"></a>
+<h3><a class="anchor" id="autotoc_md13"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">

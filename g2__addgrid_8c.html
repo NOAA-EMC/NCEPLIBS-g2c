@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('g2__addgrid_8c.html',''); initResizabl
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a14908ea75d83021b0ec10ae8c084567c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c">g2_addgrid</a> (unsigned char *cgrib, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *igds, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *igdstmpl, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *ideflist, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> idefnum)</td></tr>
-<tr class="memdesc:a14908ea75d83021b0ec10ae8c084567c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.  <a href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c">More...</a><br /></td></tr>
+<tr class="memdesc:a14908ea75d83021b0ec10ae8c084567c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine packs up a <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml">Grid Definition Section (Section 3)</a> and adds it to a GRIB2 message.  <a href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c">More...</a><br /></td></tr>
 <tr class="separator:a14908ea75d83021b0ec10ae8c084567c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -154,9 +154,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message. </p>
+<p>This routine packs up a <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml">Grid Definition Section (Section 3)</a> and adds it to a GRIB2 message. </p>
 <p>It is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message.</p>
-<h3><a class="anchor" id="autotoc_md6"></a>
+<h3><a class="anchor" id="autotoc_md7"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -192,11 +192,11 @@ Program History Log</h3>
 <li>-5 Could not find requested Grid Definition Template.</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The Grid Def Section ( Section 3 ) can only follow Section 1, 2 or Section 7 in a GRIB2 message.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The Grid Def Section (Section 3) can only follow Section 1, 2 or Section 7 in a GRIB2 message.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbeert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-11-01 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2__addgrid_8c_source.html#l00065">65</a> of file <a class="el" href="g2__addgrid_8c_source.html">g2_addgrid.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2__addgrid_8c_source.html#l00066">66</a> of file <a class="el" href="g2__addgrid_8c_source.html">g2_addgrid.c</a>.</p>
 
 <p class="reference">References <a class="el" href="grib2_8h_source.html#l00052">gtemplate::ext</a>, <a class="el" href="gridtemplates_8c_source.html#l00124">extgridtemplate()</a>, <a class="el" href="grib2_8h_source.html#l00048">gtemplate::extlen</a>, <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="gridtemplates_8c_source.html#l00075">getgridtemplate()</a>, <a class="el" href="grib2_8h_source.html#l00042">gtemplate::map</a>, <a class="el" href="grib2_8h_source.html#l00038">gtemplate::maplen</a>, <a class="el" href="grib2_8h_source.html#l00045">gtemplate::needext</a>, <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
 
