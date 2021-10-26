@@ -65,7 +65,7 @@
  */
 g2int
 g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
-        g2int *numfields,g2int *numlocal)
+        g2int *numfields, g2int *numlocal)
 {
     g2int ierr, mapsec1len = 13;
     g2int mapsec1[13] = {2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};
