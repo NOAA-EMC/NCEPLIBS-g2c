@@ -23,16 +23,15 @@ g2int jpcunpack(unsigned char *,g2int,g2int *,g2int, g2float *);
  * This subroutine unpacks Section 7 (Data Section) as defined in GRIB
  * Edition 2.
  *
- * PROGRAM HISTORY LOG:
- * - 2002-10-31  Gilbert
- * - 2002-12-20  Gilbert - Added GDT info to arguments
- *                       and added 5.51 processing.
- * - 2003-08-29  Gilbert  - Added support for new templates using
- *                        PNG and JPEG2000 algorithms/templates.
- * - 2004-11-29  Gilbert  - JPEG2000 now allowed to use WMO Template no. 5.40
- *                        PNG now allowed to use WMO Template no. 5.41
- * - 2004-12-16  Taylor   - Added check on comunpack return code.
- * - 2008-12-23  Wesley   - Initialize Number of data points unpacked
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|--------- 
+ * 2002-10-31 | Gilbert | Initial
+ * 2002-12-20 | Gilbert | Added GDT info to arguments and added 5.51 processing.
+ * 2003-08-29 | Gilbert | New templates using PNG and JPEG2000 algorithms/templates.
+ * 2004-11-29 | Gilbert | JPEG2000 now allowed to use WMO Template 5.40 PNG allowed to use 5.41
+ * 2004-12-16 | Taylor | Added check on comunpack return code.
+ * 2008-12-23 | Wesley | Initialize Number of data points unpacked
  *
  * @param cgrib char array containing Section 7 of the GRIB2 message
  * @param iofst Bit offset of the beginning of Section 7 in cgrib.
@@ -66,74 +65,76 @@ g2int
 g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
            g2int idrsnum, g2int *idrstmpl, g2int ndpts, g2float **fld)
 {
-    g2int ierr,isecnum;
-    g2int ipos,lensec;
+    g2int ierr, isecnum;
+    g2int ipos, lensec;
     g2float *lfld;
 
-    ierr=0;
-    *fld=0;     /*NULL*/
+    ierr = 0;
+    *fld = 0;     /*NULL*/
 
-    gbit(cgrib,&lensec,*iofst,32);        /* Get Length of Section */
-    *iofst=*iofst+32;
-    gbit(cgrib,&isecnum,*iofst,8);         /* Get Section Number */
-    *iofst=*iofst+8;
+    gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
+    *iofst = *iofst + 32;
+    gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
+    *iofst = *iofst + 8;
 
-    if ( isecnum != 7 ) {
-        ierr=2;
-        /*fprintf(stderr,"g2_unpack7: Not Section 7 data.\n"); */
+    if (isecnum != 7) {
+        ierr = 2;
+        /*fprintf(stderr, "g2_unpack7: Not Section 7 data.\n"); */
         return(ierr);
     }
 
-    ipos=(*iofst/8);
-    lfld=(g2float *)calloc(ndpts ? ndpts : 1,sizeof(g2float));
+    ipos = (*iofst / 8);
+    lfld = calloc(ndpts ? ndpts : 1, sizeof(g2float));
     if (lfld == 0) {
-        ierr=6;
+        ierr = 6;
         return(ierr);
     }
     else {
-        *fld=lfld;
+        *fld = lfld;
     }
 
     if (idrsnum == 0)
-        simunpack(cgrib+ipos,idrstmpl,ndpts,lfld);
+        simunpack(cgrib + ipos, idrstmpl, ndpts, lfld);
     else if (idrsnum == 2 || idrsnum == 3) {
-        if (comunpack(cgrib+ipos,lensec,idrsnum,idrstmpl,ndpts,lfld) != 0) {
+        if (comunpack(cgrib+ipos, lensec, idrsnum, idrstmpl, ndpts, lfld) != 0) {
             return 7;
         }
     }
     else if (idrsnum == 50) {            /* Spectral Simple */
-        simunpack(cgrib+ipos,idrstmpl,ndpts-1,lfld+1);
-        rdieee(idrstmpl+4,lfld+0,1);
+        simunpack(cgrib + ipos, idrstmpl, ndpts - 1, lfld + 1);
+        rdieee(idrstmpl + 4, lfld, 1);
     }
     else if (idrsnum == 51)              /* Spectral complex */
-        if ( igdsnum>=50 && igdsnum <=53 )
-            specunpack(cgrib+ipos,idrstmpl,ndpts,igdstmpl[0],igdstmpl[2],igdstmpl[2],lfld);
+        if (igdsnum>=50 && igdsnum <=53)
+            specunpack(cgrib+ipos, idrstmpl, ndpts, igdstmpl[0], igdstmpl[2], igdstmpl[2], lfld);
         else {
-            fprintf(stderr,"g2_unpack7: Cannot use GDT 3.%d to unpack Data Section 5.51.\n",(int)igdsnum);
-            ierr=5;
-            if ( lfld != 0 ) free(lfld);
-            *fld=0;     //NULL
+            fprintf(stderr, "g2_unpack7: Cannot use GDT 3.%d to unpack Data Section 5.51.\n", (int)igdsnum);
+            ierr = 5;
+            if (lfld)
+                free(lfld);
+            *fld = NULL;
             return(ierr);
         }
 #if defined USE_JPEG2000 || defined USE_OPENJPEG
     else if (idrsnum == 40 || idrsnum == 40000) {
-        jpcunpack(cgrib+ipos,lensec-5,idrstmpl,ndpts,lfld);
+        jpcunpack(cgrib + ipos, lensec - 5, idrstmpl, ndpts, lfld);
     }
 #endif  /* USE_JPEG2000 */
 #ifdef USE_PNG
     else if (idrsnum == 41 || idrsnum == 40010) {
-        pngunpack(cgrib+ipos,lensec-5,idrstmpl,ndpts,lfld);
+        pngunpack(cgrib + ipos, lensec - 5, idrstmpl, ndpts, lfld);
     }
 #endif  /* USE_PNG */
     else {
-        fprintf(stderr,"g2_unpack7: Data Representation Template 5.%d not yet implemented.\n",(int)idrsnum);
-        ierr=4;
-        if ( lfld != 0 ) free(lfld);
-        *fld=0;     /* NULL */
+        fprintf(stderr, "g2_unpack7: Data Representation Template 5.%d not yet implemented.\n", (int)idrsnum);
+        ierr = 4;
+        if (lfld)
+            free(lfld);
+        *fld = NULL;
         return(ierr);
     }
 
-    *iofst=*iofst+(8*lensec);
+    *iofst = *iofst + (8 * lensec);
 
     return(ierr);    /* End of Section 7 processing */
 }

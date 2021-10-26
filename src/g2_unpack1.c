@@ -23,7 +23,7 @@
  * - ids[2] GRIB Master Tables Version Number (see Code Table 1.0).
  * - ids[3] GRIB Local Tables Version Number (see Code Table 1.1).
  * - ids[4] Significance of Reference Time (Code Table 1.2)
- * - ids[5] Year ( 4 digits )
+ * - ids[5] Year (4 digits)
  * - ids[6] Month
  * - ids[7] Day
  * - ids[8] Hour
@@ -44,41 +44,41 @@ g2int
 g2_unpack1(unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)
 {
 
-    g2int i,lensec,nbits,ierr,isecnum;
-    g2int mapid[13]={2,2,1,1,1,2,1,1,1,1,1,1,1};
+    g2int i, lensec, nbits, ierr, isecnum;
+    g2int mapid[13]={2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};
 
-    ierr=0;
-    *idslen=13;
-    *ids=0;
+    ierr = 0;
+    *idslen = 13;
+    *ids = 0;
 
-    gbit(cgrib,&lensec,*iofst,32);        /* Get Length of Section */
-    *iofst=*iofst+32;
-    gbit(cgrib,&isecnum,*iofst,8);         /* Get Section Number */
-    *iofst=*iofst+8;
+    gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
+    *iofst = *iofst + 32;
+    gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
+    *iofst = *iofst + 8;
 
-    if ( isecnum != 1 )
+    if (isecnum != 1)
     {
-        ierr=2;
-        *idslen=13;
-        fprintf(stderr,"g2_unpack1: Not Section 1 data.\n");
+        ierr = 2;
+        *idslen = 13;
+        fprintf(stderr, "g2_unpack1: Not Section 1 data.\n");
         return(ierr);
     }
 
-    /*   Unpack each value into array ids from the appropriate
-     *   number of octets, which are specified in` corresponding
-     *   entries in array mapid. */
-    *ids=(g2int *)calloc(*idslen,sizeof(g2int));
+    /* Unpack each value into array ids from the appropriate number of
+     * octets, which are specified in` corresponding entries in array
+     * mapid. */
+    *ids = calloc(*idslen, sizeof(g2int));
     if (*ids == 0)
     {
-        ierr=6;
+        ierr = 6;
         return(ierr);
     }
 
-    for (i=0;i<*idslen;i++)
+    for (i = 0; i < *idslen; i++)
     {
-        nbits=mapid[i]*8;
-        gbit(cgrib,*ids+i,*iofst,nbits);
-        *iofst=*iofst+nbits;
+        nbits = mapid[i] * 8;
+        gbit(cgrib, *ids + i, *iofst, nbits);
+        *iofst = *iofst + nbits;
     }
 
     return(ierr);    // End of Section 1 processing
