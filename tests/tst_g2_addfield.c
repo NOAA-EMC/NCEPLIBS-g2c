@@ -19,7 +19,7 @@ main()
     printf("Testing g2_addfield().\n");
     printf("Testing g2_create() call...");
     {
-        unsigned char cgrib[MSG_LEN];
+        unsigned char cgrib[176];
         g2int listsec0[2] = {1, 2};
         g2int listsec1[13] = {7, 4, 24, 0, 0, 2021, 10, 24, 6, 54, 59, 7, 192};
         g2int igds[5] = {0, 4, 0, 0, 0};
