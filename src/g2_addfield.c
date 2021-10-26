@@ -463,7 +463,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
 
     /*   Calculate length of section 7 and store it in octets */
     /*   1-4 of section 7. */
-    lensec7 = (iofst-ibeg)/8;
+    lensec7 = (iofst - ibeg) / 8;
     sbit(cgrib, &lensec7, ibeg, 32);
 
     if (cpack != 0)
