@@ -51,6 +51,8 @@ main()
         g2int ngrdpts = 4;
         g2int ibmap = 0;
         g2int bmap[4] = {1, 1, 1, 1};
+        g2int listsec0_in[3], listsec1_in[13];
+        g2int numfields, numlocal;
         int i;
         int ret;
 
@@ -100,23 +102,17 @@ main()
         if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != -2)
             return G2C_ERROR;
 
-        {
-            g2int listsec0_in[3], listsec1_in[13];
-            g2int numfields, numlocal;
-            int i;
-            
-            /* Use g2_info() to learn about our messaage. */
-            if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)))
-                return G2C_ERROR;
+        /* Use g2_info() to learn about our messaage. */
+        if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)))
+            return G2C_ERROR;
 
-            /* Check results. */
-            if (numlocal || numfields != 1 || listsec0_in[0] != 1 || listsec0_in[1] != 2 ||
-                listsec0_in[2] != FULL_MSG_LEN)
+        /* Check results. */
+        if (numlocal || numfields != 1 || listsec0_in[0] != 1 || listsec0_in[1] != 2 ||
+            listsec0_in[2] != FULL_MSG_LEN)
+            return G2C_ERROR;
+        for (i = 0; i < 13; i++)
+            if (listsec1_in[i] != listsec1[i])
                 return G2C_ERROR;
-            for (i = 0; i < 13; i++)
-                if (listsec1_in[i] != listsec1[i])
-                    return G2C_ERROR;
-        }
         
     }
     printf("ok!\n");
