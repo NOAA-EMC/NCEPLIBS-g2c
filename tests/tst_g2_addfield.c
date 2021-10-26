@@ -166,6 +166,8 @@ main()
         free(gfld->igdtmpl);
         free(gfld->idrtmpl);
         free(gfld->ipdtmpl);
+        free(gfld->bmap);
+        free(gfld->fld);
         free(gfld);
 
     }
