@@ -11,6 +11,7 @@
 #define SEC1_LEN 21
 #define SEC3_LEN 34
 #define MSG_LEN 109
+#define FULL_MSG_LEN 178
 #define G2C_ERROR 2
 
 int
@@ -19,7 +20,7 @@ main()
     printf("Testing g2_addfield().\n");
     printf("Testing g2_create() call...");
     {
-        unsigned char cgrib[176];
+        unsigned char cgrib[FULL_MSG_LEN];
         g2int listsec0[2] = {1, 2};
         g2int listsec1[13] = {7, 4, 24, 0, 0, 2021, 10, 24, 6, 54, 59, 7, 192};
         g2int igds[5] = {0, 4, 0, 0, 0};
@@ -55,13 +56,12 @@ main()
         g2float fld[4] = {1, 2, 3, 4};
         g2int ngrdpts = 4;
         g2int ibmap = 0;
-        g2int bmap[1] = {0};
+        g2int bmap[4] = {1, 1, 1, 1};
         if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
-                               idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != 176)
-        {
-            printf("%d\n", ret);
+                               idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != FULL_MSG_LEN)
             return G2C_ERROR;
-        }
+
+        /* if ((ret = g2_gribend( */
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
