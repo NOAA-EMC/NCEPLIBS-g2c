@@ -56,6 +56,11 @@ main()
         int i;
         int ret;
 
+        /* Try to use g2_info() to learn about our messaage - won't
+         * work, we haven't created a message yet. */
+        if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)) != 1)
+            return G2C_ERROR;
+
         /* Create the message, filling in sections 0 and 1. */
         if ((ret = g2_create(cgrib, listsec0, listsec1)) != SEC0_LEN + SEC1_LEN)
             return G2C_ERROR;
@@ -86,6 +91,11 @@ main()
         /* Change the first char back. */
         cgrib[0] = old_val;
         
+        /* Try to use g2_info() to learn about our messaage - won't
+         * work, message must be ended first. */
+        if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)) != 6)
+            return G2C_ERROR;
+
         /* Add section 8. */
         if ((ret = g2_gribend(cgrib)) != FULL_MSG_LEN)
             return G2C_ERROR;
@@ -113,7 +123,18 @@ main()
         for (i = 0; i < 13; i++)
             if (listsec1_in[i] != listsec1[i])
                 return G2C_ERROR;
+
+        /* Change the GRIB version of the message. Just to be dumb again. */
+        old_val = cgrib[7];
+        cgrib[7] = 0;
         
+        /* Use g2_info() to learn about our messaage. */
+        if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)) != 2)
+            return G2C_ERROR;
+
+        /* Change value back. */
+        cgrib[7] = old_val;
+
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
