@@ -162,7 +162,9 @@ main()
                 return G2C_ERROR;
 
         /* Free the memory. */
+        free(gfld->idsect);
         free(gfld->igdtmpl);
+        free(gfld->idrtmpl);
         free(gfld->ipdtmpl);
         free(gfld);
 
