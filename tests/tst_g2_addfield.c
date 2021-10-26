@@ -11,7 +11,8 @@
 #define SEC1_LEN 21
 #define SEC3_LEN 34
 #define MSG_LEN 109
-#define FULL_MSG_LEN 178
+#define MOST_MSG_LEN 178
+#define FULL_MSG_LEN 182
 #define G2C_ERROR 2
 
 int
@@ -58,10 +59,12 @@ main()
         g2int ibmap = 0;
         g2int bmap[4] = {1, 1, 1, 1};
         if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
-                               idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != FULL_MSG_LEN)
+                               idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != MOST_MSG_LEN)
             return G2C_ERROR;
 
-        /* if ((ret = g2_gribend( */
+        if ((ret = g2_gribend(cgrib)) != FULL_MSG_LEN)
+            return G2C_ERROR;
+            
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
