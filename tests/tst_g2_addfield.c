@@ -162,13 +162,14 @@ main()
                 return G2C_ERROR;
 
         /* Free the memory. */
-        free(gfld->idsect);
-        free(gfld->igdtmpl);
-        free(gfld->idrtmpl);
-        free(gfld->ipdtmpl);
-        free(gfld->bmap);
-        free(gfld->fld);
-        free(gfld);
+        g2_free(gfdl);
+        /* free(gfld->idsect); */
+        /* free(gfld->igdtmpl); */
+        /* free(gfld->idrtmpl); */
+        /* free(gfld->ipdtmpl); */
+        /* free(gfld->bmap); */
+        /* free(gfld->fld); */
+        /* free(gfld); */
 
     }
     printf("ok!\n");

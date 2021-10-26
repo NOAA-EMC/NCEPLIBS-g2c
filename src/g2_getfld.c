@@ -74,7 +74,7 @@ g2int g2_unpack7(unsigned char *,g2int *,g2int ,g2int *,
  * @note Struct gribfield is allocated by this routine and it also
  * contains pointers to many arrays of data that were allocated during
  * decoding. Users are encouraged to free up this memory, when it is
- * no longer needed, by an explicit call to routine g2_free.
+ * no longer needed, by an explicit call to routine g2_free().
  *
  * ## Example:
  * @code
@@ -105,10 +105,10 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     g2int have3, have4, have5, have6, have7, ierr, jerr;
     g2int numfld, j, n, istart, iofst, ipos;
     g2int disc, ver, lensec0, lengrib, lensec, isecnum;
-    g2int  *igds;
+    g2int *igds;
     g2int *bmpsave;
     g2float *newfld;
-    gribfield  *lgfld;
+    gribfield *lgfld;
 
     have3 = 0;
     have4 = 0;
@@ -300,7 +300,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                 if (jerr == 0) {
                     have6 = 1;
                     if (lgfld->ibmap == 254)     /* use previously specified bitmap */
-                        if(bmpsave != 0)
+                        if (bmpsave != 0)
                             lgfld->bmap = bmpsave;
                         else {
                             printf("g2_getfld: Prev bit-map specified, but none exist.\n");
@@ -308,7 +308,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                             return(ierr);
                         }
                     else                         /* get rid of it */
-                        if(bmpsave!=0)
+                        if (bmpsave!=0)
                             free(bmpsave);
                 }
                 else {
