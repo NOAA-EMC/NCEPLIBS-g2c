@@ -19,21 +19,26 @@ int
 main()
 {
     printf("Testing g2_addfield().\n");
-    printf("Testing g2_create() call...");
+    printf("Testing full message creation (expect and ignore error messages)...\n");
     {
         unsigned char cgrib[FULL_MSG_LEN];
         g2int listsec0[2] = {1, 2};
         g2int listsec1[13] = {7, 4, 24, 0, 0, 2021, 10, 24, 6, 54, 59, 7, 192};
         g2int igds[5] = {0, 4, 0, 0, 0};
         g2int igdstmpl[19] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
-        unsigned char expected_cgrib[FULL_MSG_LEN] = {71, 82, 73, 66, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0,
-            182, 0, 0, 0, 21, 1, 0, 7, 0, 4, 24, 0, 0, 7, 229, 10, 24, 6, 54, 59, 7, 192, 0, 0, 0,
-            72, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 3, 0, 0, 0, 4, 5, 0, 0, 0, 6, 0,
-            0, 0, 7, 0, 0, 0, 8, 0, 0, 0, 9, 0, 0, 0, 10, 0, 0, 0, 11, 0, 0, 0, 12, 13, 0, 0, 0,
-            14, 0, 0, 0, 15, 0, 0, 0, 16, 0, 0, 0, 17, 18, 0, 0, 0, 34, 4, 0, 0, 0, 0, 0, 1, 2,
-            3, 4, 0, 5, 6, 7, 0, 0, 0, 8, 9, 10, 0, 0, 0, 11, 12, 13, 0, 0, 0, 14, 0, 0, 0, 21,
-            5, 0, 0, 0, 4, 0, 0, 66, 200, 0, 0, 0, 1, 0, 2, 3, 0, 0, 0, 0, 7, 6, 0, 240, 0, 0,
-            0, 7, 7, 10, 96, 55, 55, 55, 55};
+        unsigned char expected_cgrib[FULL_MSG_LEN] = {0x47, 0x52, 0x49, 0x42, 0x00, 0x00, 0x01, 0x02, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb6, 0x00, 0x00, 0x00, 0x15, 0x01, 0x00, 0x07, 0x00, 0x04,
+            0x18, 0x00, 0x00, 0x07, 0xe5, 0x0a, 0x18, 0x06, 0x36, 0x3b, 0x07, 0xc0, 0x00, 0x00, 0x00, 0x48,
+            0x03, 0x00, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02,
+            0x03, 0x00, 0x00, 0x00, 0x04, 0x05, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00,
+            0x00, 0x08, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x00,
+            0x00, 0x0c, 0x0d, 0x00, 0x00, 0x00, 0x0e, 0x00, 0x00, 0x00, 0x0f, 0x00, 0x00, 0x00, 0x10, 0x00,
+            0x00, 0x00, 0x11, 0x12, 0x00, 0x00, 0x00, 0x22, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02,
+            0x03, 0x04, 0x00, 0x05, 0x06, 0x07, 0x00, 0x00, 0x00, 0x08, 0x09, 0x0a, 0x00, 0x00, 0x00, 0x0b,
+            0x0c, 0x0d, 0x00, 0x00, 0x00, 0x0e, 0x00, 0x00, 0x00, 0x15, 0x05, 0x00, 0x00, 0x00, 0x04, 0x00,
+            0x00, 0x42, 0xc8, 0x00, 0x00, 0x00, 0x01, 0x00, 0x02, 0x03, 0x00, 0x00, 0x00, 0x00, 0x07, 0x06,
+            0x00, 0xf0, 0x00, 0x00, 0x00, 0x07, 0x07, 0x0a, 0x60, 0x37, 0x37, 0x37, 0x37};
+        unsigned char old_val;
         /* Analysis or forecast at a horizontal level or in a
          * horizontal layer at a point in time. */
         g2int ipdsnum = 0;
@@ -57,21 +62,43 @@ main()
         if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != 109)
             return G2C_ERROR;
 
-        /* Add sections 4, 5, and 6. */
+        /* Try to add section 8 - this will fail because section 7 is
+         * not defined yet. */
+        if ((ret = g2_gribend(cgrib)) != -4)
+            return G2C_ERROR;
+
+        /* Add sections 4, 5, 6, and 7. */
         if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
                                idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != MOST_MSG_LEN)
             return G2C_ERROR;
 
-        /* Add section 7. */
+        /* Change the first char of the message. Just to be dumb. */
+        old_val = cgrib[0];
+        cgrib[0] = 0;
+        
+        /* Try to add section 8 - this will fail because we changed
+         * first char of message. */
+        if ((ret = g2_gribend(cgrib)) != -1)
+            return G2C_ERROR;
+
+        /* Change the first char back. */
+        cgrib[0] = old_val;
+        
+        /* Add section 8. */
         if ((ret = g2_gribend(cgrib)) != FULL_MSG_LEN)
             return G2C_ERROR;
             
         for (i = 0; i < FULL_MSG_LEN; i++)
         {
-            /* printf("%d, ", cgrib[i]); */
+            /* printf("0x%2.2lx, ", cgrib[i]); */
             if (cgrib[i] != expected_cgrib[i])
                 return G2C_ERROR;
         }
+
+        /* Try to re-add section 3 - this will fail. */
+        if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != -2)
+            return G2C_ERROR;
+        
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
