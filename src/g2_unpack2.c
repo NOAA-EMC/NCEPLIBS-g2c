@@ -9,8 +9,9 @@
 #include "grib2.h"
 
 /**
- * This subroutine unpacks Section 2 (Local Use Section) as defined in
- * GRIB Edition 2.
+ * This subroutine unpacks [Section 2 (Local Use
+ * Section)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect2.shtml)
+ * as defined in GRIB Edition 2.
  *
  * ### Program History Log
  * Date | Programmer | Comments
@@ -36,10 +37,9 @@ g2int
 g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
            unsigned char **csec2)
 {
-    g2int ierr, isecnum;
+    g2int ierr = 0, isecnum;
     g2int lensec, ipos, j;
 
-    ierr = 0;
     *lencsec2 = 0;
     *csec2 = NULL;
 
@@ -64,8 +64,7 @@ g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
         return(ierr);
     }
 
-    *csec2 = (unsigned char *)malloc(*lencsec2 + 1);
-    if (*csec2 == 0)
+    if (!(*csec2 = malloc(*lencsec2 + 1)))
     {
         ierr = 6;
         *lencsec2 = 0;
@@ -74,9 +73,8 @@ g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
 
     /*printf(" SAGIPO %d \n", (int)ipos);*/
     for (j = 0; j < *lencsec2; j++)
-    {
         *(*csec2 + j) = cgrib[ipos + j];
-    }
+
     *iofst = *iofst + (*lencsec2 * 8);
 
     return(ierr);    /* End of Section 2 processing */

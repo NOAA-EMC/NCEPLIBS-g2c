@@ -62,7 +62,6 @@ g2_unpack1(unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)
 
     ierr = 0;
     *idslen = 13;
-    *ids = 0;
 
     gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
     *iofst = *iofst + 32;
