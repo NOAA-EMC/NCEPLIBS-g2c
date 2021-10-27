@@ -83,21 +83,21 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
     ligds = calloc(5, sizeof(g2int));
     *igds = ligds;
 
-    gbit(cgrib, ligds, *iofst, 8);     /* Get source of Grid def. */
+    gbit(cgrib, &ligds[0], *iofst, 8);     /* Get source of Grid def. */
     *iofst = *iofst + 8;
-    gbit(cgrib, ligds + 1, *iofst, 32);    /* Get number of grid pts. */
+    gbit(cgrib, &ligds[1], *iofst, 32);    /* Get number of grid pts. */
     *iofst = *iofst + 32;
-    gbit(cgrib, ligds + 2, *iofst, 8);     /* Get num octets for opt. list */
+    gbit(cgrib, &ligds[2], *iofst, 8);     /* Get num octets for opt. list */
     *iofst = *iofst + 8;
-    gbit(cgrib, ligds + 3, *iofst, 8);     /* Get interpret. for opt. list */
+    gbit(cgrib, &ligds[3], *iofst, 8);     /* Get interpret. for opt. list */
     *iofst = *iofst + 8;
-    gbit(cgrib, ligds + 4, *iofst, 16);    /* Get Grid Def Template num. */
+    gbit(cgrib, &ligds[4], *iofst, 16);    /* Get Grid Def Template num. */
     *iofst = *iofst + 16;
 
     if (ligds[4] != 65535) {
         /*   Get Grid Definition Template */
         mapgrid = getgridtemplate(ligds[4]);
-        if (mapgrid == 0) {         /* undefined template */
+        if (!mapgrid) {         /* undefined template */
             ierr = 5;
             return(ierr);
         }
@@ -187,7 +187,7 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
         if (lideflist == 0) {
             ierr = 6;
             *idefnum = 0;
-            *ideflist = 0;   /* NULL */
+            *ideflist = NULL;
             return(ierr);
         }
         else {
@@ -198,7 +198,7 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
     }
     else {
         *idefnum = 0;
-        *ideflist = 0;    /* NULL */
+        *ideflist = NULL;
     }
 
     return(ierr);    /* End of Section 3 processing */

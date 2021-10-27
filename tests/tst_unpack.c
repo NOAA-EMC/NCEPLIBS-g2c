@@ -25,13 +25,9 @@ main()
     printf("Testing g2_unpack1() call...");
     {
         g2int listsec1[13] = {7, 4, 24, 0, 0, 2021, 10, 24, 6, 54, 59, 7, 192};
-        /* We have:
-           0-15 - section0
-           16-19 - length of section 1 (includes length)
-           20-41 - section1
-           42-45 - length of section 3 (includes length)
-           45-117 - section 3
-         */
+        g2int expected_igds[5] = {0, 4, 0, 0, 0};
+        g2int expected_igdstmpl[19] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
+        
         unsigned char cgrib[FULL_MSG_LEN] = {
             0x47, 0x52, 0x49, 0x42, 0x00, 0x00, 0x01, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb6, /* section 0 */
             0x00, 0x00, 0x00, 0x15,                                                                         /* len of sect 1 (21) */
@@ -57,6 +53,7 @@ main()
         g2int *ids;
         g2int lencsec2;
         unsigned char *csec2;
+        g2int *igds, *igdstmpl, mapgridlen, *ideflist, idefnum;
         int i;
 
         /* Try and unpack section1 - with a bad section number. Won't work. */
@@ -86,10 +83,34 @@ main()
         if (csec2 || lencsec2)
             return G2C_ERROR;
 
-        g2int *igds, *igdstmpl, mapgridlen, *ideflist, idefnum;
+        /* Try to read section 3 with bad section number. */
+        old_val = cgrib[41];
+        cgrib[41] = 1;
+        iofst = 296;
+        if (g2_unpack3(cgrib, &iofst, &igds, &igdstmpl, &mapgridlen, &ideflist, &idefnum) != 2)
+            return G2C_ERROR;
+        cgrib[41] = old_val;
+
+        /* Try to read section 3 with bad grid template number. */
+        old_val = cgrib[50];
+        cgrib[50] = 127;
+        iofst = 296;
+        if (g2_unpack3(cgrib, &iofst, &igds, &igdstmpl, &mapgridlen, &ideflist, &idefnum) != 5)
+            return G2C_ERROR;
+        cgrib[50] = old_val;
+
+        /* Read section 3. */
         iofst = 296;
         if (g2_unpack3(cgrib, &iofst, &igds, &igdstmpl, &mapgridlen, &ideflist, &idefnum))
             return G2C_ERROR;
+
+        /* Check results. */
+        for (i = 0; i < 5; i++)
+            if (igds[i] != expected_igds[i])
+                return G2C_ERROR;
+        for (i = 0; i < 19; i++)
+            if (igdstmpl[i] != expected_igdstmpl[i])
+                return G2C_ERROR;
 
         /* Free memory. */
         free(igds);
