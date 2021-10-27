@@ -108,18 +108,16 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
          *   corresponding entries in array mapgrid. */
         if (*mapgridlen > 0) {
             ligdstmpl = 0;
-            ligdstmpl = calloc(*mapgridlen, sizeof(g2int));
-            if (ligdstmpl == 0) {
+            if (!(ligdstmpl = calloc(*mapgridlen, sizeof(g2int))))
+            {
                 ierr = 6;
                 *mapgridlen = 0;
-                *igdstmpl = 0;    /* NULL */
-                if (mapgrid != 0)
+                *igdstmpl = NULL;
+                if (!mapgrid)
                     free(mapgrid);
                 return(ierr);
             }
-            else {
-                *igdstmpl = ligdstmpl;
-            }
+            *igdstmpl = ligdstmpl;
         }
         ibyttem = 0;
         for (i = 0; i < *mapgridlen; i++) {
@@ -184,17 +182,15 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
         *idefnum = (lensec - 14 - ibyttem) / ligds[2];
         if (*idefnum > 0)
             lideflist = calloc(*idefnum, sizeof(g2int));
-        if (lideflist == 0) {
+        if (!lideflist) {
             ierr = 6;
             *idefnum = 0;
             *ideflist = NULL;
             return(ierr);
         }
-        else {
-            *ideflist = lideflist;
-        }
+        *ideflist = lideflist;
         gbits(cgrib, lideflist, *iofst, nbits, 0, *idefnum);
-        *iofst = *iofst + (nbits * (*idefnum));
+        *iofst = *iofst + (nbits * *idefnum);
     }
     else {
         *idefnum = 0;
