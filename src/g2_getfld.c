@@ -255,7 +255,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                 lgfld->ifldnum = ifldnum;
                 lgfld->unpacked = unpack;
                 lgfld->expanded = 0;
-                iofst = iofst-40;       /* reset offset to beginning of section */
+                iofst = iofst - 40;       /* reset offset to beginning of section */
                 jerr = g2_unpack4(cgrib, &iofst, &lgfld->ipdtnum, 
                                 &lgfld->ipdtmpl, &lgfld->ipdtlen, &lgfld->coord_list, 
                                 &lgfld->num_coord);

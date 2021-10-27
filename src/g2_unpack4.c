@@ -94,8 +94,8 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
     if (lipdstmpl == 0) {
         ierr = 6;
         *mappdslen = 0;
-        *ipdstmpl = 0;     //NULL
-        if (mappds != 0)
+        *ipdstmpl = NULL;
+        if (mappds)
             free(mappds);
         return(ierr);
     }
@@ -143,9 +143,9 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
         }
         *mappdslen = newlen;
     }
-    if (mappds->ext != 0)
+    if (mappds->ext)
         free(mappds->ext);
-    if (mappds != 0)
+    if (mappds)
         free(mappds);
 
     /* Get Optional list of vertical coordinate values after the
@@ -158,9 +158,9 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
             ierr = 6;
             *numcoord = 0;
             *coordlist = 0;    /* NULL */
-            if (coordieee != 0)
+            if (coordieee)
                 free(coordieee);
-            if (lcoordlist != 0)
+            if (lcoordlist)
                 free(lcoordlist);
             return(ierr);
         }

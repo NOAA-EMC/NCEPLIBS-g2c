@@ -27,6 +27,7 @@ main()
         g2int listsec1[13] = {7, 4, 24, 0, 0, 2021, 10, 24, 6, 54, 59, 7, 192};
         g2int expected_igds[5] = {0, 4, 0, 0, 0};
         g2int expected_igdstmpl[19] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
+        g2int expected_ipdstmpl[15] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
         
         unsigned char cgrib[FULL_MSG_LEN] = {
             0x47, 0x52, 0x49, 0x42, 0x00, 0x00, 0x01, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb6, /* section 0 */
@@ -117,6 +118,22 @@ main()
         /* Free memory. */
         free(igds);
         free(igdstmpl);
+
+        /* Read section 4. */
+        g2int ipdsnum, *ipdstmpl, mappdslen;
+        g2float *coordlist;
+        g2int numcoord;
+        iofst = 872; /* 109 bytes */
+        if (g2_unpack4(cgrib, &iofst, &ipdsnum, &ipdstmpl, &mappdslen, &coordlist, &numcoord))
+            return G2C_ERROR;
+
+        /* Check results. */
+        for (i = 0; i < 15; i++)
+            if (ipdstmpl[i] != expected_ipdstmpl[i])
+                return G2C_ERROR;
+
+        /* Free memory. */
+        free(ipdstmpl);
     }
     printf("ok!\n");
     printf("SUCCESS!\n");

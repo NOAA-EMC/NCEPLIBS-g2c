@@ -139,7 +139,7 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
          *   extended. The number of values in a specific template may
          *   vary depending on data specified in the "static" part of
          *   the gtemplate. */
-        if ( mapgrid->needext == 1 ) {
+        if (mapgrid->needext == 1) {
             free(mapgrid);
             mapgrid = extgridtemplate(ligds[4], ligdstmpl);
             /*   Unpack the rest of the Grid Definition Template */
@@ -164,9 +164,9 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
             }
             *mapgridlen = newlen;
         }
-        if (mapgrid->ext != 0)
+        if (mapgrid->ext)
             free(mapgrid->ext);
-        if(mapgrid != 0)
+        if (mapgrid)
             free(mapgrid);
     }
     else {              /* No Grid Definition Template */
