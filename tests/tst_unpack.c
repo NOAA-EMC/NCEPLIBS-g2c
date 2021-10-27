@@ -39,6 +39,7 @@ main()
 
         if (g2_unpack1(cgrib, &iofst, &ids, &idslen))
             return G2C_ERROR;
+        free(ids);
 
         /* if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != 109)  */
         /*     return G2C_ERROR; */
