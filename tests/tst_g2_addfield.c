@@ -54,6 +54,8 @@ main()
         g2int bmap[4] = {1, 1, 1, 1};
         g2int listsec0_in[3], listsec1_in[13];
         g2int numfields, numlocal;
+        g2int ifldnum = 1, unpack = 1, expand = 0;
+        gribfield *gfld;
         int i;
         int ret;
 
@@ -138,9 +140,27 @@ main()
         /* Change value back. */
         cgrib[7] = old_val;
 
-        /* Try g2_getfld(). */
-        g2int ifldnum = 1, unpack = 1, expand = 0;
-        gribfield *gfld;
+        /* Try g2_getfld() - it won't work, ifldnum cannot be 0. */
+        ifldnum = 0;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 3)
+            return G2C_ERROR;
+        ifldnum = 1;
+
+        /* Try g2_getfld() - it won't work, doesn't start with "GRIB". */
+        old_val = cgrib[0];
+        cgrib[0] = 0;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 1)
+            return G2C_ERROR;
+        cgrib[0] = old_val;
+
+        /* Try g2_getfld() - it won't work, bad section number. */
+        old_val = cgrib[20];
+        cgrib[20] = 0;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 8)
+            return G2C_ERROR;
+        cgrib[20] = old_val;
+
+        /* Try g2_getfld() for field 1. */
         if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)))
             return G2C_ERROR;
 

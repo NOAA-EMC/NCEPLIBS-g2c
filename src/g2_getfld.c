@@ -36,7 +36,8 @@ g2int g2_unpack7(unsigned char *,g2int *,g2int ,g2int *,
  * 2013-08-08 | Vuong | Free up memory in array igds - free(igds)
  *
  * @param cgrib Character pointer to the GRIB2 message.
- * @param ifldnum Specifies which field in the GRIB2 message to return.
+ * @param ifldnum Specifies which field in the GRIB2 message to
+ * return. The first field is number 1, Fortran style.
  * @param unpack Boolean value indicating whether to unpack
  * bitmap/data field.
  * - 1 unpack bitmap (if present) and data values.
@@ -102,21 +103,13 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
           gribfield **gfld)
 {
 
-    g2int have3, have4, have5, have6, have7, ierr, jerr;
-    g2int numfld, j, n, istart, iofst, ipos;
+    g2int have3 = 0, have4 = 0, have5 = 0, have6 = 0, have7 = 0, ierr = 0, jerr;
+    g2int numfld = 0, j, n, istart, iofst, ipos;
     g2int disc, ver, lensec0, lengrib, lensec, isecnum;
     g2int *igds;
     g2int *bmpsave;
     g2float *newfld;
     gribfield *lgfld;
-
-    have3 = 0;
-    have4 = 0;
-    have5 = 0;
-    have6 = 0;
-    have7 = 0;
-    ierr = 0;
-    numfld = 0;
 
     lgfld = malloc(sizeof(gribfield));
     *gfld = lgfld;
@@ -141,9 +134,9 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
 
     /*  Check for beginning of GRIB message in the first 100 bytes. */
     istart = -1;
-    for (j = 0;j<100;j++) {
-        if (cgrib[j] == 'G' && cgrib[j+1] == 'R' &&cgrib[j+2] == 'I' &&
-            cgrib[j+3] == 'B') {
+    for (j = 0; j < 100; j++) {
+        if (cgrib[j] == 'G' && cgrib[j + 1] == 'R' &&cgrib[j + 2] == 'I' &&
+            cgrib[j + 3] == 'B') {
             istart = j;
             break;
         }
@@ -199,7 +192,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         /*printf(" lensec= %ld    secnum= %ld \n", lensec, isecnum); */
 
         /*  Check to see if section number is valid. */
-        if (isecnum<1 || isecnum>7) {
+        if (isecnum < 1 || isecnum > 7) {
             printf("g2_getfld: Unrecognized Section Encountered=%ld\n", isecnum);
             ierr = 8;
             return(ierr);
