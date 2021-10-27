@@ -55,6 +55,9 @@ main()
         g2int lencsec2;
         unsigned char *csec2;
         g2int *igds, *igdstmpl, mapgridlen, *ideflist, idefnum;
+        g2int ipdsnum, *ipdstmpl, mappdslen;
+        g2float *coordlist;
+        g2int numcoord;
         int i;
 
         /* Try and unpack section1 - with a bad section number. Won't work. */
@@ -119,10 +122,27 @@ main()
         free(igds);
         free(igdstmpl);
 
+        /* Try to read section with bad section number - won't work. */
+        old_val = cgrib[113];
+        cgrib[113] = 2;
+        iofst = 872; /* 109 bytes */
+        if (g2_unpack4(cgrib, &iofst, &ipdsnum, &ipdstmpl, &mappdslen, &coordlist, &numcoord) != 2)
+            return G2C_ERROR;
+        if (mappdslen || numcoord)
+            return G2C_ERROR;
+        cgrib[113] = old_val;
+
+        /* Try to read section with bad product definition section template number - won't work. */
+        old_val = cgrib[117];
+        cgrib[117] = 999;
+        iofst = 872; /* 109 bytes */
+        if (g2_unpack4(cgrib, &iofst, &ipdsnum, &ipdstmpl, &mappdslen, &coordlist, &numcoord) != 5)
+            return G2C_ERROR;
+        if (mappdslen)
+            return G2C_ERROR;
+        cgrib[117] = old_val;
+
         /* Read section 4. */
-        g2int ipdsnum, *ipdstmpl, mappdslen;
-        g2float *coordlist;
-        g2int numcoord;
         iofst = 872; /* 109 bytes */
         if (g2_unpack4(cgrib, &iofst, &ipdsnum, &ipdstmpl, &mappdslen, &coordlist, &numcoord))
             return G2C_ERROR;

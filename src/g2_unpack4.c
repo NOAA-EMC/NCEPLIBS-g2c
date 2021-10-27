@@ -9,8 +9,9 @@
 #include "grib2.h"
 
 /**
- * This subroutine unpacks Section 4 (Product Definition Section) as
- * defined in GRIB Edition 2.
+ * This subroutine unpacks [Section 4 (Product Definition
+ * Section)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml)
+ * as defined in GRIB Edition 2.
  *
  * ### Program History Log
  * Date | Programmer | Comments
@@ -18,20 +19,18 @@
  * 2002-10-31 | Gilbert | Initial
  * 2009-01-14 | Vuong | Changed structure name template to gtemplate
  *
- * @param cgrib Char array containing Section 4 of the GRIB2 message.
+ * @param cgrib Array containing Section 4 of the GRIB2 message.
  * @param iofst Bit offset of the beginning of Section 4 in
  * cgrib. Returned with updated bit offset.
- * @param ipdsnum Product Definition Template Number (see Code Table 4.0).
- * @param ipdstmpl Pointer to integer array containing the data
- * values for the specified Product Definition Template
- * (N=ipdsnum). Each element of this integer array contains an entry
- * (in the order specified) of Product Defintion Template 4.N.
- * @param mappdslen Number of elements in ipdstmpl. i.e. number of
- * entries in Product Defintion Template 4.N (N=ipdsnum).
- * @param coordlist Pointer to real array containing floating point
- * values intended to document the vertical discretisation associated
- * to model data on hybrid coordinate vertical levels. (part of
- * Section 4).
+ * @param ipdsnum Product Definition Template Number (see [Table
+ * 4.0](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table4-0.shtml)).
+ * @param ipdstmpl Pointer that gets an integer array containing the data
+ * values for the Product Definition Template specified by ipdsnum.
+ * @param mappdslen Number of elements in ipdstmpl - i.e. number of
+ * entries in Product Defintion Template specified by ipdsnum.
+ * @param coordlist Pointer that gets an array containing floating
+ * point values intended to document the vertical discretisation
+ * associated to model data on hybrid coordinate vertical levels.
  * @param numcoord number of values in array coordlist.
  *
  * @returns
@@ -55,8 +54,8 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
     gtemplate *mappds;
 
     ierr = 0;
-    *ipdstmpl = 0;    /* NULL */
-    *coordlist = 0;    /* NULL */
+    *ipdstmpl = NULL;
+    *coordlist = NULL;
 
     gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
     *iofst = *iofst + 32;
@@ -99,9 +98,8 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
             free(mappds);
         return(ierr);
     }
-    else {
-        *ipdstmpl = lipdstmpl;
-    }
+    *ipdstmpl = lipdstmpl;
+
     for (i = 0; i < mappds->maplen; i++) {
         nbits = abs(mappds->map[i]) * 8;
         if (mappds->map[i] >= 0) {
