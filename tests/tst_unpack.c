@@ -5,6 +5,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "grib2.h"
 
 #define SEC0_LEN 16
@@ -16,13 +17,10 @@
 int
 main()
 {
-    printf("Testing g2_addgrid().\n");
-    printf("Testing g2_addgrid() call...");
+    printf("Testing g2_unpack functions.\n");
+    printf("Testing g2_unpack1() call...");
     {
-        /* g2int listsec0[2] = {1, 2}; */
-        /* g2int listsec1[13] = {7, 4, 24, 0, 0, 2021, 10, 24, 6, 54, 59, 7, 192}; */
-        /* g2int igds[5] = {0, 4, 0, 0, 0}; */
-        /* g2int igdstmpl[19] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18}; */
+        g2int listsec1[13] = {7, 4, 24, 0, 0, 2021, 10, 24, 6, 54, 59, 7, 192};
         /* We have:
            0-15 - section0
            16-19 - length of section 1
@@ -36,23 +34,20 @@ main()
             0, 0, 0, 15, 0, 0, 0, 16, 0, 0, 0, 17, 18};
         g2int iofst = 128, idslen;
         g2int *ids;
+        int i;
 
+        /* Unpack section1 - starts at bit 128. */
         if (g2_unpack1(cgrib, &iofst, &ids, &idslen))
             return G2C_ERROR;
+
+        /* Check results. */
+        for (i = 0; i < 13; i++)
+            if (ids[i] != listsec1[i])
+                return G2C_ERROR;
+
+        /* Free memory. */
         free(ids);
 
-        /* if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != 109)  */
-        /*     return G2C_ERROR; */
-        /* for (i = 0; i < MSG_LEN; i++) */
-        /* { */
-        /*     /\* printf("%d %d %d\n", i, cgrib[i], expected_cgrib[i]);  *\/ */
-        /*     if (cgrib[i] != expected_cgrib[i]) */
-        /*         return G2C_ERROR; */
-        /* } */
-
-        /* gbit(cgrib, &lencurr, 96, 32); */
-        /* if (lencurr != MSG_LEN) */
-        /*     return G2C_ERROR; */
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
