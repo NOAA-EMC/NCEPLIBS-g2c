@@ -72,7 +72,7 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
     gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
     *iofst = *iofst + 8;
 
-    if ( isecnum != 3 ) {
+    if (isecnum != 3) {
         ierr = 2;
         *idefnum = 0;
         *mapgridlen = 0;
@@ -84,15 +84,15 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
     *igds = ligds;
 
     gbit(cgrib, ligds, *iofst, 8);     /* Get source of Grid def. */
-    *iofst = *iofst+8;
+    *iofst = *iofst + 8;
     gbit(cgrib, ligds + 1, *iofst, 32);    /* Get number of grid pts. */
-    *iofst = *iofst+32;
+    *iofst = *iofst + 32;
     gbit(cgrib, ligds + 2, *iofst, 8);     /* Get num octets for opt. list */
-    *iofst = *iofst+8;
+    *iofst = *iofst + 8;
     gbit(cgrib, ligds + 3, *iofst, 8);     /* Get interpret. for opt. list */
-    *iofst = *iofst+8;
+    *iofst = *iofst + 8;
     gbit(cgrib, ligds + 4, *iofst, 16);    /* Get Grid Def Template num. */
-    *iofst = *iofst+16;
+    *iofst = *iofst + 16;
 
     if (ligds[4] != 65535) {
         /*   Get Grid Definition Template */

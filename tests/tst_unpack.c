@@ -86,10 +86,14 @@ main()
         if (csec2 || lencsec2)
             return G2C_ERROR;
 
-        /* g2int *igds, *igdstmpl, mapgridlen, *ideflist, idefnum; */
-        /* iofst = 296;         */
-        /* if (g2_unpack3(cgrib, iofst, &igds, &igdstmpl, &mapgridlen, &ideflist, &idefnum)) */
-        /*     return G2C_ERROR; */
+        g2int *igds, *igdstmpl, mapgridlen, *ideflist, idefnum;
+        iofst = 296;
+        if (g2_unpack3(cgrib, &iofst, &igds, &igdstmpl, &mapgridlen, &ideflist, &idefnum))
+            return G2C_ERROR;
+
+        /* Free memory. */
+        free(igds);
+        free(igdstmpl);
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
