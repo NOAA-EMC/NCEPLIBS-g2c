@@ -33,10 +33,19 @@ main()
             0, 7, 0, 0, 0, 8, 0, 0, 0, 9, 0, 0, 0, 10, 0, 0, 0, 11, 0, 0, 0, 12, 13, 0, 0, 0, 14,
             0, 0, 0, 15, 0, 0, 0, 16, 0, 0, 0, 17, 18};
         g2int iofst = 128, idslen;
+        unsigned char old_val;
         g2int *ids;
         int i;
 
+        /* Try and unpack section1 - with a bad section number. Won't work. */
+        old_val = cgrib[20];
+        cgrib[20] = 0;
+        if (g2_unpack1(cgrib, &iofst, &ids, &idslen) != 2)
+            return G2C_ERROR;
+        cgrib[20] = old_val;
+        
         /* Unpack section1 - starts at bit 128. */
+        iofst = 128;
         if (g2_unpack1(cgrib, &iofst, &ids, &idslen))
             return G2C_ERROR;
 
