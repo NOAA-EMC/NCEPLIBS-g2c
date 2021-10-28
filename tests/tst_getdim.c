@@ -11,7 +11,9 @@
 #define SEC3_LEN 72
 #define G2C_ERROR 2
 
+/* Prototypes for some functions tested in this program. */
 g2int getdim(unsigned char *csec3, g2int *width, g2int *height, g2int *iscan);
+g2int getpoly(unsigned char *csec3, g2int *jj, g2int *kk, g2int *mm);
 
 int
 main()
@@ -32,6 +34,11 @@ main()
 	/* printf("%ld %ld %ld\n", width, height, iscan); */
 	if (width != 7 || height != 8 || iscan != 18)
 	    return G2C_ERROR;
+
+	/* Try the getpoly() function. */
+	g2int jj, kk, mm;	
+	getpoly(csec3, &jj, &kk, &mm);
+
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
