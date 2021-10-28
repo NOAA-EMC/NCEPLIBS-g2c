@@ -20,4 +20,5 @@ g2c_test(tst_gridtemplates)
 g2c_test(tst_pdstemplates)
 g2c_test(tst_drstemplates)
 g2c_test(tst_unpack)
+g2c_test(tst_getdim)
 
