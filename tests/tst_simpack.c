@@ -22,7 +22,7 @@ main()
     printf("Testing simpack() call...");
     {
 	g2int ndpts = DATA_LEN; 	
-	g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 4.0};
+	g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
 	g2float fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
 	g2int lcpack;
