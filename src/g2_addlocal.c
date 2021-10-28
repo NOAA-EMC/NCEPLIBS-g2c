@@ -36,94 +36,90 @@
 g2int
 g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
 {
+    static unsigned char G = 0x47;       /* 'G' */
+    static unsigned char R = 0x52;       /* 'R' */
+    static unsigned char I = 0x49;       /* 'I' */
+    static unsigned char B = 0x42;       /* 'B' */
+    static unsigned char seven = 0x37;   /* '7' */
 
-    g2int ierr;
-    static unsigned char G=0x47;       /* 'G' */
-    static unsigned char R=0x52;       /* 'R' */
-    static unsigned char I=0x49;       /* 'I' */
-    static unsigned char B=0x42;       /* 'B' */
-    static unsigned char seven=0x37;   /* '7' */
-
-    static g2int two=2;
-    g2int   j,k,lensec2,iofst,ibeg,lencurr,ilen,len,istart;
-    g2int   isecnum;
-
-    ierr=0;
+    static g2int two = 2;
+    g2int j, k, lensec2, iofst, ibeg, lencurr, ilen, len, istart;
+    g2int isecnum;
+    g2int ierr = 0;
 
     /* Check to see if beginning of GRIB message exists. */
-    if ( cgrib[0]!=G || cgrib[1]!=R || cgrib[2]!=I || cgrib[3]!=B )
+    if (cgrib[0] != G || cgrib[1] != R || cgrib[2] != I || cgrib[3] != B)
     {
         printf("g2_addlocal: GRIB not found in given message.\n");
         printf("g2_addlocal: Call to routine g2_create required to initialize GRIB messge.\n");
-        ierr=-1;
+        ierr = -1;
         return(ierr);
     }
 
     /* Get current length of GRIB message. */
-    gbit(cgrib,&lencurr,96,32);
+    gbit(cgrib, &lencurr, 96, 32);
 
     /* Check to see if GRIB message is already complete. */
-    if ( cgrib[lencurr-4]==seven && cgrib[lencurr-3]==seven &&
-         cgrib[lencurr-2]==seven && cgrib[lencurr-1]==seven )
+    if (cgrib[lencurr - 4] == seven && cgrib[lencurr - 3] == seven &&
+         cgrib[lencurr - 2] == seven && cgrib[lencurr - 1] == seven)
     {
         printf("g2_addlocal: GRIB message already complete.  Cannot add new section.\n");
-        ierr=-2;
+        ierr = -2;
         return(ierr);
     }
 
     /*  Loop through all current sections of the GRIB message to find
      *  the last section number. */
-    len=16;    /* length of Section 0 */
+    len = 16;    /* length of Section 0 */
     for (;;)
     {
         /* Get section number and length of next section. */
-        iofst=len*8;
-        gbit(cgrib,&ilen,iofst,32);
-        iofst=iofst+32;
-        gbit(cgrib,&isecnum,iofst,8);
-        len=len+ilen;
+        iofst = len * 8;
+        gbit(cgrib, &ilen, iofst, 32);
+        iofst = iofst + 32;
+        gbit(cgrib, &isecnum, iofst, 8);
+        len = len + ilen;
         /* Exit loop if last section reached. */
-        if ( len == lencurr ) break;
+        if (len == lencurr)
+	    break;
         /* If byte count for each section doesn't match current total
          * length, then there is a problem. */
-        if ( len > lencurr )
+        if (len > lencurr)
         {
             printf("g2_addlocal: Section byte counts don't add to total.\n");
-            printf("g2_addlocal: Sum of section byte counts = %ld\n",len);
-            printf("g2_addlocal: Total byte count in Section 0 = %ld\n",lencurr);
-            ierr=-3;
+            printf("g2_addlocal: Sum of section byte counts = %ld\n", len);
+            printf("g2_addlocal: Total byte count in Section 0 = %ld\n", lencurr);
+            ierr = -3;
             return(ierr);
         }
     }
 
     /* Section 2 can only be added after sections 1 and 7. */
-    if ( (isecnum!=1) && (isecnum!=7) )
+    if (isecnum != 1 && isecnum != 7)
     {
         printf("g2_addlocal: Section 2 can only be added after Section 1 or Section 7.\n");
-        printf("g2_addlocal: Section %ld was the last found in given GRIB message.\n",isecnum);
-        ierr=-4;
+        printf("g2_addlocal: Section %ld was the last found in given GRIB message.\n", isecnum);
+        ierr = -4;
         return(ierr);
     }
 
     /* Add Section 2  - Local Use Section. */
-    ibeg=lencurr*8;        /*   Calculate offset for beginning of section 2 */
-    iofst=ibeg+32;         /*   leave space for length of section */
-    sbit(cgrib,&two,iofst,8);     /* Store section number (2) */
-    istart=lencurr+5;
-    //cgrib(istart+1:istart+lcsec2)=csec2(1:lcsec2)
-    k=0;
-    for (j=istart;j<istart+lcsec2;j++)
-    {
-        cgrib[j]=csec2[k++];
-    }
+    ibeg = lencurr * 8;        /*   Calculate offset for beginning of section 2 */
+    iofst = ibeg + 32;         /*   leave space for length of section */
+    sbit(cgrib, &two, iofst, 8);     /* Store section number (2) */
+    istart = lencurr + 5;
+    //cgrib(istart+1:istart+lcsec2) = csec2(1:lcsec2)
+    k = 0;
+    for (j = istart; j < istart + lcsec2; j++)
+        cgrib[j] = csec2[k++];
 
     /* Calculate length of section 2 and store it in octets 1-4 of section 2. */
-    lensec2=lcsec2+5;      /* bytes */
-    sbit(cgrib,&lensec2,ibeg,32);
+    lensec2 = lcsec2 + 5;      /* bytes */
+    sbit(cgrib, &lensec2, ibeg, 32);
 
     /*  Update current byte total of message in Section 0. */
-    lencurr+=lensec2;
-    sbit(cgrib,&lencurr,96,32);
+    lencurr += lensec2;
+    sbit(cgrib, &lencurr, 96, 32);
 
     return(lencurr);
 }
