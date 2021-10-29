@@ -10,11 +10,12 @@
 
 #define SEC0_LEN 16
 #define SEC1_LEN 21
-#define SEC3_LEN 34
 #define MSG_LEN 109
 #define MOST_MSG_LEN 178
 #define FULL_MSG_LEN 182
 #define G2C_ERROR 2
+
+void g2_miss(gribfield *gfld, float *rmiss, int *nmiss);
 
 int
 main()
@@ -185,16 +186,15 @@ main()
             if (gfld->ipdtmpl[i] != ipdstmpl[i])
                 return G2C_ERROR;
 
+	/* Try the g2_miss() function. */
+	float rmiss[1];
+	int nmiss;
+	g2_miss(gfld, rmiss, &nmiss);
+	if (nmiss)
+	    return G2C_ERROR;
+
         /* Free the memory. */
         g2_free(gfld);
-        /* free(gfld->idsect); */
-        /* free(gfld->igdtmpl); */
-        /* free(gfld->idrtmpl); */
-        /* free(gfld->ipdtmpl); */
-        /* free(gfld->bmap); */
-        /* free(gfld->fld); */
-        /* free(gfld); */
-
     }
     printf("ok!\n");
     printf("SUCCESS!\n");

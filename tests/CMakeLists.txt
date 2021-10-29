@@ -1,5 +1,5 @@
 # This is the cmake build file for the tests directory of the
-# NCEPLIBS-g2c_UTILS project.
+# NCEPLIBS-g2c project.
 #
 # Ed Hartnett, 7/11/21
 # Dusan Jovic
@@ -20,4 +20,6 @@ g2c_test(tst_gridtemplates)
 g2c_test(tst_pdstemplates)
 g2c_test(tst_drstemplates)
 g2c_test(tst_unpack)
+g2c_test(tst_getdim)
+g2c_test(tst_simpack)
 

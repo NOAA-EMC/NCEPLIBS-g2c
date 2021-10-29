@@ -11,9 +11,6 @@
 
 int main()
 {
-    printf("Testing decoding full grib2 message.\n");
-
-    /* clang-format off */
     unsigned char cgrib[] = {
         0x47, 0x52, 0x49, 0x42, 0x00, 0x00, 0x02, 0x02, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0xc3, 0x00, 0x00, 0x00, 0x15, 0x01, 0x00, 0x07, 0x00,
@@ -41,7 +38,6 @@ int main()
     g2int numfields;
     g2int numlocal;
 
-    /* clang-format off */
     float fld_ok[121] = {   /* 11x11 grid */
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1,
@@ -55,11 +51,12 @@ int main()
         0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1,
         1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1
     };
-    /* clang-format on */
 
     gribfield* gfld = NULL;
 
     int ret;
+
+    printf("Testing decoding full grib2 message.\n");
 
     if ((ret = g2_info(cgrib, listsec0, listsec1, &numfields, &numlocal)) != 0)
         return G2C_ERROR;
