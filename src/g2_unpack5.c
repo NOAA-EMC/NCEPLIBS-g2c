@@ -55,7 +55,8 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
     gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
     *iofst = *iofst + 8;
 
-    if (isecnum != 5) {
+    if (isecnum != 5)
+    {
         ierr = 2;
         *ndpts = 0;
         *mapdrslen = 0;
@@ -70,7 +71,8 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
 
     /*   Gen Data Representation Template */
     mapdrs = getdrstemplate(*idrsnum);
-    if (mapdrs == 0) {
+    if (mapdrs == 0)
+    {
         ierr = 7;
         *mapdrslen = 0;
         return(ierr);
@@ -83,22 +85,27 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
      * entries in array mapdrs. */
     if (*mapdrslen > 0)
         lidrstmpl = calloc(*mapdrslen, sizeof(g2int));
-    if (lidrstmpl == 0) {
+    if (lidrstmpl == 0)
+    {
         ierr = 6;
         *mapdrslen = 0;
         *idrstmpl = 0;     /*NULL */
         if (mapdrs != 0) free(mapdrs);
         return(ierr);
     }
-    else {
+    else
+    {
         *idrstmpl = lidrstmpl;
     }
-    for (i = 0; i < mapdrs->maplen; i++) {
+    for (i = 0; i < mapdrs->maplen; i++)
+    {
         nbits = abs(mapdrs->map[i]) * 8;
-        if (mapdrs->map[i] >= 0) {
+        if (mapdrs->map[i] >= 0)
+        {
             gbit(cgrib, lidrstmpl + i, *iofst, nbits);
         }
-        else {
+        else
+        {
             gbit(cgrib, &isign, *iofst, 1);
             gbit(cgrib, lidrstmpl + i, *iofst + 1, nbits - 1);
             if (isign == 1)
@@ -111,7 +118,8 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
      * extended. The number of values in a specific gtemplate may
      * vary depending on data specified in the "static" part of the
      * gtemplate. */
-    if (needext == 1) {
+    if (needext == 1)
+    {
         free(mapdrs);
         mapdrs = extdrstemplate(*idrsnum, lidrstmpl);
         newlen = mapdrs->maplen + mapdrs->extlen;
@@ -119,12 +127,15 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
         *idrstmpl = lidrstmpl;
         /*   Unpack the rest of the Data Representation Template */
         j = 0;
-        for (i = *mapdrslen; i < newlen; i++) {
+        for (i = *mapdrslen; i < newlen; i++)
+        {
             nbits = abs(mapdrs->ext[j])*8;
-            if (mapdrs->ext[j] >= 0) {
+            if (mapdrs->ext[j] >= 0)
+            {
                 gbit(cgrib, lidrstmpl + i, *iofst, nbits);
             }
-            else {
+            else
+            {
                 gbit(cgrib, &isign, *iofst, 1);
                 gbit(cgrib, lidrstmpl + i, *iofst + 1, nbits-1);
                 if (isign == 1)

@@ -43,7 +43,8 @@ g2_unpack6(unsigned char *cgrib, g2int *iofst, g2int ngpts, g2int *ibmap,
     gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
     *iofst = *iofst + 8;
 
-    if (isecnum != 6) {
+    if (isecnum != 6)
+    {
         ierr = 2;
         fprintf(stderr, "g2_unpack6: Not Section 6 data.\n");
         return(ierr);
@@ -52,20 +53,24 @@ g2_unpack6(unsigned char *cgrib, g2int *iofst, g2int ngpts, g2int *ibmap,
     gbit(cgrib, ibmap, *iofst, 8);    /* Get bit-map indicator */
     *iofst = *iofst + 8;
 
-    if (*ibmap == 0) {               /* Unpack bitmap */
+    if (*ibmap == 0)
+    {               /* Unpack bitmap */
         if (ngpts > 0)
             lbmap = calloc(ngpts, sizeof(g2int));
-        if (lbmap == 0) {
+        if (lbmap == 0)
+        {
             ierr = 6;
             return(ierr);
         }
-        else {
+        else
+        {
             *bmap = lbmap;
         }
         intbmap = calloc(ngpts, sizeof(g2int));
         gbits(cgrib, intbmap, *iofst, 1, 0, ngpts);
         *iofst = *iofst + ngpts;
-        for (j = 0; j < ngpts; j++) {
+        for (j = 0; j < ngpts; j++)
+        {
             lbmap[j] = (g2int)intbmap[j];
         }
         free(intbmap);
