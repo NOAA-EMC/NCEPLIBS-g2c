@@ -40,7 +40,8 @@ void user_read_data(png_structp, png_bytep, png_uint_32);
  *
  * @author Stephen Gilbert
  */
-void user_read_data(png_structp png_ptr, png_bytep data, png_uint_32 length)
+void
+user_read_data(png_structp png_ptr, png_bytep data, png_uint_32 length)
 {
     char *ptr;
     g2int offset;
@@ -66,7 +67,8 @@ void user_read_data(png_structp png_ptr, png_bytep data, png_uint_32 length)
  *
  * @author Stephen Gilbert
  */
-int dec_png(unsigned char *pngbuf, g2int *width, g2int *height, char *cout)
+int
+dec_png(unsigned char *pngbuf, g2int *width, g2int *height, char *cout)
 {
     int interlace, color, compres, filter, bit_depth;
     g2int j, k, n, bytes, clen;
@@ -74,7 +76,7 @@ int dec_png(unsigned char *pngbuf, g2int *width, g2int *height, char *cout)
     png_infop info_ptr, end_info;
     png_bytepp row_pointers;
     png_stream read_io_ptr;
-    png_uint_32 h32,  w32;
+    png_uint_32 h32, w32;
 
     /* Check if stream is a valid PNG format. */
     if (png_sig_cmp(pngbuf, 0, 8) != 0)

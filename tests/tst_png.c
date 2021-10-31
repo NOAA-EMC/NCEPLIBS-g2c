@@ -10,7 +10,9 @@
 
 #define G2C_ERROR 2
 
+/* Prototypes we are testing. */
 int enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf);
+int dec_png(unsigned char *pngbuf, g2int *width, g2int *height, char *cout);
 
 int
 main()
@@ -20,12 +22,28 @@ main()
     {
         char data[4] = {1, 2, 3, 4};
         g2int width = 4, height = 1, nbits = 32;
-        /* char *pngbuf = NULL; */
+        g2int width_in, height_in;
         char pngbuf[100];
-        int ret;
-        
-        ret = enc_png(data, width, height, nbits, pngbuf);
-        printf("%d\n", ret);
+        char cout[100];
+        int i, ret;
+
+        /* Encode some data. */
+        if ((ret = enc_png(data, width, height, nbits, pngbuf)) != 82)
+        {
+            printf("%d\n", ret);
+            return G2C_ERROR;
+        }
+
+        /* Now decode it. */
+        if ((ret = dec_png((unsigned char *)pngbuf, &width_in, &height_in, cout)))
+        {
+            printf("%d\n", ret);
+            return G2C_ERROR;
+        }
+
+        for (i = 0; i < 4; i++)
+            if (cout[i] != data[i])
+                return G2C_ERROR;
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
