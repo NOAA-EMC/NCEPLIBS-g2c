@@ -34,6 +34,7 @@ if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
                                                "MinSizeRel" "RelWithDebInfo")
 endif()
 
+link_directories("/usr/local/lib")
 if(USE_PNG)
   find_package(ZLIB REQUIRED)
   find_package(PkgConfig REQUIRED)
