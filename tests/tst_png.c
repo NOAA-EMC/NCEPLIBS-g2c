@@ -21,14 +21,14 @@ main()
     printf("Testing enc_png() call...");
     {
         char data[4] = {1, 2, 3, 4};
-        g2int width = 4, height = 1, nbits = 32;
+        g2int width = 1, height = 1, nbits = 32;
         g2int width_in, height_in;
-        char pngbuf[100];
-        char cout[100];
+        char pngbuf[200];
+        char cout[200];
         int i, ret;
 
         /* Encode some data. */
-        if ((ret = enc_png(data, width, height, nbits, pngbuf)) != 82)
+        if ((ret = enc_png(data, width, height, nbits, pngbuf)) != 70)
         {
             printf("%d\n", ret);
             return G2C_ERROR;
