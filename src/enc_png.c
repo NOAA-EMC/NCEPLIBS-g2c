@@ -2,15 +2,16 @@
  * @brief Functions for dealing with PNG.
  * @author Stephen Gilbert
  */
-#ifndef USE_PNG
-void dummy(void) {}
-#else   /* USE_PNG */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <png.h>
 #include "grib2.h"
+
+#ifndef USE_PNG
+void dummy(void) {}
+#else   /* USE_PNG */
 
 /**
  * Stuct for PNG stream.
@@ -79,7 +80,6 @@ void user_flush_data(png_structp png_ptr)
 int
 enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf)
 {
-
     int color_type;
     g2int j, bytes, pnglen, bit_depth;
     png_structp png_ptr;
@@ -88,13 +88,10 @@ enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf)
     png_stream write_io_ptr;
 
     /* Create and initialize png_structs. */
-    png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, (png_voidp)NULL,
-                                      NULL, NULL);
-    if (!png_ptr)
+    if (!(png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL)))
         return (-1);
 
-    info_ptr = png_create_info_struct(png_ptr);
-    if (!info_ptr)
+    if (!(info_ptr = png_create_info_struct(png_ptr)))
     {
         png_destroy_write_struct(&png_ptr, (png_infopp)NULL);
         return (-2);
@@ -108,11 +105,11 @@ enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf)
     }
 
     /* Initialize info for writing PNG stream to memory. */
-    write_io_ptr.stream_ptr=(png_voidp)pngbuf;
-    write_io_ptr.stream_len=0;
+    write_io_ptr.stream_ptr = (png_voidp)pngbuf;
+    write_io_ptr.stream_len = 0;
 
     /* Set new custom write functions. */
-    png_set_write_fn(png_ptr, (png_voidp)&write_io_ptr, (png_rw_ptr)user_write_data, 
+    png_set_write_fn(png_ptr, (png_voidp)&write_io_ptr, (png_rw_ptr)user_write_data,
                      (png_flush_ptr)user_flush_data);
 
     /* Set the image size, colortype, filter type, etc... */
@@ -133,7 +130,7 @@ enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf)
                  PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 
     /* Put image data into the PNG info structure. */
-    bytes=nbits / 8;
+    bytes = nbits / 8;
     row_pointers = malloc(height * sizeof(png_bytep));
     for (j = 0; j < height; j++)
         row_pointers[j] = (png_bytep *)(data + (j * width * bytes));
