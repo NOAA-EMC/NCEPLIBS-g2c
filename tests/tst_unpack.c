@@ -134,7 +134,7 @@ main()
 
         /* Try to read section with bad product definition section template number - won't work. */
         old_val = cgrib[117];
-        cgrib[117] = 999;
+        cgrib[117] = 230;
         iofst = 872; /* 109 bytes */
         if (g2_unpack4(cgrib, &iofst, &ipdsnum, &ipdstmpl, &mappdslen, &coordlist, &numcoord) != 5)
             return G2C_ERROR;

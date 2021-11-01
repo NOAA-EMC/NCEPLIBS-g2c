@@ -37,8 +37,8 @@ void dummy(void) {}
  * - != 1, for lossless compression
  * @param ratio target compression ratio. (ratio:1) Used only when
  * ltype == 1.
- * @param retry Pointer to option type. If 1 try increasing number of
- * guard bits otherwise, no additional options.
+ * @param retry If 1 try increasing number of guard bits otherwise, no
+ * additional options.
  * @param outjpc Output encoded JPEG2000 code stream.
  * @param jpclen Number of bytes allocated for new JPEG2000 code
  * stream in outjpc.
@@ -116,7 +116,7 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     image.cmpts_ = &pcmpt;
 
     /* Open a JasPer stream containing the input grayscale values. */
-    istream = jas_stream_memopen((char *)cin,height*width*cmpt.cps_);
+    istream = jas_stream_memopen((char *)cin, height * width * cmpt.cps_);
     cmpt.stream_ = istream;
 
     /* Open an output stream that will contain the encoded jpeg2000
