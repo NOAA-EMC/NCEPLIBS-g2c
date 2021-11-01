@@ -23,5 +23,6 @@ g2c_test(tst_unpack)
 g2c_test(tst_getdim)
 g2c_test(tst_simpack)
 g2c_test(tst_png)
+g2c_test(tst_jpeg)
 
 
