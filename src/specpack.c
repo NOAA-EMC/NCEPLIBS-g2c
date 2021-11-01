@@ -12,14 +12,15 @@
 /**
  * This subroutine packs a spectral data field using the complex
  * packing algorithm for spherical harmonic data as defined in the
- * GRIB2 Data Representation Template 5.51.
+ * GRIB2 Data Representation [Template
+ * 5.51](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml).
  *
  * @param fld Contains the data values to be packed.
  * @param ndpts The number of data values to pack.
  * @param JJ J - pentagonal resolution parameter.
  * @param KK K - pentagonal resolution parameter.
  * @param MM M - pentagonal resolution parameter.
- * @param idrstmpl Contains the array of values for [Data
+ * @param idrstmpl Contains the array of 10 values for [Data
  * Representation Template
  * 5.51](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml).
  * @param cpack Pointer that gets the packed data field. Must be
@@ -28,8 +29,9 @@
  *
  * @author Stephen Gilbert @date 2002-12-19
  */
-void specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM, 
-              g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)
+void
+specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM, 
+         g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)
 {
 
     g2int *ifld, tmplsim[5];
@@ -44,7 +46,7 @@ void specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM,
 
     /* Calculate Laplacian scaling factors for each possible wave
      * number. */
-    pscale = (g2float *)malloc((JJ + MM)*sizeof(g2float));
+    pscale = malloc((JJ + MM) * sizeof(g2float));
     tscale = (g2float)idrstmpl[4] * 1E-6;
     for (n = Js; n <= JJ + MM; n++)
         pscale[n] = pow((g2float)(n * (n + 1)), tscale);

@@ -18,7 +18,7 @@ int
 main()
 {
     printf("Testing spec functions.\n");
-    /* printf("Testing jpcpack()/jpcunpack() calls..."); */
+    /* printf("Testing specpack()/specunpack() calls..."); */
     /* { */
     /*     g2int height = 2, width = 2; */
     /*     g2int len = PACKED_LEN, ndpts = DATA_LEN; */
@@ -26,22 +26,23 @@ main()
     /*     g2float fld_in[DATA_LEN]; */
     /*     unsigned char cpack[PACKED_LEN]; */
     /*     g2int lcpack = PACKED_LEN; */
-    /*     g2int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0}; */
+    /*     g2int idrstmpl[10] = {0, 1, 1, 16, 0, 1, 2, 3, 4, 5, 6}; */
+    /*     g2int JJ = 1, KK = 2, MM = 3; */
     /*     int i; */
 
     /*     /\* Pack the data. *\/ */
-    /*     jpcpack(fld, width, height, idrstmpl, cpack, &lcpack); */
+    /*     specpack(fld, ndpts, JJ, KK, MM, idrstmpl, cpack, &lcpack); */
 
-    /*     /\* Unpack the data. *\/ */
-    /*     if (jpcunpack(cpack, len, idrstmpl, ndpts, fld_in)) */
-    /*         return G2C_ERROR; */
+    /*     /\* /\\* Unpack the data. *\\/ *\/ */
+    /*     /\* if (jpcunpack(cpack, len, idrstmpl, ndpts, fld_in)) *\/ */
+    /*     /\*     return G2C_ERROR; *\/ */
 
-    /*     for (i = 0; i < DATA_LEN; i++) */
-    /*     { */
-    /*         /\* printf("%g %g\n", fld[i], fld_in[i]); *\/ */
-    /*         if (fld[i] != fld_in[i]) */
-    /*     	return G2C_ERROR; */
-    /*     } */
+    /*     /\* for (i = 0; i < DATA_LEN; i++) *\/ */
+    /*     /\* { *\/ */
+    /*     /\*     /\\* printf("%g %g\n", fld[i], fld_in[i]); *\\/ *\/ */
+    /*     /\*     if (fld[i] != fld_in[i]) *\/ */
+    /*     /\* 	return G2C_ERROR; *\/ */
+    /*     /\* } *\/ */
     /* } */
     /* printf("ok!\n"); */
     /* printf("Testing enc_jpeg2000() call..."); */
