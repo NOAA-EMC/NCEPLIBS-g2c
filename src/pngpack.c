@@ -19,7 +19,9 @@ int enc_png(char *, g2int, g2int, g2int, char *);
  * @param width number of points in the x direction.
  * @param height number of points in the y direction.
  * @param idrstmpl Contains the array of values for Data
- * Representation Template 5.41 or 5.40010.
+ * Representation
+ * [Template](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
+ * 5.41 or 5.40010.
  * - 0 Reference value - ignored on input, set by pngpack routine.
  * - 1 Binary Scale Factor - used on input.
  * - 2 Decimal Scale Factor - used on input.

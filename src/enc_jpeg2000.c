@@ -40,8 +40,8 @@ void dummy(void) {}
  * @param retry If 1 try increasing number of guard bits otherwise, no
  * additional options.
  * @param outjpc Output encoded JPEG2000 code stream.
- * @param jpclen Number of bytes allocated for new JPEG2000 code
- * stream in outjpc.
+ * @param jpclen Number of bytes allocated for the output JPEG2000
+ * code stream in outjpc.
  *
  * @return
  * - > 0 = Length in bytes of encoded JPEG2000 code stream

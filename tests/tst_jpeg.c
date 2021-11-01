@@ -13,12 +13,9 @@
 #define G2C_ERROR 2
 
 /* Prototypes we are testing. */
-int enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf);
-int dec_png(unsigned char *pngbuf, g2int *width, g2int *height, char *cout);
-g2int pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-                g2float *fld);
-void pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, 
-             unsigned char *cpack, g2int *lcpack);
+int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
+                 g2int ltype, g2int ratio, g2int retry, char *outjpc,
+                 g2int jpclen);
 
 int
 main()
@@ -28,7 +25,7 @@ main()
     {
         unsigned char data[4] = {1, 2, 3, 4};
         g2int width = 1, height = 1, nbits = 32;
-        g2int ltype = 1, ratio = 1, retry = 0, jpclen = 100;
+        g2int ltype = 1, ratio = 2, retry = 0, jpclen = 200;
         char outjpc[200];
         /* g2int width_in, height_in; */
         /* char cout[200]; */
