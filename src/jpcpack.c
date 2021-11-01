@@ -6,8 +6,8 @@
 #include <math.h>
 #include "grib2.h"
 
-int enc_jpeg2000(unsigned char *,g2int ,g2int ,g2int ,
-                 g2int , g2int, g2int , char *, g2int);
+int enc_jpeg2000(unsigned char *, g2int, g2int, g2int,
+                 g2int, g2int, g2int, char *, g2int);
 
 /**
  * This subroutine packs up a data field into a JPEG2000 code
@@ -43,7 +43,9 @@ int enc_jpeg2000(unsigned char *,g2int ,g2int ,g2int ,
  * - 6 Desired compression ratio, if idrstmpl[5]=1. Set to 255, if
  idrstmpl[5]=0.
  * @param cpack The packed data field.
- * @param lcpack length of packed field in cpack.
+ * @param lcpack Pointer that points to a g2int which contains the
+ * length of packed field in cpack. This must be set by the calling
+ * function.
  *
  * @author Stephen Gilbert @date 2003-08-17
  */
