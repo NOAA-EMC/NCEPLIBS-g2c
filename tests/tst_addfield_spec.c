@@ -60,11 +60,6 @@ main()
         int i;
         int ret;
 
-        /* Try to use g2_info() to learn about our messaage - won't
-         * work, we haven't created a message yet. */
-        if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)) != 1)
-            return G2C_ERROR;
-
         /* Create the message, filling in sections 0 and 1. */
         if ((ret = g2_create(cgrib, listsec0, listsec1)) != SEC0_LEN + SEC1_LEN)
             return G2C_ERROR;
@@ -73,34 +68,10 @@ main()
         if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != 109)
             return G2C_ERROR;
 
-        /* Try to add section 8 - this will fail because section 7 is
-         * not defined yet. */
-        if ((ret = g2_gribend(cgrib)) != -4)
-            return G2C_ERROR;
-
         /* Add sections 4, 5, 6, and 7. */
         if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
                                idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != MOST_MSG_LEN)
             return G2C_ERROR;
-
-        /* Change the first char of the message. Just to be dumb. */
-        old_val = cgrib[0];
-        cgrib[0] = 0;
-        
-        /* Try to add section 8 - this will fail because we changed
-         * first char of message. */
-        if ((ret = g2_gribend(cgrib)) != -1)
-            return G2C_ERROR;
-
-        /* Change the first char back. */
-        cgrib[0] = old_val;
-        
-        /* Try to use g2_info() to learn about our messaage - won't
-         * work, message must be ended first. This fails CI due to
-         * memory leak. See
-         * https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues/156. */
-        /* if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)) != 6) */
-        /*     return G2C_ERROR; */
 
         /* Add section 8. */
         if ((ret = g2_gribend(cgrib)) != FULL_MSG_LEN)
@@ -114,10 +85,6 @@ main()
                 return G2C_ERROR;
         }
 
-        /* Try to re-add section 3 - this will fail. */
-        if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != -2)
-            return G2C_ERROR;
-
         /* Use g2_info() to learn about our messaage. */
         if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)))
             return G2C_ERROR;
@@ -129,41 +96,6 @@ main()
         for (i = 0; i < 13; i++)
             if (listsec1_in[i] != listsec1[i])
                 return G2C_ERROR;
-
-        /* Change the GRIB version of the message. Just to be dumb again. */
-        old_val = cgrib[7];
-        cgrib[7] = 0;
-        
-        /* Use g2_info() to learn about our messaage. */
-        if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)) != 2)
-            return G2C_ERROR;
-
-        /* Change value back. */
-        cgrib[7] = old_val;
-
-        /* Next three tests commented out because of memory leak in
-         * g2_getfld() when errors occur. See
-         * https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues/160. */
-        
-        /* /\* Try g2_getfld() - it won't work, ifldnum cannot be 0. *\/ */
-        /* ifldnum = 0; */
-        /* if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 3) */
-        /*     return G2C_ERROR; */
-        /* ifldnum = 1; */
-
-        /* /\* Try g2_getfld() - it won't work, doesn't start with "GRIB". *\/ */
-        /* old_val = cgrib[0]; */
-        /* cgrib[0] = 0; */
-        /* if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 1) */
-        /*     return G2C_ERROR; */
-        /* cgrib[0] = old_val; */
-
-        /* /\* Try g2_getfld() - it won't work, bad section number. *\/ */
-        /* old_val = cgrib[20]; */
-        /* cgrib[20] = 0; */
-        /* if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 8) */
-        /*     return G2C_ERROR; */
-        /* cgrib[20] = old_val; */
 
         /* Try g2_getfld() for field 1. */
         if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)))
