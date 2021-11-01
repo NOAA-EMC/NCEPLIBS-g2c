@@ -12,7 +12,7 @@ jobs:
     - name: install-dependencies
       run: |
         brew update
-        brew install doxygen openjpeg
+        brew install doxygen openjpeg libpng
 
     - name: checkout-jasper
       uses: actions/checkout@v2

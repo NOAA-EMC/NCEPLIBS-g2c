@@ -72,7 +72,8 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
     gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
     *iofst = *iofst + 8;
 
-    if (isecnum != 3) {
+    if (isecnum != 3)
+    {
         ierr = 2;
         *idefnum = 0;
         *mapgridlen = 0;
@@ -94,10 +95,12 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
     gbit(cgrib, &ligds[4], *iofst, 16);    /* Get Grid Def Template num. */
     *iofst = *iofst + 16;
 
-    if (ligds[4] != 65535) {
+    if (ligds[4] != 65535)
+    {
         /*   Get Grid Definition Template */
         mapgrid = getgridtemplate(ligds[4]);
-        if (!mapgrid) {         /* undefined template */
+        if (!mapgrid)
+        {         /* undefined template */
             ierr = 5;
             return(ierr);
         }
@@ -106,7 +109,8 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
         /*   Unpack each value into array igdstmpl from the the
          *   appropriate number of octets, which are specified in
          *   corresponding entries in array mapgrid. */
-        if (*mapgridlen > 0) {
+        if (*mapgridlen > 0)
+        {
             ligdstmpl = 0;
             if (!(ligdstmpl = calloc(*mapgridlen, sizeof(g2int))))
             {
@@ -120,12 +124,15 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
             *igdstmpl = ligdstmpl;
         }
         ibyttem = 0;
-        for (i = 0; i < *mapgridlen; i++) {
+        for (i = 0; i < *mapgridlen; i++)
+        {
             nbits = abs(mapgrid->map[i]) * 8;
-            if (mapgrid->map[i] >= 0) {
+            if (mapgrid->map[i] >= 0)
+            {
                 gbit(cgrib, ligdstmpl + i, *iofst, nbits);
             }
-            else {
+            else
+            {
                 gbit(cgrib, &isign, *iofst, 1);
                 gbit(cgrib, ligdstmpl + i, *iofst + 1, nbits - 1);
                 if (isign == 1)
@@ -139,7 +146,8 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
          *   extended. The number of values in a specific template may
          *   vary depending on data specified in the "static" part of
          *   the gtemplate. */
-        if (mapgrid->needext == 1) {
+        if (mapgrid->needext == 1)
+        {
             free(mapgrid);
             mapgrid = extgridtemplate(ligds[4], ligdstmpl);
             /*   Unpack the rest of the Grid Definition Template */
@@ -147,12 +155,15 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
             ligdstmpl = realloc(ligdstmpl, newlen * sizeof(g2int));
             *igdstmpl = ligdstmpl;
             j = 0;
-            for (i = *mapgridlen; i < newlen; i++) {
+            for (i = *mapgridlen; i < newlen; i++)
+            {
                 nbits = abs(mapgrid->ext[j]) * 8;
-                if (mapgrid->ext[j] >= 0) {
+                if (mapgrid->ext[j] >= 0)
+                {
                     gbit(cgrib, ligdstmpl + i, *iofst, nbits);
                 }
-                else {
+                else
+                {
                     gbit(cgrib, &isign, *iofst, 1);
                     gbit(cgrib, ligdstmpl + i, *iofst + 1, nbits - 1);
                     if (isign == 1)
@@ -169,7 +180,8 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
         if (mapgrid)
             free(mapgrid);
     }
-    else {              /* No Grid Definition Template */
+    else
+    {              /* No Grid Definition Template */
         *mapgridlen = 0;
         *igdstmpl = 0;
     }
@@ -177,12 +189,14 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
     /* Unpack optional list of numbers defining number of points in
      * each row or column, if included.  This is used for non
      * regular grids. */
-    if ( ligds[2] != 0 ) {
+    if ( ligds[2] != 0 )
+    {
         nbits = ligds[2] * 8;
         *idefnum = (lensec - 14 - ibyttem) / ligds[2];
         if (*idefnum > 0)
             lideflist = calloc(*idefnum, sizeof(g2int));
-        if (!lideflist) {
+        if (!lideflist)
+        {
             ierr = 6;
             *idefnum = 0;
             *ideflist = NULL;
@@ -192,7 +206,8 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
         gbits(cgrib, lideflist, *iofst, nbits, 0, *idefnum);
         *iofst = *iofst + (nbits * *idefnum);
     }
-    else {
+    else
+    {
         *idefnum = 0;
         *ideflist = NULL;
     }

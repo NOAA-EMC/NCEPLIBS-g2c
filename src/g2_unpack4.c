@@ -62,7 +62,8 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
     gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
     *iofst = *iofst + 8;
 
-    if (isecnum != 4) {
+    if (isecnum != 4)
+    {
         ierr = 2;
         *numcoord = 0;
         *mappdslen = 0;
@@ -77,7 +78,8 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
 
     /* Get Product Definition Template */
     mappds = getpdstemplate(*ipdsnum);
-    if (mappds == 0) {       /* undefine template */
+    if (mappds == 0)
+    {       /* undefine template */
         ierr = 5;
         *mappdslen = 0;
         return(ierr);
@@ -90,7 +92,8 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
      * corresponding entries in array mappds. */
     if (*mappdslen > 0)
         lipdstmpl = calloc(*mappdslen, sizeof(g2int));
-    if (lipdstmpl == 0) {
+    if (lipdstmpl == 0)
+    {
         ierr = 6;
         *mappdslen = 0;
         *ipdstmpl = NULL;
@@ -100,12 +103,15 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
     }
     *ipdstmpl = lipdstmpl;
 
-    for (i = 0; i < mappds->maplen; i++) {
+    for (i = 0; i < mappds->maplen; i++)
+    {
         nbits = abs(mappds->map[i]) * 8;
-        if (mappds->map[i] >= 0) {
+        if (mappds->map[i] >= 0)
+        {
             gbit(cgrib, lipdstmpl + i, *iofst, nbits);
         }
-        else {
+        else
+        {
             gbit(cgrib, &isign, *iofst, 1);
             gbit(cgrib, lipdstmpl + i, *iofst + 1, nbits - 1);
             if (isign == 1) lipdstmpl[i] = -1 * lipdstmpl[i];
@@ -117,7 +123,8 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
      * extended. The number of values in a specific template may
      * vary depending on data specified in the "static" part of the
      * gtemplate. */
-    if (needext == 1) {
+    if (needext == 1)
+    {
         free(mappds);
         mappds = extpdstemplate(*ipdsnum, lipdstmpl);
         newlen = mappds->maplen+mappds->extlen;
@@ -125,12 +132,15 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
         *ipdstmpl = lipdstmpl;
         /*   Unpack the rest of the Product Definition Template */
         j = 0;
-        for (i = *mappdslen; i < newlen; i++) {
+        for (i = *mappdslen; i < newlen; i++)
+        {
             nbits = abs(mappds->ext[j]) * 8;
-            if (mappds->ext[j] >= 0) {
+            if (mappds->ext[j] >= 0)
+            {
                 gbit(cgrib, lipdstmpl + i, *iofst, nbits);
             }
-            else {
+            else
+            {
                 gbit(cgrib, &isign, *iofst, 1);
                 gbit(cgrib, lipdstmpl + i, *iofst+1, nbits-1);
                 if (isign == 1)
@@ -149,10 +159,12 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
     /* Get Optional list of vertical coordinate values after the
      * Product Definition Template, if necessary. */
     *coordlist = 0;    /* NULL */
-    if (*numcoord != 0) {
+    if (*numcoord != 0)
+    {
         coordieee = calloc(*numcoord, sizeof(g2int));
         lcoordlist = calloc(*numcoord, sizeof(g2float));
-        if (coordieee == 0 || lcoordlist == 0) {
+        if (coordieee == 0 || lcoordlist == 0)
+        {
             ierr = 6;
             *numcoord = 0;
             *coordlist = 0;    /* NULL */
@@ -162,7 +174,8 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
                 free(lcoordlist);
             return(ierr);
         }
-        else {
+        else
+        {
             *coordlist = lcoordlist;
         }
         gbits(cgrib, coordieee, *iofst, 32, 0, *numcoord);
