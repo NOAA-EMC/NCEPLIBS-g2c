@@ -16,6 +16,7 @@
 int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
                  g2int ltype, g2int ratio, g2int retry, char *outjpc,
                  g2int jpclen);
+int dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld);
 void jpcpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
@@ -25,36 +26,6 @@ int
 main()
 {
     printf("Testing JPEG functions.\n");
-    /* printf("Testing enc_jpeg2000() call..."); */
-    /* { */
-    /*     unsigned char data[4] = {1, 2, 3, 4}; */
-    /*     g2int width = 1, height = 1, nbits = 32; */
-    /*     g2int ltype = 1, ratio = 2, retry = 0, jpclen = 200; */
-    /*     char outjpc[200]; */
-    /*     /\* g2int width_in, height_in; *\/ */
-    /*     /\* char cout[200]; *\/ */
-    /*     /\* int i; *\/ */
-    /*     int ret; */
-
-    /*     /\* Encode some data. *\/ */
-    /*     if ((ret = enc_jpeg2000(data, width, height, nbits, ltype, ratio, retry, outjpc, jpclen))) */
-    /*     { */
-    /*         printf("%d\n", ret); */
-    /*         return G2C_ERROR; */
-    /*     } */
-
-    /*     /\* /\\* Now decode it. *\\/ *\/ */
-    /*     /\* if ((ret = dec_png((unsigned char *)pngbuf, &width_in, &height_in, cout))) *\/ */
-    /*     /\* { *\/ */
-    /*     /\*     printf("%d\n", ret); *\/ */
-    /*     /\*     return G2C_ERROR; *\/ */
-    /*     /\* } *\/ */
-
-    /*     /\* for (i = 0; i < 4; i++) *\/ */
-    /*     /\*     if (cout[i] != data[i]) *\/ */
-    /*     /\*         return G2C_ERROR; *\/ */
-    /* } */
-    /* printf("ok!\n"); */
     printf("Testing jpcpack()/jpcunpack() calls...");
     {
         g2int height = 2, width = 2;
@@ -79,6 +50,35 @@ main()
             if (fld[i] != fld_in[i])
         	return G2C_ERROR;
         }
+    }
+    printf("ok!\n");
+    printf("Testing enc_jpeg2000() call...");
+    {
+        unsigned char data[4] = {1, 2, 3, 4};
+        g2int width = 2, height = 2, nbits = 4;
+        g2int ltype = 0, ratio = 0, retry = 0, jpclen = 200;
+        char outjpc[200];
+        g2int outfld[4];
+        /* int i; */
+        int ret;
+
+        /* Encode some data. */
+        if ((ret = enc_jpeg2000(data, width, height, nbits, ltype, ratio, retry, outjpc, jpclen)) != 168)
+        {
+            printf("%d\n", ret);
+            return G2C_ERROR;
+        }
+
+        /* Now decode it. */
+        if ((ret = dec_jpeg2000(outjpc, jpclen, outfld)))
+        {
+            printf("%d\n", ret);
+            return G2C_ERROR;
+        }
+
+        /* for (i = 0; i < 4; i++) */
+        /*     if (cout[i] != data[i]) */
+        /*         return G2C_ERROR; */
     }
     printf("ok!\n");
     printf("SUCCESS!\n");

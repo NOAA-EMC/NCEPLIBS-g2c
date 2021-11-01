@@ -22,13 +22,12 @@ void dummy(void) {}
 /**
  * This Function decodes a JPEG2000 code stream specified in the
  * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer
- * Software version 1.500.4 (or 1.700.2) written by the University of
- * British Columbia and Image Power Inc, and others. JasPer is
- * available at http://www.ece.uvic.ca/~mdadams/jasper/.
+ * Software written by the University of British Columbia and Image
+ * Power Inc, and others. JasPer is available at
+ * http://www.ece.uvic.ca/~mdadams/jasper/.
  *
  * @param injpc Input JPEG2000 code stream.
  * @param bufsize Length (in bytes) of the input JPEG2000 code stream.
- *
  * @param outfld Output matrix of grayscale image values.
  *
  * @return
@@ -37,17 +36,16 @@ void dummy(void) {}
  * - -5 decoded image had multiple color components. Only grayscale is
  *     expected.
  *
- * @note Requires JasPer Software version 1.500.4 or 1.700.2.
- *
  * @author Stephen Gilbert @date 2002-12-02
  */
-int dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
+int
+dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
 {
     g2int i, j, k;
-    jas_image_t *image=0;
+    jas_image_t *image = NULL;
     jas_stream_t *jpcstream;
     jas_image_cmpt_t *pcmpt;
-    char *opts=0;
+    char *opts = NULL;
     jas_matrix_t *data;
 
     /* Create jas_stream_t containing input JPEG200 codestream in
