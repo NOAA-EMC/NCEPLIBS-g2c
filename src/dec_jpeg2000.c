@@ -53,13 +53,13 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
     jpcstream = jas_stream_memopen(injpc, bufsize);
 
     /* Decode JPEG200 codestream into jas_image_t structure. */
-    image=jpc_decode(jpcstream, opts);
-    if ( image == 0 ) {
+    if (!(image = jpc_decode(jpcstream, opts)))
+    {
         printf(" jpc_decode return\n");
         return -3;
     }
 
-    pcmpt=image->cmpts_[0];
+    pcmpt = image->cmpts_[0];
     /*
       printf(" SAGOUT DECODE:\n");
       printf(" tlx %d \n", image->tlx_);
@@ -91,14 +91,15 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
     */
 
     /* Expecting jpeg2000 image to be grayscale only. No color components. */
-    if (image->numcmpts_ != 1 ) {
+    if (image->numcmpts_ != 1)
+    {
         printf("dec_jpeg2000: Found color image.  Grayscale expected.\n");
         return (-5);
     }
 
     /* Create a data matrix of grayscale image values decoded from the
      * jpeg2000 codestream. */
-    data=jas_matrix_create(jas_image_height(image), jas_image_width(image));
+    data = jas_matrix_create(jas_image_height(image), jas_image_width(image));
     jas_image_readcmpt(image, 0, 0, 0, jas_image_width(image),
                        jas_image_height(image), data);
 

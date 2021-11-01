@@ -45,9 +45,9 @@ void specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM,
     /* Calculate Laplacian scaling factors for each possible wave
      * number. */
     pscale = (g2float *)malloc((JJ + MM)*sizeof(g2float));
-    tscale = (g2float)idrstmpl[4]*1E-6;
-    for (n = Js;n<=JJ + MM;n++)
-        pscale[n] = pow((g2float)(n*(n + 1)), tscale);
+    tscale = (g2float)idrstmpl[4] * 1E-6;
+    for (n = Js; n <= JJ + MM; n++)
+        pscale[n] = pow((g2float)(n * (n + 1)), tscale);
 
     /* Separate spectral coeffs into two lists; one to contain
      * unpacked values within the sub-spectrum Js, Ks, Ms, and the
@@ -58,19 +58,23 @@ void specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM,
     inc = 0;
     incu = 0;
     incp = 0;
-    for (m = 0; m <= MM; m++) {
+    for (m = 0; m <= MM; m++)
+    {
         Nm = JJ;      /* triangular or trapezoidal */
         if (KK == JJ + MM)
             Nm = JJ + m;          /* rhombodial */
         Ns = Js;      /* triangular or trapezoidal */
         if (Ks == Js + Ms)
             Ns = Js + m;          /* rhombodial */
-        for (n = m; n <= Nm; n++) {
-            if (n <= Ns && m <= Ms) {       /* save unpacked value */
+        for (n = m; n <= Nm; n++)
+        {
+            if (n <= Ns && m <= Ms)
+            {       /* save unpacked value */
                 unpk[incu++] = fld[inc++];         /* real part */
                 unpk[incu++] = fld[inc++];     /* imaginary part */
             }
-            else { /* Save value to be packed and scale Laplacian scale factor. */
+            else
+            { /* Save value to be packed and scale Laplacian scale factor. */
                 tfld[incp++] = fld[inc++] * pscale[n];      /* real part */
                 tfld[incp++] = fld[inc++] * pscale[n];      /* imaginary part */
             }
@@ -78,7 +82,8 @@ void specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM,
     }
     free(pscale);
 
-    if (incu != Ts) {
+    if (incu != Ts)
+    {
         printf("specpack: Incorrect number of unpacked values %d given:\n", (int)Ts);
         printf("specpack: Resetting idrstmpl[8] to %d\n", (int)incu);
         Ts = incu;
