@@ -18,6 +18,8 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
                  g2int jpclen);
 void jpcpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
+g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                g2float *fld);
 
 int
 main()
@@ -56,27 +58,27 @@ main()
     printf("Testing jpcpack()/jpcunpack() calls...");
     {
         g2int height = 2, width = 2;
-        /* g2int len = PACKED_LEN, ndpts = DATA_LEN; */
+        g2int len = PACKED_LEN, ndpts = DATA_LEN;
         g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-        /* g2float fld_in[DATA_LEN]; */
+        g2float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         g2int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
-        /* int i; */
+        int i;
 
         /* Pack the data. */
         jpcpack(fld, width, height, idrstmpl, cpack, &lcpack);
 
-        /* /\* Unpack the data. *\/ */
-        /* if (pngunpack(cpack, len, idrstmpl, ndpts, fld_in)) */
-        /*     return G2C_ERROR; */
+        /* Unpack the data. */
+        if (jpcunpack(cpack, len, idrstmpl, ndpts, fld_in))
+            return G2C_ERROR;
 
-        /* for (i = 0; i < DATA_LEN; i++) */
-        /* { */
-        /*     /\* printf("%g %g\n", fld[i], fld_in[i]); *\/ */
-        /*     if (fld[i] != fld_in[i]) */
-        /* 	return G2C_ERROR; */
-        /* } */
+        for (i = 0; i < DATA_LEN; i++)
+        {
+            /* printf("%g %g\n", fld[i], fld_in[i]); */
+            if (fld[i] != fld_in[i])
+        	return G2C_ERROR;
+        }
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
