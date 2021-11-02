@@ -136,7 +136,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     /* Add Section 3  - Grid Definition Section. */
     ibeg = lencurr * 8;        /*   Calculate offset for beginning of section 3 */
     iofst = ibeg + 32;         /*   leave space for length of section */
-    sbit(cgrib, &three, iofst, 8);     /* Store section number ( 3 ) */
+    sbit(cgrib, &three, iofst, 8);     /* Store section number (3) */
     iofst = iofst + 8;
     sbit(cgrib, igds+0, iofst, 8);     /* Store source of Grid def. */
     iofst = iofst + 8;
@@ -158,17 +158,16 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     /* Get Grid Definition Template. */
     if (igds[0] == 0)
     {
-        mapgrid = getgridtemplate(igds[4]);
-        if (mapgrid == 0)
+        if (!(mapgrid = getgridtemplate(igds[4])))
         {       /* undefined template */
             ierr = -5;
-            return(ierr);
+            return ierr;
         }
 
         /* Extend the Grid Definition Template, if necessary. The
          *  number of values in a specific template may vary depending
          *  on data specified in the "static" part of the template. */
-        if ( mapgrid->needext )
+        if (mapgrid->needext)
         {
             free(mapgrid);
             mapgrid = extgridtemplate(igds[4], igdstmpl);
@@ -181,7 +180,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     for (i = 0; i < mapgrid->maplen; i++)
     {
         nbits = abs(mapgrid->map[i]) * 8;
-        if ( (mapgrid->map[i] >= 0) || (igdstmpl[i] >= 0) )
+        if ((mapgrid->map[i] >= 0) || (igdstmpl[i] >= 0))
             sbit(cgrib, igdstmpl+i, iofst, nbits);
         else
         {
@@ -231,5 +230,5 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     lencurr += lensec3;
     sbit(cgrib, &lencurr, 96, 32);
 
-    return(lencurr);
+    return lencurr;
 }

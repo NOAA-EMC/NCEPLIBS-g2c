@@ -11,7 +11,18 @@
 /**
  * This subroutine returns the J, K, and M pentagonal resolution
  * parameters specified in a GRIB Grid Definition Section (GDS) used
- * spherical harmonic coefficients using GDT 5.50 through 5.53
+ * spherical harmonic coefficients using GDT 5.50 through 5.53.
+ *
+ * If 51 - complex data spectral packing is used as the data
+ * representation template number (see [Table
+ * 5.0](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table5-0.shtml)),
+ * then the Grid Definition Template Number in section 3 should be one
+ * of:
+ * - 50: Spherical Harmonic Coefficients (See Template 3.50)
+ * - 51: Rotated Spherical Harmonic Coefficients (See Template 3.51)
+ * - 52: Stretched Spherical Harmonic Coefficients (See Template 3.52)
+ * - 53: Rotated and Stretched Spherical Harmonic Coefficients (See
+ * Template 3.53)
  *
  * @param csec3 Character array that contains the packed GRIB2 GDS.
  * @param jj J pentagonal resolution parameter.
