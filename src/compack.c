@@ -43,15 +43,15 @@ compack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         unsigned char *cpack, g2int *lcpack)
 {
 
-    static g2int zero=0;
+    static g2int zero = 0;
     g2int *ifld, *gref, *glen, *gwidth;
     g2int *jmin,  *jmax,  *lbit;
     g2int i, j, n, imin, imax, left;
-    g2int isd, itemp, ilmax, ngwidthref=0, nbitsgwidth=0;
-    g2int nglenref=0, nglenlast=0, iofst, ival1, ival2;
-    g2int minsd, nbitsd=0, maxorig, nbitorig, ngroups;
+    g2int isd, itemp, ilmax, ngwidthref = 0, nbitsgwidth = 0;
+    g2int nglenref = 0, nglenlast = 0, iofst, ival1, ival2;
+    g2int minsd, nbitsd = 0, maxorig, nbitorig, ngroups;
     g2int lg, ng, igmax, iwmax, nbitsgref;
-    g2int glength, grpwidth, nbitsglen=0;
+    g2int glength, grpwidth, nbitsglen = 0;
     g2int kfildo,  minpk,  inc,  maxgrps,  ibit, jbit, kbit, novref, lbitref;
     g2int missopt, miss1, miss2, ier;
     g2float bscale, dscale, rmax, rmin, temp;
