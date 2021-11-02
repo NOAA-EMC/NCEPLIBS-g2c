@@ -89,6 +89,7 @@ main()
     }
     printf("ok!\n");
 
+    
     /* This test can't work because of the memory leak described in
      * https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues/150. */
     /* printf("Testing g2_addgrid() call with grid def template number 5..."); */
