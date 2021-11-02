@@ -67,6 +67,10 @@ main()
         if (lencurr != MSG_LEN)
             return G2C_ERROR;
 
+        /* Try to add section 3 again. Won't work. */
+        if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != -4) 
+            return G2C_ERROR;
+        
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
