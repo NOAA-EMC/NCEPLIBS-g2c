@@ -90,6 +90,11 @@ main()
         /* Change the first char back. */
         cgrib[0] = old_val;
 
+        /* Add sections 4, 5, 6, and 7 - won't work, bad drsnum. */
+        if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
+                               123, idrstmpl, fld, ngrdpts, ibmap, bmap)) != -5)
+            return G2C_ERROR;
+
         /* Add sections 4, 5, 6, and 7. */
         if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
                                idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != MOST_MSG_LEN)

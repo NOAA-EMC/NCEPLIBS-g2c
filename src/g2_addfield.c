@@ -331,7 +331,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     else if (idrsnum == 50)  /* Sperical Harmonic Simple Packing */
     { 
         simpack(pfld + 1, ndpts - 1, idrstmpl, cpack, &lcpack);
-        mkieee(pfld + 0, idrstmpl + 4, 1);  /* ensure RE(0, 0) value is IEEE format */
+        mkieee(pfld, idrstmpl + 4, 1);  /* ensure RE(0, 0) value is IEEE format */
     }
     else if (idrsnum == 51)      /* Sperical Harmonic Complex Packing */
     {   
@@ -341,7 +341,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         else
         {
             printf("g2_addfield: Cannot pack DRT 5.51.\n");
-            return (-9);
+            return -9;
         }
     }
 #if defined USE_JPEG2000 || defined USE_OPENJPEG
@@ -523,6 +523,6 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     newlen = lencurr + lensec4 + lensec5 + lensec6 + lensec7;
     sbit(cgrib, &newlen, 96, 32);
 
-    return(newlen);
+    return newlen;
 
 }
