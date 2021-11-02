@@ -26,8 +26,8 @@ main()
     /*     unsigned char cgrib[FULL_MSG_LEN]; */
     /*     g2int listsec0[2] = {1, 2}; */
     /*     g2int listsec1[13] = {7, 4, 24, 0, 0, 2021, 10, 24, 6, 54, 59, 7, 192}; */
-    /*     g2int igds[5] = {0, 4, 0, 0, 0}; */
-    /*     g2int igdstmpl[19] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18}; */
+    /*     g2int igds[5] = {0, 4, 0, 0, 50}; */
+    /*     g2int igdstmpl[5] = {1, 1, 2, 0, 1}; */
     /*     /\* unsigned char expected_cgrib[FULL_MSG_LEN] = {0x47, 0x52, 0x49, 0x42, 0x00, 0x00, 0x01, 0x02, 0x00, *\/ */
     /*     /\*     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb6, 0x00, 0x00, 0x00, 0x15, 0x01, 0x00, 0x07, 0x00, 0x04, *\/ */
     /*     /\*     0x18, 0x00, 0x00, 0x07, 0xe5, 0x0a, 0x18, 0x06, 0x36, 0x3b, 0x07, 0xc0, 0x00, 0x00, 0x00, 0x48, *\/ */
@@ -48,7 +48,7 @@ main()
     /*     g2int numcoord = 0; */
     /*     g2int idrsnum = 51; /\* Spectral Data - Complex Packing (see Template 5.51) *\/ */
     /*     g2int idrstmpl[10] = {0, 1, 2, 3, 4, 1, 1, 1, 1, 1}; */
-    /*     g2float fld[4] = {1, 2, 3, 4}; */
+    /*     g2float fld[8] = {1, 2, 3, 4, 5, 6, 7, 8}; */
     /*     g2int ngrdpts = 4; */
     /*     g2int ibmap = 0; */
     /*     g2int bmap[4] = {1, 1, 1, 1}; */
@@ -60,7 +60,7 @@ main()
     /*         return G2C_ERROR; */
 
     /*     /\* Add section 3. *\/ */
-    /*     if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != 109) */
+    /*     if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != 65) */
     /*         return G2C_ERROR; */
 
     /*     /\* Add sections 4, 5, 6, and 7. *\/ */

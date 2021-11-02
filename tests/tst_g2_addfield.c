@@ -78,6 +78,23 @@ main()
         if ((ret = g2_gribend(cgrib)) != -4)
             return G2C_ERROR;
 
+        /* Change the first char of the message. Just to be dumb. */
+        old_val = cgrib[0];
+        cgrib[0] = 0;
+
+        /* Try to add sections 4, 5, 6, and 7. Won't work. */
+        if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
+                               idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != -1)
+            return G2C_ERROR;
+
+        /* Change the first char back. */
+        cgrib[0] = old_val;
+
+        /* Add sections 4, 5, 6, and 7 - won't work, bad drsnum. */
+        if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
+                               123, idrstmpl, fld, ngrdpts, ibmap, bmap)) != -5)
+            return G2C_ERROR;
+
         /* Add sections 4, 5, 6, and 7. */
         if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
                                idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != MOST_MSG_LEN)
@@ -104,6 +121,11 @@ main()
 
         /* Add section 8. */
         if ((ret = g2_gribend(cgrib)) != FULL_MSG_LEN)
+            return G2C_ERROR;
+
+        /* Try to add sections 4, 5, 6, and 7. Won't work. */
+        if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
+                               idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != -2)
             return G2C_ERROR;
 
         /* Check the contents of the message for correctness. */

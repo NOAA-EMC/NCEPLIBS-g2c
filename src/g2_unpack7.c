@@ -81,7 +81,7 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
     {
         ierr = 2;
         /*fprintf(stderr, "g2_unpack7: Not Section 7 data.\n"); */
-        return(ierr);
+        return ierr;
     }
 
     ipos = (*iofst / 8);
@@ -89,7 +89,7 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
     if (lfld == 0)
     {
         ierr = 6;
-        return(ierr);
+        return ierr;
     }
     else
     {
@@ -112,15 +112,17 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
     }
     else if (idrsnum == 51)              /* Spectral complex */
         if (igdsnum>=50 && igdsnum <=53)
-            specunpack(cgrib+ipos, idrstmpl, ndpts, igdstmpl[0], igdstmpl[2], igdstmpl[2], lfld);
+            specunpack(cgrib + ipos, idrstmpl, ndpts, igdstmpl[0], igdstmpl[2],
+                       igdstmpl[2], lfld);
         else
         {
-            fprintf(stderr, "g2_unpack7: Cannot use GDT 3.%d to unpack Data Section 5.51.\n", (int)igdsnum);
+            fprintf(stderr, "g2_unpack7: Cannot use GDT 3.%d to unpack Data Section 5.51.\n",
+                    (int)igdsnum);
             ierr = 5;
             if (lfld)
                 free(lfld);
             *fld = NULL;
-            return(ierr);
+            return ierr;
         }
 #if defined USE_JPEG2000 || defined USE_OPENJPEG
     else if (idrsnum == 40 || idrsnum == 40000)
@@ -136,15 +138,16 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
 #endif  /* USE_PNG */
     else
     {
-        fprintf(stderr, "g2_unpack7: Data Representation Template 5.%d not yet implemented.\n", (int)idrsnum);
+        fprintf(stderr, "g2_unpack7: Data Representation Template 5.%d not yet "
+                "implemented.\n", (int)idrsnum);
         ierr = 4;
         if (lfld)
             free(lfld);
         *fld = NULL;
-        return(ierr);
+        return ierr;
     }
 
     *iofst = *iofst + (8 * lensec);
 
-    return(ierr);    /* End of Section 7 processing */
+    return ierr;    /* End of Section 7 processing */
 }
