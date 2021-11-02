@@ -172,7 +172,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         {
             gbit(cgrib, &ibmprev, iofst, 8);
             iofst = iofst + 8;
-            if ((ibmprev >= 0) && (ibmprev <= 253))
+            if (ibmprev >= 0 && ibmprev <= 253)
                 isprevbmap = 1;
         }
         len = len + ilen;
@@ -476,7 +476,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
 
     /*  If specifying a previously defined bit-map, make sure */
     /*  one already exists in the current GRIB message. */
-    if ((ibmap == 254) && (! isprevbmap))
+    if (ibmap == 254 && !isprevbmap)
     {
         printf("g2_addfield: Requested previously defined bitmap,");
         printf(" but one does not exist in the current GRIB message.\n");
