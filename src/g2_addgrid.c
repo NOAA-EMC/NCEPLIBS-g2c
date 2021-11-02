@@ -19,7 +19,7 @@
  *
  * ### Program History Log
  * Date | Programmer | Comments
- * -----|------------|--------- 
+ * -----|------------|---------
  * 2002-11-01 | Gilbert | Initial.
  * 2009-01-14 | Vuong | Changed structure name template to gtemplate
  *
@@ -84,7 +84,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
         printf("g2_addgrid: GRIB not found in given message.\n");
         printf("g2_addgrid: Call to routine gribcreate required to initialize GRIB messge.\n");
         ierr = -1;
-        return(ierr);
+        return ierr;
     }
 
     /* Get current length of GRIB message. */
@@ -96,7 +96,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     {
         printf("g2_addgrid: GRIB message already complete.  Cannot add new section.\n");
         ierr = -2;
-        return(ierr);
+        return ierr;
     }
 
     /* Loop through all current sections of the GRIB message to find
@@ -110,8 +110,11 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
         iofst = iofst + 32;
         gbit(cgrib, &isecnum, iofst, 8);
         len = len + ilen;
+
         /* Exit loop if last section reached. */
-        if (len == lencurr) break;
+        if (len == lencurr)
+            break;
+
         /* If byte count for each section doesn't match current total
          * length, then there is a problem. */
         if (len > lencurr)
@@ -120,7 +123,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
             printf("g2_addgrid: Sum of section byte counts = %ld\n", len);
             printf("g2_addgrid: Total byte count in Section 0 = %ld\n", lencurr);
             ierr = -3;
-            return(ierr);
+            return ierr;
         }
     }
 
@@ -130,7 +133,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
         printf("g2_addgrid: Section 3 can only be added after Section 1, 2 or 7.\n");
         printf("g2_addgrid: Section ',isecnum,' was the last found in given GRIB message.\n");
         ierr = -4;
-        return(ierr);
+        return ierr;
     }
 
     /* Add Section 3  - Grid Definition Section. */
@@ -210,6 +213,8 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
             j++;
         }
     }
+    if (mapgrid->ext)
+        free(mapgrid->ext);
     free(mapgrid);
 
     /* If requested, insert optional list of numbers defining number
