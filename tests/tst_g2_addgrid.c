@@ -48,14 +48,29 @@ main()
             72, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 3, 0, 0, 0, 4, 5, 0, 0, 0, 6, 0, 0,
             0, 7, 0, 0, 0, 8, 0, 0, 0, 9, 0, 0, 0, 10, 0, 0, 0, 11, 0, 0, 0, 12, 13, 0, 0, 0, 14,
             0, 0, 0, 15, 0, 0, 0, 16, 0, 0, 0, 17, 18};
+        unsigned char old_val;
         int i;
         int ret;
 
         if ((ret = g2_create(cgrib, listsec0, listsec1)) != SEC0_LEN + SEC1_LEN)
             return G2C_ERROR;
 
+        /* Mess up section length. */
+        old_val = cgrib[19];
+        cgrib[19] = 99;
+
+        /* Try to add the grid. Won't work, bad section length. */
+        if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != -3) 
+            return G2C_ERROR;
+        
+        /* Fix the section length. */
+        cgrib[19] = old_val;
+
+        /* Add the grid. */
         if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != 109) 
             return G2C_ERROR;
+
+        /* Check results. */
         for (i = 0; i < MSG_LEN; i++)
         {
             /* printf("%d %d %d\n", i, cgrib[i], expected_cgrib[i]);  */
