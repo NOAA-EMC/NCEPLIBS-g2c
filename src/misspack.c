@@ -39,13 +39,13 @@
  *
  * @author Stephen Gilbert @date 2000-06-21
  */
-void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
-              unsigned char *cpack, g2int *lcpack)
+void
+misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
+         unsigned char *cpack, g2int *lcpack)
 {
-
     g2int *ifld, *ifldmiss, *jfld;
     g2int *jmin, *jmax, *lbit;
-    static g2int zero=0;
+    static g2int zero = 0;
     g2int *gref, *gwidth, *glen;
     g2int glength, grpwidth;
     g2int i, n, iofst, imin, ival1, ival2, isd, minsd, nbitsd;
