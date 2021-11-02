@@ -121,7 +121,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad6296345c25609fc7443aba106dc0cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field using the simple packing algorithm as defined in the GRIB2 documention.  <a href="g2__addfield_8c.html#ad6296345c25609fc7443aba106dc0cb2">More...</a><br /></td></tr>
 <tr class="separator:ad6296345c25609fc7443aba106dc0cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8873944e9960b8fcf6e200cdb71b64b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#aa8873944e9960b8fcf6e200cdb71b64b">specpack</a> (<a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, unsigned char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *)</td></tr>
-<tr class="memdesc:aa8873944e9960b8fcf6e200cdb71b64b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation Template 5.51.  <a href="g2__addfield_8c.html#aa8873944e9960b8fcf6e200cdb71b64b">More...</a><br /></td></tr>
+<tr class="memdesc:aa8873944e9960b8fcf6e200cdb71b64b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml">Template 5.51</a>.  <a href="g2__addfield_8c.html#aa8873944e9960b8fcf6e200cdb71b64b">More...</a><br /></td></tr>
 <tr class="separator:aa8873944e9960b8fcf6e200cdb71b64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -187,7 +187,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
     <tr><td class="paramname">ndpts</td><td>The number of data values in array fld </td></tr>
-    <tr><td class="paramname">idrsnum</td><td>Data Representation Template number 5.N. Must equal 2 or 3. </td></tr>
+    <tr><td class="paramname">idrsnum</td><td>Data Representation Template number. Must equal 2 or 3. </td></tr>
     <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.2 or 5.3<ul>
 <li>0 Reference value - ignored on input, set by compack routine.</li>
 <li>1 Binary Scale Factor</li>
@@ -198,7 +198,7 @@ Functions</h2></td></tr>
 <li>16 Order of Spatial Differencing ( 1 or 2 ) </li>
 </ul>
 </td></tr>
-    <tr><td class="paramname">cpack</td><td>The packed data field (character*1 array) </td></tr>
+    <tr><td class="paramname">cpack</td><td>The packed data field. </td></tr>
     <tr><td class="paramname">lcpack</td><td>length of packed field cpack.</td></tr>
   </table>
   </dd>
@@ -206,9 +206,9 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2004-08-27 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cmplxpack_8c_source.html#l00033">33</a> of file <a class="el" href="cmplxpack_8c_source.html">cmplxpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cmplxpack_8c_source.html#l00035">35</a> of file <a class="el" href="cmplxpack_8c_source.html">cmplxpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="compack_8c_source.html#l00039">compack()</a>, and <a class="el" href="misspack_8c_source.html#l00038">misspack()</a>.</p>
+<p class="reference">References <a class="el" href="compack_8c_source.html#l00042">compack()</a>, and <a class="el" href="misspack_8c_source.html#l00043">misspack()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
 
@@ -297,7 +297,7 @@ Functions</h2></td></tr>
 <p>This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message. </p>
 <p>They are <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml">Product Definition Section</a>, <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect5.shtml">Data Representation Section</a>, <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect6.shtml">Bit-Map Section</a> and <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect7.shtml">Data Section</a>, respectively.</p>
 <p>This routine is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. Function <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message. Function <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a> must be called after <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> and before this routine to add the appropriate grid description to the GRIB2 message. A call to <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> is required to complete GRIB2 message after all fields have been added.</p>
-<h3><a class="anchor" id="autotoc_md6"></a>
+<h3><a class="anchor" id="autotoc_md8"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -357,7 +357,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2__addfield_8c_source.html#l00106">106</a> of file <a class="el" href="g2__addfield_8c_source.html">g2_addfield.c</a>.</p>
 
-<p class="reference">References <a class="el" href="cmplxpack_8c_source.html#l00033">cmplxpack()</a>, <a class="el" href="grib2_8h_source.html#l00052">gtemplate::ext</a>, <a class="el" href="grib2_8h_source.html#l00048">gtemplate::extlen</a>, <a class="el" href="pdstemplates_8c_source.html#l00121">extpdstemplate()</a>, <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="getdim_8c_source.html#l00030">getdim()</a>, <a class="el" href="drstemplates_8c_source.html#l00064">getdrstemplate()</a>, <a class="el" href="pdstemplates_8c_source.html#l00073">getpdstemplate()</a>, <a class="el" href="getpoly_8c_source.html#l00032">getpoly()</a>, <a class="el" href="jpcpack_8c_source.html#l00049">jpcpack()</a>, <a class="el" href="grib2_8h_source.html#l00042">gtemplate::map</a>, <a class="el" href="grib2_8h_source.html#l00038">gtemplate::maplen</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, <a class="el" href="grib2_8h_source.html#l00045">gtemplate::needext</a>, <a class="el" href="pngpack_8c_source.html#l00034">pngpack()</a>, <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>, <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>, <a class="el" href="simpack_8c_source.html#l00032">simpack()</a>, and <a class="el" href="specpack_8c_source.html#l00026">specpack()</a>.</p>
+<p class="reference">References <a class="el" href="cmplxpack_8c_source.html#l00035">cmplxpack()</a>, <a class="el" href="grib2_8h_source.html#l00052">gtemplate::ext</a>, <a class="el" href="grib2_8h_source.html#l00048">gtemplate::extlen</a>, <a class="el" href="pdstemplates_8c_source.html#l00121">extpdstemplate()</a>, <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="getdim_8c_source.html#l00029">getdim()</a>, <a class="el" href="drstemplates_8c_source.html#l00064">getdrstemplate()</a>, <a class="el" href="pdstemplates_8c_source.html#l00073">getpdstemplate()</a>, <a class="el" href="getpoly_8c_source.html#l00040">getpoly()</a>, <a class="el" href="jpcpack_8c_source.html#l00053">jpcpack()</a>, <a class="el" href="grib2_8h_source.html#l00042">gtemplate::map</a>, <a class="el" href="grib2_8h_source.html#l00038">gtemplate::maplen</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, <a class="el" href="grib2_8h_source.html#l00045">gtemplate::needext</a>, <a class="el" href="pngpack_8c_source.html#l00038">pngpack()</a>, <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>, <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>, <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>, and <a class="el" href="specpack_8c_source.html#l00033">specpack()</a>.</p>
 
 </div>
 </div>
@@ -403,9 +403,9 @@ Program History Log</h3>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">csec3</td><td>Character array that contains the packed GRIB2 GDS. </td></tr>
-    <tr><td class="paramname">width</td><td>x (or i) dimension of the grid. 0 of grid not recognized. </td></tr>
-    <tr><td class="paramname">height</td><td>y (or j) dimension of the grid. 0 of grid not recognized. </td></tr>
-    <tr><td class="paramname">iscan</td><td>Scanning mode (see Code Table 3.4). 0 of grid not recognized.</td></tr>
+    <tr><td class="paramname">width</td><td>x (or i) dimension of the grid. 0 if grid is not recognized. </td></tr>
+    <tr><td class="paramname">height</td><td>y (or j) dimension of the grid. 0 if grid is not recognized. </td></tr>
+    <tr><td class="paramname">iscan</td><td>Scanning mode (see <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-4.shtml">Table 3.4</a>). 0 of grid not recognized.</td></tr>
   </table>
   </dd>
 </dl>
@@ -413,9 +413,9 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-12-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="getdim_8c_source.html#l00030">30</a> of file <a class="el" href="getdim_8c_source.html">getdim.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="getdim_8c_source.html#l00029">29</a> of file <a class="el" href="getdim_8c_source.html">getdim.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2__unpack3_8c_source.html#l00053">g2_unpack3()</a>.</p>
+<p class="reference">References <a class="el" href="g2__unpack3_8c_source.html#l00057">g2_unpack3()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
 
@@ -460,23 +460,29 @@ Program History Log</h3>
 </div><div class="memdoc">
 
 <p>This subroutine returns the J, K, and M pentagonal resolution parameters specified in a GRIB Grid Definition Section (GDS) used spherical harmonic coefficients using GDT 5.50 through 5.53. </p>
+<p>If 51 - complex data spectral packing is used as the data representation template number (see <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table5-0.shtml">Table 5.0</a>), then the Grid Definition Template Number in section 3 should be one of:</p><ul>
+<li>50: Spherical Harmonic Coefficients (See Template 3.50)</li>
+<li>51: Rotated Spherical Harmonic Coefficients (See Template 3.51)</li>
+<li>52: Stretched Spherical Harmonic Coefficients (See Template 3.52)</li>
+<li>53: Rotated and Stretched Spherical Harmonic Coefficients (See Template 3.53)</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">csec3</td><td>Character array that contains the packed GRIB2 GDS. </td></tr>
-    <tr><td class="paramname">jj</td><td>J - pentagonal resolution parameter. </td></tr>
-    <tr><td class="paramname">kk</td><td>K - pentagonal resolution parameter. </td></tr>
-    <tr><td class="paramname">mm</td><td>M - pentagonal resolution parameter.</td></tr>
+    <tr><td class="paramname">jj</td><td>J pentagonal resolution parameter. </td></tr>
+    <tr><td class="paramname">kk</td><td>K pentagonal resolution parameter. </td></tr>
+    <tr><td class="paramname">mm</td><td>M pentagonal resolution parameter.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 for success, error code otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>always returns 0.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Returns jj, kk, and mm set to zero, if grid template not recognized.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-12-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="getpoly_8c_source.html#l00032">32</a> of file <a class="el" href="getpoly_8c_source.html">getpoly.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="getpoly_8c_source.html#l00040">40</a> of file <a class="el" href="getpoly_8c_source.html">getpoly.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2__unpack3_8c_source.html#l00053">g2_unpack3()</a>.</p>
+<p class="reference">References <a class="el" href="g2__unpack3_8c_source.html#l00057">g2_unpack3()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
 
@@ -534,18 +540,26 @@ Program History Log</h3>
 
 <p>This subroutine packs up a data field into a JPEG2000 code stream. </p>
 <p>After the data field is scaled, and the reference value is subtracted out, it is treated as a grayscale image and passed to a JPEG2000 encoder. It also fills in GRIB2 Data Representation Template 5.40 or 5.40000 with the appropriate values.</p>
-<p>PROGRAM HISTORY LOG:</p><ul>
-<li>2003-08-17 Gilbert</li>
-<li>2004-11-92 Gilbert - Fixed bug encountered when packing a near constant field.</li>
-<li>2004-07-19 Gilbert - Added check on whether the jpeg2000 encoding was successful. If not, try again with different encoder options.</li>
-<li>2005-05-10 Gilbert - Imposed minimum size on cpack, used to hold encoded bit string.</li>
-</ul>
+<h3><a class="anchor" id="autotoc_md19"></a>
+Program History Log</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Date   </th><th class="markdownTableHeadNone">Programmer   </th><th class="markdownTableHeadNone">Comments    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">2003-08-17   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Initial.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">2004-11-92   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Fixed bug packing a near constant field.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">2004-07-19   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">If jpeg2000 encoding fails, try again with different encoder options.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">2005-05-10   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Imposed minimum size on cpack.   </td></tr>
+</table>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
     <tr><td class="paramname">width</td><td>number of points in the x direction. </td></tr>
     <tr><td class="paramname">height</td><td>number of points in the y direction. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.40 or 5.40000.<ul>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml">Table 5.40</a> or 5.40000.<ul>
 <li>0 Reference value - ignored on input, set by jpcpack routine.</li>
 <li>1 Binary Scale Factor - used on input, unchanged by jpcpack routine.</li>
 <li>2 Decimal Scale Factor - used on input, unchanged by jpcpack routine.</li>
@@ -556,16 +570,16 @@ Program History Log</h3>
 </ul>
 </td></tr>
     <tr><td class="paramname">cpack</td><td>The packed data field. </td></tr>
-    <tr><td class="paramname">lcpack</td><td>length of packed field in cpack.</td></tr>
+    <tr><td class="paramname">lcpack</td><td>Pointer that points to a g2int which contains the length of packed field in cpack. This must be set by the calling function.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-08-17 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="jpcpack_8c_source.html#l00049">49</a> of file <a class="el" href="jpcpack_8c_source.html">jpcpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="jpcpack_8c_source.html#l00053">53</a> of file <a class="el" href="jpcpack_8c_source.html">jpcpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="enc__jpeg2000_8c_source.html#l00056">enc_jpeg2000()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
+<p class="reference">References <a class="el" href="enc__jpeg2000_8c_source.html#l00057">enc_jpeg2000()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
 
@@ -628,7 +642,7 @@ Program History Log</h3>
     <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
     <tr><td class="paramname">width</td><td>number of points in the x direction. </td></tr>
     <tr><td class="paramname">height</td><td>number of points in the y direction. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.41 or 5.40010.<ul>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml">Template</a> 5.41 or 5.40010.<ul>
 <li>0 Reference value - ignored on input, set by pngpack routine.</li>
 <li>1 Binary Scale Factor - used on input.</li>
 <li>2 Decimal Scale Factor - used on input.</li>
@@ -644,7 +658,7 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-08-27 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pngpack_8c_source.html#l00034">34</a> of file <a class="el" href="pngpack_8c_source.html">pngpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pngpack_8c_source.html#l00038">38</a> of file <a class="el" href="pngpack_8c_source.html">pngpack.c</a>.</p>
 
 <p class="reference">References <a class="el" href="enc__png_8c_source.html#l00081">enc_png()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
 
@@ -702,7 +716,7 @@ Program History Log</h3>
   <table class="params">
     <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
     <tr><td class="paramname">ndpts</td><td>The number of data values in array fld. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.0.<ul>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for [Data Representation Template 5.0](<a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-0.shtml">https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-0.shtml</a>).<ul>
 <li>0 Reference value - ignored on input - set by simpack routine.</li>
 <li>1 Binary Scale Factor - unchanged from input.</li>
 <li>2 Decimal Scale Factor - unchanged from input.</li>
@@ -718,11 +732,11 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-11-06 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="simpack_8c_source.html#l00032">32</a> of file <a class="el" href="simpack_8c_source.html">simpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="simpack_8c_source.html#l00034">34</a> of file <a class="el" href="simpack_8c_source.html">simpack.c</a>.</p>
 
 <p class="reference">References <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>, and <a class="el" href="specpack_8c_source.html#l00026">specpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>, and <a class="el" href="specpack_8c_source.html#l00033">specpack()</a>.</p>
 
 </div>
 </div>
@@ -788,16 +802,16 @@ Program History Log</h3>
       </table>
 </div><div class="memdoc">
 
-<p>This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation Template 5.51. </p>
+<p>This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml">Template 5.51</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fld</td><td>Contains the packed data values. </td></tr>
+    <tr><td class="paramname">fld</td><td>Contains the data values to be packed. </td></tr>
     <tr><td class="paramname">ndpts</td><td>The number of data values to pack. </td></tr>
     <tr><td class="paramname">JJ</td><td>J - pentagonal resolution parameter. </td></tr>
     <tr><td class="paramname">KK</td><td>K - pentagonal resolution parameter. </td></tr>
     <tr><td class="paramname">MM</td><td>M - pentagonal resolution parameter. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.51. </td></tr>
-    <tr><td class="paramname">cpack</td><td>The packed data field (character*1 array). </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of 10 values for [Data Representation Template 5.51](<a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml">https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml</a>). </td></tr>
+    <tr><td class="paramname">cpack</td><td>Pointer that gets the packed data field. Must be allocated by caller. </td></tr>
     <tr><td class="paramname">lcpack</td><td>length of packed field cpack.</td></tr>
   </table>
   </dd>
@@ -805,9 +819,9 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-12-19 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="specpack_8c_source.html#l00026">26</a> of file <a class="el" href="specpack_8c_source.html">specpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="specpack_8c_source.html#l00033">33</a> of file <a class="el" href="specpack_8c_source.html">specpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="simpack_8c_source.html#l00032">simpack()</a>.</p>
+<p class="reference">References <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
 

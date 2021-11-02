@@ -103,87 +103,102 @@ $(document).ready(function(){initNavTree('g2__unpack7_8c_source.html',''); initR
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> <a class="code" href="g2__unpack7_8c.html#a0ec40c3c58c9648a08b9198de8e82bc1">jpcunpack</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *,<a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>,<a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *,<a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* USE_JPEG2000 */</span><span class="preprocessor"></span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="g2__getfld_8c.html#a1783305479f24e498089dd59309215f6">   66</a></span>&#160;<a class="code" href="g2__unpack7_8c.html#a9f18066e6b00b576ff8472bc364af3e6">g2_unpack7</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cgrib, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *iofst, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> igdsnum, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *igdstmpl,</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;           <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> idrsnum, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts, <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> **fld)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;{</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ierr,isecnum;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ipos,lensec;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *lfld;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    ierr=0;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    *fld=0;     <span class="comment">/*NULL*/</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a>(cgrib,&amp;lensec,*iofst,32);        <span class="comment">/* Get Length of Section */</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    *iofst=*iofst+32;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a>(cgrib,&amp;isecnum,*iofst,8);         <span class="comment">/* Get Section Number */</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    *iofst=*iofst+8;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">if</span> ( isecnum != 7 ) {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        ierr=2;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="comment">/*fprintf(stderr,&quot;g2_unpack7: Not Section 7 data.\n&quot;); */</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">return</span>(ierr);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="g2__getfld_8c.html#a1783305479f24e498089dd59309215f6">   65</a></span>&#160;<a class="code" href="g2__unpack7_8c.html#a9f18066e6b00b576ff8472bc364af3e6">g2_unpack7</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cgrib, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *iofst, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> igdsnum, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *igdstmpl,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;           <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> idrsnum, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts, <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> **fld)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ierr, isecnum;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ipos, lensec;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *lfld;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    ierr = 0;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    *fld = 0;     <span class="comment">/*NULL*/</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a>(cgrib, &amp;lensec, *iofst, 32);        <span class="comment">/* Get Length of Section */</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    *iofst = *iofst + 32;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a>(cgrib, &amp;isecnum, *iofst, 8);         <span class="comment">/* Get Section Number */</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    *iofst = *iofst + 8;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">if</span> (isecnum != 7)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        ierr = 2;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="comment">/*fprintf(stderr, &quot;g2_unpack7: Not Section 7 data.\n&quot;); */</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">return</span> ierr;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    }</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    ipos=(*iofst/8);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    lfld=(<a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *)calloc(ndpts ? ndpts : 1,<span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a>));</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (lfld == 0) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        ierr=6;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span>(ierr);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        *fld=lfld;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (idrsnum == 0)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="g2__unpack7_8c.html#a044c5f7ba4057129fc06a0b7946eff94">simunpack</a>(cgrib+ipos,idrstmpl,ndpts,lfld);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrsnum == 2 || idrsnum == 3) {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="g2__unpack7_8c.html#a425a343ae39d48b54346b391c5af90f0">comunpack</a>(cgrib+ipos,lensec,idrsnum,idrstmpl,ndpts,lfld) != 0) {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">return</span> 7;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrsnum == 50) {            <span class="comment">/* Spectral Simple */</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="g2__unpack7_8c.html#a044c5f7ba4057129fc06a0b7946eff94">simunpack</a>(cgrib+ipos,idrstmpl,ndpts-1,lfld+1);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <a class="code" href="rdieee_8c.html#a765d8cfa0519cce8a36953120263ba51">rdieee</a>(idrstmpl+4,lfld+0,1);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    ipos = (*iofst / 8);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    lfld = calloc(ndpts ? ndpts : 1, <span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a>));</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (lfld == 0)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        ierr = 6;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">return</span> ierr;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        *fld = lfld;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">if</span> (idrsnum == 0)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <a class="code" href="g2__unpack7_8c.html#a044c5f7ba4057129fc06a0b7946eff94">simunpack</a>(cgrib + ipos, idrstmpl, ndpts, lfld);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrsnum == 2 || idrsnum == 3)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="g2__unpack7_8c.html#a425a343ae39d48b54346b391c5af90f0">comunpack</a>(cgrib+ipos, lensec, idrsnum, idrstmpl, ndpts, lfld) != 0)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">return</span> 7;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        }</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrsnum == 51)              <span class="comment">/* Spectral complex */</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">if</span> ( igdsnum&gt;=50 &amp;&amp; igdsnum &lt;=53 )</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <a class="code" href="g2__unpack7_8c.html#ac00f233927a3a6eb64e741089953284d">specunpack</a>(cgrib+ipos,idrstmpl,ndpts,igdstmpl[0],igdstmpl[2],igdstmpl[2],lfld);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            fprintf(stderr,<span class="stringliteral">&quot;g2_unpack7: Cannot use GDT 3.%d to unpack Data Section 5.51.\n&quot;</span>,(<span class="keywordtype">int</span>)igdsnum);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            ierr=5;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">if</span> ( lfld != 0 ) free(lfld);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            *fld=0;     <span class="comment">//NULL</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keywordflow">return</span>(ierr);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">#if defined USE_JPEG2000 || defined USE_OPENJPEG</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrsnum == 40 || idrsnum == 40000) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <a class="code" href="g2__unpack7_8c.html#a0ec40c3c58c9648a08b9198de8e82bc1">jpcunpack</a>(cgrib+ipos,lensec-5,idrstmpl,ndpts,lfld);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* USE_JPEG2000 */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#ifdef USE_PNG</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrsnum == 41 || idrsnum == 40010) {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <a class="code" href="g2__unpack7_8c.html#a188b50820544141523fc0c67dbb3ed42">pngunpack</a>(cgrib+ipos,lensec-5,idrstmpl,ndpts,lfld);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* USE_PNG */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        fprintf(stderr,<span class="stringliteral">&quot;g2_unpack7: Data Representation Template 5.%d not yet implemented.\n&quot;</span>,(<span class="keywordtype">int</span>)idrsnum);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        ierr=4;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">if</span> ( lfld != 0 ) free(lfld);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        *fld=0;     <span class="comment">/* NULL */</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordflow">return</span>(ierr);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    }</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    *iofst=*iofst+(8*lensec);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">return</span>(ierr);    <span class="comment">/* End of Section 7 processing */</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrsnum == 50)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    {            <span class="comment">/* Spectral Simple */</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <a class="code" href="g2__unpack7_8c.html#a044c5f7ba4057129fc06a0b7946eff94">simunpack</a>(cgrib + ipos, idrstmpl, ndpts - 1, lfld + 1);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <a class="code" href="rdieee_8c.html#a765d8cfa0519cce8a36953120263ba51">rdieee</a>(idrstmpl + 4, lfld, 1);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrsnum == 51)              <span class="comment">/* Spectral complex */</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">if</span> (igdsnum&gt;=50 &amp;&amp; igdsnum &lt;=53)</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <a class="code" href="g2__unpack7_8c.html#ac00f233927a3a6eb64e741089953284d">specunpack</a>(cgrib + ipos, idrstmpl, ndpts, igdstmpl[0], igdstmpl[2],</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                       igdstmpl[2], lfld);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            fprintf(stderr, <span class="stringliteral">&quot;g2_unpack7: Cannot use GDT 3.%d to unpack Data Section 5.51.\n&quot;</span>,</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                    (<span class="keywordtype">int</span>)igdsnum);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            ierr = 5;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">if</span> (lfld)</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                free(lfld);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            *fld = NULL;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">return</span> ierr;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#if defined USE_JPEG2000 || defined USE_OPENJPEG</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrsnum == 40 || idrsnum == 40000)</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <a class="code" href="g2__unpack7_8c.html#a0ec40c3c58c9648a08b9198de8e82bc1">jpcunpack</a>(cgrib + ipos, lensec - 5, idrstmpl, ndpts, lfld);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* USE_JPEG2000 */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#ifdef USE_PNG</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrsnum == 41 || idrsnum == 40010)</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <a class="code" href="g2__unpack7_8c.html#a188b50820544141523fc0c67dbb3ed42">pngunpack</a>(cgrib + ipos, lensec - 5, idrstmpl, ndpts, lfld);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* USE_PNG */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    {</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        fprintf(stderr, <span class="stringliteral">&quot;g2_unpack7: Data Representation Template 5.%d not yet &quot;</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                <span class="stringliteral">&quot;implemented.\n&quot;</span>, (<span class="keywordtype">int</span>)idrsnum);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        ierr = 4;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordflow">if</span> (lfld)</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            free(lfld);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        *fld = NULL;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">return</span> ierr;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    *iofst = *iofst + (8 * lensec);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">return</span> ierr;    <span class="comment">/* End of Section 7 processing */</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}</div>
 <div class="ttc" id="ag2__unpack7_8c_html_a044c5f7ba4057129fc06a0b7946eff94"><div class="ttname"><a href="g2__unpack7_8c.html#a044c5f7ba4057129fc06a0b7946eff94">simunpack</a></div><div class="ttdeci">g2int simunpack(unsigned char *, g2int *, g2int, g2float *)</div><div class="ttdoc">This subroutine unpacks a data field that was packed using a simple packing algorithm as defined in t...</div><div class="ttdef"><b>Definition:</b> <a href="simunpack_8c_source.html#l00026">simunpack.c:26</a></div></div>
-<div class="ttc" id="ag2__unpack7_8c_html_a0ec40c3c58c9648a08b9198de8e82bc1"><div class="ttname"><a href="g2__unpack7_8c.html#a0ec40c3c58c9648a08b9198de8e82bc1">jpcunpack</a></div><div class="ttdeci">g2int jpcunpack(unsigned char *, g2int, g2int *, g2int, g2float *)</div><div class="ttdoc">This subroutine unpacks a data field that was packed into a JPEG2000 code stream using info from the ...</div><div class="ttdef"><b>Definition:</b> <a href="jpcunpack_8c_source.html#l00029">jpcunpack.c:29</a></div></div>
-<div class="ttc" id="ag2__unpack7_8c_html_a188b50820544141523fc0c67dbb3ed42"><div class="ttname"><a href="g2__unpack7_8c.html#a188b50820544141523fc0c67dbb3ed42">pngunpack</a></div><div class="ttdeci">g2int pngunpack(unsigned char *, g2int, g2int *, g2int, g2float *)</div><div class="ttdoc">This subroutine unpacks a data field that was packed into a PNG image format using info from the GRIB...</div><div class="ttdef"><b>Definition:</b> <a href="pngunpack_8c_source.html#l00027">pngunpack.c:27</a></div></div>
-<div class="ttc" id="ag2__unpack7_8c_html_a425a343ae39d48b54346b391c5af90f0"><div class="ttname"><a href="g2__unpack7_8c.html#a425a343ae39d48b54346b391c5af90f0">comunpack</a></div><div class="ttdeci">int comunpack(unsigned char *, g2int, g2int, g2int *, g2int, g2float *)</div><div class="ttdoc">This subroutine unpacks a data field that was packed using a complex packing algorithm as defined in ...</div><div class="ttdef"><b>Definition:</b> <a href="comunpack_8c_source.html#l00039">comunpack.c:39</a></div></div>
-<div class="ttc" id="ag2__unpack7_8c_html_a9f18066e6b00b576ff8472bc364af3e6"><div class="ttname"><a href="g2__unpack7_8c.html#a9f18066e6b00b576ff8472bc364af3e6">g2_unpack7</a></div><div class="ttdeci">g2int g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl, g2int idrsnum, g2int *idrstmpl, g2int ndpts, g2float **fld)</div><div class="ttdoc">This subroutine unpacks Section 7 (Data Section) as defined in GRIB Edition 2.</div><div class="ttdef"><b>Definition:</b> <a href="g2__unpack7_8c_source.html#l00066">g2_unpack7.c:66</a></div></div>
-<div class="ttc" id="ag2__unpack7_8c_html_ac00f233927a3a6eb64e741089953284d"><div class="ttname"><a href="g2__unpack7_8c.html#ac00f233927a3a6eb64e741089953284d">specunpack</a></div><div class="ttdeci">g2int specunpack(unsigned char *, g2int *, g2int, g2int, g2int, g2int, g2float *)</div><div class="ttdoc">This subroutine unpacks a spectral data field that was packed using the complex packing algorithm for...</div><div class="ttdef"><b>Definition:</b> <a href="specunpack_8c_source.html#l00034">specunpack.c:34</a></div></div>
+<div class="ttc" id="ag2__unpack7_8c_html_a0ec40c3c58c9648a08b9198de8e82bc1"><div class="ttname"><a href="g2__unpack7_8c.html#a0ec40c3c58c9648a08b9198de8e82bc1">jpcunpack</a></div><div class="ttdeci">g2int jpcunpack(unsigned char *, g2int, g2int *, g2int, g2float *)</div><div class="ttdoc">This subroutine unpacks a data field that was packed into a JPEG2000 code stream using info from the ...</div><div class="ttdef"><b>Definition:</b> <a href="jpcunpack_8c_source.html#l00031">jpcunpack.c:31</a></div></div>
+<div class="ttc" id="ag2__unpack7_8c_html_a188b50820544141523fc0c67dbb3ed42"><div class="ttname"><a href="g2__unpack7_8c.html#a188b50820544141523fc0c67dbb3ed42">pngunpack</a></div><div class="ttdeci">g2int pngunpack(unsigned char *, g2int, g2int *, g2int, g2float *)</div><div class="ttdoc">This subroutine unpacks a data field that was packed into a PNG image format using info from the GRIB...</div><div class="ttdef"><b>Definition:</b> <a href="pngunpack_8c_source.html#l00030">pngunpack.c:30</a></div></div>
+<div class="ttc" id="ag2__unpack7_8c_html_a425a343ae39d48b54346b391c5af90f0"><div class="ttname"><a href="g2__unpack7_8c.html#a425a343ae39d48b54346b391c5af90f0">comunpack</a></div><div class="ttdeci">int comunpack(unsigned char *, g2int, g2int, g2int *, g2int, g2float *)</div><div class="ttdoc">This subroutine unpacks a data field that was packed using a complex packing algorithm as defined in ...</div><div class="ttdef"><b>Definition:</b> <a href="comunpack_8c_source.html#l00042">comunpack.c:42</a></div></div>
+<div class="ttc" id="ag2__unpack7_8c_html_a9f18066e6b00b576ff8472bc364af3e6"><div class="ttname"><a href="g2__unpack7_8c.html#a9f18066e6b00b576ff8472bc364af3e6">g2_unpack7</a></div><div class="ttdeci">g2int g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl, g2int idrsnum, g2int *idrstmpl, g2int ndpts, g2float **fld)</div><div class="ttdoc">This subroutine unpacks Section 7 (Data Section) as defined in GRIB Edition 2.</div><div class="ttdef"><b>Definition:</b> <a href="g2__unpack7_8c_source.html#l00065">g2_unpack7.c:65</a></div></div>
+<div class="ttc" id="ag2__unpack7_8c_html_ac00f233927a3a6eb64e741089953284d"><div class="ttname"><a href="g2__unpack7_8c.html#ac00f233927a3a6eb64e741089953284d">specunpack</a></div><div class="ttdeci">g2int specunpack(unsigned char *, g2int *, g2int, g2int, g2int, g2int, g2float *)</div><div class="ttdoc">This subroutine unpacks a spectral data field that was packed using the complex packing algorithm for...</div><div class="ttdef"><b>Definition:</b> <a href="specunpack_8c_source.html#l00035">specunpack.c:35</a></div></div>
 <div class="ttc" id="agbits_8c_html_a5d36ba9d46c32188872d0e9ab86f3e47"><div class="ttname"><a href="gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47">gbit</a></div><div class="ttdeci">void gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)</div><div class="ttdoc">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00020">gbits.c:20</a></div></div>
 <div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
 <div class="ttc" id="agrib2_8h_html_a2e615ee29fc8d17a681017e4384847c2"><div class="ttname"><a href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a></div><div class="ttdeci">float g2float</div><div class="ttdoc">Float type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00022">grib2.h:22</a></div></div>

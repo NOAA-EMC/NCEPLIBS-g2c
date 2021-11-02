@@ -99,9 +99,6 @@ $(document).ready(function(){initNavTree('getpoly_8c.html',''); initResizable();
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7f3d062f236f46e6835f689a149ef88a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="getpoly_8c.html#a7f3d062f236f46e6835f689a149ef88a">g2_unpack3</a> (unsigned char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> **, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> **, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> **, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *)</td></tr>
-<tr class="memdesc:a7f3d062f236f46e6835f689a149ef88a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine unpacks Section 3 (Grid Definition Section) as defined in GRIB Edition 2.  <a href="getpoly_8c.html#a7f3d062f236f46e6835f689a149ef88a">More...</a><br /></td></tr>
-<tr class="separator:a7f3d062f236f46e6835f689a149ef88a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8f99915cc3bf0efa7544cf3c2e1b552"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="getpoly_8c.html#aa8f99915cc3bf0efa7544cf3c2e1b552">getpoly</a> (unsigned char *csec3, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *jj, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *kk, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *mm)</td></tr>
 <tr class="memdesc:aa8f99915cc3bf0efa7544cf3c2e1b552"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns the J, K, and M pentagonal resolution parameters specified in a GRIB Grid Definition Section (GDS) used spherical harmonic coefficients using GDT 5.50 through 5.53.  <a href="getpoly_8c.html#aa8f99915cc3bf0efa7544cf3c2e1b552">More...</a><br /></td></tr>
 <tr class="separator:aa8f99915cc3bf0efa7544cf3c2e1b552"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,102 +110,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="getpoly_8c_source.html">getpoly.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a7f3d062f236f46e6835f689a149ef88a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f3d062f236f46e6835f689a149ef88a">&#9670;&nbsp;</a></span>g2_unpack3()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> g2_unpack3 </td>
-          <td>(</td>
-          <td class="paramtype">unsigned char *&#160;</td>
-          <td class="paramname"><em>cgrib</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>iofst</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> **&#160;</td>
-          <td class="paramname"><em>igds</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> **&#160;</td>
-          <td class="paramname"><em>igdstmpl</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>mapgridlen</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> **&#160;</td>
-          <td class="paramname"><em>ideflist</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>idefnum</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This routine unpacks Section 3 (Grid Definition Section) as defined in GRIB Edition 2. </p>
-<p>PROGRAM HISTORY LOG:</p><ul>
-<li>2002-10-31 Gilbert</li>
-<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cgrib</td><td>Char array ontaining Section 3 of the GRIB2 message. </td></tr>
-    <tr><td class="paramname">iofst</td><td>Bit offset for the beginning of Section 3 in cgrib. </td></tr>
-    <tr><td class="paramname">igds</td><td>Contains information read from the appropriate GRIB Grid Definition Section 3 for the field being returned.<ul>
-<li>igds[0] Source of grid definition (see Code Table 3.0)</li>
-<li>igds[1] Number of grid points in the defined grid.</li>
-<li>igds[2] Number of octets needed for each additional grid points definition. Used to define number of points in each row (or column) for non-regular grids. = 0, if using regular grid.</li>
-<li>igds[3] Interpretation of list for optional points definition. (Code Table 3.11)</li>
-<li>igds[4] Grid Definition Template Number (Code Table 3.1). </li>
-</ul>
-</td></tr>
-    <tr><td class="paramname">igdstmpl</td><td>- Pointer to integer array containing the data values for the specified Grid Definition Template (NN=igds[4]). Each element of this integer array contains an entry (in the order specified) of Grid Defintion Template 3.NN </td></tr>
-    <tr><td class="paramname">mapgridlen-</td><td>Number of elements in igdstmpl[]. i.e. number of entries in Grid Defintion Template 3.NN (NN=igds[4]). </td></tr>
-    <tr><td class="paramname">ideflist</td><td>(Used if igds[2] .ne. 0) Pointer to integer array containing the number of grid points contained in each row ( or column ). (part of Section 3). </td></tr>
-    <tr><td class="paramname">idefnum</td><td>(Used if igds[2] .ne. 0) The number of entries in array ideflist. i.e. number of rows (or columns) for which optional grid points are defined.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>0 no error</li>
-<li>2 Not Section 3</li>
-<li>5 "GRIB" message contains an undefined Grid Definition Template.</li>
-<li>6 memory allocation error</li>
-</ul>
-</dd></dl>
-<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="g2__unpack3_8c_source.html#l00053">53</a> of file <a class="el" href="g2__unpack3_8c_source.html">g2_unpack3.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="getpoly_8c_source.html#l00032">getpoly()</a>.</p>
-
-</div>
-</div>
 <a id="aa8f99915cc3bf0efa7544cf3c2e1b552"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa8f99915cc3bf0efa7544cf3c2e1b552">&#9670;&nbsp;</a></span>getpoly()</h2>
 
@@ -248,23 +149,29 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This subroutine returns the J, K, and M pentagonal resolution parameters specified in a GRIB Grid Definition Section (GDS) used spherical harmonic coefficients using GDT 5.50 through 5.53. </p>
+<p>If 51 - complex data spectral packing is used as the data representation template number (see <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table5-0.shtml">Table 5.0</a>), then the Grid Definition Template Number in section 3 should be one of:</p><ul>
+<li>50: Spherical Harmonic Coefficients (See Template 3.50)</li>
+<li>51: Rotated Spherical Harmonic Coefficients (See Template 3.51)</li>
+<li>52: Stretched Spherical Harmonic Coefficients (See Template 3.52)</li>
+<li>53: Rotated and Stretched Spherical Harmonic Coefficients (See Template 3.53)</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">csec3</td><td>Character array that contains the packed GRIB2 GDS. </td></tr>
-    <tr><td class="paramname">jj</td><td>J - pentagonal resolution parameter. </td></tr>
-    <tr><td class="paramname">kk</td><td>K - pentagonal resolution parameter. </td></tr>
-    <tr><td class="paramname">mm</td><td>M - pentagonal resolution parameter.</td></tr>
+    <tr><td class="paramname">jj</td><td>J pentagonal resolution parameter. </td></tr>
+    <tr><td class="paramname">kk</td><td>K pentagonal resolution parameter. </td></tr>
+    <tr><td class="paramname">mm</td><td>M pentagonal resolution parameter.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 for success, error code otherwise.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>always returns 0.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Returns jj, kk, and mm set to zero, if grid template not recognized.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-12-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="getpoly_8c_source.html#l00032">32</a> of file <a class="el" href="getpoly_8c_source.html">getpoly.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="getpoly_8c_source.html#l00040">40</a> of file <a class="el" href="getpoly_8c_source.html">getpoly.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2__unpack3_8c_source.html#l00053">g2_unpack3()</a>.</p>
+<p class="reference">References <a class="el" href="g2__unpack3_8c_source.html#l00057">g2_unpack3()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
 

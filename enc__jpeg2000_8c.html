@@ -135,7 +135,7 @@ Functions</h2></td></tr>
 
 <p>Define for JAS. </p>
 
-<p class="definition">Definition at line <a class="el" href="enc__jpeg2000_8c_source.html#l00013">13</a> of file <a class="el" href="enc__jpeg2000_8c_source.html">enc_jpeg2000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="enc__jpeg2000_8c_source.html#l00014">14</a> of file <a class="el" href="enc__jpeg2000_8c_source.html">enc_jpeg2000.c</a>.</p>
 
 </div>
 </div>
@@ -153,7 +153,7 @@ Functions</h2></td></tr>
 
 <p>Maximum size of options. </p>
 
-<p class="definition">Definition at line <a class="el" href="enc__jpeg2000_8c_source.html#l00014">14</a> of file <a class="el" href="enc__jpeg2000_8c_source.html">enc_jpeg2000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="enc__jpeg2000_8c_source.html#l00015">15</a> of file <a class="el" href="enc__jpeg2000_8c_source.html">enc_jpeg2000.c</a>.</p>
 
 </div>
 </div>
@@ -228,10 +228,16 @@ Functions</h2></td></tr>
 
 <p>This Function encodes a grayscale image into a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer Software version 1.500.4 (or 1.700.2) written by the University of British Columbia, Image Power Inc, and others. </p>
 <p>JasPer is available at <a href="http://www.ece.uvic.ca/~mdadams/jasper/">http://www.ece.uvic.ca/~mdadams/jasper/</a>.</p>
-<p>PROGRAM HISTORY LOG:</p><ul>
-<li>2002-12-02 Gilbert</li>
-<li>2004-12-16 Gilbert - Added retry argument/option to allow option of increasing the maximum number of guard bits to the JPEG2000 algorithm.</li>
-</ul>
+<h3><a class="anchor" id="autotoc_md7"></a>
+Program History Log</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Date   </th><th class="markdownTableHeadNone">Programmer   </th><th class="markdownTableHeadNone">Comments    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">2002-12-02   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Initial    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">2004-12-16   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Added retry argument allowing increased guard bits.   </td></tr>
+</table>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cin</td><td>Packed matrix of Grayscale image values to encode. </td></tr>
@@ -244,9 +250,9 @@ Functions</h2></td></tr>
 </ul>
 </td></tr>
     <tr><td class="paramname">ratio</td><td>target compression ratio. (ratio:1) Used only when ltype == 1. </td></tr>
-    <tr><td class="paramname">retry</td><td>Pointer to option type. If 1 try increasing number of guard bits otherwise, no additional options. </td></tr>
+    <tr><td class="paramname">retry</td><td>If 1 try increasing number of guard bits otherwise, no additional options. </td></tr>
     <tr><td class="paramname">outjpc</td><td>Output encoded JPEG2000 code stream. </td></tr>
-    <tr><td class="paramname">jpclen</td><td>Number of bytes allocated for new JPEG2000 code stream in outjpc.</td></tr>
+    <tr><td class="paramname">jpclen</td><td>Number of bytes allocated for the output JPEG2000 code stream in outjpc.</td></tr>
   </table>
   </dd>
 </dl>
@@ -256,15 +262,15 @@ Functions</h2></td></tr>
 <li>-5 = decoded image had multiple color components. Only grayscale is expected.</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Requires JasPer Software version 1.500.4 or 1.700.2.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Requires JasPer Software version 1.500.4 or 1.700.2 or later.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-12-02 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="enc__jpeg2000_8c_source.html#l00056">56</a> of file <a class="el" href="enc__jpeg2000_8c_source.html">enc_jpeg2000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="enc__jpeg2000_8c_source.html#l00057">57</a> of file <a class="el" href="enc__jpeg2000_8c_source.html">enc_jpeg2000.c</a>.</p>
 
-<p class="reference">References <a class="el" href="enc__jpeg2000_8c_source.html#l00014">MAXOPTSSIZE</a>.</p>
+<p class="reference">References <a class="el" href="enc__jpeg2000_8c_source.html#l00015">MAXOPTSSIZE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="jpcpack_8c_source.html#l00049">jpcpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="jpcpack_8c_source.html#l00053">jpcpack()</a>.</p>
 
 </div>
 </div>

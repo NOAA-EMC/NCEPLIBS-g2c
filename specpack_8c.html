@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('specpack_8c.html',''); initResizable()
 <div class="title">specpack.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Pack a spectral data field using the complex packing algorithm for spherical harmonic data.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
@@ -98,11 +101,12 @@ $(document).ready(function(){initNavTree('specpack_8c.html',''); initResizable()
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4464faa396c6e14a740e0ff4b4a0c9a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="specpack_8c.html#a4464faa396c6e14a740e0ff4b4a0c9a1">specpack</a> (<a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *fld, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> JJ, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> KK, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> MM, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, unsigned char *cpack, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *lcpack)</td></tr>
-<tr class="memdesc:a4464faa396c6e14a740e0ff4b4a0c9a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation Template 5.51.  <a href="specpack_8c.html#a4464faa396c6e14a740e0ff4b4a0c9a1">More...</a><br /></td></tr>
+<tr class="memdesc:a4464faa396c6e14a740e0ff4b4a0c9a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml">Template 5.51</a>.  <a href="specpack_8c.html#a4464faa396c6e14a740e0ff4b4a0c9a1">More...</a><br /></td></tr>
 <tr class="separator:a4464faa396c6e14a740e0ff4b4a0c9a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<div class="textblock"><p>Pack a spectral data field using the complex packing algorithm for spherical harmonic data. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-12-19 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="specpack_8c_source.html">specpack.c</a>.</p>
@@ -169,16 +173,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation Template 5.51. </p>
+<p>This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml">Template 5.51</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fld</td><td>Contains the packed data values. </td></tr>
+    <tr><td class="paramname">fld</td><td>Contains the data values to be packed. </td></tr>
     <tr><td class="paramname">ndpts</td><td>The number of data values to pack. </td></tr>
     <tr><td class="paramname">JJ</td><td>J - pentagonal resolution parameter. </td></tr>
     <tr><td class="paramname">KK</td><td>K - pentagonal resolution parameter. </td></tr>
     <tr><td class="paramname">MM</td><td>M - pentagonal resolution parameter. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.51. </td></tr>
-    <tr><td class="paramname">cpack</td><td>The packed data field (character*1 array). </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of 10 values for [Data Representation Template 5.51](<a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml">https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml</a>). </td></tr>
+    <tr><td class="paramname">cpack</td><td>Pointer that gets the packed data field. Must be allocated by caller. </td></tr>
     <tr><td class="paramname">lcpack</td><td>length of packed field cpack.</td></tr>
   </table>
   </dd>
@@ -186,9 +190,9 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-12-19 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="specpack_8c_source.html#l00026">26</a> of file <a class="el" href="specpack_8c_source.html">specpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="specpack_8c_source.html#l00033">33</a> of file <a class="el" href="specpack_8c_source.html">specpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="simpack_8c_source.html#l00032">simpack()</a>.</p>
+<p class="reference">References <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
 

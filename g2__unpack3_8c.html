@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('g2__unpack3_8c.html',''); initResizabl
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae0f9483c798b7819852b21fa0ae51590"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__unpack3_8c.html#ae0f9483c798b7819852b21fa0ae51590">g2_unpack3</a> (unsigned char *cgrib, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *iofst, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> **igds, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> **igdstmpl, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *mapgridlen, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> **ideflist, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idefnum)</td></tr>
-<tr class="memdesc:ae0f9483c798b7819852b21fa0ae51590"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine unpacks Section 3 (Grid Definition Section) as defined in GRIB Edition 2.  <a href="g2__unpack3_8c.html#ae0f9483c798b7819852b21fa0ae51590">More...</a><br /></td></tr>
+<tr class="memdesc:ae0f9483c798b7819852b21fa0ae51590"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine unpacks <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml">Section 3 (Grid Definition Section)</a> as defined in GRIB Edition 2.  <a href="g2__unpack3_8c.html#ae0f9483c798b7819852b21fa0ae51590">More...</a><br /></td></tr>
 <tr class="separator:ae0f9483c798b7819852b21fa0ae51590"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -166,45 +166,51 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This routine unpacks Section 3 (Grid Definition Section) as defined in GRIB Edition 2. </p>
-<p>PROGRAM HISTORY LOG:</p><ul>
-<li>2002-10-31 Gilbert</li>
-<li>2009-01-14 Vuong Changed structure name template to gtemplate</li>
-</ul>
+<p>This routine unpacks <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml">Section 3 (Grid Definition Section)</a> as defined in GRIB Edition 2. </p>
+<h3><a class="anchor" id="autotoc_md13"></a>
+Program History Log</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Date   </th><th class="markdownTableHeadNone">Programmer   </th><th class="markdownTableHeadNone">Comments    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">2002-10-31   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Initial    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">2009-01-14   </td><td class="markdownTableBodyNone">Vuong   </td><td class="markdownTableBodyNone">Changed structure name template to gtemplate   </td></tr>
+</table>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cgrib</td><td>Char array ontaining Section 3 of the GRIB2 message. </td></tr>
     <tr><td class="paramname">iofst</td><td>Bit offset for the beginning of Section 3 in cgrib. </td></tr>
     <tr><td class="paramname">igds</td><td>Contains information read from the appropriate GRIB Grid Definition Section 3 for the field being returned.<ul>
-<li>igds[0] Source of grid definition (see Code Table 3.0)</li>
+<li>igds[0] Source of grid definition (see <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-0.shtml">Table 3.0</a>).</li>
 <li>igds[1] Number of grid points in the defined grid.</li>
 <li>igds[2] Number of octets needed for each additional grid points definition. Used to define number of points in each row (or column) for non-regular grids. = 0, if using regular grid.</li>
-<li>igds[3] Interpretation of list for optional points definition. (Code Table 3.11)</li>
-<li>igds[4] Grid Definition Template Number (Code Table 3.1). </li>
+<li>igds[3] Interpretation of list for optional points definition. (See <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-11.shtml">Table 3.11</a>)</li>
+<li>igds[4] Grid Definition Template Number (see <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-1.shtml">Table 3.1</a>). </li>
 </ul>
 </td></tr>
-    <tr><td class="paramname">igdstmpl</td><td>- Pointer to integer array containing the data values for the specified Grid Definition Template (NN=igds[4]). Each element of this integer array contains an entry (in the order specified) of Grid Defintion Template 3.NN </td></tr>
-    <tr><td class="paramname">mapgridlen-</td><td>Number of elements in igdstmpl[]. i.e. number of entries in Grid Defintion Template 3.NN (NN=igds[4]). </td></tr>
-    <tr><td class="paramname">ideflist</td><td>(Used if igds[2] .ne. 0) Pointer to integer array containing the number of grid points contained in each row ( or column ). (part of Section 3). </td></tr>
-    <tr><td class="paramname">idefnum</td><td>(Used if igds[2] .ne. 0) The number of entries in array ideflist. i.e. number of rows (or columns) for which optional grid points are defined.</td></tr>
+    <tr><td class="paramname">igdstmpl</td><td>Pointer to integer array containing the data values for the Grid Definition Template specified by igds[4]. </td></tr>
+    <tr><td class="paramname">mapgridlen</td><td>Number of elements in igdstmpl. i.e. number of entries in Grid Defintion Template specified by igds[4]. </td></tr>
+    <tr><td class="paramname">ideflist</td><td>(Used if igds[2] .ne. 0) Pointer to integer array containing the number of grid points contained in each row (or column). </td></tr>
+    <tr><td class="paramname">idefnum</td><td>(Used if igds[2] .ne. 0) The number of entries in array ideflist - i.e. number of rows (or columns) for which optional grid points are defined.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>0 no error</li>
 <li>2 Not Section 3</li>
-<li>5 "GRIB" message contains an undefined Grid Definition Template.</li>
+<li>5 message contains an undefined Grid Definition Template.</li>
 <li>6 memory allocation error</li>
 </ul>
 </dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2__unpack3_8c_source.html#l00053">53</a> of file <a class="el" href="g2__unpack3_8c_source.html">g2_unpack3.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2__unpack3_8c_source.html#l00057">57</a> of file <a class="el" href="g2__unpack3_8c_source.html">g2_unpack3.c</a>.</p>
 
 <p class="reference">References <a class="el" href="grib2_8h_source.html#l00052">gtemplate::ext</a>, <a class="el" href="gridtemplates_8c_source.html#l00124">extgridtemplate()</a>, <a class="el" href="grib2_8h_source.html#l00048">gtemplate::extlen</a>, <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="gbits_8c_source.html#l00057">gbits()</a>, <a class="el" href="gridtemplates_8c_source.html#l00075">getgridtemplate()</a>, <a class="el" href="grib2_8h_source.html#l00042">gtemplate::map</a>, <a class="el" href="grib2_8h_source.html#l00038">gtemplate::maplen</a>, and <a class="el" href="grib2_8h_source.html#l00045">gtemplate::needext</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__getfld_8c_source.html#l00100">g2_getfld()</a>, <a class="el" href="getdim_8c_source.html#l00030">getdim()</a>, and <a class="el" href="getpoly_8c_source.html#l00032">getpoly()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__getfld_8c_source.html#l00102">g2_getfld()</a>, <a class="el" href="getdim_8c_source.html#l00029">getdim()</a>, and <a class="el" href="getpoly_8c_source.html#l00040">getpoly()</a>.</p>
 
 </div>
 </div>

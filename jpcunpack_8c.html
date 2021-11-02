@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('jpcunpack_8c.html',''); initResizable(
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab5842a1a8efddeee4661a9cd4607750d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpcunpack_8c.html#ab5842a1a8efddeee4661a9cd4607750d">dec_jpeg2000</a> (char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *)</td></tr>
-<tr class="memdesc:ab5842a1a8efddeee4661a9cd4607750d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This Function decodes a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer Software version 1.500.4 (or 1.700.2) written by the University of British Columbia and Image Power Inc, and others.  <a href="jpcunpack_8c.html#ab5842a1a8efddeee4661a9cd4607750d">More...</a><br /></td></tr>
+<tr class="memdesc:ab5842a1a8efddeee4661a9cd4607750d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This Function decodes a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer Software written by the University of British Columbia and Image Power Inc, and others.  <a href="jpcunpack_8c.html#ab5842a1a8efddeee4661a9cd4607750d">More...</a><br /></td></tr>
 <tr class="separator:ab5842a1a8efddeee4661a9cd4607750d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adcf25467e143e6705a2108caaad9fd88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpcunpack_8c.html#adcf25467e143e6705a2108caaad9fd88">jpcunpack</a> (unsigned char *cpack, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> len, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts, <a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *fld)</td></tr>
 <tr class="memdesc:adcf25467e143e6705a2108caaad9fd88"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks a data field that was packed into a JPEG2000 code stream using info from the GRIB2 Data Representation Template 5.40 or 5.40000.  <a href="jpcunpack_8c.html#adcf25467e143e6705a2108caaad9fd88">More...</a><br /></td></tr>
@@ -145,12 +145,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This Function decodes a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer Software version 1.500.4 (or 1.700.2) written by the University of British Columbia and Image Power Inc, and others. </p>
+<p>This Function decodes a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer Software written by the University of British Columbia and Image Power Inc, and others. </p>
 <p>JasPer is available at <a href="http://www.ece.uvic.ca/~mdadams/jasper/">http://www.ece.uvic.ca/~mdadams/jasper/</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">injpc</td><td>Input JPEG2000 code stream. </td></tr>
-    <tr><td class="paramname">bufsize</td><td>Length (in bytes) of the input JPEG2000 code stream.</td></tr>
+    <tr><td class="paramname">bufsize</td><td>Length (in bytes) of the input JPEG2000 code stream. </td></tr>
     <tr><td class="paramname">outfld</td><td>Output matrix of grayscale image values.</td></tr>
   </table>
   </dd>
@@ -161,13 +161,12 @@ Functions</h2></td></tr>
 <li>-5 decoded image had multiple color components. Only grayscale is expected.</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Requires JasPer Software version 1.500.4 or 1.700.2.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-12-02 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="dec__jpeg2000_8c_source.html#l00043">43</a> of file <a class="el" href="dec__jpeg2000_8c_source.html">dec_jpeg2000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dec__jpeg2000_8c_source.html#l00042">42</a> of file <a class="el" href="dec__jpeg2000_8c_source.html">dec_jpeg2000.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="jpcunpack_8c_source.html#l00029">jpcunpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="jpcunpack_8c_source.html#l00031">jpcunpack()</a>.</p>
 
 </div>
 </div>
@@ -220,7 +219,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">cpack</td><td>The packed data field (character*1 array). </td></tr>
     <tr><td class="paramname">len</td><td>length of packed field cpack. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Pointer to array of values for Data Representation Template 5.40 or 5.40000. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Pointer to array of values for Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml">Template 5.40</a> or 5.40000. </td></tr>
     <tr><td class="paramname">ndpts</td><td>The number of data values to unpack. </td></tr>
     <tr><td class="paramname">fld</td><td>Contains the unpacked data values.</td></tr>
   </table>
@@ -230,11 +229,11 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Stephem Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-08-27 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="jpcunpack_8c_source.html#l00029">29</a> of file <a class="el" href="jpcunpack_8c_source.html">jpcunpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="jpcunpack_8c_source.html#l00031">31</a> of file <a class="el" href="jpcunpack_8c_source.html">jpcunpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="dec__jpeg2000_8c_source.html#l00043">dec_jpeg2000()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, and <a class="el" href="rdieee_8c_source.html#l00020">rdieee()</a>.</p>
+<p class="reference">References <a class="el" href="dec__jpeg2000_8c_source.html#l00042">dec_jpeg2000()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, and <a class="el" href="rdieee_8c_source.html#l00020">rdieee()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00066">g2_unpack7()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00065">g2_unpack7()</a>.</p>
 
 </div>
 </div>

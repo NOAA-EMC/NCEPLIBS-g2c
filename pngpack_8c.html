@@ -88,6 +88,9 @@ $(document).ready(function(){initNavTree('pngpack_8c.html',''); initResizable();
 <div class="title">pngpack.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Function to pack data with PNG compression.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
@@ -104,7 +107,8 @@ Functions</h2></td></tr>
 <tr class="separator:aead12707dbe31153a792ec922eb2fec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
+<div class="textblock"><p>Function to pack data with PNG compression. </p>
+<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-08-27 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="pngpack_8c_source.html">pngpack.c</a>.</p>
@@ -169,9 +173,9 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="enc__png_8c_source.html#l00081">81</a> of file <a class="el" href="enc__png_8c_source.html">enc_png.c</a>.</p>
 
-<p class="reference">References <a class="el" href="enc__png_8c_source.html#l00061">user_flush_data()</a>, and <a class="el" href="enc__png_8c_source.html#l00038">user_write_data()</a>.</p>
+<p class="reference">References <a class="el" href="enc__png_8c_source.html#l00061">user_flush_data()</a>, and <a class="el" href="enc__png_8c_source.html#l00041">user_write_data()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pngpack_8c_source.html#l00034">pngpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pngpack_8c_source.html#l00038">pngpack()</a>.</p>
 
 </div>
 </div>
@@ -232,7 +236,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
     <tr><td class="paramname">width</td><td>number of points in the x direction. </td></tr>
     <tr><td class="paramname">height</td><td>number of points in the y direction. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.41 or 5.40010.<ul>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml">Template</a> 5.41 or 5.40010.<ul>
 <li>0 Reference value - ignored on input, set by pngpack routine.</li>
 <li>1 Binary Scale Factor - used on input.</li>
 <li>2 Decimal Scale Factor - used on input.</li>
@@ -248,7 +252,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-08-27 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pngpack_8c_source.html#l00034">34</a> of file <a class="el" href="pngpack_8c_source.html">pngpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pngpack_8c_source.html#l00038">38</a> of file <a class="el" href="pngpack_8c_source.html">pngpack.c</a>.</p>
 
 <p class="reference">References <a class="el" href="enc__png_8c_source.html#l00081">enc_png()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
 

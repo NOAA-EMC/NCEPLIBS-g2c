@@ -126,12 +126,10 @@ var NAVTREEINDEX0 =
 "gbits_8c.html#ad5a2832a80724dc38d71de38d0a9d6e8":[5,0,26,3],
 "gbits_8c_source.html":[5,0,26],
 "getdim_8c.html":[5,0,27],
-"getdim_8c.html#a7f3d062f236f46e6835f689a149ef88a":[5,0,27,0],
-"getdim_8c.html#aabc49a338fae74f6dfc9e98b6cb59de7":[5,0,27,1],
+"getdim_8c.html#aabc49a338fae74f6dfc9e98b6cb59de7":[5,0,27,0],
 "getdim_8c_source.html":[5,0,27],
 "getpoly_8c.html":[5,0,28],
-"getpoly_8c.html#a7f3d062f236f46e6835f689a149ef88a":[5,0,28,0],
-"getpoly_8c.html#aa8f99915cc3bf0efa7544cf3c2e1b552":[5,0,28,1],
+"getpoly_8c.html#aa8f99915cc3bf0efa7544cf3c2e1b552":[5,0,28,0],
 "getpoly_8c_source.html":[5,0,28],
 "globals.html":[5,1,0],
 "globals_defs.html":[5,1,4],
@@ -249,5 +247,7 @@ var NAVTREEINDEX0 =
 "jpcunpack_8c.html#ab5842a1a8efddeee4661a9cd4607750d":[5,0,34,0],
 "jpcunpack_8c.html#adcf25467e143e6705a2108caaad9fd88":[5,0,34,1],
 "jpcunpack_8c_source.html":[5,0,34],
-"misspack_8c.html":[5,0,35]
+"misspack_8c.html":[5,0,35],
+"misspack_8c.html#a33440a1e301c24cf2996122f63ee3cae":[5,0,35,0],
+"misspack_8c_source.html":[5,0,35]
 };

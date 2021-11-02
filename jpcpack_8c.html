@@ -183,10 +183,16 @@ Functions</h2></td></tr>
 
 <p>This Function encodes a grayscale image into a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer Software version 1.500.4 (or 1.700.2) written by the University of British Columbia, Image Power Inc, and others. </p>
 <p>JasPer is available at <a href="http://www.ece.uvic.ca/~mdadams/jasper/">http://www.ece.uvic.ca/~mdadams/jasper/</a>.</p>
-<p>PROGRAM HISTORY LOG:</p><ul>
-<li>2002-12-02 Gilbert</li>
-<li>2004-12-16 Gilbert - Added retry argument/option to allow option of increasing the maximum number of guard bits to the JPEG2000 algorithm.</li>
-</ul>
+<h3><a class="anchor" id="autotoc_md7"></a>
+Program History Log</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Date   </th><th class="markdownTableHeadNone">Programmer   </th><th class="markdownTableHeadNone">Comments    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">2002-12-02   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Initial    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">2004-12-16   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Added retry argument allowing increased guard bits.   </td></tr>
+</table>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cin</td><td>Packed matrix of Grayscale image values to encode. </td></tr>
@@ -199,9 +205,9 @@ Functions</h2></td></tr>
 </ul>
 </td></tr>
     <tr><td class="paramname">ratio</td><td>target compression ratio. (ratio:1) Used only when ltype == 1. </td></tr>
-    <tr><td class="paramname">retry</td><td>Pointer to option type. If 1 try increasing number of guard bits otherwise, no additional options. </td></tr>
+    <tr><td class="paramname">retry</td><td>If 1 try increasing number of guard bits otherwise, no additional options. </td></tr>
     <tr><td class="paramname">outjpc</td><td>Output encoded JPEG2000 code stream. </td></tr>
-    <tr><td class="paramname">jpclen</td><td>Number of bytes allocated for new JPEG2000 code stream in outjpc.</td></tr>
+    <tr><td class="paramname">jpclen</td><td>Number of bytes allocated for the output JPEG2000 code stream in outjpc.</td></tr>
   </table>
   </dd>
 </dl>
@@ -211,15 +217,15 @@ Functions</h2></td></tr>
 <li>-5 = decoded image had multiple color components. Only grayscale is expected.</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Requires JasPer Software version 1.500.4 or 1.700.2.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Requires JasPer Software version 1.500.4 or 1.700.2 or later.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-12-02 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="enc__jpeg2000_8c_source.html#l00056">56</a> of file <a class="el" href="enc__jpeg2000_8c_source.html">enc_jpeg2000.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="enc__jpeg2000_8c_source.html#l00057">57</a> of file <a class="el" href="enc__jpeg2000_8c_source.html">enc_jpeg2000.c</a>.</p>
 
-<p class="reference">References <a class="el" href="enc__jpeg2000_8c_source.html#l00014">MAXOPTSSIZE</a>.</p>
+<p class="reference">References <a class="el" href="enc__jpeg2000_8c_source.html#l00015">MAXOPTSSIZE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="jpcpack_8c_source.html#l00049">jpcpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="jpcpack_8c_source.html#l00053">jpcpack()</a>.</p>
 
 </div>
 </div>
@@ -275,18 +281,26 @@ Functions</h2></td></tr>
 
 <p>This subroutine packs up a data field into a JPEG2000 code stream. </p>
 <p>After the data field is scaled, and the reference value is subtracted out, it is treated as a grayscale image and passed to a JPEG2000 encoder. It also fills in GRIB2 Data Representation Template 5.40 or 5.40000 with the appropriate values.</p>
-<p>PROGRAM HISTORY LOG:</p><ul>
-<li>2003-08-17 Gilbert</li>
-<li>2004-11-92 Gilbert - Fixed bug encountered when packing a near constant field.</li>
-<li>2004-07-19 Gilbert - Added check on whether the jpeg2000 encoding was successful. If not, try again with different encoder options.</li>
-<li>2005-05-10 Gilbert - Imposed minimum size on cpack, used to hold encoded bit string.</li>
-</ul>
+<h3><a class="anchor" id="autotoc_md19"></a>
+Program History Log</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Date   </th><th class="markdownTableHeadNone">Programmer   </th><th class="markdownTableHeadNone">Comments    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">2003-08-17   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Initial.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">2004-11-92   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Fixed bug packing a near constant field.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">2004-07-19   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">If jpeg2000 encoding fails, try again with different encoder options.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">2005-05-10   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Imposed minimum size on cpack.   </td></tr>
+</table>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
     <tr><td class="paramname">width</td><td>number of points in the x direction. </td></tr>
     <tr><td class="paramname">height</td><td>number of points in the y direction. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.40 or 5.40000.<ul>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml">Table 5.40</a> or 5.40000.<ul>
 <li>0 Reference value - ignored on input, set by jpcpack routine.</li>
 <li>1 Binary Scale Factor - used on input, unchanged by jpcpack routine.</li>
 <li>2 Decimal Scale Factor - used on input, unchanged by jpcpack routine.</li>
@@ -297,16 +311,16 @@ Functions</h2></td></tr>
 </ul>
 </td></tr>
     <tr><td class="paramname">cpack</td><td>The packed data field. </td></tr>
-    <tr><td class="paramname">lcpack</td><td>length of packed field in cpack.</td></tr>
+    <tr><td class="paramname">lcpack</td><td>Pointer that points to a g2int which contains the length of packed field in cpack. This must be set by the calling function.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-08-17 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="jpcpack_8c_source.html#l00049">49</a> of file <a class="el" href="jpcpack_8c_source.html">jpcpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="jpcpack_8c_source.html#l00053">53</a> of file <a class="el" href="jpcpack_8c_source.html">jpcpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="enc__jpeg2000_8c_source.html#l00056">enc_jpeg2000()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
+<p class="reference">References <a class="el" href="enc__jpeg2000_8c_source.html#l00057">enc_jpeg2000()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
 
