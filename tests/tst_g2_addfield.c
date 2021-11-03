@@ -57,6 +57,8 @@ main()
         g2int numfields, numlocal;
         g2int ifldnum = 1, unpack = 1, expand = 0;
         gribfield *gfld;
+        unsigned char csec2[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        g2int lcsec2 = 10;
         int i;
         int ret;
 
@@ -121,6 +123,11 @@ main()
 
         /* Add section 8. */
         if ((ret = g2_gribend(cgrib)) != FULL_MSG_LEN)
+            return G2C_ERROR;
+
+        /* Try to add the local section. Won't work, message is
+         * already ended. */
+        if ((ret = g2_addlocal(cgrib, csec2, lcsec2)) != -2)
             return G2C_ERROR;
 
         /* Try to add sections 4, 5, 6, and 7. Won't work. */

@@ -9,7 +9,6 @@
 
 #define SEC0_LEN 16
 #define SEC1_LEN 21
-#define SEC3_LEN 34
 #define MSG_LEN 52
 #define G2C_ERROR 2
 
@@ -17,7 +16,7 @@ int
 main()
 {
     printf("Testing g2_addlocal().\n");
-    printf("Testing g2_addlocal() call...");
+    printf("Testing g2_addlocal() call (expect and ignore error messages)...");
     {
         unsigned char cgrib[MSG_LEN];
         g2int listsec0[2] = {1, 2};
@@ -27,12 +26,24 @@ main()
             10, 24, 6, 54, 59, 7, 192, 0, 0, 0, 15, 2, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         unsigned char csec2[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         g2int lcsec2 = 10;
-        /* unsigned char old_val; */
+        unsigned char old_val;
         int i;
         int ret;
 
+        /* Create the grib message with sections 0 and 1. */
         if ((ret = g2_create(cgrib, listsec0, listsec1)) != SEC0_LEN + SEC1_LEN)
             return G2C_ERROR;
+
+        /* Change the first char of the message. Just to be dumb. */
+        old_val = cgrib[0];
+        cgrib[0] = 0;
+
+        /* Try to add the local section. Won't work. */
+        if ((ret = g2_addlocal(cgrib, csec2, lcsec2)) != -1)
+            return G2C_ERROR;
+
+        /* Change the first char back. */
+        cgrib[0] = old_val;
 
         /* Add the local section. */
         if ((ret = g2_addlocal(cgrib, csec2, lcsec2)) != MSG_LEN)
