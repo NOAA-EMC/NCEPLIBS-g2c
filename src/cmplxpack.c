@@ -27,7 +27,8 @@
  * - 8 Secondary missing value
  * - 16 Order of Spatial Differencing  ( 1 or 2 )
  * @param cpack The packed data field.
- * @param lcpack length of packed field cpack.
+ * @param lcpack length of packed field cpack. Will be set to -1 if
+ * missing value management field is not 1 or 2.
  *
  * @author Stephen Gilbert @date 2004-08-27
  */
