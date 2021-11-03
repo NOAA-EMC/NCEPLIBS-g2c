@@ -21,10 +21,11 @@
  * 2010-08-05 | Vuong | If section 2 has zero length, ierr=0
  *
  * @param cgrib char array containing Section 2 of the GRIB2 message.
- * @param iofst Bit offset for the beginning of Section 2 in
- * cgrib. The modified version will be returned.
+ * @param iofst Pointer that contains the bit offset for the beginning
+ * of Section 2 in cgrib. The modified version will be returned.
  * @param lencsec2 Length (in octets) of Local Use data.
- * @param csec2 Pointer to a char array containing local use data.
+ * @param csec2 Pointer to a pointer that will get an allocated array
+ * containing local use data. This memory must be freed by the caller.
  *
  * @return
  * - 0 no error
@@ -48,34 +49,33 @@ g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
     *lencsec2 = lensec - 5;
     gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
     *iofst = *iofst + 8;
-    ipos = (*iofst/8);
+    ipos = *iofst / 8;
 
     if ( isecnum != 2 )
     {
         ierr = 2;
         *lencsec2 = 0;
         fprintf(stderr, "g2_unpack2: Not Section 2 data.\n");
-        return(ierr);
+        return ierr;
     }
 
     if (*lencsec2 == 0)
     {
         ierr = 0;
-        return(ierr);
+        return ierr;
     }
 
     if (!(*csec2 = malloc(*lencsec2 + 1)))
     {
         ierr = 6;
         *lencsec2 = 0;
-        return(ierr);
+        return ierr;
     }
 
-    /*printf(" SAGIPO %d \n", (int)ipos);*/
     for (j = 0; j < *lencsec2; j++)
-        *(*csec2 + j) = cgrib[ipos + j];
+        (*csec2)[j] = cgrib[ipos + j];
 
     *iofst = *iofst + (*lencsec2 * 8);
 
-    return(ierr);    /* End of Section 2 processing */
+    return ierr;    /* End of Section 2 processing */
 }
