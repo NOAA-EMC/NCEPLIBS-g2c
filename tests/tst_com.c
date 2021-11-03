@@ -123,6 +123,7 @@ main()
         g2float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
+        g2int old_int_val;
         /* See
          * https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-2.shtml
          * for the template meaning. */
@@ -146,6 +147,19 @@ main()
             };
         g2int idrsnum = 2;
         int i;
+
+        /* Change the missing value management field to something invalid. */
+        old_int_val = idrstmpl[6];
+        idrstmpl[6] = 3;
+        
+        /* This won't work, bad missing value management value. */
+        misspack(fld, ndpts, idrsnum, idrstmpl, cpack, &lcpack);
+        if (lcpack != -1)
+            return G2C_ERROR;
+
+        /* Fix the missing value management field. */
+        idrstmpl[6] = old_int_val;
+        
 
         /* Pack the data. */
         misspack(fld, ndpts, idrsnum, idrstmpl, cpack, &lcpack);
