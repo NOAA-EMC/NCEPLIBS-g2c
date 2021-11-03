@@ -7,11 +7,11 @@
 #include "grib2.h"
 
 /**
- * This routine adds a Local Use Section (Section 2) to a GRIB2
- * message. It is used with routines g2_create(), g2_addgrid(),
- * g2_addfield(), and g2_gribend() to create a complete GRIB2
- * message. g2_create() must be called first to initialize a new GRIB2
- * message.
+ * This routine adds a [Local Use Section (Section
+ * 2)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect2.shtml)
+ * to a GRIB2 message. It is used with routines g2_create(),
+ * g2_addgrid(), g2_addfield(), and g2_gribend() to create a complete
+ * GRIB2 message.
  *
  * @param cgrib Char array that contains the GRIB2 message to which
  * section 2 should be added. Must be allocated large enough to store
@@ -53,7 +53,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
         printf("g2_addlocal: GRIB not found in given message.\n");
         printf("g2_addlocal: Call to routine g2_create required to initialize GRIB messge.\n");
         ierr = -1;
-        return(ierr);
+        return ierr;
     }
 
     /* Get current length of GRIB message. */
@@ -65,7 +65,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
     {
         printf("g2_addlocal: GRIB message already complete.  Cannot add new section.\n");
         ierr = -2;
-        return(ierr);
+        return ierr;
     }
 
     /*  Loop through all current sections of the GRIB message to find
@@ -79,9 +79,11 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
         iofst = iofst + 32;
         gbit(cgrib, &isecnum, iofst, 8);
         len = len + ilen;
+
         /* Exit loop if last section reached. */
         if (len == lencurr)
 	    break;
+
         /* If byte count for each section doesn't match current total
          * length, then there is a problem. */
         if (len > lencurr)
@@ -90,7 +92,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
             printf("g2_addlocal: Sum of section byte counts = %ld\n", len);
             printf("g2_addlocal: Total byte count in Section 0 = %ld\n", lencurr);
             ierr = -3;
-            return(ierr);
+            return ierr;
         }
     }
 
@@ -100,7 +102,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
         printf("g2_addlocal: Section 2 can only be added after Section 1 or Section 7.\n");
         printf("g2_addlocal: Section %ld was the last found in given GRIB message.\n", isecnum);
         ierr = -4;
-        return(ierr);
+        return ierr;
     }
 
     /* Add Section 2  - Local Use Section. */
@@ -108,18 +110,18 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
     iofst = ibeg + 32;         /*   leave space for length of section */
     sbit(cgrib, &two, iofst, 8);     /* Store section number (2) */
     istart = lencurr + 5;
-    //cgrib(istart+1:istart+lcsec2) = csec2(1:lcsec2)
     k = 0;
     for (j = istart; j < istart + lcsec2; j++)
         cgrib[j] = csec2[k++];
 
-    /* Calculate length of section 2 and store it in octets 1-4 of section 2. */
+    /* Calculate length of section 2 and store it in octets 1-4 of
+     * section 2. */
     lensec2 = lcsec2 + 5;      /* bytes */
     sbit(cgrib, &lensec2, ibeg, 32);
 
-    /*  Update current byte total of message in Section 0. */
+    /* Update current byte total of message in Section 0. */
     lencurr += lensec2;
     sbit(cgrib, &lencurr, 96, 32);
 
-    return(lencurr);
+    return lencurr;
 }
