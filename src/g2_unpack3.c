@@ -32,7 +32,7 @@
  *   definition. (See [Table
  *   3.11](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-11.shtml))
  * - igds[4] Grid Definition Template Number (see [Table
-     3.1](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-1.shtml)).
+ 3.1](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-1.shtml)).
  * @param igdstmpl Pointer to integer array containing the data
  * values for the Grid Definition Template specified by igds[4].
  * @param mapgridlen Number of elements in igdstmpl. i.e. number of
