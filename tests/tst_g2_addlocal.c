@@ -52,6 +52,17 @@ main()
         /* Change the first char back. */
         cgrib[0] = old_val;
 
+        /* Mess up the lengths. Just to be dumb. */
+        old_val = cgrib[16];
+        cgrib[16] = 99;
+
+        /* Try to add the local section. Won't work. */
+        if ((ret = g2_addlocal(cgrib, csec2, lcsec2)) != -3)
+            return G2C_ERROR;
+
+        /* Change the first char back. */
+        cgrib[16] = old_val;
+
         /* Add the local section. */
         if ((ret = g2_addlocal(cgrib, csec2, lcsec2)) != MSG_LEN)
             return G2C_ERROR;
