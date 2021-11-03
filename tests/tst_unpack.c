@@ -95,8 +95,6 @@ main()
             return G2C_ERROR;
         cgrib[41] = old_val;
 
-        /* This causes a memory leak. See
-         * https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues/162. */
         /* Try to read section 3 with bad grid template number. */
         old_val = cgrib[50];
         cgrib[50] = 127;
