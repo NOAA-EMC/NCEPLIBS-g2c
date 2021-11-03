@@ -98,8 +98,7 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
     if (ligds[4] != 65535)
     {
         /*   Get Grid Definition Template */
-        mapgrid = getgridtemplate(ligds[4]);
-        if (!mapgrid)
+        if (!(mapgrid = getgridtemplate(ligds[4])))
         {         /* undefined template */
             ierr = 5;
             return ierr;
