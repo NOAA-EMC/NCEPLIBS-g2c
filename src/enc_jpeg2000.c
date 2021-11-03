@@ -11,7 +11,7 @@ void dummy(void) {}
 #include <stdlib.h>
 #include "grib2.h"
 #include "jasper/jasper.h"
-#define JAS_1_700_2 /**< Define for JAS. */
+
 #define MAXOPTSSIZE 1024 /**< Maximum size of options. */
 
 /**
@@ -77,37 +77,20 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
      * image to encode into the JPEG2000 code stream. */
     image.tlx_ = 0;
     image.tly_ = 0;
-#ifdef JAS_1_500_4
-    image.brx_ = (uint_fast32_t)width;
-    image.bry_ = (uint_fast32_t)height;
-#endif
-#ifdef JAS_1_700_2
     image.brx_ = (jas_image_coord_t)width;
     image.bry_ = (jas_image_coord_t)height;
-#endif
     image.numcmpts_ = 1;
     image.maxcmpts_ = 1;
-#ifdef JAS_1_500_4
-    image.colormodel_ = JAS_IMAGE_CM_GRAY;         /* grayscale Image */
-#endif
-#ifdef JAS_1_700_2
     image.clrspc_ = JAS_CLRSPC_SGRAY;         /* grayscale Image */
     image.cmprof_ = 0;
-#endif
 
     cmpt.tlx_ = 0;
     cmpt.tly_ = 0;
     cmpt.hstep_ = 1;
     cmpt.vstep_ = 1;
-#ifdef JAS_1_500_4
-    cmpt.width_ = (uint_fast32_t)width;
-    cmpt.height_ = (uint_fast32_t)height;
-#endif
-#ifdef JAS_1_700_2
     cmpt.width_ = (jas_image_coord_t)width;
     cmpt.height_ = (jas_image_coord_t)height;
     cmpt.type_ = JAS_IMAGE_CT_COLOR(JAS_CLRSPC_CHANIND_GRAY_Y);
-#endif
     cmpt.prec_ = nbits;
     cmpt.sgnd_ = 0;
     cmpt.cps_ = (nbits + 7) / 8;
