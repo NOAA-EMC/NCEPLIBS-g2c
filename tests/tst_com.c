@@ -175,7 +175,7 @@ main()
         }
     }
     printf("ok!\n");
-    printf("Testing misspack()/comunpack() calls with missopt = 2...");
+    printf("Testing misspack()/comunpack() calls with missopt = 2, no binary scaling...");
     {
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
         g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
@@ -187,7 +187,7 @@ main()
          * for the template meaning. */
         g2int idrstmpl[16] = {
             0, /* reference value (R) (IEEE 32-bit floating-point value) */
-            1, /* Binary scale factor (E) */
+            0, /* Binary scale factor (E) */
             1, /* Decimal scale factor (D) */
             8, /* Number of bits used for each packed value for simple packing, or for each group reference value for complex packing or spatial differencing */
             0, /* Type of original field values (see Code Table 5.1) */
