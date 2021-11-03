@@ -80,6 +80,11 @@ main()
         if ((ret = g2_gribend(cgrib)) != -4)
             return G2C_ERROR;
 
+        /* Try to add the local section. Won't work, section 2 must
+         * come before section 3. */
+        if ((ret = g2_addlocal(cgrib, csec2, lcsec2)) != -4)
+            return G2C_ERROR;
+
         /* Change the first char of the message. Just to be dumb. */
         old_val = cgrib[0];
         cgrib[0] = 0;
