@@ -57,12 +57,11 @@ g2int
 g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
            g2int *mapgridlen, g2int **ideflist, g2int *idefnum)
 {
-    g2int ierr, i, j, nbits, isecnum;
+    g2int ierr = 0, i, j, nbits, isecnum;
     g2int lensec, ibyttem = 0, isign, newlen;
     g2int *ligds, *ligdstmpl = NULL, *lideflist = NULL;
     gtemplate *mapgrid;
 
-    ierr = 0;
     *igds = NULL;
     *igdstmpl = NULL;
     *ideflist = NULL;
@@ -77,7 +76,6 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
         ierr = 2;
         *idefnum = 0;
         *mapgridlen = 0;
-        /* fprintf(stderr, "g2_unpack3: Not Section 3 data.\n"); */
         return ierr;
     }
 
@@ -100,6 +98,7 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
         /*   Get Grid Definition Template */
         if (!(mapgrid = getgridtemplate(ligds[4])))
         {         /* undefined template */
+            free(ligds);
             ierr = 5;
             return ierr;
         }

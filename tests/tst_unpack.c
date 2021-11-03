@@ -98,12 +98,12 @@ main()
         /* This causes a memory leak. See
          * https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues/162. */
         /* Try to read section 3 with bad grid template number. */
-        /* old_val = cgrib[50]; */
-        /* cgrib[50] = 127; */
-        /* iofst = 296; */
-        /* if (g2_unpack3(cgrib, &iofst, &igds, &igdstmpl, &mapgridlen, &ideflist, &idefnum) != 5) */
-        /*     return G2C_ERROR; */
-        /* cgrib[50] = old_val; */
+        old_val = cgrib[50];
+        cgrib[50] = 127;
+        iofst = 296;
+        if (g2_unpack3(cgrib, &iofst, &igds, &igdstmpl, &mapgridlen, &ideflist, &idefnum) != 5)
+            return G2C_ERROR;
+        cgrib[50] = old_val;
 
         /* Read section 3. */
         iofst = 296;
