@@ -20,8 +20,8 @@ int enc_png(char *, g2int, g2int, g2int, char *);
  * @param height number of points in the y direction.
  * @param idrstmpl Contains the array of values for Data
  * Representation
- * [Template](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
- * 5.41 or 5.40010.
+ * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
+ * or 5.40010.
  * - 0 Reference value - ignored on input, set by pngpack routine.
  * - 1 Binary Scale Factor - used on input.
  * - 2 Decimal Scale Factor - used on input.
@@ -38,14 +38,13 @@ void
 pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, 
         unsigned char *cpack, g2int *lcpack)
 {
-    g2int *ifld;
+    g2int *ifld = NULL;
     static g2float alog2 = 0.69314718;       /*  ln(2.0) */
     g2int j, nbits, imin, imax, maxdif;
     g2int ndpts, nbytes;
     g2float bscale, dscale, rmax, rmin, temp;
     unsigned char *ctemp;
 
-    ifld = 0;
     ndpts = width * height;
     bscale = int_power(2.0, -idrstmpl[1]);
     dscale = int_power(10.0, idrstmpl[2]);
@@ -115,8 +114,10 @@ pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
         sbits(ctemp, ifld, 0, nbits, 0, ndpts);
 
         /* Encode data into PNG Format. */
-        if ((*lcpack = (g2int)enc_png((char *)ctemp, width, height, nbits, (char *)cpack)) <= 0)
+        if ((*lcpack = (g2int)enc_png((char *)ctemp, width, height, nbits,
+                                      (char *)cpack)) <= 0)
             printf("pngpack: ERROR Packing PNG = %d\n", (int)*lcpack);
+        
         free(ctemp);
     }
     else
@@ -129,6 +130,7 @@ pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
     mkieee(&rmin, idrstmpl, 1);   /* ensure reference value is IEEE format */
     idrstmpl[3] = nbits;
     idrstmpl[4] = 0;         /* original data were reals */
+    
     if (ifld)
         free(ifld);
 }
