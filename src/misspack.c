@@ -281,8 +281,8 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         }
     }
 
-    /* Determine Groups to be used. */
-    /* Use Dr. Glahn's algorithm for determining grouping. */
+    /* Determine Groups to be used. Use Dr. Glahn's algorithm for
+     * determining grouping. */
     kfildo = 6;
     minpk = 10;
     inc = 1;
