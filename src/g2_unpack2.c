@@ -21,10 +21,11 @@
  * 2010-08-05 | Vuong | If section 2 has zero length, ierr=0
  *
  * @param cgrib char array containing Section 2 of the GRIB2 message.
- * @param iofst Bit offset for the beginning of Section 2 in
- * cgrib. The modified version will be returned.
+ * @param iofst Pointer that contains the bit offset for the beginning
+ * of Section 2 in cgrib. The modified version will be returned.
  * @param lencsec2 Length (in octets) of Local Use data.
- * @param csec2 Pointer to a char array containing local use data.
+ * @param csec2 Pointer to a pointer that will get an allocated array
+ * containing local use data. This memory must be freed by the caller.
  *
  * @return
  * - 0 no error

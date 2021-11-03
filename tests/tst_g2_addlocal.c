@@ -5,12 +5,16 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "grib2.h"
 
 #define SEC0_LEN 16
 #define SEC1_LEN 21
 #define MSG_LEN 52
 #define G2C_ERROR 2
+
+g2int g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
+                 unsigned char **csec2);
 
 int
 main()
@@ -26,6 +30,9 @@ main()
             10, 24, 6, 54, 59, 7, 192, 0, 0, 0, 15, 2, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         unsigned char csec2[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         g2int lcsec2 = 10;
+        g2int iofst;
+        unsigned char *csec2_in;
+        g2int lensec2_in;
         unsigned char old_val;
         int i;
         int ret;
@@ -56,6 +63,22 @@ main()
             if (cgrib[i] != expected_cgrib[i])
                 return G2C_ERROR;
         }
+
+        /* Unpack the local section. */
+        iofst = (SEC0_LEN + SEC1_LEN) * 8;
+        if (g2_unpack2(cgrib, &iofst, &lensec2_in, &csec2_in))
+            return G2C_ERROR;
+        if (iofst != 416)
+            return G2C_ERROR;
+        if (lensec2_in != 10)
+            return G2C_ERROR;
+
+        /* Check results. */
+        for (i = 0; i < 10; i++)
+            if (csec2_in[i] != csec2[i])
+                return G2C_ERROR;
+
+        free(csec2_in);
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
