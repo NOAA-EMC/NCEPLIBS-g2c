@@ -17,7 +17,6 @@ void dummy(void) {}
 #include <string.h>
 #include "grib2.h"
 #include "jasper/jasper.h"
-#define JAS_1_700_2
 
 /**
  * This Function decodes a JPEG2000 code stream specified in the
@@ -68,12 +67,7 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
       printf(" bry %d \n", image->bry_);
       printf(" numcmpts %d \n", image->numcmpts_);
       printf(" maxcmpts %d \n", image->maxcmpts_);
-      #ifdef JAS_1_500_4
-      printf(" colormodel %d \n", image->colormodel_);
-      #endif
-      #ifdef JAS_1_700_2
       printf(" colorspace %d \n", image->clrspc_);
-      #endif
       printf(" inmem %d \n", image->inmem_);
       printf(" COMPONENT:\n");
       printf(" tlx %d \n", pcmpt->tlx_);
@@ -85,9 +79,7 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
       printf(" prec %d \n", pcmpt->prec_);
       printf(" sgnd %d \n", pcmpt->sgnd_);
       printf(" cps %d \n", pcmpt->cps_);
-      #ifdef JAS_1_700_2
       printf(" type %d \n", pcmpt->type_);
-      #endif
     */
 
     /* Expecting jpeg2000 image to be grayscale only. No color components. */
