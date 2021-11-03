@@ -248,7 +248,7 @@ main()
             0, /* Length increment for the group lengths (see Note 14) */
             0, /* True length of last group */
             8, /* Number of bits used for the scaled group lengths (after subtraction of the reference value given in octets 38-41 and division by the length increment given in octet 42) */
-            1, /* Order of spatial difference (see Code Table 5.6) */
+            2, /* Order of spatial difference (see Code Table 5.6) */
             0  /* Number of octets required in the data section to specify extra descriptors needed for spatial differencing (octets 6-ww in data template 7.3) */
             };
         g2int idrsnum = 3;
