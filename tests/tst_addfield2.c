@@ -11,8 +11,8 @@
 #define SEC0_LEN 16
 #define SEC1_LEN 21
 #define MSG_LEN 109
-#define MOST_MSG_LEN 178
-#define FULL_MSG_LEN 182
+#define MOST_MSG_LEN 246
+#define FULL_MSG_LEN 250
 #define G2C_ERROR 2
 
 void g2_miss(gribfield *gfld, float *rmiss, int *nmiss);
@@ -47,8 +47,14 @@ main()
         g2int ipdstmpl[15] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
         g2float coordlist[1] = {1};
         g2int numcoord = 0;
-        g2int idrsnum = 0; /* Grid Point Data - Simple Packing (see Template 5.0) */
-        g2int idrstmpl[5] = {0, 1, 2, 3, 4};
+        g2int idrsnum = 41; /* Grid Point Data - PNG Compression (see Template 5.41) */
+        g2int idrstmpl[5] = {
+            0, /* Reference value (R) (IEEE 32-bit floating-point value) */
+            1, /* Binary scale factor (E) */
+            2, /* Decimal scale factor (D) */
+            3, /* Number of bits required to hold the resulting scaled and referenced data values. (i.e. The depth of the grayscale image.) (see Note 2) */
+            4 /* Type of original field values (see Code Table 5.1) */
+        };
         g2float fld[4] = {1, 2, 3, 4};
         g2int ngrdpts = 4;
         g2int ibmap = 0;

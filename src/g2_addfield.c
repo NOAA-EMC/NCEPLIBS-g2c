@@ -382,7 +382,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         if (ibmap == 255)
         {
             getdim(cgrib + lpos3, &width, &height, &iscan);
-            if (width==0 || height==0)
+            if (width == 0 || height == 0)
             {
                 width = ndpts;
                 height = 1;
@@ -516,7 +516,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     lensec7 = (iofst - ibeg) / 8;
     sbit(cgrib, &lensec7, ibeg, 32);
 
-    if (cpack != 0)
+    if (cpack)
         free(cpack);
 
     /*  Update current byte total of message in Section 0 */
