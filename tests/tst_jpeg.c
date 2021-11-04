@@ -26,7 +26,39 @@ int
 main()
 {
     printf("Testing JPEG functions.\n");
-    printf("Testing jpcpack()/jpcunpack() calls...");
+    printf("Testing enc_jpeg2000() call...");
+    {
+        unsigned char data[4] = {1, 2, 3, 4};
+        g2int width = 2, height = 2, nbits = 4;
+        g2int ltype = 0, ratio = 0, retry = 0, jpclen = 200;
+        char outjpc[200];
+        g2int outfld[4];
+        /* int i; */
+        int ret;
+
+        /* Encode some data. */
+        /* 168 on Linux, but 133 on windows? */
+        if ((ret = enc_jpeg2000(data, width, height, nbits, ltype,
+                                ratio, retry, outjpc, jpclen)) < 133)
+        {
+            printf("%d\n", ret);
+            return G2C_ERROR;
+        }
+
+        /* Now decode it. */
+        if ((ret = dec_jpeg2000(outjpc, jpclen, outfld)))
+            return G2C_ERROR;
+
+        /* Not sure why we don't get the same answers... */
+        /* for (i = 0; i < 4; i++) */
+        /* { */
+        /*     printf("%d\n", outjpc[i]); */
+        /*     /\* if (outjpc[i] != data[i]) *\/ */
+        /*     /\*     return G2C_ERROR; *\/ */
+        /* } */
+    }
+    printf("ok!\n");
+    printf("Testing jpcpack()/jpcunpack() call...");
     {
         g2int height = 2, width = 2;
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
@@ -52,34 +84,76 @@ main()
         }
     }
     printf("ok!\n");
-    printf("Testing enc_jpeg2000() call...");
+    printf("Testing jpcpack()/jpcunpack() call with different drstmpl values...");
     {
-        unsigned char data[4] = {1, 2, 3, 4};
-        g2int width = 2, height = 2, nbits = 4;
-        g2int ltype = 0, ratio = 0, retry = 0, jpclen = 200;
-        char outjpc[200];
-        g2int outfld[4];
-        /* int i; */
-        int ret;
+        g2int height = 2, width = 2;
+        g2int len = PACKED_LEN, ndpts = DATA_LEN;
+        g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        g2float fld_in[DATA_LEN];
+        unsigned char cpack[PACKED_LEN];
+        g2int lcpack = PACKED_LEN;
+        /* See
+         * https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml */
+        g2int idrstmpl[7] = {
+            0, /* Reference value (R) (IEEE 32-bit floating-point value) */
+            0, /* Binary scale factor (E) */
+            1, /* Decimal scale factor (D) */
+            32, /* Number of bits required to hold the resulting scaled and referenced data values. (i.e. The depth of the grayscale image.) (see Note 2) */
+            0, /* Type of original field values (see Code Table 5.1) */
+            0, /* Type of Compression used. (see Code Table 5.40) */
+            1 /* Target compression ratio, M:1 (with respect to the bit-depth specified in octet 20), when octet 22 indicates Lossy Compression. Otherwise, set to missing (see Note 3) */
+        };
+        int i;
 
-        /* Encode some data. */
-        /* 168 on Linux, but 133 on windows? */
-        if ((ret = enc_jpeg2000(data, width, height, nbits, ltype, ratio, retry, outjpc, jpclen)) < 133)
-        {
-            printf("%d\n", ret);
+        /* Pack the data. */
+        jpcpack(fld, width, height, idrstmpl, cpack, &lcpack);
+
+        /* Unpack the data. */
+        if (jpcunpack(cpack, len, idrstmpl, ndpts, fld_in))
             return G2C_ERROR;
-        }
 
-        /* Now decode it. */
-        if ((ret = dec_jpeg2000(outjpc, jpclen, outfld)))
+        for (i = 0; i < DATA_LEN; i++)
         {
-            printf("%d\n", ret);
-            return G2C_ERROR;
+            /* printf("%g %g\n", fld[i], fld_in[i]); */
+            if (fld[i] != fld_in[i])
+        	return G2C_ERROR;
         }
+    }
+    printf("ok!\n");
+    printf("Testing jpcpack()/jpcunpack() call with constant data field...");
+    {
+        g2int height = 2, width = 2;
+        g2int len = PACKED_LEN, ndpts = DATA_LEN;
+        g2float fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
+        g2float fld_in[DATA_LEN];
+        unsigned char cpack[PACKED_LEN];
+        g2int lcpack = PACKED_LEN;
+        /* See
+         * https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml */
+        g2int idrstmpl[7] = {
+            0, /* Reference value (R) (IEEE 32-bit floating-point value) */
+            0, /* Binary scale factor (E) */
+            1, /* Decimal scale factor (D) */
+            32, /* Number of bits required to hold the resulting scaled and referenced data values. (i.e. The depth of the grayscale image.) (see Note 2) */
+            0, /* Type of original field values (see Code Table 5.1) */
+            0, /* Type of Compression used. (see Code Table 5.40) */
+            1 /* Target compression ratio, M:1 (with respect to the bit-depth specified in octet 20), when octet 22 indicates Lossy Compression. Otherwise, set to missing (see Note 3) */
+        };
+        int i;
 
-        /* for (i = 0; i < 4; i++) */
-        /*     if (cout[i] != data[i]) */
-        /*         return G2C_ERROR; */
+        /* Pack the data. */
+        jpcpack(fld, width, height, idrstmpl, cpack, &lcpack);
+
+        /* Unpack the data. */
+        if (jpcunpack(cpack, len, idrstmpl, ndpts, fld_in))
+            return G2C_ERROR;
+
+        for (i = 0; i < DATA_LEN; i++)
+        {
+            /* printf("%g %g\n", fld[i], fld_in[i]); */
+            if (fld[i] != fld_in[i])
+        	return G2C_ERROR;
+        }
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
