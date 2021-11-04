@@ -47,7 +47,7 @@ main()
             0x08, 0x99, 0x63, 0x64, 0x30, 0x32, 0x32, 0x02, 0x00, 0x01, 0x36, 0x00, 0x98, 0x05,
             0xdb, 0x15, 0xba, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60,
             0x82, 0x37, 0x37, 0x37, 0x37};
-        /* unsigned char old_val; */
+        unsigned char old_val;
         /* Analysis or forecast at a horizontal level or in a
          * horizontal layer at a point in time. */
         g2int ipdsnum = 0;
@@ -77,9 +77,22 @@ main()
         if ((ret = g2_create(cgrib, listsec0, listsec1)) != SEC0_LEN + SEC1_LEN)
             return G2C_ERROR;
 
+        /* Try to add sections 4, 5, 6, and 7. Won't work, we haven't added section 3 yet. */
+        if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
+                               idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != -4)
+            return G2C_ERROR;
+
         /* Add section 3. */
         if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != 109)
             return G2C_ERROR;
+
+        /* Mess up section length and try to add section 4, 5, 6. Won't work. */
+        old_val = cgrib[15];
+        cgrib[15] = 5;
+        if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
+                               idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != -3)
+            return G2C_ERROR;
+        cgrib[15] = old_val;
 
         /* Add sections 4, 5, 6, and 7. */
         if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,

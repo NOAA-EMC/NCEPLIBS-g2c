@@ -197,7 +197,8 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     if ((isecnum != 3) && (isecnum != 7))
     {
         printf("g2_addfield: Sections 4-7 can only be added after Section 3 or 7.\n");
-        printf("g2_addfield: Section ',isecnum,' was the last found in given GRIB message.\n");
+        printf("g2_addfield: Section %ld was the last found in given GRIB message.\n",
+               isecnum);
         ierr = -4;
         return ierr;
     }
