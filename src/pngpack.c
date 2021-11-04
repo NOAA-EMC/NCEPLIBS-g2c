@@ -39,7 +39,7 @@ pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
         unsigned char *cpack, g2int *lcpack)
 {
     g2int *ifld = NULL;
-    static g2float alog2 = 0.69314718;       /*  ln(2.0) */
+    static g2float alog2 = ALOG2;       /*  ln(2.0) */
     g2int j, nbits, imin, imax, maxdif;
     g2int ndpts, nbytes;
     g2float bscale, dscale, rmax, rmin, temp;
