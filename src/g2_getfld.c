@@ -7,17 +7,6 @@
 #include <stdlib.h>
 #include "grib2.h"
 
-g2int g2_unpack1(unsigned char *,g2int *,g2int **,g2int *);
-g2int g2_unpack2(unsigned char *,g2int *,g2int *,unsigned char **);
-g2int g2_unpack3(unsigned char *,g2int *,g2int **,g2int **,
-                 g2int *,g2int **,g2int *);
-g2int g2_unpack4(unsigned char *,g2int *,g2int *,g2int **,
-                 g2int *,g2float **,g2int *);
-g2int g2_unpack5(unsigned char *,g2int *,g2int *,g2int *, g2int **,g2int *);
-g2int g2_unpack6(unsigned char *,g2int *,g2int ,g2int *, g2int **);
-g2int g2_unpack7(unsigned char *,g2int *,g2int ,g2int *,
-                 g2int ,g2int *,g2int ,g2float **);
-
 /**
  * This subroutine returns all the metadata, template values, bit-map
  * (if applicable), and the unpacked data for a given data field. All
