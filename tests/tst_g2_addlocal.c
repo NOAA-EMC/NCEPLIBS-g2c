@@ -13,9 +13,6 @@
 #define MSG_LEN 52
 #define G2C_ERROR 2
 
-g2int g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
-                 unsigned char **csec2);
-
 int
 main()
 {

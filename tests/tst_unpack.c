@@ -14,10 +14,6 @@
 #define FULL_MSG_LEN 182
 #define G2C_ERROR 2
 
-/* This prototype is missing from cgrib2.h. See
- * https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues/157. */
-g2int g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
-                 unsigned char **csec2);
 int
 main()
 {
