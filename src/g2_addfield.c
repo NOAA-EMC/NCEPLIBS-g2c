@@ -194,7 +194,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     }
 
     /* Sections 4 through 7 can only be added after section 3 or 7. */
-    if ((isecnum != 3) && (isecnum != 7))
+    if (isecnum != 3 && isecnum != 7)
     {
         printf("g2_addfield: Sections 4-7 can only be added after Section 3 or 7.\n");
         printf("g2_addfield: Section %ld was the last found in given GRIB message.\n",
@@ -262,18 +262,20 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         for (i = 0; i < mappds->extlen; i++)
         {
             nbits = abs(mappds->ext[i]) * 8;
-            if ((mappds->ext[i] >= 0) || (ipdstmpl[j] >= 0))
+            if (mappds->ext[i] >= 0 || ipdstmpl[j] >= 0)
                 sbit(cgrib, ipdstmpl + j, iofst, nbits);
             else
             {
                 sbit(cgrib, &one, iofst, 1);
                 temp = abs(ipdstmpl[j]);
-                sbit(cgrib, &temp, iofst + 1, nbits-1);
+                sbit(cgrib, &temp, iofst + 1, nbits - 1);
             }
             iofst = iofst + nbits;
             j++;
         }
     }
+    if (mappds->ext)
+        free(mappds->ext);
     free(mappds);
 
     /* Add Optional list of vertical coordinate values after the */
@@ -283,7 +285,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         coordieee = calloc(numcoord, sizeof(g2int));
         mkieee(coordlist, coordieee, numcoord);
         sbits(cgrib, coordieee, iofst, 32, 0, numcoord);
-        iofst = iofst + (32*numcoord);
+        iofst = iofst + (32 * numcoord);
         free(coordieee);
     }
 
