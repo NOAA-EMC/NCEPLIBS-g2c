@@ -9,22 +9,21 @@
 #include "grib2.h"
 
 /**
- * This subroutine packs up a data field using a complex packing
+ * This function packs up a data field using a complex packing
  * algorithm as defined in the GRIB2 documention. It supports GRIB2
  * complex packing templates with or without spatial differences
- * (i.e. DRTs 5.2 and 5.3). It also fills in GRIB2 Data Representation
- * [Template
+ * (See [Template
  * 5.2](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-2.shtml)
- * or [Template
- * 5.3](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-3.shtml)
- * with the appropriate values. This version assumes that Missing
- * Value Management is being used and that 1 or 2 missing values
- * appear in the data.
+ * and [Template
+ * 5.3](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-3.shtml)). 
+ *
+ * This function fills in GRIB2 Data Representation template arrays
+ * with the appropriate values.
  *
  * @param fld Contains the data values to pack
  * @param ndpts The number of data values in array fld
- * @param idrsnum Data Representation Template number 5.N
- *                Must equal 2 or 3.
+ * @param idrsnum Data Representation Template number. Must equal 2 or
+ * 3.
  * @param idrstmpl Contains the array of values for Data
  * Representation Template 5.2 or 5.3.
  * - 0 Reference value - ignored on input, set by misspack routine.
@@ -33,7 +32,7 @@
  * - 6 Missing value management.
  * - 7 Primary missing value.
  * - 8 Secondary missing value.
- * - 16 Order of Spatial Differencing  (1 or 2).
+ * - 16 Order of Spatial Differencing (1 or 2).
  * @param cpack The packed data field (character*1 array).
  * @param lcpack length of packed field cpack.
  *
@@ -56,8 +55,7 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     g2int imax, lg, mtemp, ier, igmax;
     g2int kfildo, minpk, inc, maxgrps, ibit, jbit, kbit, novref, lbitref;
     g2float rmissp, rmisss, bscale, dscale, rmin, temp;
-    static g2int simple_alg = 0;
-    static g2float alog2 = 0.69314718;       //  ln(2.0)
+    static g2float alog2 = 0.69314718;       /*  ln(2.0) */
     static g2int one = 1;
 
     bscale = int_power(2.0, -idrstmpl[1]);
@@ -283,44 +281,28 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         }
     }
 
-    /* Determine Groups to be used. */
-    if (simple_alg == 1)
-    {
-        /* Set group length to 10 :  calculate number of groups and length of last group. */
-        ngroups = ndpts / 10;
-        for (j = 0; j < ngroups; j++)
-            glen[j] = 10;
-        itemp = ndpts % 10;
-        if (itemp != 0)
-        {
-            ngroups++;
-            glen[ngroups - 1] = itemp;
-        }
-    }
-    else
-    {
-        /* Use Dr. Glahn's algorithm for determining grouping. */
-        kfildo = 6;
-        minpk = 10;
-        inc = 1;
-        maxgrps = (ndpts / minpk) + 1;
-        jmin = calloc(maxgrps, sizeof(g2int));
-        jmax = calloc(maxgrps, sizeof(g2int));
-        lbit = calloc(maxgrps, sizeof(g2int));
-        pack_gp(&kfildo, ifld, &ndpts, &missopt, &minpk, &inc, &miss1, &miss2, 
-                jmin, jmax, lbit, glen, &maxgrps, &ngroups, &ibit, &jbit, 
-                &kbit, &novref, &lbitref, &ier);
-        for (ng = 0; ng < ngroups; ng++)
-            glen[ng] = glen[ng]+novref;
-        free(jmin);
-        free(jmax);
-        free(lbit);
-    }
+    /* Determine Groups to be used. Use Dr. Glahn's algorithm for
+     * determining grouping. */
+    kfildo = 6;
+    minpk = 10;
+    inc = 1;
+    maxgrps = (ndpts / minpk) + 1;
+    jmin = calloc(maxgrps, sizeof(g2int));
+    jmax = calloc(maxgrps, sizeof(g2int));
+    lbit = calloc(maxgrps, sizeof(g2int));
+    pack_gp(&kfildo, ifld, &ndpts, &missopt, &minpk, &inc, &miss1, &miss2, 
+            jmin, jmax, lbit, glen, &maxgrps, &ngroups, &ibit, &jbit, 
+            &kbit, &novref, &lbitref, &ier);
+    for (ng = 0; ng < ngroups; ng++)
+        glen[ng] = glen[ng] + novref;
+    free(jmin);
+    free(jmax);
+    free(lbit);
 
     /* For each group, find the group's reference value (min) and the
      * number of bits needed to hold the remaining values. */
     n = 0;
-    for (ng = 0; ng<ngroups; ng++)
+    for (ng = 0; ng < ngroups; ng++)
     {
         /*  how many of each type? */
         num0 = num1 = num2 = 0;
@@ -335,15 +317,18 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         }
         if (num0 == 0)
         {      /* all missing values */
-            if (num1 == 0) {       /* all secondary missing */
+            if (num1 == 0)
+            {       /* all secondary missing */
                 gref[ng] = -2;
                 gwidth[ng] = 0;
             }
-            else if (num2 == 0) {       /* all primary missing */
+            else if (num2 == 0)
+            {       /* all primary missing */
                 gref[ng] = -1;
                 gwidth[ng] = 0;
             }
-            else {                          /* both primary and secondary */
+            else
+            {                          /* both primary and secondary */
                 gref[ng] = 0;
                 gwidth[ng] = 1;
             }
@@ -356,7 +341,8 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
             j = n;
             for (lg = 0; lg < glen[ng]; lg++)
             {
-                if (ifldmiss[j] == 0) {
+                if (ifldmiss[j] == 0)
+                {
                     if (ifld[j] < gref[ng])
                         gref[ng] = ifld[j];
                     if (ifld[j] > imax)
@@ -364,21 +350,25 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                 }
                 j++;
             }
-            if (missopt == 1) imax = imax+1;
-            if (missopt == 2) imax = imax+2;
+            if (missopt == 1)
+                imax = imax+1;
+            if (missopt == 2)
+                imax = imax+2;
             /*   calc num of bits needed to hold data */
-            if (gref[ng] != imax) {
-                temp = log((double)(imax-gref[ng]+1))/alog2;
+            if (gref[ng] != imax)
+            {
+                temp = log((double)(imax - gref[ng] + 1)) / alog2;
                 gwidth[ng] = (g2int)ceil(temp);
             }
-            else {
+            else
+            {
                 gwidth[ng] = 0;
             }
         }
         /*   Subtract min from data */
         j = n;
         mtemp = (g2int)int_power(2., gwidth[ng]);
-        for (lg = 0; lg<glen[ng]; lg++)
+        for (lg = 0; lg < glen[ng]; lg++)
         {
             if (ifldmiss[j] == 0)            /* non-missing */
                 ifld[j] = ifld[j] - gref[ng];
@@ -498,7 +488,8 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
             iofst = iofst + left;
         }
     }
-    else {
+    else
+    {
         nbitsglen = 0;
         for (i = 0; i < ngroups; i++)
             glen[i] = 0;
@@ -555,8 +546,5 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     idrstmpl[14] = nglenlast;        /* True length of last group */
     idrstmpl[15] = nbitsglen;        /* num bits used for group lengths */
     if (idrsnum == 3)
-    {
         idrstmpl[17] = nbitsd / 8; /* num bits used for extra spatial differencing values */
-    }
-
 }

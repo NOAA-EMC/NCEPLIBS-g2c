@@ -55,7 +55,6 @@ compack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     g2int kfildo,  minpk,  inc,  maxgrps,  ibit, jbit, kbit, novref, lbitref;
     g2int missopt, miss1, miss2, ier;
     g2float bscale, dscale, rmax, rmin, temp;
-    static g2int simple_alg = 0;
     static g2float alog2 = 0.69314718;       /*  ln(2.0) */
     static g2int one = 1;
 
@@ -202,41 +201,23 @@ compack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
             }
         }     /*  end of spatial diff section */
 
-        /* Determine Groups to be used. */
-        if (simple_alg == 1)
-        {
-            /* Set group length to 10; calculate number of groups and
-             * length of last group. */
-            ngroups = ndpts / 10;
-            for (j = 0; j < ngroups; j++)
-                glen[j] = 10;
-            itemp = ndpts % 10;
-            if (itemp != 0)
-            {
-                ngroups = ngroups + 1;
-                glen[ngroups - 1] = itemp;
-            }
-        }
-        else
-        {
-            /* Use Dr. Glahn's algorithm for determining grouping. */
-            kfildo = 6;
-            minpk = 10;
-            inc = 1;
-            maxgrps = (ndpts / minpk) + 1;
-            jmin = calloc(maxgrps, sizeof(g2int));
-            jmax = calloc(maxgrps, sizeof(g2int));
-            lbit = calloc(maxgrps, sizeof(g2int));
-            missopt = 0;
-            pack_gp(&kfildo, ifld, &ndpts, &missopt, &minpk, &inc, &miss1, &miss2, 
-                    jmin, jmax, lbit, glen, &maxgrps, &ngroups, &ibit, &jbit, 
-                    &kbit, &novref, &lbitref, &ier);
-            for (ng = 0; ng<ngroups; ng++)
-                glen[ng] = glen[ng] + novref;
-            free(jmin);
-            free(jmax);
-            free(lbit);
-        }
+        /* Use Dr. Glahn's algorithm for determining grouping. */
+        kfildo = 6;
+        minpk = 10;
+        inc = 1;
+        maxgrps = (ndpts / minpk) + 1;
+        jmin = calloc(maxgrps, sizeof(g2int));
+        jmax = calloc(maxgrps, sizeof(g2int));
+        lbit = calloc(maxgrps, sizeof(g2int));
+        missopt = 0;
+        pack_gp(&kfildo, ifld, &ndpts, &missopt, &minpk, &inc, &miss1, &miss2, 
+                jmin, jmax, lbit, glen, &maxgrps, &ngroups, &ibit, &jbit, 
+                &kbit, &novref, &lbitref, &ier);
+        for (ng = 0; ng<ngroups; ng++)
+            glen[ng] = glen[ng] + novref;
+        free(jmin);
+        free(jmax);
+        free(lbit);
 
         /* For each group, find the group's reference value and the
          * number of bits needed to hold the remaining values. */
