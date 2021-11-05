@@ -69,7 +69,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
 {
     g2int ierr, mapsec1len = 13;
     g2int mapsec1[13] = {2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};
-    g2int  i, j, istart, iofst, lengrib, lensec0, lensec1;
+    g2int i, j, istart, iofst, lengrib, lensec0, lensec1;
     g2int ipos, isecnum, nbits, lensec;
 
     ierr = 0;
@@ -130,9 +130,9 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
     /* Unpack each input value in array listsec1 into the
        appropriate number of octets, which are specified in
        corresponding entries in array mapsec1. */
-    for (i = 0;i<mapsec1len;i++)
+    for (i = 0; i < mapsec1len; i++)
     {
-        nbits = mapsec1[i]*8;
+        nbits = mapsec1[i] * 8;
         gbit(cgrib, listsec1 + i, iofst, nbits);
         iofst = iofst + nbits;
     }
@@ -143,8 +143,8 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
      *  4 appear. */
     for (;;)
     {
-        if (cgrib[ipos]=='7' && cgrib[ipos + 1]=='7' && cgrib[ipos + 2]=='7' &&
-            cgrib[ipos + 3]=='7')
+        if (cgrib[ipos] == '7' && cgrib[ipos + 1] == '7' && cgrib[ipos + 2] == '7' &&
+            cgrib[ipos + 3] == '7')
         {
             ipos = ipos + 4;
             if (ipos != (istart + lengrib))
@@ -156,7 +156,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
             break;
         }
 
-        iofst = ipos*8;
+        iofst = ipos * 8;
         gbit(cgrib, &lensec, iofst, 32);        /* Get Length of Section */
         iofst = iofst + 32;
         gbit(cgrib, &isecnum, iofst, 8);         /* Get Section number */
@@ -168,7 +168,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
             ierr = 5;
             return(ierr);
         }
-        if ( isecnum>=2 && isecnum<=7 )
+        if (isecnum >= 2 && isecnum <= 7)
         {
             if (isecnum == 2)      /* Local Section 2 */
                 /*   increment counter for total number of local sections found */
@@ -186,6 +186,5 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         }
     }
 
-    return(0);
-
+    return 0;
 }
