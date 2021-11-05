@@ -182,12 +182,12 @@ main()
             if (gfld->ipdtmpl[i] != ipdstmpl[i])
                 return G2C_ERROR;
 
-	/* Try the g2_miss() function. */
-	float rmiss[1];
-	int nmiss;
-	g2_miss(gfld, rmiss, &nmiss);
-	if (nmiss)
-	    return G2C_ERROR;
+	/* /\* Try the g2_miss() function. *\/ */
+	/* float rmiss[1]; */
+	/* int nmiss; */
+	/* g2_miss(gfld, rmiss, &nmiss); */
+	/* if (nmiss) */
+	/*     return G2C_ERROR; */
 
         /* Free the memory. */
         g2_free(gfld);
