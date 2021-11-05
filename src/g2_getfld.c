@@ -394,7 +394,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         /* Check to see if we read pass the end of the GRIB message
          * and missed the terminator string '7777'. */
         ipos = ipos + lensec;                /* Update beginning of section pointer */
-        if (ipos > (istart + lengrib))
+        if (ipos > istart + lengrib)
         {
             printf("g2_getfld: '7777'  not found at end of GRIB message.\n");
             free(lgfld);
@@ -409,7 +409,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
 
         /*  If unpacking is not requested, return when sections 3
          *  through 6 have been processed. */
-        if ((!unpack) && have3 && have4 && have5 && have6)
+        if (!unpack && have3 && have4 && have5 && have6)
             return ierr;
     }
 
