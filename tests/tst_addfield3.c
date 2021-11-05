@@ -161,26 +161,26 @@ main()
         if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)))
             return G2C_ERROR;
 
-        /* Check some stuff. */
-        if (gfld->version != 2 || gfld->discipline != 1 || gfld->idsectlen != 13)
-            return G2C_ERROR;
-        if (!gfld->local || gfld->locallen != 10 || gfld->ifldnum != 1 || gfld->griddef)
-            return G2C_ERROR;
-        if (gfld->ngrdpts != 4 || gfld->numoct_opt || gfld->coord_list || gfld->ndpts != 4)
-            return G2C_ERROR;
-        if (gfld->idrtnum != 40 || gfld->idrtlen != 7 || gfld->unpacked != 1 || gfld->expanded)
-            return G2C_ERROR;
-        if (gfld->ibmap)
-            return G2C_ERROR;
-        for (i = 0; i < 13; i++)
-            if (gfld->idsect[i] != listsec1[i])
-                return G2C_ERROR;
-        for (i = 0; i < 19; i++)
-            if (gfld->igdtmpl[i] != igdstmpl[i])
-                return G2C_ERROR;
-        for (i = 0; i < 7; i++)
-            if (gfld->ipdtmpl[i] != ipdstmpl[i])
-                return G2C_ERROR;
+        /* /\* Check some stuff. *\/ */
+        /* if (gfld->version != 2 || gfld->discipline != 1 || gfld->idsectlen != 13) */
+        /*     return G2C_ERROR; */
+        /* if (!gfld->local || gfld->locallen != 10 || gfld->ifldnum != 1 || gfld->griddef) */
+        /*     return G2C_ERROR; */
+        /* if (gfld->ngrdpts != 4 || gfld->numoct_opt || gfld->coord_list || gfld->ndpts != 4) */
+        /*     return G2C_ERROR; */
+        /* if (gfld->idrtnum != 40 || gfld->idrtlen != 7 || gfld->unpacked != 1 || gfld->expanded) */
+        /*     return G2C_ERROR; */
+        /* if (gfld->ibmap) */
+        /*     return G2C_ERROR; */
+        /* for (i = 0; i < 13; i++) */
+        /*     if (gfld->idsect[i] != listsec1[i]) */
+        /*         return G2C_ERROR; */
+        /* for (i = 0; i < 19; i++) */
+        /*     if (gfld->igdtmpl[i] != igdstmpl[i]) */
+        /*         return G2C_ERROR; */
+        /* for (i = 0; i < 7; i++) */
+        /*     if (gfld->ipdtmpl[i] != ipdstmpl[i]) */
+        /*         return G2C_ERROR; */
 
 	/* /\* Try the g2_miss() function. *\/ */
 	/* float rmiss[1]; */
