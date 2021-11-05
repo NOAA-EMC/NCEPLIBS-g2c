@@ -188,6 +188,13 @@ main()
             return G2C_ERROR;
         cgrib[0] = old_val;
 
+        /* Try g2_getfld() - it won't work, wrong GRIB version. */
+        old_val = cgrib[7];
+        cgrib[7] = 3;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 2)
+            return G2C_ERROR;
+        cgrib[7] = old_val;
+
         /* Try g2_getfld() - it won't work, bad section number. */
         old_val = cgrib[20];
         cgrib[20] = 0;
