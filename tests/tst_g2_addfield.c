@@ -41,6 +41,7 @@ main()
             0x00, 0x42, 0xc8, 0x00, 0x00, 0x00, 0x01, 0x00, 0x02, 0x03, 0x00, 0x00, 0x00, 0x00, 0x07, 0x06,
             0x00, 0xf0, 0x00, 0x00, 0x00, 0x07, 0x07, 0x0a, 0x60, 0x37, 0x37, 0x37, 0x37};
         unsigned char old_val;
+        unsigned char old_val1, old_val2, old_val3;
         /* Analysis or forecast at a horizontal level or in a
          * horizontal layer at a point in time. */
         g2int ipdsnum = 0;
@@ -143,7 +144,7 @@ main()
         /* Check the contents of the message for correctness. */
         for (i = 0; i < FULL_MSG_LEN; i++)
         {
-            /* printf("0x%2.2lx, ", cgrib[i]); */
+            /* printf("0x%2.2x, ", cgrib[i]); */
             if (cgrib[i] != expected_cgrib[i])
                 return G2C_ERROR;
         }
@@ -201,6 +202,22 @@ main()
         if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 8)
             return G2C_ERROR;
         cgrib[20] = old_val;
+
+        /* Try g2_getfld() - it won't work, end of message in wrong place. */
+        old_val = cgrib[16];
+        old_val1 = cgrib[17];
+        old_val2 = cgrib[18];
+        old_val3 = cgrib[19];
+        cgrib[16] = '7';
+        cgrib[17] = '7';
+        cgrib[18] = '7';
+        cgrib[19] = '7';
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 4)
+            return G2C_ERROR;
+        cgrib[16] = old_val;
+        cgrib[17] = old_val1;
+        cgrib[18] = old_val2;
+        cgrib[19] = old_val3;
 
         /* Try g2_getfld() for field 1. */
         if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)))

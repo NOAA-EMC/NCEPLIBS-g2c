@@ -169,12 +169,14 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     for (;;)
     {
         /*    Check to see if we are at end of GRIB message */
-        if (cgrib[ipos] == '7' && cgrib[ipos+1] == '7' && cgrib[ipos+2] == '7' &&
-            cgrib[ipos+3] == '7')
+        if (cgrib[ipos] == '7' && cgrib[ipos + 1] == '7' && cgrib[ipos + 2] == '7' &&
+            cgrib[ipos + 3] == '7')
         {
             ipos = ipos + 4;
-            /*    If end of GRIB message not where expected, issue error */
-            if (ipos != (istart+lengrib))
+
+            /*    If end of GRIB message not where expected, issue
+             *    error. */
+            if (ipos != istart + lengrib)
             {
                 printf("g2_getfld: '7777' found, but not where expected.\n");
                 free(lgfld);
