@@ -240,6 +240,10 @@ main()
             return G2C_ERROR;
         cgrib[152] = old_val;
 
+        /* Try g2_getfld() - it won't work, 7777 not found at end of message. */
+        if ((ret = g2_getfld(cgrib, 2, unpack, expand, &gfld)) != 6)
+            return G2C_ERROR;
+
         /* Try g2_getfld() for field 1. */
         if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)))
             return G2C_ERROR;

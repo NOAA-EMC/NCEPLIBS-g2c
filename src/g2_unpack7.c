@@ -65,12 +65,12 @@ g2int
 g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
            g2int idrsnum, g2int *idrstmpl, g2int ndpts, g2float **fld)
 {
-    g2int ierr, isecnum;
+    g2int isecnum;
     g2int ipos, lensec;
     g2float *lfld;
+    g2int ierr = 0;
 
-    ierr = 0;
-    *fld = 0;     /*NULL*/
+    *fld = NULL;
 
     gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
     *iofst = *iofst + 32;
@@ -80,30 +80,24 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
     if (isecnum != 7)
     {
         ierr = 2;
-        /*fprintf(stderr, "g2_unpack7: Not Section 7 data.\n"); */
         return ierr;
     }
 
-    ipos = (*iofst / 8);
-    lfld = calloc(ndpts ? ndpts : 1, sizeof(g2float));
-    if (lfld == 0)
+    ipos = *iofst / 8;
+    if (!(lfld = calloc(ndpts ? ndpts : 1, sizeof(g2float))))
     {
         ierr = 6;
         return ierr;
     }
-    else
-    {
-        *fld = lfld;
-    }
+
+    *fld = lfld;
 
     if (idrsnum == 0)
         simunpack(cgrib + ipos, idrstmpl, ndpts, lfld);
     else if (idrsnum == 2 || idrsnum == 3)
     {
-        if (comunpack(cgrib+ipos, lensec, idrsnum, idrstmpl, ndpts, lfld) != 0)
-        {
+        if (comunpack(cgrib+ipos, lensec, idrsnum, idrstmpl, ndpts, lfld))
             return 7;
-        }
     }
     else if (idrsnum == 50)
     {            /* Spectral Simple */
@@ -111,7 +105,7 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
         rdieee(idrstmpl + 4, lfld, 1);
     }
     else if (idrsnum == 51)              /* Spectral complex */
-        if (igdsnum>=50 && igdsnum <=53)
+        if (igdsnum >= 50 && igdsnum <= 53)
             specunpack(cgrib + ipos, idrstmpl, ndpts, igdstmpl[0], igdstmpl[2],
                        igdstmpl[2], lfld);
         else
