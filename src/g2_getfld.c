@@ -118,6 +118,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     if (ifldnum <= 0)
     {
         printf("g2_getfld: Request for field number must be positive.\n");
+        free(lgfld);
         ierr = 3;
         return ierr;
     }
@@ -136,6 +137,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     if (istart == -1)
     {
         printf("g2_getfld:  Beginning characters GRIB not found.\n");
+        free(lgfld);
         ierr = 1;
         return ierr;
     }
@@ -156,6 +158,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     if (ver != 2)
     {
         printf("g2_getfld: can only decode GRIB edition 2.\n");
+        free(lgfld);
         ierr = 2;
         return ierr;
     }
@@ -174,6 +177,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
             if (ipos != (istart+lengrib))
             {
                 printf("g2_getfld: '7777' found, but not where expected.\n");
+                free(lgfld);
                 ierr = 4;
                 return ierr;
             }
@@ -192,6 +196,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (isecnum < 1 || isecnum > 7)
         {
             printf("g2_getfld: Unrecognized Section Encountered=%ld\n", isecnum);
+            free(lgfld);
             ierr = 8;
             return ierr;
         }
@@ -203,6 +208,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
             jerr = g2_unpack1(cgrib, &iofst, &lgfld->idsect, &lgfld->idsectlen);
             if (jerr != 0)
             {
+                free(lgfld);
                 ierr = 15;
                 return ierr;
             }
@@ -213,11 +219,12 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (isecnum == 2)
         {
             iofst = iofst - 40;       /* reset offset to beginning of section */
-            if (lgfld->local != 0)
+            if (lgfld->local)
                 free(lgfld->local);
             jerr = g2_unpack2(cgrib, &iofst, &lgfld->locallen, &lgfld->local);
             if (jerr != 0)
             {
+                free(lgfld);
                 ierr = 16;
                 return ierr;
             }
@@ -247,6 +254,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
             }
             else
             {
+                free(lgfld);
                 ierr = 10;
                 return ierr;
             }
@@ -272,6 +280,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                     have4 = 1;
                 else
                 {
+                    free(lgfld);
                     ierr = 11;
                     return ierr;
                 }
@@ -289,6 +298,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                 have5 = 1;
             else
             {
+                free(lgfld);
                 ierr = 12;
                 return ierr;
             }
@@ -322,6 +332,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                 }
                 else
                 {
+                    free(lgfld);
                     ierr = 13;
                     return ierr;
                 }
@@ -374,6 +385,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
             else
             {
                 printf("g2_getfld: return from g2_unpack7 = %d \n", (int)jerr);
+                free(lgfld);
                 ierr = 14;
                 return ierr;
             }
@@ -385,6 +397,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (ipos > (istart + lengrib))
         {
             printf("g2_getfld: '7777'  not found at end of GRIB message.\n");
+            free(lgfld);
             ierr = 7;
             return ierr;
         }
@@ -404,6 +417,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
      *  reached before the requested field was found. */
     printf("g2_getfld: GRIB message contained %ld different fields.\n", numfld);
     printf("g2_getfld: The request was for field %ld.\n", ifldnum);
+    free(lgfld);
     ierr = 6;
 
     return ierr;
