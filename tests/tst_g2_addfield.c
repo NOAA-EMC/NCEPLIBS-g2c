@@ -226,6 +226,20 @@ main()
             return G2C_ERROR;
         cgrib[50] = old_val;
 
+        /* Try g2_getfld() - it won't work, section 4 has bad number. */
+        old_val = cgrib[116];
+        cgrib[116] = 99;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 11)
+            return G2C_ERROR;
+        cgrib[116] = old_val;
+
+        /* Try g2_getfld() - it won't work, section 5 has bad number. */
+        old_val = cgrib[152];
+        cgrib[152] = 99;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 12)
+            return G2C_ERROR;
+        cgrib[152] = old_val;
+
         /* Try g2_getfld() for field 1. */
         if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)))
             return G2C_ERROR;
