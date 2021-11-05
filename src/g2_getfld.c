@@ -223,8 +223,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
             iofst = iofst - 40;       /* reset offset to beginning of section */
             if (lgfld->local)
                 free(lgfld->local);
-            jerr = g2_unpack2(cgrib, &iofst, &lgfld->locallen, &lgfld->local);
-            if (jerr != 0)
+            if (g2_unpack2(cgrib, &iofst, &lgfld->locallen, &lgfld->local))
             {
                 g2_free(lgfld);
                 ierr = 16;
@@ -242,8 +241,8 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                 free(lgfld->igdtmpl);
             if (lgfld->list_opt)
                 free(lgfld->list_opt);
-            if ((jerr = g2_unpack3(cgrib, &iofst, &igds, &lgfld->igdtmpl,
-                                   &lgfld->igdtlen, &lgfld->list_opt, &lgfld->num_opt)))
+            if (g2_unpack3(cgrib, &iofst, &igds, &lgfld->igdtmpl,
+                           &lgfld->igdtlen, &lgfld->list_opt, &lgfld->num_opt))
             {
                 g2_free(lgfld);
                 ierr = 10;
@@ -272,17 +271,15 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                 lgfld->unpacked = unpack;
                 lgfld->expanded = 0;
                 iofst = iofst - 40;       /* reset offset to beginning of section */
-                jerr = g2_unpack4(cgrib, &iofst, &lgfld->ipdtnum,
-                                  &lgfld->ipdtmpl, &lgfld->ipdtlen, &lgfld->coord_list,
-                                  &lgfld->num_coord);
-                if (jerr == 0)
-                    have4 = 1;
-                else
+                if (g2_unpack4(cgrib, &iofst, &lgfld->ipdtnum, &lgfld->ipdtmpl,
+                               &lgfld->ipdtlen, &lgfld->coord_list, &lgfld->num_coord))
                 {
                     g2_free(lgfld);
                     ierr = 11;
                     return ierr;
                 }
+
+                have4 = 1;
             }
         }
 
@@ -291,16 +288,15 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (isecnum == 5 && numfld == ifldnum)
         {
             iofst = iofst - 40;       /* reset offset to beginning of section */
-            jerr = g2_unpack5(cgrib, &iofst, &lgfld->ndpts, &lgfld->idrtnum,
-                              &lgfld->idrtmpl, &lgfld->idrtlen);
-            if (jerr == 0)
-                have5 = 1;
-            else
+            if (g2_unpack5(cgrib, &iofst, &lgfld->ndpts, &lgfld->idrtnum,
+                           &lgfld->idrtmpl, &lgfld->idrtlen))
             {
                 g2_free(lgfld);
                 ierr = 12;
                 return ierr;
             }
+
+            have5 = 1;
         }
 
         /*   If found Section 6, Unpack bitmap. Save in case this is
@@ -311,30 +307,27 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
             {   /* unpack bitmap */
                 iofst = iofst - 40;           /* reset offset to beginning of section */
                 bmpsave = lgfld->bmap;      /* save pointer to previous bitmap */
-                jerr = g2_unpack6(cgrib, &iofst, lgfld->ngrdpts, &lgfld->ibmap,
-                                  &lgfld->bmap);
-                if (jerr == 0)
-                {
-                    have6 = 1;
-                    if (lgfld->ibmap == 254)     /* use previously specified bitmap */
-                        if (bmpsave != 0)
-                            lgfld->bmap = bmpsave;
-                        else
-                        {
-                            printf("g2_getfld: Prev bit-map specified, but none exist.\n");
-                            ierr = 17;
-                            return ierr;
-                        }
-                    else                         /* get rid of it */
-                        if (bmpsave!=0)
-                            free(bmpsave);
-                }
-                else
+                if (g2_unpack6(cgrib, &iofst, lgfld->ngrdpts, &lgfld->ibmap,
+                               &lgfld->bmap))
                 {
                     g2_free(lgfld);
                     ierr = 13;
                     return ierr;
                 }
+                    
+                have6 = 1;
+                if (lgfld->ibmap == 254)     /* use previously specified bitmap */
+                    if (bmpsave != 0)
+                        lgfld->bmap = bmpsave;
+                    else
+                    {
+                        printf("g2_getfld: Prev bit-map specified, but none exist.\n");
+                        ierr = 17;
+                        return ierr;
+                    }
+                else                         /* get rid of it */
+                    if (bmpsave!=0)
+                        free(bmpsave);
             }
             else
             {    /* do not unpack bitmap */
@@ -348,45 +341,42 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (isecnum == 7 && numfld == ifldnum && unpack)
         {
             iofst = iofst - 40;       /* reset offset to beginning of section */
-            jerr = g2_unpack7(cgrib, &iofst, lgfld->igdtnum, lgfld->igdtmpl,
-                              lgfld->idrtnum, lgfld->idrtmpl, lgfld->ndpts,
-                              &lgfld->fld);
-            if (jerr == 0)
-            {
-                have7 = 1;
-                /*  If bitmap is used with this field,  expand data field */
-                /*  to grid, if possible. */
-                if (lgfld->ibmap != 255 && lgfld->bmap != 0)
-                {
-                    if (expand == 1)
-                    {
-                        n = 0;
-                        newfld = calloc(lgfld->ngrdpts, sizeof(g2float));
-                        for (j = 0; j < lgfld->ngrdpts; j++)
-                        {
-                            if (lgfld->bmap[j] == 1)
-                                newfld[j] = lgfld->fld[n++];
-                        }
-                        free(lgfld->fld);
-                        lgfld->fld = newfld;
-                        lgfld->expanded = 1;
-                    }
-                    else
-                    {
-                        lgfld->expanded = 0;
-                    }
-                }
-                else
-                {
-                    lgfld->expanded = 1;
-                }
-            }
-            else
+            if (g2_unpack7(cgrib, &iofst, lgfld->igdtnum, lgfld->igdtmpl,
+                           lgfld->idrtnum, lgfld->idrtmpl, lgfld->ndpts,
+                           &lgfld->fld))
             {
                 printf("g2_getfld: return from g2_unpack7 = %d \n", (int)jerr);
                 g2_free(lgfld);
                 ierr = 14;
                 return ierr;
+            }
+
+            have7 = 1;
+            /*  If bitmap is used with this field,  expand data field */
+            /*  to grid, if possible. */
+            if (lgfld->ibmap != 255 && lgfld->bmap != 0)
+            {
+                if (expand == 1)
+                {
+                    n = 0;
+                    newfld = calloc(lgfld->ngrdpts, sizeof(g2float));
+                    for (j = 0; j < lgfld->ngrdpts; j++)
+                    {
+                        if (lgfld->bmap[j] == 1)
+                            newfld[j] = lgfld->fld[n++];
+                    }
+                    free(lgfld->fld);
+                    lgfld->fld = newfld;
+                    lgfld->expanded = 1;
+                }
+                else
+                {
+                    lgfld->expanded = 0;
+                }
+            }
+            else
+            {
+                lgfld->expanded = 1;
             }
         }
 
