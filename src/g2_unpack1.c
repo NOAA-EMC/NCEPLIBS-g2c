@@ -58,7 +58,7 @@ g2_unpack1(unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)
     g2int i, lensec, nbits, ierr, isecnum;
     /* The map holds the number of bytes used by each value in section
      * 1. */
-    g2int mapid[13]={2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};
+    g2int mapid[13] = {2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};
 
     ierr = 0;
     *idslen = 13;
@@ -79,8 +79,7 @@ g2_unpack1(unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)
     /* Unpack each value into array ids from the appropriate number of
      * octets, which are specified in` corresponding entries in array
      * mapid. */
-    *ids = calloc(*idslen, sizeof(g2int));
-    if (*ids == 0)
+    if (!(*ids = calloc(*idslen, sizeof(g2int))))
     {
         ierr = 6;
         return(ierr);
