@@ -137,13 +137,13 @@ main()
         if ((ret = g2_gribend(cgrib)) != FULL_MSG_LEN)
             return G2C_ERROR;
 
-        /* /\* Check the contents of the message for correctness. *\/ */
-        /* for (i = 0; i < FULL_MSG_LEN; i++) */
-        /* { */
-        /*     /\* printf("0x%2.2x, ", cgrib[i]); *\/ */
-        /*     if (cgrib[i] != expected_cgrib[i]) */
-        /*         return G2C_ERROR; */
-        /* } */
+        /* Check the contents of the message for correctness. */
+        for (i = 0; i < FULL_MSG_LEN; i++)
+        {
+            /* printf("0x%2.2x, ", cgrib[i]); */
+            if (cgrib[i] != expected_cgrib[i])
+                return G2C_ERROR;
+        }
 
         /* /\* Use g2_info() to learn about our messaage. *\/ */
         /* if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal))) */
