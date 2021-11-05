@@ -20,7 +20,7 @@
  *
  * ### Program History Log
  * Date | Programmer | Comments
- * -----|------------|--------- 
+ * -----|------------|---------
  * 2002-10-28 | Gilbert | Initial
  * 2013-08-08 | Vuong | Free up memory in array igds - free(igds)
  *
@@ -88,7 +88,7 @@
  * @author Stephen Gilbert @date 2002-10-28
  */
 g2int
-g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand, 
+g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
           gribfield **gfld)
 {
 
@@ -183,7 +183,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
             }
             break;
         }
-        
+
         /* Get length of Section and Section number. */
         iofst = (ipos - 1) * 8;
         iofst = ipos * 8;
@@ -240,7 +240,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                 free(lgfld->igdtmpl);
             if (lgfld->list_opt)
                 free(lgfld->list_opt);
-            jerr = g2_unpack3(cgrib, &iofst, &igds, &lgfld->igdtmpl, 
+            jerr = g2_unpack3(cgrib, &iofst, &igds, &lgfld->igdtmpl,
                               &lgfld->igdtlen, &lgfld->list_opt, &lgfld->num_opt);
             if (jerr == 0)
             {
@@ -273,9 +273,9 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                 lgfld->unpacked = unpack;
                 lgfld->expanded = 0;
                 iofst = iofst - 40;       /* reset offset to beginning of section */
-                jerr = g2_unpack4(cgrib, &iofst, &lgfld->ipdtnum, 
-                                &lgfld->ipdtmpl, &lgfld->ipdtlen, &lgfld->coord_list, 
-                                &lgfld->num_coord);
+                jerr = g2_unpack4(cgrib, &iofst, &lgfld->ipdtnum,
+                                  &lgfld->ipdtmpl, &lgfld->ipdtlen, &lgfld->coord_list,
+                                  &lgfld->num_coord);
                 if (jerr == 0)
                     have4 = 1;
                 else
@@ -292,7 +292,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (isecnum == 5 && numfld == ifldnum)
         {
             iofst = iofst - 40;       /* reset offset to beginning of section */
-            jerr = g2_unpack5(cgrib, &iofst, &lgfld->ndpts, &lgfld->idrtnum, 
+            jerr = g2_unpack5(cgrib, &iofst, &lgfld->ndpts, &lgfld->idrtnum,
                               &lgfld->idrtmpl, &lgfld->idrtlen);
             if (jerr == 0)
                 have5 = 1;
@@ -312,8 +312,8 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
             {   /* unpack bitmap */
                 iofst = iofst - 40;           /* reset offset to beginning of section */
                 bmpsave = lgfld->bmap;      /* save pointer to previous bitmap */
-                jerr = g2_unpack6(cgrib, &iofst, lgfld->ngrdpts, &lgfld->ibmap, 
-                                &lgfld->bmap);
+                jerr = g2_unpack6(cgrib, &iofst, lgfld->ngrdpts, &lgfld->ibmap,
+                                  &lgfld->bmap);
                 if (jerr == 0)
                 {
                     have6 = 1;
@@ -349,9 +349,9 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (isecnum == 7 && numfld == ifldnum && unpack)
         {
             iofst = iofst - 40;       /* reset offset to beginning of section */
-            jerr = g2_unpack7(cgrib, &iofst, lgfld->igdtnum, lgfld->igdtmpl, 
-                            lgfld->idrtnum, lgfld->idrtmpl, lgfld->ndpts, 
-                            &lgfld->fld);
+            jerr = g2_unpack7(cgrib, &iofst, lgfld->igdtnum, lgfld->igdtmpl,
+                              lgfld->idrtnum, lgfld->idrtmpl, lgfld->ndpts,
+                              &lgfld->fld);
             if (jerr == 0)
             {
                 have7 = 1;
