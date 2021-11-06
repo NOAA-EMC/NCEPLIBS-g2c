@@ -67,7 +67,6 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
         ierr = 2;
         *numcoord = 0;
         *mappdslen = 0;
-        /* fprintf(stderr, "g2_unpack4: Not Section 4 data.\n");*/
         return(ierr);
     }
 

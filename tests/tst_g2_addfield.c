@@ -41,6 +41,7 @@ main()
             0x00, 0x42, 0xc8, 0x00, 0x00, 0x00, 0x01, 0x00, 0x02, 0x03, 0x00, 0x00, 0x00, 0x00, 0x07, 0x06,
             0x00, 0xf0, 0x00, 0x00, 0x00, 0x07, 0x07, 0x0a, 0x60, 0x37, 0x37, 0x37, 0x37};
         unsigned char old_val;
+        unsigned char old_val1, old_val2, old_val3;
         /* Analysis or forecast at a horizontal level or in a
          * horizontal layer at a point in time. */
         g2int ipdsnum = 0;
@@ -143,7 +144,7 @@ main()
         /* Check the contents of the message for correctness. */
         for (i = 0; i < FULL_MSG_LEN; i++)
         {
-            /* printf("0x%2.2lx, ", cgrib[i]); */
+            /* printf("0x%2.2x, ", cgrib[i]); */
             if (cgrib[i] != expected_cgrib[i])
                 return G2C_ERROR;
         }
@@ -175,29 +176,73 @@ main()
         /* Change value back. */
         cgrib[7] = old_val;
 
-        /* Next three tests commented out because of memory leak in
-         * g2_getfld() when errors occur. See
-         * https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues/160. */
-        
-        /* /\* Try g2_getfld() - it won't work, ifldnum cannot be 0. *\/ */
-        /* ifldnum = 0; */
-        /* if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 3) */
-        /*     return G2C_ERROR; */
-        /* ifldnum = 1; */
+        /* Try g2_getfld() - it won't work, ifldnum cannot be 0. */
+        ifldnum = 0;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 3)
+            return G2C_ERROR;
+        ifldnum = 1;
 
-        /* /\* Try g2_getfld() - it won't work, doesn't start with "GRIB". *\/ */
-        /* old_val = cgrib[0]; */
-        /* cgrib[0] = 0; */
-        /* if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 1) */
-        /*     return G2C_ERROR; */
-        /* cgrib[0] = old_val; */
+        /* Try g2_getfld() - it won't work, doesn't start with "GRIB". */
+        old_val = cgrib[0];
+        cgrib[0] = 0;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 1)
+            return G2C_ERROR;
+        cgrib[0] = old_val;
 
-        /* /\* Try g2_getfld() - it won't work, bad section number. *\/ */
-        /* old_val = cgrib[20]; */
-        /* cgrib[20] = 0; */
-        /* if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 8) */
-        /*     return G2C_ERROR; */
-        /* cgrib[20] = old_val; */
+        /* Try g2_getfld() - it won't work, wrong GRIB version. */
+        old_val = cgrib[7];
+        cgrib[7] = 3;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 2)
+            return G2C_ERROR;
+        cgrib[7] = old_val;
+
+        /* Try g2_getfld() - it won't work, bad section number. */
+        old_val = cgrib[20];
+        cgrib[20] = 0;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 8)
+            return G2C_ERROR;
+        cgrib[20] = old_val;
+
+        /* Try g2_getfld() - it won't work, end of message in wrong place. */
+        old_val = cgrib[16];
+        old_val1 = cgrib[17];
+        old_val2 = cgrib[18];
+        old_val3 = cgrib[19];
+        cgrib[16] = '7';
+        cgrib[17] = '7';
+        cgrib[18] = '7';
+        cgrib[19] = '7';
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 4)
+            return G2C_ERROR;
+        cgrib[16] = old_val;
+        cgrib[17] = old_val1;
+        cgrib[18] = old_val2;
+        cgrib[19] = old_val3;
+
+        /* Try g2_getfld() - it won't work, section 3 has bad number. */
+        old_val = cgrib[50];
+        cgrib[50] = 99;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 10)
+            return G2C_ERROR;
+        cgrib[50] = old_val;
+
+        /* Try g2_getfld() - it won't work, section 4 has bad number. */
+        old_val = cgrib[116];
+        cgrib[116] = 99;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 11)
+            return G2C_ERROR;
+        cgrib[116] = old_val;
+
+        /* Try g2_getfld() - it won't work, section 5 has bad number. */
+        old_val = cgrib[152];
+        cgrib[152] = 99;
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)) != 12)
+            return G2C_ERROR;
+        cgrib[152] = old_val;
+
+        /* Try g2_getfld() - it won't work, 7777 not found at end of message. */
+        if ((ret = g2_getfld(cgrib, 2, unpack, expand, &gfld)) != 6)
+            return G2C_ERROR;
 
         /* Try g2_getfld() for field 1. */
         if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)))

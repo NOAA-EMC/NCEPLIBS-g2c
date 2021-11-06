@@ -12,7 +12,10 @@
 
 /**
  * This routine initializes a new GRIB2 message and packs GRIB2
- * sections 0 (Indicator Section) and 1 (Identification Section).
+ * [Section 0 (Indicator
+ * Section)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect0.shtml)
+ * and [Section 1 (Identification
+ * Section)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect1.shtml).
  *
  * This routine is used with routines g2_addlocal(), g2_addgrid(),
  * g2_addfield(), and g2_gribend() to create a complete GRIB2 message.

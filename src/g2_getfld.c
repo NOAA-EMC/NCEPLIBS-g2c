@@ -20,7 +20,7 @@
  *
  * ### Program History Log
  * Date | Programmer | Comments
- * -----|------------|--------- 
+ * -----|------------|---------
  * 2002-10-28 | Gilbert | Initial
  * 2013-08-08 | Vuong | Free up memory in array igds - free(igds)
  *
@@ -88,7 +88,7 @@
  * @author Stephen Gilbert @date 2002-10-28
  */
 g2int
-g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand, 
+g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
           gribfield **gfld)
 {
 
@@ -118,6 +118,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     if (ifldnum <= 0)
     {
         printf("g2_getfld: Request for field number must be positive.\n");
+        free(lgfld);
         ierr = 3;
         return ierr;
     }
@@ -136,6 +137,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     if (istart == -1)
     {
         printf("g2_getfld:  Beginning characters GRIB not found.\n");
+        free(lgfld);
         ierr = 1;
         return ierr;
     }
@@ -156,6 +158,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     if (ver != 2)
     {
         printf("g2_getfld: can only decode GRIB edition 2.\n");
+        free(lgfld);
         ierr = 2;
         return ierr;
     }
@@ -166,20 +169,23 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     for (;;)
     {
         /*    Check to see if we are at end of GRIB message */
-        if (cgrib[ipos] == '7' && cgrib[ipos+1] == '7' && cgrib[ipos+2] == '7' &&
-            cgrib[ipos+3] == '7')
+        if (cgrib[ipos] == '7' && cgrib[ipos + 1] == '7' && cgrib[ipos + 2] == '7' &&
+            cgrib[ipos + 3] == '7')
         {
             ipos = ipos + 4;
-            /*    If end of GRIB message not where expected, issue error */
-            if (ipos != (istart+lengrib))
+
+            /*    If end of GRIB message not where expected, issue
+             *    error. */
+            if (ipos != istart + lengrib)
             {
                 printf("g2_getfld: '7777' found, but not where expected.\n");
+                free(lgfld);
                 ierr = 4;
                 return ierr;
             }
             break;
         }
-        
+
         /* Get length of Section and Section number. */
         iofst = (ipos - 1) * 8;
         iofst = ipos * 8;
@@ -192,6 +198,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (isecnum < 1 || isecnum > 7)
         {
             printf("g2_getfld: Unrecognized Section Encountered=%ld\n", isecnum);
+            free(lgfld);
             ierr = 8;
             return ierr;
         }
@@ -200,9 +207,9 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (isecnum == 1)
         {
             iofst = iofst - 40;       /* reset offset to beginning of section */
-            jerr = g2_unpack1(cgrib, &iofst, &lgfld->idsect, &lgfld->idsectlen);
-            if (jerr != 0)
+            if (g2_unpack1(cgrib, &iofst, &lgfld->idsect, &lgfld->idsectlen))
             {
+                g2_free(lgfld);
                 ierr = 15;
                 return ierr;
             }
@@ -213,11 +220,11 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (isecnum == 2)
         {
             iofst = iofst - 40;       /* reset offset to beginning of section */
-            if (lgfld->local != 0)
+            if (lgfld->local)
                 free(lgfld->local);
-            jerr = g2_unpack2(cgrib, &iofst, &lgfld->locallen, &lgfld->local);
-            if (jerr != 0)
+            if (g2_unpack2(cgrib, &iofst, &lgfld->locallen, &lgfld->local))
             {
+                g2_free(lgfld);
                 ierr = 16;
                 return ierr;
             }
@@ -233,23 +240,21 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                 free(lgfld->igdtmpl);
             if (lgfld->list_opt)
                 free(lgfld->list_opt);
-            jerr = g2_unpack3(cgrib, &iofst, &igds, &lgfld->igdtmpl, 
-                              &lgfld->igdtlen, &lgfld->list_opt, &lgfld->num_opt);
-            if (jerr == 0)
+            if (g2_unpack3(cgrib, &iofst, &igds, &lgfld->igdtmpl,
+                           &lgfld->igdtlen, &lgfld->list_opt, &lgfld->num_opt))
             {
-                have3 = 1;
-                lgfld->griddef = igds[0];
-                lgfld->ngrdpts = igds[1];
-                lgfld->numoct_opt = igds[2];
-                lgfld->interp_opt = igds[3];
-                lgfld->igdtnum = igds[4];
-                free(igds);
-            }
-            else
-            {
+                g2_free(lgfld);
                 ierr = 10;
                 return ierr;
             }
+
+            have3 = 1;
+            lgfld->griddef = igds[0];
+            lgfld->ngrdpts = igds[1];
+            lgfld->numoct_opt = igds[2];
+            lgfld->interp_opt = igds[3];
+            lgfld->igdtnum = igds[4];
+            free(igds);
         }
 
         /* If found Section 4, check to see if this field is the one
@@ -265,16 +270,15 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                 lgfld->unpacked = unpack;
                 lgfld->expanded = 0;
                 iofst = iofst - 40;       /* reset offset to beginning of section */
-                jerr = g2_unpack4(cgrib, &iofst, &lgfld->ipdtnum, 
-                                &lgfld->ipdtmpl, &lgfld->ipdtlen, &lgfld->coord_list, 
-                                &lgfld->num_coord);
-                if (jerr == 0)
-                    have4 = 1;
-                else
+                if (g2_unpack4(cgrib, &iofst, &lgfld->ipdtnum, &lgfld->ipdtmpl,
+                               &lgfld->ipdtlen, &lgfld->coord_list, &lgfld->num_coord))
                 {
+                    g2_free(lgfld);
                     ierr = 11;
                     return ierr;
                 }
+
+                have4 = 1;
             }
         }
 
@@ -283,15 +287,15 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (isecnum == 5 && numfld == ifldnum)
         {
             iofst = iofst - 40;       /* reset offset to beginning of section */
-            jerr = g2_unpack5(cgrib, &iofst, &lgfld->ndpts, &lgfld->idrtnum, 
-                              &lgfld->idrtmpl, &lgfld->idrtlen);
-            if (jerr == 0)
-                have5 = 1;
-            else
+            if (g2_unpack5(cgrib, &iofst, &lgfld->ndpts, &lgfld->idrtnum,
+                           &lgfld->idrtmpl, &lgfld->idrtlen))
             {
+                g2_free(lgfld);
                 ierr = 12;
                 return ierr;
             }
+
+            have5 = 1;
         }
 
         /*   If found Section 6, Unpack bitmap. Save in case this is
@@ -302,29 +306,27 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
             {   /* unpack bitmap */
                 iofst = iofst - 40;           /* reset offset to beginning of section */
                 bmpsave = lgfld->bmap;      /* save pointer to previous bitmap */
-                jerr = g2_unpack6(cgrib, &iofst, lgfld->ngrdpts, &lgfld->ibmap, 
-                                &lgfld->bmap);
-                if (jerr == 0)
+                if (g2_unpack6(cgrib, &iofst, lgfld->ngrdpts, &lgfld->ibmap,
+                               &lgfld->bmap))
                 {
-                    have6 = 1;
-                    if (lgfld->ibmap == 254)     /* use previously specified bitmap */
-                        if (bmpsave != 0)
-                            lgfld->bmap = bmpsave;
-                        else
-                        {
-                            printf("g2_getfld: Prev bit-map specified, but none exist.\n");
-                            ierr = 17;
-                            return ierr;
-                        }
-                    else                         /* get rid of it */
-                        if (bmpsave!=0)
-                            free(bmpsave);
-                }
-                else
-                {
+                    g2_free(lgfld);
                     ierr = 13;
                     return ierr;
                 }
+                    
+                have6 = 1;
+                if (lgfld->ibmap == 254)     /* use previously specified bitmap */
+                    if (bmpsave != 0)
+                        lgfld->bmap = bmpsave;
+                    else
+                    {
+                        printf("g2_getfld: Prev bit-map specified, but none exist.\n");
+                        ierr = 17;
+                        return ierr;
+                    }
+                else                         /* get rid of it */
+                    if (bmpsave!=0)
+                        free(bmpsave);
             }
             else
             {    /* do not unpack bitmap */
@@ -338,53 +340,53 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         if (isecnum == 7 && numfld == ifldnum && unpack)
         {
             iofst = iofst - 40;       /* reset offset to beginning of section */
-            jerr = g2_unpack7(cgrib, &iofst, lgfld->igdtnum, lgfld->igdtmpl, 
-                            lgfld->idrtnum, lgfld->idrtmpl, lgfld->ndpts, 
-                            &lgfld->fld);
-            if (jerr == 0)
+            if ((jerr = g2_unpack7(cgrib, &iofst, lgfld->igdtnum, lgfld->igdtmpl,
+                                   lgfld->idrtnum, lgfld->idrtmpl, lgfld->ndpts,
+                                   &lgfld->fld)))
             {
-                have7 = 1;
-                /*  If bitmap is used with this field,  expand data field */
-                /*  to grid, if possible. */
-                if (lgfld->ibmap != 255 && lgfld->bmap != 0)
+                printf("g2_getfld: return from g2_unpack7 = %d \n", (int)jerr);
+                g2_free(lgfld);
+                ierr = 14;
+                return ierr;
+            }
+
+            have7 = 1;
+            
+            /*  If bitmap is used with this field,  expand data field */
+            /*  to grid, if possible. */
+            if (lgfld->ibmap != 255 && lgfld->bmap != 0)
+            {
+                if (expand == 1)
                 {
-                    if (expand == 1)
+                    n = 0;
+                    newfld = calloc(lgfld->ngrdpts, sizeof(g2float));
+                    for (j = 0; j < lgfld->ngrdpts; j++)
                     {
-                        n = 0;
-                        newfld = calloc(lgfld->ngrdpts, sizeof(g2float));
-                        for (j = 0; j < lgfld->ngrdpts; j++)
-                        {
-                            if (lgfld->bmap[j] == 1)
-                                newfld[j] = lgfld->fld[n++];
-                        }
-                        free(lgfld->fld);
-                        lgfld->fld = newfld;
-                        lgfld->expanded = 1;
+                        if (lgfld->bmap[j] == 1)
+                            newfld[j] = lgfld->fld[n++];
                     }
-                    else
-                    {
-                        lgfld->expanded = 0;
-                    }
+                    free(lgfld->fld);
+                    lgfld->fld = newfld;
+                    lgfld->expanded = 1;
                 }
                 else
                 {
-                    lgfld->expanded = 1;
+                    lgfld->expanded = 0;
                 }
             }
             else
             {
-                printf("g2_getfld: return from g2_unpack7 = %d \n", (int)jerr);
-                ierr = 14;
-                return ierr;
+                lgfld->expanded = 1;
             }
         }
 
         /* Check to see if we read pass the end of the GRIB message
          * and missed the terminator string '7777'. */
         ipos = ipos + lensec;                /* Update beginning of section pointer */
-        if (ipos > (istart + lengrib))
+        if (ipos > istart + lengrib)
         {
             printf("g2_getfld: '7777'  not found at end of GRIB message.\n");
+            g2_free(lgfld);
             ierr = 7;
             return ierr;
         }
@@ -396,7 +398,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
 
         /*  If unpacking is not requested, return when sections 3
          *  through 6 have been processed. */
-        if ((!unpack) && have3 && have4 && have5 && have6)
+        if (!unpack && have3 && have4 && have5 && have6)
             return ierr;
     }
 
@@ -404,6 +406,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
      *  reached before the requested field was found. */
     printf("g2_getfld: GRIB message contained %ld different fields.\n", numfld);
     printf("g2_getfld: The request was for field %ld.\n", ifldnum);
+    g2_free(lgfld);
     ierr = 6;
 
     return ierr;

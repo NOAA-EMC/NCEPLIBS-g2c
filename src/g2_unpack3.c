@@ -186,7 +186,7 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
     /* Unpack optional list of numbers defining number of points in
      * each row or column, if included.  This is used for non
      * regular grids. */
-    if ( ligds[2] != 0 )
+    if (ligds[2] != 0)
     {
         nbits = ligds[2] * 8;
         *idefnum = (lensec - 14 - ibyttem) / ligds[2];
