@@ -163,9 +163,9 @@ main()
         if (numlocal != 1 || numfields != 1 || listsec0_in[0] != 1 || listsec0_in[1] != 2 ||
             listsec0_in[2] != FULL_MSG_LEN)
             return G2C_ERROR;
-        for (i = 0; i < 13; i++)
-            if (listsec1_in[i] != listsec1[i])
-                return G2C_ERROR;
+        /* for (i = 0; i < 13; i++) */
+        /*     if (listsec1_in[i] != listsec1[i]) */
+        /*         return G2C_ERROR; */
 
         /* /\* Try g2_getfld() for field 1. *\/ */
         /* if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld))) */
