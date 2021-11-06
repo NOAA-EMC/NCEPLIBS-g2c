@@ -131,7 +131,10 @@ main()
         /* Add sections 4, 5, 6, and 7. */
         if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
                                idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != MOST_MSG_LEN)
+        {
+            printf("ret = %d\n", ret);
             return G2C_ERROR;
+        }
 
         /* Add section 8. */
         if ((ret = g2_gribend(cgrib)) != FULL_MSG_LEN)
