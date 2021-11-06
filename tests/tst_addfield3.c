@@ -147,52 +147,52 @@ main()
         /*         return G2C_ERROR; */
         /* } */
 
-        /* /\* Use g2_info() to learn about our messaage. *\/ */
-        /* if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal))) */
-        /*     return G2C_ERROR; */
+        /* Use g2_info() to learn about our messaage. */
+        if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)))
+            return G2C_ERROR;
 
-        /* /\* Check results. *\/ */
-        /* if (numlocal != 1 || numfields != 1 || listsec0_in[0] != 1 || listsec0_in[1] != 2 || */
-        /*     listsec0_in[2] != FULL_MSG_LEN) */
-        /*     return G2C_ERROR; */
-        /* for (i = 0; i < 13; i++) */
-        /*     if (listsec1_in[i] != listsec1[i]) */
-        /*         return G2C_ERROR; */
+        /* Check results. */
+        if (numlocal != 1 || numfields != 1 || listsec0_in[0] != 1 || listsec0_in[1] != 2 ||
+            listsec0_in[2] != FULL_MSG_LEN)
+            return G2C_ERROR;
+        for (i = 0; i < 13; i++)
+            if (listsec1_in[i] != listsec1[i])
+                return G2C_ERROR;
 
-        /* /\* Try g2_getfld() for field 1. *\/ */
-        /* if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld))) */
-        /*     return G2C_ERROR; */
+        /* Try g2_getfld() for field 1. */
+        if ((ret = g2_getfld(cgrib, ifldnum, unpack, expand, &gfld)))
+            return G2C_ERROR;
 
-        /* /\* Check some stuff. *\/ */
-        /* if (gfld->version != 2 || gfld->discipline != 1 || gfld->idsectlen != 13) */
-        /*     return G2C_ERROR; */
-        /* if (!gfld->local || gfld->locallen != 10 || gfld->ifldnum != 1 || gfld->griddef) */
-        /*     return G2C_ERROR; */
-        /* if (gfld->ngrdpts != 4 || gfld->numoct_opt || gfld->coord_list || gfld->ndpts != 4) */
-        /*     return G2C_ERROR; */
-        /* if (gfld->idrtnum != 40 || gfld->idrtlen != 7 || gfld->unpacked != 1 || gfld->expanded) */
-        /*     return G2C_ERROR; */
-        /* if (gfld->ibmap) */
-        /*     return G2C_ERROR; */
-        /* for (i = 0; i < 13; i++) */
-        /*     if (gfld->idsect[i] != listsec1[i]) */
-        /*         return G2C_ERROR; */
-        /* for (i = 0; i < 19; i++) */
-        /*     if (gfld->igdtmpl[i] != igdstmpl[i]) */
-        /*         return G2C_ERROR; */
-        /* for (i = 0; i < 7; i++) */
-        /*     if (gfld->ipdtmpl[i] != ipdstmpl[i]) */
-        /*         return G2C_ERROR; */
+        /* Check some stuff. */
+        if (gfld->version != 2 || gfld->discipline != 1 || gfld->idsectlen != 13)
+            return G2C_ERROR;
+        if (!gfld->local || gfld->locallen != 10 || gfld->ifldnum != 1 || gfld->griddef)
+            return G2C_ERROR;
+        if (gfld->ngrdpts != 4 || gfld->numoct_opt || gfld->coord_list || gfld->ndpts != 4)
+            return G2C_ERROR;
+        if (gfld->idrtnum != 40 || gfld->idrtlen != 7 || gfld->unpacked != 1 || gfld->expanded)
+            return G2C_ERROR;
+        if (gfld->ibmap)
+            return G2C_ERROR;
+        for (i = 0; i < 13; i++)
+            if (gfld->idsect[i] != listsec1[i])
+                return G2C_ERROR;
+        for (i = 0; i < 19; i++)
+            if (gfld->igdtmpl[i] != igdstmpl[i])
+                return G2C_ERROR;
+        for (i = 0; i < 7; i++)
+            if (gfld->ipdtmpl[i] != ipdstmpl[i])
+                return G2C_ERROR;
 
-	/* /\* Try the g2_miss() function. *\/ */
-	/* float rmiss[1]; */
-	/* int nmiss; */
-	/* g2_miss(gfld, rmiss, &nmiss); */
-	/* if (nmiss) */
-	/*     return G2C_ERROR; */
+	/* Try the g2_miss() function. */
+	float rmiss[1];
+	int nmiss;
+	g2_miss(gfld, rmiss, &nmiss);
+	if (nmiss)
+	    return G2C_ERROR;
 
-        /* /\* Free the memory. *\/ */
-        /* g2_free(gfld); */
+        /* Free the memory. */
+        g2_free(gfld);
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
