@@ -161,7 +161,7 @@ main()
 
         /* Check results. */
         if (numlocal != 1 || numfields != 1 || listsec0_in[0] != 1 || listsec0_in[1] != 2 ||
-            listsec0_in[2] != FULL_MSG_LEN)
+            listsec0_in[2] < FULL_MSG_LEN_MIN)
             return G2C_ERROR;
         /* for (i = 0; i < 13; i++) */
         /*     if (listsec1_in[i] != listsec1[i]) */
