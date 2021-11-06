@@ -141,8 +141,8 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     gbit(cgrib, &lencurr, 96, 32);
 
     /* Check to see if GRIB message is already complete. */
-    if (cgrib[lencurr-4] == s7 && cgrib[lencurr-3] == s7 &&
-        cgrib[lencurr-2] == s7 && cgrib[lencurr-1] == s7)
+    if (cgrib[lencurr - 4] == s7 && cgrib[lencurr - 3] == s7 &&
+        cgrib[lencurr - 2] == s7 && cgrib[lencurr - 1] == s7)
     {
         printf("g2_addfield: GRIB message already complete.  Cannot add new section.\n");
         ierr = -2;
