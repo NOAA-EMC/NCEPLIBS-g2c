@@ -12,8 +12,10 @@
 #define SEC1_LEN 21
 #define SEC2_LEN 15
 #define MSG_LEN 109
+#define MOST_MSG_LEN_MIN 311
 #define MOST_MSG_LEN 353
 #define FULL_MSG_LEN MOST_MSG_LEN + 4
+#define FULL_MSG_LEN_MIN MOST_MSG_LEN_MIN + 4
 #define LOCAL_SIZE 10
 #define G2C_ERROR 2
 
@@ -130,14 +132,14 @@ main()
 
         /* Add sections 4, 5, 6, and 7. */
         if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
-                               idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != MOST_MSG_LEN)
+                               idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) < MOST_MSG_LEN_MIN)
         {
             printf("ret = %d\n", ret);
             return G2C_ERROR;
         }
 
         /* Add section 8. */
-        if ((ret = g2_gribend(cgrib)) != FULL_MSG_LEN)
+        if ((ret = g2_gribend(cgrib)) < FULL_MSG_LEN_MIN)
             return G2C_ERROR;
 
         /* Check the contents of the message for correctness. This
