@@ -3,6 +3,7 @@
  * to a GRIB2 message.
  * @author Stephen Gilbert @date 2002-11-05
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "grib2.h"
@@ -11,7 +12,7 @@ g2int getdim(unsigned char *, g2int *, g2int *, g2int *);
 g2int getpoly(unsigned char *, g2int *, g2int *, g2int *);
 void simpack(g2float *,  g2int,  g2int *,  unsigned char *,  g2int *);
 void cmplxpack(g2float *,  g2int,  g2int,  g2int *,  unsigned char *,  g2int *);
-void specpack(g2float *, g2int, g2int, g2int, g2int, g2int *, unsigned char *, 
+void specpack(g2float *, g2int, g2int, g2int, g2int, g2int *, unsigned char *,
               g2int *);
 #ifdef USE_PNG
 void pngpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
@@ -19,7 +20,6 @@ void pngpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
 #if defined USE_JPEG2000 || defined USE_OPENJPEG
 void jpcpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
 #endif  /* USE_JPEG2000 */
-
 
 /**
  * This routine packs up Sections 4 through 7 for a given field and
@@ -44,7 +44,7 @@ void jpcpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
  *
  * ### Program History Log
  * Date | Programmer | Comments
- * -----|------------|--------- 
+ * -----|------------|---------
  * 2002-11-05 | Gilbert | Initial
  * 2002-12-23 | Gilbert | Added complex spherical harmonic packing
  * 2003-08-27 | Gilbert | Added support for new templates using PNG and JPEG2000 algorithms/templates.
@@ -58,7 +58,7 @@ void jpcpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
  * @param ipdsnum Product Definition Template Number (see [Code Table
  * 4.0](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table4-0.shtml)).
  * @param ipdstmpl Contains the data values for the Product Definition
- * Template specified by ipdsnum. 
+ * Template specified by ipdsnum.
  * @param coordlist Array containg floating point values intended to
  * document the vertical discretisation associated to model data on
  * hybrid coordinate vertical levels.
@@ -142,7 +142,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
 
     /* Check to see if GRIB message is already complete. */
     if (cgrib[lencurr-4] == s7 && cgrib[lencurr-3] == s7 &&
-         cgrib[lencurr-2] == s7 && cgrib[lencurr-1] == s7)
+        cgrib[lencurr-2] == s7 && cgrib[lencurr-1] == s7)
     {
         printf("g2_addfield: GRIB message already complete.  Cannot add new section.\n");
         ierr = -2;
@@ -332,12 +332,12 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     else if (idrsnum == 2 || idrsnum == 3)           /*  Complex Packing */
         cmplxpack(pfld, ndpts, idrsnum, idrstmpl, cpack, &lcpack);
     else if (idrsnum == 50)  /* Sperical Harmonic Simple Packing */
-    { 
+    {
         simpack(pfld + 1, ndpts - 1, idrstmpl, cpack, &lcpack);
         mkieee(pfld, idrstmpl + 4, 1);  /* ensure RE(0, 0) value is IEEE format */
     }
     else if (idrsnum == 51)      /* Sperical Harmonic Complex Packing */
-    {   
+    {
         getpoly(cgrib + lpos3, &JJ, &KK, &MM);
         if (JJ != 0 && KK != 0 && MM != 0)
             specpack(pfld, ndpts, JJ, KK, MM, idrstmpl, cpack, &lcpack);
@@ -363,7 +363,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
                 width = ndpts;
                 height = 1;
             }
-            else if ((iscan&32) == 32)
+            else if (iscan & 32 == 32)
             {   /* Scanning mode: bit 3  */
                 itemp = width;
                 width = height;
@@ -395,7 +395,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
                 width = ndpts;
                 height = 1;
             }
-            else if ((iscan & 32) == 32)
+            else if (iscan & 32 == 32)
             {   /* Scanning mode: bit 3  */
                 itemp = width;
                 width = height;
@@ -445,7 +445,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     for (i = 0; i < mapdrs->maplen; i++)
     {
         nbits = abs(mapdrs->map[i]) * 8;
-        if ((mapdrs->map[i] >= 0) || (idrstmpl[i] >= 0))
+        if (mapdrs->map[i] >= 0 || idrstmpl[i] >= 0)
             sbit(cgrib, idrstmpl + i, iofst, nbits);
         else
         {
@@ -495,7 +495,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         sbit(cgrib, &zero, iofst, left);     /* Pad with zeros to fill Octet */
         iofst = iofst + left;
     }
-    lensec6 = (iofst-ibeg) / 8;
+    lensec6 = (iofst - ibeg) / 8;
     sbit(cgrib, &lensec6, ibeg, 32);
 
     /* Add Section 7  - Data Section */
@@ -511,7 +511,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         /*cgrib(ioctet + 1:ioctet + lcpack)=cpack(1:lcpack) */
         for (j = 0; j < lcpack; j++)
             cgrib[ioctet + j] = cpack[j];
-        iofst = iofst + (8*lcpack);
+        iofst = iofst + (8 * lcpack);
     }
 
     /* Calculate length of section 7 and store it in octets */

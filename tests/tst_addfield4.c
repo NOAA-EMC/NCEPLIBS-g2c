@@ -1,7 +1,7 @@
 /* This is a test for the NCEPLIBS-g2c project. This test is for
  * g2_addfield.
  *
- * Ed Hartnett 11/4/21
+ * Ed Hartnett 11/6/21
  */
 
 #include <stdio.h>
