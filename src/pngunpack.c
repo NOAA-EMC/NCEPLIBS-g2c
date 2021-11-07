@@ -19,7 +19,7 @@ int dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
  * @param cpack The packed data field (character*1 array).
  * @param len length of packed field cpack().
  * @param idrstmpl Pointer to array of values for Data Representation
- * Template 5.41 or 5.40010.
+ * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml) or 5.40010.
  * @param ndpts The number of data values to unpack.
  * @param fld Contains the unpacked data values.
  *
@@ -50,7 +50,7 @@ pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
         if (!ifld || !ctemp)
         {
             fprintf(stderr,"Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
-            return(1);
+            return 1;
         }
         dec_png(cpack, &width, &height, ctemp);
         gbits(ctemp, ifld, 0, nbits, 0, ndpts);
@@ -65,5 +65,5 @@ pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
             fld[j] = ref;
     }
 
-    return(0);
+    return 0;
 }
