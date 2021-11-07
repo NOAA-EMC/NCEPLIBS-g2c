@@ -8,7 +8,8 @@
 #include <stdlib.h>
 #include "grib2.h"
 
-int dec_png(unsigned char *, g2int *, g2int *, char *);
+int dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
+            unsigned char *cout);
 
 /**
  * This subroutine unpacks a data field that was packed into a PNG

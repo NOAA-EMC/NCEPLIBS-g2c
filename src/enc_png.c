@@ -78,7 +78,8 @@ void user_flush_data(png_structp png_ptr)
  * @author Stephen Gilbert
  */
 int
-enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf)
+enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
+        unsigned char *pngbuf)
 {
     int color_type;
     g2int j, bytes, pnglen, bit_depth;

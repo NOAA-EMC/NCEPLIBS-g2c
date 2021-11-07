@@ -68,7 +68,8 @@ user_read_data(png_structp png_ptr, png_bytep data, png_uint_32 length)
  * @author Stephen Gilbert
  */
 int
-dec_png(unsigned char *pngbuf, g2int *width, g2int *height, char *cout)
+dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
+        unsigned char *cout)
 {
     int interlace, color, compres, filter, bit_depth;
     g2int j, k, n, bytes, clen;
