@@ -78,7 +78,8 @@ void user_flush_data(png_structp png_ptr)
  * @author Stephen Gilbert
  */
 int
-enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf)
+enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
+        unsigned char *pngbuf)
 {
     int color_type;
     g2int j, bytes, pnglen, bit_depth;
@@ -89,19 +90,19 @@ enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf)
 
     /* Create and initialize png_structs. */
     if (!(png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL)))
-        return (-1);
+        return -1;
 
     if (!(info_ptr = png_create_info_struct(png_ptr)))
     {
         png_destroy_write_struct(&png_ptr, (png_infopp)NULL);
-        return (-2);
+        return -2;
     }
 
     /* Set Error callback. */
     if (setjmp(png_jmpbuf(png_ptr)))
     {
         png_destroy_write_struct(&png_ptr, &info_ptr);
-        return (-3);
+        return -3;
     }
 
     /* Initialize info for writing PNG stream to memory. */

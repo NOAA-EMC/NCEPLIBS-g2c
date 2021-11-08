@@ -50,7 +50,6 @@ user_read_data(png_structp png_ptr, png_bytep data, png_uint_32 length)
     mem = (png_stream *)png_get_io_ptr(png_ptr);
     ptr = (void *)mem->stream_ptr;
     offset = mem->stream_len;
-/*     printf("SAGrd %ld %ld %x\n",offset,length,ptr);  */
     memcpy(data, ptr + offset, length);
     mem->stream_len += length;
 }
@@ -68,7 +67,8 @@ user_read_data(png_structp png_ptr, png_bytep data, png_uint_32 length)
  * @author Stephen Gilbert
  */
 int
-dec_png(unsigned char *pngbuf, g2int *width, g2int *height, char *cout)
+dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
+        unsigned char *cout)
 {
     int interlace, color, compres, filter, bit_depth;
     g2int j, k, n, bytes, clen;
@@ -80,30 +80,30 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height, char *cout)
 
     /* Check if stream is a valid PNG format. */
     if (png_sig_cmp(pngbuf, 0, 8) != 0)
-        return (-3);
+        return -3;
 
     /* Create and initialize png_structs. */
     if (!(png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, (png_voidp)NULL,
                                            NULL, NULL)))
-        return (-1);
+        return -1;
 
     if (!(info_ptr = png_create_info_struct(png_ptr)))
     {
         png_destroy_read_struct(&png_ptr, (png_infopp)NULL, (png_infopp)NULL);
-        return (-2);
+        return -2;
     }
 
     if (!(end_info = png_create_info_struct(png_ptr)))
     {
         png_destroy_read_struct(&png_ptr, (png_infopp)info_ptr, (png_infopp)NULL);
-        return (-2);
+        return -2;
     }
 
     /* Set Error callback. */
     if (setjmp(png_jmpbuf(png_ptr)))
     {
         png_destroy_read_struct(&png_ptr,  &info_ptr, &end_info);
-        return (-3);
+        return -3;
     }
 
     /* Initialize info for reading PNG stream from memory. */
