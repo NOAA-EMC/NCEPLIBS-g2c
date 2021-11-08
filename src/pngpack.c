@@ -6,7 +6,8 @@
 #include <math.h>
 #include "grib2.h"
 
-int enc_png(char *, g2int, g2int, g2int, char *);
+int enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
+            unsigned char *pngbuf);
 
 /**
  * This subroutine packs up a data field into PNG image format. After
@@ -114,8 +115,8 @@ pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
         sbits(ctemp, ifld, 0, nbits, 0, ndpts);
 
         /* Encode data into PNG Format. */
-        if ((*lcpack = (g2int)enc_png((char *)ctemp, width, height, nbits,
-                                      (char *)cpack)) <= 0)
+        if ((*lcpack = (g2int)enc_png(ctemp, width, height, nbits,
+                                      cpack)) <= 0)
             printf("pngpack: ERROR Packing PNG = %d\n", (int)*lcpack);
         
         free(ctemp);
