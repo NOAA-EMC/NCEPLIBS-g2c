@@ -30,6 +30,7 @@ g2c_test(tst_com)
 g2c_test(tst_g2_addlocal)
 g2c_test(tst_addfield2)
 g2c_test(tst_addfield3)
+g2c_test(tst_addfield4)
 
 
 
