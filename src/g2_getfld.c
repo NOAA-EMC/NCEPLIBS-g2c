@@ -100,19 +100,10 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     g2float *newfld;
     gribfield *lgfld;
 
-    lgfld = malloc(sizeof(gribfield));
+    /* Allocate storage for the field struct. The caller must free
+     * this memory. */
+    lgfld = calloc(1, sizeof(gribfield));
     *gfld = lgfld;
-
-    lgfld->locallen = 0;
-    lgfld->idsect = 0;
-    lgfld->local = 0;
-    lgfld->list_opt = 0;
-    lgfld->igdtmpl = 0;
-    lgfld->ipdtmpl = 0;
-    lgfld->idrtmpl = 0;
-    lgfld->coord_list = 0;
-    lgfld->bmap = 0;
-    lgfld->fld = 0;
 
     /* Check for valid request number. */
     if (ifldnum <= 0)
@@ -187,7 +178,6 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         }
 
         /* Get length of Section and Section number. */
-        iofst = (ipos - 1) * 8;
         iofst = ipos * 8;
         gbit(cgrib, &lensec, iofst, 32);        /* Get Length of Section */
         iofst = iofst + 32;
