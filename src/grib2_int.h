@@ -52,6 +52,23 @@ g2int specunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2int JJ,
                  g2int KK, g2int MM, g2float *fld);
 g2int getdim(unsigned char *csec3, g2int *width, g2int *height, g2int *iscan);
 
+int enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
+            unsigned char *pngbuf);
+int dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
+            unsigned char *cout);
+void pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, 
+             unsigned char *cpack, g2int *lcpack);
+g2int pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                g2float *fld);
+int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
+                 g2int ltype, g2int ratio, g2int retry, char *outjpc,
+                 g2int jpclen);
+int dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld);
+void jpcpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack);
+g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                g2float *fld);
+
 /* Packing and unpacking bits. */
 void gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte);
 void sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbyte);

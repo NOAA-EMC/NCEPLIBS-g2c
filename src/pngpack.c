@@ -6,9 +6,6 @@
 #include <math.h>
 #include "grib2_int.h"
 
-int enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
-            unsigned char *pngbuf);
-
 /**
  * This subroutine packs up a data field into PNG image format. After
  * the data field is scaled, and the reference value is subtracted

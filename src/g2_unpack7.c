@@ -8,16 +8,6 @@
 #include <string.h>
 #include "grib2_int.h"
 
-g2int simunpack(unsigned char *,g2int *, g2int,g2float *);
-int comunpack(unsigned char *,g2int,g2int,g2int *,g2int,g2float *);
-g2int specunpack(unsigned char *,g2int *,g2int,g2int,g2int, g2int, g2float *);
-#ifdef USE_PNG
-g2int pngunpack(unsigned char *,g2int,g2int *,g2int, g2float *);
-#endif  /* USE_PNG */
-#if defined USE_JPEG2000 || defined USE_OPENJPEG
-g2int jpcunpack(unsigned char *,g2int,g2int *,g2int, g2float *);
-#endif  /* USE_JPEG2000 */
-
 /**
  *
  * This subroutine unpacks Section 7 (Data Section) as defined in GRIB

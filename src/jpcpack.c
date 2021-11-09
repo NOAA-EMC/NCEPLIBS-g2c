@@ -6,9 +6,6 @@
 #include <math.h>
 #include "grib2_int.h"
 
-int enc_jpeg2000(unsigned char *, g2int, g2int, g2int,
-                 g2int, g2int, g2int, char *, g2int);
-
 /**
  * This subroutine packs up a data field into a JPEG2000 code
  * stream. After the data field is scaled, and the reference value is
