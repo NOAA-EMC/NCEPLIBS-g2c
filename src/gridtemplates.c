@@ -33,7 +33,7 @@
  *
  * @author Stephen Gilbert @date 2001-06-28
  */
-g2int
+static g2int
 getgridindex(g2int number)
 {
     g2int j, getgridindex = -1;

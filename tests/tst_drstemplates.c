@@ -17,21 +17,6 @@ int
 main()
 {
     printf("Testing drstemplates.\n");
-    printf("Testing simple getdrsindex() calls...");
-    {
-        g2int idx;
-
-        /* Check for one that's there. */
-        idx = getdrsindex(0);
-        if (idx != 0)
-            return G2C_ERROR;
-
-        /* Check for one that's not there. */
-        idx = getdrsindex(-1);
-        if (idx != -1)
-            return G2C_ERROR;
-    }
-    printf("ok!\n");
     printf("Testing simple getdrstemplate() calls...");
     {
         gtemplate *tmpl;

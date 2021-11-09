@@ -18,21 +18,6 @@ main()
 {
     
     printf("Testing pdstemplates.\n");
-    printf("Testing simple getpdsindex() calls...");
-    {
-        g2int idx;
-
-        /* Check for one that's there. */
-        idx = getpdsindex(1);
-        if (idx != 1)
-            return G2C_ERROR;
-
-        /* Check for one that's not there. */
-        idx = getpdsindex(-1);
-        if (idx != -1)
-            return G2C_ERROR;
-    }
-    printf("ok!\n");
     printf("Testing simple getpdstemplate() calls...");
     {
         gtemplate *tmpl;

@@ -19,21 +19,6 @@ main()
 {
     
     printf("Testing gridtemplates.\n");
-    printf("Testing simple getgridindex() calls...");
-    {
-        g2int idx;
-
-        /* Check for one that's there. */
-        idx = getgridindex(1);
-        if (idx != 1)
-            return G2C_ERROR;
-
-        /* Check for one that's not there. */
-        idx = getgridindex(-1);
-        if (idx != -1)
-            return G2C_ERROR;
-    }
-    printf("ok!\n");
     printf("Testing simple getgridtemplate() calls (expect and ignore error messages)...");
     {
         /* Note that gtemplate is not the same as gribtemplate. */
