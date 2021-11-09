@@ -8,12 +8,6 @@
 #include <stdlib.h>
 #include "grib2_int.h"
 
-g2int getdim(unsigned char *, g2int *, g2int *, g2int *);
-g2int getpoly(unsigned char *, g2int *, g2int *, g2int *);
-void simpack(g2float *,  g2int,  g2int *,  unsigned char *,  g2int *);
-void cmplxpack(g2float *,  g2int,  g2int,  g2int *,  unsigned char *,  g2int *);
-void specpack(g2float *, g2int, g2int, g2int, g2int, g2int *, unsigned char *,
-              g2int *);
 #ifdef USE_PNG
 void pngpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
 #endif  /* USE_PNG */
@@ -363,7 +357,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
                 width = ndpts;
                 height = 1;
             }
-            else if (iscan & 32 == 32)
+            else if ((iscan & 32) == 32)
             {   /* Scanning mode: bit 3  */
                 itemp = width;
                 width = height;
@@ -395,7 +389,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
                 width = ndpts;
                 height = 1;
             }
-            else if (iscan & 32 == 32)
+            else if ((iscan & 32) == 32)
             {   /* Scanning mode: bit 3  */
                 itemp = width;
                 width = height;

@@ -254,10 +254,10 @@ typedef g2int logical; /**< Logical type. */
  */
 int
 pack_gp(integer *kfildo, integer *ic, integer *nxy,
-        integer *is523, integer *minpk, integer *inc, integer *missp, integer
-        *misss, integer *jmin, integer *jmax, integer *lbit, integer *nov,
-        integer *ndg, integer *lx, integer *ibit, integer *jbit, integer *
-        kbit, integer *novref, integer *lbitref, integer *ier)
+        integer *is523, integer *minpk, integer *inc, integer *missp, integer *misss,
+        integer *jmin, integer *jmax, integer *lbit, integer *nov,
+        integer *ndg, integer *lx, integer *ibit, integer *jbit, integer *kbit,
+        integer *novref, integer *lbitref, integer *ier)
 {
     /* Initialized data */
 

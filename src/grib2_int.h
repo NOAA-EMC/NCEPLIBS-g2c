@@ -19,28 +19,52 @@
 
 #define ALOG2 (0.69314718) /**< ln(2.0) */
 
-/*  Prototypes for supporting routines  */
-extern double int_power(double,  g2int);
-extern void mkieee(g2float *, g2int *, g2int);
-void rdieee(g2int *, g2float *, g2int);
-extern gtemplate *getpdstemplate(g2int);
-extern gtemplate *extpdstemplate(g2int, g2int *);
-extern gtemplate *getdrstemplate(g2int);
-extern gtemplate *extdrstemplate(g2int, g2int *);
-extern gtemplate *getgridtemplate(g2int);
-extern gtemplate *extgridtemplate(g2int, g2int *);
-extern void simpack(g2float *, g2int, g2int *, unsigned char *, g2int *);
-extern void compack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
-void misspack(g2float *, g2int , g2int , g2int *,  unsigned char *,  g2int *);
-void gbit(unsigned char *, g2int *, g2int , g2int);
-void sbit(unsigned char *, g2int *, g2int , g2int);
-void gbits(unsigned char *, g2int *, g2int , g2int , g2int , g2int);
-void sbits(unsigned char *, g2int *, g2int , g2int , g2int , g2int);
+/* Legacy support functions. */
+double int_power(double x, g2int y);
+void mkieee(g2float *a, g2int *rieee, g2int num);
+void rdieee(g2int *rieee, g2float *a, g2int num);
 
-int pack_gp(g2int *,  g2int *,  g2int *,
-            g2int *,  g2int *,  g2int *,  g2int *,  g2int *,
-            g2int *,  g2int *,  g2int *,  g2int *,
-            g2int *,  g2int *,  g2int *,  g2int *,  g2int *,
-            g2int *,  g2int *,  g2int *);
+/* Get the various templates. */
+gtemplate *getdrstemplate(g2int number);
+gtemplate *extdrstemplate(g2int number, g2int *list);
+gtemplate *getpdstemplate(g2int number);
+gtemplate *extpdstemplate(g2int number, g2int *list);
+gtemplate *getgridtemplate(g2int number);
+gtemplate *extgridtemplate(g2int number, g2int *list);
+
+/* Packing and unpacking data. */
+void simpack(g2float *fld, g2int ndpts, g2int *idrstmpl, 
+             unsigned char *cpack, g2int *lcpack);
+g2int simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts,
+                g2float *fld);
+void compack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack);
+int comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
+              g2int *idrstmpl, g2int ndpts, g2float *fld);
+void misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
+              unsigned char *cpack, g2int *lcpack);
+void cmplxpack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
+               unsigned char *cpack, g2int *lcpack);
+g2int getpoly(unsigned char *csec3, g2int *jj, g2int *kk, g2int *mm);
+void specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM, 
+              g2int *idrstmpl, unsigned char *cpack, g2int *lcpack);
+g2int specunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2int JJ,
+                 g2int KK, g2int MM, g2float *fld);
+g2int getdim(unsigned char *csec3, g2int *width, g2int *height, g2int *iscan);
+
+/* Packing and unpacking bits. */
+void gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte);
+void sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbyte);
+void gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte,
+           g2int nskip, g2int n);
+void sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte,
+           g2int nskip, g2int n);
+
+/* Deal with grib groups. */
+int pack_gp(g2int *kfildo, g2int *ic, g2int *nxy,
+            g2int *is523, g2int *minpk, g2int *inc, g2int *missp, g2int *misss,
+            g2int *jmin, g2int *jmax, g2int *lbit, g2int *nov,
+            g2int *ndg, g2int *lx, g2int *ibit, g2int *jbit, g2int *kbit,
+            g2int *novref, g2int *lbitref, g2int *ier);
 
 #endif  /*  _grib2_int_H  */
