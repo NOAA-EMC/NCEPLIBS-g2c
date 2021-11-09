@@ -34,7 +34,7 @@
  *
  * @author Stephen Gilbert @date 2001-06-28
  */
-g2int
+static g2int
 getpdsindex(g2int number)
 {
     g2int j, getpdsindex = -1;
