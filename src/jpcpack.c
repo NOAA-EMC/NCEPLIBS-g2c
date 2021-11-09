@@ -4,10 +4,7 @@
  */
 #include <stdlib.h>
 #include <math.h>
-#include "grib2.h"
-
-int enc_jpeg2000(unsigned char *, g2int, g2int, g2int,
-                 g2int, g2int, g2int, char *, g2int);
+#include "grib2_int.h"
 
 /**
  * This subroutine packs up a data field into a JPEG2000 code

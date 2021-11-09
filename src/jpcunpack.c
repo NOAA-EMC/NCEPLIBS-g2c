@@ -5,9 +5,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
-
-int dec_jpeg2000(char *, g2int, g2int *);
+#include "grib2_int.h"
 
 /**
  * This subroutine unpacks a data field that was packed into a

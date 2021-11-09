@@ -4,7 +4,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * This subprogram searches a file for the next GRIB Message. The
@@ -29,13 +29,14 @@
  *
  * @author Stephen Gilbert @date 2002-10-28
  */
-void seekgb(FILE *lugb,g2int iseek,g2int mseek,g2int *lskip,g2int *lgrib)
+void
+seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip,
+       g2int *lgrib)
 {
     g2int k,k4,ipos,nread,lim,start,vers,lengrib;
     int    end;
     unsigned char *cbuf;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     *lgrib=0;
     cbuf=(unsigned char *)malloc(mseek);
     nread=mseek;

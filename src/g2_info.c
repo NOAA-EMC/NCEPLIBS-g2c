@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * This subroutine searches through a GRIB2 message and returns the

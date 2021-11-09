@@ -3,7 +3,7 @@
  * string.
  * @author NOAA Programmer
  */
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * Get bits - unpack bits: Extract arbitrary size values from a packed

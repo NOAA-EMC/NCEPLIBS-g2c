@@ -9,7 +9,7 @@ void dummy(void) {}
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 #include "jasper/jasper.h"
 
 #define MAXOPTSSIZE 1024 /**< Maximum size of options. */

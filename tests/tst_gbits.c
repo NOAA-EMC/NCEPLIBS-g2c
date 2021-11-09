@@ -5,7 +5,7 @@
  */
 
 #include <stdio.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define G2C_ERROR 2
 

@@ -6,10 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
-
-int dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
-            unsigned char *cout);
+#include "grib2_int.h"
 
 /**
  * This subroutine unpacks a data field that was packed into a PNG

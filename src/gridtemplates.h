@@ -38,7 +38,7 @@
  */
 #ifndef _gridtemplates_H
 #define _gridtemplates_H
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define MAXGRIDTEMP 31 /**< Maximum number of templates. */
 #define MAXGRIDMAPLEN 200 /**< Maximum template map length. */

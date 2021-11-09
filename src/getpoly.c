@@ -6,7 +6,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * This subroutine returns the J, K, and M pentagonal resolution

@@ -4,7 +4,7 @@
  * @author Stephen Gilbert @date 2004-08-27
  */
 
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * This subroutine packs up a data field using a complex packing

@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define DATA_LEN 4
 #define PACKED_LEN 40

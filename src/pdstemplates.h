@@ -42,7 +42,7 @@
 
 #ifndef _pdstemplates_H
 #define _pdstemplates_H
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define MAXPDSTEMP 47 /**< Maximum number of templates. */
 #define MAXPDSMAPLEN 200 /**< Maximum template map length. */

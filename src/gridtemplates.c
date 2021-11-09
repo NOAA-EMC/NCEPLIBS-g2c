@@ -16,7 +16,7 @@
  * @author Stephen Gilbert @date 2001-06-28
  */
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 #include "gridtemplates.h"
 
 /**

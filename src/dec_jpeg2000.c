@@ -15,7 +15,7 @@ void dummy(void) {}
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "grib2.h"
+#include "grib2_int.h"
 #include "jasper/jasper.h"
 
 /**

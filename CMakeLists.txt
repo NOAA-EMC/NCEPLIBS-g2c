@@ -116,7 +116,7 @@ set_target_properties(${lib_name} PROPERTIES PUBLIC_HEADER "src/grib2.h")
 target_include_directories(
   ${lib_name}
   PRIVATE ${private_includes}
-  PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src>"
+  PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/src;${CMAKE_CURRENT_SOURCE_DIR}/src>"
          $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
 )
 

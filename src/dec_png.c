@@ -16,7 +16,7 @@ void dummy(void) {}
 #include <stdlib.h>
 #include <string.h>
 #include <png.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * Struct for PNG stream.

@@ -5,7 +5,7 @@
  */
 
 #include <stdio.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define MAPSEC1LEN 13 /**< Length of Map Section 1. */
 #define LENSEC0 16 /**< Length of GRIB Section 0. */

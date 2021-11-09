@@ -6,6 +6,7 @@
  * -----|------------|---------
  * 2002-10-25 | Gilbert | Initial
  * 2009-01-14 | Vuong | Changed struct template to gtemplate
+ * 2021-11-9 | Ed Hartnett | Moved many prototypes to new internal header grib2_int.h.
  *
  * @author Stephen Gilbert @date 2002-10-25
  */
@@ -15,9 +16,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define G2_VERSION "g2clib-@pVersion@" /**< Current version of NCEPLIBS-g2c library. */
-
-#define ALOG2 (0.69314718) /**< ln(2.0) */
+#define G2_VERSION "@pVersion@" /**< Current version of NCEPLIBS-g2c library. */
 
 typedef int64_t g2int; /**< Long integer type. */
 typedef uint64_t g2intu; /**< Unsigned long integer type. */
@@ -253,42 +252,22 @@ g2int g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdst
                  g2int idrsnum, g2int *idrstmpl, g2int ndpts, g2float **fld);
 
 /*  Prototypes for unpacking API  */
-void seekgb(FILE *, g2int , g2int , g2int *, g2int *);
-g2int g2_info(unsigned char *, g2int *, g2int *, g2int *, g2int *);
-g2int g2_getfld(unsigned char *, g2int , g2int , g2int , gribfield **);
-void g2_free(gribfield *);
+void seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip,
+            g2int *lgrib);
+g2int g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
+              g2int *numfields, g2int *numlocal);
+g2int g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
+                gribfield **gfld);
+void g2_free(gribfield *gfld);
 
 /*  Prototypes for packing API  */
-g2int g2_create(unsigned char *, g2int *, g2int *);
-g2int g2_addlocal(unsigned char *, unsigned char *, g2int);
-g2int g2_addgrid(unsigned char *, g2int *, g2int *, g2int *, g2int);
-g2int g2_addfield(unsigned char *, g2int , g2int *,
-                  g2float *, g2int , g2int , g2int *,
-                  g2float *, g2int , g2int , g2int *);
-g2int g2_gribend(unsigned char *);
-
-/*  Prototypes for supporting routines  */
-extern double int_power(double,  g2int);
-extern void mkieee(g2float *, g2int *, g2int);
-void rdieee(g2int *, g2float *, g2int);
-extern gtemplate *getpdstemplate(g2int);
-extern gtemplate *extpdstemplate(g2int, g2int *);
-extern gtemplate *getdrstemplate(g2int);
-extern gtemplate *extdrstemplate(g2int, g2int *);
-extern gtemplate *getgridtemplate(g2int);
-extern gtemplate *extgridtemplate(g2int, g2int *);
-extern void simpack(g2float *, g2int, g2int *, unsigned char *, g2int *);
-extern void compack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
-void misspack(g2float *, g2int , g2int , g2int *,  unsigned char *,  g2int *);
-void gbit(unsigned char *, g2int *, g2int , g2int);
-void sbit(unsigned char *, g2int *, g2int , g2int);
-void gbits(unsigned char *, g2int *, g2int , g2int , g2int , g2int);
-void sbits(unsigned char *, g2int *, g2int , g2int , g2int , g2int);
-
-int pack_gp(g2int *,  g2int *,  g2int *,
-            g2int *,  g2int *,  g2int *,  g2int *,  g2int *,
-            g2int *,  g2int *,  g2int *,  g2int *,
-            g2int *,  g2int *,  g2int *,  g2int *,  g2int *,
-            g2int *,  g2int *,  g2int *);
+g2int g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1);
+g2int g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2);
+g2int g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
+                 g2int idefnum);
+g2int g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
+                  g2float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl,
+                  g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap);
+g2int g2_gribend(unsigned char *cgrib);
 
 #endif  /*  _grib2_H  */
