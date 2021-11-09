@@ -6,6 +6,7 @@
  * -----|------------|---------
  * 2002-10-25 | Gilbert | Initial
  * 2009-01-14 | Vuong | Changed struct template to gtemplate
+ * 2021-11-9 | Ed Hartnett | Moved many prototypes to new internal header grib2_int.h.
  *
  * @author Stephen Gilbert @date 2002-10-25
  */
