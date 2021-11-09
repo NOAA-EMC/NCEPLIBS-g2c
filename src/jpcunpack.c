@@ -7,8 +7,6 @@
 #include <stdlib.h>
 #include "grib2_int.h"
 
-int dec_jpeg2000(char *, g2int, g2int *);
-
 /**
  * This subroutine unpacks a data field that was packed into a
  * JPEG2000 code stream using info from the GRIB2 Data Representation

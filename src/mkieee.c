@@ -1,10 +1,10 @@
 /** @file
  * @author Stephen Gilbert @date 2002-10-29
  */
+
 #include <stdlib.h>
 #include <math.h>
 #include "grib2_int.h"
-
 
 /**
  * This subroutine stores a list of real values in 32-bit IEEE

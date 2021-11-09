@@ -17,7 +17,8 @@
  *
  * @author Stephen Gilbert @date 2002-10-25
  */
-void rdieee(g2int *rieee,g2float *a,g2int num)
+void
+rdieee(g2int *rieee, g2float *a, g2int num)
 {
 
     g2int  j;
