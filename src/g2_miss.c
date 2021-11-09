@@ -5,7 +5,7 @@
  * @author Stephen Gilbeert @date 2004-12-16
  */
 
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * This routine checks the Data Representation Template to see if

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <png.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 #ifndef USE_PNG
 void dummy(void) {}

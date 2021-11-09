@@ -31,7 +31,7 @@
 #ifndef _drstemplates_H
 #define _drstemplates_H
 
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define MAXDRSTEMP 9 /**< maximum number of templates */
 #define MAXDRSMAPLEN 200 /**< maximum template map length */

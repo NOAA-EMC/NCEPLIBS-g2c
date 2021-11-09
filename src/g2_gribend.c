@@ -4,7 +4,7 @@
  * @author Stephen Gilbert @date 2002-10-31
  */
 #include <stdio.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * This routine finalizes a GRIB2 message after all grids and fields

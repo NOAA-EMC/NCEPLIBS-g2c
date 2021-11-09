@@ -13,7 +13,7 @@
  */
 
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 #include "drstemplates.h"
 
 /**

@@ -2,7 +2,7 @@
  * @brief Provide function similar to C pow() power function.
  * @author Wesley Ebisuzaki
  */
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * Function similar to C pow() power function.

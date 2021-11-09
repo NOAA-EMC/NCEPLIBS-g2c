@@ -4,7 +4,7 @@
 
 /*#include "f2c.h"*/
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 typedef g2int integer; /**< Integer type. */
 typedef g2int logical; /**< Logical type. */
 #define TRUE_ (1) /**< True. */

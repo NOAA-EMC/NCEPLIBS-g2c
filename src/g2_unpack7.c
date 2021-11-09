@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <string.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 g2int simunpack(unsigned char *,g2int *, g2int,g2float *);
 int comunpack(unsigned char *,g2int,g2int,g2int *,g2int,g2float *);

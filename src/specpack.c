@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * This subroutine packs a spectral data field using the complex

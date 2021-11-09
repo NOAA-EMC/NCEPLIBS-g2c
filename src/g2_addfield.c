@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 g2int getdim(unsigned char *, g2int *, g2int *, g2int *);
 g2int getpoly(unsigned char *, g2int *, g2int *, g2int *);

@@ -4,7 +4,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * This subprogram searches a file for the next GRIB Message. The

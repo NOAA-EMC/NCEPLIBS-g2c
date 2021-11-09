@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <math.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * This subroutine packs up a data field using a complex packing

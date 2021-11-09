@@ -3,7 +3,7 @@
  */
 #include <stdlib.h>
 #include <math.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 
 /**

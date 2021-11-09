@@ -4,7 +4,7 @@
  */
 #include <stdlib.h>
 #include <math.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 int enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
             unsigned char *pngbuf);

@@ -4,6 +4,7 @@
 # Mark Potts, Kyle Gerheiser
 
 set(c_src
+    ${CMAKE_CURRENT_SOURCE_DIR}/grib2_int.h
     ${CMAKE_CURRENT_SOURCE_DIR}/cmplxpack.c
     ${CMAKE_CURRENT_SOURCE_DIR}/compack.c
     ${CMAKE_CURRENT_SOURCE_DIR}/comunpack.c

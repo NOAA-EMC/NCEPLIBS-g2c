@@ -4,7 +4,7 @@
  */
 #include <stdlib.h>
 #include <math.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 int enc_jpeg2000(unsigned char *, g2int, g2int, g2int,
                  g2int, g2int, g2int, char *, g2int);

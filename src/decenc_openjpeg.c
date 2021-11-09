@@ -18,7 +18,7 @@
 
 #if !defined USE_JPEG2000 && defined USE_OPENJPEG
 
-#include "grib2.h"
+#include "grib2_int.h"
 #include "openjpeg.h"
 
 #include <assert.h>

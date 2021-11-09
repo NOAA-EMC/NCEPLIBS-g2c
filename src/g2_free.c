@@ -5,7 +5,7 @@
  */
 
 #include <stdlib.h>
-#include  "grib2.h"
+#include  "grib2_int.h"
 
 /**
  * This routine frees up memory that was allocated for struct

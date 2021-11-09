@@ -5,7 +5,7 @@
  */
 
 #include <stdio.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define SEC0_LEN 16
 #define SEC1_LEN 21

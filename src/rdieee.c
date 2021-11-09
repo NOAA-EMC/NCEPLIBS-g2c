@@ -3,7 +3,7 @@
  * point format.
  * @author Stephen Gilbert @date 2002-10-25
  */
-#include "grib2.h"
+#include "grib2_int.h"
 
 /**
  * This subroutine reads a list of real values in 32-bit IEEE floating

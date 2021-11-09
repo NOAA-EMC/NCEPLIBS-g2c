@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 int dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
             unsigned char *cout);
