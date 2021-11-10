@@ -271,6 +271,7 @@ g2int g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
 g2int g2_gribend(unsigned char *cgrib);
 
 /* Error codes for G2 API. */
+#define G2_NO_ERROR 0             /**< Function succeeded. */
 #define G2_CREATE_GRIB_VERSION -1 /**< Wrong GRIB version for g2_create(), must be 2. */
 #define G2_INFO_NO_GRIB 1         /**< g2_info() can't find beginning characters "GRIB". */
 #define G2_INFO_GRIB_VERSION 2    /**< Wrong GRIB version for g2_info(), must be 2. */
@@ -278,7 +279,6 @@ g2int g2_gribend(unsigned char *cgrib);
 #define G2_INFO_WRONG_END 4       /**< g2_info() found "7777" not where expected. */
 #define G2_INFO_BAD_END 5         /**< g2_info() didn't find "7777" at end of message. */
 #define G2_INFO_INVAL_SEC 6       /**< g2_info() found invalid section number. */
-#define G2_GETFLD_NO_ERROR 0      /**< g2_getfld() succeeded. */
 #define G2_GETFLD_NO_GRIB 1       /**< g2_getfld() can't find beginning characters "GRIB". */
 #define G2_GETFLD_GRIB_VERSION 2  /**< Wrong GRIB version for g2_getfld(), must be 2. */
 #define G2_GETFLD_INVAL 3         /**< g2_getfld() data field request number was not positive. */
@@ -295,5 +295,10 @@ g2int g2_gribend(unsigned char *cgrib);
 #define G2_GETFLD_BAD_SEC6 13     /**< Error in g2_getfld() unpacking section 6. */
 #define G2_GETFLD_BAD_SEC7 14     /**< Error in g2_getfld() unpacking section 7. */
 #define G2_GETFLD_NO_BITMAP 17    /**< In g2_getfld() previous bitmap specified, yet none exists. */
+#define G2_GRIBEND_MSG_INIT -1    /**< In g2_gribend() GRIB message was not initialized - call g2_create() first. */
+#define G2_GRIBEND_SEC_COUNTS -3  /**< In g2_gribend() sum of Section byte counts doesn't add to total byte count. */
+#define G2_GRIBEND_BAD_END -4     /**< In g2_gribend() previous Section was not 7. */
+#define G2_UNPACK1_BAD_SEC1 2     /**< Error in g2_unpack1() unpacking section 1. */
+#define G2_UNPACK1_NO_MEM 6       /**< Error in g2_unpack1() allocating memory. */
 
 #endif  /*  _grib2_H  */

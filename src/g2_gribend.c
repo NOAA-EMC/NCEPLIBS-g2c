@@ -21,10 +21,12 @@
  *
  * @return
  * - > 0 Length of the final GRIB2 message in bytes.
- * - -1 GRIB message was not initialized. Need to call routine g2_create first.
- * - -2 GRIB message already complete.
- * - -3 Sum of Section byte counts doesn't add to total byte count
- * - -4 Previous Section was not 7.
+ * - ::G2_GRIBEND_MSG_INIT GRIB message was not initialized - call
+     g2_create() first.
+ * - ::G2_GRIBEND_SEC_COUNTS Sum of Section byte counts doesn't add to
+     total byte count.
+
+ * - ::G2_GRIBEND_BAD_END Previous Section was not 7.
  *
  * @note This routine is intended for use with routines g2_create(),
  * g2_addlocal(), g2_addgrid(), and g2_addfield() to create a complete
@@ -34,9 +36,8 @@
  */
 g2int g2_gribend(unsigned char *cgrib)
 {
-
     g2int iofst, lencurr, len, ilen, isecnum;
-    g2int ierr = 0, lengrib;
+    g2int lengrib;
     static unsigned char G = 0x47;       /* 'G' */
     static unsigned char R = 0x52;       /* 'R' */
     static unsigned char I = 0x49;       /* 'I' */
@@ -44,10 +45,10 @@ g2int g2_gribend(unsigned char *cgrib)
     static unsigned char seven = 0x37;   /* '7' */
 
     /* Check to see if beginning of GRIB message exists. */
-    if (cgrib[0] != G || cgrib[1] != R || cgrib[2] != I || cgrib[3] != B) {
+    if (cgrib[0] != G || cgrib[1] != R || cgrib[2] != I || cgrib[3] != B)
+    {
         printf("g2_gribend: GRIB not found in given message.\n");
-        ierr = -1;
-        return (ierr);
+        return G2_GRIBEND_MSG_INIT;
     }
 
     /* Get current length of GRIB message. */
@@ -56,33 +57,36 @@ g2int g2_gribend(unsigned char *cgrib)
     /*  Loop through all current sections of the GRIB message to find
      *  the last section number. */
     len = 16;    /* Length of Section 0. */
-    for (;;) {
+    for (;;)
+    {
         /*    Get number and length of next section. */
         iofst = len * 8;
         gbit(cgrib, &ilen, iofst, 32);
         iofst = iofst + 32;
         gbit(cgrib, &isecnum, iofst, 8);
         len = len + ilen;
+
         /*    Exit loop if last section reached. */
         if (len == lencurr)
             break;
+
         /*    If byte count for each section doesn't match current
          *    total length, then there is a problem. */
-        if (len > lencurr) {
+        if (len > lencurr)
+        {
             printf("g2_gribend: Section byte counts don''t add to total.\n");
             printf("g2_gribend: Sum of section byte counts  =  %d\n", (int)len);
             printf("g2_gribend: Total byte count in Section 0 = %d\n", (int)lencurr);
-            ierr = -3;
-            return (ierr);
+            return G2_GRIBEND_SEC_COUNTS;
         }
     }
 
     /* Can only add End Section (Section 8) after Section 7. */
-    if (isecnum != 7 ) {
+    if (isecnum != 7 )
+    {
         printf("g2_gribend: Section 8 can only be added after Section 7.\n");
         printf("g2_gribend: Section %ld was the last found in given GRIB message.\n", isecnum);
-        ierr = -4;
-        return (ierr);
+        return G2_GRIBEND_BAD_END;
     }
 
     /* Add Section 8  - End Section */
@@ -95,6 +99,6 @@ g2int g2_gribend(unsigned char *cgrib)
     lengrib = lencurr + 4;
     sbit(cgrib, &lengrib, 96, 32);
 
-    return (lengrib);
-
+    /* Return the length of the message. */
+    return lengrib;
 }

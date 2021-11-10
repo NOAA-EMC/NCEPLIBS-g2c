@@ -43,7 +43,7 @@
  * data for the data field.
  *
  * @return
- * - ::G2_GETFLD_NO_ERROR no error
+ * - ::G2_NO_ERROR no error
  * - ::G2_GETFLD_NO_GRIB Beginning characters "GRIB" not found.
  * - ::G2_GETFLD_GRIB_VERSION GRIB message is not Edition 2.
  * - ::G2_GETFLD_INVAL The data field request number was not positive.
@@ -373,12 +373,12 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
         /*  If unpacking requested, return when all sections have been
          *  processed. */
         if (unpack && have3 && have4 && have5 && have6 && have7)
-            return G2_GETFLD_NO_ERROR;
+            return G2_NO_ERROR;
 
         /*  If unpacking is not requested, return when sections 3
          *  through 6 have been processed. */
         if (!unpack && have3 && have4 && have5 && have6)
-            return G2_GETFLD_NO_ERROR;
+            return G2_NO_ERROR;
     }
 
     /*  If exited from above loop, the end of the GRIB message was
