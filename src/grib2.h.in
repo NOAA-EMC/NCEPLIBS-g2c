@@ -298,9 +298,8 @@ g2int g2_gribend(unsigned char *cgrib);
 #define G2_GRIBEND_MSG_INIT -1    /**< In g2_gribend() GRIB message was not initialized - call g2_create() first. */
 #define G2_GRIBEND_SEC_COUNTS -3  /**< In g2_gribend() sum of Section byte counts doesn't add to total byte count. */
 #define G2_GRIBEND_BAD_END -4     /**< In g2_gribend() previous Section was not 7. */
-#define G2_UNPACK1_BAD_SEC1 2     /**< Error in g2_unpack1() unpacking section 1. */
-#define G2_UNPACK1_NO_MEM 6       /**< Error in g2_unpack1() allocating memory. */
-#define G2_UNPACK2_NO_MEM 6       /**< Error in g2_unpack2() allocating memory. */
-#define G2_UNPACK2_BAD_SEC2 2     /**< Error in g2_unpack1() unpacking section 2. */
+#define G2_UNPACK_BAD_SEC 2       /**< Bad section number in unpacking function. */
+#define G2_UNPACK_NO_MEM 6        /**< Error allocating memory in unpack function. */
+#define G2_UNPACK3_BAD_GDT 5      /**< In g2_unpack2(), undefined Grid Definition Template. */
 
 #endif  /*  _grib2_H  */

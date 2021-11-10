@@ -46,8 +46,8 @@
  *
  * @returns
  * - ::G2_NO_ERROR No error.
- * - ::G2_UNPACK1_BAD_SEC1 Array passed is not section 1.
- * - ::G2_UNPACK1_NO_MEM memory allocation error.
+ * - ::G2_UNPACK_BAD_SEC Array passed is not section 1.
+ * - ::G2_UNPACK_NO_MEM memory allocation error.
  *
  * @author Stephen Gilbert @date 2002-10-29
  */
@@ -71,14 +71,14 @@ g2_unpack1(unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)
     {
         *idslen = 13;
         fprintf(stderr, "g2_unpack1: Not Section 1 data.\n");
-        return G2_UNPACK1_BAD_SEC1;
+        return G2_UNPACK_BAD_SEC;
     }
 
     /* Unpack each value into array ids from the appropriate number of
      * octets, which are specified in` corresponding entries in array
      * mapid. */
     if (!(*ids = calloc(*idslen, sizeof(g2int))))
-        return G2_UNPACK1_NO_MEM;
+        return G2_UNPACK_NO_MEM;
 
     for (i = 0; i < *idslen; i++)
     {

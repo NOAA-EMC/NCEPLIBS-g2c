@@ -29,8 +29,8 @@
  *
  * @return
  * - ::G2_NO_ERROR No error.
- * - ::G2_UNPACK2_BAD_SEC2 Array passed is not section 2.
- * - ::G2_UNPACK2_NO_MEM Memory allocation error.
+ * - ::G2_UNPACK_BAD_SEC Array passed had incorrect section number.
+ * - ::G2_UNPACK_NO_MEM Memory allocation error.
  *
  * @author Stephen Gilbert @date 2002-10-31
  */
@@ -58,7 +58,7 @@ g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
     {
         *lencsec2 = 0;
         fprintf(stderr, "g2_unpack2: Not Section 2 data.\n");
-        return G2_UNPACK2_BAD_SEC2;
+        return G2_UNPACK_BAD_SEC;
     }
 
     /* If the length is 0, we are done. */
@@ -68,7 +68,7 @@ g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
     if (!(*csec2 = malloc(*lencsec2 + 1)))
     {
         *lencsec2 = 0;
-        return G2_UNPACK2_NO_MEM;
+        return G2_UNPACK_NO_MEM;
     }
 
     for (j = 0; j < *lencsec2; j++)
