@@ -12,14 +12,14 @@
  * @param in pointer to character array input.
  * @param iout pointer to unpacked array output.
  * @param iskip initial number of bits to skip.
- * @param nbyte number of bits to take.
+ * @param nbits number of bits to take.
  *
  * @author NOAA Programmer
  */
 void
-gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)
+gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbits)
 {
-    gbits(in, iout, iskip, nbyte, (g2int)0, (g2int)1);
+    gbits(in, iout, iskip, nbits, (g2int)0, (g2int)1);
 }
 
 /**
@@ -30,14 +30,14 @@ gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte)
  * enough to hold output.
  * @param in Pointer to unpacked array input.
  * @param iskip Initial number of bits to skip.
- * @param nbyte Number of bits to pack.
+ * @param nbits Number of bits to pack.
  *
  * @author NOAA Programmer
  */
 void
-sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbyte)
+sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbits)
 {
-    sbits(out, in, iskip, nbyte, (g2int)0, (g2int)1);
+    sbits(out, in, iskip, nbits, (g2int)0, (g2int)1);
 }
 
 /**
@@ -47,14 +47,14 @@ sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbyte)
  * @param in Pointer to character array input.
  * @param iout Pointer to unpacked array output.
  * @param iskip Initial number of bits to skip.
- * @param nbyte Number of bits to take.
+ * @param nbits Number of bits to take.
  * @param nskip Additional number of bits to skip on each iteration.
  * @param n Number of iterations.
  *
  * @author NOAA Programmer
  */
 void
-gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte,
+gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits,
       g2int nskip, g2int n)
 {
     g2int i, tbit, bitcnt, ibit, itmp;
@@ -65,10 +65,10 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte,
     nbit = iskip;
     for (i = 0; i < n; i++)
     {
-        bitcnt = nbyte;
+        bitcnt = nbits;
         index = nbit / 8;
         ibit = nbit % 8;
-        nbit = nbit + nbyte + nskip;
+        nbit = nbit + nbits + nskip;
 
         /*        first byte */
         tbit = (bitcnt < (8 - ibit)) ? bitcnt : 8 - ibit;  // find min
@@ -104,14 +104,14 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte,
  * enough to hold output.
  * @param in Pointer to unpacked array input.
  * @param iskip Initial number of bits to skip.
- * @param nbyte Number of bits to pack.
+ * @param nbits Number of bits to pack.
  * @param nskip Additional number of bits to skip on each iteration.
  * @param n Number of iterations.
  *
  * @author NOAA Programmer
  */
 void
-sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte,
+sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbits,
       g2int nskip, g2int n)
 {
     g2int i, bitcnt, tbit, ibit, itmp, imask, itmp2, itmp3;
@@ -120,14 +120,14 @@ sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte,
 
     /* number bits from zero to ... nbit is the last bit of the field
      * to be filled. */
-    nbit = iskip + nbyte - 1;
+    nbit = iskip + nbits - 1;
     for (i = 0; i < n; i++)
     {
         itmp = *(in + i);
-        bitcnt = nbyte;
+        bitcnt = nbits;
         index = nbit / 8;
         ibit = nbit % 8;
-        nbit = nbit + nbyte + nskip;
+        nbit = nbit + nbits + nskip;
 
         /*        make byte aligned  */
         if (ibit != 7)
