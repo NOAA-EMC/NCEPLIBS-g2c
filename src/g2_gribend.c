@@ -22,9 +22,9 @@
  * @return
  * - > 0 Length of the final GRIB2 message in bytes.
  * - ::G2_GRIBEND_MSG_INIT GRIB message was not initialized - call
-     g2_create() first.
+ g2_create() first.
  * - ::G2_GRIBEND_SEC_COUNTS Sum of Section byte counts doesn't add to
-     total byte count.
+ total byte count.
 
  * - ::G2_GRIBEND_BAD_END Previous Section was not 7.
  *

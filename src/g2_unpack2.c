@@ -45,11 +45,11 @@ g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
     *csec2 = NULL;
 
     /* Get Length of Section. */
-    gbit(cgrib, &lensec, *iofst, 32);        
+    gbit(cgrib, &lensec, *iofst, 32);
     *iofst = *iofst + 32;
     *lencsec2 = lensec - 5;
 
-    /* Get Section Number. */    
+    /* Get Section Number. */
     gbit(cgrib, &isecnum, *iofst, 8);
     *iofst = *iofst + 8;
     ipos = *iofst / 8;

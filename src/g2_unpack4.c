@@ -15,7 +15,7 @@
  *
  * ### Program History Log
  * Date | Programmer | Comments
- * -----|------------|--------- 
+ * -----|------------|---------
  * 2002-10-31 | Gilbert | Initial
  * 2009-01-14 | Vuong | Changed structure name template to gtemplate
  *
@@ -37,7 +37,7 @@
  * - ::G2_NO_ERROR No error.
  * - ::G2_UNPACK_BAD_SEC Array passed had incorrect section number.
  * - ::G2_UNPACK4_BAD_PDT message contains an undefined Product
-     Definition Template.
+ Definition Template.
  * - ::G2_UNPACK_NO_MEM Memory allocation error.
  *
  * @author Stephen Gilbert @date 2002-10-31

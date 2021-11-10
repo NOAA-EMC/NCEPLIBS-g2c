@@ -61,7 +61,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
 
     /* Check to see if GRIB message is already complete. */
     if (cgrib[lencurr - 4] == seven && cgrib[lencurr - 3] == seven &&
-         cgrib[lencurr - 2] == seven && cgrib[lencurr - 1] == seven)
+        cgrib[lencurr - 2] == seven && cgrib[lencurr - 1] == seven)
     {
         printf("g2_addlocal: GRIB message already complete.  Cannot add new section.\n");
         ierr = -2;
@@ -82,7 +82,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
 
         /* Exit loop if last section reached. */
         if (len == lencurr)
-	    break;
+            break;
 
         /* If byte count for each section doesn't match current total
          * length, then there is a problem. */

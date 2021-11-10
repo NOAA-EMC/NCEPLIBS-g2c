@@ -14,7 +14,7 @@
  *
  * ### Program History Log
  * Date | Programmer | Comments
- * -----|------------|--------- 
+ * -----|------------|---------
  * 2002-10-31 | Gilbert | Initial
  * 2009-01-14 | Vuong | Changed structure name template to gtemplate
  *

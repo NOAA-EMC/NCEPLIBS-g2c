@@ -293,7 +293,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                     g2_free(lgfld);
                     return G2_GETFLD_BAD_SEC6;
                 }
-                    
+
                 have6 = 1;
                 if (lgfld->ibmap == 254)     /* use previously specified bitmap */
                 {
@@ -331,7 +331,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
             }
 
             have7 = 1;
-            
+
             /*  If bitmap is used with this field,  expand data field */
             /*  to grid, if possible. */
             if (lgfld->ibmap != 255 && lgfld->bmap != 0)

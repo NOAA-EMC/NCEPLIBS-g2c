@@ -15,7 +15,7 @@
  *
  * ### Program History Log
  * Date | Programmer | Comments
- * -----|------------|--------- 
+ * -----|------------|---------
  * 2002-10-31 | Gilbert | Initial
  * 2002-12-20 | Gilbert | Added GDT info to arguments and added 5.51 processing.
  * 2003-08-29 | Gilbert | New templates using PNG and JPEG2000 algorithms/templates.
