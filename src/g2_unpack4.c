@@ -34,10 +34,11 @@
  * @param numcoord number of values in array coordlist.
  *
  * @returns
- * - 0 no error
- * - 2 Not section 4
- * - 5 "GRIB" message contains an undefined Product Definition Template.
- * - 6 memory allocation error
+ * - ::G2_NO_ERROR No error.
+ * - ::G2_UNPACK_BAD_SEC Array passed had incorrect section number.
+ * - ::G2_UNPACK4_BAD_PDT message contains an undefined Product
+     Definition Template.
+ * - ::G2_UNPACK_NO_MEM Memory allocation error.
  *
  * @author Stephen Gilbert @date 2002-10-31
  */
@@ -46,14 +47,13 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
            g2int *mappdslen, g2float **coordlist, g2int *numcoord)
 {
 
-    g2int ierr, needext, i, j, nbits, isecnum;
+    g2int needext, i, j, nbits, isecnum;
     g2int lensec, isign, newlen;
     g2int *coordieee;
     g2int *lipdstmpl = 0;
     g2float *lcoordlist;
     gtemplate *mappds;
 
-    ierr = 0;
     *ipdstmpl = NULL;
     *coordlist = NULL;
 
@@ -64,10 +64,9 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
 
     if (isecnum != 4)
     {
-        ierr = 2;
         *numcoord = 0;
         *mappdslen = 0;
-        return(ierr);
+        return G2_UNPACK_BAD_SEC;
     }
 
     gbit(cgrib, numcoord, *iofst, 16);    /* Get num of coordinate values */
@@ -76,12 +75,10 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
     *iofst = *iofst + 16;
 
     /* Get Product Definition Template */
-    mappds = getpdstemplate(*ipdsnum);
-    if (mappds == 0)
-    {       /* undefine template */
-        ierr = 5;
+    if (!(mappds = getpdstemplate(*ipdsnum)))
+    {
         *mappdslen = 0;
-        return(ierr);
+        return G2_UNPACK4_BAD_PDT;
     }
     *mappdslen = mappds->maplen;
     needext = mappds->needext;
@@ -91,14 +88,13 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
      * corresponding entries in array mappds. */
     if (*mappdslen > 0)
         lipdstmpl = calloc(*mappdslen, sizeof(g2int));
-    if (lipdstmpl == 0)
+    if (!lipdstmpl)
     {
-        ierr = 6;
         *mappdslen = 0;
         *ipdstmpl = NULL;
         if (mappds)
             free(mappds);
-        return(ierr);
+        return G2_UNPACK_NO_MEM;
     }
     *ipdstmpl = lipdstmpl;
 
@@ -157,21 +153,20 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
 
     /* Get Optional list of vertical coordinate values after the
      * Product Definition Template, if necessary. */
-    *coordlist = 0;    /* NULL */
+    *coordlist = NULL;
     if (*numcoord != 0)
     {
         coordieee = calloc(*numcoord, sizeof(g2int));
         lcoordlist = calloc(*numcoord, sizeof(g2float));
         if (coordieee == 0 || lcoordlist == 0)
         {
-            ierr = 6;
             *numcoord = 0;
-            *coordlist = 0;    /* NULL */
+            *coordlist = NULL;
             if (coordieee)
                 free(coordieee);
             if (lcoordlist)
                 free(lcoordlist);
-            return(ierr);
+            return G2_UNPACK_NO_MEM;
         }
         else
         {
@@ -183,6 +178,5 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
         *iofst = *iofst + (32 * (*numcoord));
     }
 
-    return(ierr);    /* End of Section 4 processing */
-
+    return G2_NO_ERROR;
 }
