@@ -42,12 +42,12 @@
  * field.
  *
  * @return
- * - 0 no error
- * - 2 Not section 7
- * - 4 Unrecognized Data Representation Template
- * - 5 need one of GDT 3.50 through 3.53 to decode DRT 5.51
- * - 6 memory allocation error
- * - 7 corrupt section 7.
+ * - ::G2_NO_ERROR No error.
+ * - ::G2_UNPACK_BAD_SEC Array passed had incorrect section number.
+ * - ::G2_UNPACK7_BAD_DRT Unrecognized Data Representation Template.
+ * - ::G2_UNPACK7_WRONG_GDT need one of GDT 3.50 through 3.53 to decode DRT 5.51
+ * - ::G2_UNPACK_NO_MEM Memory allocation error.
+ * - ::G2_UNPACK7_CORRUPT_SEC Corrupt section 7.
  *
  * @author Stephen Gilbert @date 2002-10-31
  */
@@ -58,7 +58,6 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
     g2int isecnum;
     g2int ipos, lensec;
     g2float *lfld;
-    g2int ierr = 0;
 
     *fld = NULL;
 
@@ -68,17 +67,11 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
     *iofst = *iofst + 8;
 
     if (isecnum != 7)
-    {
-        ierr = 2;
-        return ierr;
-    }
+        return G2_UNPACK_BAD_SEC;
 
     ipos = *iofst / 8;
     if (!(lfld = calloc(ndpts ? ndpts : 1, sizeof(g2float))))
-    {
-        ierr = 6;
-        return ierr;
-    }
+        return G2_UNPACK_NO_MEM;
 
     *fld = lfld;
 
@@ -87,7 +80,7 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
     else if (idrsnum == 2 || idrsnum == 3)
     {
         if (comunpack(cgrib+ipos, lensec, idrsnum, idrstmpl, ndpts, lfld))
-            return 7;
+            return G2_UNPACK7_CORRUPT_SEC;
     }
     else if (idrsnum == 50)
     {            /* Spectral Simple */
@@ -95,6 +88,7 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
         rdieee(idrstmpl + 4, lfld, 1);
     }
     else if (idrsnum == 51)              /* Spectral complex */
+    {
         if (igdsnum >= 50 && igdsnum <= 53)
             specunpack(cgrib + ipos, idrstmpl, ndpts, igdstmpl[0], igdstmpl[2],
                        igdstmpl[2], lfld);
@@ -102,12 +96,12 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
         {
             fprintf(stderr, "g2_unpack7: Cannot use GDT 3.%d to unpack Data Section 5.51.\n",
                     (int)igdsnum);
-            ierr = 5;
             if (lfld)
                 free(lfld);
             *fld = NULL;
-            return ierr;
+            return G2_UNPACK7_WRONG_GDT;
         }
+    }
 #if defined USE_JPEG2000 || defined USE_OPENJPEG
     else if (idrsnum == 40 || idrsnum == 40000)
     {
@@ -124,14 +118,13 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
     {
         fprintf(stderr, "g2_unpack7: Data Representation Template 5.%d not yet "
                 "implemented.\n", (int)idrsnum);
-        ierr = 4;
         if (lfld)
             free(lfld);
         *fld = NULL;
-        return ierr;
+        return G2_UNPACK7_BAD_DRT;
     }
 
     *iofst = *iofst + (8 * lensec);
 
-    return ierr;    /* End of Section 7 processing */
+    return G2_NO_ERROR;
 }

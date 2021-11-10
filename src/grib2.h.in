@@ -303,5 +303,9 @@ g2int g2_gribend(unsigned char *cgrib);
 #define G2_UNPACK3_BAD_GDT 5      /**< In g2_unpack3(), undefined Grid Definition Template. */
 #define G2_UNPACK4_BAD_PDT 5      /**< In g2_unpack4(), undefined Product Definition Template. */
 #define G2_UNPACK5_BAD_DRT 7      /**< In g2_unpack5(), undefined Data Representation Template. */
+#define G2_UNPACK6_BAD_BITMAP 4   /**< In g2_unpack6(), unrecognized pre-defined bit-map. */
+#define G2_UNPACK7_CORRUPT_SEC 7  /**< In g2_unpack7(), corrupt section 7. */
+#define G2_UNPACK7_WRONG_GDT 5    /**< In g2_unpack7(), need one of GDT 3.50 through 3.53 to decode DRT 5.51. */
+#define G2_UNPACK7_BAD_DRT 4      /**< In g2_unpack7(), unrecognized Data Representation Template. */
 
 #endif  /*  _grib2_H  */
