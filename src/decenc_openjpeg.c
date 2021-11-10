@@ -263,14 +263,6 @@ int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
     opj_set_default_decoder_parameters(&parameters);
     parameters.decod_format = 1; /* JP2_FMT */
 
-    /* JPEG-2000 codestream */
-#define DUMP_JPEG_STREAM
-#ifdef DUMP_JPEG_STREAM
-    FILE *fp=fopen("dump_openjpeg.j2k", "wb");
-    fwrite(injpc, 1, (size_t)bufsize, fp);
-    fclose(fp);
-#endif
-
     /* get a decoder handle */
     codec = opj_create_decompress(OPJ_CODEC_J2K);
 
@@ -391,8 +383,8 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
      * This may be too large for some of our datasets, eg. 1xn, so adjust ...
      */
     parameters.numresolution = 6;
-    while ( (width < (1 << (parameters.numresolution - 1)) ) ||
-            (height < (1 << (parameters.numresolution - 1)) ))
+    while ((width < (1 << (parameters.numresolution - 1))) ||
+           (height < (1 << (parameters.numresolution - 1))))
     {
         parameters.numresolution--;
     }
@@ -400,16 +392,17 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     /* initialize image component */
     opj_image_cmptparm_t cmptparm = {0,};
     cmptparm.prec = (OPJ_UINT32)nbits;
-    cmptparm.bpp  = (OPJ_UINT32)nbits;
+    cmptparm.bpp = (OPJ_UINT32)nbits;
     cmptparm.sgnd = 0;
-    cmptparm.dx   = 1;
-    cmptparm.dy   = 1;
-    cmptparm.w    = (OPJ_UINT32)width;
-    cmptparm.h    = (OPJ_UINT32)height;
+    cmptparm.dx = 1;
+    cmptparm.dy = 1;
+    cmptparm.w = (OPJ_UINT32)width;
+    cmptparm.h = (OPJ_UINT32)height;
 
     /* create the image */
     image = opj_image_create(numcomps, &cmptparm, OPJ_CLRSPC_GRAY);
-    if(!image) {
+    if (!image)
+    {
         iret = -3;
         goto cleanup;
     }
@@ -421,9 +414,8 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     assert(cmptparm.prec <= sizeof(image->comps[0].data[0])*8 - 1); /* BR: -1 because I don't know what happens if the sign bit is set */
 
     /* Simple packing */
-    for(int i=0; i< width*height; i++){
+    for (int i = 0; i < width * height; i++)
         image->comps[0].data[i] = cin[i];
-    }
 
     /* get a J2K compressor handle */
     codec = opj_create_compress(OPJ_CODEC_J2K);
@@ -433,7 +425,8 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     opj_set_error_handler(codec, openjpeg_error,NULL);
 
     /* setup the encoder parameters using the current image and user parameters */
-    if (!opj_setup_encoder(codec, &parameters, image)) {
+    if (!opj_setup_encoder(codec, &parameters, image))
+    {
         fprintf(stderr,"openjpeg: failed to setup encoder");
         iret = -3;
         goto cleanup;
@@ -441,30 +434,34 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
 
     /* open a byte stream for writing */
     opj_memory_stream mstream;
-    mstream.pData = (OPJ_UINT8*) outjpc;
+    mstream.pData = (OPJ_UINT8 *)outjpc;
     mstream.offset = 0;
     mstream.dataSize = (OPJ_SIZE_T)jpclen;
     stream = opj_stream_create_default_memory_stream(&mstream, OPJ_STREAM_WRITE);
-    if (stream == NULL) {
+    if (!stream)
+    {
         fprintf(stderr,"openjpeg: failed create default memory stream");
         iret = -3;
         goto cleanup;
     }
 
-    if (!opj_start_compress(codec, image, stream)) {
+    if (!opj_start_compress(codec, image, stream))
+    {
         fprintf(stderr,"openjpeg: failed to setup encoder");
         iret = -3;
         goto cleanup;
     }
 
     /* encode image */
-    if (!opj_encode(codec, stream)) {
+    if (!opj_encode(codec, stream))
+    {
         fprintf(stderr,"openjpeg: opj_encode failed");
         iret = -3;
         goto cleanup;
     }
 
-    if (!opj_end_compress(codec, stream)) {
+    if (!opj_end_compress(codec, stream))
+    {
         fprintf(stderr,"openjpeg: opj_end_compress failed");
         iret = -3;
         goto cleanup;
@@ -472,9 +469,12 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     iret = (int)mstream.offset;
 
 cleanup:
-    if (codec)  opj_destroy_codec(codec);
-    if (stream) opj_stream_destroy(stream);
-    if (image)  opj_image_destroy(image);
+    if (codec)
+        opj_destroy_codec(codec);
+    if (stream)
+        opj_stream_destroy(stream);
+    if (image)
+        opj_image_destroy(image);
 
     return iret;
 }
