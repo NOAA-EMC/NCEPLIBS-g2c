@@ -22,11 +22,14 @@
  * to Section 2.
  *
  * @returns > 0 = Current size of updated GRIB2 message.
- * - -1 GRIB message was not initialized. Need to call
+
+ * - ::G2_ADD_MSG_INIT GRIB message was not initialized. Need to call
  * routine gribcreate first.
- * - -2 GRIB message already complete. Cannot add new section.
- * - -3 Sum of Section byte counts doesn't add to total byte count
- * - -4 Previous Section was not 1 or 7.
+ * - ::G2_ADD_MSG_COMPLETE GRIB message already complete. Cannot add
+ *   new section.
+ * - ::G2_BAD_SEC_COUNTS Sum of Section byte counts doesn't add to
+ *   total byte count.
+ * - ::G2_BAD_SEC Previous Section was not 1 or 7.
  *
  * @note The Local Use Section (Section 2) can only follow Section 1
  * or Section 7 in a GRIB2 message.
@@ -52,8 +55,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
     {
         printf("g2_addlocal: GRIB not found in given message.\n");
         printf("g2_addlocal: Call to routine g2_create required to initialize GRIB messge.\n");
-        ierr = -1;
-        return ierr;
+        return G2_ADD_MSG_INIT;
     }
 
     /* Get current length of GRIB message. */
@@ -61,11 +63,10 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
 
     /* Check to see if GRIB message is already complete. */
     if (cgrib[lencurr - 4] == seven && cgrib[lencurr - 3] == seven &&
-         cgrib[lencurr - 2] == seven && cgrib[lencurr - 1] == seven)
+        cgrib[lencurr - 2] == seven && cgrib[lencurr - 1] == seven)
     {
         printf("g2_addlocal: GRIB message already complete.  Cannot add new section.\n");
-        ierr = -2;
-        return ierr;
+        return G2_ADD_MSG_COMPLETE;
     }
 
     /*  Loop through all current sections of the GRIB message to find
@@ -82,7 +83,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
 
         /* Exit loop if last section reached. */
         if (len == lencurr)
-	    break;
+            break;
 
         /* If byte count for each section doesn't match current total
          * length, then there is a problem. */
@@ -91,8 +92,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
             printf("g2_addlocal: Section byte counts don't add to total.\n");
             printf("g2_addlocal: Sum of section byte counts = %ld\n", len);
             printf("g2_addlocal: Total byte count in Section 0 = %ld\n", lencurr);
-            ierr = -3;
-            return ierr;
+            return G2_BAD_SEC_COUNTS;
         }
     }
 
@@ -101,8 +101,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
     {
         printf("g2_addlocal: Section 2 can only be added after Section 1 or Section 7.\n");
         printf("g2_addlocal: Section %ld was the last found in given GRIB message.\n", isecnum);
-        ierr = -4;
-        return ierr;
+        return G2_BAD_SEC;
     }
 
     /* Add Section 2  - Local Use Section. */

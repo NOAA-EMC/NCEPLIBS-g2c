@@ -53,8 +53,10 @@
  * - listsec1[12] Type of processed data ([Table 1.4]
  *  (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-4.shtml)).
  *
- * @return - > 0 Current size of new GRIB2 message
- *         - -1 Tried to use for version other than GRIB Edition 2
+ * @return
+ * - > 0 Current size of new GRIB2 message
+ * - ::G2_CREATE_GRIB_VERSION Tried to use for version other than GRIB
+ * Edition 2
  *
  * This routine is intended for use with routines g2_addlocal(),
  * g2_addgrid(), g2_addfield(), and g2_gribend() to create a complete
@@ -65,7 +67,6 @@
 g2int
 g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1)
 {
-    g2int ierr = 0;
     g2int zero = 0, one = 1;
 
     /* The mapsec1 array tells us how many bytes are used in the GRIB
@@ -81,8 +82,7 @@ g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1)
     if (listsec0[1] != 2)
     {
         printf("g2_create: can only code GRIB edition 2.");
-        ierr = -1;
-        return (ierr);
+        return G2_CREATE_GRIB_VERSION;
     }
 
     /* Pack Section 0 - Indicator Section (except for total length of

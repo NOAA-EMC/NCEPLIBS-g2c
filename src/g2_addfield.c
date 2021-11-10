@@ -77,19 +77,24 @@ void jpcpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
  *
  * @return
  * - > 0 Current size of updated GRIB2 message
- * - -1 GRIB message was not initialized. Need to call routine
- *   g2_create() first.
- * - -2 GRIB message already complete. Cannot add new section.
- * - -3 Sum of Section byte counts doesn't add to total byte count.
- * - -4 Previous Section was not 3 or 7.
- * - -5 Could not find requested Product Definition Template.
- * - -6 Section 3 (GDS) not previously defined in message.
- * - -7 Tried to use unsupported Data Representationi Template.
- * - -8 Specified use of a previously defined bitmap, but one
- * does not exist in the GRIB message.
- * - -9 GDT of one of 5.50 through 5.53 required to pack field
- * using DRT 5.51.
- * - -10 Error packing data field.
+ * - ::G2_ADD_MSG_INIT GRIB message was not initialized. Need to
+ *   call routine g2_create() first.
+ * - ::G2_ADD_MSG_COMPLETE GRIB message already complete. Cannot
+ *   add new section.
+ * - ::G2_BAD_SEC_COUNTS Sum of Section byte counts doesn't add
+ *   to total byte count.
+ * - ::G2_BAD_SEC Previous Section was not 3 or 7.
+ * - ::G2_ADDFIELD_BAD_PDT Could not find requested Product Definition
+ *   Template.
+ * - ::G2_ADDFIELD_BAD_GDS Section 3 (GDS) not previously defined in
+ *   message.
+ * - ::G2_ADDFIELD_BAD_DRT Tried to use unsupported Data
+ *   Representationi Template.
+ * - ::G2_ADDFIELD_BAD_BITMAP Specified use of a previously defined
+ * bitmap, but one does not exist in the GRIB message.
+ * - ::G2_ADDFIELD_BAD_GDT GDT of one of 5.50 through 5.53 required to
+ * pack field using DRT 5.51.
+ * - ::G2_ADDFIELD_ERR Error packing data field.
  *
  * @note Note that the Sections 4 through 7 can only follow Section 3
  * or Section 7 in a GRIB2 message.
@@ -101,7 +106,6 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
             g2float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl,
             g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap)
 {
-    g2int ierr = 0;
     static unsigned char G = 0x47; /* 'G' */
     static unsigned char R = 0x52; /* 'R' */
     static unsigned char I = 0x49; /* 'I' */
@@ -127,8 +131,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     {
         printf("g2_addfield: GRIB not found in given message.\n");
         printf("g2_addfield: Call to routine g2_create required to initialize GRIB messge.\n");
-        ierr = -1;
-        return ierr;
+        return G2_ADD_MSG_INIT;
     }
 
     /* Get current length of GRIB message. */
@@ -139,8 +142,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         cgrib[lencurr - 2] == s7 && cgrib[lencurr - 1] == s7)
     {
         printf("g2_addfield: GRIB message already complete.  Cannot add new section.\n");
-        ierr = -2;
-        return ierr;
+        return G2_ADD_MSG_COMPLETE;
     }
 
     /* Loop through all current sections of the GRIB message to find
@@ -182,8 +184,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
             printf("g2_addfield: Section byte counts don''t add to total.\n");
             printf("g2_addfield: Sum of section byte counts = %ld\n", len);
             printf("g2_addfield: Total byte count in Section 0 = %ld\n", lencurr);
-            ierr = -3;
-            return ierr;
+            return G2_BAD_SEC_COUNTS;
         }
     }
 
@@ -193,8 +194,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         printf("g2_addfield: Sections 4-7 can only be added after Section 3 or 7.\n");
         printf("g2_addfield: Section %ld was the last found in given GRIB message.\n",
                isecnum);
-        ierr = -4;
-        return ierr;
+        return G2_BAD_SEC;
     }
     else if (!issec3)
     {
@@ -202,8 +202,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         printf("g2_addfield: Sections 4-7 can only be added if Section 3 was previously included.\n");
         printf("g2_addfield: Section 3 was not found in given GRIB message.\n");
         printf("g2_addfield: Call to routine addgrid required to specify Grid definition.\n");
-        ierr = -6;
-        return ierr;
+        return G2_ADDFIELD_BAD_GDS;
     }
 
     /* Add Section 4  - Product Definition Section. */
@@ -218,10 +217,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
 
     /* Get Product Definition Template. */
     if (!(mappds = getpdstemplate(ipdsnum)))
-    {          /* undefined template */
-        ierr = -5;
-        return ierr;
-    }
+        return G2_ADDFIELD_BAD_PDT;
 
     /* Extend the Product Definition Template, if necessary.  The */
     /* number of values in a specific template may vary depending on */
@@ -291,10 +287,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     /* Pack Data using appropriate algorithm Get Data Representation */
     /* Template */
     if (!(mapdrs = getdrstemplate(idrsnum)))
-    {
-        ierr = -5;
-        return ierr;
-    }
+        return G2_ADDFIELD_BAD_PDT;
 
     /* Contract data field, removing data at invalid grid points, if */
     /* bit-map is provided with field. */
@@ -338,7 +331,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         else
         {
             printf("g2_addfield: Cannot pack DRT 5.51.\n");
-            return -9;
+            return G2_ADDFIELD_BAD_GDT;
         }
     }
 #if defined USE_JPEG2000 || defined USE_OPENJPEG
@@ -407,20 +400,23 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     else
     {
         printf("g2_addfield: Data Representation Template 5.%ld not yet implemented.\n", idrsnum);
-        ierr = -7;
-        return ierr;
+        return G2_ADDFIELD_BAD_DRT;
     }
+
+    /* Free temp space. */    
     if (ibmap == 0 || ibmap == 254)
-    {      /* free temp space */
+    {
         if (fld != pfld)
             free(pfld);
     }
+
+    /* The packing functions return an lcpack of -1 if there was an
+     * error packing. */
     if (lcpack < 0)
     {
         if (cpack)
             free(cpack);
-        ierr = -10;
-        return ierr;
+        return G2_ADDFIELD_ERR;
     }
 
     /*  Add Section 5  - Data Representation Section */
@@ -477,8 +473,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     {
         printf("g2_addfield: Requested previously defined bitmap,");
         printf(" but one does not exist in the current GRIB message.\n");
-        ierr = -8;
-        return ierr;
+        return G2_ADDFIELD_BAD_BITMAP;
     }
 
     /* Calculate length of section 6 and store it in octets */
@@ -521,5 +516,4 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     sbit(cgrib, &newlen, 96, 32);
 
     return newlen;
-
 }

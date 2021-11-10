@@ -45,10 +45,10 @@
  * grid points are defined.
  *
  * @return
- * - 0 no error
- * - 2 Not Section 3
- * - 5 message contains an undefined Grid Definition Template.
- * - 6 memory allocation error
+ * - ::G2_NO_ERROR No error.
+ * - ::G2_UNPACK_BAD_SEC Array passed had incorrect section number.
+ * - ::G2_UNPACK3_BAD_GDT message contains an undefined Grid Definition Template.
+ * - ::G2_UNPACK_NO_MEM Memory allocation error.
  *
  * @author Stephen Gilbert @date 2002-10-31
  */
@@ -57,7 +57,7 @@ g2int
 g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
            g2int *mapgridlen, g2int **ideflist, g2int *idefnum)
 {
-    g2int ierr = 0, i, j, nbits, isecnum;
+    g2int i, j, nbits, isecnum;
     g2int lensec, ibyttem = 0, isign, newlen;
     g2int *ligds, *ligdstmpl = NULL, *lideflist = NULL;
     gtemplate *mapgrid;
@@ -73,10 +73,9 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
 
     if (isecnum != 3)
     {
-        ierr = 2;
         *idefnum = 0;
         *mapgridlen = 0;
-        return ierr;
+        return G2_UNPACK_BAD_SEC;
     }
 
     ligds = calloc(5, sizeof(g2int));
@@ -99,8 +98,7 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
         if (!(mapgrid = getgridtemplate(ligds[4])))
         {         /* undefined template */
             free(ligds);
-            ierr = 5;
-            return ierr;
+            return G2_UNPACK3_BAD_GDT;
         }
         *mapgridlen = mapgrid->maplen;
 
@@ -111,12 +109,11 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
         {
             if (!(ligdstmpl = calloc(*mapgridlen, sizeof(g2int))))
             {
-                ierr = 6;
                 *mapgridlen = 0;
                 *igdstmpl = NULL;
                 if (mapgrid)
                     free(mapgrid);
-                return ierr;
+                return G2_UNPACK_NO_MEM;
             }
             *igdstmpl = ligdstmpl;
         }
@@ -194,10 +191,9 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
             lideflist = calloc(*idefnum, sizeof(g2int));
         if (!lideflist)
         {
-            ierr = 6;
             *idefnum = 0;
             *ideflist = NULL;
-            return ierr;
+            return G2_UNPACK_NO_MEM;
         }
         *ideflist = lideflist;
         gbits(cgrib, lideflist, *iofst, nbits, 0, *idefnum);
@@ -209,5 +205,5 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
         *ideflist = NULL;
     }
 
-    return ierr;    /* End of Section 3 processing */
+    return G2_NO_ERROR;    /* End of Section 3 processing */
 }

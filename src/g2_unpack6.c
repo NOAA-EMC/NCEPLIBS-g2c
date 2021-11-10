@@ -22,10 +22,10 @@
  * bitmap. (if ibmap=0)
  *
  * @return
- * - 0 no error
- * - 2 Not Section 6
- * - 4 Unrecognized pre-defined bit-map.
- * - 6 memory allocation error
+ * - ::G2_NO_ERROR No error.
+ * - ::G2_UNPACK_BAD_SEC Array passed had incorrect section number.
+ * - ::G2_UNPACK6_BAD_BITMAP Unrecognized pre-defined bit-map.
+ * - ::G2_UNPACK_NO_MEM Memory allocation error.
  *
  * @author Stephen Gilbert @date 2002-10-31
  */
@@ -33,7 +33,7 @@ g2int
 g2_unpack6(unsigned char *cgrib, g2int *iofst, g2int ngpts, g2int *ibmap,
            g2int **bmap)
 {
-    g2int j, ierr = 0, isecnum;
+    g2int j, isecnum;
     g2int *lbmap = 0;
     g2int *intbmap;
 
@@ -45,9 +45,8 @@ g2_unpack6(unsigned char *cgrib, g2int *iofst, g2int ngpts, g2int *ibmap,
 
     if (isecnum != 6)
     {
-        ierr = 2;
         fprintf(stderr, "g2_unpack6: Not Section 6 data.\n");
-        return(ierr);
+        return G2_UNPACK_BAD_SEC;
     }
 
     gbit(cgrib, ibmap, *iofst, 8);    /* Get bit-map indicator */
@@ -57,34 +56,17 @@ g2_unpack6(unsigned char *cgrib, g2int *iofst, g2int ngpts, g2int *ibmap,
     {               /* Unpack bitmap */
         if (ngpts > 0)
             lbmap = calloc(ngpts, sizeof(g2int));
-        if (lbmap == 0)
-        {
-            ierr = 6;
-            return(ierr);
-        }
-        else
-        {
-            *bmap = lbmap;
-        }
+        if (!lbmap)
+            return G2_UNPACK_NO_MEM;
+
+        *bmap = lbmap;
         intbmap = calloc(ngpts, sizeof(g2int));
         gbits(cgrib, intbmap, *iofst, 1, 0, ngpts);
         *iofst = *iofst + ngpts;
         for (j = 0; j < ngpts; j++)
-        {
             lbmap[j] = (g2int)intbmap[j];
-        }
         free(intbmap);
-        /*
-          else if (*ibmap.eq.254)               ! Use previous bitmap
-          return(ierr);
-          else if (*ibmap.eq.255)               ! No bitmap in message
-          bmap(1:ngpts)=.true.
-          else {
-          print *,'gf_unpack6: Predefined bitmap ',*ibmap,' not recognized.'
-          ierr=4;
-        */
     }
 
-    return(ierr);    /* End of Section 6 processing */
-
+    return G2_NO_ERROR;
 }
