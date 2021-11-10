@@ -51,11 +51,11 @@
  *
  * @returns
  * - > 0 Current size of updated GRIB2 message
- * - ::G2_ADDGRID_MSG_INIT GRIB message was not initialized. Need to
+ * - ::G2_ADD_MSG_INIT GRIB message was not initialized. Need to
  *   call routine gribcreate first.
- * - ::G2_ADDGRID_MSG_COMPLETE GRIB message already complete. Cannot
+ * - ::G2_ADD_MSG_COMPLETE GRIB message already complete. Cannot
  *   add new section.
- * - ::G2_ADDGRID_SEC_COUNTS Sum of Section byte counts doesn't add to
+ * - ::G2_BAD_SEC_COUNTS Sum of Section byte counts doesn't add to
  *   total byte count
  * - ::G2_ADDGRID_BAD_SEC Previous Section was not 1, 2 or 7.
  * - ::G2_ADDGRID_BAD_GDT Could not find requested Grid Definition
@@ -86,7 +86,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     {
         printf("g2_addgrid: GRIB not found in given message.\n");
         printf("g2_addgrid: Call to routine gribcreate required to initialize GRIB messge.\n");
-        return G2_ADDGRID_MSG_INIT;
+        return G2_ADD_MSG_INIT;
     }
 
     /* Get current length of GRIB message. */
@@ -97,7 +97,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
         cgrib[lencurr - 2] == seven && cgrib[lencurr - 1] == seven)
     {
         printf("g2_addgrid: GRIB message already complete.  Cannot add new section.\n");
-        return G2_ADDGRID_MSG_COMPLETE;
+        return G2_ADD_MSG_COMPLETE;
     }
 
     /* Loop through all current sections of the GRIB message to find
@@ -123,7 +123,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
             printf("g2_addgrid: Section byte counts don''t add to total.\n");
             printf("g2_addgrid: Sum of section byte counts = %ld\n", len);
             printf("g2_addgrid: Total byte count in Section 0 = %ld\n", lencurr);
-            return G2_ADDGRID_SEC_COUNTS;
+            return G2_BAD_SEC_COUNTS;
         }
     }
 

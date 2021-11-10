@@ -23,7 +23,7 @@
  * - > 0 Length of the final GRIB2 message in bytes.
  * - ::G2_GRIBEND_MSG_INIT GRIB message was not initialized - call
  g2_create() first.
- * - ::G2_GRIBEND_SEC_COUNTS Sum of Section byte counts doesn't add to
+ * - ::G2_BAD_SEC_COUNTS Sum of Section byte counts doesn't add to
  total byte count.
 
  * - ::G2_GRIBEND_BAD_END Previous Section was not 7.
@@ -77,7 +77,7 @@ g2int g2_gribend(unsigned char *cgrib)
             printf("g2_gribend: Section byte counts don''t add to total.\n");
             printf("g2_gribend: Sum of section byte counts  =  %d\n", (int)len);
             printf("g2_gribend: Total byte count in Section 0 = %d\n", (int)lencurr);
-            return G2_GRIBEND_SEC_COUNTS;
+            return G2_BAD_SEC_COUNTS;
         }
     }
 

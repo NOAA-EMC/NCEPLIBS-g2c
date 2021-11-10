@@ -77,11 +77,11 @@ void jpcpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
  *
  * @return
  * - > 0 Current size of updated GRIB2 message
- * - ::G2_ADDFIELD_MSG_INIT GRIB message was not initialized. Need to
+ * - ::G2_ADD_MSG_INIT GRIB message was not initialized. Need to
  *   call routine g2_create() first.
- * - ::G2_ADDFIELD_MSG_COMPLETE GRIB message already complete. Cannot
+ * - ::G2_ADD_MSG_COMPLETE GRIB message already complete. Cannot
  *   add new section.
- * - ::G2_ADDFIELD_SEC_COUNTS Sum of Section byte counts doesn't add
+ * - ::G2_BAD_SEC_COUNTS Sum of Section byte counts doesn't add
  *   to total byte count.
  * - ::G2_ADDFIELD_BAD_SEC Previous Section was not 3 or 7.
  * - ::G2_ADDFIELD_BAD_PDT Could not find requested Product Definition
@@ -131,7 +131,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     {
         printf("g2_addfield: GRIB not found in given message.\n");
         printf("g2_addfield: Call to routine g2_create required to initialize GRIB messge.\n");
-        return G2_ADDFIELD_MSG_INIT;
+        return G2_ADD_MSG_INIT;
     }
 
     /* Get current length of GRIB message. */
@@ -142,7 +142,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         cgrib[lencurr - 2] == s7 && cgrib[lencurr - 1] == s7)
     {
         printf("g2_addfield: GRIB message already complete.  Cannot add new section.\n");
-        return G2_ADDFIELD_MSG_COMPLETE;
+        return G2_ADD_MSG_COMPLETE;
     }
 
     /* Loop through all current sections of the GRIB message to find
@@ -184,7 +184,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
             printf("g2_addfield: Section byte counts don''t add to total.\n");
             printf("g2_addfield: Sum of section byte counts = %ld\n", len);
             printf("g2_addfield: Total byte count in Section 0 = %ld\n", lencurr);
-            return G2_ADDFIELD_SEC_COUNTS;
+            return G2_BAD_SEC_COUNTS;
         }
     }
 
