@@ -65,7 +65,7 @@ g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
         return ierr;
     }
 
-    if (!(*csec2 = malloc(*lencsec2 + 1)))
+    if (!(*csec2 = malloc(*lencsec2)))
     {
         ierr = 6;
         *lencsec2 = 0;
