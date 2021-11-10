@@ -300,5 +300,7 @@ g2int g2_gribend(unsigned char *cgrib);
 #define G2_GRIBEND_BAD_END -4     /**< In g2_gribend() previous Section was not 7. */
 #define G2_UNPACK1_BAD_SEC1 2     /**< Error in g2_unpack1() unpacking section 1. */
 #define G2_UNPACK1_NO_MEM 6       /**< Error in g2_unpack1() allocating memory. */
+#define G2_UNPACK2_NO_MEM 6       /**< Error in g2_unpack2() allocating memory. */
+#define G2_UNPACK2_BAD_SEC2 2     /**< Error in g2_unpack1() unpacking section 2. */
 
 #endif  /*  _grib2_H  */

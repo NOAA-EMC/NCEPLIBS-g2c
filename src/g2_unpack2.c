@@ -28,9 +28,9 @@
  * containing local use data. This memory must be freed by the caller.
  *
  * @return
- * - 0 no error
- * - 2 Array passed is not section 2
- * - 6 memory allocation error
+ * - ::G2_NO_ERROR No error.
+ * - ::G2_UNPACK2_BAD_SEC2 Array passed is not section 2.
+ * - ::G2_UNPACK2_NO_MEM Memory allocation error.
  *
  * @author Stephen Gilbert @date 2002-10-31
  */
@@ -38,38 +38,37 @@ g2int
 g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
            unsigned char **csec2)
 {
-    g2int ierr = 0, isecnum;
+    g2int isecnum;
     g2int lensec, ipos, j;
 
     *lencsec2 = 0;
     *csec2 = NULL;
 
-    gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
+    /* Get Length of Section. */
+    gbit(cgrib, &lensec, *iofst, 32);        
     *iofst = *iofst + 32;
     *lencsec2 = lensec - 5;
-    gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
+
+    /* Get Section Number. */    
+    gbit(cgrib, &isecnum, *iofst, 8);
     *iofst = *iofst + 8;
     ipos = *iofst / 8;
 
-    if ( isecnum != 2 )
+    if (isecnum != 2)
     {
-        ierr = 2;
         *lencsec2 = 0;
         fprintf(stderr, "g2_unpack2: Not Section 2 data.\n");
-        return ierr;
+        return G2_UNPACK2_BAD_SEC2;
     }
 
+    /* If the length is 0, we are done. */
     if (*lencsec2 == 0)
-    {
-        ierr = 0;
-        return ierr;
-    }
+        return G2_NO_ERROR;
 
     if (!(*csec2 = malloc(*lencsec2 + 1)))
     {
-        ierr = 6;
         *lencsec2 = 0;
-        return ierr;
+        return G2_UNPACK2_NO_MEM;
     }
 
     for (j = 0; j < *lencsec2; j++)
@@ -77,5 +76,5 @@ g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
 
     *iofst = *iofst + (*lencsec2 * 8);
 
-    return ierr;    /* End of Section 2 processing */
+    return G2_NO_ERROR;
 }
