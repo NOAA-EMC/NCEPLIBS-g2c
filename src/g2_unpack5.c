@@ -31,10 +31,10 @@
  * entries in Data Representation Template 5.N (N=idrsnum).
  *
  * @return
- * - 0 no error
- * - 2 Not Section 5
- * - 6 memory allocation error
- * - 7 "GRIB" message contains an undefined Data Representation Template.
+ * - ::G2_NO_ERROR No error.
+ * - ::G2_UNPACK_BAD_SEC Array passed had incorrect section number.
+ * - ::G2_UNPACK_NO_MEM Memory allocation error.
+ * - ::G2_UNPACK5_BAD_DRT "GRIB" message contains an undefined Data Representation Template.
  *
  * @author Stephen Gilbert @date 2002-10-31
  */
@@ -42,12 +42,11 @@ g2int
 g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
            g2int **idrstmpl, g2int *mapdrslen)
 {
-    g2int ierr, needext, i, j, nbits, isecnum;
+    g2int needext, i, j, nbits, isecnum;
     g2int lensec, isign, newlen;
     g2int *lidrstmpl = 0;
     gtemplate *mapdrs;
 
-    ierr = 0;
     *idrstmpl = 0;       /* NULL*/
 
     gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
@@ -57,11 +56,9 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
 
     if (isecnum != 5)
     {
-        ierr = 2;
         *ndpts = 0;
         *mapdrslen = 0;
-        /* fprintf(stderr, "g2_unpack5: Not Section 5 data.\n"); */
-        return(ierr);
+        return G2_UNPACK_BAD_SEC;
     }
 
     gbit(cgrib, ndpts, *iofst, 32);    /* Get num of data points */
@@ -70,12 +67,10 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
     *iofst = *iofst + 16;
 
     /*   Gen Data Representation Template */
-    mapdrs = getdrstemplate(*idrsnum);
-    if (mapdrs == 0)
+    if (!(mapdrs = getdrstemplate(*idrsnum)))
     {
-        ierr = 7;
         *mapdrslen = 0;
-        return(ierr);
+        return G2_UNPACK5_BAD_DRT;
     }
     *mapdrslen = mapdrs->maplen;
     needext = mapdrs->needext;
@@ -85,14 +80,13 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
      * entries in array mapdrs. */
     if (*mapdrslen > 0)
         lidrstmpl = calloc(*mapdrslen, sizeof(g2int));
-    if (lidrstmpl == 0)
+    if (!lidrstmpl)
     {
-        ierr = 6;
         *mapdrslen = 0;
         *idrstmpl = NULL;
         if (mapdrs)
             free(mapdrs);
-        return(ierr);
+        return G2_UNPACK_NO_MEM;
     }
     else
     {
@@ -126,11 +120,12 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
         newlen = mapdrs->maplen + mapdrs->extlen;
         lidrstmpl = realloc(lidrstmpl, newlen * sizeof(g2int));
         *idrstmpl = lidrstmpl;
+
         /*   Unpack the rest of the Data Representation Template */
         j = 0;
         for (i = *mapdrslen; i < newlen; i++)
         {
-            nbits = abs(mapdrs->ext[j])*8;
+            nbits = abs(mapdrs->ext[j]) * 8;
             if (mapdrs->ext[j] >= 0)
             {
                 gbit(cgrib, lidrstmpl + i, *iofst, nbits);
@@ -138,9 +133,9 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
             else
             {
                 gbit(cgrib, &isign, *iofst, 1);
-                gbit(cgrib, lidrstmpl + i, *iofst + 1, nbits-1);
+                gbit(cgrib, lidrstmpl + i, *iofst + 1, nbits - 1);
                 if (isign == 1)
-                    lidrstmpl[i] = -1*lidrstmpl[i];
+                    lidrstmpl[i] = -1 * lidrstmpl[i];
             }
             *iofst = *iofst + nbits;
             j++;
@@ -152,6 +147,5 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
     if (mapdrs)
         free(mapdrs);
 
-    return(ierr);    /* End of Section 5 processing */
-
+    return G2_NO_ERROR;
 }
