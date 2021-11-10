@@ -54,12 +54,12 @@
  * found in the GRIB message.
  *
  * @returns 0 foe success, otherwise:
- * - 1 Beginning characters "GRIB" not found.
- * - 2 GRIB message is not Edition 2.
- * - 3 Could not find Section 1, where expected.
- * - 4 End string "7777" found, but not where expected.
- * - 5 End string "7777" not found at end of message.
- * - 6 Invalid section number found.
+ * - ::G2_INFO_NO_GRIB Beginning characters "GRIB" not found.
+ * - ::G2_INFO_GRIB_VERSION GRIB message is not Edition 2.
+ * - ::G2_INFO_NO_SEC1 Could not find Section 1, where expected.
+ * - ::G2_INFO_WRONG_END End string "7777" found, but not where expected.
+ * - ::G2_INFO_BAD_END End string "7777" not found at end of message.
+ * - ::G2_INFO_INVAL_SEC Invalid section number found.
  *
  * @author Stephen Gilbeert @date 2002-10-28
  */
@@ -67,12 +67,11 @@ g2int
 g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         g2int *numfields, g2int *numlocal)
 {
-    g2int ierr, mapsec1len = 13;
+    g2int mapsec1len = 13;
     g2int mapsec1[13] = {2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};
     g2int i, j, istart, iofst, lengrib, lensec0, lensec1;
     g2int ipos, isecnum, nbits, lensec;
 
-    ierr = 0;
     *numlocal = 0;
     *numfields = 0;
 
@@ -90,8 +89,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
     if (istart == -1)
     {
         printf("g2_info:  Beginning characters GRIB not found.");
-        ierr = 1;
-        return(ierr);
+        return G2_INFO_NO_GRIB;
     }
 
     /*  Unpack Section 0 - Indicator Section. */
@@ -111,8 +109,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
     if (listsec0[1] != 2)
     {
         printf("g2_info: can only decode GRIB edition 2.");
-        ierr = 2;
-        return(ierr);
+        return G2_INFO_GRIB_VERSION;
     }
 
     /*  Unpack Section 1 - Identification Section */
@@ -123,8 +120,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
     if (isecnum != 1)
     {
         printf("g2_info: Could not find section 1.");
-        ierr = 3;
-        return(ierr);
+        return G2_INFO_NO_SEC1;
     }
 
     /* Unpack each input value in array listsec1 into the
@@ -150,8 +146,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
             if (ipos != (istart + lengrib))
             {
                 printf("g2_info: '7777' found, but not where expected.\n");
-                ierr = 4;
-                return(ierr);
+                return G2_INFO_WRONG_END;
             }
             break;
         }
@@ -165,24 +160,21 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         if (ipos > (istart + lengrib))
         {
             printf("g2_info: '7777'  not found at end of GRIB message.\n");
-            ierr = 5;
-            return(ierr);
+            return G2_INFO_BAD_END;
         }
         if (isecnum >= 2 && isecnum <= 7)
         {
-            if (isecnum == 2)      /* Local Section 2 */
-                /*   increment counter for total number of local sections found */
+            /* Increment counter for total number of local sections
+             * or fields found. */
+            if (isecnum == 2)
                 (*numlocal)++;
-
             else if (isecnum == 4)
-                /*   increment counter for total number of fields found */
                 (*numfields)++;
         }
         else
         {
             printf("g2_info: Invalid section number found in GRIB message: %ld\n", isecnum);
-            ierr = 6;
-            return(ierr);
+            return G2_INFO_INVAL_SEC;
         }
     }
 

@@ -270,4 +270,30 @@ g2int g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
                   g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap);
 g2int g2_gribend(unsigned char *cgrib);
 
+/* Error codes for G2 API. */
+#define G2_CREATE_GRIB_VERSION -1 /**< Wrong GRIB version for g2_create(), must be 2. */
+#define G2_INFO_NO_GRIB 1         /**< g2_info() can't find beginning characters "GRIB". */
+#define G2_INFO_GRIB_VERSION 2    /**< Wrong GRIB version for g2_info(), must be 2. */
+#define G2_INFO_NO_SEC1 3         /**< g2_info() can't find section 1. */
+#define G2_INFO_WRONG_END 4       /**< g2_info() found "7777" not where expected. */
+#define G2_INFO_BAD_END 5         /**< g2_info() didn't find "7777" at end of message. */
+#define G2_INFO_INVAL_SEC 6       /**< g2_info() found invalid section number. */
+#define G2_GETFLD_NO_ERROR 0      /**< g2_getfld() succeeded. */
+#define G2_GETFLD_NO_GRIB 1       /**< g2_getfld() can't find beginning characters "GRIB". */
+#define G2_GETFLD_GRIB_VERSION 2  /**< Wrong GRIB version for g2_getfld(), must be 2. */
+#define G2_GETFLD_INVAL 3         /**< g2_getfld() data field request number was not positive. */
+#define G2_GETFLD_WRONG_END 4     /**< g2_info() found "7777" not where expected. */
+#define G2_GETFLD_WRONG_NFLDS 6   /**< In g2_getfld() message did not contain the requested number of data fields. */
+#define G2_GETFLD_BAD_END 7       /**< g2_getfld() didn't find "7777" at end of message. */
+#define G2_GETFLD_INVAL_SEC 8     /**< g2_getfld() encountered unrecognized section. */
+#define G2_GETFLD_NO_DRT 9        /**< In g2_getfld(), Data Representation Template not implemented.*/
+#define G2_GETFLD_BAD_SEC1 15     /**< Error in g2_getfld() unpacking section 1. */
+#define G2_GETFLD_BAD_SEC2 16     /**< Error in g2_getfld() unpacking section 2. */
+#define G2_GETFLD_BAD_SEC3 10     /**< Error in g2_getfld() unpacking section 3. */
+#define G2_GETFLD_BAD_SEC4 11     /**< Error in g2_getfld() unpacking section 4. */
+#define G2_GETFLD_BAD_SEC5 12     /**< Error in g2_getfld() unpacking section 5. */
+#define G2_GETFLD_BAD_SEC6 13     /**< Error in g2_getfld() unpacking section 6. */
+#define G2_GETFLD_BAD_SEC7 14     /**< Error in g2_getfld() unpacking section 7. */
+#define G2_GETFLD_NO_BITMAP 17    /**< In g2_getfld() previous bitmap specified, yet none exists. */
+
 #endif  /*  _grib2_H  */
