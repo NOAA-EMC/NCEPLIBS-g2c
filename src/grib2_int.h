@@ -70,11 +70,11 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 g2float *fld);
 
 /* Packing and unpacking bits. */
-void gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte);
-void sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbyte);
-void gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte,
+void gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbits);
+void sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbits);
+void gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits,
            g2int nskip, g2int n);
-void sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbyte,
+void sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbits,
            g2int nskip, g2int n);
 
 /* Deal with grib groups. */

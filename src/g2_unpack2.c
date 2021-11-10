@@ -65,7 +65,7 @@ g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
     if (*lencsec2 == 0)
         return G2_NO_ERROR;
 
-    if (!(*csec2 = malloc(*lencsec2 + 1)))
+    if (!(*csec2 = malloc(*lencsec2)))
     {
         *lencsec2 = 0;
         return G2_UNPACK_NO_MEM;
