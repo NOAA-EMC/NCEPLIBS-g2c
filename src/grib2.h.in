@@ -307,5 +307,16 @@ g2int g2_gribend(unsigned char *cgrib);
 #define G2_UNPACK7_CORRUPT_SEC 7  /**< In g2_unpack7(), corrupt section 7. */
 #define G2_UNPACK7_WRONG_GDT 5    /**< In g2_unpack7(), need one of GDT 3.50 through 3.53 to decode DRT 5.51. */
 #define G2_UNPACK7_BAD_DRT 4      /**< In g2_unpack7(), unrecognized Data Representation Template. */
+#define G2_ADDFIELD_MSG_INIT -1   /**< In g2_addfield() GRIB message was not initialized - call g2_create() first. */
+#define G2_ADDFIELD_MSG_COMPLETE -2  /**< In g2_addfield() GRIB message already complete. Cannot add new section. */
+#define G2_ADDFIELD_SEC_COUNTS -3 /**< In g2_addfield() sum of Section byte counts doesn't add to total byte count. */
+#define G2_ADDFIELD_BAD_SEC -4    /**< In g2_addfield() previous Section was not 3 or 7. */
+#define G2_ADDFIELD_BAD_PDT -5    /**< In g2_addfield() could not find requested Product Definition Template. */
+#define G2_ADDFIELD_BAD_GDS -6    /**< In g2_addfield() section 3 (GDS) not previously defined in message. */
+#define G2_ADDFIELD_BAD_DRT -7    /**< In g2_addfield() unsupported Data Representationi Template. */
+#define G2_ADDFIELD_BAD_BITMAP -8 /**< In g2_addfield() no bitmap in the GRIB message. */
+#define G2_ADDFIELD_BAD_GDT -9    /**< In g2_addfield() GDT of one of 5.50 through 5.53 required when using DRT 5.51. */
+#define G2_ADDFIELD_ERR -10       /**< In g2_addfield() error packing data field. */
+
 
 #endif  /*  _grib2_H  */
