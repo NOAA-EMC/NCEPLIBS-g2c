@@ -57,7 +57,7 @@
  *   add new section.
  * - ::G2_BAD_SEC_COUNTS Sum of Section byte counts doesn't add to
  *   total byte count
- * - ::G2_ADDGRID_BAD_SEC Previous Section was not 1, 2 or 7.
+ * - ::G2_BAD_SEC Previous Section was not 1, 2 or 7.
  * - ::G2_ADDGRID_BAD_GDT Could not find requested Grid Definition
  *   Template.
  *
@@ -132,7 +132,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     {
         printf("g2_addgrid: Section 3 can only be added after Section 1, 2 or 7.\n");
         printf("g2_addgrid: Section ',isecnum,' was the last found in given GRIB message.\n");
-        return G2_ADDGRID_BAD_SEC;
+        return G2_BAD_SEC;
     }
 
     /* Add Section 3  - Grid Definition Section. */

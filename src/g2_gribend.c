@@ -26,7 +26,7 @@
  * - ::G2_BAD_SEC_COUNTS Sum of Section byte counts doesn't add to
  total byte count.
 
- * - ::G2_GRIBEND_BAD_END Previous Section was not 7.
+ * - ::G2_BAD_SEC Previous Section was not 7.
  *
  * @note This routine is intended for use with routines g2_create(),
  * g2_addlocal(), g2_addgrid(), and g2_addfield() to create a complete
@@ -86,7 +86,7 @@ g2int g2_gribend(unsigned char *cgrib)
     {
         printf("g2_gribend: Section 8 can only be added after Section 7.\n");
         printf("g2_gribend: Section %ld was the last found in given GRIB message.\n", isecnum);
-        return G2_GRIBEND_BAD_END;
+        return G2_BAD_SEC;
     }
 
     /* Add Section 8  - End Section */

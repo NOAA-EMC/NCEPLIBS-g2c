@@ -29,8 +29,7 @@
  *   new section.
  * - ::G2_BAD_SEC_COUNTS Sum of Section byte counts doesn't add to
  *   total byte count.
-
- * - -4 Previous Section was not 1 or 7.
+ * - ::G2_BAD_SEC Previous Section was not 1 or 7.
  *
  * @note The Local Use Section (Section 2) can only follow Section 1
  * or Section 7 in a GRIB2 message.
@@ -102,8 +101,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
     {
         printf("g2_addlocal: Section 2 can only be added after Section 1 or Section 7.\n");
         printf("g2_addlocal: Section %ld was the last found in given GRIB message.\n", isecnum);
-        ierr = -4;
-        return ierr;
+        return G2_BAD_SEC;
     }
 
     /* Add Section 2  - Local Use Section. */

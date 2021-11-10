@@ -83,7 +83,7 @@ void jpcpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
  *   add new section.
  * - ::G2_BAD_SEC_COUNTS Sum of Section byte counts doesn't add
  *   to total byte count.
- * - ::G2_ADDFIELD_BAD_SEC Previous Section was not 3 or 7.
+ * - ::G2_BAD_SEC Previous Section was not 3 or 7.
  * - ::G2_ADDFIELD_BAD_PDT Could not find requested Product Definition
  *   Template.
  * - ::G2_ADDFIELD_BAD_GDS Section 3 (GDS) not previously defined in
@@ -194,7 +194,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         printf("g2_addfield: Sections 4-7 can only be added after Section 3 or 7.\n");
         printf("g2_addfield: Section %ld was the last found in given GRIB message.\n",
                isecnum);
-        return G2_ADDFIELD_BAD_SEC;
+        return G2_BAD_SEC;
     }
     else if (!issec3)
     {
