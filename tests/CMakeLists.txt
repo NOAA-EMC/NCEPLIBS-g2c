@@ -22,15 +22,18 @@ g2c_test(tst_drstemplates)
 g2c_test(tst_unpack)
 g2c_test(tst_getdim)
 g2c_test(tst_simpack)
-g2c_test(tst_png)
-g2c_test(tst_jpeg)
 g2c_test(tst_addfield_spec)
 g2c_test(tst_spec)
 g2c_test(tst_com)
 g2c_test(tst_g2_addlocal)
+
+if(USE_PNG)
+g2c_test(tst_png)
 g2c_test(tst_addfield2)
+endif()
+
+if(USE_Jasper OR USE_OpenJPEG)
+g2c_test(tst_jpeg)
 g2c_test(tst_addfield3)
 g2c_test(tst_addfield4)
-
-
-
+endif()

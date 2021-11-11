@@ -7,7 +7,7 @@
 #
 #  This file is part of NCEPLIBS-g2c. Distributed under the LGPL v3.0.
 
-include(FindPkgConfig)
+find_package(PkgConfig QUIET)
 pkg_check_modules(OpenJPEG_PKGCONF QUIET libopenjp2)
 
 set(OpenJPEG_VERSION ${OpenJPEG_PKGCONF_VERSION})

@@ -3,15 +3,6 @@
  * @author Stephen Gilbert @date 2002-12-02
  */
 
-#ifndef USE_JPEG2000
-/**
- * Dummy function used if USE_JPEG2000 is not defined.
- *
- * @author Stephen Gilbert @date 2002-12-02
- */
-void dummy(void) {}
-#else   /* USE_JPEG2000 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -108,4 +99,3 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
 
     return 0;
 }
-#endif   /* USE_JPEG2000 */
