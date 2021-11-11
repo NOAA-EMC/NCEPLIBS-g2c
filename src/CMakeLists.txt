@@ -50,4 +50,5 @@ set(c_src
     ${CMAKE_CURRENT_SOURCE_DIR}/simunpack.c
     ${CMAKE_CURRENT_SOURCE_DIR}/specpack.c
     ${CMAKE_CURRENT_SOURCE_DIR}/specunpack.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/util.c
     PARENT_SCOPE)
