@@ -1,4 +1,4 @@
-# This is the main CMake file for NCEPLIBS-ip.
+# This is the main CMake file for NCEPLIBS-g2c.
 #
 # Mark Potts, Kyle Gerheiser
 cmake_minimum_required(VERSION 3.15)
@@ -34,12 +34,12 @@ if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
                                                "MinSizeRel" "RelWithDebInfo")
 endif()
 
-link_directories("/usr/local/lib")
+#link_directories("/usr/local/lib")
 if(USE_PNG)
   find_package(ZLIB REQUIRED)
-  find_package(PkgConfig REQUIRED)
-  pkg_check_modules(PNG libpng16 REQUIRED)
-#  find_package(PNG REQUIRED)
+  #find_package(PkgConfig REQUIRED)
+  #pkg_check_modules(PNG libpng16 REQUIRED)
+  find_package(PNG REQUIRED)
 else()
   message(STATUS "Will not build PNG support")
 endif()
