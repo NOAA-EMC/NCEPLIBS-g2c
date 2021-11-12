@@ -47,7 +47,7 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     static g2int zero = 0;
     g2int *gref, *gwidth, *glen;
     g2int glength, grpwidth;
-    g2int i, n, iofst, imin, ival1, ival2, isd, minsd, nbitsd;
+    g2int i, n, iofst, imin, ival1, ival2, isd, minsd, nbitsd = 0;
     g2int nbitsgref, left, iwmax, ngwidthref, nbitsgwidth, ilmax;
     g2int nglenref, nglenlast, nbitsglen;
     g2int j, missopt, nonmiss, itemp, maxorig, nbitorig, miss1, miss2;
@@ -202,8 +202,8 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
             nbitsd = nbitorig;
 
         /*   increase number of bits to even multiple of 8 (octet) */
-        if ((nbitsd%8) != 0)
-            nbitsd = nbitsd+(8-(nbitsd%8));
+        if (nbitsd % 8)
+            nbitsd = nbitsd + (8 - (nbitsd % 8));
 
         /*  Store extra spatial differencing info into the packed data
          *  section. */
