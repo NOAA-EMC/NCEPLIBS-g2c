@@ -70,34 +70,20 @@ g2int
 g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
            g2int idefnum)
 {
-    static unsigned char G = 0x47;       /* 'G' */
-    static unsigned char R = 0x52;       /* 'R' */
-    static unsigned char I = 0x49;       /* 'I' */
-    static unsigned char B = 0x42;       /* 'B' */
-    static unsigned char seven = 0x37;   /* '7' */
-
     static g2int one = 1, three = 3, miss = 65535;
     g2int lensec3, iofst, ibeg, lencurr, len;
     g2int i, j, temp, ilen, isecnum, nbits;
     gtemplate *mapgrid = 0;
+    int ret;
 
-    /* Check to see if beginning of GRIB message exists. */
-    if (cgrib[0] != G || cgrib[1] != R || cgrib[2] != I || cgrib[3] != B)
+    /* Check for GRIB header and terminator. Translate the error codes
+     * to the legacy G2 error codes. */
+    if ((ret = g2c_check_msg(cgrib, &lencurr, 1)))
     {
-        printf("g2_addgrid: GRIB not found in given message.\n");
-        printf("g2_addgrid: Call to routine gribcreate required to initialize GRIB messge.\n");
-        return G2_ADD_MSG_INIT;
-    }
-
-    /* Get current length of GRIB message. */
-    gbit(cgrib, &lencurr, 96, 32);
-
-    /* Check to see if GRIB message is already complete. */
-    if (cgrib[lencurr - 4] == seven && cgrib[lencurr - 3] == seven &&
-        cgrib[lencurr - 2] == seven && cgrib[lencurr - 1] == seven)
-    {
-        printf("g2_addgrid: GRIB message already complete.  Cannot add new section.\n");
-        return G2_ADD_MSG_COMPLETE;
+        if (ret == G2C_NOT_GRIB)
+            return G2_ADD_MSG_INIT;
+        if (ret == G2C_MSG_COMPLETE)
+            return G2_ADD_MSG_COMPLETE;
     }
 
     /* Loop through all current sections of the GRIB message to find

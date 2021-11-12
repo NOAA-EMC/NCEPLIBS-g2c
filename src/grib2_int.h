@@ -15,6 +15,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <assert.h>
 #include "grib2.h"
 
 #define ALOG2 (0.69314718) /**< ln(2.0) */
@@ -83,5 +84,8 @@ int pack_gp(g2int *kfildo, g2int *ic, g2int *nxy,
             g2int *jmin, g2int *jmax, g2int *lbit, g2int *nov,
             g2int *ndg, g2int *lx, g2int *ibit, g2int *jbit, g2int *kbit,
             g2int *novref, g2int *lbitref, g2int *ier);
+
+/* Check the message header and check for message termination. */
+int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
 
 #endif  /*  _grib2_int_H  */

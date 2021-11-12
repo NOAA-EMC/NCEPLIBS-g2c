@@ -106,12 +106,6 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
             g2float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl,
             g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap)
 {
-    static unsigned char G = 0x47; /* 'G' */
-    static unsigned char R = 0x52; /* 'R' */
-    static unsigned char I = 0x49; /* 'I' */
-    static unsigned char B = 0x42; /* 'B' */
-    static unsigned char s7 = 0x37; /* '7' */
-
     unsigned char *cpack;
     static g2int zero = 0, one = 1, four = 4, five = 5, six = 6, seven = 7;
     const g2int minsize = 50000;
@@ -125,24 +119,16 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     g2float *pfld;
     gtemplate *mappds, *mapdrs;
     unsigned int allones = 4294967295u;
+    int ret;
 
-    /* Check to see if beginning of GRIB message exists. */
-    if (cgrib[0] != G || cgrib[1] != R || cgrib[2] != I || cgrib[3] != B)
+    /* Check for GRIB header and terminator. Translate the error codes
+     * to the legacy G2 error codes. */
+    if ((ret = g2c_check_msg(cgrib, &lencurr, 1)))
     {
-        printf("g2_addfield: GRIB not found in given message.\n");
-        printf("g2_addfield: Call to routine g2_create required to initialize GRIB messge.\n");
-        return G2_ADD_MSG_INIT;
-    }
-
-    /* Get current length of GRIB message. */
-    gbit(cgrib, &lencurr, 96, 32);
-
-    /* Check to see if GRIB message is already complete. */
-    if (cgrib[lencurr - 4] == s7 && cgrib[lencurr - 3] == s7 &&
-        cgrib[lencurr - 2] == s7 && cgrib[lencurr - 1] == s7)
-    {
-        printf("g2_addfield: GRIB message already complete.  Cannot add new section.\n");
-        return G2_ADD_MSG_COMPLETE;
+        if (ret == G2C_NOT_GRIB)
+            return G2_ADD_MSG_INIT;
+        if (ret == G2C_MSG_COMPLETE)
+            return G2_ADD_MSG_COMPLETE;
     }
 
     /* Loop through all current sections of the GRIB message to find
