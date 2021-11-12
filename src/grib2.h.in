@@ -320,4 +320,9 @@ g2int g2_gribend(unsigned char *cgrib);
 #define G2_ADDFIELD_ERR -10       /**< In g2_addfield() error packing data field. */
 #define G2_ADDGRID_BAD_GDT -5     /**< In g2_addgrid() Could not find requested Grid Definition Template. */
 
+/* These are the new error codes. */
+#define G2C_NO_ERROR 0       /**< No error. */
+#define G2C_NOT_GRIB -50     /**< GRIB header not found. */
+#define G2C_MSG_COMPLETE -51 /**< GRIB message already complete. */
+
 #endif  /*  _grib2_H  */

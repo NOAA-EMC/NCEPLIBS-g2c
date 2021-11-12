@@ -108,6 +108,7 @@ add_library(${lib_name} STATIC
     src/simunpack.c
     src/specpack.c
     src/specunpack.c
+    src/util.c
 )
 
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 99)

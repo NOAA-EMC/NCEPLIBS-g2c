@@ -38,21 +38,18 @@ g2int g2_gribend(unsigned char *cgrib)
 {
     g2int iofst, lencurr, len, ilen, isecnum;
     g2int lengrib;
-    static unsigned char G = 0x47;       /* 'G' */
-    static unsigned char R = 0x52;       /* 'R' */
-    static unsigned char I = 0x49;       /* 'I' */
-    static unsigned char B = 0x42;       /* 'B' */
-    static unsigned char seven = 0x37;   /* '7' */
+    unsigned char seven = 0x37;   /* '7' */
+    int ret;
 
-    /* Check to see if beginning of GRIB message exists. */
-    if (cgrib[0] != G || cgrib[1] != R || cgrib[2] != I || cgrib[3] != B)
+    /* Check for GRIB header and terminator. Translate the error codes
+     * to the legacy G2 error codes. */
+    if ((ret = g2c_check_msg(cgrib, &lencurr, 1)))
     {
-        printf("g2_gribend: GRIB not found in given message.\n");
-        return G2_GRIBEND_MSG_INIT;
+        if (ret == G2C_NOT_GRIB)
+            return G2_ADD_MSG_INIT;
+        if (ret == G2C_MSG_COMPLETE)
+            return G2_ADD_MSG_COMPLETE;
     }
-
-    /* Get current length of GRIB message. */
-    gbit(cgrib, &lencurr, 96, 32);
 
     /*  Loop through all current sections of the GRIB message to find
      *  the last section number. */
