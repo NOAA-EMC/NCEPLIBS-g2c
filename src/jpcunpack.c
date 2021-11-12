@@ -48,7 +48,7 @@ jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
             fprintf(stderr, "Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
             return(1);
         }
-        dec_jpeg2000(cpack, len, ifld);
+        dec_jpeg2000((char *)cpack, len, ifld);
         for (j = 0; j < ndpts; j++)
             fld[j] = (((g2float)ifld[j] * bscale) + ref) * dscale;
         free(ifld);

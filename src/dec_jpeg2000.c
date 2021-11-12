@@ -86,7 +86,7 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
     if (image->numcmpts_ != 1)
     {
         printf("dec_jpeg2000: Found color image.  Grayscale expected.\n");
-        return (-5);
+        return -5;
     }
 
     /* Create a data matrix of grayscale image values decoded from the

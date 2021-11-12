@@ -104,7 +104,8 @@ reduce(integer *kfildo, integer *jmin, integer *jmax,
     static real pimp;
     static integer move, novl;
     static char cfeed[1];
-    static integer nboxj[31], lxnkp, iorigb, ibxx2m1, movmin,
+    /* static integer nboxj[31]; */
+    static integer lxnkp, iorigb, ibxx2m1, movmin,
         ntotbt[31], ntotpr, newboxt;
     integer *newbox, *newboxp;
 
@@ -140,7 +141,7 @@ reduce(integer *kfildo, integer *jmin, integer *jmax,
 
     for (j = 1; j <= 31; ++j) {
         ntotbt[j - 1] = 999999999;
-        nboxj[j - 1] = 0;
+        /* nboxj[j - 1] = 0; */
 /* L112: */
     }
 
@@ -214,7 +215,7 @@ reduce(integer *kfildo, integer *jmin, integer *jmax,
             ;
         }
 
-        nboxj[j - 1] = newboxt;
+        /* nboxj[j - 1] = newboxt; */
         ntotpr = ntotbt[j];
         ntotbt[j - 1] = (*ibit + *jbit) * (*lx + newboxt) + j * (*lx +
                                                                  newboxt);

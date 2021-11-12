@@ -48,7 +48,6 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
     static g2int two = 2;
     g2int j, k, lensec2, iofst, ibeg, lencurr, ilen, len, istart;
     g2int isecnum;
-    g2int ierr = 0;
 
     /* Check to see if beginning of GRIB message exists. */
     if (cgrib[0] != G || cgrib[1] != R || cgrib[2] != I || cgrib[3] != B)
