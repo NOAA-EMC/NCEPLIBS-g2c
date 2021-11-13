@@ -47,7 +47,7 @@ main()
         if ((ret = dec_jpeg2000(outjpc, jpclen, outfld)))
             return G2C_ERROR;
 
-        for (i = 0; i < 4; i++)
+        for (i = 0; i < DATA_LEN; i++)
         {
             if (outfld[i] != data[i])
                 return G2C_ERROR;
