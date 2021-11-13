@@ -26,22 +26,20 @@ int
 main()
 {
     printf("Testing JPEG functions.\n");
-    printf("Testing enc_jpeg2000() call...");
+    printf("Testing enc_jpeg2000()/dec_jpeg2000() call...");
     {
-        unsigned char data[4] = {1, 2, 3, 4};
+        unsigned char data[DATA_LEN] = {1, 2, 3, 4};
         g2int width = 2, height = 2, nbits = 4;
-        g2int ltype = 0, ratio = 0, retry = 0, jpclen = 200;
-        char outjpc[200];
-        g2int outfld[4];
-        /* int i; */
+        g2int ltype = 0, ratio = 0, retry = 0, jpclen = PACKED_LEN;
+        char outjpc[PACKED_LEN];
+        g2int outfld[DATA_LEN];
+        int i;
         int ret;
 
         /* Encode some data. */
-        /* 168 on Linux, but 133 on windows? */
         if ((ret = enc_jpeg2000(data, width, height, nbits, ltype,
-                                ratio, retry, outjpc, jpclen)) < 133)
+                                ratio, retry, outjpc, jpclen)) < 0)
         {
-            printf("%d\n", ret);
             return G2C_ERROR;
         }
 
@@ -49,13 +47,11 @@ main()
         if ((ret = dec_jpeg2000(outjpc, jpclen, outfld)))
             return G2C_ERROR;
 
-        /* Not sure why we don't get the same answers... */
-        /* for (i = 0; i < 4; i++) */
-        /* { */
-        /*     printf("%d\n", outjpc[i]); */
-        /*     /\* if (outjpc[i] != data[i]) *\/ */
-        /*     /\*     return G2C_ERROR; *\/ */
-        /* } */
+        for (i = 0; i < 4; i++)
+        {
+            if (outfld[i] != data[i])
+                return G2C_ERROR;
+        }
     }
     printf("ok!\n");
     printf("Testing jpcpack()/jpcunpack() call...");

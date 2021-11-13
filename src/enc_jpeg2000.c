@@ -19,7 +19,7 @@
  *
  * ### Program History Log
  * Date | Programmer | Comments
- * -----|------------|--------- 
+ * -----|------------|---------
  * 2002-12-02 | Gilbert | Initial
  * 2004-12-16 | Gilbert | Added retry argument allowing increased guard bits.
  *
@@ -41,9 +41,7 @@
  *
  * @return
  * - > 0 = Length in bytes of encoded JPEG2000 code stream
- * - -3 = Error decode jpeg2000 code stream.
- * - -5 = decoded image had multiple color components. Only grayscale
- *    is expected.
+ * - -3 = Error encode jpeg2000 code stream.
  *
  * @note Requires JasPer Software version 1.500.4 or 1.700.2 or later.
  *
@@ -63,7 +61,7 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     /* Set lossy compression options, if requested. */
     if (ltype != 1)
         opts[0] = (char)0;
-    else 
+    else
         snprintf(opts,MAXOPTSSIZE,"mode=real\nrate=%f",1.0/(float)ratio);
 
     if (retry == 1)  /* option to increase number of guard bits */
