@@ -3,15 +3,6 @@
  * @author Stephen Gilbert
  */
 
-#ifndef USE_PNG
-/**
- * Dummy function used if USE_JPEG2000 is not defined.
- *
- * @author Stephen Gilbert
- */
-void dummy(void) {}
-#else   /* USE_PNG */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -156,5 +147,3 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
     png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
     return 0;
 }
-
-#endif   /* USE_PNG */

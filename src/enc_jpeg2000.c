@@ -3,10 +3,6 @@
  * @author Stephen Gilbert @date 2002-12-02
  */
 
-#ifndef USE_JPEG2000
-void dummy(void) {}
-#else   /* USE_JPEG2000 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "grib2_int.h"
@@ -121,5 +117,3 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     /* Return size of jpeg2000 code stream. */
     return (rwcnt);
 }
-
-#endif   /* USE_JPEG2000 */

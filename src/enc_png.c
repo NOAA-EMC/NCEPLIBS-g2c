@@ -9,12 +9,8 @@
 #include <png.h>
 #include "grib2_int.h"
 
-#ifndef USE_PNG
-void dummy(void) {}
-#else   /* USE_PNG */
-
 /**
- * Stuct for PNG stream.
+ * Struct for PNG stream.
  */
 struct png_stream
 {
@@ -144,5 +140,3 @@ enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
     pnglen = write_io_ptr.stream_len;
     return pnglen;
 }
-
-#endif   /* USE_PNG */
