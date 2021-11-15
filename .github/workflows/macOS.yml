@@ -48,7 +48,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DENABLE_DOCS=ON -DUSE_OpenJPEG=ON -DUSE_Jasper=OFF ..
+        cmake -DENABLE_DOCS=ON -DUSE_Jasper=OFF ..
         make -j2
 
     - name: test
