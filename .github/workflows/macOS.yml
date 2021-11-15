@@ -8,6 +8,35 @@ jobs:
       CC: gcc-11
       CXX: g++-11
 
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {
+            name: "png_off jasper_off openjpeg_off",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
+          }
+        - {
+            name: "png_on jasper_off openjpeg_off",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
+          }
+        - {
+            name: "png_off jasper_on openjpeg_off",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
+        - {
+            name: "png_on jasper_on openjpeg_off",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
+        - {
+            name: "png_off jasper_off openjpeg_on",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "png_on jasper_off openjpeg_on",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+
     steps:
     - name: install-dependencies
       run: |
@@ -48,7 +77,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DENABLE_DOCS=ON -DUSE_Jasper=OFF ..
+        cmake ${{ matrix.config.options }} ..
         make -j2
 
     - name: test
