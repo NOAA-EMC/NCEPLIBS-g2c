@@ -1,0 +1,86 @@
+name: macOS Build
+on: [push, pull_request]
+
+jobs:
+  macOS-build:
+    runs-on: macos-latest
+    env:
+      CC: gcc-11
+      CXX: g++-11
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {
+            name: "png_off jasper_off openjpeg_off",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
+          }
+        - {
+            name: "png_on jasper_off openjpeg_off",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
+          }
+        - {
+            name: "png_off jasper_on openjpeg_off",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
+        - {
+            name: "png_on jasper_on openjpeg_off",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
+        - {
+            name: "png_off jasper_off openjpeg_on",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "png_on jasper_off openjpeg_on",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+
+    steps:
+    - name: install-dependencies
+      run: |
+        brew update
+        brew install doxygen openjpeg libpng
+
+    - name: checkout-jasper
+      uses: actions/checkout@v2
+      with:
+        repository: jasper-software/jasper
+        path: jasper
+        ref: version-2.0.25
+
+    - name: cache-jasper
+      id: cache-jasper
+      uses: actions/cache@v2
+      with:
+        path: ~/Jasper
+        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}-macOS
+
+    - name: build-jasper
+      if: steps.cache-jasper.outputs.cache-hit != 'true'
+      run: |
+        cd jasper
+        mkdir cmake_build
+        cd cmake_build
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
+        make -j2
+        make install
+
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        path: g2c
+
+    - name: build
+      run: |
+        cd g2c
+        mkdir build
+        cd build
+        cmake ${{ matrix.config.options }} ..
+        make -j2
+
+    - name: test
+      run: |
+        cd $GITHUB_WORKSPACE/g2c/build
+        ctest  --output-on-failure
