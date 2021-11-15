@@ -115,10 +115,12 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     g2int lensec4, lensec5, lensec6, lensec7;
     g2int issec3 = 0, isprevbmap = 0, lpos3 = 0, JJ, KK, MM;
     g2int *coordieee;
-    g2int width, height, iscan, itemp;
     g2float *pfld;
     gtemplate *mappds, *mapdrs;
+#if defined USE_PNG || defined USE_JPEG2000 || defined USE_OPENJPEG
     unsigned int allones = 4294967295u;
+    g2int width, height, iscan, itemp;
+#endif
     int ret;
 
     /* Check for GRIB header and terminator. Translate the error codes
