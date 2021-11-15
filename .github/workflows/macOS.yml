@@ -84,3 +84,5 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/g2c/build
         ctest  --output-on-failure
+
+        
