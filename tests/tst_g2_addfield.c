@@ -120,6 +120,18 @@ main()
         /* Change the first char back. */
         cgrib[0] = old_val;
         
+        /* Mess up section byte counts. */
+        old_val = cgrib[18];
+        cgrib[18] = 99;
+        
+        /* Try to add section 8 - this will fail because of bad
+         * section count. */
+        if ((ret = g2_gribend(cgrib)) != G2_BAD_SEC_COUNTS)
+            return G2C_ERROR;
+
+        /* Change the section count back. */
+        cgrib[18] = old_val;
+        
         /* Try to use g2_info() to learn about our messaage - won't
          * work, message must be ended first. This fails CI due to
          * memory leak. See
@@ -131,6 +143,10 @@ main()
         if ((ret = g2_gribend(cgrib)) != FULL_MSG_LEN)
             return G2C_ERROR;
 
+        /* Try to add section 8 - won't work. */
+        if ((ret = g2_gribend(cgrib)) != G2_ADD_MSG_COMPLETE)
+            return G2C_ERROR;
+        
         /* Try to add the local section. Won't work, message is
          * already ended. */
         if ((ret = g2_addlocal(cgrib, csec2, lcsec2)) != -2)
