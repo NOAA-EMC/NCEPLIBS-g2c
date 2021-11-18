@@ -1,12 +1,11 @@
 name: macOS-build
-on: [pull_request push]
+on: [push, pull_request]
 
 jobs:
   macOS-build:
     runs-on: macos-latest
     env:
-      CC: gcc-11
-      CXX: g++-11
+      CC: clang
 
     strategy:
       fail-fast: false
@@ -84,5 +83,3 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/g2c/build
         ctest  --output-on-failure
-
-        
