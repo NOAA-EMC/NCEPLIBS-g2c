@@ -1,12 +1,40 @@
-name: macOS Build
+name: macOS-build
 on: [push, pull_request]
 
 jobs:
   macOS-build:
     runs-on: macos-latest
     env:
-      CC: gcc-11
-      CXX: g++-11
+      CC: clang
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {
+            name: "png_off jasper_off openjpeg_off",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
+          }
+        - {
+            name: "png_on jasper_off openjpeg_off",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
+          }
+        - {
+            name: "png_off jasper_on openjpeg_off",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
+        - {
+            name: "png_on jasper_on openjpeg_off",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
+        - {
+            name: "png_off jasper_off openjpeg_on",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "png_on jasper_off openjpeg_on",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
 
     steps:
     - name: install-dependencies
@@ -48,7 +76,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DENABLE_DOCS=ON -DENABLE_OpenJPEG=ON ..
+        cmake ${{ matrix.config.options }} ..
         make -j2
 
     - name: test
