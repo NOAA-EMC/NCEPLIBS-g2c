@@ -44,11 +44,11 @@ getpdsindex(g2int number)
         if (number == templatespds[j].template_num)
         {
             getpdsindex = j;
-            return(getpdsindex);
+            return getpdsindex;
         }
     }
 
-    return(getpdsindex);
+    return getpdsindex;
 }
 
 /**
@@ -87,14 +87,14 @@ getpdstemplate(g2int number)
         new->map = (g2int *)templatespds[index].mappds;
         new->extlen = 0;
         new->ext = NULL;
-        return(new);
+        return new;
     }
     else {
         printf("getpdstemplate: PDS Template 4.%d not defined.\n", (int)number);
-        return(NULL);
+        return NULL;
     }
 
-    return(NULL);
+    return NULL;
 }
 
 /**
@@ -125,12 +125,12 @@ extpdstemplate(g2int number, g2int *list)
 
     index = getpdsindex(number);
     if (index == -1)
-        return(0);
+        return NULL;
 
     new = getpdstemplate(number);
 
     if (!new->needext)
-        return(new);
+        return new;
 
     if (number == 3)
     {
@@ -513,5 +513,5 @@ extpdstemplate(g2int number, g2int *list)
         }
     }
 
-    return(new);
+    return new;
 }

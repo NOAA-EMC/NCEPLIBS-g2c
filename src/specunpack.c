@@ -106,8 +106,8 @@ specunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2int JJ,
         printf("specunpack: Cannot handle 64 or 128-bit floats.\n");
         for (j = 0; j < ndpts; j++)
             fld[j] = 0.0;
-        return -3;
+        return G2_SPECUNPACK_TYPE;
     }
 
-    return 0;
+    return G2_NO_ERROR;
 }

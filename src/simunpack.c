@@ -39,7 +39,7 @@ simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts,
     {
         fprintf(stderr, "Could not allocate space in simunpack.\n  "
 		"Data field NOT upacked.\n");
-        return(1);
+        return G2_JPCUNPACK_MEM;
     }
 
     /* If nbits equals 0, we have a constant field where the reference
@@ -57,5 +57,5 @@ simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts,
     }
 
     free(ifld);
-    return(0);
+    return G2_NO_ERROR;
 }

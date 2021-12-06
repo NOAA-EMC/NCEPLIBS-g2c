@@ -42,11 +42,10 @@ jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
      * value is the data value at each gridpoint. */
     if (nbits != 0)
     {
-        ifld = calloc(ndpts, sizeof(g2int));
-        if (ifld == 0)
+        if (!(ifld = calloc(ndpts, sizeof(g2int))))
         {
             fprintf(stderr, "Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
-            return(1);
+            return G2_JPCUNPACK_MEM;
         }
         dec_jpeg2000((char *)cpack, len, ifld);
         for (j = 0; j < ndpts; j++)
