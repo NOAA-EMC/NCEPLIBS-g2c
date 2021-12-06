@@ -37,8 +37,8 @@ typedef g2float real; /**< Float type. */
  *
  * @param kfildo unit number for output (print) file. (input)
  * @param jmin the minimum of each group (j=1,lx). it is possible
- * after splitting the groups, jmin( ) will not be the minimum of the
- * new group.  this doesn't matter; jmin( ) is really the group
+ * after splitting the groups, jmin() will not be the minimum of the
+ * new group.  this doesn't matter; jmin() is really the group
  * reference and doesn't have to be the smallest value. (input/output)
  * @param jmax the maximum of each group (j=1,lx). (input/output)
  * @param lbit the number of bits necessary to pack each group
@@ -47,15 +47,15 @@ typedef g2float real; /**< Float type. */
  * (input/output)
  * @param lx the number of groups. this will be increased if groups
  * are split. (input/output)
- * @param ndg the dimension of jmin( ), jmax( ), lbit( ), and nov(
- * ). (input)
+ * @param ndg the dimension of jmin(), jmax(), lbit(), and nov(
+ *). (input)
  * @param ibit the number of bits necessary to pack the jmin(j)
  * values, j=1,lx. (input)
  * @param jbit the number of bits necessary to pack the lbit(j)
  * values, j=1,lx. (input)
  * @param kbit the number of bits necessary to pack the nov(j) values,
  * j=1,lx. if the groups are split, kbit is reduced. (input/output)
- * @param novref reference value for nov( ). (input)
+ * @param novref reference value for nov(). (input)
  * @param ibxx2 2**j (j=0,30). (input)
  * @param ier error return. (output)
  * - 0 = good return.
@@ -72,7 +72,7 @@ typedef g2float real; /**< Float type. */
  *           newbox(l) = number of new boxes (groups) for each original
  *                       group (l=1,lx) for the current j. (automatic)
  *                       (internal)
- *          newboxp(l) = same as newbox( ) but for the previous j.
+ *          newboxp(l) = same as newbox() but for the previous j.
  *                       this eliminates recomputation. (automatic)
  *                       (internal)
  *               cfeed = contains the character representation
@@ -109,7 +109,7 @@ reduce(integer *kfildo, integer *jmin, integer *jmax,
         ntotbt[31], ntotpr, newboxt;
     integer *newbox, *newboxp;
 
-/*        NEWBOX( ) AND NEWBOXP( ) were AUTOMATIC ARRAYS. */
+/*        NEWBOX() AND NEWBOXP() were AUTOMATIC ARRAYS. */
     newbox = (integer *)calloc(*ndg,sizeof(integer));
     newboxp = (integer *)calloc(*ndg,sizeof(integer));
 
@@ -146,9 +146,9 @@ reduce(integer *kfildo, integer *jmin, integer *jmax,
     }
 
     iorigb = (*ibit + *jbit + *kbit) * *lx;
-/*        IBIT = BITS TO PACK THE JMIN( ). */
-/*        JBIT = BITS TO PACK THE LBIT( ). */
-/*        KBIT = BITS TO PACK THE NOV( ). */
+/*        IBIT = BITS TO PACK THE JMIN(). */
+/*        JBIT = BITS TO PACK THE LBIT(). */
+/*        KBIT = BITS TO PACK THE NOV(). */
 /*        LX = NUMBER OF GROUPS. */
     ntotbt[*kbit - 1] = iorigb;
 /*           THIS IS THE VALUE OF TOTAL BITS FOR THE ORIGINAL LX */
@@ -159,7 +159,7 @@ reduce(integer *kfildo, integer *jmin, integer *jmax,
 /*        COMPUTE BITS NOW USED FOR THE PARAMETERS DEFINED. */
 
 /*        DETERMINE OTHER POSSIBILITES BY INCREASING LX AND DECREASING */
-/*        NOV( ) WITH VALUES GREATER THAN THRESHOLDS.  ASSUME A GROUP IS */
+/*        NOV() WITH VALUES GREATER THAN THRESHOLDS.  ASSUME A GROUP IS */
 /*        SPLIT INTO 2 OR MORE GROUPS SO THAT KBIT IS REDUCED WITHOUT */
 /*        CHANGING IBIT OR JBIT. */
 
@@ -226,7 +226,7 @@ reduce(integer *kfildo, integer *jmin, integer *jmax,
             goto L250;
         } else {
 
-/*              SAVE THE TOTAL NEW BOXES AND NEWBOX( ) IN CASE THIS */
+/*              SAVE THE TOTAL NEW BOXES AND NEWBOX() IN CASE THIS */
 /*              IS THE J TO USE. */
 
             newboxtp = newboxt;
@@ -310,7 +310,7 @@ L250:
 
         for (l = *lx; l >= 1; --l) {
 
-/*              THE VALUES IS NOV( ) REPRESENT THOSE VALUES + NOVREF. */
+/*              THE VALUES IS NOV() REPRESENT THOSE VALUES + NOVREF. */
 /*              WHEN VALUES ARE MOVED TO ANOTHER BOX, EACH VALUE */
 /*              MOVED TO A NEW BOX REPRESENTS THAT VALUE + NOVREF. */
 /*              THIS HAS TO BE CONSIDERED IN MOVING VALUES. */
@@ -387,21 +387,23 @@ L250:
 
 /*     WRITE(KFILDO,406)CFEED,LX */
 /* 406  FORMAT(A1,/' *****************************************' */
-/*    1          /' THE GROUP SIZES NOV( ) AFTER REDUCTION IN SIZE', */
+/*    1          /' THE GROUP SIZES NOV() AFTER REDUCTION IN SIZE', */
 /*    2           ' FOR'I10,' GROUPS', */
 /*    3          /' *****************************************') */
 /*     WRITE(KFILDO,407) (NOV(J),J=1,LX) */
 /* 407  FORMAT(/' '20I6) */
 /*     WRITE(KFILDO,408)CFEED,LX */
 /* 408  FORMAT(A1,/' *****************************************' */
-/*    1          /' THE GROUP MINIMA JMIN( ) AFTER REDUCTION IN SIZE', */
+/*    1          /' THE GROUP MINIMA JMIN() AFTER REDUCTION IN SIZE', */
 /*    2           ' FOR'I10,' GROUPS', */
 /*    3          /' *****************************************') */
 /*     WRITE(KFILDO,409) (JMIN(J),J=1,LX) */
 /* 409  FORMAT(/' '20I6) */
 
 L410:
-    if ( newbox != 0 ) free(newbox);
-    if ( newboxp != 0 ) free(newboxp);
+    if (newbox)
+        free(newbox);
+    if (newboxp)
+        free(newboxp);
     return 0;
 } /* reduce_ */
