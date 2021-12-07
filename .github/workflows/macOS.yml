@@ -39,11 +39,8 @@ jobs:
     steps:
     - name: install-dependencies
       run: |
-        find /System/Library/Frameworks/ -name "png*"
         find /Library/Frameworks/ -name "png*"
-
         sudo rm -rf /Library/Frameworks/Mono.framework
-        sudo rm -rf /Library/Receipts/MonoFramework-*
 
         brew update
         brew install doxygen openjpeg 
