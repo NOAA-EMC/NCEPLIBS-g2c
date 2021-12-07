@@ -40,7 +40,7 @@ jobs:
     - name: install-dependencies
       run: |
         brew update
-        brew install doxygen openjpeg libpng
+        brew install doxygen openjpeg 
 
     - name: checkout-jasper
       uses: actions/checkout@v2
@@ -76,10 +76,8 @@ jobs:
     - name: build-png
       if: steps.cache-png.outputs.cache-hit != 'true'
       run: |
-        wget https://github.com/glennrp/libpng/archive/refs/tags/v1.6.35.tar.gz
-        ls -l
+        wget https://github.com/glennrp/libpng/archive/refs/tags/v1.6.35.tar.gz &> /dev/null
         tar zxf v1.6.35.tar.gz
-        ls -l
         cd libpng-1.6.35
         mkdir build
         cd build
@@ -97,7 +95,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake ${{ matrix.config.options }} ..
+        cmake -DCMAKE_PREFIX_PATH="~/png" ${{ matrix.config.options }} ..
         make -j2
 
     - name: test
