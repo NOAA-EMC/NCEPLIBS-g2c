@@ -95,7 +95,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DCMAKE_PREFIX_PATH="~/png" ${{ matrix.config.options }} ..
+        cmake ${{ matrix.config.options }} ..
         make -j2
 
     - name: test
