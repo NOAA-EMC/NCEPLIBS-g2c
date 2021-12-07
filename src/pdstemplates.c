@@ -512,7 +512,6 @@ extpdstemplate(g2int number, g2int *list)
             }
         }
     }
-}
 
-return new;
+    return new;
 }
