@@ -5,8 +5,7 @@
 /*#include "f2c.h"*/
 #include <stdlib.h>
 #include "grib2_int.h"
-typedef g2int integer; /**< Integer type. */
-typedef g2int logical; /**< Logical type. */
+
 #define TRUE_ (1) /**< True. */
 #define FALSE_ (0) /**< False. */
 
@@ -25,7 +24,7 @@ typedef g2int logical; /**< Logical type. */
  * the number of bits must be at least 1 to have the capability to
  * recognize the missing value. However, if all values in a group are
  * missing, the number of bits needed is 0, and the unpacker
- * recognizes this. All variables are integer. Even though the groups
+ * recognizes this. All variables are g2int. Even though the groups
  * are initially of size minpk or larger, an adjustment between two
  * groups (the lookback procedure) may make a group smaller than
  * minpk. The control on group size is that the sum of the sizes of
@@ -104,7 +103,7 @@ typedef g2int logical; /**< Logical type. */
  * @param kfildo unit number for output (print) file. (input)
  * @param ic array to hold data for packing. the values do not have to
  * be positive at this point, but must be in the range -2**30 to
- * +2**30 (the the value of mallow). these integer values will be
+ * +2**30 (the the value of mallow). these g2int values will be
  * retained exactly through packing and unpacking. (input)
  * @param nxy number of values in ic( ). also treated as its
  * dimension. (input)
@@ -170,7 +169,7 @@ typedef g2int logical; /**< Logical type. */
  * <pre>
  *               cfeed = contains the character representation
  *                       of a printer form feed.
- *               ifeed = contains the integer value of a printer
+ *               ifeed = contains the g2int value of a printer
  *                       form feed.
  *                kinc = working copy of inc. may be modified.
  *                mina = minimum value in group a.
@@ -224,7 +223,7 @@ typedef g2int logical; /**< Logical type. */
  *            ibxx2(j) = an array that when this routine is first entered
  *                       is set to 2**j, j=0,30. ibxx2(30) = 2**30, which
  *                       is the largest value packable, because 2**31
- *                       is larger than the integer word size.
+ *                       is larger than the g2int word size.
  *              ifirst = set by data statement to 0. changed to 1 on
  *                       first
  *                       entry when ibxx2( ) is filled.
@@ -238,7 +237,7 @@ typedef g2int logical; /**< Logical type. */
  *                adda = keeps track whether or not an attempt to add
  *                       points to group a was made. if so, then adda
  *                       keeps from trying to put one back into b.
- *                       (logical)
+ *                       (g2int)
  *              ibitbs = keeps current value if ibitb so that loop
  *                       ending at 166 doesn't have to start at
  *                       ibitb = 0 every time.
@@ -253,35 +252,35 @@ typedef g2int logical; /**< Logical type. */
  * </pre>
  */
 int
-pack_gp(integer *kfildo, integer *ic, integer *nxy,
-        integer *is523, integer *minpk, integer *inc, integer *missp, integer *misss,
-        integer *jmin, integer *jmax, integer *lbit, integer *nov,
-        integer *ndg, integer *lx, integer *ibit, integer *jbit, integer *kbit,
-        integer *novref, integer *lbitref, integer *ier)
+pack_gp(g2int *kfildo, g2int *ic, g2int *nxy,
+        g2int *is523, g2int *minpk, g2int *inc, g2int *missp, g2int *misss,
+        g2int *jmin, g2int *jmax, g2int *lbit, g2int *nov,
+        g2int *ndg, g2int *lx, g2int *ibit, g2int *jbit, g2int *kbit,
+        g2int *novref, g2int *lbitref, g2int *ier)
 {
     /* Initialized data */
 
-    const  integer mallow = 1073741825;   /*  MALLOW=2**30+1  */
-    static integer ifeed = 12;
-    static integer ifirst = 0;
+    const  g2int mallow = 1073741825;   /*  MALLOW=2**30+1  */
+    static g2int ifeed = 12;
+    static g2int ifirst = 0;
 
     /* System generated locals */
-    integer i__1, i__2, i__3;
+    g2int i__1, i__2, i__3;
 
     /* Local variables */
-    static integer j, k, l;
-    static logical adda;
-    static integer ired, kinc, mina, maxa, minb, maxb, minc, maxc, ibxx2[31];
+    static g2int j, k, l;
+    static g2int adda;
+    static g2int ired, kinc, mina, maxa, minb, maxb, minc, maxc, ibxx2[31];
     static char cfeed[1];
-    static integer nenda, nendb, ibita, ibitb, minak, minbk, maxak, maxbk,
+    static g2int nenda, nendb, ibita, ibitb, minak, minbk, maxak, maxbk,
         minck, maxck, nouta, lmiss, itest, nount;
-    extern /* Subroutine */ int reduce(integer *, integer *, integer *,
-                                       integer *, integer *, integer *, integer *, integer *, integer *,
-                                       integer *, integer *, integer *, integer *);
-    static integer ibitbs, mislla, misllb, misllc, iersav, lminpk, ktotal,
+    extern /* Subroutine */ int reduce(g2int *, g2int *, g2int *,
+                                       g2int *, g2int *, g2int *, g2int *, g2int *, g2int *,
+                                       g2int *, g2int *, g2int *, g2int *);
+    static g2int ibitbs, mislla, misllb, misllc, iersav, lminpk, ktotal,
         kounta, kountb, kstart, mstart, mintst, maxtst,
         kounts, mintstk, maxtstk;
-    integer *misslx;
+    g2int *misslx;
 
 
 
@@ -291,7 +290,7 @@ pack_gp(integer *kfildo, integer *ic, integer *nxy,
 
 
 /*        MISSLX( ) was AN AUTOMATIC ARRAY. */
-    misslx = (integer *)calloc(*ndg,sizeof(integer));
+    misslx = (g2int *)calloc(*ndg,sizeof(g2int));
 
 
     /* Parameter adjustments */
