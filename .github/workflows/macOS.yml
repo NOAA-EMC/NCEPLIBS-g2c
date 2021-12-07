@@ -66,6 +66,28 @@ jobs:
         make -j2
         make install
 
+    - name: cache-png
+      id: cache-png
+      uses: actions/cache@v2
+      with:
+        path: ~/png
+        key: png-${{ runner.os }}-1.6.35-macOS
+
+    - name: build-png
+      if: steps.cache-png.outputs.cache-hit != 'true'
+      run: |
+        cd png
+        wget https://github.com/glennrp/libpng/archive/refs/tags/v1.6.35.tar.gz
+        ls -l
+        tar zxf v1.6.35.tar.gz
+        ls -l
+        cd v1.6.35
+        mkdir cmake_build
+        cd cmake_build
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/png
+        make -j2
+        make install
+          
     - name: checkout
       uses: actions/checkout@v2
       with:
