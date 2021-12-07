@@ -76,7 +76,6 @@ jobs:
     - name: build-png
       if: steps.cache-png.outputs.cache-hit != 'true'
       run: |
-        cd png
         wget https://github.com/glennrp/libpng/archive/refs/tags/v1.6.35.tar.gz
         ls -l
         tar zxf v1.6.35.tar.gz
