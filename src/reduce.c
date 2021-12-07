@@ -10,8 +10,6 @@
 
 #include <stdlib.h>
 #include "grib2_int.h"
-typedef g2int integer; /**< Integer type. */
-typedef g2float real; /**< Float type. */
 
 /**
  * Determines whether the number of groups should be increased in
@@ -77,7 +75,7 @@ typedef g2float real; /**< Float type. */
  *                       (internal)
  *               cfeed = contains the character representation
  *                       of a printer form feed. (character) (internal)
- *               ifeed = contains the integer value of a printer
+ *               ifeed = contains the g2int value of a printer
  *                       form feed. (internal)
  *              iorigb = the original number of bits necessary
  *                       for the group values. (internal)
@@ -87,31 +85,31 @@ typedef g2float real; /**< Float type. */
  * @date November 2001
  */
 int
-reduce(integer *kfildo, integer *jmin, integer *jmax,
-       integer *lbit, integer *nov, integer *lx, integer *ndg, integer *ibit,
-       integer *jbit, integer *kbit, integer *novref, integer *ibxx2,
-       integer *ier)
+reduce(g2int *kfildo, g2int *jmin, g2int *jmax,
+       g2int *lbit, g2int *nov, g2int *lx, g2int *ndg, g2int *ibit,
+       g2int *jbit, g2int *kbit, g2int *novref, g2int *ibxx2,
+       g2int *ier)
 {
     /* Initialized data */
 
-    static integer ifeed = 12;
+    static g2int ifeed = 12;
 
     /* System generated locals */
-    integer i__1, i__2;
+    g2int i__1, i__2;
 
     /* Local variables */
-    static integer newboxtp, j, l, m, jj, lxn, left;
-    static real pimp;
-    static integer move, novl;
+    static g2int newboxtp, j, l, m, jj, lxn, left;
+    static g2float pimp;
+    static g2int move, novl;
     static char cfeed[1];
-    /* static integer nboxj[31]; */
-    static integer lxnkp, iorigb, ibxx2m1, movmin,
+    /* static g2int nboxj[31]; */
+    static g2int lxnkp, iorigb, ibxx2m1, movmin,
         ntotbt[31], ntotpr, newboxt;
-    integer *newbox, *newboxp;
+    g2int *newbox, *newboxp;
 
 /*        NEWBOX() AND NEWBOXP() were AUTOMATIC ARRAYS. */
-    newbox = (integer *)calloc(*ndg,sizeof(integer));
-    newboxp = (integer *)calloc(*ndg,sizeof(integer));
+    newbox = (g2int *)calloc(*ndg,sizeof(g2int));
+    newboxp = (g2int *)calloc(*ndg,sizeof(g2int));
 
     /* Parameter adjustments */
     --nov;
@@ -265,7 +263,7 @@ reduce(integer *kfildo, integer *jmin, integer *jmax,
     }
 
 L250:
-    pimp = (iorigb - ntotbt[jj - 1]) / (real) iorigb * 100.f;
+    pimp = (iorigb - ntotbt[jj - 1]) / (g2float) iorigb * 100.f;
 /*     WRITE(KFILDO,252)PIMP,KBIT,JJ */
 /* 252  FORMAT(/' PERCENT IMPROVEMENT =',F6.1, */
 /*    1        ' BY DECREASING GROUP LENGTHS FROM',I4,' TO',I4,' BITS') */
