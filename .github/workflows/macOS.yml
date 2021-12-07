@@ -80,9 +80,9 @@ jobs:
         ls -l
         tar zxf v1.6.35.tar.gz
         ls -l
-        cd v1.6.35
-        mkdir cmake_build
-        cd cmake_build
+        cd libpng-1.6.35
+        mkdir build
+        cd build
         cmake .. -DCMAKE_INSTALL_PREFIX=~/png
         make -j2
         make install
