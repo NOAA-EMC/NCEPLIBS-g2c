@@ -47,7 +47,7 @@ pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
         if (!ifld || !ctemp)
         {
             fprintf(stderr,"Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
-            return 1;
+            return G2_JPCUNPACK_MEM;
         }
         dec_png(cpack, &width, &height, ctemp);
         gbits(ctemp, ifld, 0, nbits, 0, ndpts);
