@@ -39,6 +39,7 @@ jobs:
     steps:
     - name: install-dependencies
       run: |
+        bash uninstall-mono.sh
         brew update
         brew install doxygen openjpeg 
 
