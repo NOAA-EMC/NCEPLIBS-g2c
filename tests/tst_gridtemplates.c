@@ -55,6 +55,8 @@ main()
             return G2C_ERROR;
         if (tmpl->type != 3 || tmpl->num != 120 || tmpl->maplen != 7 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -62,12 +64,16 @@ main()
             return G2C_ERROR;
         if (tmpl->type != 3 || tmpl->num != 1000 || tmpl->maplen != 20 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
         if (!(tmpl = extgridtemplate(1200, list2)))
             return G2C_ERROR;
         if (tmpl->type != 3 || tmpl->num != 1200 || tmpl->maplen != 16 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
