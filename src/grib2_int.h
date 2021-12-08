@@ -20,6 +20,39 @@
 
 #define ALOG2 (0.69314718) /**< ln(2.0) */
 
+/**
+ * Struct for GRIB template.
+ */
+struct gtemplate
+{
+    /** The template type:
+     * 3 Grid Defintion Template.
+     * 4 Product Defintion Template.
+     * 5 Data Representation Template. */
+    g2int type;
+
+    g2int num; /**< The template number. */
+
+    /** Number of entries in the static part of the template. */
+    g2int maplen;
+
+    /** Number of octets of each entry in the static part of the
+     * template. */
+    g2int *map;
+
+    /** Indicates whether or not the template needs to be extended. */
+    g2int needext;
+
+    /** Number of entries in the template extension. */
+    g2int extlen;
+
+    /** Number of octets of each entry in the extension part of the
+     * template. */
+    g2int *ext;
+};
+
+typedef struct gtemplate gtemplate; /**< Struct for GRIB template. */
+
 /* Legacy support functions. */
 double int_power(double x, g2int y);
 void mkieee(g2float *a, g2int *rieee, g2int num);
