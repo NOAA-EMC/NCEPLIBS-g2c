@@ -329,9 +329,12 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 35 || tmpl->maplen != 6 || !tmpl->needext)
             return G2C_ERROR;
-        if (!tmpl->ext)
-            return G2C_ERROR;
-        free(tmpl->ext);
+        /* This should have allocated an extension, but it does
+         * not. See
+         * https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues/240. */
+        /* if (!tmpl->ext) */
+        /*     return G2C_ERROR; */
+        /* free(tmpl->ext); */
         free(tmpl);
     }
     printf("ok!\n");
