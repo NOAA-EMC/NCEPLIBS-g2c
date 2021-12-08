@@ -26,39 +26,6 @@ typedef uint64_t g2intu; /**< Unsigned long integer type. */
 typedef float g2float; /**< Float type. */
 
 /**
- * Struct for GRIB template.
- */
-struct gtemplate
-{
-    /** The template type:
-     * 3 Grid Defintion Template.
-     * 4 Product Defintion Template.
-     * 5 Data Representation Template. */
-    g2int type;
-
-    g2int num; /**< The template number. */
-
-    /** Number of entries in the static part of the template. */
-    g2int maplen;
-
-    /** Number of octets of each entry in the static part of the
-     * template. */
-    g2int *map;
-
-    /** Indicates whether or not the template needs to be extended. */
-    g2int needext;
-
-    /** Number of entries in the template extension. */
-    g2int extlen;
-
-    /** Number of octets of each entry in the extension part of the
-     * template. */
-    g2int *ext;
-};
-
-typedef struct gtemplate gtemplate; /**< Struct for GRIB template. */
-
-/**
  * Struct for GRIB field.
  */
 struct gribfield
