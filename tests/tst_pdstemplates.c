@@ -65,6 +65,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 3 || tmpl->maplen != 31 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -73,6 +75,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 4 || tmpl->maplen != 30 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
@@ -83,6 +87,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 8 || tmpl->maplen != 29 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -91,6 +97,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 9 || tmpl->maplen != 36 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
@@ -101,6 +109,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 10 || tmpl->maplen != 30 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -109,6 +119,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 11 || tmpl->maplen != 32 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
@@ -119,6 +131,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 12 || tmpl->maplen != 31 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -127,6 +141,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 13 || tmpl->maplen != 45 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
@@ -137,6 +153,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 14 || tmpl->maplen != 44 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -145,6 +163,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 30 || tmpl->maplen != 5 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
@@ -155,6 +175,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 31 || tmpl->maplen != 5 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -163,6 +185,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 42 || tmpl->maplen != 30 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
@@ -173,6 +197,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 43 || tmpl->maplen != 33 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -181,6 +207,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 32 || tmpl->maplen != 10 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
@@ -191,6 +219,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 46 || tmpl->maplen != 35 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -199,6 +229,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 47 || tmpl->maplen != 38 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
@@ -209,6 +241,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 51 || tmpl->maplen != 16 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -217,6 +251,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 91 || tmpl->maplen != 36 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
@@ -227,6 +263,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 33 || tmpl->maplen != 18 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -235,6 +273,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 34 || tmpl->maplen != 32 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
@@ -245,6 +285,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 53 || tmpl->maplen != 19 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -253,6 +295,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 54 || tmpl->maplen != 22 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
@@ -263,6 +307,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 57 || tmpl->maplen != 7 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -272,6 +318,8 @@ main()
             return G2C_ERROR;
         if (tmpl->num != 61 || tmpl->maplen != 38 || !tmpl->needext)
             return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
 
@@ -280,6 +328,8 @@ main()
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 35 || tmpl->maplen != 6 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
