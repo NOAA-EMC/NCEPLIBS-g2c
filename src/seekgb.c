@@ -23,7 +23,8 @@
  * @param lugb FILE pointer for the file to search. File must be
  * opened before this routine is called.
  * @param iseek number of bytes in the file to skip before search.
- * @param mseek number of bytes to search at a time.
+ * @param mseek number of bytes to search at a time (must be at least
+ * 16).
  * @param lskip number of bytes to skip from the beggining of the file
  * to where the GRIB message starts.
  * @param lgrib number of bytes in message (set to 0, if no message
