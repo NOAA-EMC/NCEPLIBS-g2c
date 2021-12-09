@@ -74,10 +74,8 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
                 if (vers == 2)
                     gbit(cbuf, &lengrib, (k + 12) * BITS_PER_BYTE, 4 * BITS_PER_BYTE);
 
-                /* Jump to the end of the message, minus 4 bytes. */
-                fseek(lugb, ipos + k + lengrib - 4, SEEK_SET);
-                
                 /* Read the last 4 bytesof the message. */
+                fseek(lugb, ipos + k + lengrib - 4, SEEK_SET);
                 k4 = fread(&end, 4, 1, lugb);
                 
                 /* Look for '7777' at end of grib message. */
