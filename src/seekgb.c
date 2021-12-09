@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include "grib2_int.h"
 
+/** 8 bits per byte. */
+#define BITS_PER_BYTE 8
+
 /**
  * This subprogram searches a file for the next GRIB Message. The
  * search is done starting at byte offset iseek of the file referenced
@@ -55,20 +58,29 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
         /* Look for 'grib...' in partial section. */
         for (k = 0; k < lim; k++)
         {
-            gbit(cbuf, &start, (k + 0) * 8, 4 * 8);
-            gbit(cbuf, &vers, (k + 7) * 8, 1 * 8);
-            
+            /* Look at the first 4 bytes - should be 'GRIB'. */
+            gbit(cbuf, &start, k * BITS_PER_BYTE, 4 * BITS_PER_BYTE);
+
+            /* Look at the 8th byte, it has the GRIB version. */
+            gbit(cbuf, &vers, (k + 7) * BITS_PER_BYTE, 1 * BITS_PER_BYTE);
+
+            /* If the message starts with 'GRIB', and is version 1 or
+             * 2, then this is a GRIB message. */
             if (start == 1196575042 && (vers == 1 || vers == 2))
             {
-                /*  Look for '7777' at end of grib message. */
+                /* Find the length of the message. */
                 if (vers == 1)
-                    gbit(cbuf, &lengrib, (k + 4) * 8, 3 * 8);
+                    gbit(cbuf, &lengrib, (k + 4) * BITS_PER_BYTE, 3 * BITS_PER_BYTE);
                 if (vers == 2)
-                    gbit(cbuf, &lengrib, (k + 12) * 8, 4 * 8);
+                    gbit(cbuf, &lengrib, (k + 12) * BITS_PER_BYTE, 4 * BITS_PER_BYTE);
+
+                /* Jump to the end of the message, minus 4 bytes. */
                 fseek(lugb, ipos + k + lengrib - 4, SEEK_SET);
                 
-                /* Hard code to 4 instead of sizeof(g2int). */
+                /* Read the last 4 bytesof the message. */
                 k4 = fread(&end, 4, 1, lugb);
+                
+                /* Look for '7777' at end of grib message. */
                 if (k4 == 1 && end == 926365495)
                 {
                     /* GRIB message found. */
