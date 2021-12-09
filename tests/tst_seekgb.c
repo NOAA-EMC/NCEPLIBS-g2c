@@ -1,7 +1,7 @@
 /* This is a test for the NCEPLIBS-g2c project. This test is for
  * seekgb.c.
  *
- * Ed Hartnett 12/
+ * Ed Hartnett 12/9/21
  */
 
 #include <stdio.h>
