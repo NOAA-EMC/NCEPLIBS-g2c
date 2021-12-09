@@ -93,15 +93,12 @@ $(document).ready(function(){initNavTree('jpcpack_8c.html',''); initResizable();
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="grib2__int_8h_source.html">grib2_int.h</a>&quot;</code><br />
 </div>
 <p><a href="jpcpack_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8a415bdd3beda56d05a706a614608a7c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpcpack_8c.html#a8a415bdd3beda56d05a706a614608a7c">enc_jpeg2000</a> (unsigned char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>)</td></tr>
-<tr class="memdesc:a8a415bdd3beda56d05a706a614608a7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This Function encodes a grayscale image into a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer Software version 1.500.4 (or 1.700.2) written by the University of British Columbia, Image Power Inc, and others.  <a href="jpcpack_8c.html#a8a415bdd3beda56d05a706a614608a7c">More...</a><br /></td></tr>
-<tr class="separator:a8a415bdd3beda56d05a706a614608a7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9342b7e883d454cc9c9c5051e40cf557"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jpcpack_8c.html#a9342b7e883d454cc9c9c5051e40cf557">jpcpack</a> (<a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *fld, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> width, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> height, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, unsigned char *cpack, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *lcpack)</td></tr>
 <tr class="memdesc:a9342b7e883d454cc9c9c5051e40cf557"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field into a JPEG2000 code stream.  <a href="jpcpack_8c.html#a9342b7e883d454cc9c9c5051e40cf557">More...</a><br /></td></tr>
 <tr class="separator:a9342b7e883d454cc9c9c5051e40cf557"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,122 +110,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="jpcpack_8c_source.html">jpcpack.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a8a415bdd3beda56d05a706a614608a7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a415bdd3beda56d05a706a614608a7c">&#9670;&nbsp;</a></span>enc_jpeg2000()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int enc_jpeg2000 </td>
-          <td>(</td>
-          <td class="paramtype">unsigned char *&#160;</td>
-          <td class="paramname"><em>cin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>nbits</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>ltype</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>ratio</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>retry</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>outjpc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>jpclen</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This Function encodes a grayscale image into a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer Software version 1.500.4 (or 1.700.2) written by the University of British Columbia, Image Power Inc, and others. </p>
-<p>JasPer is available at <a href="http://www.ece.uvic.ca/~mdadams/jasper/">http://www.ece.uvic.ca/~mdadams/jasper/</a>.</p>
-<h3><a class="anchor" id="autotoc_md7"></a>
-Program History Log</h3>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Date   </th><th class="markdownTableHeadNone">Programmer   </th><th class="markdownTableHeadNone">Comments    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">2002-12-02   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Initial    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">2004-12-16   </td><td class="markdownTableBodyNone">Gilbert   </td><td class="markdownTableBodyNone">Added retry argument allowing increased guard bits.   </td></tr>
-</table>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cin</td><td>Packed matrix of Grayscale image values to encode. </td></tr>
-    <tr><td class="paramname">width</td><td>width of image. </td></tr>
-    <tr><td class="paramname">height</td><td>height of image. </td></tr>
-    <tr><td class="paramname">nbits</td><td>depth (in bits) of image. i.e number of bits used to hold each data value. </td></tr>
-    <tr><td class="paramname">ltype</td><td>indicator of lossless or lossy compression.<ul>
-<li>1, for lossy compression</li>
-<li>!= 1, for lossless compression </li>
-</ul>
-</td></tr>
-    <tr><td class="paramname">ratio</td><td>target compression ratio. (ratio:1) Used only when ltype == 1. </td></tr>
-    <tr><td class="paramname">retry</td><td>If 1 try increasing number of guard bits otherwise, no additional options. </td></tr>
-    <tr><td class="paramname">outjpc</td><td>Output encoded JPEG2000 code stream. </td></tr>
-    <tr><td class="paramname">jpclen</td><td>Number of bytes allocated for the output JPEG2000 code stream in outjpc.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>&gt; 0 = Length in bytes of encoded JPEG2000 code stream</li>
-<li>-3 = Error decode jpeg2000 code stream.</li>
-<li>-5 = decoded image had multiple color components. Only grayscale is expected.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Requires JasPer Software version 1.500.4 or 1.700.2 or later.</dd></dl>
-<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2002-12-02 </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="enc__jpeg2000_8c_source.html#l00057">57</a> of file <a class="el" href="enc__jpeg2000_8c_source.html">enc_jpeg2000.c</a>.</p>
-
-<p class="reference">References <a class="el" href="enc__jpeg2000_8c_source.html#l00015">MAXOPTSSIZE</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="jpcpack_8c_source.html#l00053">jpcpack()</a>.</p>
-
-</div>
-</div>
 <a id="a9342b7e883d454cc9c9c5051e40cf557"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9342b7e883d454cc9c9c5051e40cf557">&#9670;&nbsp;</a></span>jpcpack()</h2>
 
@@ -281,7 +162,7 @@ Program History Log</h3>
 
 <p>This subroutine packs up a data field into a JPEG2000 code stream. </p>
 <p>After the data field is scaled, and the reference value is subtracted out, it is treated as a grayscale image and passed to a JPEG2000 encoder. It also fills in GRIB2 Data Representation Template 5.40 or 5.40000 with the appropriate values.</p>
-<h3><a class="anchor" id="autotoc_md19"></a>
+<h3><a class="anchor" id="autotoc_md20"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -318,11 +199,11 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-08-17 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="jpcpack_8c_source.html#l00053">53</a> of file <a class="el" href="jpcpack_8c_source.html">jpcpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="jpcpack_8c_source.html#l00050">50</a> of file <a class="el" href="jpcpack_8c_source.html">jpcpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="enc__jpeg2000_8c_source.html#l00057">enc_jpeg2000()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00021">ALOG2</a>, <a class="el" href="enc__jpeg2000_8c_source.html#l00051">enc_jpeg2000()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00022">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00105">g2_addfield()</a>.</p>
 
 </div>
 </div>

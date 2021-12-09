@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('g2__info_8c.html',''); initResizable()
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="grib2__int_8h_source.html">grib2_int.h</a>&quot;</code><br />
 </div>
 <p><a href="g2__info_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -187,12 +187,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 foe success, otherwise:<ul>
-<li>1 Beginning characters "GRIB" not found.</li>
-<li>2 GRIB message is not Edition 2.</li>
-<li>3 Could not find Section 1, where expected.</li>
-<li>4 End string "7777" found, but not where expected.</li>
-<li>5 End string "7777" not found at end of message.</li>
-<li>6 Invalid section number found.</li>
+<li><a class="el" href="grib2_8h.html#af26cc0775753191aabf4720876452b48" title="g2_info() can&#39;t find beginning characters &quot;GRIB&quot;.">G2_INFO_NO_GRIB</a> Beginning characters "GRIB" not found.</li>
+<li><a class="el" href="grib2_8h.html#a55b6bf7ad57b4c202827f3326ad2c4df" title="Wrong GRIB version for g2_info(), must be 2.">G2_INFO_GRIB_VERSION</a> GRIB message is not Edition 2.</li>
+<li><a class="el" href="grib2_8h.html#a14417ca1b452ff2e6681ebd4f00c2dee" title="g2_info() can&#39;t find section 1.">G2_INFO_NO_SEC1</a> Could not find Section 1, where expected.</li>
+<li><a class="el" href="grib2_8h.html#af935bef94850a5b24e554393ce0a8eef" title="g2_info() found &quot;7777&quot; not where expected.">G2_INFO_WRONG_END</a> End string "7777" found, but not where expected.</li>
+<li><a class="el" href="grib2_8h.html#ae174af0c4aa67c5d6217688d45aad4c5" title="g2_info() didn&#39;t find &quot;7777&quot; at end of message.">G2_INFO_BAD_END</a> End string "7777" not found at end of message.</li>
+<li><a class="el" href="grib2_8h.html#a436d91157da728072516d50f5c349507" title="g2_info() found invalid section number.">G2_INFO_INVAL_SEC</a> Invalid section number found.</li>
 </ul>
 </dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbeert </dd></dl>
@@ -200,7 +200,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="g2__info_8c_source.html#l00067">67</a> of file <a class="el" href="g2__info_8c_source.html">g2_info.c</a>.</p>
 
-<p class="reference">References <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00250">G2_INFO_BAD_END</a>, <a class="el" href="grib2_8h_source.html#l00247">G2_INFO_GRIB_VERSION</a>, <a class="el" href="grib2_8h_source.html#l00251">G2_INFO_INVAL_SEC</a>, <a class="el" href="grib2_8h_source.html#l00246">G2_INFO_NO_GRIB</a>, <a class="el" href="grib2_8h_source.html#l00248">G2_INFO_NO_SEC1</a>, <a class="el" href="grib2_8h_source.html#l00249">G2_INFO_WRONG_END</a>, and <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>.</p>
 
 </div>
 </div>

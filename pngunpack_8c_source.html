@@ -89,58 +89,57 @@ $(document).ready(function(){initNavTree('pngunpack_8c_source.html',''); initRes
 <a href="pngunpack_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2_8h.html">grib2.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grib2__int_8h.html">grib2_int.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">int</span> <a class="code" href="pngunpack_8c.html#a40ac90d38dd9b8d7a28df5f35c1230de">dec_png</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, <span class="keywordtype">char</span> *);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="g2__unpack7_8c.html#a188b50820544141523fc0c67dbb3ed42">   30</a></span>&#160;<a class="code" href="pngunpack_8c.html#acd726669156a52a640744423669e9397">pngunpack</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> len, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;          <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *fld)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *ifld;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> j, nbits, width, height;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> ref, bscale, dscale;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ctemp;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="rdieee_8c.html#a765d8cfa0519cce8a36953120263ba51">rdieee</a>(idrstmpl, &amp;ref, 1);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    bscale = <a class="code" href="int__power_8c.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a>(2.0, idrstmpl[1]);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    dscale = <a class="code" href="int__power_8c.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a>(10.0, -idrstmpl[2]);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    nbits = idrstmpl[3];</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="comment">/* If nbits equals 0, we have a constant field where the reference</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">     * value is the data value at each gridpoint. */</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> (nbits != 0)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        ifld = calloc(ndpts, <span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>));</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        ctemp = calloc(ndpts * 4, 1);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">if</span> (!ifld || !ctemp)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            fprintf(stderr,<span class="stringliteral">&quot;Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n&quot;</span>);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordflow">return</span>(1);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="pngunpack_8c.html#a40ac90d38dd9b8d7a28df5f35c1230de">dec_png</a>(cpack, &amp;width, &amp;height, ctemp);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="gbits_8c.html#ab3ebb34ac18fa0ad9baa48eb894689e7">gbits</a>(ctemp, ifld, 0, nbits, 0, ndpts);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">for</span> (j = 0; j &lt; ndpts; j++)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            fld[j] = (((<a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a>)ifld[j] * bscale) + ref) * dscale;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        free(ctemp);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        free(ifld);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">for</span> (j = 0; j &lt; ndpts; j++)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            fld[j] = ref;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">return</span>(0);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
-<div class="ttc" id="agbits_8c_html_ab3ebb34ac18fa0ad9baa48eb894689e7"><div class="ttname"><a href="gbits_8c.html#ab3ebb34ac18fa0ad9baa48eb894689e7">gbits</a></div><div class="ttdeci">void gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbyte, g2int nskip, g2int n)</div><div class="ttdoc">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00057">gbits.c:57</a></div></div>
-<div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
-<div class="ttc" id="agrib2_8h_html_a2e615ee29fc8d17a681017e4384847c2"><div class="ttname"><a href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a></div><div class="ttdeci">float g2float</div><div class="ttdoc">Float type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00022">grib2.h:22</a></div></div>
-<div class="ttc" id="agrib2_8h_html_af0b63b0e0f41f07f562a4367e2a60838"><div class="ttname"><a href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div><div class="ttdeci">int64_t g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00020">grib2.h:20</a></div></div>
-<div class="ttc" id="aint__power_8c_html_a6b284a64a4b42cd86db872ae7e1eeaa8"><div class="ttname"><a href="int__power_8c.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a></div><div class="ttdeci">double int_power(double x, g2int y)</div><div class="ttdoc">Function similar to C pow() power function.</div><div class="ttdef"><b>Definition:</b> <a href="int__power_8c_source.html#l00017">int_power.c:17</a></div></div>
-<div class="ttc" id="apngunpack_8c_html_a40ac90d38dd9b8d7a28df5f35c1230de"><div class="ttname"><a href="pngunpack_8c.html#a40ac90d38dd9b8d7a28df5f35c1230de">dec_png</a></div><div class="ttdeci">int dec_png(unsigned char *, g2int *, g2int *, char *)</div><div class="ttdoc">Decode PNG.</div><div class="ttdef"><b>Definition:</b> <a href="dec__png_8c_source.html#l00071">dec_png.c:71</a></div></div>
-<div class="ttc" id="apngunpack_8c_html_acd726669156a52a640744423669e9397"><div class="ttname"><a href="pngunpack_8c.html#acd726669156a52a640744423669e9397">pngunpack</a></div><div class="ttdeci">g2int pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts, g2float *fld)</div><div class="ttdoc">This subroutine unpacks a data field that was packed into a PNG image format using info from the GRIB...</div><div class="ttdef"><b>Definition:</b> <a href="pngunpack_8c_source.html#l00030">pngunpack.c:30</a></div></div>
-<div class="ttc" id="ardieee_8c_html_a765d8cfa0519cce8a36953120263ba51"><div class="ttname"><a href="rdieee_8c.html#a765d8cfa0519cce8a36953120263ba51">rdieee</a></div><div class="ttdeci">void rdieee(g2int *rieee, g2float *a, g2int num)</div><div class="ttdoc">This subroutine reads a list of real values in 32-bit IEEE floating point format.</div><div class="ttdef"><b>Definition:</b> <a href="rdieee_8c_source.html#l00020">rdieee.c:20</a></div></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="grib2__int_8h.html#acd726669156a52a640744423669e9397">   28</a></span>&#160;<a class="code" href="pngunpack_8c.html#acd726669156a52a640744423669e9397">pngunpack</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> len, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;          <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *fld)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *ifld;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> j, nbits, width, height;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> ref, bscale, dscale;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ctemp;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="grib2__int_8h.html#a765d8cfa0519cce8a36953120263ba51">rdieee</a>(idrstmpl, &amp;ref, 1);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    bscale = <a class="code" href="grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a>(2.0, idrstmpl[1]);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    dscale = <a class="code" href="grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a>(10.0, -idrstmpl[2]);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    nbits = idrstmpl[3];</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">/* If nbits equals 0, we have a constant field where the reference</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">     * value is the data value at each gridpoint. */</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span> (nbits != 0)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        ifld = calloc(ndpts, <span class="keyword">sizeof</span>(<a class="code" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>));</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        ctemp = calloc(ndpts * 4, 1);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">if</span> (!ifld || !ctemp)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            fprintf(stderr,<span class="stringliteral">&quot;Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n&quot;</span>);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="grib2_8h.html#ade01e29b36d4a7b1de09c84c39786fbd">G2_JPCUNPACK_MEM</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="dec__png_8c.html#a4c7dfb37dbbca9143143db5aeb2f6005">dec_png</a>(cpack, &amp;width, &amp;height, ctemp);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="gbits_8c.html#a31ebdbbf262b7478d6a7cc4326f76ade">gbits</a>(ctemp, ifld, 0, nbits, 0, ndpts);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">for</span> (j = 0; j &lt; ndpts; j++)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            fld[j] = (((<a class="code" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a>)ifld[j] * bscale) + ref) * dscale;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        free(ctemp);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        free(ifld);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">for</span> (j = 0; j &lt; ndpts; j++)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            fld[j] = ref;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="ttc" id="adec__png_8c_html_a4c7dfb37dbbca9143143db5aeb2f6005"><div class="ttname"><a href="dec__png_8c.html#a4c7dfb37dbbca9143143db5aeb2f6005">dec_png</a></div><div class="ttdeci">int dec_png(unsigned char *pngbuf, g2int *width, g2int *height, unsigned char *cout)</div><div class="ttdoc">Decode PNG.</div><div class="ttdef"><b>Definition:</b> <a href="dec__png_8c_source.html#l00061">dec_png.c:61</a></div></div>
+<div class="ttc" id="agbits_8c_html_a31ebdbbf262b7478d6a7cc4326f76ade"><div class="ttname"><a href="gbits_8c.html#a31ebdbbf262b7478d6a7cc4326f76ade">gbits</a></div><div class="ttdeci">void gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits, g2int nskip, g2int n)</div><div class="ttdoc">Get bits - unpack bits: Extract arbitrary size values from a packed bit string, right justifying each...</div><div class="ttdef"><b>Definition:</b> <a href="gbits_8c_source.html#l00057">gbits.c:57</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a2e615ee29fc8d17a681017e4384847c2"><div class="ttname"><a href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a></div><div class="ttdeci">float g2float</div><div class="ttdoc">Float type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00026">grib2.h:26</a></div></div>
+<div class="ttc" id="agrib2_8h_html_ade01e29b36d4a7b1de09c84c39786fbd"><div class="ttname"><a href="grib2_8h.html#ade01e29b36d4a7b1de09c84c39786fbd">G2_JPCUNPACK_MEM</a></div><div class="ttdeci">#define G2_JPCUNPACK_MEM</div><div class="ttdoc">In jpcunpack() or other unpack function: out of memory.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00289">grib2.h:289</a></div></div>
+<div class="ttc" id="agrib2_8h_html_af0b63b0e0f41f07f562a4367e2a60838"><div class="ttname"><a href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div><div class="ttdeci">int64_t g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition:</b> <a href="grib2_8h_source.html#l00024">grib2.h:24</a></div></div>
+<div class="ttc" id="agrib2__int_8h_html"><div class="ttname"><a href="grib2__int_8h.html">grib2_int.h</a></div><div class="ttdoc">Header file with internal function prototypes NCEPLIBS-g2c library.</div></div>
+<div class="ttc" id="agrib2__int_8h_html_a6b284a64a4b42cd86db872ae7e1eeaa8"><div class="ttname"><a href="grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a></div><div class="ttdeci">double int_power(double x, g2int y)</div><div class="ttdoc">Function similar to C pow() power function.</div><div class="ttdef"><b>Definition:</b> <a href="int__power_8c_source.html#l00017">int_power.c:17</a></div></div>
+<div class="ttc" id="agrib2__int_8h_html_a765d8cfa0519cce8a36953120263ba51"><div class="ttname"><a href="grib2__int_8h.html#a765d8cfa0519cce8a36953120263ba51">rdieee</a></div><div class="ttdeci">void rdieee(g2int *rieee, g2float *a, g2int num)</div><div class="ttdoc">This subroutine reads a list of real values in 32-bit IEEE floating point format.</div><div class="ttdef"><b>Definition:</b> <a href="rdieee_8c_source.html#l00021">rdieee.c:21</a></div></div>
+<div class="ttc" id="apngunpack_8c_html_acd726669156a52a640744423669e9397"><div class="ttname"><a href="pngunpack_8c.html#acd726669156a52a640744423669e9397">pngunpack</a></div><div class="ttdeci">g2int pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts, g2float *fld)</div><div class="ttdoc">This subroutine unpacks a data field that was packed into a PNG image format using info from the GRIB...</div><div class="ttdef"><b>Definition:</b> <a href="pngunpack_8c_source.html#l00028">pngunpack.c:28</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

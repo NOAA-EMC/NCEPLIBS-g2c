@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('g2__create_8c.html',''); initResizable
 <p>Initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Identification Section).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="grib2__int_8h_source.html">grib2_int.h</a>&quot;</code><br />
 </div>
 <p><a href="g2__create_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -109,7 +109,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a0e8970973e1cefc142240f961a796108"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108">g2_create</a> (unsigned char *cgrib, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *listsec0, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *listsec1)</td></tr>
-<tr class="memdesc:a0e8970973e1cefc142240f961a796108"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Identification Section).  <a href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108">More...</a><br /></td></tr>
+<tr class="memdesc:a0e8970973e1cefc142240f961a796108"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine initializes a new GRIB2 message and packs GRIB2 <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect0.shtml">Section 0 (Indicator Section)</a> and <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect1.shtml">Section 1 (Identification Section)</a>.  <a href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108">More...</a><br /></td></tr>
 <tr class="separator:a0e8970973e1cefc142240f961a796108"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -188,8 +188,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Identification Section). </p>
-<p>This routine is used with routines <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message. A call to <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> is required to complete GRIB2 message after all fields have been added.</p>
+<p>This routine initializes a new GRIB2 message and packs GRIB2 <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect0.shtml">Section 0 (Indicator Section)</a> and <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect1.shtml">Section 1 (Identification Section)</a>. </p>
+<p>This routine is used with routines <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 Section 0 (Indicator Section) and Sectio...">g2_create()</a> must be called first to initialize a new GRIB2 message. A call to <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> is required to complete GRIB2 message after all fields have been added.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">cgrib</td><td>Character array to contain the GRIB2 message. Must be allocated large enough to store the entire GRIB2 message. </td></tr>
@@ -217,17 +217,18 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>- &gt; 0 Current size of new GRIB2 message<ul>
-<li>-1 Tried to use for version other than GRIB Edition 2</li>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>&gt; 0 Current size of new GRIB2 message</li>
+<li><a class="el" href="grib2_8h.html#ae740c66315236fc68d4f337558587505" title="Wrong GRIB version for g2_create(), must be 2.">G2_CREATE_GRIB_VERSION</a> Tried to use for version other than GRIB Edition 2</li>
 </ul>
 </dd></dl>
 <p>This routine is intended for use with routines <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message.</p>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbeert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2__create_8c_source.html#l00063">63</a> of file <a class="el" href="g2__create_8c_source.html">g2_create.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2__create_8c_source.html#l00068">68</a> of file <a class="el" href="g2__create_8c_source.html">g2_create.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2__create_8c_source.html#l00011">LENSEC0</a>, <a class="el" href="g2__create_8c_source.html#l00010">MAPSEC1LEN</a>, and <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00245">G2_CREATE_GRIB_VERSION</a>, <a class="el" href="g2__create_8c_source.html#l00011">LENSEC0</a>, <a class="el" href="g2__create_8c_source.html#l00010">MAPSEC1LEN</a>, and <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>.</p>
 
 </div>
 </div>

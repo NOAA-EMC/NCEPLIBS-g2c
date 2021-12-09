@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('g2__unpack2_8c.html',''); initResizabl
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="grib2__int_8h_source.html">grib2_int.h</a>&quot;</code><br />
 </div>
 <p><a href="g2__unpack2_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -149,7 +149,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This subroutine unpacks <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect2.shtml">Section 2 (Local Use Section)</a> as defined in GRIB Edition 2. </p>
-<h3><a class="anchor" id="autotoc_md12"></a>
+<h3><a class="anchor" id="autotoc_md13"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -164,26 +164,26 @@ Program History Log</h3>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cgrib</td><td>char array containing Section 2 of the GRIB2 message. </td></tr>
-    <tr><td class="paramname">iofst</td><td>Bit offset for the beginning of Section 2 in cgrib. The modified version will be returned. </td></tr>
+    <tr><td class="paramname">iofst</td><td>Pointer that contains the bit offset for the beginning of Section 2 in cgrib. The modified version will be returned. </td></tr>
     <tr><td class="paramname">lencsec2</td><td>Length (in octets) of Local Use data. </td></tr>
-    <tr><td class="paramname">csec2</td><td>Pointer to a char array containing local use data.</td></tr>
+    <tr><td class="paramname">csec2</td><td>Pointer to a pointer that will get an allocated array containing local use data. This memory must be freed by the caller.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>0 no error</li>
-<li>2 Array passed is not section 2</li>
-<li>6 memory allocation error</li>
+<li><a class="el" href="grib2_8h.html#a94af4623709fa1c08f8035b98e7ca56b" title="Function succeeded.">G2_NO_ERROR</a> No error.</li>
+<li><a class="el" href="grib2_8h.html#a1eb0a21681ad4d1a9af3e357f59dc08b" title="Bad section number in unpacking function.">G2_UNPACK_BAD_SEC</a> Array passed had incorrect section number.</li>
+<li><a class="el" href="grib2_8h.html#a76dad0fdc4926df76a417a2992b81d66" title="Error allocating memory in unpack function.">G2_UNPACK_NO_MEM</a> Memory allocation error.</li>
 </ul>
 </dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2__unpack2_8c_source.html#l00037">37</a> of file <a class="el" href="g2__unpack2_8c_source.html">g2_unpack2.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2__unpack2_8c_source.html#l00038">38</a> of file <a class="el" href="g2__unpack2_8c_source.html">g2_unpack2.c</a>.</p>
 
-<p class="reference">References <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00244">G2_NO_ERROR</a>, <a class="el" href="grib2_8h_source.html#l00270">G2_UNPACK_BAD_SEC</a>, <a class="el" href="grib2_8h_source.html#l00271">G2_UNPACK_NO_MEM</a>, and <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__getfld_8c_source.html#l00102">g2_getfld()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__getfld_8c_source.html#l00091">g2_getfld()</a>.</p>
 
 </div>
 </div>

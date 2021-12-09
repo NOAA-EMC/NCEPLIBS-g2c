@@ -83,7 +83,9 @@ $(document).ready(function(){initNavTree('pdstemplates_8c.html',''); initResizab
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">pdstemplates.c File Reference</div>  </div>
 </div><!--header-->
@@ -92,26 +94,46 @@ $(document).ready(function(){initNavTree('pdstemplates_8c.html',''); initResizab
 <p>Functions for GRIB2 Product Definition Templates used in Section 4 - the Product Definition Section (PDS).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="pdstemplates_8h_source.html">pdstemplates.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="grib2__int_8h_source.html">grib2_int.h</a>&quot;</code><br />
 </div>
 <p><a href="pdstemplates_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aa0bb590f8c48ad21d17f6cf7a72d8f53"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#aa0bb590f8c48ad21d17f6cf7a72d8f53">MAXPDSMAPLEN</a>&#160;&#160;&#160;200</td></tr>
+<tr class="memdesc:aa0bb590f8c48ad21d17f6cf7a72d8f53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum template map length.  <a href="pdstemplates_8c.html#aa0bb590f8c48ad21d17f6cf7a72d8f53">More...</a><br /></td></tr>
+<tr class="separator:aa0bb590f8c48ad21d17f6cf7a72d8f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11c588e7671155abba68b92678fc2071"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#a11c588e7671155abba68b92678fc2071">MAXPDSTEMP</a>&#160;&#160;&#160;47</td></tr>
+<tr class="memdesc:a11c588e7671155abba68b92678fc2071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of templates.  <a href="pdstemplates_8c.html#a11c588e7671155abba68b92678fc2071">More...</a><br /></td></tr>
+<tr class="separator:a11c588e7671155abba68b92678fc2071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a64e5f115f7c4ec0b1b7d8af8376d12eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb">extpdstemplate</a> (<a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> number, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *list)</td></tr>
+<tr class="memitem:a64e5f115f7c4ec0b1b7d8af8376d12eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2__int_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb">extpdstemplate</a> (<a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> number, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *list)</td></tr>
 <tr class="memdesc:a64e5f115f7c4ec0b1b7d8af8376d12eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine generates the remaining octet map for a given Product Definition Template, if required.  <a href="pdstemplates_8c.html#a64e5f115f7c4ec0b1b7d8af8376d12eb">More...</a><br /></td></tr>
 <tr class="separator:a64e5f115f7c4ec0b1b7d8af8376d12eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68d2553a1ef915bd21a491f4105ab0f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">getpdsindex</a> (<a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> number)</td></tr>
-<tr class="memdesc:a68d2553a1ef915bd21a491f4105ab0f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the index of specified Product Definition Template in array templates.  <a href="pdstemplates_8c.html#a68d2553a1ef915bd21a491f4105ab0f2">More...</a><br /></td></tr>
-<tr class="separator:a68d2553a1ef915bd21a491f4105ab0f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad08ad7c4bee0466cd8ccafc1c1e76520"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#ad08ad7c4bee0466cd8ccafc1c1e76520">getpdstemplate</a> (<a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> number)</td></tr>
+<tr class="memitem:a59f2fe1fba0577301d154f21e0478e7f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#a59f2fe1fba0577301d154f21e0478e7f">getpdsindex</a> (<a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> number)</td></tr>
+<tr class="memdesc:a59f2fe1fba0577301d154f21e0478e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the index of specified Product Definition Template in array templates.  <a href="pdstemplates_8c.html#a59f2fe1fba0577301d154f21e0478e7f">More...</a><br /></td></tr>
+<tr class="separator:a59f2fe1fba0577301d154f21e0478e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad08ad7c4bee0466cd8ccafc1c1e76520"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2__int_8h.html#structgtemplate">gtemplate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#ad08ad7c4bee0466cd8ccafc1c1e76520">getpdstemplate</a> (<a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> number)</td></tr>
 <tr class="memdesc:ad08ad7c4bee0466cd8ccafc1c1e76520"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns PDS template information for a specified Product Definition Template.  <a href="pdstemplates_8c.html#ad08ad7c4bee0466cd8ccafc1c1e76520">More...</a><br /></td></tr>
 <tr class="separator:ad08ad7c4bee0466cd8ccafc1c1e76520"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a87d5723cb60a9b598bc574cd31673a26"><td class="memItemLeft" align="right" valign="top">static const struct pdstemplate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pdstemplates_8c.html#a87d5723cb60a9b598bc574cd31673a26">templatespds</a> [<a class="el" href="pdstemplates_8c.html#a11c588e7671155abba68b92678fc2071">MAXPDSTEMP</a>]</td></tr>
+<tr class="memdesc:a87d5723cb60a9b598bc574cd31673a26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data for struct for PDS template.  <a href="pdstemplates_8c.html#a87d5723cb60a9b598bc574cd31673a26">More...</a><br /></td></tr>
+<tr class="separator:a87d5723cb60a9b598bc574cd31673a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Functions for GRIB2 Product Definition Templates used in Section 4 - the Product Definition Section (PDS). </p>
-<h3><a class="anchor" id="autotoc_md20"></a>
+<p>Each Template has three parts:</p><ol type="1">
+<li>The number of entries in the template (mappdslen).</li>
+<li>A map of the template (mappds), which contains the number of octets in which to pack each of the template values.</li>
+<li>A logical value (needext) that indicates whether the Template needs to be extended. In some cases the number of entries in a template can vary depending upon values specified in the "static" part of the template. (See Template 4.3 as an example).</li>
+</ol>
+<dl class="section note"><dt>Note</dt><dd>Array mappds contains the number of octets in which the corresponding template values will be stored. A negative value in mappds is used to indicate that the corresponding template entry can contain negative values. This information is used later when packing (or unpacking) the template data values. Negative data values in GRIB are stored with the left most bit set to one, and a negative number of octets value in mappds[] indicates that this possibility should be considered. The number of octets used to store the data value in this case would be the absolute value of the negative value in mappds.</dd></dl>
+<h3><a class="anchor" id="autotoc_md21"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -137,7 +159,44 @@ Program History Log</h3>
 <dl class="section date"><dt>Date</dt><dd>2001-06-28 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="aa0bb590f8c48ad21d17f6cf7a72d8f53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0bb590f8c48ad21d17f6cf7a72d8f53">&#9670;&nbsp;</a></span>MAXPDSMAPLEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAXPDSMAPLEN&#160;&#160;&#160;200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum template map length. </p>
+
+<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00045">45</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+
+</div>
+</div>
+<a id="a11c588e7671155abba68b92678fc2071"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11c588e7671155abba68b92678fc2071">&#9670;&nbsp;</a></span>MAXPDSTEMP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAXPDSTEMP&#160;&#160;&#160;47</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum number of templates. </p>
+
+<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00044">44</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a64e5f115f7c4ec0b1b7d8af8376d12eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a64e5f115f7c4ec0b1b7d8af8376d12eb">&#9670;&nbsp;</a></span>extpdstemplate()</h2>
 
@@ -145,7 +204,7 @@ Program History Log</h3>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a>* extpdstemplate </td>
+          <td class="memname"><a class="el" href="grib2__int_8h.html#structgtemplate">gtemplate</a>* extpdstemplate </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
           <td class="paramname"><em>number</em>, </td>
@@ -178,28 +237,36 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00121">121</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00329">329</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
 
-<p class="reference">References <a class="el" href="pdstemplates_8c_source.html#l00038">getpdsindex()</a>, and <a class="el" href="pdstemplates_8c_source.html#l00073">getpdstemplate()</a>.</p>
+<p class="reference">References <a class="el" href="pdstemplates_8c_source.html#l00246">getpdsindex()</a>, and <a class="el" href="pdstemplates_8c_source.html#l00281">getpdstemplate()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>, and <a class="el" href="g2__unpack4_8c_source.html#l00045">g2_unpack4()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00105">g2_addfield()</a>, and <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>.</p>
 
 </div>
 </div>
-<a id="a68d2553a1ef915bd21a491f4105ab0f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68d2553a1ef915bd21a491f4105ab0f2">&#9670;&nbsp;</a></span>getpdsindex()</h2>
+<a id="a59f2fe1fba0577301d154f21e0478e7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59f2fe1fba0577301d154f21e0478e7f">&#9670;&nbsp;</a></span>getpdsindex()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> getpdsindex </td>
+          <td class="memname">static <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> getpdsindex </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
           <td class="paramname"><em>number</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>This function returns the index of specified Product Definition Template in array templates. </p>
@@ -213,11 +280,11 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2001-06-28 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00038">38</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00246">246</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
 
-<p class="reference">References <a class="el" href="pdstemplates_8h_source.html#l00047">MAXPDSTEMP</a>, and <a class="el" href="pdstemplates_8h_source.html#l00064">templatespds</a>.</p>
+<p class="reference">References <a class="el" href="pdstemplates_8c_source.html#l00044">MAXPDSTEMP</a>, and <a class="el" href="pdstemplates_8c_source.html#l00061">templatespds</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdstemplates_8c_source.html#l00121">extpdstemplate()</a>, and <a class="el" href="pdstemplates_8c_source.html#l00073">getpdstemplate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdstemplates_8c_source.html#l00329">extpdstemplate()</a>, and <a class="el" href="pdstemplates_8c_source.html#l00281">getpdstemplate()</a>.</p>
 
 </div>
 </div>
@@ -228,7 +295,7 @@ Program History Log</h3>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="grib2_8h.html#structgtemplate">gtemplate</a>* getpdstemplate </td>
+          <td class="memname"><a class="el" href="grib2__int_8h.html#structgtemplate">gtemplate</a>* getpdstemplate </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
           <td class="paramname"><em>number</em></td><td>)</td>
@@ -250,11 +317,40 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00073">73</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00281">281</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
 
-<p class="reference">References <a class="el" href="pdstemplates_8c_source.html#l00038">getpdsindex()</a>, <a class="el" href="pdstemplates_8h_source.html#l00056">pdstemplate::mappdslen</a>, <a class="el" href="pdstemplates_8h_source.html#l00057">pdstemplate::needext</a>, <a class="el" href="pdstemplates_8h_source.html#l00055">pdstemplate::template_num</a>, and <a class="el" href="pdstemplates_8h_source.html#l00064">templatespds</a>.</p>
+<p class="reference">References <a class="el" href="pdstemplates_8c_source.html#l00246">getpdsindex()</a>, and <a class="el" href="pdstemplates_8c_source.html#l00061">templatespds</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdstemplates_8c_source.html#l00121">extpdstemplate()</a>, <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>, and <a class="el" href="g2__unpack4_8c_source.html#l00045">g2_unpack4()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdstemplates_8c_source.html#l00329">extpdstemplate()</a>, <a class="el" href="g2__addfield_8c_source.html#l00105">g2_addfield()</a>, and <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a87d5723cb60a9b598bc574cd31673a26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87d5723cb60a9b598bc574cd31673a26">&#9670;&nbsp;</a></span>templatespds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const struct pdstemplate templatespds[<a class="el" href="pdstemplates_8c.html#a11c588e7671155abba68b92678fc2071">MAXPDSTEMP</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Data for struct for PDS template. </p>
+
+<p class="definition">Definition at line <a class="el" href="pdstemplates_8c_source.html#l00001">1</a> of file <a class="el" href="pdstemplates_8c_source.html">pdstemplates.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="pdstemplates_8c_source.html#l00246">getpdsindex()</a>, and <a class="el" href="pdstemplates_8c_source.html#l00281">getpdstemplate()</a>.</p>
 
 </div>
 </div>

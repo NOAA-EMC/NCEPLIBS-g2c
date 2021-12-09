@@ -93,36 +93,21 @@ $(document).ready(function(){initNavTree('g2__addfield_8c.html',''); initResizab
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="grib2__int_8h_source.html">grib2_int.h</a>&quot;</code><br />
 </div>
 <p><a href="g2__addfield_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a65f21910802e4f976ca833f1eca18dfe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#a65f21910802e4f976ca833f1eca18dfe">cmplxpack</a> (<a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, unsigned char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *)</td></tr>
-<tr class="memdesc:a65f21910802e4f976ca833f1eca18dfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 documention.  <a href="g2__addfield_8c.html#a65f21910802e4f976ca833f1eca18dfe">More...</a><br /></td></tr>
-<tr class="separator:a65f21910802e4f976ca833f1eca18dfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdf096f036ed768ec874389f5389ee26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26">g2_addfield</a> (unsigned char *cgrib, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ipdsnum, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *ipdstmpl, <a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *coordlist, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> numcoord, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> idrsnum, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, <a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *fld, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ngrdpts, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ibmap, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *bmap)</td></tr>
 <tr class="memdesc:afdf096f036ed768ec874389f5389ee26"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.  <a href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26">More...</a><br /></td></tr>
 <tr class="separator:afdf096f036ed768ec874389f5389ee26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a082494772d42da82adfd50c68d77971a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#a082494772d42da82adfd50c68d77971a">getdim</a> (unsigned char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *)</td></tr>
-<tr class="memdesc:a082494772d42da82adfd50c68d77971a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns the dimensions and scanning mode of a grid definition packed in GRIB2 Grid Definition Section 3 format.  <a href="g2__addfield_8c.html#a082494772d42da82adfd50c68d77971a">More...</a><br /></td></tr>
-<tr class="separator:a082494772d42da82adfd50c68d77971a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0532897a31a122af171633b075a150c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#a0532897a31a122af171633b075a150c6">getpoly</a> (unsigned char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *)</td></tr>
-<tr class="memdesc:a0532897a31a122af171633b075a150c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine returns the J, K, and M pentagonal resolution parameters specified in a GRIB Grid Definition Section (GDS) used spherical harmonic coefficients using GDT 5.50 through 5.53.  <a href="g2__addfield_8c.html#a0532897a31a122af171633b075a150c6">More...</a><br /></td></tr>
-<tr class="separator:a0532897a31a122af171633b075a150c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9c19967000623138e0d9218f6c949ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#ae9c19967000623138e0d9218f6c949ab">jpcpack</a> (<a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, unsigned char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *)</td></tr>
 <tr class="memdesc:ae9c19967000623138e0d9218f6c949ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field into a JPEG2000 code stream.  <a href="g2__addfield_8c.html#ae9c19967000623138e0d9218f6c949ab">More...</a><br /></td></tr>
 <tr class="separator:ae9c19967000623138e0d9218f6c949ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa19673a03d5b0df2730903c39b9e5002"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#aa19673a03d5b0df2730903c39b9e5002">pngpack</a> (<a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, unsigned char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *)</td></tr>
 <tr class="memdesc:aa19673a03d5b0df2730903c39b9e5002"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field into PNG image format.  <a href="g2__addfield_8c.html#aa19673a03d5b0df2730903c39b9e5002">More...</a><br /></td></tr>
 <tr class="separator:aa19673a03d5b0df2730903c39b9e5002"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6296345c25609fc7443aba106dc0cb2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#ad6296345c25609fc7443aba106dc0cb2">simpack</a> (<a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, unsigned char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *)</td></tr>
-<tr class="memdesc:ad6296345c25609fc7443aba106dc0cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field using the simple packing algorithm as defined in the GRIB2 documention.  <a href="g2__addfield_8c.html#ad6296345c25609fc7443aba106dc0cb2">More...</a><br /></td></tr>
-<tr class="separator:ad6296345c25609fc7443aba106dc0cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8873944e9960b8fcf6e200cdb71b64b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2__addfield_8c.html#aa8873944e9960b8fcf6e200cdb71b64b">specpack</a> (<a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *, unsigned char *, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *)</td></tr>
-<tr class="memdesc:aa8873944e9960b8fcf6e200cdb71b64b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml">Template 5.51</a>.  <a href="g2__addfield_8c.html#aa8873944e9960b8fcf6e200cdb71b64b">More...</a><br /></td></tr>
-<tr class="separator:aa8873944e9960b8fcf6e200cdb71b64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pack up Sections 4 through 7 for a given field and adds them to a GRIB2 message. </p>
@@ -131,89 +116,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="g2__addfield_8c_source.html">g2_addfield.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a65f21910802e4f976ca833f1eca18dfe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65f21910802e4f976ca833f1eca18dfe">&#9670;&nbsp;</a></span>cmplxpack()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void cmplxpack </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *&#160;</td>
-          <td class="paramname"><em>fld</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>ndpts</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>idrsnum</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>idrstmpl</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char *&#160;</td>
-          <td class="paramname"><em>cpack</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>lcpack</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 documention. </p>
-<p>It supports GRIB2 complex packing templates with or without spatial differences (i.e. DRTs 5.2 and 5.3). It also fills in GRIB2 Data Representation Template 5.2 or 5.3 with the appropriate values.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
-    <tr><td class="paramname">ndpts</td><td>The number of data values in array fld </td></tr>
-    <tr><td class="paramname">idrsnum</td><td>Data Representation Template number. Must equal 2 or 3. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template 5.2 or 5.3<ul>
-<li>0 Reference value - ignored on input, set by compack routine.</li>
-<li>1 Binary Scale Factor</li>
-<li>2 Decimal Scale Factor</li>
-<li>6 Missing value management</li>
-<li>7 Primary missing value</li>
-<li>8 Secondary missing value</li>
-<li>16 Order of Spatial Differencing ( 1 or 2 ) </li>
-</ul>
-</td></tr>
-    <tr><td class="paramname">cpack</td><td>The packed data field. </td></tr>
-    <tr><td class="paramname">lcpack</td><td>length of packed field cpack.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2004-08-27 </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="cmplxpack_8c_source.html#l00035">35</a> of file <a class="el" href="cmplxpack_8c_source.html">cmplxpack.c</a>.</p>
-
-<p class="reference">References <a class="el" href="compack_8c_source.html#l00042">compack()</a>, and <a class="el" href="misspack_8c_source.html#l00043">misspack()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
-
-</div>
-</div>
 <a id="afdf096f036ed768ec874389f5389ee26"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afdf096f036ed768ec874389f5389ee26">&#9670;&nbsp;</a></span>g2_addfield()</h2>
 
@@ -296,8 +198,8 @@ Functions</h2></td></tr>
 
 <p>This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message. </p>
 <p>They are <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml">Product Definition Section</a>, <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect5.shtml">Data Representation Section</a>, <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect6.shtml">Bit-Map Section</a> and <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect7.shtml">Data Section</a>, respectively.</p>
-<p>This routine is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. Function <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> must be called first to initialize a new GRIB2 message. Function <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a> must be called after <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> and before this routine to add the appropriate grid description to the GRIB2 message. A call to <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> is required to complete GRIB2 message after all fields have been added.</p>
-<h3><a class="anchor" id="autotoc_md8"></a>
+<p>This routine is used with routines <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 Section 0 (Indicator Section) and Sectio...">g2_create()</a>, <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a>, <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a>, and <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> to create a complete GRIB2 message. Function <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 Section 0 (Indicator Section) and Sectio...">g2_create()</a> must be called first to initialize a new GRIB2 message. Function <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a> must be called after <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 Section 0 (Indicator Section) and Sectio...">g2_create()</a> and before this routine to add the appropriate grid description to the GRIB2 message. A call to <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> is required to complete GRIB2 message after all fields have been added.</p>
+<h3><a class="anchor" id="autotoc_md9"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -339,152 +241,25 @@ Program History Log</h3>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>&gt; 0 Current size of updated GRIB2 message</li>
-<li>-1 GRIB message was not initialized. Need to call routine <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a> first.</li>
-<li>-2 GRIB message already complete. Cannot add new section.</li>
-<li>-3 Sum of Section byte counts doesn't add to total byte count.</li>
-<li>-4 Previous Section was not 3 or 7.</li>
-<li>-5 Could not find requested Product Definition Template.</li>
-<li>-6 Section 3 (GDS) not previously defined in message.</li>
-<li>-7 Tried to use unsupported Data Representationi Template.</li>
-<li>-8 Specified use of a previously defined bitmap, but one does not exist in the GRIB message.</li>
-<li>-9 GDT of one of 5.50 through 5.53 required to pack field using DRT 5.51.</li>
-<li>-10 Error packing data field.</li>
+<li><a class="el" href="grib2_8h.html#a9627c88b7c7dd863cb3af9fb3e10011b" title="GRIB message was not initialized - call g2_create() first.">G2_ADD_MSG_INIT</a> GRIB message was not initialized. Need to call routine <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 Section 0 (Indicator Section) and Sectio...">g2_create()</a> first.</li>
+<li><a class="el" href="grib2_8h.html#a5aaef5008fd9be5c044b207231cf767f" title="GRIB message already complete.">G2_ADD_MSG_COMPLETE</a> GRIB message already complete. Cannot add new section.</li>
+<li><a class="el" href="grib2_8h.html#a06d37843d3f4b3f46cb240206ce430b0" title="Sum of Section byte counts doesn&#39;t add to total byte count.">G2_BAD_SEC_COUNTS</a> Sum of Section byte counts doesn't add to total byte count.</li>
+<li><a class="el" href="grib2_8h.html#a362f4c8ddcb007058bccba7eab1ff8e0" title="Previous Section was unexpected.">G2_BAD_SEC</a> Previous Section was not 3 or 7.</li>
+<li><a class="el" href="grib2_8h.html#a7661683648959dad5ea1d2def2cb766d" title="In g2_addfield() could not find requested Product Definition Template.">G2_ADDFIELD_BAD_PDT</a> Could not find requested Product Definition Template.</li>
+<li><a class="el" href="grib2_8h.html#a28e1af8be9f9c34241c0c8ce780c2707" title="In g2_addfield() section 3 (GDS) not previously defined in message.">G2_ADDFIELD_BAD_GDS</a> Section 3 (GDS) not previously defined in message.</li>
+<li><a class="el" href="grib2_8h.html#a5a92ce5b0b8da884e2924dba7f1e1a95" title="In g2_addfield() unsupported Data Representationi Template.">G2_ADDFIELD_BAD_DRT</a> Tried to use unsupported Data Representationi Template.</li>
+<li><a class="el" href="grib2_8h.html#a496eb9c096d0ecdc712ebea3ffd3a37d" title="In g2_addfield() no bitmap in the GRIB message.">G2_ADDFIELD_BAD_BITMAP</a> Specified use of a previously defined bitmap, but one does not exist in the GRIB message.</li>
+<li><a class="el" href="grib2_8h.html#aaead77879d197777943ee9c53e0672ef" title="In g2_addfield() GDT of one of 5.50 through 5.53 required when using DRT 5.51.">G2_ADDFIELD_BAD_GDT</a> GDT of one of 5.50 through 5.53 required to pack field using DRT 5.51.</li>
+<li><a class="el" href="grib2_8h.html#ad37ad5e44291e1b229321755b4838c3a" title="In g2_addfield() error packing data field.">G2_ADDFIELD_ERR</a> Error packing data field.</li>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Note that the Sections 4 through 7 can only follow Section 3 or Section 7 in a GRIB2 message.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-11-05 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2__addfield_8c_source.html#l00106">106</a> of file <a class="el" href="g2__addfield_8c_source.html">g2_addfield.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2__addfield_8c_source.html#l00105">105</a> of file <a class="el" href="g2__addfield_8c_source.html">g2_addfield.c</a>.</p>
 
-<p class="reference">References <a class="el" href="cmplxpack_8c_source.html#l00035">cmplxpack()</a>, <a class="el" href="grib2_8h_source.html#l00052">gtemplate::ext</a>, <a class="el" href="grib2_8h_source.html#l00048">gtemplate::extlen</a>, <a class="el" href="pdstemplates_8c_source.html#l00121">extpdstemplate()</a>, <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="getdim_8c_source.html#l00029">getdim()</a>, <a class="el" href="drstemplates_8c_source.html#l00064">getdrstemplate()</a>, <a class="el" href="pdstemplates_8c_source.html#l00073">getpdstemplate()</a>, <a class="el" href="getpoly_8c_source.html#l00040">getpoly()</a>, <a class="el" href="jpcpack_8c_source.html#l00053">jpcpack()</a>, <a class="el" href="grib2_8h_source.html#l00042">gtemplate::map</a>, <a class="el" href="grib2_8h_source.html#l00038">gtemplate::maplen</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, <a class="el" href="grib2_8h_source.html#l00045">gtemplate::needext</a>, <a class="el" href="pngpack_8c_source.html#l00038">pngpack()</a>, <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>, <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>, <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>, and <a class="el" href="specpack_8c_source.html#l00033">specpack()</a>.</p>
-
-</div>
-</div>
-<a id="a082494772d42da82adfd50c68d77971a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a082494772d42da82adfd50c68d77971a">&#9670;&nbsp;</a></span>getdim()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> getdim </td>
-          <td>(</td>
-          <td class="paramtype">unsigned char *&#160;</td>
-          <td class="paramname"><em>csec3</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>iscan</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This subroutine returns the dimensions and scanning mode of a grid definition packed in GRIB2 Grid Definition Section 3 format. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">csec3</td><td>Character array that contains the packed GRIB2 GDS. </td></tr>
-    <tr><td class="paramname">width</td><td>x (or i) dimension of the grid. 0 if grid is not recognized. </td></tr>
-    <tr><td class="paramname">height</td><td>y (or j) dimension of the grid. 0 if grid is not recognized. </td></tr>
-    <tr><td class="paramname">iscan</td><td>Scanning mode (see <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-4.shtml">Table 3.4</a>). 0 of grid not recognized.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Always returns 0.</dd></dl>
-<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2002-12-11 </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="getdim_8c_source.html#l00029">29</a> of file <a class="el" href="getdim_8c_source.html">getdim.c</a>.</p>
-
-<p class="reference">References <a class="el" href="g2__unpack3_8c_source.html#l00057">g2_unpack3()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
-
-</div>
-</div>
-<a id="a0532897a31a122af171633b075a150c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0532897a31a122af171633b075a150c6">&#9670;&nbsp;</a></span>getpoly()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> getpoly </td>
-          <td>(</td>
-          <td class="paramtype">unsigned char *&#160;</td>
-          <td class="paramname"><em>csec3</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>jj</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>kk</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>mm</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This subroutine returns the J, K, and M pentagonal resolution parameters specified in a GRIB Grid Definition Section (GDS) used spherical harmonic coefficients using GDT 5.50 through 5.53. </p>
-<p>If 51 - complex data spectral packing is used as the data representation template number (see <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table5-0.shtml">Table 5.0</a>), then the Grid Definition Template Number in section 3 should be one of:</p><ul>
-<li>50: Spherical Harmonic Coefficients (See Template 3.50)</li>
-<li>51: Rotated Spherical Harmonic Coefficients (See Template 3.51)</li>
-<li>52: Stretched Spherical Harmonic Coefficients (See Template 3.52)</li>
-<li>53: Rotated and Stretched Spherical Harmonic Coefficients (See Template 3.53)</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">csec3</td><td>Character array that contains the packed GRIB2 GDS. </td></tr>
-    <tr><td class="paramname">jj</td><td>J pentagonal resolution parameter. </td></tr>
-    <tr><td class="paramname">kk</td><td>K pentagonal resolution parameter. </td></tr>
-    <tr><td class="paramname">mm</td><td>M pentagonal resolution parameter.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>always returns 0.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Returns jj, kk, and mm set to zero, if grid template not recognized.</dd></dl>
-<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2002-12-11 </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="getpoly_8c_source.html#l00040">40</a> of file <a class="el" href="getpoly_8c_source.html">getpoly.c</a>.</p>
-
-<p class="reference">References <a class="el" href="g2__unpack3_8c_source.html#l00057">g2_unpack3()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
+<p class="reference">References <a class="el" href="cmplxpack_8c_source.html#l00036">cmplxpack()</a>, <a class="el" href="grib2__int_8h_source.html#l00051">gtemplate::ext</a>, <a class="el" href="grib2__int_8h_source.html#l00047">gtemplate::extlen</a>, <a class="el" href="pdstemplates_8c_source.html#l00329">extpdstemplate()</a>, <a class="el" href="grib2_8h_source.html#l00280">G2_ADD_MSG_COMPLETE</a>, <a class="el" href="grib2_8h_source.html#l00279">G2_ADD_MSG_INIT</a>, <a class="el" href="grib2_8h_source.html#l00285">G2_ADDFIELD_BAD_BITMAP</a>, <a class="el" href="grib2_8h_source.html#l00284">G2_ADDFIELD_BAD_DRT</a>, <a class="el" href="grib2_8h_source.html#l00283">G2_ADDFIELD_BAD_GDS</a>, <a class="el" href="grib2_8h_source.html#l00286">G2_ADDFIELD_BAD_GDT</a>, <a class="el" href="grib2_8h_source.html#l00282">G2_ADDFIELD_BAD_PDT</a>, <a class="el" href="grib2_8h_source.html#l00287">G2_ADDFIELD_ERR</a>, <a class="el" href="grib2_8h_source.html#l00269">G2_BAD_SEC</a>, <a class="el" href="grib2_8h_source.html#l00281">G2_BAD_SEC_COUNTS</a>, <a class="el" href="util_8c_source.html#l00025">g2c_check_msg()</a>, <a class="el" href="grib2_8h_source.html#l00295">G2C_MSG_COMPLETE</a>, <a class="el" href="grib2_8h_source.html#l00294">G2C_NOT_GRIB</a>, <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="getdim_8c_source.html#l00029">getdim()</a>, <a class="el" href="drstemplates_8c_source.html#l00166">getdrstemplate()</a>, <a class="el" href="pdstemplates_8c_source.html#l00281">getpdstemplate()</a>, <a class="el" href="getpoly_8c_source.html#l00040">getpoly()</a>, <a class="el" href="jpcpack_8c_source.html#l00050">jpcpack()</a>, <a class="el" href="grib2__int_8h_source.html#l00041">gtemplate::map</a>, <a class="el" href="grib2__int_8h_source.html#l00037">gtemplate::maplen</a>, <a class="el" href="mkieee_8c_source.html#l00022">mkieee()</a>, <a class="el" href="grib2__int_8h_source.html#l00044">gtemplate::needext</a>, <a class="el" href="pngpack_8c_source.html#l00036">pngpack()</a>, <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>, <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>, <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>, and <a class="el" href="specpack_8c_source.html#l00033">specpack()</a>.</p>
 
 </div>
 </div>
@@ -540,7 +315,7 @@ Program History Log</h3>
 
 <p>This subroutine packs up a data field into a JPEG2000 code stream. </p>
 <p>After the data field is scaled, and the reference value is subtracted out, it is treated as a grayscale image and passed to a JPEG2000 encoder. It also fills in GRIB2 Data Representation Template 5.40 or 5.40000 with the appropriate values.</p>
-<h3><a class="anchor" id="autotoc_md19"></a>
+<h3><a class="anchor" id="autotoc_md20"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -577,11 +352,11 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-08-17 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="jpcpack_8c_source.html#l00053">53</a> of file <a class="el" href="jpcpack_8c_source.html">jpcpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="jpcpack_8c_source.html#l00050">50</a> of file <a class="el" href="jpcpack_8c_source.html">jpcpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="enc__jpeg2000_8c_source.html#l00057">enc_jpeg2000()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00021">ALOG2</a>, <a class="el" href="enc__jpeg2000_8c_source.html#l00051">enc_jpeg2000()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00022">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00105">g2_addfield()</a>.</p>
 
 </div>
 </div>
@@ -642,7 +417,7 @@ Program History Log</h3>
     <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
     <tr><td class="paramname">width</td><td>number of points in the x direction. </td></tr>
     <tr><td class="paramname">height</td><td>number of points in the y direction. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml">Template</a> 5.41 or 5.40010.<ul>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml">Template 5.41</a> or 5.40010.<ul>
 <li>0 Reference value - ignored on input, set by pngpack routine.</li>
 <li>1 Binary Scale Factor - used on input.</li>
 <li>2 Decimal Scale Factor - used on input.</li>
@@ -658,172 +433,11 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2003-08-27 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pngpack_8c_source.html#l00038">38</a> of file <a class="el" href="pngpack_8c_source.html">pngpack.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pngpack_8c_source.html#l00036">36</a> of file <a class="el" href="pngpack_8c_source.html">pngpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="enc__png_8c_source.html#l00081">enc_png()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00021">ALOG2</a>, <a class="el" href="enc__png_8c_source.html#l00075">enc_png()</a>, <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00022">mkieee()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
-
-</div>
-</div>
-<a id="ad6296345c25609fc7443aba106dc0cb2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6296345c25609fc7443aba106dc0cb2">&#9670;&nbsp;</a></span>simpack()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void simpack </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *&#160;</td>
-          <td class="paramname"><em>fld</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>ndpts</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>idrstmpl</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char *&#160;</td>
-          <td class="paramname"><em>cpack</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>lcpack</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This subroutine packs up a data field using the simple packing algorithm as defined in the GRIB2 documention. </p>
-<p>It also fills in GRIB2 Data Representation Template 5.0 with the appropriate values.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fld</td><td>Contains the data values to pack. </td></tr>
-    <tr><td class="paramname">ndpts</td><td>The number of data values in array fld. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for [Data Representation Template 5.0](<a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-0.shtml">https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-0.shtml</a>).<ul>
-<li>0 Reference value - ignored on input - set by simpack routine.</li>
-<li>1 Binary Scale Factor - unchanged from input.</li>
-<li>2 Decimal Scale Factor - unchanged from input.</li>
-<li>3 Number of bits used to pack data, if value is &gt; 0 and &lt;= 31. If this input value is 0 or outside above range then the num of bits is calculated based on given data and scale factors.</li>
-<li>4 Original field type - currently ignored on input. Data values assumed to be reals. Set to 0 by simpack routine. </li>
-</ul>
-</td></tr>
-    <tr><td class="paramname">cpack</td><td>The packed data field </td></tr>
-    <tr><td class="paramname">lcpack</td><td>length of packed field starting at cpack.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2002-11-06 </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="simpack_8c_source.html#l00034">34</a> of file <a class="el" href="simpack_8c_source.html">simpack.c</a>.</p>
-
-<p class="reference">References <a class="el" href="int__power_8c_source.html#l00017">int_power()</a>, <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>, and <a class="el" href="gbits_8c_source.html#l00114">sbits()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>, and <a class="el" href="specpack_8c_source.html#l00033">specpack()</a>.</p>
-
-</div>
-</div>
-<a id="aa8873944e9960b8fcf6e200cdb71b64b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8873944e9960b8fcf6e200cdb71b64b">&#9670;&nbsp;</a></span>specpack()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void specpack </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#a2e615ee29fc8d17a681017e4384847c2">g2float</a> *&#160;</td>
-          <td class="paramname"><em>fld</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>ndpts</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>JJ</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>KK</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
-          <td class="paramname"><em>MM</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>idrstmpl</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char *&#160;</td>
-          <td class="paramname"><em>cpack</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
-          <td class="paramname"><em>lcpack</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This subroutine packs a spectral data field using the complex packing algorithm for spherical harmonic data as defined in the GRIB2 Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml">Template 5.51</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fld</td><td>Contains the data values to be packed. </td></tr>
-    <tr><td class="paramname">ndpts</td><td>The number of data values to pack. </td></tr>
-    <tr><td class="paramname">JJ</td><td>J - pentagonal resolution parameter. </td></tr>
-    <tr><td class="paramname">KK</td><td>K - pentagonal resolution parameter. </td></tr>
-    <tr><td class="paramname">MM</td><td>M - pentagonal resolution parameter. </td></tr>
-    <tr><td class="paramname">idrstmpl</td><td>Contains the array of 10 values for [Data Representation Template 5.51](<a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml">https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml</a>). </td></tr>
-    <tr><td class="paramname">cpack</td><td>Pointer that gets the packed data field. Must be allocated by caller. </td></tr>
-    <tr><td class="paramname">lcpack</td><td>length of packed field cpack.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2002-12-19 </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="specpack_8c_source.html#l00033">33</a> of file <a class="el" href="specpack_8c_source.html">specpack.c</a>.</p>
-
-<p class="reference">References <a class="el" href="mkieee_8c_source.html#l00021">mkieee()</a>, and <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00106">g2_addfield()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00105">g2_addfield()</a>.</p>
 
 </div>
 </div>

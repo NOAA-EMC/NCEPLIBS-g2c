@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bmap_0',['bmap',['../grib2_8h.html#aeedbfa7bd7399aaed4554245d182b369',1,'gribfield']]]
+  ['alog2_0',['ALOG2',['../grib2__int_8h.html#aca7ef7356b1550ae26423a6d8012f5fd',1,'grib2_int.h']]]
 ];

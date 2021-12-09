@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['g2_5fversion_344',['G2_VERSION',['../grib2_8h.html#abdcadc6336632657f0b90b4cff01709f',1,'grib2.h']]]
+  ['bits_5fper_5fbyte_371',['BITS_PER_BYTE',['../seekgb_8c.html#a369ecd38b3ab077fc235f892354bb46f',1,'seekgb.c']]]
 ];

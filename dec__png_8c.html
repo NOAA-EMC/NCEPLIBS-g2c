@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('dec__png_8c.html',''); initResizable()
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;png.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="grib2__int_8h_source.html">grib2_int.h</a>&quot;</code><br />
 </div>
 <p><a href="dec__png_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -108,9 +108,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2d370c4ca9daeca099b249a1ed3e4500"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dec__png_8c.html#a2d370c4ca9daeca099b249a1ed3e4500">dec_png</a> (unsigned char *pngbuf, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *width, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *height, char *cout)</td></tr>
-<tr class="memdesc:a2d370c4ca9daeca099b249a1ed3e4500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode PNG.  <a href="dec__png_8c.html#a2d370c4ca9daeca099b249a1ed3e4500">More...</a><br /></td></tr>
-<tr class="separator:a2d370c4ca9daeca099b249a1ed3e4500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c7dfb37dbbca9143143db5aeb2f6005"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dec__png_8c.html#a4c7dfb37dbbca9143143db5aeb2f6005">dec_png</a> (unsigned char *pngbuf, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *width, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *height, unsigned char *cout)</td></tr>
+<tr class="memdesc:a4c7dfb37dbbca9143143db5aeb2f6005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode PNG.  <a href="dec__png_8c.html#a4c7dfb37dbbca9143143db5aeb2f6005">More...</a><br /></td></tr>
+<tr class="separator:a4c7dfb37dbbca9143143db5aeb2f6005"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe576ea8faea4144cac413a8d2cc6ec7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dec__png_8c.html#abe576ea8faea4144cac413a8d2cc6ec7">user_read_data</a> (png_structp png_ptr, png_bytep data, png_uint_32 length)</td></tr>
 <tr class="memdesc:abe576ea8faea4144cac413a8d2cc6ec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom read function used so that libpng will read a PNG stream from memory instead of a file on disk.  <a href="dec__png_8c.html#abe576ea8faea4144cac413a8d2cc6ec7">More...</a><br /></td></tr>
 <tr class="separator:abe576ea8faea4144cac413a8d2cc6ec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,8 +140,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a2d370c4ca9daeca099b249a1ed3e4500"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d370c4ca9daeca099b249a1ed3e4500">&#9670;&nbsp;</a></span>dec_png()</h2>
+<a id="a4c7dfb37dbbca9143143db5aeb2f6005"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c7dfb37dbbca9143143db5aeb2f6005">&#9670;&nbsp;</a></span>dec_png()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,7 +167,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">unsigned char *&#160;</td>
           <td class="paramname"><em>cout</em>&#160;</td>
         </tr>
         <tr>
@@ -191,11 +191,11 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>0 for success, error code otherwise.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="dec__png_8c_source.html#l00071">71</a> of file <a class="el" href="dec__png_8c_source.html">dec_png.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dec__png_8c_source.html#l00061">61</a> of file <a class="el" href="dec__png_8c_source.html">dec_png.c</a>.</p>
 
-<p class="reference">References <a class="el" href="dec__png_8c_source.html#l00044">user_read_data()</a>.</p>
+<p class="reference">References <a class="el" href="dec__png_8c_source.html#l00035">user_read_data()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pngunpack_8c_source.html#l00030">pngunpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pngunpack_8c_source.html#l00028">pngunpack()</a>.</p>
 
 </div>
 </div>
@@ -242,9 +242,9 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="dec__png_8c_source.html#l00044">44</a> of file <a class="el" href="dec__png_8c_source.html">dec_png.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dec__png_8c_source.html#l00035">35</a> of file <a class="el" href="dec__png_8c_source.html">dec_png.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dec__png_8c_source.html#l00071">dec_png()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dec__png_8c_source.html#l00061">dec_png()</a>.</p>
 
 </div>
 </div>

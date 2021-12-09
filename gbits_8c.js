@@ -1,7 +1,7 @@
 var gbits_8c =
 [
-    [ "gbit", "gbits_8c.html#a5d36ba9d46c32188872d0e9ab86f3e47", null ],
-    [ "gbits", "gbits_8c.html#ab3ebb34ac18fa0ad9baa48eb894689e7", null ],
-    [ "sbit", "gbits_8c.html#a7f475eed9a6d6f6d3d8fc26b38572950", null ],
-    [ "sbits", "gbits_8c.html#ad5a2832a80724dc38d71de38d0a9d6e8", null ]
+    [ "gbit", "gbits_8c.html#a1efb9739e947d94010aeba6daf62eca3", null ],
+    [ "gbits", "gbits_8c.html#a31ebdbbf262b7478d6a7cc4326f76ade", null ],
+    [ "sbit", "gbits_8c.html#af9e044ba7da32a5415e351ed647ef676", null ],
+    [ "sbits", "gbits_8c.html#a92b32e56ff8941c5026d460f4fe2aec3", null ]
 ];

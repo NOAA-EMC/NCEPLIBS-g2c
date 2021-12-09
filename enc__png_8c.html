@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('enc__png_8c.html',''); initResizable()
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;png.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="grib2_8h_source.html">grib2.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="grib2__int_8h_source.html">grib2_int.h</a>&quot;</code><br />
 </div>
 <p><a href="enc__png_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -108,9 +108,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0f4eb9634c16b9a7d55002bddcaa9449"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="enc__png_8c.html#a0f4eb9634c16b9a7d55002bddcaa9449">enc_png</a> (char *data, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> width, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> height, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> nbits, char *pngbuf)</td></tr>
-<tr class="memdesc:a0f4eb9634c16b9a7d55002bddcaa9449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode PNG.  <a href="enc__png_8c.html#a0f4eb9634c16b9a7d55002bddcaa9449">More...</a><br /></td></tr>
-<tr class="separator:a0f4eb9634c16b9a7d55002bddcaa9449"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b304f2dca88e94a76c1182fbc1f5938"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="enc__png_8c.html#a0b304f2dca88e94a76c1182fbc1f5938">enc_png</a> (unsigned char *data, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> width, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> height, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> nbits, unsigned char *pngbuf)</td></tr>
+<tr class="memdesc:a0b304f2dca88e94a76c1182fbc1f5938"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode PNG.  <a href="enc__png_8c.html#a0b304f2dca88e94a76c1182fbc1f5938">More...</a><br /></td></tr>
+<tr class="separator:a0b304f2dca88e94a76c1182fbc1f5938"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97f27ca60f363a8a91319d3adee16b0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="enc__png_8c.html#a97f27ca60f363a8a91319d3adee16b0e">user_flush_data</a> (png_structp png_ptr)</td></tr>
 <tr class="memdesc:a97f27ca60f363a8a91319d3adee16b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy Custom flush function.  <a href="enc__png_8c.html#a97f27ca60f363a8a91319d3adee16b0e">More...</a><br /></td></tr>
 <tr class="separator:a97f27ca60f363a8a91319d3adee16b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,8 +143,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a0f4eb9634c16b9a7d55002bddcaa9449"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f4eb9634c16b9a7d55002bddcaa9449">&#9670;&nbsp;</a></span>enc_png()</h2>
+<a id="a0b304f2dca88e94a76c1182fbc1f5938"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b304f2dca88e94a76c1182fbc1f5938">&#9670;&nbsp;</a></span>enc_png()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -152,7 +152,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int enc_png </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">unsigned char *&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>
@@ -176,7 +176,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">unsigned char *&#160;</td>
           <td class="paramname"><em>pngbuf</em>&#160;</td>
         </tr>
         <tr>
@@ -201,11 +201,11 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>PNG length, or negative number for error.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="enc__png_8c_source.html#l00081">81</a> of file <a class="el" href="enc__png_8c_source.html">enc_png.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="enc__png_8c_source.html#l00075">75</a> of file <a class="el" href="enc__png_8c_source.html">enc_png.c</a>.</p>
 
-<p class="reference">References <a class="el" href="enc__png_8c_source.html#l00061">user_flush_data()</a>, and <a class="el" href="enc__png_8c_source.html#l00041">user_write_data()</a>.</p>
+<p class="reference">References <a class="el" href="enc__png_8c_source.html#l00057">user_flush_data()</a>, and <a class="el" href="enc__png_8c_source.html#l00037">user_write_data()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pngpack_8c_source.html#l00038">pngpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pngpack_8c_source.html#l00036">pngpack()</a>.</p>
 
 </div>
 </div>
@@ -234,9 +234,9 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="enc__png_8c_source.html#l00061">61</a> of file <a class="el" href="enc__png_8c_source.html">enc_png.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="enc__png_8c_source.html#l00057">57</a> of file <a class="el" href="enc__png_8c_source.html">enc_png.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="enc__png_8c_source.html#l00081">enc_png()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="enc__png_8c_source.html#l00075">enc_png()</a>.</p>
 
 </div>
 </div>
@@ -283,9 +283,9 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="enc__png_8c_source.html#l00041">41</a> of file <a class="el" href="enc__png_8c_source.html">enc_png.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="enc__png_8c_source.html#l00037">37</a> of file <a class="el" href="enc__png_8c_source.html">enc_png.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="enc__png_8c_source.html#l00081">enc_png()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="enc__png_8c_source.html#l00075">enc_png()</a>.</p>
 
 </div>
 </div>

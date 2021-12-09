@@ -89,6 +89,11 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="textblock"><h2><a class="anchor" id="autotoc_md0"></a>
 NCEPLIBS-g2c</h2>
 <p>This document briefly describes the routines available for encoding/decoding GRIB Edition 2 (GRIB2) messages with the NCEPLIBS-g2c library.</p>
+<h3><a class="anchor" id="autotoc_md1"></a>
+Documentation for Previous Versions of NCEPLIBS-g2c</h3>
+<ul>
+<li><a href="ver-1.6.4">NCEPLIBS-g2c Version 1.6.4</a></li>
+</ul>
 <p>A GRIB Edition 2 message is a machine independent format for storing one or more gridded data fields. Each GRIB2 message consists of the following sections:</p>
 <pre>
 SECTION 0 - Indicator Section
@@ -102,22 +107,22 @@ SECTION 7 - Data Section                  }             }            }
 SECTION 8 - End Section                   }             }            }
 </pre><p>Sequences of GRIB sections 2 to 7, 3 to 7, or sections 4 to 7 may be repeated within a single GRIB message. All sections within such repeated sequences must be present and shall appear in the numerical order noted above. Unrepeated sections remain in effect until redefined.</p>
 <p>For detailed information on GRIB2 see the <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/">NCEP WMO GRIB2 Documentation</a>.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
+<h1><a class="anchor" id="autotoc_md2"></a>
 GRIB2 Encoding Routines</h1>
 <p>Since a GRIB2 message can contain gridded fields for many parameters on a number of different grids, several routines are used to encode a message. This should give users more flexibility in how to organize data within one or more GRIB2 messages.</p>
-<p>To start a new GRIB2 message, call function <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 sections 0 (Indicator Section) and 1 (Id...">g2_create()</a>. It encodes Sections 0 and 1 at the beginning of the message. This routine must be used to create each message.</p>
+<p>To start a new GRIB2 message, call function <a class="el" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108" title="This routine initializes a new GRIB2 message and packs GRIB2 Section 0 (Indicator Section) and Sectio...">g2_create()</a>. It encodes Sections 0 and 1 at the beginning of the message. This routine must be used to create each message.</p>
 <p>Function <a class="el" href="g2__addlocal_8c.html#aa9490d67c089f6a15fd9941f273752c3" title="This routine adds a Local Use Section (Section 2) to a GRIB2 message.">g2_addlocal()</a> can be used to add a Local Use Section (Section 2). Note that section is optional and need not appear in a GRIB2 message.</p>
 <p>Function <a class="el" href="g2__addgrid_8c.html#a14908ea75d83021b0ec10ae8c084567c" title="This routine packs up a Grid Definition Section (Section 3) and adds it to a GRIB2 message.">g2_addgrid()</a> is used to encode a grid definition into Section 3 - The Grid Definition Section. This grid definition defines the geometry of the the data values in the fields that follow it. Function addgrid() can be called again to change the grid definition describing subsequent data fields.</p>
 <p>Each data field is added to the GRIB2 message using routine <a class="el" href="g2__addfield_8c.html#afdf096f036ed768ec874389f5389ee26" title="This routine packs up Sections 4 through 7 for a given field and adds them to a GRIB2 message.">g2_addfield()</a>, which adds Sections 4, 5, 6, and 7 to the message.</p>
 <p>After all desired data fields have been added to the GRIB2 message, a call to routine <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> is needed to add the final section 8 to the message and to update the length of the message. A call to <a class="el" href="g2__gribend_8c.html#a84081fb5d32251234409b9ec2d72a0e8" title="This routine finalizes a GRIB2 message after all grids and fields have been added.">g2_gribend()</a> is required for each GRIB2 message.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md3"></a>
 GRIB2 Decoding Routines</h1>
 <p>Function <a class="el" href="g2__info_8c.html#abf8ecb0fe00805abfce20115357b4fa3" title="This subroutine searches through a GRIB2 message and returns the number of gridded fields found in th...">g2_info()</a> can be used to find out how many Local Use sections and data fields are contained in a given GRIB2 message. In addition, this routine also returns the number of octets of the largest Local Use section in the message.</p>
 <p><a class="el" href="g2__getfld_8c.html#abad9d3ba0ee798acd442850573fc6b8e" title="This subroutine returns all the metadata, template values, bit-map (if applicable),...">g2_getfld()</a> can be used to get all information pertaining to the nth data field in the message. An option exists that lets the user decide if the function should unpack the Bit-map (if applicable) and the data values or just return the field description information.</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
 Extracting GRIB2 Fields from a GRIB2 file</h1>
 <p>Function <a class="el" href="g2__info_8c.html#abf8ecb0fe00805abfce20115357b4fa3" title="This subroutine searches through a GRIB2 message and returns the number of gridded fields found in th...">g2_info()</a> can be used to find out how many Local Use sections and data fields are contained in a given GRIB2 message.</p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 GRIB2 Tables/Templates</h1>
 <p>NCO Provides documentation on WMO GRIB2 at <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/">https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/</a></p>
 <p>WMO's GRIB2 specification "FM 92-XII GRIB - General

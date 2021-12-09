@@ -1,13 +1,10 @@
 var searchData=
 [
-  ['pack_5fgp_139',['pack_gp',['../pack__gp_8c.html#a0fcfc080fae3b3dfe82feda3dd304a78',1,'pack_gp(integer *kfildo, integer *ic, integer *nxy, integer *is523, integer *minpk, integer *inc, integer *missp, integer *misss, integer *jmin, integer *jmax, integer *lbit, integer *nov, integer *ndg, integer *lx, integer *ibit, integer *jbit, integer *kbit, integer *novref, integer *lbitref, integer *ier):&#160;pack_gp.c'],['../grib2_8h.html#a82727fba138c096a0efbf936803d892a',1,'pack_gp(g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *, g2int *):&#160;pack_gp.c']]],
-  ['pack_5fgp_2ec_140',['pack_gp.c',['../pack__gp_8c.html',1,'']]],
-  ['pdstemplate_141',['pdstemplate',['../pdstemplates_8h.html#structpdstemplate',1,'']]],
-  ['pdstemplates_2ec_142',['pdstemplates.c',['../pdstemplates_8c.html',1,'']]],
-  ['pdstemplates_2eh_143',['pdstemplates.h',['../pdstemplates_8h.html',1,'']]],
-  ['png_5fstream_144',['png_stream',['../dec__png_8c.html#a51736c0c137626d13b71ea12021c10f3',1,'png_stream():&#160;dec_png.c'],['../enc__png_8c.html#a51736c0c137626d13b71ea12021c10f3',1,'png_stream():&#160;enc_png.c']]],
-  ['pngpack_145',['pngpack',['../g2__addfield_8c.html#aa19673a03d5b0df2730903c39b9e5002',1,'pngpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *):&#160;pngpack.c'],['../pngpack_8c.html#aead12707dbe31153a792ec922eb2fec7',1,'pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack):&#160;pngpack.c']]],
-  ['pngpack_2ec_146',['pngpack.c',['../pngpack_8c.html',1,'']]],
-  ['pngunpack_147',['pngunpack',['../g2__unpack7_8c.html#a188b50820544141523fc0c67dbb3ed42',1,'pngunpack(unsigned char *, g2int, g2int *, g2int, g2float *):&#160;pngunpack.c'],['../pngunpack_8c.html#acd726669156a52a640744423669e9397',1,'pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts, g2float *fld):&#160;pngunpack.c']]],
-  ['pngunpack_2ec_148',['pngunpack.c',['../pngunpack_8c.html',1,'']]]
+  ['ndpts_175',['ndpts',['../grib2_8h.html#aa97ba6b54e9c91fb231708048d54156c',1,'gribfield']]],
+  ['needext_176',['needext',['../grib2__int_8h.html#a8e1ecd4e873a86a10a76d264c55ae7bf',1,'gtemplate']]],
+  ['ngrdpts_177',['ngrdpts',['../grib2_8h.html#a1fd25a21842b45215676696fcddb2a09',1,'gribfield']]],
+  ['num_178',['num',['../grib2__int_8h.html#a973b6764b40aed427d419046b63d75b3',1,'gtemplate']]],
+  ['num_5fcoord_179',['num_coord',['../grib2_8h.html#aded2ca1c14ca96b2bdc7138945a2f4ce',1,'gribfield']]],
+  ['num_5fopt_180',['num_opt',['../grib2_8h.html#ae6ac361f230f89a9461e260d72c1d60b',1,'gribfield']]],
+  ['numoct_5fopt_181',['numoct_opt',['../grib2_8h.html#a4f9284ebe7fabba1cc092fbea1a5b7e0',1,'gribfield']]]
 ];

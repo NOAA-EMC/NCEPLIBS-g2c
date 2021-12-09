@@ -7,7 +7,6 @@ var files_dup =
     [ "dec_png.c", "dec__png_8c.html", "dec__png_8c" ],
     [ "decenc_openjpeg.c", "decenc__openjpeg_8c.html", null ],
     [ "drstemplates.c", "drstemplates_8c.html", "drstemplates_8c" ],
-    [ "drstemplates.h", "drstemplates_8h.html", "drstemplates_8h" ],
     [ "enc_jpeg2000.c", "enc__jpeg2000_8c.html", "enc__jpeg2000_8c" ],
     [ "enc_png.c", "enc__png_8c.html", "enc__png_8c" ],
     [ "g2_addfield.c", "g2__addfield_8c.html", "g2__addfield_8c" ],
@@ -30,8 +29,8 @@ var files_dup =
     [ "getdim.c", "getdim_8c.html", "getdim_8c" ],
     [ "getpoly.c", "getpoly_8c.html", "getpoly_8c" ],
     [ "grib2.h", "grib2_8h.html", "grib2_8h" ],
+    [ "grib2_int.h", "grib2__int_8h.html", "grib2__int_8h" ],
     [ "gridtemplates.c", "gridtemplates_8c.html", "gridtemplates_8c" ],
-    [ "gridtemplates.h", "gridtemplates_8h.html", "gridtemplates_8h" ],
     [ "int_power.c", "int__power_8c.html", "int__power_8c" ],
     [ "jpcpack.c", "jpcpack_8c.html", "jpcpack_8c" ],
     [ "jpcunpack.c", "jpcunpack_8c.html", "jpcunpack_8c" ],
@@ -39,7 +38,6 @@ var files_dup =
     [ "mkieee.c", "mkieee_8c.html", "mkieee_8c" ],
     [ "pack_gp.c", "pack__gp_8c.html", "pack__gp_8c" ],
     [ "pdstemplates.c", "pdstemplates_8c.html", "pdstemplates_8c" ],
-    [ "pdstemplates.h", "pdstemplates_8h.html", "pdstemplates_8h" ],
     [ "pngpack.c", "pngpack_8c.html", "pngpack_8c" ],
     [ "pngunpack.c", "pngunpack_8c.html", "pngunpack_8c" ],
     [ "rdieee.c", "rdieee_8c.html", "rdieee_8c" ],
@@ -48,5 +46,6 @@ var files_dup =
     [ "simpack.c", "simpack_8c.html", "simpack_8c" ],
     [ "simunpack.c", "simunpack_8c.html", "simunpack_8c" ],
     [ "specpack.c", "specpack_8c.html", "specpack_8c" ],
-    [ "specunpack.c", "specunpack_8c.html", "specunpack_8c" ]
+    [ "specunpack.c", "specunpack_8c.html", "specunpack_8c" ],
+    [ "util.c", "util_8c.html", "util_8c" ]
 ];
