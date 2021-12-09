@@ -212,25 +212,26 @@ gtemplate *
 extdrstemplate(g2int number, g2int *list)
 {
     gtemplate *new;
-    g2int index, i;
 
-    index = getdrsindex(number);
-    if (index == -1)
-        return(0);
+    if (getdrsindex(number) == -1)
+        return NULL;
 
     new = getdrstemplate(number);
 
     if (!new->needext)
         return(new);
 
-    if (number == 1)
-    {
-        new->extlen = list[10] + list[12];
-        new->ext = malloc(sizeof(g2int) * new->extlen);
-        for (i = 0; i < new->extlen; i++)
-        {
-            new->ext[i] = 4;
-        }
-    }
-    return(new);
+    /* This template is commented out (see comment in struct
+     * drstemplate for explanation). */
+    /* if (number == 1) */
+    /* { */
+    /*     new->extlen = list[10] + list[12]; */
+    /*     new->ext = malloc(sizeof(g2int) * new->extlen); */
+    /*     for (i = 0; i < new->extlen; i++) */
+    /*     { */
+    /*         new->ext[i] = 4; */
+    /*     } */
+    /* } */
+    
+    return new;
 }
