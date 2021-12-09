@@ -14,9 +14,11 @@
  * respectively. The search is terminated when an EOF or I/O error is
  * encountered.
  *
- * PROGRAM HISTORY LOG:
- * - 2002-10-28  GILBERT   Modified from Iredell's skgb subroutine
- * - 2009-01-16  VUONG     Changed  lskip to 4 instead of sizof(g2int)
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|---------
+ * 2002-10-28 | GILBERT | Modified from Iredell's skgb subroutine
+ * 2009-01-16 | VUONG | Changed  lskip to 4 instead of sizof(g2int)
  *
  * @param lugb FILE pointer for the file to search. File must be
  * opened before this routine is called.
@@ -46,8 +48,8 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
     {
         /* Read partial section. */
         fseek(lugb, ipos, SEEK_SET);
-        nread=fread(cbuf, sizeof(unsigned char), mseek, lugb);
-        lim=nread-8;
+        nread = fread(cbuf, sizeof(unsigned char), mseek, lugb);
+        lim = nread - 8;
 
         /* Look for 'grib...' in partial section. */
         for (k = 0; k < lim; k++)
