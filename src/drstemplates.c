@@ -212,7 +212,7 @@ gtemplate *
 extdrstemplate(g2int number, g2int *list)
 {
     gtemplate *new;
-    g2int index, i;
+    g2int i;
 
     if (getdrsindex(number) == -1)
         return NULL;
