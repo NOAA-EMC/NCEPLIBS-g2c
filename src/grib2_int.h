@@ -22,7 +22,6 @@
 
 #define G2C_JASPER_JPEG_FORMAT_NAME "jpc" /**< Name of JPEG codec in Jasper. */
 
-
 /**
  * Struct for GRIB template.
  */
