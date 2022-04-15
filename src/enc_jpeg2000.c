@@ -57,6 +57,7 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     jas_stream_t *jpcstream, *istream;
     jas_image_cmpt_t cmpt, *pcmpt;
     char opts[MAXOPTSSIZE];
+    int outfmt;
 
     /* Set lossy compression options, if requested. */
     if (ltype != 1)
@@ -92,6 +93,10 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     pcmpt = &cmpt;
     image.cmpts_ = &pcmpt;
 
+    /* Initialize Jasper. */
+    if (jas_init())
+	return -5;
+
     /* Open a JasPer stream containing the input grayscale values. */
     istream = jas_stream_memopen((char *)cin, height * width * cmpt.cps_);
     cmpt.stream_ = istream;
@@ -100,8 +105,11 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
      * code stream. */
     jpcstream = jas_stream_memopen(outjpc, (int)jpclen);
 
+    /* Get jasper ID of JPEG encoder. */
+    outfmt = jas_image_strtofmt(G2C_JASPER_JPEG_FORMAT_NAME);
+
     /* Encode image. */
-    if ((ier = jpc_encode(&image, jpcstream, opts)))
+    if ((ier = jas_image_encode(&image, jpcstream, outfmt, opts)))
     {
         printf(" jpc_encode return = %d \n",ier);
         return -3;
@@ -111,6 +119,9 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     rwcnt = jpcstream->rwcnt_;
     ier = jas_stream_close(istream);
     ier = jas_stream_close(jpcstream);
+
+    /* Finalize jasper. */
+    jas_cleanup();
 
     /* Return size of jpeg2000 code stream. */
     return (rwcnt);
