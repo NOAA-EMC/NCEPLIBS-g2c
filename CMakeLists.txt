@@ -1,4 +1,4 @@
-# This is the main CMake file for NCEPLIBS-ip.
+# This is the main CMake file for NCEPLIBS-g2c.
 #
 # Mark Potts, Kyle Gerheiser
 cmake_minimum_required(VERSION 3.15)
@@ -14,7 +14,6 @@ include(GNUInstallDirs)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
-
 # Handle user options.
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
 option(USE_PNG      "Use PNG library"      ON)
@@ -25,7 +24,6 @@ option(USE_OpenJPEG "Use OpenJPEG library" OFF)
 if(USE_Jasper AND USE_OpenJPEG)
   message(FATAL_ERROR "Either Jasper or OpenJPEG should be used, not both.")
 endif()
-
 
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
@@ -109,7 +107,7 @@ add_library(${lib_name} STATIC
     src/util.c
 )
 
-set_property(TARGET ${lib_name} PROPERTY C_STANDARD 99)
+set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
 
 if(PNG_FOUND)
   message(STATUS "Found PNG:")
