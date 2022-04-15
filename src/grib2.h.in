@@ -288,6 +288,8 @@ g2int g2_gribend(unsigned char *cgrib);
 #define G2_ADDGRID_BAD_GDT -5     /**< In g2_addgrid() Could not find requested Grid Definition Template. */
 #define G2_JPCUNPACK_MEM 1        /**< In jpcunpack() or other unpack function: out of memory. */
 #define G2_SPECUNPACK_TYPE -3     /**< In specunpack() Can't handle 64 or 128 bit floats. */
+#define G2_JASPER_INIT -2         /**< In enc_jpeg2000() error initializing jasper library. */
+#define G2_JASPER_ENCODE -3       /**< In enc_jpeg2000() error encoding image with jasper. */
 
 /* These are the new error codes. */
 #define G2C_NO_ERROR 0       /**< No error. */

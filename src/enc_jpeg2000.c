@@ -41,7 +41,8 @@
  *
  * @return
  * - > 0 = Length in bytes of encoded JPEG2000 code stream
- * - -3 = Error encode jpeg2000 code stream.
+ * - ::G2_JASPER_INIT Error initializing jasper library.
+ * - ::G2_JASPER_ENCODE Error encode jpeg2000 code stream.
  *
  * @note Requires JasPer Software version 1.500.4 or 1.700.2 or later.
  *
@@ -95,7 +96,7 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
 
     /* Initialize Jasper. */
     if (jas_init())
-	return -5;
+	return G2_JASPER_INIT;
 
     /* Open a JasPer stream containing the input grayscale values. */
     istream = jas_stream_memopen((char *)cin, height * width * cmpt.cps_);
@@ -110,10 +111,7 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
 
     /* Encode image. */
     if ((ier = jas_image_encode(&image, jpcstream, outfmt, opts)))
-    {
-        printf(" jpc_encode return = %d \n",ier);
-        return -3;
-    }
+	return G2_JASPER_ENCODE;
 
     /* Clean up JasPer work structures. */
     rwcnt = jpcstream->rwcnt_;
