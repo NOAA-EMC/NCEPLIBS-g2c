@@ -11,10 +11,14 @@
 
 /**
  * This Function decodes a JPEG2000 code stream specified in the
- * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using JasPer
- * Software written by the University of British Columbia and Image
- * Power Inc, and others. JasPer is available at
- * http://www.ece.uvic.ca/~mdadams/jasper/.
+ * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using [JasPer
+ * Software](https://github.com/jasper-software/jasper).
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|---------
+ * 2002-12-02 | Gilbert | Initial
+ * 2022-04-15 | Hartnett | Converted to use jas_ instead of jpc_ functions.
  *
  * @param injpc Input JPEG2000 code stream.
  * @param bufsize Length (in bytes) of the input JPEG2000 code stream.

@@ -13,15 +13,14 @@
 /**
  * This Function encodes a grayscale image into a JPEG2000 code stream
  * specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1)
- * using JasPer Software version 1.500.4 (or 1.700.2) written by the
- * University of British Columbia, Image Power Inc, and others.
- * JasPer is available at http://www.ece.uvic.ca/~mdadams/jasper/.
+ * using [JasPer Software](https://github.com/jasper-software/jasper).
  *
  * ### Program History Log
  * Date | Programmer | Comments
  * -----|------------|---------
  * 2002-12-02 | Gilbert | Initial
  * 2004-12-16 | Gilbert | Added retry argument allowing increased guard bits.
+ * 2022-04-15 | Hartnett | Converted to use jas_ instead of jpc_ functions.
  *
  * @param cin Packed matrix of Grayscale image values to encode.
  * @param width width of image.
