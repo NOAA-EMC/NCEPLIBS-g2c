@@ -22,11 +22,13 @@
  *
  * @return
  * - 0 Successful decode
- * - -3 Error decode jpeg2000 code stream.
- * - -5 decoded image had multiple color components. Only grayscale is
- *     expected.
+ * - ::G2_JASPER_DECODE Error decode jpeg2000 code stream.
+ * - ::G2_JASPER_DECODE_COLOR decoded image had multiple color
+ *     components. Only grayscale is expected.
+ * - ::G2_JASPER_INIT Error inializing Jasper library.
  *
  * @author Stephen Gilbert @date 2002-12-02
+ * @author Ed Hartnett
  */
 int
 dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
@@ -37,17 +39,22 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
     jas_image_cmpt_t *pcmpt;
     char *opts = NULL;
     jas_matrix_t *data;
+    int fmt;
+
+    /* Initialize Jasper. */
+    if (jas_init())
+	return G2_JASPER_INIT;
 
     /* Create jas_stream_t containing input JPEG200 codestream in
      * memory. */
     jpcstream = jas_stream_memopen(injpc, bufsize);
 
+    /* Get jasper ID of JPEG encoder. */
+    fmt = jas_image_strtofmt(G2C_JASPER_JPEG_FORMAT_NAME);
+
     /* Decode JPEG200 codestream into jas_image_t structure. */
-    if (!(image = jpc_decode(jpcstream, opts)))
-    {
-        printf(" jpc_decode return\n");
-        return -3;
-    }
+    if (!(image = jas_image_decode(jpcstream, fmt, opts)))
+        return G2_JASPER_DECODE;
 
     pcmpt = image->cmpts_[0];
     /*
@@ -75,10 +82,7 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
 
     /* Expecting jpeg2000 image to be grayscale only. No color components. */
     if (image->numcmpts_ != 1)
-    {
-        printf("dec_jpeg2000: Found color image.  Grayscale expected.\n");
-        return -5;
-    }
+        return G2_JASPER_DECODE_COLOR;
 
     /* Create a data matrix of grayscale image values decoded from the
      * jpeg2000 codestream. */
@@ -96,6 +100,9 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
     jas_matrix_destroy(data);
     jas_stream_close(jpcstream);
     jas_image_destroy(image);
+
+    /* Finalize jasper. */
+    jas_cleanup();
 
     return 0;
 }

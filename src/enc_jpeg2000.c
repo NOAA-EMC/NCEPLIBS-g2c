@@ -47,6 +47,7 @@
  * @note Requires JasPer Software version 1.500.4 or 1.700.2 or later.
  *
  * @author Stephen Gilbert @date 2002-12-02
+ * @author Ed Hartnett
  */
 int
 enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
@@ -58,7 +59,7 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     jas_stream_t *jpcstream, *istream;
     jas_image_cmpt_t cmpt, *pcmpt;
     char opts[MAXOPTSSIZE];
-    int outfmt;
+    int fmt;
 
     /* Set lossy compression options, if requested. */
     if (ltype != 1)
@@ -107,10 +108,10 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     jpcstream = jas_stream_memopen(outjpc, (int)jpclen);
 
     /* Get jasper ID of JPEG encoder. */
-    outfmt = jas_image_strtofmt(G2C_JASPER_JPEG_FORMAT_NAME);
+    fmt = jas_image_strtofmt(G2C_JASPER_JPEG_FORMAT_NAME);
 
     /* Encode image. */
-    if ((ier = jas_image_encode(&image, jpcstream, outfmt, opts)))
+    if ((ier = jas_image_encode(&image, jpcstream, fmt, opts)))
 	return G2_JASPER_ENCODE;
 
     /* Clean up JasPer work structures. */
@@ -122,5 +123,5 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     jas_cleanup();
 
     /* Return size of jpeg2000 code stream. */
-    return (rwcnt);
+    return rwcnt;
 }
