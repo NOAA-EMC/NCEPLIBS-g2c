@@ -113,8 +113,11 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     if ((ier = jas_image_encode(&image, jpcstream, fmt, opts)))
         return G2_JASPER_ENCODE;
 
-    /* Clean up JasPer work structures. */
+    /* Rememeber the length in bytes of the encoded JPEG code
+     * stream. */
     rwcnt = jpcstream->rwcnt_;
+
+    /* Clean up JasPer work structures. */
     ier = jas_stream_close(istream);
     ier = jas_stream_close(jpcstream);
 
