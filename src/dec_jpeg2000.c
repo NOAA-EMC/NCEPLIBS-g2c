@@ -47,7 +47,7 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
 
     /* Initialize Jasper. */
     if (jas_init())
-	return G2_JASPER_INIT;
+        return G2_JASPER_INIT;
 
     /* Create jas_stream_t containing input JPEG200 codestream in
      * memory. */

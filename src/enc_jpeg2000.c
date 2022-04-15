@@ -96,7 +96,7 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
 
     /* Initialize Jasper. */
     if (jas_init())
-	return G2_JASPER_INIT;
+        return G2_JASPER_INIT;
 
     /* Open a JasPer stream containing the input grayscale values. */
     istream = jas_stream_memopen((char *)cin, height * width * cmpt.cps_);
@@ -111,7 +111,7 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
 
     /* Encode image. */
     if ((ier = jas_image_encode(&image, jpcstream, fmt, opts)))
-	return G2_JASPER_ENCODE;
+        return G2_JASPER_ENCODE;
 
     /* Clean up JasPer work structures. */
     rwcnt = jpcstream->rwcnt_;

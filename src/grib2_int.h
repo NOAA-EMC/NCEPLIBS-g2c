@@ -69,7 +69,7 @@ gtemplate *getgridtemplate(g2int number);
 gtemplate *extgridtemplate(g2int number, g2int *list);
 
 /* Packing and unpacking data. */
-void simpack(g2float *fld, g2int ndpts, g2int *idrstmpl, 
+void simpack(g2float *fld, g2int ndpts, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts,
                 g2float *fld);
@@ -82,7 +82,7 @@ void misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
 void cmplxpack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                unsigned char *cpack, g2int *lcpack);
 g2int getpoly(unsigned char *csec3, g2int *jj, g2int *kk, g2int *mm);
-void specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM, 
+void specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM,
               g2int *idrstmpl, unsigned char *cpack, g2int *lcpack);
 g2int specunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2int JJ,
                  g2int KK, g2int MM, g2float *fld);
@@ -92,7 +92,7 @@ int enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
             unsigned char *pngbuf);
 int dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
             unsigned char *cout);
-void pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, 
+void pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 g2float *fld);
