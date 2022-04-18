@@ -7,7 +7,7 @@ jobs:
     env:
       CC: gcc
       CXX: g++
-    stragegy:
+    strategy:
       matrix:
         jasper-version: [3.0.3]
     
