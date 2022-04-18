@@ -7,6 +7,7 @@
  * 2002-10-25 | Gilbert | Initial
  * 2009-01-14 | Vuong | Changed struct template to gtemplate
  * 2021-11-9 | Ed Hartnett | Moved many prototypes to new internal header grib2_int.h.
+ * 2022-04-15 | Ed Hartnett | Added error codes related to JPEG.
  *
  * @author Stephen Gilbert @date 2002-10-25
  */
@@ -288,6 +289,10 @@ g2int g2_gribend(unsigned char *cgrib);
 #define G2_ADDGRID_BAD_GDT -5     /**< In g2_addgrid() Could not find requested Grid Definition Template. */
 #define G2_JPCUNPACK_MEM 1        /**< In jpcunpack() or other unpack function: out of memory. */
 #define G2_SPECUNPACK_TYPE -3     /**< In specunpack() Can't handle 64 or 128 bit floats. */
+#define G2_JASPER_INIT -2         /**< In enc_jpeg2000()/dec_jpeg2000() error initializing jasper library. */
+#define G2_JASPER_ENCODE -3       /**< In enc_jpeg2000() error encoding image with jasper. */
+#define G2_JASPER_DECODE -3       /**< In dec_jpeg2000() error decoding image with jasper. */
+#define G2_JASPER_DECODE_COLOR -5 /**< In dec_jpeg2000() decoded image had multiple color components. */
 
 /* These are the new error codes. */
 #define G2C_NO_ERROR 0       /**< No error. */
