@@ -7,7 +7,10 @@ jobs:
     env:
       CC: gcc
       CXX: g++
-
+    strategy:
+      matrix:
+        jasper-version: [2.0.33, 3.0.3]
+    
     steps:
     - name: install-dependencies
       run: |
@@ -20,7 +23,7 @@ jobs:
       with:
         repository: jasper-software/jasper
         path: jasper
-        ref: version-2.0.25
+        ref: version-${{ matrix.jasper-version }}
 
     - name: cache-jasper
       id: cache-jasper
