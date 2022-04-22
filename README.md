@@ -17,10 +17,13 @@ The NCEPLIBS-g2c library is used by the
 (MET)](https://metplus.readthedocs.io/en/latest/) projects, among
 others.
 
-For a Fortran implementation of the GRIB 2 functions, see project
-[NCEPLIBS-g2](https://github.com/NOAA-EMC/NCEPLIBS-g2). For a
-collection of GRIB1 and GRIB2 utilities used at NOAA, see
-[NCEPLIBS-grib_util](https://github.com/NOAA-EMC/NCEPLIBS-grib_util).
+## Related NCEPLIBS Projects
+
+Repository | Notes
+-----------|------
+[NCEPLIBS-g2](https://github.com/NOAA-EMC/NCEPLIBS-g2) | Fortran implementation of the GRIB 2 functions
+[NCEPLIBS-grib_util](https://github.com/NOAA-EMC/NCEPLIBS-grib_util) | A collection of GRIB1 and GRIB2 utilities
+[NCEPLIBS-g2tmpl](https://github.com/NOAA-EMC/NCEPLIBS-g2tmpl) | Utilities for GRIB2 templates
 
 ## Authors
 
