@@ -18,7 +18,9 @@ The NCEPLIBS-g2c library is used by the
 others.
 
 For a Fortran implementation of the GRIB 2 functions, see project
-[NCEPLIBS-g2](https://github.com/NOAA-EMC/NCEPLIBS-g2).
+[NCEPLIBS-g2](https://github.com/NOAA-EMC/NCEPLIBS-g2). For a
+collection of GRIB1 and GRIB2 utilities used at NOAA, see
+[NCEPLIBS-grib_util](https://github.com/NOAA-EMC/NCEPLIBS-grib_util).
 
 ## Authors
 
