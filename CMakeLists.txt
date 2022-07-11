@@ -19,6 +19,7 @@ option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
 option(USE_PNG      "Use PNG library"      ON)
 option(USE_Jasper   "Use Jasper library"   ON)
 option(USE_OpenJPEG "Use OpenJPEG library" OFF)
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 # The user must select either Jasper of OpenJPEG
 if(USE_Jasper AND USE_OpenJPEG)
@@ -66,7 +67,7 @@ endif()
 
 set(lib_name ${PROJECT_NAME})
 
-add_library(${lib_name} STATIC
+add_library(${lib_name}
     src/grib2_int.h
     src/cmplxpack.c
     src/compack.c
