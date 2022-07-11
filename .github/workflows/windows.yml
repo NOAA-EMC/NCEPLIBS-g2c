@@ -40,7 +40,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DUSE_OpenJPEG=ON -DUSE_Jasper=OFF ..
+        cmake -DUSE_OpenJPEG=ON -DUSE_Jasper=OFF -DBUILD_SHARED_LIBS=OFF ..
         cmake --build .
 
     - name: test
