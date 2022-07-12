@@ -19,6 +19,7 @@ option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
 option(USE_PNG      "Use PNG library"      ON)
 option(USE_Jasper   "Use Jasper library"   ON)
 option(USE_OpenJPEG "Use OpenJPEG library" OFF)
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 # The user must select either Jasper of OpenJPEG
 if(USE_Jasper AND USE_OpenJPEG)
@@ -66,7 +67,7 @@ endif()
 
 set(lib_name ${PROJECT_NAME})
 
-add_library(${lib_name} STATIC
+add_library(${lib_name}
     src/grib2_int.h
     src/cmplxpack.c
     src/compack.c
@@ -118,7 +119,7 @@ if(PNG_FOUND)
                                      src/pngpack.c
                                      src/pngunpack.c)
   target_compile_definitions(${lib_name} PRIVATE USE_PNG)
-  target_link_libraries(${lib_name} INTERFACE ${PNG_LIBRARIES})
+  target_link_libraries(${lib_name} PRIVATE ${PNG_LIBRARIES})
   target_include_directories(${lib_name} PRIVATE "${PNG_INCLUDE_DIRS}")
   set(G2_PNG_ENABLED ON)
 endif()
@@ -132,7 +133,7 @@ if(JASPER_FOUND)
                                      src/jpcpack.c
                                      src/jpcunpack.c)
   target_compile_definitions(${lib_name} PRIVATE USE_JPEG2000)
-  target_link_libraries(${lib_name} INTERFACE ${JASPER_LIBRARIES})
+  target_link_libraries(${lib_name} PRIVATE ${JASPER_LIBRARIES})
   target_include_directories(${lib_name} PRIVATE "${JASPER_INCLUDE_DIR}")
   set(G2_JPEG2000_ENABLED ON)
 endif()
@@ -145,7 +146,7 @@ if(OPENJPEG_FOUND)
                                      src/jpcpack.c
                                      src/jpcunpack.c)
   target_compile_definitions(${lib_name} PRIVATE USE_OPENJPEG)
-  target_link_libraries(${lib_name} INTERFACE ${OpenJPEG_LIBRARIES})
+  target_link_libraries(${lib_name} PRIVATE ${OpenJPEG_LIBRARIES})
   target_include_directories(${lib_name} PRIVATE "${OpenJPEG_INCLUDE_DIRS}")
   set(G2_JPEG2000_ENABLED ON)
 endif()
