@@ -21,6 +21,12 @@
 
 #cmakedefine G2_PNG_ENABLED 1 /**< Decoding/encoding PNG is enabled */
 #cmakedefine G2_JPEG2000_ENABLED 1 /**< Decoding/encoding JPEG2000 is enabled */
+#ifndef G2_PNG_ENABLED
+#define G2_PNG_ENABLED 0
+#endif
+#ifndef G2_JPEG2000_ENABLED
+#define G2_JPEG2000_ENABLED 0
+#endif
 
 typedef int64_t g2int; /**< Long integer type. */
 typedef uint64_t g2intu; /**< Unsigned long integer type. */
