@@ -15,10 +15,6 @@
 /* Prototypes we are testing. */
 int enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf);
 int dec_png(unsigned char *pngbuf, g2int *width, g2int *height, char *cout);
-g2int pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-                g2float *fld);
-void pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, 
-             unsigned char *cpack, g2int *lcpack);
 
 int
 main()
