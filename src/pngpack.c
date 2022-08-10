@@ -7,13 +7,16 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine packs up a data field into PNG image format. After
- * the data field is scaled, and the reference value is subtracted
- * out, it is treated as a grayscale image and passed to a PNG
- * encoder. It also fills in GRIB2 Data Representation Template 5.41
- * or 5.40010 with the appropriate values.
+ * This internal function packs up float or double data into PNG image
+ * format. This is called by pngpack() and pngpackd().
+ *
+ * After the data field is scaled, and the reference value is
+ * subtracted out, it is treated as a grayscale image and passed to a
+ * PNG encoder. It also fills in GRIB2 Data Representation Template
+ * 5.41 or 5.40010 with the appropriate values.
  *
  * @param fld Contains the data values to pack.
+ * @param fld_is_double If non-zero, then fld is double, otherwise float.
  * @param width number of points in the x direction.
  * @param height number of points in the y direction.
  * @param idrstmpl Contains the array of values for Data
@@ -32,9 +35,9 @@
  *
  * @author Stephen Gilbert @date 2003-08-27
  */
-void
-pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, 
-        unsigned char *cpack, g2int *lcpack)
+static void
+pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl, 
+	    unsigned char *cpack, g2int *lcpack)
 {
     g2int *ifld = NULL;
     static g2float alog2 = ALOG2;       /*  ln(2.0) */
@@ -42,20 +45,21 @@ pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
     g2int ndpts, nbytes;
     g2float bscale, dscale, rmax, rmin, temp;
     unsigned char *ctemp;
+    float *ffld = fld;
 
     ndpts = width * height;
     bscale = int_power(2.0, -idrstmpl[1]);
     dscale = int_power(10.0, idrstmpl[2]);
 
     /* Find max and min values in the data. */
-    rmax = fld[0];
-    rmin = fld[0];
+    rmax = ffld[0];
+    rmin = ffld[0];
     for (j = 1; j < ndpts; j++)
     {
-        if (fld[j] > rmax)
-            rmax = fld[j];
-        if (fld[j] < rmin)
-            rmin = fld[j];
+        if (ffld[j] > rmax)
+            rmax = ffld[j];
+        if (ffld[j] < rmin)
+            rmin = ffld[j];
     }
     maxdif = (g2int)rint((rmax-rmin) * dscale * bscale);
 
@@ -80,7 +84,7 @@ pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
             rmin = (g2float)imin;
             /*   scale data */
             for(j = 0; j < ndpts; j++)
-                ifld[j] = (g2int)rint(fld[j] * dscale) - imin;
+                ifld[j] = (g2int)rint(ffld[j] * dscale) - imin;
         }
         else
         {
@@ -93,7 +97,7 @@ pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
             nbits = (g2int)ceil(temp);
             /*   scale data */
             for (j = 0; j < ndpts; j++)
-                ifld[j] = (g2int)rint(((fld[j] * dscale) - rmin) * bscale);
+                ifld[j] = (g2int)rint(((ffld[j] * dscale) - rmin) * bscale);
         }
 
         /* Pack data into full octets, then do PNG encode and
@@ -132,3 +136,72 @@ pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
     if (ifld)
         free(ifld);
 }
+
+/**
+ * This subroutine packs up a float data field into PNG image format. 
+ *
+ * After the data field is scaled, and the reference value is
+ * subtracted out, it is treated as a grayscale image and passed to a
+ * PNG encoder. It also fills in GRIB2 Data Representation Template
+ * 5.41 or 5.40010 with the appropriate values.
+ *
+ * @param fld Contains the data values to pack.
+ * @param width number of points in the x direction.
+ * @param height number of points in the y direction.
+ * @param idrstmpl Contains the array of values for Data
+ * Representation
+ * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
+ * or 5.40010.
+ * - 0 Reference value - ignored on input, set by pngpack routine.
+ * - 1 Binary Scale Factor - used on input.
+ * - 2 Decimal Scale Factor - used on input.
+ * - 3 number of bits for each grayscale pixel value - ignored on
+ input.
+ * - 4 Original field type - currently ignored on input, set = 0 on
+ output. Data values assumed to be reals.
+ * @param cpack The packed data field.
+ * @param lcpack length of packed field cpack.
+ *
+ * @author Stephen Gilbert @date 2003-08-27
+ */
+void
+pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, 
+        unsigned char *cpack, g2int *lcpack)
+{
+    pngpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack);
+}
+
+/**
+ * This subroutine packs up a double data field into PNG image format. 
+ *
+ * After the data field is scaled, and the reference value is
+ * subtracted out, it is treated as a grayscale image and passed to a
+ * PNG encoder. It also fills in GRIB2 Data Representation Template
+ * 5.41 or 5.40010 with the appropriate values.
+ *
+ * @param fld Contains the data values to pack.
+ * @param width number of points in the x direction.
+ * @param height number of points in the y direction.
+ * @param idrstmpl Contains the array of values for Data
+ * Representation
+ * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
+ * or 5.40010.
+ * - 0 Reference value - ignored on input, set by pngpack routine.
+ * - 1 Binary Scale Factor - used on input.
+ * - 2 Decimal Scale Factor - used on input.
+ * - 3 number of bits for each grayscale pixel value - ignored on
+ input.
+ * - 4 Original field type - currently ignored on input, set = 0 on
+ output. Data values assumed to be reals.
+ * @param cpack The packed data field.
+ * @param lcpack length of packed field cpack.
+ *
+ * @author Stephen Gilbert @date 2003-08-27
+ */
+void
+pngpackd(double *fld, g2int width, g2int height, g2int *idrstmpl, 
+	 unsigned char *cpack, g2int *lcpack)
+{
+    pngpack_int(fld, 1, width, height, idrstmpl, cpack, lcpack);
+}
+
