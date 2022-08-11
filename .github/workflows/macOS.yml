@@ -61,7 +61,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/Jasper
-        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}-macOS
+        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}-macOS-1
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
