@@ -86,7 +86,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     /* If max and min values are not equal, pack up field. If they are
      * equal, we have a constant field, and the reference value (rmin)
      * is the value for each point in the field and set nbits to 0. */
-    if ((fld_is_double && rmind != rmaxd) || (!fld_is_double && rmin != rmax)   &&  maxdif != 0)
+    if (((fld_is_double && rmind != rmaxd) || (!fld_is_double && rmin != rmax)) && maxdif != 0)
     {
         ifld = malloc(ndpts * sizeof(g2int));
 
