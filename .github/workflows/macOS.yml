@@ -28,6 +28,10 @@ jobs:
             options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
           }
         - {
+            name: "png_on jasper_on openjpeg_on",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=ON -DJasper_ROOT=~/Jasper"
+          }
+        - {
             name: "png_off jasper_off openjpeg_on",
             options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
           }
@@ -98,6 +102,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
+        ls -l ~/Jasper/lib
         cmake ${{ matrix.config.options }} ..
         make -j2
 
