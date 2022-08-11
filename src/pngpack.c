@@ -35,8 +35,7 @@
  * @param lcpack length of packed field cpack.
  * @return void
  *
- * @author Stephen Gilbert @date 2003-08-27
- * @author Ed Hartnett
+ * @author Ed Hartnett @date Aug 8, 2022
  */
 static void
 pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl, 
@@ -249,8 +248,7 @@ pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
  * @param cpack The packed data field.
  * @param lcpack length of packed field cpack.
  *
- * @author Stephen Gilbert @date 2003-08-27
- * @author Ed Hartnett
+ * @author Ed Hartnett @date Aug 8, 2022
  */
 void
 pngpackd(double *fld, g2int width, g2int height, g2int *idrstmpl, 

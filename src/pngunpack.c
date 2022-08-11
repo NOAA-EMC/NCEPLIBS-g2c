@@ -14,15 +14,19 @@
  * 5.41 or 5.40010.
  *
  * @param cpack The packed data field (character*1 array).
- * @param len length of packed field cpack().
+ * @param len The length of packed field cpack().
  * @param idrstmpl Pointer to array of values for Data Representation
- * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml) or 5.40010.
+ * [Template
+ * 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
+ * or 5.40010.
  * @param ndpts The number of data values to unpack.
- * @param fld Contains the unpacked data values.
+ * @param fld Pointer that will get the unpacked data values.
+ * @param fld_is_double If non-zero, then fld will get data as double,
+ * otherwise float.
  *
  * @return 0 for success, 1 for memory allocation error.
  *
- * @author Stephen Gilbert @date 2003-08-27
+ * @author Stephen Gilbert, Ed Hartnett @date Aug 8, 2022
  */
 static g2int
 pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
@@ -92,6 +96,7 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  * @return 0 for success, 1 for memory allocation error.
  *
  * @author Stephen Gilbert @date 2003-08-27
+ * @author Ed Hartnett
  */
 g2int
 pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
@@ -114,7 +119,7 @@ pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  *
  * @return 0 for success, 1 for memory allocation error.
  *
- * @author Stephen Gilbert @date 2003-08-27
+ * @author Ed Hartnett @date Aug 8, 2022
  */
 g2int
 pngunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
