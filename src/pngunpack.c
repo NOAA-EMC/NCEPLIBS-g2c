@@ -33,6 +33,7 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
     g2float ref, bscale, dscale;
     unsigned char *ctemp;
     float *ffld = fld;
+    double *dfld = fld;
 
     rdieee(idrstmpl, &ref, 1);
     bscale = int_power(2.0, idrstmpl[1]);
@@ -53,14 +54,24 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
         dec_png(cpack, &width, &height, ctemp);
         gbits(ctemp, ifld, 0, nbits, 0, ndpts);
         for (j = 0; j < ndpts; j++)
-            ffld[j] = (((g2float)ifld[j] * bscale) + ref) * dscale;
+	{
+	    if (fld_is_double)
+		dfld[j] = (((double)ifld[j] * bscale) + ref) * dscale;
+	    else
+		ffld[j] = (((g2float)ifld[j] * bscale) + ref) * dscale;
+	}
         free(ctemp);
         free(ifld);
     }
     else
     {
         for (j = 0; j < ndpts; j++)
-            ffld[j] = ref;
+	{
+	    if (fld_is_double)
+		dfld[j] = ref;
+	    else
+		ffld[j] = ref;
+	}
     }
 
     return 0;

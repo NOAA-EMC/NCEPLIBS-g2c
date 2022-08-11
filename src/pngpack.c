@@ -44,29 +44,47 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     g2int j, nbits, imin, imax, maxdif;
     g2int ndpts, nbytes;
     g2float bscale, dscale, rmax, rmin, temp;
+    double rmaxd, rmind;
     unsigned char *ctemp;
     float *ffld = fld;
+    double *dfld = fld;
 
     ndpts = width * height;
     bscale = int_power(2.0, -idrstmpl[1]);
     dscale = int_power(10.0, idrstmpl[2]);
 
     /* Find max and min values in the data. */
-    rmax = ffld[0];
-    rmin = ffld[0];
-    for (j = 1; j < ndpts; j++)
+    if (fld_is_double)
     {
-        if (ffld[j] > rmax)
-            rmax = ffld[j];
-        if (ffld[j] < rmin)
-            rmin = ffld[j];
+	rmaxd = dfld[0];
+	rmind = dfld[0];
+	for (j = 1; j < ndpts; j++)
+	{
+	    if (dfld[j] > rmaxd)
+		rmaxd = dfld[j];
+	    if (dfld[j] < rmind)
+		rmind = dfld[j];
+	}
+	maxdif = (g2int)rint((rmaxd - rmind) * dscale * bscale);
     }
-    maxdif = (g2int)rint((rmax-rmin) * dscale * bscale);
+    else
+    {
+	rmax = ffld[0];
+	rmin = ffld[0];
+	for (j = 1; j < ndpts; j++)
+	{
+	    if (ffld[j] > rmax)
+		rmax = ffld[j];
+	    if (ffld[j] < rmin)
+		rmin = ffld[j];
+	}
+	maxdif = (g2int)rint((rmax - rmin) * dscale * bscale);
+    }
 
     /* If max and min values are not equal, pack up field. If they are
      * equal, we have a constant field, and the reference value (rmin)
      * is the value for each point in the field and set nbits to 0. */
-    if (rmin != rmax  &&  maxdif != 0)
+    if ((fld_is_double && rmind != rmaxd) || (!fld_is_double && rmin != rmax)   &&  maxdif != 0)
     {
         ifld = malloc(ndpts * sizeof(g2int));
 
@@ -76,28 +94,53 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         {
             /* No binary scaling and calculate minumum number of bits
              * in which the data will fit. */
-            imin = (g2int)rint(rmin * dscale);
-            imax = (g2int)rint(rmax * dscale);
+            imin = (g2int)rint((fld_is_double ? rmind : rmin) * dscale);
+            imax = (g2int)rint((fld_is_double ? rmaxd : rmax) * dscale);
             maxdif = imax - imin;
             temp = log((double)(maxdif + 1)) / alog2;
             nbits = (g2int)ceil(temp);
             rmin = (g2float)imin;
             /*   scale data */
-            for(j = 0; j < ndpts; j++)
-                ifld[j] = (g2int)rint(ffld[j] * dscale) - imin;
+	    if (fld_is_double)
+	    {
+		for(j = 0; j < ndpts; j++)
+		    ifld[j] = (g2int)rint(dfld[j] * dscale) - imin;
+	    }
+	    else
+	    {
+		for(j = 0; j < ndpts; j++)
+		    ifld[j] = (g2int)rint(ffld[j] * dscale) - imin;
+	    }
         }
         else
         {
             /* Use binary scaling factor and calculate minumum number
              * of bits in which the data will fit. */
-            rmin = rmin * dscale;
-            rmax = rmax * dscale;
-            maxdif = (g2int)rint((rmax - rmin) * bscale);
+	    if (fld_is_double)
+	    {
+		rmind = rmind * dscale;
+		rmaxd = rmaxd * dscale;
+		maxdif = (g2int)rint((rmaxd - rmind) * bscale);
+	    }
+	    else
+	    {
+		rmin = rmin * dscale;
+		rmax = rmax * dscale;
+		maxdif = (g2int)rint((rmax - rmin) * bscale);
+	    }
             temp = log((double)(maxdif + 1)) / alog2;
             nbits = (g2int)ceil(temp);
             /*   scale data */
-            for (j = 0; j < ndpts; j++)
-                ifld[j] = (g2int)rint(((ffld[j] * dscale) - rmin) * bscale);
+	    if (fld_is_double)
+	    {
+		for (j = 0; j < ndpts; j++)
+		    ifld[j] = (g2int)rint(((dfld[j] * dscale) - rmin) * bscale);
+	    }
+	    else
+	    {
+		for (j = 0; j < ndpts; j++)
+		    ifld[j] = (g2int)rint(((ffld[j] * dscale) - rmin) * bscale);
+	    }		
         }
 
         /* Pack data into full octets, then do PNG encode and
@@ -129,6 +172,8 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     }
 
     /* Fill in ref value and number of bits in Template 5.0. */
+    if (fld_is_double)
+	rmin = (float)rmind;
     mkieee(&rmin, idrstmpl, 1);   /* ensure reference value is IEEE format */
     idrstmpl[3] = nbits;
     idrstmpl[4] = 0;         /* original data were reals */

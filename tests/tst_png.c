@@ -11,6 +11,7 @@
 #define DATA_LEN 4
 #define PACKED_LEN 80
 #define G2C_ERROR 2
+#define EPSILON .0001
 
 /* Prototypes we are testing. */
 int enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf);
@@ -93,7 +94,7 @@ main()
 	for (i = 0; i < DATA_LEN; i++)
 	{
 	    /* printf("%g %g\n", fld[i], fld_in[i]); */
-	    if (fld[i] != fld_in[i])
+	    if (abs(fld[i] - fld_in[i]) > EPSILON)
 		return G2C_ERROR;
 	}
     }
