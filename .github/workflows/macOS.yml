@@ -22,14 +22,14 @@ jobs:
             name: "png_on jasper_off openjpeg_off",
             options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
           }
-        # - {
-        #     name: "png_off jasper_on openjpeg_off",
-        #     options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
-        #   }
-        # - {
-        #     name: "png_on jasper_on openjpeg_off",
-        #     options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
-        #   }
+        - {
+            name: "png_off jasper_on openjpeg_off",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
+        - {
+            name: "png_on jasper_on openjpeg_off",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
         - {
             name: "png_off jasper_off openjpeg_on",
             options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
@@ -102,7 +102,7 @@ jobs:
         mkdir build
         cd build
         ls -l /usr/local/opt/jpeg/lib
-        cmake --trace ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-L/usr/local/opt/jpeg/lib" -DCMAKE_CPP_FLAGS="-L/usr/local/opt/jpeg/include ..
+        cmake --trace ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-L/usr/local/opt/jpeg/lib" -DCMAKE_CPP_FLAGS="-L/usr/local/opt/jpeg/include" ..
         make -j2
 
     - name: test
