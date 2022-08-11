@@ -46,7 +46,7 @@ jobs:
         sudo rm -rf /Library/Frameworks/Mono.framework
 
         brew update
-        brew install doxygen openjpeg libjpeg
+        brew install openjpeg libjpeg
 
     - name: checkout-jasper
       uses: actions/checkout@v2
@@ -101,7 +101,8 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake ${{ matrix.config.options }} ..
+        ls -l /usr/local/opt/jpeg/lib
+        cmake --trace ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-L/usr/local/opt/jpeg/lib" -DCMAKE_CPP_FLAGS="-L/usr/local/opt/jpeg/include ..
         make -j2
 
     - name: test
