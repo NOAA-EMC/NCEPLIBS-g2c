@@ -15,10 +15,11 @@
  * PNG encoder. It also fills in GRIB2 Data Representation Template
  * 5.41 or 5.40010 with the appropriate values.
  *
- * @param fld Contains the data values to pack.
+ * @param fld Pointer to array of float or double that contains the
+ * data values to pack.
  * @param fld_is_double If non-zero, then fld is double, otherwise float.
- * @param width number of points in the x direction.
- * @param height number of points in the y direction.
+ * @param width Number of points in the x direction.
+ * @param height Number of points in the y direction.
  * @param idrstmpl Contains the array of values for Data
  * Representation
  * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
@@ -34,6 +35,7 @@
  * @param lcpack length of packed field cpack.
  *
  * @author Stephen Gilbert @date 2003-08-27
+ * @author Ed Hartnett
  */
 static void
 pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl, 
@@ -190,9 +192,10 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
  * PNG encoder. It also fills in GRIB2 Data Representation Template
  * 5.41 or 5.40010 with the appropriate values.
  *
- * @param fld Contains the data values to pack.
- * @param width number of points in the x direction.
- * @param height number of points in the y direction.
+ * @param fld Pointer to array of float that contains the data values
+ * to pack.
+ * @param width Number of points in the x direction.
+ * @param height Number of points in the y direction.
  * @param idrstmpl Contains the array of values for Data
  * Representation
  * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
@@ -208,6 +211,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
  * @param lcpack length of packed field cpack.
  *
  * @author Stephen Gilbert @date 2003-08-27
+ * @author Ed Hartnett
  */
 void
 pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, 
@@ -224,9 +228,10 @@ pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
  * PNG encoder. It also fills in GRIB2 Data Representation Template
  * 5.41 or 5.40010 with the appropriate values.
  *
- * @param fld Contains the data values to pack.
- * @param width number of points in the x direction.
- * @param height number of points in the y direction.
+ * @param fld Pointer to array of double that contains the data values
+ * to pack.
+ * @param width Number of points in the x direction.
+ * @param height Number of points in the y direction.
  * @param idrstmpl Contains the array of values for Data
  * Representation
  * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
@@ -242,6 +247,7 @@ pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
  * @param lcpack length of packed field cpack.
  *
  * @author Stephen Gilbert @date 2003-08-27
+ * @author Ed Hartnett
  */
 void
 pngpackd(double *fld, g2int width, g2int height, g2int *idrstmpl, 

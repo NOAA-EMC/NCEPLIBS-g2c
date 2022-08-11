@@ -131,6 +131,38 @@ main()
 	}
     }
     printf("ok!\n");
+    printf("Testing pngpackd()/pngunpackd() calls with different settings...");
+    {
+	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
+	double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+	double fld_in[DATA_LEN];
+	unsigned char cpack[PACKED_LEN];
+	g2int lcpack;
+        /* See https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml */
+        g2int idrstmpl[5] = {
+            0, /* Reference value (R) (IEEE 32-bit floating-point value) */
+            0, /* Binary scale factor (E) */
+            1, /* Decimal scale factor (D) */
+            32, /* Number of bits required to hold the resulting scaled and referenced data values. (i.e. The depth of the grayscale image.) (see Note 2) */
+            0  /* Type of original field values (see Code Table 5.1) */
+        };
+	int i;
+
+	/* Pack the data. */
+	pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
+
+	/* Unpack the data. */
+	if (pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
+	    return G2C_ERROR;
+
+	for (i = 0; i < DATA_LEN; i++)
+	{
+	    /* printf("%g %g\n", fld[i], fld_in[i]); */
+	    if (abs(fld[i] - fld_in[i]) > EPSILON)
+		return G2C_ERROR;
+	}
+    }
+    printf("ok!\n");
     printf("Testing pngpack()/pngunpack() calls with constant data...");
     {
 	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
@@ -153,6 +185,38 @@ main()
 
 	/* Unpack the data. */
 	if (pngunpack(cpack, len, idrstmpl, ndpts, fld_in))
+	    return G2C_ERROR;
+
+	for (i = 0; i < DATA_LEN; i++)
+	{
+	    /* printf("%g %g\n", fld[i], fld_in[i]); */
+	    if (fld[i] != fld_in[i])
+		return G2C_ERROR;
+	}
+    }
+    printf("ok!\n");
+    printf("Testing pngpackd()/pngunpackd() calls with constant data...");
+    {
+	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
+	double fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
+	double fld_in[DATA_LEN];
+	unsigned char cpack[PACKED_LEN];
+	g2int lcpack;
+        /* See https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml */
+        g2int idrstmpl[5] = {
+            0, /* Reference value (R) (IEEE 32-bit floating-point value) */
+            0, /* Binary scale factor (E) */
+            1, /* Decimal scale factor (D) */
+            24, /* Number of bits required to hold the resulting scaled and referenced data values. (i.e. The depth of the grayscale image.) (see Note 2) */
+            0  /* Type of original field values (see Code Table 5.1) */
+        };
+	int i;
+
+	/* Pack the data. */
+	pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
+
+	/* Unpack the data. */
+	if (pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
 	    return G2C_ERROR;
 
 	for (i = 0; i < DATA_LEN; i++)
