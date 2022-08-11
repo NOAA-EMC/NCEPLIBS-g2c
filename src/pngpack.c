@@ -33,6 +33,7 @@
  output. Data values assumed to be reals.
  * @param cpack The packed data field.
  * @param lcpack length of packed field cpack.
+ * @return void
  *
  * @author Stephen Gilbert @date 2003-08-27
  * @author Ed Hartnett
@@ -55,7 +56,9 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     bscale = int_power(2.0, -idrstmpl[1]);
     dscale = int_power(10.0, idrstmpl[2]);
 
-    /* Find max and min values in the data. */
+    /* Find max and min values in the data. Either rmax and rmin will
+     * be used (if fld_is_double is not true), or rmaxd and rmind will
+     * be used (if fld_is_double is true). */
     rmaxd = dfld[0];
     rmind = dfld[0];
     rmax = ffld[0];
