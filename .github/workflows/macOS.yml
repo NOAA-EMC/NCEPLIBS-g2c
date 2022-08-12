@@ -6,6 +6,9 @@ jobs:
     runs-on: macos-latest
     env:
       CC: clang
+      LDFLAGS: "-L/usr/local/opt/jpeg/lib"
+      CPPFLAGS: "-I/usr/local/opt/jpeg/include"
+      PKG_CONFIG_PATH: "/usr/local/opt/jpeg/lib/pkgconfig"      
 
     strategy:
       fail-fast: false
@@ -19,18 +22,14 @@ jobs:
             name: "png_on jasper_off openjpeg_off",
             options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
           }
-        - {
-            name: "png_off jasper_on openjpeg_off",
-            options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
-          }
-        - {
-            name: "png_on jasper_on openjpeg_off",
-            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
-          }
-        - {
-            name: "png_on jasper_on openjpeg_on",
-            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=ON -DJasper_ROOT=~/Jasper"
-          }
+        # - {
+        #     name: "png_off jasper_on openjpeg_off",
+        #     options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+        #   }
+        # - {
+        #     name: "png_on jasper_on openjpeg_off",
+        #     options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+        #   }
         - {
             name: "png_off jasper_off openjpeg_on",
             options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
@@ -47,7 +46,7 @@ jobs:
         sudo rm -rf /Library/Frameworks/Mono.framework
 
         brew update
-        brew install doxygen openjpeg 
+        brew install openjpeg libjpeg
 
     - name: checkout-jasper
       uses: actions/checkout@v2
@@ -61,7 +60,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/Jasper
-        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}-macOS-1
+        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}-macOS
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
@@ -102,8 +101,8 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        ls -l ~/Jasper/lib
-        cmake ${{ matrix.config.options }} ..
+        ls -l /usr/local/opt/jpeg/lib
+        cmake --trace ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-L/usr/local/opt/jpeg/lib" -DCMAKE_CPP_FLAGS="-L/usr/local/opt/jpeg/include" ..
         make -j2
 
     - name: test
