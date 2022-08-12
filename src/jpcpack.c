@@ -50,6 +50,7 @@
  * cpack. This must be set by the calling function to the size
  * available in cpack.
  *
+ * @return N/A
  * @author Stephen Gilbert, Ed Hartnett 
  */
 static void
