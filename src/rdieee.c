@@ -18,22 +18,22 @@
  * @author Stephen Gilbert @date 2002-10-25
  */
 void
-rdieee(g2int *rieee, g2float *a, g2int num)
+rdieee(g2int *rieee, float *a, g2int num)
 {
 
     g2int  j;
     g2int  isign,iexp,imant;
 
-    g2float  sign,temp;
-    static g2float  two23,two126;
+    float  sign,temp;
+    static float  two23,two126;
     static g2int test=0;
     g2intu msk1=0x80000000;        // 10000000000000000000000000000000 binary
     g2int msk2=0x7F800000;         // 01111111100000000000000000000000 binary
     g2int msk3=0x007FFFFF;         // 00000000011111111111111111111111 binary
 
     if ( test == 0 ) {
-        two23=(g2float)int_power(2.0,-23);
-        two126=(g2float)int_power(2.0,-126);
+        two23=(float)int_power(2.0,-23);
+        two126=(float)int_power(2.0,-126);
         test=1;
     }
 
@@ -50,12 +50,12 @@ rdieee(g2int *rieee, g2float *a, g2int num)
         if (isign == 1) sign=-1.0;
 
         if ( (iexp > 0) && (iexp < 255) ) {
-            temp=(g2float)int_power(2.0,(iexp-127));
-            a[j]=sign*temp*(1.0+(two23*(g2float)imant));
+            temp=(float)int_power(2.0,(iexp-127));
+            a[j]=sign*temp*(1.0+(two23*(float)imant));
         }
         else if ( iexp == 0 ) {
             if ( imant != 0 )
-                a[j]=sign*two126*two23*(g2float)imant;
+                a[j]=sign*two126*two23*(float)imant;
             else
                 a[j]=sign*0.0;
 

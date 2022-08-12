@@ -14,8 +14,8 @@
 
 /* Prototypes we are testing. */
 int comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
-              g2int *idrstmpl, g2int ndpts, g2float *fld);
-void cmplxpack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
+              g2int *idrstmpl, g2int ndpts, float *fld);
+void cmplxpack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                unsigned char *cpack, g2int *lcpack);
 
 int
@@ -25,8 +25,8 @@ main()
     printf("Testing compack()/comunpack() with table 5.2...");
     {
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         /* See
@@ -71,8 +71,8 @@ main()
     printf("Testing compack()/comunpack() with table 5.3...");
     {
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         /* See
@@ -119,8 +119,8 @@ main()
     printf("Testing misspack()/comunpack() calls...");
     {
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         g2int old_int_val;
@@ -178,8 +178,8 @@ main()
     printf("Testing misspack()/comunpack() calls with missopt = 2, no binary scaling...");
     {
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         /* See
@@ -224,8 +224,8 @@ main()
     printf("Testing misspack()/comunpack() with table 5.3...");
     {
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         /* See
@@ -272,8 +272,8 @@ main()
     printf("Testing misspack()/comunpack() with table 5.3 with second order spacial difference and different data...");
     {
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {0.0, 0.0, 3.0, 0.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {0.0, 0.0, 3.0, 0.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         /* See
@@ -320,8 +320,8 @@ main()
     printf("Testing cmplxpack()/comunpack() calls (expect and ignore error messages)...");
     {
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         g2int old_int_val;
@@ -375,8 +375,8 @@ main()
     printf("Testing cmplxpack()/comunpack() calls without missing value management...");
     {
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         /* See
@@ -421,8 +421,8 @@ main()
     printf("Testing cmplxpack()/comunpack() calls (expect and ignore error messages)...");
     {
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {2.0, 2.0, 2.0, 2.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {2.0, 2.0, 2.0, 2.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         g2int old_int_val;

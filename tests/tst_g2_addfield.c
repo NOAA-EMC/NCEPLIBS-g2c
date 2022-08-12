@@ -46,11 +46,11 @@ main()
          * horizontal layer at a point in time. */
         g2int ipdsnum = 0;
         g2int ipdstmpl[15] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
-        g2float coordlist[1] = {1};
+        float coordlist[1] = {1};
         g2int numcoord = 0;
         g2int idrsnum = 0; /* Grid Point Data - Simple Packing (see Template 5.0) */
         g2int idrstmpl[5] = {0, 1, 2, 3, 4};
-        g2float fld[4] = {1, 2, 3, 4};
+        float fld[4] = {1, 2, 3, 4};
         g2int ngrdpts = 4;
         g2int ibmap = 0;
         g2int bmap[4] = {1, 1, 1, 1};

@@ -17,10 +17,10 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
                  g2int ltype, g2int ratio, g2int retry, char *outjpc,
                  g2int jpclen);
 int dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld);
-void jpcpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
+void jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-                g2float *fld);
+                float *fld);
 
 int
 main()
@@ -58,8 +58,8 @@ main()
     {
         g2int height = 2, width = 2;
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         g2int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
@@ -84,8 +84,8 @@ main()
     {
         g2int height = 2, width = 2;
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         /* See
@@ -120,8 +120,8 @@ main()
     {
         g2int height = 2, width = 2;
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
-        g2float fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
-        g2float fld_in[DATA_LEN];
+        float fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
+        float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
         g2int lcpack = PACKED_LEN;
         /* See

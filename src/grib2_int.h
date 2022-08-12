@@ -57,8 +57,8 @@ typedef struct gtemplate gtemplate; /**< Struct for GRIB template. */
 
 /* Legacy support functions. */
 double int_power(double x, g2int y);
-void mkieee(g2float *a, g2int *rieee, g2int num);
-void rdieee(g2int *rieee, g2float *a, g2int num);
+void mkieee(float *a, g2int *rieee, g2int num);
+void rdieee(g2int *rieee, float *a, g2int num);
 
 /* Get the various templates. */
 gtemplate *getdrstemplate(g2int number);
@@ -69,41 +69,41 @@ gtemplate *getgridtemplate(g2int number);
 gtemplate *extgridtemplate(g2int number, g2int *list);
 
 /* Packing and unpacking data. */
-void simpack(g2float *fld, g2int ndpts, g2int *idrstmpl,
+void simpack(float *fld, g2int ndpts, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts,
-                g2float *fld);
-void compack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
+                float *fld);
+void compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 int comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
-              g2int *idrstmpl, g2int ndpts, g2float *fld);
-void misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
+              g2int *idrstmpl, g2int ndpts, float *fld);
+void misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
               unsigned char *cpack, g2int *lcpack);
-void cmplxpack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
+void cmplxpack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                unsigned char *cpack, g2int *lcpack);
 g2int getpoly(unsigned char *csec3, g2int *jj, g2int *kk, g2int *mm);
-void specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM,
+void specpack(float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM,
               g2int *idrstmpl, unsigned char *cpack, g2int *lcpack);
 g2int specunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2int JJ,
-                 g2int KK, g2int MM, g2float *fld);
+                 g2int KK, g2int MM, float *fld);
 g2int getdim(unsigned char *csec3, g2int *width, g2int *height, g2int *iscan);
 
 int enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
             unsigned char *pngbuf);
 int dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
             unsigned char *cout);
-void pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
+void pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-                g2float *fld);
+                float *fld);
 int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
                  g2int ltype, g2int ratio, g2int retry, char *outjpc,
                  g2int jpclen);
 int dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld);
-void jpcpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
+void jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-                g2float *fld);
+                float *fld);
 
 /* Packing and unpacking bits. */
 void gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbits);

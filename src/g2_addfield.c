@@ -9,10 +9,10 @@
 #include "grib2_int.h"
 
 #ifdef USE_PNG
-void pngpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
+void pngpack(float *, g2int, g2int, g2int *, unsigned char *, g2int *);
 #endif  /* USE_PNG */
 #if defined USE_JPEG2000 || defined USE_OPENJPEG
-void jpcpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
+void jpcpack(float *, g2int, g2int, g2int *, unsigned char *, g2int *);
 #endif  /* USE_JPEG2000 */
 
 /**
@@ -103,8 +103,8 @@ void jpcpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *);
  */
 g2int
 g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
-            g2float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl,
-            g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap)
+            float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl,
+            float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap)
 {
     unsigned char *cpack;
     static g2int zero = 0, one = 1, four = 4, five = 5, six = 6, seven = 7;
@@ -115,7 +115,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     g2int lensec4, lensec5, lensec6, lensec7;
     g2int issec3 = 0, isprevbmap = 0, lpos3 = 0, JJ, KK, MM;
     g2int *coordieee;
-    g2float *pfld;
+    float *pfld;
     gtemplate *mappds, *mapdrs;
 #if defined USE_PNG || defined USE_JPEG2000 || defined USE_OPENJPEG
     unsigned int allones = 4294967295u;
@@ -281,7 +281,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     /* bit-map is provided with field. */
     if (ibmap == 0 || ibmap == 254)
     {
-        pfld = malloc(ngrdpts * sizeof(g2float));
+        pfld = malloc(ngrdpts * sizeof(float));
         ndpts = 0;
         for (j = 0; j < ngrdpts; j++)
         {

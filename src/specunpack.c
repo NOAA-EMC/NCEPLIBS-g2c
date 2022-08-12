@@ -24,7 +24,7 @@
  * @param KK pentagonal resolution parameter.
  * @param MM pentagonal resolution parameter.
  * @param fld Contains the unpacked data values. fld must be allocated
- * with at least ndpts * sizeof(g2float) bytes before calling this
+ * with at least ndpts * sizeof(float) bytes before calling this
  * routine.
  *
  * @return 0 for success, -3 for wrong type.
@@ -33,11 +33,11 @@
  */
 g2int
 specunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2int JJ,
-           g2int KK, g2int MM, g2float *fld)
+           g2int KK, g2int MM, float *fld)
 {
     g2int *ifld, j, iofst, nbits;
-    g2float ref, bscale, dscale, *unpk;
-    g2float *pscale, tscale;
+    float ref, bscale, dscale, *unpk;
+    float *pscale, tscale;
     g2int Js, Ks, Ms, Ts, Ns, Nm, n, m;
     g2int inc, incu, incp;
 
@@ -53,7 +53,7 @@ specunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2int JJ,
     if (idrstmpl[9] == 1)
     {           /* unpacked floats are 32-bit IEEE */
 
-        unpk = malloc(ndpts * sizeof(g2float));
+        unpk = malloc(ndpts * sizeof(float));
         ifld = malloc(ndpts * sizeof(g2int));
 
         gbits(cpack, ifld, 0, 32, 0, Ts);
@@ -63,10 +63,10 @@ specunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2int JJ,
 
         /* Calculate Laplacian scaling factors for each possible wave
          * number. */
-        pscale = malloc((JJ + MM + 1) * sizeof(g2float));
+        pscale = malloc((JJ + MM + 1) * sizeof(float));
         tscale = idrstmpl[4] * 1E-6;
         for (n = Js; n <= JJ + MM; n++)
-            pscale[n] = pow((g2float)(n * (n+1)), -tscale);
+            pscale[n] = pow((float)(n * (n+1)), -tscale);
 
         /* Assemble spectral coeffs back to original order. */
         inc = 0;
@@ -89,9 +89,9 @@ specunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, g2int JJ,
                 }
                 else
                 {                       /* Calc coeff from packed value */
-                    fld[inc++] = (((g2float)ifld[incp++] * bscale) + ref) *
+                    fld[inc++] = (((float)ifld[incp++] * bscale) + ref) *
                         dscale * pscale[n];          /* real part */
-                    fld[inc++] = (((g2float)ifld[incp++] * bscale) + ref) *
+                    fld[inc++] = (((float)ifld[incp++] * bscale) + ref) *
                         dscale * pscale[n];          /* imaginary part */
                 }
             }

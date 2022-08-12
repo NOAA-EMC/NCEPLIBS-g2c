@@ -39,7 +39,7 @@
  * @author Stephen Gilbert @date 2002-11-07
  */
 void
-compack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
+compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         unsigned char *cpack, g2int *lcpack)
 {
 
@@ -54,8 +54,8 @@ compack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     g2int glength, grpwidth, nbitsglen = 0;
     g2int kfildo,  minpk,  inc,  maxgrps,  ibit, jbit, kbit, novref, lbitref;
     g2int missopt, miss1, miss2, ier;
-    g2float bscale, dscale, rmax, rmin, temp;
-    static g2float alog2 = ALOG2;       /*  ln(2.0) */
+    float bscale, dscale, rmax, rmin, temp;
+    static float alog2 = ALOG2;       /*  ln(2.0) */
     static g2int one = 1;
 
     bscale = int_power(2.0, -idrstmpl[1]);
@@ -86,7 +86,7 @@ compack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         {        /* No binary scaling. */
             imin = (g2int)rint(rmin*dscale);
             /*imax = (g2int)rint(rmax*dscale); */
-            rmin = (g2float)imin;
+            rmin = (float)imin;
             for (j = 0; j < ndpts; j++)
                 ifld[j] = (g2int)rint(fld[j] * dscale) - imin;
         }

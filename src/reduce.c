@@ -99,7 +99,7 @@ reduce(g2int *kfildo, g2int *jmin, g2int *jmax,
 
     /* Local variables */
     static g2int newboxtp, j, l, m, jj, lxn, left;
-    static g2float pimp;
+    static float pimp;
     static g2int move, novl;
     static char cfeed[1];
     /* static g2int nboxj[31]; */
@@ -263,7 +263,7 @@ reduce(g2int *kfildo, g2int *jmin, g2int *jmax,
     }
 
 L250:
-    pimp = (iorigb - ntotbt[jj - 1]) / (g2float) iorigb * 100.f;
+    pimp = (iorigb - ntotbt[jj - 1]) / (float) iorigb * 100.f;
 /*     WRITE(KFILDO,252)PIMP,KBIT,JJ */
 /* 252  FORMAT(/' PERCENT IMPROVEMENT =',F6.1, */
 /*    1        ' BY DECREASING GROUP LENGTHS FROM',I4,' TO',I4,' BITS') */

@@ -92,7 +92,7 @@ main()
             0,
             0
         };
-        g2float coordlist[1] = {1};
+        float coordlist[1] = {1};
         g2int numcoord = 0;
         g2int idrsnum = 40; /* Grid Point Data - JPEG2000 Compression (see Template 5.40) */
         /* See https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml */
@@ -105,7 +105,7 @@ main()
             0, /* Type of Compression used. (see Code Table 5.40) */
             0, /* Target compression ratio, M:1 (with respect to the bit-depth specified in octet 20), when octet 22 indicates Lossy Compression. Otherwise, set to missing (see Note 3) */
         };
-        g2float fld[4] = {1, 2, 3, 4};
+        float fld[4] = {1, 2, 3, 4};
         g2int ngrdpts = 4;
         g2int ibmap = 255;
         g2int bmap[4] = {1, 1, 1, 1};

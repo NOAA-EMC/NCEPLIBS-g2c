@@ -53,11 +53,11 @@
  */
 g2int
 g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
-           g2int idrsnum, g2int *idrstmpl, g2int ndpts, g2float **fld)
+           g2int idrsnum, g2int *idrstmpl, g2int ndpts, float **fld)
 {
     g2int isecnum;
     g2int ipos, lensec;
-    g2float *lfld;
+    float *lfld;
 
     *fld = NULL;
 
@@ -70,7 +70,7 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
         return G2_UNPACK_BAD_SEC;
 
     ipos = *iofst / 8;
-    if (!(lfld = calloc(ndpts ? ndpts : 1, sizeof(g2float))))
+    if (!(lfld = calloc(ndpts ? ndpts : 1, sizeof(float))))
         return G2_UNPACK_NO_MEM;
 
     *fld = lfld;

@@ -24,7 +24,6 @@
 
 typedef int64_t g2int; /**< Long integer type. */
 typedef uint64_t g2intu; /**< Unsigned long integer type. */
-typedef float g2float; /**< Float type. */
 
 /**
  * Struct for GRIB field.
@@ -160,7 +159,7 @@ struct gribfield
     /** Array containing floating point values intended to document
      * the vertical discretisation associated to model data on hybrid
      * coordinate vertical levels (part of Section 4). */
-    g2float *coord_list;
+    float *coord_list;
 
     /** Number of data points unpacked and returned. */
     g2int ndpts;
@@ -202,7 +201,7 @@ struct gribfield
     g2int *bmap;
 
     /** Array of ndpts unpacked data points. */
-    g2float *fld;
+    float *fld;
 };
 
 typedef struct gribfield gribfield; /**< Struct for GRIB field. */
@@ -214,13 +213,13 @@ g2int g2_unpack2(unsigned char *cgrib, g2int *iofst, g2int *lencsec2,
 g2int g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
                  g2int *mapgridlen, g2int **ideflist, g2int *idefnum);
 g2int g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
-                 g2int *mappdslen, g2float **coordlist, g2int *numcoord);
+                 g2int *mappdslen, float **coordlist, g2int *numcoord);
 g2int g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
                  g2int **idrstmpl, g2int *mapdrslen);
 g2int g2_unpack6(unsigned char *cgrib, g2int *iofst, g2int ngpts, g2int *ibmap,
                  g2int **bmap);
 g2int g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
-                 g2int idrsnum, g2int *idrstmpl, g2int ndpts, g2float **fld);
+                 g2int idrsnum, g2int *idrstmpl, g2int ndpts, float **fld);
 
 /*  Prototypes for unpacking API  */
 void seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip,
@@ -237,15 +236,15 @@ g2int g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2);
 g2int g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
                  g2int idefnum);
 g2int g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
-                  g2float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl,
-                  g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap);
+                  float *coordlist, g2int numcoord, g2int idrsnum, g2int *idrstmpl,
+                  float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap);
 g2int g2_gribend(unsigned char *cgrib);
 
 /* Compression. */
-void pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
+void pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-                g2float *fld);
+                float *fld);
 void pngpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int pngunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,

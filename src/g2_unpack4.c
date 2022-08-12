@@ -44,14 +44,14 @@
  */
 g2int
 g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
-           g2int *mappdslen, g2float **coordlist, g2int *numcoord)
+           g2int *mappdslen, float **coordlist, g2int *numcoord)
 {
 
     g2int needext, i, j, nbits, isecnum;
     g2int lensec, isign, newlen;
     g2int *coordieee;
     g2int *lipdstmpl = 0;
-    g2float *lcoordlist;
+    float *lcoordlist;
     gtemplate *mappds;
 
     *ipdstmpl = NULL;
@@ -157,7 +157,7 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
     if (*numcoord != 0)
     {
         coordieee = calloc(*numcoord, sizeof(g2int));
-        lcoordlist = calloc(*numcoord, sizeof(g2float));
+        lcoordlist = calloc(*numcoord, sizeof(float));
         if (coordieee == 0 || lcoordlist == 0)
         {
             *numcoord = 0;

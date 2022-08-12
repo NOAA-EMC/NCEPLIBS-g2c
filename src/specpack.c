@@ -30,13 +30,13 @@
  * @author Stephen Gilbert @date 2002-12-19
  */
 void
-specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM, 
+specpack(float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM, 
          g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)
 {
 
     g2int *ifld, tmplsim[5];
-    g2float *unpk, *tfld;
-    g2float *pscale, tscale;
+    float *unpk, *tfld;
+    float *pscale, tscale;
     g2int Js, Ks, Ms, Ts, Ns, inc, incu, incp, n, Nm, m, ipos;
 
     Js = idrstmpl[5];
@@ -46,16 +46,16 @@ specpack(g2float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM,
 
     /* Calculate Laplacian scaling factors for each possible wave
      * number. */
-    pscale = malloc((JJ + MM + 1) * sizeof(g2float));
-    tscale = (g2float)idrstmpl[4] * 1E-6;
+    pscale = malloc((JJ + MM + 1) * sizeof(float));
+    tscale = (float)idrstmpl[4] * 1E-6;
     for (n = Js; n <= JJ + MM; n++)
-        pscale[n] = pow((g2float)(n * (n + 1)), tscale);
+        pscale[n] = pow((float)(n * (n + 1)), tscale);
 
     /* Separate spectral coeffs into two lists; one to contain
      * unpacked values within the sub-spectrum Js, Ks, Ms, and the
      * other with values outside of the sub-spectrum to be packed. */
-    tfld = malloc(ndpts * sizeof(g2float));
-    unpk = malloc(ndpts * sizeof(g2float));
+    tfld = malloc(ndpts * sizeof(float));
+    unpk = malloc(ndpts * sizeof(float));
     ifld = malloc(ndpts * sizeof(g2int));
     inc = 0;
     incu = 0;

@@ -42,10 +42,10 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 	    unsigned char *cpack, g2int *lcpack)
 {
     g2int *ifld = NULL;
-    static g2float alog2 = ALOG2;       /*  ln(2.0) */
+    static float alog2 = ALOG2;       /*  ln(2.0) */
     g2int j, nbits, imin, imax, maxdif;
     g2int ndpts, nbytes;
-    g2float bscale, dscale, rmax, rmin, temp;
+    float bscale, dscale, rmax, rmin, temp;
     double rmaxd, rmind;
     unsigned char *ctemp;
     float *ffld = fld;
@@ -103,7 +103,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
             maxdif = imax - imin;
             temp = log((double)(maxdif + 1)) / alog2;
             nbits = (g2int)ceil(temp);
-            rmin = (g2float)imin;
+            rmin = (float)imin;
             /*   scale data */
 	    if (fld_is_double)
 	    {
@@ -216,7 +216,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
  * @author Ed Hartnett
  */
 void
-pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, 
+pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl, 
         unsigned char *cpack, g2int *lcpack)
 {
     pngpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack);

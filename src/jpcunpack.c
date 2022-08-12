@@ -27,11 +27,11 @@
  */
 g2int
 jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-          g2float *fld)
+          float *fld)
 {
     g2int *ifld;
     g2int j, nbits;
-    g2float ref, bscale, dscale;
+    float ref, bscale, dscale;
 
     rdieee(idrstmpl, &ref, 1);
     bscale = int_power(2.0, idrstmpl[1]);
@@ -49,7 +49,7 @@ jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
         }
         dec_jpeg2000((char *)cpack, len, ifld);
         for (j = 0; j < ndpts; j++)
-            fld[j] = (((g2float)ifld[j] * bscale) + ref) * dscale;
+            fld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
         free(ifld);
     }
     else

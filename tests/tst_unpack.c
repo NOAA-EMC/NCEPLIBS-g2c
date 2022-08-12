@@ -52,7 +52,7 @@ main()
         unsigned char *csec2;
         g2int *igds, *igdstmpl, mapgridlen, *ideflist, idefnum;
         g2int ipdsnum, *ipdstmpl, mappdslen;
-        g2float *coordlist;
+        float *coordlist;
         g2int numcoord;
         int i;
 

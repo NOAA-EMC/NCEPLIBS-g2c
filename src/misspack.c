@@ -39,7 +39,7 @@
  * @author Stephen Gilbert @date 2000-06-21
  */
 void
-misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
+misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
          unsigned char *cpack, g2int *lcpack)
 {
     g2int *ifld, *ifldmiss, *jfld;
@@ -54,8 +54,8 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     g2int ngroups, ng, num0, num1, num2;
     g2int imax, lg, mtemp, ier, igmax;
     g2int kfildo, minpk, inc, maxgrps, ibit, jbit, kbit, novref, lbitref;
-    g2float rmissp, rmisss, bscale, dscale, rmin, temp;
-    static g2float alog2 = ALOG2;       /*  ln(2.0) */
+    float rmissp, rmisss, bscale, dscale, rmin, temp;
+    static float alog2 = ALOG2;       /*  ln(2.0) */
     static g2int one = 1;
 
     bscale = int_power(2.0, -idrstmpl[1]);
@@ -132,7 +132,7 @@ misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     if (idrstmpl[1] == 0)
     {        /*  No binary scaling */
         imin = (g2int)rint(rmin * dscale);
-        rmin = (g2float)imin;
+        rmin = (float)imin;
         for (j = 0; j < ndpts; j++)
         {
             if (ifldmiss[j] == 0)
