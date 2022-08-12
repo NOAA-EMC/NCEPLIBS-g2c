@@ -103,15 +103,16 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
             maxdif = imax - imin;
             temp = log((double)(maxdif + 1)) / alog2;
             nbits = (g2int)ceil(temp);
-            rmin = (float)imin;
             /*   scale data */
 	    if (fld_is_double)
 	    {
+		rmind = (float)imin;
 		for(j = 0; j < ndpts; j++)
 		    ifld[j] = (g2int)rint(dfld[j] * dscale) - imin;
 	    }
 	    else
 	    {
+		rmin = (float)imin;
 		for(j = 0; j < ndpts; j++)
 		    ifld[j] = (g2int)rint(ffld[j] * dscale) - imin;
 	    }
@@ -138,7 +139,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 	    if (fld_is_double)
 	    {
 		for (j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(((dfld[j] * dscale) - rmin) * bscale);
+		    ifld[j] = (g2int)rint(((dfld[j] * dscale) - rmind) * bscale);
 	    }
 	    else
 	    {

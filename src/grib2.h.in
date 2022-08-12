@@ -248,6 +248,14 @@ void pngpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int pngunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 double *fld);
+void jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack);
+g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                float *fld);
+void jpcpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack);
+g2int jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                double *fld);
 
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */

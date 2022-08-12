@@ -100,10 +100,6 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
                  g2int ltype, g2int ratio, g2int retry, char *outjpc,
                  g2int jpclen);
 int dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld);
-void jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
-             unsigned char *cpack, g2int *lcpack);
-g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-                float *fld);
 
 /* Packing and unpacking bits. */
 void gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbits);
