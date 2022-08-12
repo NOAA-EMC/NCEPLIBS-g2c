@@ -6,9 +6,6 @@ jobs:
     runs-on: macos-latest
     env:
       CC: clang
-      LDFLAGS: "-L/usr/local/opt/jpeg/lib"
-      CPPFLAGS: "-I/usr/local/opt/jpeg/include"
-      PKG_CONFIG_PATH: "/usr/local/opt/jpeg/lib/pkgconfig"      
 
     strategy:
       fail-fast: false
@@ -22,14 +19,14 @@ jobs:
             name: "png_on jasper_off openjpeg_off",
             options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
           }
-        # - {
-        #     name: "png_off jasper_on openjpeg_off",
-        #     options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
-        #   }
-        # - {
-        #     name: "png_on jasper_on openjpeg_off",
-        #     options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
-        #   }
+        - {
+            name: "png_off jasper_on openjpeg_off",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
+        - {
+            name: "png_on jasper_on openjpeg_off",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
         - {
             name: "png_off jasper_off openjpeg_on",
             options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
@@ -46,7 +43,7 @@ jobs:
         sudo rm -rf /Library/Frameworks/Mono.framework
 
         brew update
-        brew install openjpeg libjpeg
+        brew install openjpeg jpeg-turbo
 
     - name: checkout-jasper
       uses: actions/checkout@v2
@@ -90,7 +87,7 @@ jobs:
         cmake .. -DCMAKE_INSTALL_PREFIX=~/png
         make -j2
         make install
-          
+
     - name: checkout
       uses: actions/checkout@v2
       with:
@@ -101,8 +98,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        ls -l /usr/local/opt/jpeg/lib
-        cmake --trace ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-L/usr/local/opt/jpeg/lib" -DCMAKE_CPP_FLAGS="-L/usr/local/opt/jpeg/include" ..
+        cmake ${{ matrix.config.options }} ..
         make -j2
 
     - name: test
