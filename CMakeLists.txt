@@ -5,7 +5,6 @@ cmake_minimum_required(VERSION 3.15)
 
 file(STRINGS "VERSION" pVersion)
 
-# Read VERSION file.
 project(
   g2c
   VERSION ${pVersion}
