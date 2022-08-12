@@ -23,7 +23,6 @@
 #cmakedefine G2_JPEG2000_ENABLED 1 /**< Decoding/encoding JPEG2000 is enabled */
 
 typedef int64_t g2int; /**< Long integer type. */
-typedef uint64_t g2intu; /**< Unsigned long integer type. */
 
 /**
  * Struct for GRIB field.

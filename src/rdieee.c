@@ -27,7 +27,7 @@ rdieee(g2int *rieee, float *a, g2int num)
     float  sign,temp;
     static float  two23,two126;
     static g2int test=0;
-    g2intu msk1=0x80000000;        // 10000000000000000000000000000000 binary
+    uint64_t msk1=0x80000000;        // 10000000000000000000000000000000 binary
     g2int msk2=0x7F800000;         // 01111111100000000000000000000000 binary
     g2int msk3=0x007FFFFF;         // 00000000011111111111111111111111 binary
 
