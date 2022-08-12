@@ -65,7 +65,7 @@ jobs:
         cd jasper
         mkdir cmake_build
         cd cmake_build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper -DJAS_ENABLE_LIBJPEG=OFF
         make -j2
         make install
 
