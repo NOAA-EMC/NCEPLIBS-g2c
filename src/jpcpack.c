@@ -50,6 +50,7 @@
  * cpack. This must be set by the calling function to the size
  * available in cpack.
  *
+ * @return 0 for success, error code otherwise.
  * @author Stephen Gilbert, Ed Hartnett 
  */
 static void
@@ -241,6 +242,7 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
  * cpack. This must be set by the calling function to the size
  * available in cpack.
  *
+ * @return 0 for success, error code otherwise.
  * @author Stephen Gilbert, Ed Hartnett
  */
 void
@@ -282,6 +284,7 @@ jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * cpack. This must be set by the calling function to the size
  * available in cpack.
  *
+ * @return 0 for success, error code otherwise.
  * @author Ed Hartnett
  */
 void
