@@ -241,6 +241,16 @@ g2int g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
                   g2float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap);
 g2int g2_gribend(unsigned char *cgrib);
 
+/* Compression. */
+void pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack);
+g2int pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                g2float *fld);
+void pngpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack);
+g2int pngunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                double *fld);
+
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
 #define G2_CREATE_GRIB_VERSION -1 /**< Wrong GRIB version for g2_create(), must be 2. */
