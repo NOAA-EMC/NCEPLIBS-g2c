@@ -71,10 +71,12 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     dscale = int_power(10.0, idrstmpl[2]);
 	
     /* Find max and min values in the data. */
+    rmaxd = dfld[0];
+    rmind = dfld[0];
+    rmax = ffld[0];
+    rmin = ffld[0];
     if (fld_is_double)
     {
-	rmaxd = dfld[0];
-	rmind = dfld[0];
 	for (j = 1; j < ndpts; j++)
 	{
 	    if (dfld[j] > rmaxd)
@@ -89,8 +91,6 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     }
     else
     {
-	rmax = ffld[0];
-	rmin = ffld[0];
 	for (j = 1; j < ndpts; j++)
 	{
 	    if (ffld[j] > rmax)
