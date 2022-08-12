@@ -47,14 +47,14 @@
  * @author Stephen Gilbert @date 2003-08-17
  */
 void
-jpcpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
+jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
         unsigned char *cpack, g2int *lcpack)
 {
     g2int  *ifld = NULL;
-    static g2float alog2 = ALOG2;       /*  ln(2.0) */
+    static float alog2 = ALOG2;       /*  ln(2.0) */
     g2int  j, nbits, imin, imax, maxdif;
     g2int  ndpts, nbytes, nsize, retry;
-    g2float  bscale, dscale, rmax, rmin, temp;
+    float  bscale, dscale, rmax, rmin, temp;
     unsigned char *ctemp;
 
     ndpts = width * height;
@@ -94,7 +94,7 @@ jpcpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl,
             maxdif = imax - imin;
             temp = log((double)(maxdif + 1)) / alog2;
             nbits = (g2int)ceil(temp);
-            rmin = (g2float)imin;
+            rmin = (float)imin;
             /*   scale data */
             for(j = 0; j < ndpts; j++)
                 ifld[j] = (g2int)rint(fld[j] * dscale) - imin;

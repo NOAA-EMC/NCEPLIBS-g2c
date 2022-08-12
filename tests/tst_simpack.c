@@ -13,7 +13,7 @@
 #define G2C_ERROR 2
 
 g2int simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts,
-		g2float *fld);
+		float *fld);
 
 int
 main()
@@ -22,8 +22,8 @@ main()
     printf("Testing simpack() call...");
     {
 	g2int ndpts = DATA_LEN; 	
-	g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-	g2float fld_in[DATA_LEN];
+	float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+	float fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
 	g2int lcpack;
         g2int idrstmpl[5] = {0, 1, 1, 16, 0};
@@ -47,8 +47,8 @@ main()
     printf("Testing simpack() call with constant field..");
     {
 	g2int ndpts = DATA_LEN; 	
-	g2float fld[DATA_LEN] = {3.0, 3.0, 3.0, 3.0};
-	g2float fld_in[DATA_LEN];
+	float fld[DATA_LEN] = {3.0, 3.0, 3.0, 3.0};
+	float fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
 	g2int lcpack;
         g2int idrstmpl[5] = {0, 1, 1, 16, 0};
@@ -72,8 +72,8 @@ main()
     printf("Testing simpack() call with idrstmpl[1] = 1, nbits = 0...");
     {
 	g2int ndpts = DATA_LEN; 	
-	g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-	g2float fld_in[DATA_LEN];
+	float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+	float fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
 	g2int lcpack;
         g2int idrstmpl[5] = {0, 1, 1, 0, 0};
@@ -97,8 +97,8 @@ main()
     printf("Testing simpack() call with idrstmpl[1] = 0, nbits = 0...");
     {
 	g2int ndpts = DATA_LEN; 	
-	g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-	g2float fld_in[DATA_LEN];
+	float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+	float fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
 	g2int lcpack;
         g2int idrstmpl[5] = {0, 0, 1, 0, 0};
@@ -122,8 +122,8 @@ main()
     printf("Testing simpack() call with idrstmpl[1] = 0, nbits = 16...");
     {
 	g2int ndpts = DATA_LEN; 	
-	g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-	g2float fld_in[DATA_LEN];
+	float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+	float fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
 	g2int lcpack;
         g2int idrstmpl[5] = {0, 0, 1, 16, 0};

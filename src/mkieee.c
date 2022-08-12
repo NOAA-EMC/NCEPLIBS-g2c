@@ -19,7 +19,7 @@
  * @author Stephen Gilbert @date 2002-10-29
  */
 void
-mkieee(g2float *a, g2int *rieee, g2int num)
+mkieee(float *a, g2int *rieee, g2int num)
 {
     g2int j,n,ieee,iexp,imant;
     double atemp;

@@ -15,7 +15,7 @@
  * Representation Template 5.0.
  * @param ndpts The number of data values to unpack.
  * @param fld Contains the unpacked data values. fld must be
-`* allocated with at least ndpts * sizeof(g2float) bytes before calling
+`* allocated with at least ndpts * sizeof(float) bytes before calling
  * this routine.
  *
  * @return 0 for success, error code otherwise.
@@ -24,11 +24,11 @@
  */
 g2int
 simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts,
-          g2float *fld)
+          float *fld)
 {
     g2int *ifld;
     g2int j, nbits;
-    g2float ref, bscale, dscale;
+    float ref, bscale, dscale;
 
     rdieee(idrstmpl, &ref, 1);
     bscale = int_power(2.0, idrstmpl[1]);
@@ -48,7 +48,7 @@ simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts,
     {
         gbits(cpack, ifld, 0, nbits, 0, ndpts);
         for (j = 0; j < ndpts; j++)
-            fld[j] = (((g2float)ifld[j] * bscale) + ref) * dscale;
+            fld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
     }
     else
     {

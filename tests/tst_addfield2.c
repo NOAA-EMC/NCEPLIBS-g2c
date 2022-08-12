@@ -59,7 +59,7 @@ main()
             0,
             0
         };
-        g2float coordlist[1] = {1};
+        float coordlist[1] = {1};
         g2int numcoord = 0;
         g2int idrsnum = 41; /* Grid Point Data - PNG Compression (see Template 5.41) */
         g2int idrstmpl[5] = {
@@ -69,7 +69,7 @@ main()
             3, /* Number of bits required to hold the resulting scaled and referenced data values. (i.e. The depth of the grayscale image.) (see Note 2) */
             4, /* Type of original field values (see Code Table 5.1) */
         };
-        g2float fld[4] = {1, 2, 3, 4};
+        float fld[4] = {1, 2, 3, 4};
         g2int ngrdpts = 4;
         g2int ibmap = 0;
         g2int bmap[4] = {1, 1, 1, 1};

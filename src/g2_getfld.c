@@ -97,7 +97,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
     g2int disc, ver, lensec0, lengrib, lensec, isecnum;
     g2int *igds;
     g2int *bmpsave;
-    g2float *newfld;
+    float *newfld;
     gribfield *lgfld;
     g2int jerr;
 
@@ -339,7 +339,7 @@ g2_getfld(unsigned char *cgrib, g2int ifldnum, g2int unpack, g2int expand,
                 if (expand == 1)
                 {
                     n = 0;
-                    newfld = calloc(lgfld->ngrdpts, sizeof(g2float));
+                    newfld = calloc(lgfld->ngrdpts, sizeof(float));
                     for (j = 0; j < lgfld->ngrdpts; j++)
                     {
                         if (lgfld->bmap[j] == 1)

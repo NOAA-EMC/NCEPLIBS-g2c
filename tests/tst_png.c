@@ -52,8 +52,8 @@ main()
     printf("Testing pngpack()/pngunpack() calls...");
     {
 	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
-	g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-	g2float fld_in[DATA_LEN];
+	float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+	float fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
 	g2int lcpack;
         g2int idrstmpl[5] = {0, 1, 1, 16, 0};
@@ -102,8 +102,8 @@ main()
     printf("Testing pngpack()/pngunpack() calls with different settings...");
     {
 	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
-	g2float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
-	g2float fld_in[DATA_LEN];
+	float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+	float fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
 	g2int lcpack;
         /* See https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml */
@@ -166,8 +166,8 @@ main()
     printf("Testing pngpack()/pngunpack() calls with constant data...");
     {
 	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
-	g2float fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
-	g2float fld_in[DATA_LEN];
+	float fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
+	float fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
 	g2int lcpack;
         /* See https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml */

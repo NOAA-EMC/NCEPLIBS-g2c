@@ -31,7 +31,7 @@
  * Representation Template 5.2 or 5.3
  * @param ndpts The number of data values to unpack
  * @param fld Contains the unpacked data values. Must be allocated
- * with at least ndpts * sizeof(g2float) bytes before calling this
+ * with at least ndpts * sizeof(float) bytes before calling this
  * routine.
  *
  * @return 0 for success, error code otherwise.
@@ -40,7 +40,7 @@
  */
 int
 comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
-          g2int *idrstmpl, g2int ndpts, g2float *fld)
+          g2int *idrstmpl, g2int ndpts, float *fld)
 {
     g2int nbitsd=0, isign;
     g2int j, iofst, ival1, ival2, minsd, itemp, l, k, n, non=0;
@@ -48,12 +48,12 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
     g2int *gref, *gwidth, *glen;
     g2int itype, ngroups, nbitsgref, nbitsgwidth, nbitsglen;
     g2int msng1, msng2;
-    g2float ref, bscale, dscale, rmiss1, rmiss2;
+    float ref, bscale, dscale, rmiss1, rmiss2;
     g2int totBit,  totLen;
 
     rdieee(idrstmpl, &ref, 1);
-    bscale = (g2float)int_power(2.0, idrstmpl[1]);
-    dscale = (g2float)int_power(10.0, -idrstmpl[2]);
+    bscale = (float)int_power(2.0, idrstmpl[1]);
+    dscale = (float)int_power(10.0, -idrstmpl[2]);
     nbitsgref = idrstmpl[3];
     itype = idrstmpl[4];
     ngroups = idrstmpl[9];
@@ -81,7 +81,7 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
         if (itype == 0)
             rdieee(idrstmpl+7,&rmiss1,1);
         else
-            rmiss1 = (g2float)idrstmpl[7];
+            rmiss1 = (float)idrstmpl[7];
     }
     if (idrstmpl[6] == 2)
     {
@@ -91,8 +91,8 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
             rdieee(idrstmpl+8,&rmiss2,1);
         }
         else {
-            rmiss1 = (g2float)idrstmpl[7];
-            rmiss2 = (g2float)idrstmpl[8];
+            rmiss1 = (float)idrstmpl[7];
+            rmiss2 = (float)idrstmpl[8];
         }
     }
 
@@ -312,7 +312,7 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
     {        /* no missing values */
         for (n = 0; n <ndpts; n++)
         {
-            fld[n] = (((g2float)ifld[n] * bscale) + ref) * dscale;
+            fld[n] = (((float)ifld[n] * bscale) + ref) * dscale;
         }
     }
     else if (idrstmpl[6] == 1 || idrstmpl[6] == 2)
@@ -323,7 +323,7 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
         {
             if (ifldmiss[n] == 0)
             {
-                fld[n] = (((g2float)ifld[non++] * bscale) + ref) * dscale;
+                fld[n] = (((float)ifld[non++] * bscale) + ref) * dscale;
             }
             else if (ifldmiss[n] == 1)
                 fld[n] = rmiss1;

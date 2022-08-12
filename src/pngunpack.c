@@ -34,7 +34,7 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 {
     g2int *ifld;
     g2int j, nbits, width, height;
-    g2float ref, bscale, dscale;
+    float ref, bscale, dscale;
     unsigned char *ctemp;
     float *ffld = fld;
     double *dfld = fld;
@@ -62,7 +62,7 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 	    if (fld_is_double)
 		dfld[j] = (((double)ifld[j] * bscale) + ref) * dscale;
 	    else
-		ffld[j] = (((g2float)ifld[j] * bscale) + ref) * dscale;
+		ffld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
 	}
         free(ctemp);
         free(ifld);
@@ -100,7 +100,7 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  */
 g2int
 pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-          g2float *fld)
+          float *fld)
 {
     return pngunpack_int(cpack, len, idrstmpl, ndpts, fld, 0);
 }

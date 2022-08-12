@@ -33,7 +33,7 @@
  * @author Stephen Gilbert @date 2004-08-27
  */
 void
-cmplxpack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
+cmplxpack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
           unsigned char *cpack, g2int *lcpack)
 {
     if (idrstmpl[6] == 0)  /* No internal missing values */
