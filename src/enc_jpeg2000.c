@@ -95,8 +95,21 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     image.cmpts_ = &pcmpt;
 
     /* Initialize Jasper. */
+#ifdef JASPER3
+    jas_conf_clear();
+    /* static jas_std_allocator_t allocator; */
+    /* jas_std_allocator_init(&allocator); */
+    /* jas_conf_set_allocator(JAS_CAST(jas_std_allocator_t *, &allocator)); */
+    jas_conf_set_max_mem_usage(10000000);
+    jas_conf_set_multithread(true);
+    if (jas_init_library())
+        return G2_JASPER_INIT;
+    if (jas_init_thread())
+        return G2_JASPER_INIT;
+#else
     if (jas_init())
         return G2_JASPER_INIT;
+#endif /* JASPER3 */
 
     /* Open a JasPer stream containing the input grayscale values. */
     istream = jas_stream_memopen((char *)cin, height * width * cmpt.cps_);
@@ -122,7 +135,12 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     ier = jas_stream_close(jpcstream);
 
     /* Finalize jasper. */
+#ifdef JASPER3
+    jas_cleanup_thread();
+    jas_cleanup_library();
+#else
     jas_cleanup();
+#endif /* JASPER3 */
 
     /* Return size of jpeg2000 code stream. */
     return rwcnt;
