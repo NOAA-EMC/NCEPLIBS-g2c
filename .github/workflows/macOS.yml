@@ -6,9 +6,6 @@ jobs:
     runs-on: macos-latest
     env:
       CC: clang
-      LDFLAGS: "-L/usr/local/opt/jpeg/lib"
-      CPPFLAGS: "-I/usr/local/opt/jpeg/include"
-      PKG_CONFIG_PATH: "/usr/local/opt/jpeg/lib/pkgconfig"      
 
     strategy:
       fail-fast: false
@@ -22,14 +19,14 @@ jobs:
             name: "png_on jasper_off openjpeg_off",
             options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
           }
-        # - {
-        #     name: "png_off jasper_on openjpeg_off",
-        #     options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
-        #   }
-        # - {
-        #     name: "png_on jasper_on openjpeg_off",
-        #     options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
-        #   }
+        - {
+            name: "png_off jasper_on openjpeg_off",
+            options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
+        - {
+            name: "png_on jasper_on openjpeg_off",
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
         - {
             name: "png_off jasper_off openjpeg_on",
             options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
@@ -46,7 +43,7 @@ jobs:
         sudo rm -rf /Library/Frameworks/Mono.framework
 
         brew update
-        brew install openjpeg libjpeg
+        brew install openjpeg jpeg-turbo
 
     - name: checkout-jasper
       uses: actions/checkout@v2
@@ -60,7 +57,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/Jasper
-        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}-macOS
+        key: jasper-${{ runner.os }}-2.0.25-macOS
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
@@ -68,7 +65,7 @@ jobs:
         cd jasper
         mkdir cmake_build
         cd cmake_build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper -DJAS_ENABLE_LIBJPEG=OFF
         make -j2
         make install
 
@@ -77,20 +74,20 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/png
-        key: png-${{ runner.os }}-1.6.35-macOS
+        key: png-${{ runner.os }}-1.6.37-macOS
 
     - name: build-png
       if: steps.cache-png.outputs.cache-hit != 'true'
       run: |
-        wget https://github.com/glennrp/libpng/archive/refs/tags/v1.6.35.tar.gz &> /dev/null
-        tar zxf v1.6.35.tar.gz
-        cd libpng-1.6.35
+        wget https://github.com/glennrp/libpng/archive/refs/tags/v1.6.37.tar.gz &> /dev/null
+        tar zxf v1.6.37.tar.gz
+        cd libpng-1.6.37
         mkdir build
         cd build
         cmake .. -DCMAKE_INSTALL_PREFIX=~/png
         make -j2
         make install
-          
+
     - name: checkout
       uses: actions/checkout@v2
       with:
@@ -101,8 +98,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        ls -l /usr/local/opt/jpeg/lib
-        cmake --trace ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-L/usr/local/opt/jpeg/lib" -DCMAKE_CPP_FLAGS="-L/usr/local/opt/jpeg/include" ..
+        cmake ${{ matrix.config.options }} ..
         make -j2
 
     - name: test
