@@ -67,12 +67,13 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     float *ffld = fld;
     double *dfld = fld;
 
-    LOG((2, "jpcpack_int() fld_is_double %d width %ld height %ld *lcpack %ld",
-	 fld_is_double, width, height, *lcpack));
+    LOG((2, "jpcpack_int() fld_is_double %d width %ld height %ld idrstmpl[1] %ld *lcpack %ld",
+	 fld_is_double, width, height, idrstmpl[1], *lcpack));
     
     ndpts = width * height;
     bscale = int_power(2.0, -idrstmpl[1]);
     dscale = int_power(10.0, idrstmpl[2]);
+    LOG((3, "ndpts %ld bscale %g dscale %g", ndpts, bscale, dscale));
 	
     /* Find max and min values in the data. */
     rmaxd = dfld[0];
@@ -86,7 +87,7 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 	    if (dfld[j] > rmaxd)
 		rmaxd = dfld[j];
 	    if (dfld[j] < rmind)
-		rmind = ffld[j];
+		rmind = dfld[j];
 	}
 	if (idrstmpl[1] == 0)
 	    maxdif = (g2int)(rint(rmaxd * dscale) - rint(rmind * dscale));
@@ -107,6 +108,7 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 	else
 	    maxdif = (g2int)rint((rmax - rmin) * dscale * bscale);
     }
+    LOG((3, "rmax %g rmaxd %g rmin %g rmind %g", rmax, rmaxd, rmin, rmind));
 
     /* If max and min values are not equal, pack up field. If they are
      * equal, we have a constant field, and the reference value (rmin)

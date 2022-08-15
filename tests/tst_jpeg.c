@@ -65,6 +65,8 @@ main()
         g2int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
         int i;
 
+	g2_set_log_level(4);
+
         /* Pack the data. */
         jpcpack(fld, width, height, idrstmpl, cpack, &lcpack);
 
@@ -91,7 +93,6 @@ main()
         g2int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
         int i;
 
-	g2_set_log_level(2);
         /* Pack the data. */
         jpcpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
