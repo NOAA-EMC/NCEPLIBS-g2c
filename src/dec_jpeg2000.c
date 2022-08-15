@@ -46,8 +46,21 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
     int fmt;
 
     /* Initialize Jasper. */
+#ifdef JASPER3
+    jas_conf_clear();
+    /* static jas_std_allocator_t allocator; */
+    /* jas_std_allocator_init(&allocator); */
+    /* jas_conf_set_allocator(JAS_CAST(jas_std_allocator_t *, &allocator)); */
+    jas_conf_set_max_mem_usage(10000000);
+    jas_conf_set_multithread(true);
+    if (jas_init_library())
+        return G2_JASPER_INIT;
+    if (jas_init_thread())
+        return G2_JASPER_INIT;
+#else
     if (jas_init())
         return G2_JASPER_INIT;
+#endif /* JASPER3 */
 
     /* Create jas_stream_t containing input JPEG200 codestream in
      * memory. */
@@ -106,7 +119,12 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
     jas_image_destroy(image);
 
     /* Finalize jasper. */
+#ifdef JASPER3
+    jas_cleanup_thread();
+    jas_cleanup_library();
+#else
     jas_cleanup();
+#endif /* JASPER3 */
 
     return 0;
 }

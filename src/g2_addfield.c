@@ -8,13 +8,6 @@
 #include <stdlib.h>
 #include "grib2_int.h"
 
-#ifdef USE_PNG
-void pngpack(float *, g2int, g2int, g2int *, unsigned char *, g2int *);
-#endif  /* USE_PNG */
-#if defined USE_JPEG2000 || defined USE_OPENJPEG
-void jpcpack(float *, g2int, g2int, g2int *, unsigned char *, g2int *);
-#endif  /* USE_JPEG2000 */
-
 /**
  * This routine packs up Sections 4 through 7 for a given field and
  * adds them to a GRIB2 message. They are [Product Definition

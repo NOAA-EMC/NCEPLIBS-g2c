@@ -8,8 +8,10 @@
  * 2009-01-14 | Vuong | Changed struct template to gtemplate
  * 2021-11-9 | Ed Hartnett | Moved many prototypes to new internal header grib2_int.h.
  * 2022-04-15 | Ed Hartnett | Added error codes related to JPEG.
+ * 2022-08-15 | Ed Hartnett | Added compression functions for double.
  *
  * @author Stephen Gilbert @date 2002-10-25
+ * @author Ed Hartnett
  */
 
 #ifndef _grib2_H
@@ -22,7 +24,16 @@
 #cmakedefine G2_PNG_ENABLED 1 /**< Decoding/encoding PNG is enabled */
 #cmakedefine G2_JPEG2000_ENABLED 1 /**< Decoding/encoding JPEG2000 is enabled */
 
-typedef int64_t g2int; /**< Long integer type. */
+/** Long integer type. */
+typedef int64_t g2int; 
+
+/** Unsigned long integer type. This typedef is provided for backward
+ * compatibility and is not used by the library any more. */
+typedef uint64_t g2intu; 
+
+/** Float type. This typedef is provided for backward compatibility
+ * and is not used by the library any more. Use float in new code. */
+typedef float g2float;
 
 /**
  * Struct for GRIB field.
@@ -247,6 +258,14 @@ g2int pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 void pngpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int pngunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                double *fld);
+void jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack);
+g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                float *fld);
+void jpcpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack);
+g2int jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 double *fld);
 
 /* Error codes for G2 API. */

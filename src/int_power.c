@@ -14,18 +14,22 @@
  *
  * @author Wesley Ebisuzaki
  */
-double int_power(double x, g2int y) {
-
+double
+int_power(double x, g2int y)
+{
     double value;
 
-    if (y < 0) {
+    if (y < 0)
+    {
         y = -y;
         x = 1.0 / x;
     }
     value = 1.0;
 
-    while (y) {
-        if (y & 1) {
+    while (y)
+    {
+        if (y & 1)
+	{
             value *= x;
         }
         x = x * x;
