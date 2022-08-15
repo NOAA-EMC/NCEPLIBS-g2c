@@ -80,32 +80,32 @@ main()
         }
     }
     printf("ok!\n");
-    /* printf("Testing jpcpackd()/jpcunpackd() call..."); */
-    /* { */
-    /*     g2int height = 2, width = 2; */
-    /*     g2int len = PACKED_LEN, ndpts = DATA_LEN; */
-    /*     double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0}; */
-    /*     double fld_in[DATA_LEN]; */
-    /*     unsigned char cpack[PACKED_LEN]; */
-    /*     g2int lcpack = PACKED_LEN; */
-    /*     g2int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0}; */
-    /*     int i; */
+    printf("Testing jpcpackd()/jpcunpackd() call...");
+    {
+        g2int height = 2, width = 2;
+        g2int len = PACKED_LEN, ndpts = DATA_LEN;
+        double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        double fld_in[DATA_LEN];
+        unsigned char cpack[PACKED_LEN];
+        g2int lcpack = PACKED_LEN;
+        g2int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
+        int i;
 
-    /*     /\* Pack the data. *\/ */
-    /*     jpcpackd(fld, width, height, idrstmpl, cpack, &lcpack); */
+        /* Pack the data. */
+        jpcpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
-    /*     /\* Unpack the data. *\/ */
-    /*     if (jpcunpackd(cpack, len, idrstmpl, ndpts, fld_in)) */
-    /*         return G2C_ERROR; */
+        /* Unpack the data. */
+        if (jpcunpackd(cpack, len, idrstmpl, ndpts, fld_in))
+            return G2C_ERROR;
 
-    /*     for (i = 0; i < DATA_LEN; i++) */
-    /*     { */
-    /*         /\* printf("%g %g\n", fld[i], fld_in[i]); *\/ */
-    /*         if (fld[i] != fld_in[i]) */
-    /*     	return G2C_ERROR; */
-    /*     } */
-    /* } */
-    /* printf("ok!\n"); */
+        for (i = 0; i < DATA_LEN; i++)
+        {
+            /* printf("%g %g\n", fld[i], fld_in[i]); */
+            if (fld[i] != fld_in[i])
+        	return G2C_ERROR;
+        }
+    }
+    printf("ok!\n");
     printf("Testing jpcpack()/jpcunpack() call with different drstmpl values...");
     {
         g2int height = 2, width = 2;

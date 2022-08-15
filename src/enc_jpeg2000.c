@@ -32,8 +32,7 @@
  * - != 1, for lossless compression
  * @param ratio target compression ratio. (ratio:1) Used only when
  * ltype == 1.
- * @param retry If 1 try increasing number of guard bits otherwise, no
- * additional options.
+ * @param retry If 1 try increasing number of guard bits.
  * @param outjpc Output encoded JPEG2000 code stream.
  * @param jpclen Number of bytes allocated for the output JPEG2000
  * code stream in outjpc.

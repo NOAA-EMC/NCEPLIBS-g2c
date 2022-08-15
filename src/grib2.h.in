@@ -22,7 +22,16 @@
 #cmakedefine G2_PNG_ENABLED 1 /**< Decoding/encoding PNG is enabled */
 #cmakedefine G2_JPEG2000_ENABLED 1 /**< Decoding/encoding JPEG2000 is enabled */
 
-typedef int64_t g2int; /**< Long integer type. */
+/** Long integer type. */
+typedef int64_t g2int; 
+
+/** Unsigned long integer type. This typedef is provided for backward
+ * compatibility and is not used by the library any more. */
+typedef uint64_t g2intu; 
+
+/** Float type. This typedef is provided for backward compatibility
+ * and is not used by the library any more. Use float in new code. */
+typedef float g2float;
 
 /**
  * Struct for GRIB field.
