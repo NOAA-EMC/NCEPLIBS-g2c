@@ -123,4 +123,19 @@ int pack_gp(g2int *kfildo, g2int *ic, g2int *nxy,
 /* Check the message header and check for message termination. */
 int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
 
+/* Handle logging. */
+#ifdef LOGGING
+
+/* To log something... */
+void g2_log(int severity, const char *fmt, ...);
+
+#define LOG(e) g2_log e
+
+#else /* LOGGING */
+
+/* This definition will be used unless LOGGING is defined. */
+#define LOG(e)
+
+#endif /* LOGGING */
+
 #endif  /*  _grib2_int_H  */

@@ -91,6 +91,7 @@ main()
         g2int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
         int i;
 
+	g2_set_log_level(2);
         /* Pack the data. */
         jpcpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
@@ -104,6 +105,7 @@ main()
             if (fld[i] != fld_in[i])
         	return G2C_ERROR;
         }
+	g2_set_log_level(-1);
     }
     printf("ok!\n");
     printf("Testing jpcpack()/jpcunpack() call with different drstmpl values...");

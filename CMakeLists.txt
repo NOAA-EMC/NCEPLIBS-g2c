@@ -22,6 +22,12 @@ option(USE_Jasper   "Use Jasper library"   ON)
 option(USE_OpenJPEG "Use OpenJPEG library" OFF)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(FTP_TEST_FILES "Fetch and test with files on FTP site." OFF)
+option(LOGGING "Turn on internal logging messages. Only useful to g2c developers." OFF)
+
+# Set pre-processor symbol if logging is desired.
+if(LOGGING)
+  add_definitions(-DLOGGING)
+endif()
 
 # The user must select either Jasper of OpenJPEG
 if(USE_Jasper AND USE_OpenJPEG)

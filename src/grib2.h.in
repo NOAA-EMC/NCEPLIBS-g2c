@@ -8,8 +8,10 @@
  * 2009-01-14 | Vuong | Changed struct template to gtemplate
  * 2021-11-9 | Ed Hartnett | Moved many prototypes to new internal header grib2_int.h.
  * 2022-04-15 | Ed Hartnett | Added error codes related to JPEG.
+ * 2022-08-15 | Ed Hartnett | Added compression functions for double.
  *
  * @author Stephen Gilbert @date 2002-10-25
+ * @author Ed Hartnett
  */
 
 #ifndef _grib2_H
