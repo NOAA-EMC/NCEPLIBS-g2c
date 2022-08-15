@@ -129,11 +129,12 @@ int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
 /* To log something... */
 void g2_log(int severity, const char *fmt, ...);
 
+/** Log a message to stdout. This is used for debugging the library. */
 #define LOG(e) g2_log e
 
 #else /* LOGGING */
 
-/* This definition will be used unless LOGGING is defined. */
+/** Ignore logging to stdout. Library was not built with LOGGING=ON. */
 #define LOG(e)
 
 #endif /* LOGGING */
