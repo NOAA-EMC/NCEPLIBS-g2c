@@ -6,7 +6,7 @@
 
 #include "grib2_int.h"
 
-/* Open an existing GRIB2 file.
+/** Open an existing GRIB2 file.
  *
  * @param path Path of the file.
  * @param mode Open mode flags.
@@ -23,7 +23,7 @@ g2c_open(const char *path, int mode, int *g2cid)
     return G2C_NO_ERROR;
 }
 
-/* Create a new GRIB2 file.
+/** Create a new GRIB2 file.
  *
  * @param path Path of the file.
  * @param cmode Open mode flags.
@@ -40,7 +40,7 @@ g2c_create(const char *path, int cmode, int *g2cid)
     return G2C_NO_ERROR;
 }
 
-/* Close a GRIB2 file, freeing resources.
+/** Close a GRIB2 file, freeing resources.
  *
  * @param g2cid Indentifier for the file.
  *
