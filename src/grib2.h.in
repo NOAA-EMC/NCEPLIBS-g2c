@@ -270,6 +270,9 @@ g2int jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 
 /* The new g2c API is being introduced in version 2.0 of the library. */
 
+/* Defines for file handling. */
+#define G2C_MAX_FILES 128 /**< Maximum number of open files. */
+#define G2C_MAX_NAME 1024 /**< Maximum length of a name. */
 #define G2C_NOWRITE       0x0000 /**< Set read-only access for g2c_open(). */
 #define G2C_WRITE         0x0001 /**< Set read-write access for g2c_open(). */
 #define G2C_CLOBBER       0x0000 /**< Destroy existing file. Mode flag for g2c_create(). */
@@ -338,7 +341,11 @@ int g2c_set_log_level(int new_level);
 
 /* These are the new error codes. */
 #define G2C_NO_ERROR 0       /**< No error. */
-#define G2C_NOT_GRIB -50     /**< GRIB header not found. */
-#define G2C_MSG_COMPLETE -51 /**< GRIB message already complete. */
+#define G2C_NOT_GRIB (-50)     /**< GRIB header not found. */
+#define G2C_MSG_COMPLETE (-51) /**< GRIB message already complete. */
+#define G2C_LONG_NAME (-52) /**< Name too long. */
+#define G2C_INVAL (-53) /**< Invalid input. */
+#define G2C_FILE (-54) /**< Invalid input. */
+#define G2C_BADID (-55) /**< Bad ID. */
 
 #endif  /*  _grib2_H  */
