@@ -51,9 +51,13 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     float *ffld = fld;
     double *dfld = fld;
 
+    LOG((2, "pngpack_int fld_is_double %d width %ld height %ld idrstmpl[1] %d",
+	 fld_is_double, width, height, idrstmpl[1]));
+
     ndpts = width * height;
     bscale = int_power(2.0, -idrstmpl[1]);
     dscale = int_power(10.0, idrstmpl[2]);
+    LOG((3, "ndpts %d bscale %g dscale %g", ndpts, bscale, dscale));
 
     /* Find max and min values in the data. Either rmax and rmin will
      * be used (if fld_is_double is not true), or rmaxd and rmind will
@@ -84,7 +88,8 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 	}
 	maxdif = (g2int)rint((rmax - rmin) * dscale * bscale);
     }
-
+    LOG((3, "rmax %g rmaxd %g rmin %g rmind %g", rmax, rmaxd, rmin, rmind));
+    
     /* If max and min values are not equal, pack up field. If they are
      * equal, we have a constant field, and the reference value (rmin)
      * is the value for each point in the field and set nbits to 0. */
@@ -164,8 +169,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         sbits(ctemp, ifld, 0, nbits, 0, ndpts);
 
         /* Encode data into PNG Format. */
-        if ((*lcpack = (g2int)enc_png(ctemp, width, height, nbits,
-                                      cpack)) <= 0)
+        if ((*lcpack = (g2int)enc_png(ctemp, width, height, nbits, cpack)) <= 0)
             printf("pngpack: ERROR Packing PNG = %d\n", (int)*lcpack);
         
         free(ctemp);
