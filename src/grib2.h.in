@@ -268,6 +268,9 @@ void jpcpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
 g2int jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 double *fld);
 
+/* Logging, for debugging purposes. */
+int g2c_set_log_level(int new_level);
+
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
 #define G2_CREATE_GRIB_VERSION -1 /**< Wrong GRIB version for g2_create(), must be 2. */
