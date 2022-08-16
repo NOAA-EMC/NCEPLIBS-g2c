@@ -268,6 +268,18 @@ void jpcpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
 g2int jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 double *fld);
 
+/* The new g2c API is being introduced in version 2.0 of the library. */
+
+#define G2C_NOWRITE       0x0000 /**< Set read-only access for g2c_open(). */
+#define G2C_WRITE         0x0001 /**< Set read-write access for g2c_open(). */
+#define G2C_CLOBBER       0x0000 /**< Destroy existing file. Mode flag for g2c_create(). */
+#define G2C_NOCLOBBER     0x0004 /**< Don't destroy existing file. Mode flag for g2c_create(). */
+
+/* File handling functions. */
+int g2c_open(const char *path, int mode, int *g2cid);
+int g2c_create(const char *path, int cmode, int *g2cid);
+int g2c_close(int g2cid);
+
 /* Logging, for debugging purposes. */
 int g2c_set_log_level(int new_level);
 

@@ -79,46 +79,16 @@ endif()
 
 set(lib_name ${PROJECT_NAME})
 
-add_library(${lib_name}
-    src/grib2_int.h
-    src/cmplxpack.c
-    src/compack.c
-    src/comunpack.c
-    src/drstemplates.c
-    src/g2_addfield.c
-    src/g2_addgrid.c
-    src/g2_addlocal.c
-    src/g2_create.c
-    src/g2_free.c
-    src/g2_getfld.c
-    src/g2_gribend.c
-    src/g2_info.c
-    src/g2_miss.c
-    src/g2_unpack1.c
-    src/g2_unpack2.c
-    src/g2_unpack3.c
-    src/g2_unpack4.c
-    src/g2_unpack5.c
-    src/g2_unpack6.c
-    src/g2_unpack7.c
-    src/gbits.c
-    src/getdim.c
-    src/getpoly.c
-    src/gridtemplates.c
-    src/int_power.c
-    src/misspack.c
-    src/mkieee.c
-    src/pack_gp.c
-    src/pdstemplates.c
-    src/rdieee.c
-    src/reduce.c
-    src/seekgb.c
-    src/simpack.c
-    src/simunpack.c
-    src/specpack.c
-    src/specunpack.c
-    src/util.c
-)
+add_library(${lib_name} src/grib2_int.h src/cmplxpack.c src/compack.c
+src/comunpack.c src/drstemplates.c src/g2_addfield.c src/g2_addgrid.c
+src/g2_addlocal.c src/g2_create.c src/g2_free.c src/g2_getfld.c
+src/g2_gribend.c src/g2_info.c src/g2_miss.c src/g2_unpack1.c
+src/g2_unpack2.c src/g2_unpack3.c src/g2_unpack4.c src/g2_unpack5.c
+src/g2_unpack6.c src/g2_unpack7.c src/gbits.c src/getdim.c
+src/getpoly.c src/gridtemplates.c src/int_power.c src/misspack.c
+src/mkieee.c src/pack_gp.c src/pdstemplates.c src/rdieee.c
+src/reduce.c src/seekgb.c src/simpack.c src/simunpack.c src/specpack.c
+src/specunpack.c src/util.c src/g2cfile.c )
 
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
 
