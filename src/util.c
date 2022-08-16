@@ -121,7 +121,7 @@ g2_log(int severity, const char *fmt, ...)
  * @author Ed Hartnett
  */
 int
-g2_set_log_level(int new_level)
+g2c_set_log_level(int new_level)
 {
 #ifdef LOGGING
     /* Remember the new level. */
@@ -129,5 +129,5 @@ g2_set_log_level(int new_level)
 
     LOG((1, "log_level changed to %d", g2_log_level));
 #endif
-    return G2_NO_ERROR;
+    return G2C_NO_ERROR;
 }
