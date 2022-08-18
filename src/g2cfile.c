@@ -34,18 +34,28 @@ int g2c_next_g2cid = 1;
 static int
 find_available_g2cid(int *g2cid)
 {
+    int i;
+    
     /* Check input. */
     if (!g2cid)
 	return G2C_EINVAL;
 
     /* Find a new g2cid. */
-    *g2cid = g2c_next_g2cid++;
+    for (i = 0; i < G2C_MAX_FILES; i++)
+    {
+	int id = (i + g2c_next_g2cid) % G2C_MAX_FILES;
+	
+	/* Is this ID available? If so, we're done. */
+	if (!g2c_file[id].g2cid)
+	{
+	    *g2cid = id;
+	    g2c_next_g2cid = id + 1;
+	    return G2C_NOERROR;
+	}
+    }
 
-    /* Have we opened too many files? */
-    if (g2c_next_g2cid > G2C_MAX_FILES)
-	return G2C_ETOOMANYFILES;
-    
-    return G2C_NOERROR;
+    /* If we couldn't find one, they are all open. */
+    return G2C_ETOOMANYFILES;
 }
 
 /** Open an existing GRIB2 file.
