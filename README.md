@@ -27,7 +27,7 @@ Repository | Notes
 
 ## Authors
 
-Stephen Gilbert, Wesley Ebisuzaki, Boi Vuong
+Stephen Gilbert, Wesley Ebisuzaki, Boi Vuong, Edward Hartnett
 
 Code Manager: Hang Lei, Edward Hartnett
 
@@ -63,7 +63,7 @@ CMAKE_PREFIX_PATH (where the build will look for dependencies):
 <pre>
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local/NCEPLIBS-g2c -DCMAKE_PREFIX_PATH=/usr/local/jasper-2.0.22 ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local/NCEPLIBS-g2c -DCMAKE_PREFIX_PATH=/usr/local/jasper-3.0.5 ..
 make
 make test
 make install
@@ -76,6 +76,12 @@ By default the library uses Jasper for JPEG functionality, use the
 USE_OpenJPEG to use the OpenJPEG library instead.
 
 ## References
+
+Hartnett, E., Lei, H., Curtis, B, Gerheiser K., "Presentation -
+Improving Documentation, Testing, Process, and Code for Legacy NOAA
+GRIB2 C Fortran Libraries", NCAR Improving Scientific Software, April
+2022, retrieved on August 18, 2022 from
+https://www.researchgate.net/publication/360757566_Presentation_-_Improving_Documentation_Testing_Process_and_Code_for_Legacy_NOAA_GRIB2_C_Fortran_Libraries.
 
 Kumar, V. Krishna, Gilbert, Stephen A., [GRIB2 conversion and its
 usage at NCEP](docs/GRIB2_conversion_and_its_usage_at_NCEP.pdf), 14-18
