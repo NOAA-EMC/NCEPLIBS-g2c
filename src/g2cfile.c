@@ -20,6 +20,34 @@ G2C_FILE_INFO g2c_file[G2C_MAX_FILES];
 /** Next g2cid file ID - used when opening or creating a file. */
 int g2c_next_g2cid = 1;
 
+/** Find a g2cid to use for a newly opened or created file.
+ *
+ * @param g2cid Pointer that gets the next available g2cid.
+ *
+ * @return
+ * - ::G2C_NOERROR - No error.
+ * - ::G2C_EINVAL - Invalid input.
+ * - ::G2C_ETOOMANYFILES - Trying to open too many files at the same time.
+ * '
+ * @author Ed Hartnett 8/18/22
+ */
+static int
+find_available_g2cid(int *g2cid)
+{
+    /* Check input. */
+    if (!g2cid)
+	return G2C_EINVAL;
+
+    /* Find a new g2cid. */
+    *g2cid = g2c_next_g2cid++;
+
+    /* Have we opened too many files? */
+    if (g2c_next_g2cid > G2C_MAX_FILES)
+	return G2C_ETOOMANYFILES;
+    
+    return G2C_NOERROR;
+}
+
 /** Open an existing GRIB2 file.
  *
  * @param path Path of the file.
@@ -28,19 +56,26 @@ int g2c_next_g2cid = 1;
  *
  * @return
  * - ::G2C_NOERROR - No error.
+ * - ::G2C_EINVAL - Invalid input.
+ * - ::G2C_ETOOMANYFILES - Trying to open too many files at the same time.
  *
  * @author Ed Hartnett @date Aug 16, 2022
  */
 int
 g2c_open(const char *path, int mode, int *g2cid)
 {
-    int my_g2cid = g2c_next_g2cid;
+    int my_g2cid;
+    int ret;
 
     /* Check inputs. */
     if (strlen(path) > G2C_MAX_NAME)
 	return G2C_ENAMETOOLONG;
     if (!g2cid)
 	return G2C_EINVAL;
+
+    /* Find a file ID. */
+    if ((ret = find_available_g2cid(&my_g2cid)))
+	return ret;
 
     /* Open the file. */
     if (!(g2c_file[my_g2cid].f = fopen(path, (mode & G2C_WRITE ? "r+" : "r"))))
@@ -51,8 +86,8 @@ g2c_open(const char *path, int mode, int *g2cid)
     /* Copy the path. */
     strncpy(g2c_file[my_g2cid].path, path, G2C_MAX_NAME);
 
-    /* Remember the id and increment for next time. */
-    g2c_file[my_g2cid].g2cid = g2c_next_g2cid++;
+    /* Remember the id. */
+    g2c_file[my_g2cid].g2cid = my_g2cid;
     
     /* Pass id back to user. */
     *g2cid = my_g2cid;
@@ -75,7 +110,8 @@ g2c_open(const char *path, int mode, int *g2cid)
 int
 g2c_create(const char *path, int cmode, int *g2cid)
 {
-    int my_g2cid = g2c_next_g2cid;
+    int my_g2cid;
+    int ret;
     
     /* Check inputs. */
     if (strlen(path) > G2C_MAX_NAME)
@@ -94,6 +130,10 @@ g2c_create(const char *path, int cmode, int *g2cid)
 	}
     }
 
+    /* Find a file ID. */
+    if ((ret = find_available_g2cid(&my_g2cid)))
+	return ret;
+
     /* Create the file. */
     if (!(g2c_file[my_g2cid].f = fopen(path, "w+")))
 	return G2C_EFILE;
@@ -104,7 +144,7 @@ g2c_create(const char *path, int cmode, int *g2cid)
     strncpy(g2c_file[my_g2cid].path, path, G2C_MAX_NAME);
 
     /* Remember the id. */
-    g2c_file[my_g2cid].g2cid = g2c_next_g2cid++;
+    g2c_file[my_g2cid].g2cid = my_g2cid;
 
     /* Pass id back to user. */
     *g2cid = my_g2cid;
@@ -124,7 +164,7 @@ g2c_create(const char *path, int cmode, int *g2cid)
 int
 g2c_close(int g2cid)
 {
-    /* Is this an open file? */
+    /* Check input. */
     if (g2cid > G2C_MAX_FILES)
 	return G2C_EBADID;
     if (g2c_file[g2cid].g2cid != g2cid)
