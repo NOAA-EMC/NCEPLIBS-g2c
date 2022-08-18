@@ -52,6 +52,7 @@ if(FTP_TEST_FILES)
   endforeach()
 
   # Add tests that use the data downloaded from FTP.
+  g2c_test(tst_ftp_files)  
 endif()
 
 # Always run these tests.
