@@ -6,7 +6,7 @@
 
 #include "grib2_int.h"
 
-/* This is the information about each open file. */
+/** This is the information about each open file. */
 typedef struct g2c_file_info_t
 {
     int g2cid;
@@ -14,11 +14,11 @@ typedef struct g2c_file_info_t
     FILE *f;
 } G2C_FILE_INFO;
 
-/* Global file information. */
+/** Global file information. */
 G2C_FILE_INFO g2c_file[G2C_MAX_FILES];
 
-/* Next g2cid file id. */
-int g2c_next_g2cid = 4;
+/** Next g2cid file ID - used when opening or creating a file. */
+int g2c_next_g2cid = 1;
 
 /** Open an existing GRIB2 file.
  *
