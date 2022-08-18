@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define FILE_NAME "WW3_Regional_US_West_Coast_20220718_0000.grib2"
 
@@ -24,6 +24,27 @@ main()
 	    return ret;
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
+    }
+    printf("ok!\n");
+    printf("Testing G2C_MAX_FILES...");
+    {
+	int g2cid[G2C_MAX_FILES], g2cid2;
+	int i;
+	int ret;
+
+	/* Open max number of files. */
+	for (i = 0; i < G2C_MAX_FILES; i++)
+	    if ((ret = g2c_open(FILE_NAME, 0, &g2cid[i])))
+		return ret;
+
+	/* Try to open one more. */
+	if (g2c_open(FILE_NAME, 0, &g2cid2) != G2C_ETOOMANYFILES)
+	    return G2C_ERROR;
+
+    	/* Close all open files. */
+	for (i = 0; i < G2C_MAX_FILES; i++)
+	    if ((ret = g2c_close(g2cid[i])))
+		return ret;
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
