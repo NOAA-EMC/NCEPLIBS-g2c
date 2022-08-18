@@ -15,7 +15,7 @@ typedef struct g2c_file_info_t
 } G2C_FILE_INFO;
 
 /** Global file information. */
-G2C_FILE_INFO g2c_file[G2C_MAX_FILES];
+G2C_FILE_INFO g2c_file[G2C_MAX_FILES + 1];
 
 /** Next g2cid file ID - used when opening or creating a file. */
 int g2c_next_g2cid = 1;
@@ -41,9 +41,13 @@ find_available_g2cid(int *g2cid)
 	return G2C_EINVAL;
 
     /* Find a new g2cid. */
-    for (i = 0; i < G2C_MAX_FILES; i++)
+    for (i = 0; i < G2C_MAX_FILES + 1; i++)
     {
-	int id = (i + g2c_next_g2cid) % G2C_MAX_FILES;
+	int id = (i + g2c_next_g2cid) % (G2C_MAX_FILES + 1);
+
+	/* Skip id 0. */
+	if (!id)
+	    continue;
 	
 	/* Is this ID available? If so, we're done. */
 	if (!g2c_file[id].g2cid)

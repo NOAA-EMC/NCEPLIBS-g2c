@@ -271,7 +271,7 @@ g2int jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 /* The new g2c API is being introduced in version 2.0 of the library. */
 
 /* Defines for file handling. */
-#define G2C_MAX_FILES 128 /**< Maximum number of open files. */
+#define G2C_MAX_FILES 3 /**< Maximum number of open files. */
 #define G2C_MAX_NAME 1024 /**< Maximum length of a name. */
 #define G2C_NOWRITE       0x0000 /**< Set read-only access for g2c_open(). */
 #define G2C_WRITE         0x0001 /**< Set read-write access for g2c_open(). */
