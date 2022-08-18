@@ -48,9 +48,9 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
      * to the legacy G2 error codes. */
     if ((ret = g2c_check_msg(cgrib, &lencurr, 1)))
     {
-        if (ret == G2C_NOT_GRIB)
+        if (ret == G2C_ENOTGRIB)
             return G2_ADD_MSG_INIT;
-        if (ret == G2C_MSG_COMPLETE)
+        if (ret == G2C_EMSGCOMPLETE)
             return G2_ADD_MSG_COMPLETE;
     }
 

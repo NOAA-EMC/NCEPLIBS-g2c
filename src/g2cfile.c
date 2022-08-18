@@ -27,7 +27,7 @@ int g2c_next_g2cid = 1;
  * @param g2cid Pointer that gets an indentifier for the file.
  *
  * @return
- * - ::G2C_NO_ERROR - No error.
+ * - ::G2C_NOERROR - No error.
  *
  * @author Ed Hartnett @date Aug 16, 2022
  */
@@ -38,13 +38,13 @@ g2c_open(const char *path, int mode, int *g2cid)
 
     /* Check inputs. */
     if (strlen(path) > G2C_MAX_NAME)
-	return G2C_LONG_NAME;
+	return G2C_ENAMETOOLONG;
     if (!g2cid)
-	return G2C_INVAL;
+	return G2C_EINVAL;
 
     /* Open the file. */
     if (!(g2c_file[my_g2cid].f = fopen(path, (mode & G2C_WRITE ? "r+" : "r"))))
-	return G2C_FILE;
+	return G2C_EFILE;
 
     /* Read the metadata. */
 
@@ -57,7 +57,7 @@ g2c_open(const char *path, int mode, int *g2cid)
     /* Pass id back to user. */
     *g2cid = my_g2cid;
     
-    return G2C_NO_ERROR;
+    return G2C_NOERROR;
 }
 
 /** Create a new GRIB2 file.
@@ -67,8 +67,8 @@ g2c_open(const char *path, int mode, int *g2cid)
  * @param g2cid Pointer that gets an indentifier for the file.
  *
  * @return
- * - ::G2C_NO_ERROR - No error.
- * - ::G2C_FILE - File exsists and NOCLOBBER, or error opening file.
+ * - ::G2C_NOERROR - No error.
+ * - ::G2C_EFILE - File exsists and NOCLOBBER, or error opening file.
  *
  * @author Ed Hartnett @date Aug 16, 2022
  */
@@ -79,9 +79,9 @@ g2c_create(const char *path, int cmode, int *g2cid)
     
     /* Check inputs. */
     if (strlen(path) > G2C_MAX_NAME)
-	return G2C_LONG_NAME;
+	return G2C_ENAMETOOLONG;
     if (!g2cid)
-	return G2C_INVAL;
+	return G2C_EINVAL;
 
     /* If NOCLOBBER, check if file exists. */
     if (cmode & G2C_NOCLOBBER)
@@ -90,13 +90,13 @@ g2c_create(const char *path, int cmode, int *g2cid)
 	if ((f = fopen(path, "r")))
 	{
 	    fclose(f);
-	    return G2C_FILE;
+	    return G2C_EFILE;
 	}
     }
 
     /* Create the file. */
     if (!(g2c_file[my_g2cid].f = fopen(path, "w+")))
-	return G2C_FILE;
+	return G2C_EFILE;
 
     /* Read the metadata. */
 
@@ -109,7 +109,7 @@ g2c_create(const char *path, int cmode, int *g2cid)
     /* Pass id back to user. */
     *g2cid = my_g2cid;
     
-    return G2C_NO_ERROR;
+    return G2C_NOERROR;
 }
 
 /** Close a GRIB2 file, freeing resources.
@@ -117,7 +117,7 @@ g2c_create(const char *path, int cmode, int *g2cid)
  * @param g2cid Indentifier for the file.
  *
  * @return
- * - ::G2C_NO_ERROR - No error.
+ * - ::G2C_NOERROR - No error.
  *
  * @author Ed Hartnett @date Aug 16, 2022
  */
@@ -126,9 +126,9 @@ g2c_close(int g2cid)
 {
     /* Is this an open file? */
     if (g2cid > G2C_MAX_FILES)
-	return G2C_BADID;
+	return G2C_EBADID;
     if (g2c_file[g2cid].g2cid != g2cid)
-	return G2C_BADID;
+	return G2C_EBADID;
 
     /* Close the file. */
     fclose(g2c_file[g2cid].f);
@@ -138,7 +138,7 @@ g2c_close(int g2cid)
     g2c_file[g2cid].g2cid = 0;
     g2c_file[g2cid].f = NULL;
     
-    return G2C_NO_ERROR;
+    return G2C_NOERROR;
 }
 
 

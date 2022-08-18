@@ -16,9 +16,9 @@
  * @param verbose If non-zero, print any error messages to stdout.
  *
  * @return
- * - ::G2C_NO_ERROR No error.
- * - ::G2C_NOT_GRIB GRIB header not found.
- * - ::G2C_MSG_COMPLETE GRIB message already complete.
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOTGRIB GRIB header not found.
+ * - ::G2C_EMSGCOMPLETE GRIB message already complete.
  *
  * @author Ed Hartnett @date Nov 11, 2021
  */
@@ -39,7 +39,7 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
         if (verbose)
             printf("GRIB not found in given message. A call to routine g2_create() "
                    "is required to to initialize GRIB messge.\n");
-        return G2C_NOT_GRIB;
+        return G2C_ENOTGRIB;
     }
 
     /* Get current length of GRIB message. */
@@ -51,10 +51,10 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
     {
         if (verbose)
             printf("GRIB message already complete.  Cannot add new section.\n");
-        return G2C_MSG_COMPLETE;
+        return G2C_EMSGCOMPLETE;
     }
 
-    return G2C_NO_ERROR;
+    return G2C_NOERROR;
 }
 
 #ifdef LOGGING
@@ -117,7 +117,7 @@ g2_log(int severity, const char *fmt, ...)
  *
  * @param new_level The new logging level.
  *
- * @return ::G2_NO_ERROR No error.
+ * @return ::G2C_NOERROR No error.
  * @author Ed Hartnett
  */
 int
@@ -129,5 +129,5 @@ g2c_set_log_level(int new_level)
 
     LOG((1, "log_level changed to %d", g2_log_level));
 #endif
-    return G2C_NO_ERROR;
+    return G2C_NOERROR;
 }

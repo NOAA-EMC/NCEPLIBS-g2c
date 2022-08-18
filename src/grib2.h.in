@@ -340,12 +340,12 @@ int g2c_set_log_level(int new_level);
 #define G2_JASPER_DECODE_COLOR -5 /**< In dec_jpeg2000() decoded image had multiple color components. */
 
 /* These are the new error codes. */
-#define G2C_NO_ERROR 0       /**< No error. */
-#define G2C_NOT_GRIB (-50)     /**< GRIB header not found. */
-#define G2C_MSG_COMPLETE (-51) /**< GRIB message already complete. */
-#define G2C_LONG_NAME (-52) /**< Name too long. */
-#define G2C_INVAL (-53) /**< Invalid input. */
-#define G2C_FILE (-54) /**< Invalid input. */
-#define G2C_BADID (-55) /**< Bad ID. */
+#define G2C_NOERROR 0       /**< No error. */
+#define G2C_ENOTGRIB (-50)     /**< GRIB header not found. */
+#define G2C_EMSGCOMPLETE (-51) /**< GRIB message already complete. */
+#define G2C_ENAMETOOLONG (-52) /**< Name too long. */
+#define G2C_EINVAL (-53) /**< Invalid input. */
+#define G2C_EFILE (-54) /**< Invalid input. */
+#define G2C_EBADID (-55) /**< Bad ID. */
 
 #endif  /*  _grib2_H  */
