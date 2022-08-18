@@ -6,14 +6,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define SEC0_LEN 16
 #define SEC1_LEN 21
 #define MSG_LEN 109
 #define MOST_MSG_LEN 178
 #define FULL_MSG_LEN 182
-#define G2C_ERROR 2
 
 void g2_miss(gribfield *gfld, float *rmiss, int *nmiss);
 

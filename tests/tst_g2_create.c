@@ -5,10 +5,9 @@
  */
 
 #include <stdio.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define MSG_LEN 37
-#define G2C_ERROR 2
 
 int
 main()

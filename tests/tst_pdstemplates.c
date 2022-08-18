@@ -8,8 +8,6 @@
 #include <stdlib.h>
 #include "grib2_int.h"
 
-#define G2C_ERROR 2
-
 /* Prototypes. */
 g2int getpdsindex(g2int number);
 

@@ -3,11 +3,9 @@
  * Dusan Jovic, July, 2021
  */
 
-#include "grib2.h"
+#include "grib2_int.h"
 
 #include <stdio.h>
-
-#define G2C_ERROR 2
 
 int main()
 {

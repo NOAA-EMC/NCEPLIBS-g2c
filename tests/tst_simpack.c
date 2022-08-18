@@ -10,7 +10,6 @@
 
 #define DATA_LEN 4
 #define PACKED_LEN 40
-#define G2C_ERROR 2
 
 g2int simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts,
 		float *fld);
