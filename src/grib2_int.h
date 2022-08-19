@@ -23,6 +23,8 @@
 
 #define G2C_ERROR 1 /**< Returned for test errors. */
 
+#define G2C_MAGIC_HEADER_SIZE 5 /**< Size of "GRIB2" magic header string. */
+
 /**
  * Struct for GRIB template.
  */
