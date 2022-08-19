@@ -18,6 +18,9 @@
 #define _grib2_H
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #define G2_VERSION "@pVersion@" /**< Current version of NCEPLIBS-g2c library. */
 
@@ -282,6 +285,10 @@ g2int jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 int g2c_open(const char *path, int mode, int *g2cid);
 int g2c_create(const char *path, int cmode, int *g2cid);
 int g2c_close(int g2cid);
+
+/* Internal functions. */
+int g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
+		 size_t *bytes_in_msg);
 
 /* Logging, for debugging purposes. */
 int g2c_set_log_level(int new_level);

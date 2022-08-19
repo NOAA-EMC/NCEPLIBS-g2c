@@ -49,6 +49,16 @@ main()
     printf("ok!\n");
     printf("Testing g2c_find_msg...");
     {
+	int g2cid;
+	size_t bytes_to_msg, bytes_in_msg;
+	int ret;
+	    
+	if ((ret = g2c_open(FILE_NAME, 0, &g2cid)))
+	    return ret;
+	if ((ret = g2c_find_msg(g2cid, 1, 1024, &bytes_to_msg, &bytes_in_msg)))
+	    return ret;
+	if ((ret = g2c_close(g2cid)))
+	    return ret;
     }
     printf("ok!\n");
     printf("SUCCESS!\n");

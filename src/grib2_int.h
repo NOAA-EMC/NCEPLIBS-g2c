@@ -13,12 +13,7 @@
 #ifndef _grib2_int_H
 #define _grib2_int_H
 
-#include <stdio.h>
-#include <stdint.h>
 #include <assert.h>
-#include <string.h>
-#include <sys/types.h>
-#include <unistd.h>
 #include "grib2.h"
 
 #define ALOG2 (0.69314718) /**< ln(2.0) */

@@ -54,8 +54,8 @@ g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_ms
 	return G2C_EBADID;
     
     /* Skip some bytes if desired. */
-    if ((ret = lseek64(g2c_file[g2cid].f, (off_t)skip_bytes, SEEK_SET)) != skip_bytes)
-	return G2C_EFILE;
+    if (fseek(g2c_file[g2cid].f, (off_t)skip_bytes, SEEK_SET))
+	return G2C_ERROR;
     
     return G2C_NOERROR;
 }
