@@ -47,8 +47,6 @@ int
 g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
 	     size_t *bytes_in_msg)
 {
-    int ret;
-
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
 	return G2C_EBADID;
