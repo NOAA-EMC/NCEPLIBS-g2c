@@ -55,8 +55,9 @@ main()
 	    
 	if ((ret = g2c_open(FILE_NAME, 0, &g2cid)))
 	    return ret;
-	if ((ret = g2c_find_msg(g2cid, 1, 1024, &bytes_to_msg, &bytes_in_msg)))
+	if ((ret = g2c_find_msg(g2cid, 0, 1024, &bytes_to_msg, &bytes_in_msg)))
 	    return ret;
+	printf("bytes_to_msg %ld\n", bytes_to_msg);
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
     }

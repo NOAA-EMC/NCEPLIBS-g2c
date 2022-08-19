@@ -86,7 +86,7 @@ g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_ms
     if (!ret)
     {
 	for (i = 0; i < bytes_read; i++)
-	    if (buf[i] == 'G' && !strncmp(&buf[i], "GRIB2", G2C_MAGIC_HEADER_SIZE))
+	    if (buf[i] == 'G' && !strncmp(&buf[i], G2C_MAGIC_HEADER, strlen(G2C_MAGIC_HEADER)))
 		*bytes_to_msg = i;
     }
 
