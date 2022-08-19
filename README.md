@@ -77,11 +77,11 @@ USE_OpenJPEG to use the OpenJPEG library instead.
 
 ## References
 
-Hartnett, E., Lei, H., Curtis, B, Gerheiser K., "Presentation -
+Hartnett, E., Lei, H., Curtis, B, Gerheiser K., [Presentation -
 Improving Documentation, Testing, Process, and Code for Legacy NOAA
-GRIB2 C Fortran Libraries", NCAR Improving Scientific Software, April
-2022, retrieved on August 18, 2022 from
-https://www.researchgate.net/publication/360757566_Presentation_-_Improving_Documentation_Testing_Process_and_Code_for_Legacy_NOAA_GRIB2_C_Fortran_Libraries.
+GRIB2 C Fortran
+Libraries](https://www.researchgate.net/publication/360757566_Presentation_-_Improving_Documentation_Testing_Process_and_Code_for_Legacy_NOAA_GRIB2_C_Fortran_Libraries),
+NCAR Improving Scientific Software, April 2022.  .
 
 Kumar, V. Krishna, Gilbert, Stephen A., [GRIB2 conversion and its
 usage at NCEP](docs/GRIB2_conversion_and_its_usage_at_NCEP.pdf), 14-18
