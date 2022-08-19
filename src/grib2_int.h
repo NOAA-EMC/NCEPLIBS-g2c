@@ -14,6 +14,7 @@
 #define _grib2_int_H
 
 #include <assert.h>
+#include <stdlib.h>
 #include "grib2.h"
 
 #define ALOG2 (0.69314718) /**< ln(2.0) */

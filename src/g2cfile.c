@@ -20,6 +20,12 @@ G2C_FILE_INFO g2c_file[G2C_MAX_FILES + 1];
 /** Next g2cid file ID - used when opening or creating a file. */
 int g2c_next_g2cid = 1;
 
+/** Find a minimum. */
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
+
+/** Default size of read-buffer. */
+#define READ_BUF_SIZE 512
+
 /** Search a file for the next GRIB1 or GRIB2 message.
  *
  * A grib message is identified by its indicator section,
@@ -40,6 +46,7 @@ int g2c_next_g2cid = 1;
  * - ::G2C_NOERROR No error.
  * - ::G2C_EBADID g2cid not found.
  * - ::G2C_EFILE File error.
+ * - ::G2C_EINVAL Invalid input.
  *
  * @author Ed Hartnett @date 2022-08-19
  */
@@ -47,6 +54,16 @@ int
 g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
 	     size_t *bytes_in_msg)
 {
+    size_t bytes_to_read = MIN(READ_BUF_SIZE, max_bytes);
+    size_t bytes_read;
+    char *buf;
+    int i;
+    int ret = G2C_NOERROR;
+
+    /* Check inputs. */
+    if (!bytes_to_msg || !bytes_in_msg)
+	return G2C_EINVAL;
+    
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
 	return G2C_EBADID;
@@ -54,8 +71,31 @@ g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_ms
     /* Skip some bytes if desired. */
     if (fseek(g2c_file[g2cid].f, (off_t)skip_bytes, SEEK_SET))
 	return G2C_ERROR;
+
+    /* Allocate storage to read into. */
+    if (!(buf = calloc(bytes_to_read, sizeof(char))))
+	return G2C_ENOMEM;
+
+    /* Read some bytes. If we don't get the number expected, either a
+     * read error occured, or we reached the end of file. */
+    if ((bytes_read = fread(buf, 1, bytes_to_read, g2c_file[g2cid].f)) != bytes_to_read)
+	if (ferror(g2c_file[g2cid].f))
+	    ret = G2C_EFILE;
+
+    /* Scan for 'GRIB2' in the bytes we have read. */
+    if (!ret)
+    {
+	for (i = 0; i < bytes_read; i++)
+	{
+	    if (buf[i] == 'G')
+		*bytes_to_msg = i;
+	}
+    }
+
+    /* Free storage. */
+    free(buf);
     
-    return G2C_NOERROR;
+    return ret;
 }
 
 /** Find a g2cid to use for a newly opened or created file.
@@ -130,7 +170,7 @@ g2c_open(const char *path, int mode, int *g2cid)
 	return ret;
 
     /* Open the file. */
-    if (!(g2c_file[my_g2cid].f = fopen(path, (mode & G2C_WRITE ? "r+" : "r"))))
+    if (!(g2c_file[my_g2cid].f = fopen(path, (mode & G2C_WRITE ? "rb+" : "rb"))))
 	return G2C_EFILE;
 
     /* Read the metadata. */

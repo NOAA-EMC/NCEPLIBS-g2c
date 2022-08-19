@@ -355,5 +355,6 @@ int g2c_set_log_level(int new_level);
 #define G2C_EFILE (-54) /**< Invalid input. */
 #define G2C_EBADID (-55) /**< Bad ID. */
 #define G2C_ETOOMANYFILES (-56) /**< Trying to open too many files. */
+#define G2C_ENOMEM (-57) /**< Out of memory. */
 
 #endif  /*  _grib2_H  */
