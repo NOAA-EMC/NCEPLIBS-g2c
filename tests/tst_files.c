@@ -18,11 +18,16 @@ main()
     {
 	int g2cid;
 	int ret;
-	
+
+	/* Create a file and close it. */
 	if ((ret = g2c_create(FILE_NAME, G2C_CLOBBER, &g2cid)))
 	    return ret;
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
+
+	/* Now try to re-create with NOCLOBBER. It will fail. */
+	if (g2c_create(FILE_NAME, G2C_NOCLOBBER, &g2cid) != G2C_EFILE)
+	    return G2C_ERROR;
     }
     printf("ok!\n");
     printf("Testing G2C_MAX_FILES...");
