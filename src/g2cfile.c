@@ -20,6 +20,46 @@ G2C_FILE_INFO g2c_file[G2C_MAX_FILES + 1];
 /** Next g2cid file ID - used when opening or creating a file. */
 int g2c_next_g2cid = 1;
 
+/** Search a file for the next GRIB1 or GRIB2 message.
+ *
+ * A grib message is identified by its indicator section,
+ * i.e. an 8-byte sequence with 'GRIB' in bytes 1-4 and a '1' or '2'
+ * in byte 8. If found, the length of the message is decoded from
+ * bytes 5-7. The search is done over a given section of the file. The
+ * search is terminated if an eof or i/o error is encountered.
+ *
+ * @param g2cid ID of the opened grib file, returned by g2c_open().
+ * @param skip_bytes Number of bytes to skip before search.
+ * @param max_bytes Maximum number of bytes to search.
+ * @param bytes_to_msg Pointer that gets the number of bytes to skip
+ * before message.
+ * @param bytes_in_msg Pointer that gets the number of bytes in
+ * message (or 0 if no message found)
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EBADID g2cid not found.
+ * - ::G2C_EFILE File error.
+ *
+ * @author Ed Hartnett @date 2022-08-19
+ */
+int
+g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
+	     size_t *bytes_in_msg)
+{
+    int ret;
+
+    /* Find the open file struct. */
+    if (g2c_file[g2cid].g2cid != g2cid)
+	return G2C_EBADID;
+    
+    /* Skip some bytes if desired. */
+    if ((ret = lseek64(g2c_file[g2cid].f, (off_t)skip_bytes, SEEK_SET)) != skip_bytes)
+	return G2C_EFILE;
+    
+    return G2C_NOERROR;
+}
+
 /** Find a g2cid to use for a newly opened or created file.
  *
  * @param g2cid Pointer that gets the next available g2cid.

@@ -24,6 +24,9 @@ option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(FTP_TEST_FILES "Fetch and test with files on FTP site." OFF)
 option(LOGGING "Turn on internal logging messages. Only useful to g2c developers." OFF)
 
+# Set this to better handle files > 2 GB.
+add_compile_definitions(_LARGEFILE64_SOURCE)
+
 # Set pre-processor symbol if logging is desired.
 if(LOGGING)
   add_definitions(-DLOGGING)

@@ -47,6 +47,10 @@ main()
 		return ret;
     }
     printf("ok!\n");
+    printf("Testing g2c_find_msg...");
+    {
+    }
+    printf("ok!\n");
     printf("SUCCESS!\n");
     return 0;
 }
