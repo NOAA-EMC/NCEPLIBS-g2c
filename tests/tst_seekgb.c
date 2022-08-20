@@ -43,7 +43,7 @@ main()
         if (!(f = fopen(GRIB2_INDEX_FILE, "r")))
             return G2C_ERROR;
 
-        /* Run seekgb() on data file. */
+        /* Run seekgb() on non-data file. */
         seekgb(f, 0, 16, &lskip, &lgrib);
 
         /* Check results. */

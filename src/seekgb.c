@@ -28,10 +28,10 @@
  * @param iseek number of bytes in the file to skip before search.
  * @param mseek number of bytes to search at a time (must be at least
  * 16).
- * @param lskip number of bytes to skip from the beggining of the file
- * to where the GRIB message starts.
- * @param lgrib number of bytes in message (set to 0, if no message
- * found).
+ * @param lskip Pointer that gets the number of bytes to skip from the
+ * beggining of the file to where the GRIB message starts.
+ * @param lgrib Pointer that gets the number of bytes in message (set
+ * to 0, if no message found).
  *
  * @author Stephen Gilbert @date 2002-10-28
  */
