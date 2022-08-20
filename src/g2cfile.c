@@ -112,6 +112,8 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
 		    *bytes_to_msg = ftell_pos + i;
 		    grib_version = buf[i + 7];
 		    LOG((3, "bytes_to_msg %ld grib_version %d", *bytes_to_msg, grib_version));
+		    if (grib_version != 1 && grib_version != 2)
+			return G2C_EMSG;
 		}
 
 		/* Find the end of a GRIB message. And then we're done. */

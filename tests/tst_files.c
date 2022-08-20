@@ -67,11 +67,20 @@ main()
 	    return ret;
 	for (i = 0; i < NUM_BUF_SIZE_TESTS; i++)
 	{
-	    if ((ret = g2c_get_msg(g2cid, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg, cbuf)))
+	    g2int listsec0[3], listsec1[13], numfields, numlocal;
+	    
+	    if ((ret = g2c_get_msg(g2cid, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg,
+				   cbuf)))
 		return ret;
 	    /* printf("bytes_to_msg %ld bytes_in_msg %ld\n", bytes_to_msg, bytes_in_msg); */
 	    if (bytes_to_msg != 0 || bytes_in_msg != 15254)
 		return G2C_ERROR;
+
+	    /* Learn about this message. */
+	    if ((ret = g2_info(cbuf, listsec0, listsec1, &numfields, &numlocal)))
+		return G2C_EMSG;
+	    
+	    
 	    free(cbuf);
 	}
 	if ((ret = g2c_close(g2cid)))

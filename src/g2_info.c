@@ -17,15 +17,15 @@
  * maximum size) of Local Use Sections. Also various checks are
  * performed to see if the message is a valid GRIB2 message.
  *
- * @param cgrib Character pointer to the GRIB2 message.
- * @param listsec0 pointer to an array containing information decoded
- * from GRIB Indicator Section 0. Must be allocated with >= 3
+ * @param cgrib Pointer to a buffer containing the GRIB2 message.
+ * @param listsec0 Pointer to an array that gets the information
+ * decoded from GRIB Indicator Section 0. Must be allocated with >= 3
  * elements.
  * - listsec0(0) Discipline-GRIB Master Table Number ([Code Table 0.0]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table0-0.shtml)).
  * - listsec0[1] GRIB Edition Number (currently 2).
  * - listsec0[2] Length of GRIB message.
- * @param listsec1 Pointer to an array containing information read
+ * @param listsec1 Pointer to an array that gets the information read
  * from GRIB Identification Section 1. Must be allocated with >= 13
  * elements.
  * - listsec1[0] Id of orginating centre ([Table 0]
@@ -48,10 +48,11 @@
  * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-3.shtml)).
  * - listsec1[12] Type of processed data ([Table 1.4]
  *  (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-4.shtml)).
- * @param numfields The number of gridded fields found in the GRIB
- * message. That is, the number of occurences of Sections 4 - 7.
- * @param numlocal The number of Local Use Sections (section 2).
- * found in the GRIB message.
+ * @param numfields A pointer that gets the number of gridded fields
+ * found in the GRIB message. That is, the number of occurences of
+ * Sections 4 - 7.
+ * @param numlocal A pointer that gets the number of Local Use
+ * Sections (section 2) found in the GRIB message.
  *
  * @returns 0 for success, otherwise:
  * - ::G2_INFO_NO_GRIB Beginning characters "GRIB" not found.
