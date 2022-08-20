@@ -56,16 +56,22 @@ main()
     {
 	int g2cid;
 	size_t bytes_to_msg, bytes_in_msg;
+#define NUM_BUF_SIZE_TESTS 6
+	size_t test_buf_size[NUM_BUF_SIZE_TESTS] = {100, 200, 1024, 2000, 3000, 4000};
+	int i;
 	int ret;
 
 	/* g2c_set_log_level(4); */
 	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
 	    return ret;
-	if ((ret = g2c_find_msg(g2cid, 0, 1024, &bytes_to_msg, &bytes_in_msg)))
-	    return ret;
-	printf("bytes_to_msg %ld bytes_in_msg %ld\n", bytes_to_msg, bytes_in_msg);
-	/* if (bytes_to_msg != 202 || bytes_in_msg != 267) */
-	/*     return G2C_ERROR; */
+	for (i = 0; i < NUM_BUF_SIZE_TESTS; i++)
+	{
+	    if ((ret = g2c_find_msg(g2cid, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg)))
+		return ret;
+	    /* printf("bytes_to_msg %ld bytes_in_msg %ld\n", bytes_to_msg, bytes_in_msg); */
+	    if (bytes_to_msg != 0 || bytes_in_msg != 15254)
+		return G2C_ERROR;
+	}
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
     }
