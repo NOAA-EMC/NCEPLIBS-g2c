@@ -58,7 +58,8 @@ g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_ms
     size_t bytes_read;
     unsigned char *buf;
     int grib_version;
-    int eof = 0, first = 1;
+    int eof = 0, first = 1, count = 0;
+    int msg_found = 0;
     int i;
     int ret = G2C_NOERROR;
 
@@ -84,14 +85,16 @@ g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_ms
 	 * within the last 8 bytes of the previous read. */
 	if (!first)
 	{
-	    if (fseek(g2c_file[g2cid].f, (off_t)(ftell(g2c_file[g2cid].f) - 8), SEEK_SET))
+	    if (fseek(g2c_file[g2cid].f, (off_t)(ftell(g2c_file[g2cid].f) - G2C_MAGIC_HEADER_LEN),
+		      SEEK_SET))
 		return G2C_ERROR;
 	    first = 0;
+	    count += G2C_MAGIC_HEADER_LEN;
 	}
 	
 	/* Read some bytes. If we don't get the number expected, either a
 	 * read error occured, or we reached the end of file. */
-	LOG((3, "before read ftell() is %ld", ftell(g2c_file[g2cid].f)));
+	LOG((5, "before read ftell() is %ld", ftell(g2c_file[g2cid].f)));
 	if ((bytes_read = fread(buf, 1, bytes_to_read, g2c_file[g2cid].f)) != bytes_to_read)
 	{
 	    if (ferror(g2c_file[g2cid].f))
@@ -105,13 +108,25 @@ g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_ms
 	    for (i = 0; i < bytes_read; i++)
 	    {
 #ifdef LOGGING
-		if (i < 10) LOG((3, "buf[%ld] = %2.2x", i, buf[i]));
+		/* if (i < 10) LOG((3, "buf[%ld] = %2.2x", i, buf[i])); */
 #endif
-		if (buf[i] == 'G' && i < bytes_read - 8 && buf[i + 1] == 'R' && buf[i + 2] == 'I' && buf[i + 3] == 'B')
+		/* Find the beginning of a GRIB message. */
+		if (buf[i] == 'G' && i < bytes_read - G2C_MAGIC_HEADER_LEN
+		    && buf[i + 1] == 'R' && buf[i + 2] == 'I' && buf[i + 3] == 'B')
 		{
-		    *bytes_to_msg = i;
+		    msg_found++;
+		    *bytes_to_msg = i + count;
 		    grib_version = buf[i + 7];
-		    LOG((2, "grib_version %d", grib_version));
+		    LOG((5, "bytes_to_msg %ld grib_version %d", *bytes_to_msg, grib_version));
+		}
+
+		/* Find the end of a GRIB message. */
+		if (msg_found && buf[i] == '7' && i < bytes_read - G2C_MAGIC_HEADER_LEN
+		    && buf[i + 1] == '7' && buf[i + 2] == '7' && buf[i + 3] == '7')
+		{
+		    msg_found--;
+		    *bytes_in_msg = i + count - *bytes_to_msg;
+		    LOG((5, "bytes_in_msg %ld", *bytes_in_msg));
 		}
 	    }
 	}

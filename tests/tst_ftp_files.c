@@ -59,6 +59,8 @@ main()
 	if ((ret = g2c_find_msg(g2cid, 0, 1024, &bytes_to_msg, &bytes_in_msg)))
 	    return ret;
 	printf("bytes_to_msg %ld\n", bytes_to_msg);
+	if (bytes_to_msg != 204)
+	    return G2C_ERROR;
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
     }
