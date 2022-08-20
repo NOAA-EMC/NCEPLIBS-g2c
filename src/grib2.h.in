@@ -287,8 +287,8 @@ int g2c_create(const char *path, int cmode, int *g2cid);
 int g2c_close(int g2cid);
 
 /* Internal functions. */
-int g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
-		 size_t *bytes_in_msg);
+int g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
+		size_t *bytes_in_msg, unsigned char *cbuf);
 int g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
 		  size_t *bytes_in_msg);
 

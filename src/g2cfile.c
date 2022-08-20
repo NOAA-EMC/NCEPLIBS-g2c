@@ -154,20 +154,24 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
  * before message.
  * @param bytes_in_msg Pointer that gets the number of bytes in
  * message (or 0 if no message found)
+ * @param cbuf Pointer that gets allocation of memory, into which the
+ * message is copied. This memory must be freed by the caller.
  *
  * @return
  * - ::G2C_NOERROR No error.
  * - ::G2C_EBADID g2cid not found.
  * - ::G2C_EFILE File error.
  * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_ENOMEM Out of memory.
  *
  * @author Ed Hartnett @date 2022-08-20
  */
 int
-g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
-	     size_t *bytes_in_msg)
+g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
+	    size_t *bytes_in_msg, unsigned char *cbuf)
 {
     g2int bytes_to_msg_g, bytes_in_msg_g;
+    size_t bytes_read;
     int ret = G2C_NOERROR;
 
     /* Check inputs. */
@@ -178,9 +182,19 @@ g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_ms
     if (g2c_file[g2cid].g2cid != g2cid)
 	return G2C_EBADID;
 
-    seekgb(g2c_file[g2cid].f, (g2int)skip_bytes, (g2int)max_bytes, &bytes_to_msg_g, &bytes_in_msg_g);
+    /* Find the start and length of the GRIB message. */
+    seekgb(g2c_file[g2cid].f, (g2int)skip_bytes, (g2int)max_bytes, &bytes_to_msg_g,
+	   &bytes_in_msg_g);
     *bytes_to_msg = bytes_to_msg_g;
     *bytes_in_msg = bytes_in_msg_g;
+
+    /* Allocate storage for the GRIB message. */
+    if (!(cbuf = malloc(bytes_in_msg_g)))
+	return G2C_ENOMEM;
+
+    /* Read the message from the file into the buffer. */
+    if ((bytes_read = fread(cbuf, 1, bytes_in_msg_g, g2c_file[g2cid].f)) != bytes_in_msg_g)
+	return G2C_EFILE;
     
     return ret;
 }

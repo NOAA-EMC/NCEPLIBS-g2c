@@ -50,10 +50,10 @@
  *  (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-4.shtml)).
  * @param numfields The number of gridded fields found in the GRIB
  * message. That is, the number of occurences of Sections 4 - 7.
- * @param numlocal The number of Local Use Sections ( Section 2 )
+ * @param numlocal The number of Local Use Sections (section 2).
  * found in the GRIB message.
  *
- * @returns 0 foe success, otherwise:
+ * @returns 0 for success, otherwise:
  * - ::G2_INFO_NO_GRIB Beginning characters "GRIB" not found.
  * - ::G2_INFO_GRIB_VERSION GRIB message is not Edition 2.
  * - ::G2_INFO_NO_SEC1 Could not find Section 1, where expected.

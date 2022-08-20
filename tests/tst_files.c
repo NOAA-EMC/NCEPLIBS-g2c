@@ -53,11 +53,12 @@ main()
 		return ret;
     }
     printf("ok!\n");
-    printf("Testing g2c_find_msg on file %s...", WAVE_FILE);
+    printf("Testing g2c_get_msg on file %s...", WAVE_FILE);
     {
 	int g2cid;
 	size_t bytes_to_msg, bytes_in_msg;
 	size_t test_buf_size[NUM_BUF_SIZE_TESTS] = {100, 200, 1024, 2000, 3000, 4000};
+	unsigned char *cbuf = NULL;
 	int i;
 	int ret;
 
@@ -66,17 +67,18 @@ main()
 	    return ret;
 	for (i = 0; i < NUM_BUF_SIZE_TESTS; i++)
 	{
-	    if ((ret = g2c_find_msg(g2cid, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg)))
+	    if ((ret = g2c_get_msg(g2cid, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg, cbuf)))
 		return ret;
 	    /* printf("bytes_to_msg %ld bytes_in_msg %ld\n", bytes_to_msg, bytes_in_msg); */
 	    if (bytes_to_msg != 0 || bytes_in_msg != 15254)
 		return G2C_ERROR;
+	    free(cbuf);
 	}
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
     }
     printf("ok!\n");
-    printf("Testing g2c_find_msg on file %s...", WAVE_FILE);
+    printf("Testing g2c_find_msg2 on file %s...", WAVE_FILE);
     {
 	int g2cid;
 	size_t bytes_to_msg, bytes_in_msg;
