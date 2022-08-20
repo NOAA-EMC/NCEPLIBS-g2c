@@ -9,6 +9,7 @@
 #include "grib2_int.h"
 
 #define FILE_NAME "tst_files.grib2"
+#define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
 
 int
 main()
@@ -49,6 +50,24 @@ main()
 	for (i = 0; i < G2C_MAX_FILES; i++)
 	    if ((ret = g2c_close(g2cid[i])))
 		return ret;
+    }
+    printf("ok!\n");
+    printf("Testing g2c_find_msg on file %s...", WAVE_FILE);
+    {
+	int g2cid;
+	size_t bytes_to_msg, bytes_in_msg;
+	int ret;
+
+	/* g2c_set_log_level(4); */
+	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+	    return ret;
+	if ((ret = g2c_find_msg(g2cid, 0, 1024, &bytes_to_msg, &bytes_in_msg)))
+	    return ret;
+	printf("bytes_to_msg %ld bytes_in_msg %ld\n", bytes_to_msg, bytes_in_msg);
+	/* if (bytes_to_msg != 202 || bytes_in_msg != 267) */
+	/*     return G2C_ERROR; */
+	if ((ret = g2c_close(g2cid)))
+	    return ret;
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
