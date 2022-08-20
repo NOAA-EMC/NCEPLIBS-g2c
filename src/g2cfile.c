@@ -56,7 +56,9 @@ g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_ms
 {
     size_t bytes_to_read = MIN(READ_BUF_SIZE, max_bytes);
     size_t bytes_read;
-    char *buf;
+    unsigned char *buf;
+    int grib_version;
+    int eof = 0, first = 1;
     int i;
     int ret = G2C_NOERROR;
 
@@ -76,18 +78,43 @@ g2c_find_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_ms
     if (!(buf = calloc(bytes_to_read, sizeof(char))))
 	return G2C_ENOMEM;
 
-    /* Read some bytes. If we don't get the number expected, either a
-     * read error occured, or we reached the end of file. */
-    if ((bytes_read = fread(buf, 1, bytes_to_read, g2c_file[g2cid].f)) != bytes_to_read)
-	if (ferror(g2c_file[g2cid].f))
-	    ret = G2C_EFILE;
-
-    /* Scan for 'GRIB2' in the bytes we have read. */
-    if (!ret)
+    while (!eof)
     {
-	for (i = 0; i < bytes_read; i++)
-	    if (buf[i] == 'G' && !strncmp(&buf[i], G2C_MAGIC_HEADER, strlen(G2C_MAGIC_HEADER)))
-		*bytes_to_msg = i;
+	/* Back up 8 bytes in case the "GRIB" magic header occurred
+	 * within the last 8 bytes of the previous read. */
+	if (!first)
+	{
+	    if (fseek(g2c_file[g2cid].f, (off_t)(ftell(g2c_file[g2cid].f) - 8), SEEK_SET))
+		return G2C_ERROR;
+	    first = 0;
+	}
+	
+	/* Read some bytes. If we don't get the number expected, either a
+	 * read error occured, or we reached the end of file. */
+	LOG((3, "before read ftell() is %ld", ftell(g2c_file[g2cid].f)));
+	if ((bytes_read = fread(buf, 1, bytes_to_read, g2c_file[g2cid].f)) != bytes_to_read)
+	{
+	    if (ferror(g2c_file[g2cid].f))
+		ret = G2C_EFILE;
+	    eof++;
+	}
+
+	/* Scan for 'GRIB2' in the bytes we have read. */
+	if (!ret)
+	{
+	    for (i = 0; i < bytes_read; i++)
+	    {
+#ifdef LOGGING
+		if (i < 10) LOG((3, "buf[%ld] = %2.2x", i, buf[i]));
+#endif
+		if (buf[i] == 'G' && i < bytes_read - 8 && buf[i + 1] == 'R' && buf[i + 2] == 'I' && buf[i + 3] == 'B')
+		{
+		    *bytes_to_msg = i;
+		    grib_version = buf[i + 7];
+		    LOG((2, "grib_version %d", grib_version));
+		}
+	    }
+	}
     }
 
     /* Free storage. */
@@ -163,6 +190,8 @@ g2c_open(const char *path, int mode, int *g2cid)
     if (!g2cid)
 	return G2C_EINVAL;
 
+    LOG((1, "g2c_open path %s mode %d", path, mode));
+
     /* Find a file ID. */
     if ((ret = find_available_g2cid(&my_g2cid)))
 	return ret;
@@ -208,6 +237,8 @@ g2c_create(const char *path, int cmode, int *g2cid)
 	return G2C_ENAMETOOLONG;
     if (!g2cid)
 	return G2C_EINVAL;
+
+    LOG((1, "g2c_create path %s cmode %d", path, cmode));
 
     /* If NOCLOBBER, check if file exists. */
     if (cmode & G2C_NOCLOBBER)
@@ -259,6 +290,8 @@ g2c_close(int g2cid)
 	return G2C_EBADID;
     if (g2c_file[g2cid].g2cid != g2cid)
 	return G2C_EBADID;
+
+    LOG((1, "g2c_close %d", g2cid));
 
     /* Close the file. */
     fclose(g2c_file[g2cid].f);

@@ -52,7 +52,8 @@ main()
 	int g2cid;
 	size_t bytes_to_msg, bytes_in_msg;
 	int ret;
-	    
+
+	g2c_set_log_level(4);
 	if ((ret = g2c_open(FILE_NAME, 0, &g2cid)))
 	    return ret;
 	if ((ret = g2c_find_msg(g2cid, 0, 1024, &bytes_to_msg, &bytes_in_msg)))
