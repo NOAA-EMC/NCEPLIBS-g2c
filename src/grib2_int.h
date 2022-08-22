@@ -15,11 +15,14 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <errno.h>
 #include "grib2.h"
 
 #define ALOG2 (0.69314718) /**< ln(2.0) */
 
 #define G2C_JASPER_JPEG_FORMAT_NAME "jpc" /**< Name of JPEG codec in Jasper. */
+
+#define G2C_MIN_MAX_BYTES 16 /**< Minimum acceptable value for max_bytes parameter of g2c_get_msg(). */
 
 #define G2C_ERROR 1 /**< Returned for test errors. */
 

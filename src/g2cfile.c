@@ -88,7 +88,7 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
 	 * read error occured, or we reached the end of file. */
 	if ((ftell_pos = ftell(g2c_file[g2cid].f)) == -1)
 	    return G2C_EFILE;
-	LOG((3, "before read ftell() is %ld (0x%x) reading %ld bytes", ftell_pos,
+	LOG((4, "before read ftell() is %ld (0x%x) reading %ld bytes", ftell_pos,
 	     ftell_pos, bytes_to_read));
 	if ((bytes_read = fread(buf, 1, bytes_to_read, g2c_file[g2cid].f)) != bytes_to_read)
 	{
@@ -159,7 +159,8 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
  *
  * @param g2cid ID of the opened grib file, returned by g2c_open().
  * @param skip_bytes Number of bytes to skip before search.
- * @param max_bytes Maximum number of bytes to search.
+ * @param max_bytes Maximum number of bytes to search. Must be at
+ * least 16.
  * @param bytes_to_msg Pointer that gets the number of bytes to skip
  * before message.
  * @param bytes_in_msg Pointer that gets the number of bytes in
@@ -180,32 +181,57 @@ int
 g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
 	    size_t *bytes_in_msg, unsigned char **cbuf)
 {
-    g2int bytes_to_msg_g, bytes_in_msg_g;
     size_t bytes_read;
     int ret = G2C_NOERROR;
 
     /* Check inputs. */
-    if (!bytes_to_msg || !bytes_in_msg)
+    if (!bytes_to_msg || !bytes_in_msg || !cbuf || max_bytes < G2C_MIN_MAX_BYTES)
 	return G2C_EINVAL;
+
+    LOG((2, "g2c_get_msg g2cid %d skip_bytes %ld max_bytes %ld", g2cid, skip_bytes,
+	 max_bytes));
     
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
 	return G2C_EBADID;
 
     /* Find the start and length of the GRIB message. */
-    seekgb(g2c_file[g2cid].f, (g2int)skip_bytes, (g2int)max_bytes, &bytes_to_msg_g,
-	   &bytes_in_msg_g);
-    *bytes_to_msg = bytes_to_msg_g;
-    *bytes_in_msg = bytes_in_msg_g;
+    /* if ((ret = g2c_find_msg2(g2cid, skip_bytes, max_bytes, bytes_to_msg, */
+    /* 			     bytes_in_msg))) */
+    /* 	return ret; */
+    {
+	g2int bytes_to_msg_g, bytes_in_msg_g;
+	seekgb(g2c_file[g2cid].f, (g2int)skip_bytes, (g2int)max_bytes, &bytes_to_msg_g,
+		   &bytes_in_msg_g);
+	*bytes_to_msg = bytes_to_msg_g;
+	*bytes_in_msg = bytes_in_msg_g;
+    }
+    LOG((3, "*bytes_to_msg %ld *bytes_in_msg %ld", *bytes_to_msg, *bytes_in_msg));
 
     /* Allocate storage for the GRIB message. */
-    if (!(*cbuf = malloc(bytes_in_msg_g)))
+    if (!(*cbuf = malloc(*bytes_in_msg)))
 	return G2C_ENOMEM;
 
+    /* Position file at start of GRIB message. */
+    if (fseek(g2c_file[g2cid].f, (off_t)*bytes_to_msg, SEEK_SET))
+    {
+	int my_errno = errno;
+	LOG((0, "fseek error %s", strerror(my_errno)));
+	return G2C_ERROR;
+    }
+
     /* Read the message from the file into the buffer. */
-    if ((bytes_read = fread(*cbuf, 1, bytes_in_msg_g, g2c_file[g2cid].f)) != bytes_in_msg_g)
+    if ((bytes_read = fread(*cbuf, 1, *bytes_in_msg, g2c_file[g2cid].f)) != *bytes_in_msg)
 	return G2C_EFILE;
-    
+
+#ifdef LOGGING
+    {
+	int i;
+	for (i = 0; i < 10; i++)
+	    LOG((3, "cbuf[%d] = %2x", i, (*cbuf)[i]));
+    }
+#endif
+
     return ret;
 }
 

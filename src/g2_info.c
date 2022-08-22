@@ -76,6 +76,8 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
     *numlocal = 0;
     *numfields = 0;
 
+    LOG((2, "g2_info"));
+
     /*  Check for beginning of GRIB message in the first 100 bytes. */
     istart = -1;
     for (j = 0; j < 100; j++)
@@ -93,11 +95,13 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         return G2_INFO_NO_GRIB;
     }
 
+    LOG((3, "msg found at byte %ld", istart));
+
     /*  Unpack Section 0 - Indicator Section. */
     iofst = 8 * (istart + 6);
     gbit(cgrib, listsec0, iofst, 8);     /* Discipline */
     iofst = iofst + 8;
-    gbit(cgrib, listsec0 + 1, iofst, 8);     /* GRIB edition number */
+    gbit(cgrib, &listsec0[1], iofst, 8);     /* GRIB edition number */
     iofst = iofst + 8;
     iofst = iofst + 32;
     gbit(cgrib, &lengrib, iofst, 32);        /* Length of GRIB message */
@@ -105,6 +109,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
     listsec0[2] = lengrib;
     lensec0 = 16;
     ipos = istart + lensec0;
+    LOG((3, "unpacked section 0, lengrib %ld now at byte %ld", lengrib, ipos));
 
     /*  Currently handles only GRIB Edition 2. */
     if (listsec0[1] != 2)
@@ -130,10 +135,11 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
     for (i = 0; i < mapsec1len; i++)
     {
         nbits = mapsec1[i] * 8;
-        gbit(cgrib, listsec1 + i, iofst, nbits);
+        gbit(cgrib, &listsec1[i], iofst, nbits);
         iofst = iofst + nbits;
     }
     ipos = ipos + lensec1;
+    LOG((3, "unpacked section 1, now at byte %ld", ipos));    
 
     /*  Loop through the remaining sections to see if they are
      *  valid. Also count the number of times Section 2 and Section
@@ -143,6 +149,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         if (cgrib[ipos] == '7' && cgrib[ipos + 1] == '7' && cgrib[ipos + 2] == '7' &&
             cgrib[ipos + 3] == '7')
         {
+	    LOG((3, "found 7777 at byte %ld", ipos));
             ipos = ipos + 4;
             if (ipos != (istart + lengrib))
             {
@@ -156,6 +163,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         gbit(cgrib, &lensec, iofst, 32);        /* Get Length of Section */
         iofst = iofst + 32;
         gbit(cgrib, &isecnum, iofst, 8);         /* Get Section number */
+	LOG((3, "found section number %ld of length %ld", isecnum, lensec));
         iofst = iofst + 8;
         ipos = ipos + lensec;                 /* Update beginning of section pointer */
         if (ipos > (istart + lengrib))
