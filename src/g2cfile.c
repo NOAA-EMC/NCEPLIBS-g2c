@@ -7,7 +7,7 @@
 #include "grib2_int.h"
 
 /** Global file information. */
-G2C_FILE_INFO g2c_file[G2C_MAX_FILES + 1];
+G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 
 /** Next g2cid file ID - used when opening or creating a file. */
 int g2c_next_g2cid = 1;

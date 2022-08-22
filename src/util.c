@@ -8,7 +8,7 @@
 #include <stdarg.h>
 
 /** Global file information. */
-extern G2C_FILE_INFO g2c_file[G2C_MAX_FILES + 1];
+extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 
 /**
  * Check for 'GRIB' at the beginning of a GRIB message, and check to
@@ -162,7 +162,7 @@ g2c_log_file(int g2cid)
     LOG((1, "num_messages %ld", g2c_file[g2cid].num_messages));
     for (m = 0; m < g2c_file[g2cid].num_messages; m++)
     {
-	G2C_MESSAGE_INFO *msg = &g2c_file[g2cid].msg[m];
+	G2C_MESSAGE_INFO_T *msg = &g2c_file[g2cid].msg[m];
 	LOG((1, "message %ld num_fields %d num_local %d msg->section0 (%d, %d, %d)", msg->message_number,
 	     msg->num_fields, msg->num_local, msg->section0[0], msg->section0[1], msg->section0[2]));
     }

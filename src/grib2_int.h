@@ -33,24 +33,24 @@
 #define G2C_MAX_MESSAGES 1024 /**< Maximum number of messages in a file. */
 
 /** This is the information about each message. */
-typedef struct g2c_message_info_t
+typedef struct g2c_message_info
 {
     size_t message_number; /**< Number of message in file. */
     int section0[G2C_SECTION0_LEN]; /**< Section 0 array. */
     int section1[G2C_SECTION1_LEN]; /**< Section 1 array. */
     int num_fields; /**< Number of fields in the message. */
     int num_local; /**< Number of local sections in the message. */
-} G2C_MESSAGE_INFO;
+} G2C_MESSAGE_INFO_T;
 
 /** This is the information about each open file. */
-typedef struct g2c_file_info_t
+typedef struct g2c_file_info
 {
     int g2cid; /**< ID of the file. */
     char path[G2C_MAX_NAME + 1]; /**< Path of the file. */
     FILE *f; /**< FILE pointer to open file. */
     size_t num_messages; /**< Number of messages in the file. */
-    G2C_MESSAGE_INFO msg[G2C_MAX_MESSAGES]; /**< Information about the messages in the file. */
-} G2C_FILE_INFO;
+    G2C_MESSAGE_INFO_T msg[G2C_MAX_MESSAGES]; /**< Information about the messages in the file. */
+} G2C_FILE_INFO_T;
 
 /**
  * Struct for GRIB template.
