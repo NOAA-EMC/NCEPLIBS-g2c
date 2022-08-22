@@ -7,6 +7,9 @@
 #include "grib2_int.h"
 #include <stdarg.h>
 
+/** Global file information. */
+extern G2C_FILE_INFO g2c_file[G2C_MAX_FILES + 1];
+
 /**
  * Check for 'GRIB' at the beginning of a GRIB message, and check to
  * see if the message is already terminated with '7777'.
@@ -128,6 +131,42 @@ g2c_set_log_level(int new_level)
     g2_log_level = new_level;
 
     LOG((1, "log_level changed to %d", g2_log_level));
+#endif
+    return G2C_NOERROR;
+}
+
+/**
+ * Print a summary of the contents of an open GRIB2 file. If the
+ * NCEPLIBS-g2c library is built without the LOGGING option, this
+ * function will do nothing.
+ * 
+ * @param g2cid The file ID, returned by g2c_open() or g2c_create().
+ *
+ * @return 
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EBADID g2cid not found.
+ *
+ * @author Ed Hartnett 8/22/22
+ */
+int
+g2c_log_file(int g2cid)
+{
+#ifdef LOGGING
+    int m;
+    
+    /* Find the open file struct. */
+    if (g2c_file[g2cid].g2cid != g2cid)
+	return G2C_EBADID;
+
+    LOG((1, "path %s", g2c_file[g2cid].path));
+    LOG((1, "num_messages %ld", g2c_file[g2cid].num_messages));
+    for (m = 0; m < g2c_file[g2cid].num_messages; m++)
+    {
+	G2C_MESSAGE_INFO *msg = &g2c_file[g2cid].msg[m];
+	LOG((1, "message %ld num_fields %d num_local %d msg->section0 (%d, %d, %d)", msg->message_number,
+	     msg->num_fields, msg->num_local, msg->section0[0], msg->section0[1], msg->section0[2]));
+    }
+
 #endif
     return G2C_NOERROR;
 }

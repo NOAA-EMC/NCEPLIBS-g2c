@@ -281,6 +281,10 @@ g2int jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 #define G2C_CLOBBER       0x0000 /**< Destroy existing file. Mode flag for g2c_create(). */
 #define G2C_NOCLOBBER     0x0004 /**< Don't destroy existing file. Mode flag for g2c_create(). */
 
+/* Useful constants. */
+#define G2C_SECTION0_LEN 3 /* Length of section 0 array. */
+#define G2C_SECTION1_LEN 13 /* Length of section 1 array. */
+
 /* File handling functions. */
 int g2c_open(const char *path, int mode, int *g2cid);
 int g2c_create(const char *path, int cmode, int *g2cid);
@@ -294,6 +298,7 @@ int g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_
 
 /* Logging, for debugging purposes. */
 int g2c_set_log_level(int new_level);
+int g2c_log_file(int g2cid);
 
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
@@ -359,5 +364,6 @@ int g2c_set_log_level(int new_level);
 #define G2C_ETOOMANYFILES (-56) /**< Trying to open too many files. */
 #define G2C_ENOMEM (-57) /**< Out of memory. */
 #define G2C_EMSG (-58) /**< Error decoding GRIB message. */
+#define G2C_ENOMSG (-59) /**< No GRIB message found. */
 
 #endif  /*  _grib2_H  */

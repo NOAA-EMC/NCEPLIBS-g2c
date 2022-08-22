@@ -44,7 +44,7 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
     unsigned char *cbuf;
 
 
-    LOG((2, "seekgb iseek %ld mseek %ld", iseek, mseek));
+    LOG((3, "seekgb iseek %ld mseek %ld", iseek, mseek));
     
     *lgrib = 0;
     cbuf = (unsigned char *)malloc(mseek);
@@ -77,7 +77,7 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
                     gbit(cbuf, &lengrib, (k + 4) * BITS_PER_BYTE, 3 * BITS_PER_BYTE);
                 if (vers == 2)
                     gbit(cbuf, &lengrib, (k + 12) * BITS_PER_BYTE, 4 * BITS_PER_BYTE);
-		LOG((3, "lengrib %ld", lengrib));
+		LOG((4, "lengrib %ld", lengrib));
 
                 /* Read the last 4 bytesof the message. */
                 fseek(lugb, ipos + k + lengrib - 4, SEEK_SET);
@@ -89,7 +89,7 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
                     /* GRIB message found. */
                     *lskip = ipos + k;
                     *lgrib = lengrib;
-		    LOG((3, "found end of message lengrib %ld", lengrib));
+		    LOG((4, "found end of message lengrib %ld", lengrib));
                     break;
                 }
             }

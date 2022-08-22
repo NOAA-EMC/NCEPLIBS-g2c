@@ -6,14 +6,6 @@
 
 #include "grib2_int.h"
 
-/** This is the information about each open file. */
-typedef struct g2c_file_info_t
-{
-    int g2cid;
-    char path[G2C_MAX_NAME + 1];
-    FILE *f;
-} G2C_FILE_INFO;
-
 /** Global file information. */
 G2C_FILE_INFO g2c_file[G2C_MAX_FILES + 1];
 
@@ -149,23 +141,24 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
     return ret;
 }
 
-/** Search a file for the next GRIB1 or GRIB2 message.
+/** Search a file for the next GRIB1 or GRIB2 message, and read it,
+ * allocating space in memory to hold the message.
  *
  * A grib message is identified by its indicator section,
  * i.e. an 8-byte sequence with 'GRIB' in bytes 1-4 and a '1' or '2'
  * in byte 8. If found, the length of the message is decoded from
  * bytes 5-7. The search is done over a given section of the file. The
- * search is terminated if an eof or i/o error is encountered.
+ * search is terminated if an EOF or I/O error is encountered.
  *
  * @param g2cid ID of the opened grib file, returned by g2c_open().
- * @param skip_bytes Number of bytes to skip before search.
- * @param max_bytes Maximum number of bytes to search. Must be at
+ * @param skip_bytes The number of bytes to skip before search.
+ * @param max_bytes The maximum number of bytes to search. Must be at
  * least 16.
- * @param bytes_to_msg Pointer that gets the number of bytes to skip
+ * @param bytes_to_msg A pointer that gets the number of bytes to skip
  * before message.
- * @param bytes_in_msg Pointer that gets the number of bytes in
+ * @param bytes_in_msg A pointer that gets the number of bytes in
  * message (or 0 if no message found)
- * @param cbuf Pointer that gets allocation of memory, into which the
+ * @param cbuf A pointer that gets allocation of memory, into which the
  * message is copied. This memory must be freed by the caller.
  *
  * @return
@@ -174,6 +167,7 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
  * - ::G2C_EFILE File error.
  * - ::G2C_EINVAL Invalid input.
  * - ::G2C_ENOMEM Out of memory.
+ * - ::G2C_ENOMSG No GRIB message found.
  *
  * @author Ed Hartnett @date 2022-08-20
  */
@@ -208,6 +202,10 @@ g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg
     }
     LOG((3, "*bytes_to_msg %ld *bytes_in_msg %ld", *bytes_to_msg, *bytes_in_msg));
 
+    /* If no message was found, return an error. */
+    if (*bytes_in_msg == 0)
+	return G2C_ENOMSG;
+
     /* Allocate storage for the GRIB message. */
     if (!(*cbuf = malloc(*bytes_in_msg)))
 	return G2C_ENOMEM;
@@ -215,8 +213,10 @@ g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg
     /* Position file at start of GRIB message. */
     if (fseek(g2c_file[g2cid].f, (off_t)*bytes_to_msg, SEEK_SET))
     {
+#ifdef LOGGING
 	int my_errno = errno;
 	LOG((0, "fseek error %s", strerror(my_errno)));
+#endif
 	return G2C_ERROR;
     }
 
@@ -228,7 +228,7 @@ g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg
     {
 	int i;
 	for (i = 0; i < 10; i++)
-	    LOG((3, "cbuf[%d] = %2x", i, (*cbuf)[i]));
+	    LOG((4, "cbuf[%d] = %2x", i, (*cbuf)[i]));
     }
 #endif
 
@@ -277,6 +277,84 @@ find_available_g2cid(int *g2cid)
     return G2C_ETOOMANYFILES;
 }
 
+/** Read metadata from an opened GRIB2 file.
+ *
+ * @param g2cid The indentifier for the file.
+ *
+ * @return
+ * - ::G2C_NOERROR - No error.
+ * - ::G2C_EBADID g2cid not found.
+ * - ::G2C_EFILE File error.
+ * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_ENOMEM Out of memory.
+ * - ::G2C_ENOMSG No GRIB message found.
+ *
+ * @author Ed Hartnett @date Aug 22, 2022
+ */
+static int
+read_metadata(int g2cid)
+{
+    size_t msg_num;
+    size_t file_pos = 0;
+    int ret = G2C_NOERROR;
+
+    /* Find the open file struct. */
+    if (g2c_file[g2cid].g2cid != g2cid)
+	return G2C_EBADID;
+
+    LOG((2, "read_metadata g2cid %d", g2cid));
+
+    /* Read each message in the file. */
+    for (msg_num = 0; !ret; msg_num++)
+    {
+	size_t bytes_to_msg, bytes_in_msg;
+	unsigned char *cbuf = NULL;
+
+	/* Read the message, allocating memory. */
+	ret = g2c_get_msg(g2cid, file_pos, READ_BUF_SIZE, &bytes_to_msg, &bytes_in_msg, &cbuf);
+	LOG((3, "msg_num %d bytes_to_msg %ld bytes_in_msg %ld", msg_num, bytes_to_msg,
+	     bytes_in_msg));
+
+	/* Learn about this message. */
+	if (!ret)
+	{
+	    g2int listsec0[3], listsec1[13], numfields, numlocal;
+	    int i;
+	    
+	    /* Set some message info. */
+	    g2c_file[g2cid].num_messages++;
+	    g2c_file[g2cid].msg[msg_num].message_number = msg_num;
+
+	    if ((ret = g2_info(cbuf, listsec0, listsec1, &numfields, &numlocal)))
+		return G2C_EMSG;
+	    for (i = 0; i < G2C_SECTION0_LEN; i++)
+		g2c_file[g2cid].msg[msg_num].section0[i] = listsec0[i];		
+	    for (i = 0; i < G2C_SECTION1_LEN; i++)
+		g2c_file[g2cid].msg[msg_num].section1[i] = listsec1[i];
+	    g2c_file[g2cid].msg[msg_num].num_fields = numfields;
+	    g2c_file[g2cid].msg[msg_num].num_local = numlocal;
+	}
+
+	/* Free memory. */
+	if (cbuf)
+	    free(cbuf);
+
+	/* Move to next message. */
+	file_pos += bytes_in_msg;
+    }    
+
+    /* If we run out of messages, that's success. */
+    if (ret == G2C_ENOMSG)
+	ret = G2C_NOERROR;
+
+#ifdef LOGGING
+    /* Print the file contents for library debugging. */
+    g2c_log_file(g2cid);
+#endif
+
+    return ret;
+}
+
 /** Open an existing GRIB2 file.
  *
  * @param path Path of the file.
@@ -312,8 +390,6 @@ g2c_open(const char *path, int mode, int *g2cid)
     if (!(g2c_file[my_g2cid].f = fopen(path, (mode & G2C_WRITE ? "rb+" : "rb"))))
 	return G2C_EFILE;
 
-    /* Read the metadata. */
-
     /* Copy the path. */
     strncpy(g2c_file[my_g2cid].path, path, G2C_MAX_NAME);
 
@@ -323,6 +399,10 @@ g2c_open(const char *path, int mode, int *g2cid)
     /* Pass id back to user. */
     *g2cid = my_g2cid;
     
+    /* Read the metadata. */
+    if ((ret = read_metadata(my_g2cid)))
+	return ret;
+
     return G2C_NOERROR;
 }
 

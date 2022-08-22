@@ -20,14 +20,14 @@
  * @param cgrib Pointer to a buffer containing the GRIB2 message.
  * @param listsec0 Pointer to an array that gets the information
  * decoded from GRIB Indicator Section 0. Must be allocated with >= 3
- * elements.
+ * elements (see ::G2C_SECTION0_LEN).
  * - listsec0(0) Discipline-GRIB Master Table Number ([Code Table 0.0]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table0-0.shtml)).
  * - listsec0[1] GRIB Edition Number (currently 2).
  * - listsec0[2] Length of GRIB message.
  * @param listsec1 Pointer to an array that gets the information read
  * from GRIB Identification Section 1. Must be allocated with >= 13
- * elements.
+ * elements (see ::G2C_SECTION1_LEN).
  * - listsec1[0] Id of orginating centre ([Table 0]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/on388/table0.html)).
  * - listsec1[1] Id of orginating sub-centre ([Table C]
