@@ -63,6 +63,7 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
     size_t num_blocks;
     size_t ftell_pos;
     int i;
+    int done = 0;
     int ret = G2C_NOERROR;
 
     /* Check inputs. */
@@ -81,7 +82,7 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
     if (!(buf = calloc(bytes_to_read, sizeof(char))))
 	return G2C_ENOMEM;
 
-    for (num_blocks = 0; !eof; num_blocks++)
+    for (num_blocks = 0; !eof && !done; num_blocks++)
     {	
 	/* Read some bytes. If we don't get the number expected, either a
 	 * read error occured, or we reached the end of file. */
@@ -113,7 +114,11 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
 		    grib_version = buf[i + 7];
 		    LOG((3, "bytes_to_msg %ld grib_version %d", *bytes_to_msg, grib_version));
 		    if (grib_version != 1 && grib_version != 2)
-			return G2C_EMSG;
+		    {
+			ret = G2C_EMSG;
+			done++;
+			break;
+		    }
 		}
 
 		/* Find the end of a GRIB message. And then we're done. */
@@ -123,17 +128,20 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
 		    msg_found--;
 		    *bytes_in_msg = ftell_pos + i - *bytes_to_msg + 4;
 		    LOG((3, "bytes_in_msg %ld", *bytes_in_msg));
-		    return G2C_NOERROR;
+		    ret = G2C_NOERROR;
+		    done++;
+		    break;
 		}
 	    }
 	}
 
 	/* Back up 8 bytes in case the "GRIB" magic header occurred
 	 * within the last 8 bytes of the previous read. */
-	if (fseek(g2c_file[g2cid].f, (off_t)(ftell(g2c_file[g2cid].f) - G2C_MAGIC_HEADER_LEN),
-		  SEEK_SET))
-	    return G2C_ERROR;
-    } /* end while not EOF */
+	if (!done)
+	    if (fseek(g2c_file[g2cid].f, (off_t)(ftell(g2c_file[g2cid].f) - G2C_MAGIC_HEADER_LEN),
+		      SEEK_SET))
+		return G2C_ERROR;
+    }
 
     /* Free storage. */
     free(buf);
