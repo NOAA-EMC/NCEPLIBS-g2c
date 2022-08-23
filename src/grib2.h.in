@@ -282,8 +282,8 @@ g2int jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 #define G2C_NOCLOBBER     0x0004 /**< Don't destroy existing file. Mode flag for g2c_create(). */
 
 /* Useful constants. */
-#define G2C_SECTION0_LEN 3 /* Length of section 0 array. */
-#define G2C_SECTION1_LEN 13 /* Length of section 1 array. */
+#define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
+#define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
 
 /* File handling functions. */
 int g2c_open(const char *path, int mode, int *g2cid);
