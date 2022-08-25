@@ -69,17 +69,6 @@ else()
   message(STATUS "Will not build OpenJPEG support")
 endif()
 
-# Set the compiler flags.
-if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-  set(CMAKE_C_FLAGS "-g -traceback ${CMAKE_C_FLAGS}")
-  set(CMAKE_C_FLAGS_RELEASE "-O3")
-  set(CMAKE_C_FLAGS_DEBUG "-O0")
-elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
-  set(CMAKE_C_FLAGS "-g ${CMAKE_C_FLAGS}")
-  set(CMAKE_C_FLAGS_RELEASE "-O3")
-  set(CMAKE_C_FLAGS_DEBUG "-O0 -ggdb -Wall")
-endif()
-
 set(lib_name ${PROJECT_NAME})
 
 add_library(${lib_name} src/grib2_int.h src/cmplxpack.c src/compack.c
@@ -91,9 +80,24 @@ src/g2_unpack6.c src/g2_unpack7.c src/gbits.c src/getdim.c
 src/getpoly.c src/gridtemplates.c src/int_power.c src/misspack.c
 src/mkieee.c src/pack_gp.c src/pdstemplates.c src/rdieee.c
 src/reduce.c src/seekgb.c src/simpack.c src/simunpack.c src/specpack.c
-src/specunpack.c src/util.c src/g2cfile.c )
+src/specunpack.c src/util.c src/g2cfile.c src/g2cxml.c)
 
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
+
+# Find libxml2.
+find_package(LibXml2 2.9.0 REQUIRED)
+target_link_libraries(${lib_name} PRIVATE ${LibXml_LIBRARIES})
+
+# Set the compiler flags.
+if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
+  set(CMAKE_C_FLAGS "-g -traceback ${CMAKE_C_FLAGS}")
+  set(CMAKE_C_FLAGS_RELEASE "-O3")
+  set(CMAKE_C_FLAGS_DEBUG "-O0")
+elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
+  set(CMAKE_C_FLAGS "-g ${CMAKE_C_FLAGS}")
+  set(CMAKE_C_FLAGS_RELEASE "-O3")
+  set(CMAKE_C_FLAGS_DEBUG "-O0 -ggdb -Wall")
+endif()
 
 # Build with PNG.
 if(PNG_FOUND)
