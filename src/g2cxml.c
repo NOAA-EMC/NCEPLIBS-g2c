@@ -36,7 +36,9 @@ int
 g2c_xml_init()
 {
     xmlNode *root_element = NULL;    
-
+    xmlNode *cur;
+    xmlChar *key;
+	
     doc = xmlReadFile("CodeFlag.xml", NULL, 0);
 	
     if (doc == NULL )
@@ -46,6 +48,37 @@ g2c_xml_init()
     }
     root_element = xmlDocGetRootElement(doc);
     printf("root_element: %s\n", root_element->name);
+    cur = root_element->xmlChildrenNode;
+    while (cur)
+    {
+	xmlNode *child = cur->xmlChildrenNode;
+	while (child)
+	{
+	    if ((!xmlStrcmp(child->name, (const xmlChar *)"Title_en"))) {
+		key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1);
+		printf("title: %s\n", key);
+		xmlFree(key);
+	    }
+	    if ((!xmlStrcmp(child->name, (const xmlChar *)"CodeFlag"))) {
+		key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1);
+		printf("code: %s\n", key);
+		xmlFree(key);
+	    }
+	    if ((!xmlStrcmp(child->name, (const xmlChar *)"MeaningParameterDescription_en"))) {
+		key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1);
+		printf("description: %s\n", key);
+		xmlFree(key);
+	    }
+	    if ((!xmlStrcmp(child->name, (const xmlChar *)"Status"))) {
+		key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1);
+		printf("status: %s\n", key);
+		xmlFree(key);
+	    }
+	    child = child->next;
+	}
+	
+	cur = cur->next;
+    }
     
     /* print_element_names(root_element); */
     
