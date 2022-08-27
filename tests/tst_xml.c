@@ -11,6 +11,8 @@
 int
 main()
 {
+    if (g2c_xml_init())
+	return G2C_ERROR;
     return G2C_NOERROR;
 }
 

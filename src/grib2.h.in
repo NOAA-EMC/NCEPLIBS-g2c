@@ -295,6 +295,7 @@ int g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to
 		size_t *bytes_in_msg, unsigned char **cbuf);
 int g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
 		  size_t *bytes_in_msg);
+int g2c_xml_init();
 
 /* Logging, for debugging purposes. */
 int g2c_set_log_level(int new_level);

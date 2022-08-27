@@ -17,10 +17,10 @@
  * @author Ed Hartnett @date 8/26/22
  */
 int
-init()
+g2c_xml_init()
 {
     xmlDocPtr doc;
-    xmlNodePtr cur;
+    /* xmlNodePtr cur; */
 
     doc = xmlParseFile("CodeFlag.xml");
 	
@@ -30,20 +30,21 @@ init()
 	return G2C_EXML;
     }
 
-    cur = xmlDocGetRootElement(doc);
+    /* cur = xmlDocGetRootElement(doc); */
 	
-    if (cur == NULL)
-    {
-	fprintf(stderr,"empty document\n");
-	xmlFreeDoc(doc);
-	return G2C_EXML;
-    }
-	
-    if (xmlStrcmp(cur->name, (const xmlChar *) "story")) {
-	fprintf(stderr,"document of the wrong type, root node != story");
-	xmlFreeDoc(doc);
-	return G2C_EXML;
-    }
+    /* if (cur == NULL) */
+    /* { */
+    /* 	fprintf(stderr,"empty document\n"); */
+    /* 	xmlFreeDoc(doc); */
+    /* 	return G2C_EXML; */
+    /* } */
+
+    /* fprintf("document rood node %s\n", cur->name); */
+    /* if (xmlStrcmp(cur->name, (const xmlChar *) "story")) { */
+    /* 	fprintf(stderr,"document of the wrong type, root node != story"); */
+    /* 	xmlFreeDoc(doc); */
+    /* 	return G2C_EXML; */
+    /* } */
 
     return G2C_NOERROR;
 }
