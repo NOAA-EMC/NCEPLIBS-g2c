@@ -365,5 +365,6 @@ int g2c_log_file(int g2cid);
 #define G2C_ENOMEM (-57) /**< Out of memory. */
 #define G2C_EMSG (-58) /**< Error decoding GRIB message. */
 #define G2C_ENOMSG (-59) /**< No GRIB message found. */
+#define G2C_EXML (-60) /**< XML error. */
 
 #endif  /*  _grib2_H  */

@@ -86,7 +86,8 @@ set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
 
 # Find libxml2.
 find_package(LibXml2 2.9.0 REQUIRED)
-target_link_libraries(${lib_name} PRIVATE ${LibXml_LIBRARIES})
+target_link_libraries(${lib_name} PRIVATE ${LIBXML2_LIBRARIES})
+target_include_directories(${lib_name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
 
 # Set the compiler flags.
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
@@ -199,6 +200,11 @@ install(EXPORT ${PROJECT_NAME}Exports
   NAMESPACE ${PROJECT_NAME}::
   FILE ${PROJECT_NAME}-targets.cmake
   DESTINATION ${CONFIG_INSTALL_DESTINATION})
+
+# XML data files.
+set(XML_FILES src/Template.xml src/CodeFlag.xml)
+install(FILES ${XML_FILES}
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})  
 
 # Determine whether or not to generate documentation.
 if(ENABLE_DOCS)
