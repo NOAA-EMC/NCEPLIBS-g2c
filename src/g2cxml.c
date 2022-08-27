@@ -8,6 +8,22 @@
 #include <libxml/parser.h>
 #include <grib2_int.h>
 
+/** Contains the parsed XML document. */
+xmlDocPtr doc;
+
+/* static void */
+/* print_element_names(xmlNode *a_node) */
+/* { */
+/*     xmlNode *cur_node = NULL; */
+
+/*     for (cur_node = a_node; cur_node; cur_node = cur_node->next) */
+/*     { */
+/* 	if (cur_node->type == XML_ELEMENT_NODE) */
+/* 	    printf("node type: Element, name: %s\n", cur_node->name); */
+/* 	print_element_names(cur_node->children); */
+/*     } */
+/* } */
+
 /**
  * Init.
  *
@@ -19,32 +35,22 @@
 int
 g2c_xml_init()
 {
-    xmlDocPtr doc;
-    /* xmlNodePtr cur; */
+    xmlNode *root_element = NULL;    
 
-    doc = xmlParseFile("CodeFlag.xml");
+    doc = xmlReadFile("CodeFlag.xml", NULL, 0);
 	
     if (doc == NULL )
     {
 	fprintf(stderr,"Document not parsed successfully. \n");
 	return G2C_EXML;
     }
-
-    /* cur = xmlDocGetRootElement(doc); */
-	
-    /* if (cur == NULL) */
-    /* { */
-    /* 	fprintf(stderr,"empty document\n"); */
-    /* 	xmlFreeDoc(doc); */
-    /* 	return G2C_EXML; */
-    /* } */
-
-    /* fprintf("document rood node %s\n", cur->name); */
-    /* if (xmlStrcmp(cur->name, (const xmlChar *) "story")) { */
-    /* 	fprintf(stderr,"document of the wrong type, root node != story"); */
-    /* 	xmlFreeDoc(doc); */
-    /* 	return G2C_EXML; */
-    /* } */
+    root_element = xmlDocGetRootElement(doc);
+    printf("root_element: %s\n", root_element->name);
+    
+    /* print_element_names(root_element); */
+    
+    xmlFreeDoc(doc);
+    xmlCleanupParser();
 
     return G2C_NOERROR;
 }
