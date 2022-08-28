@@ -87,6 +87,26 @@ g2c_find_table(char *key)
     return NULL;
 }
 
+/** Find an entry in a table given a description.
+ *
+ * @param desc The description of the entry to find.
+ *
+ * @author Ed Hartnett @date 8/29/22
+ *
+ * @return a pointer to the matching entry, or NULL if not found.
+ */
+G2C_CODE_ENTRY_T *
+g2c_find_entry(char *desc, G2C_CODE_TABLE_T *table)
+{
+    G2C_CODE_ENTRY_T *e;
+
+    for (e = table->entry; e; e = e->next)
+	if (!strncmp(desc, e->desc, G2C_MAX_GRIB_DESC_LEN))
+	    return e;
+
+    return NULL;
+}
+
 /**
  * Init.
  *
@@ -115,54 +135,78 @@ g2c_xml_init()
 	while (child)
 	{
 	    G2C_CODE_TABLE_T *my_table = NULL;
+	    G2C_CODE_TABLE_T *new_table = NULL;
 	    
 	    if ((!xmlStrcmp(child->name, (const xmlChar *)"Title_en")))
 	    {
 		key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1);
 		if (strlen((char *)key) > G2C_MAX_GRIB_TITLE_LEN)
 		    return G2C_ENAMETOOLONG;
-		if (!g2c_find_table((char *)key))
+		if (!(my_table = g2c_find_table((char *)key)))
 		{
-		    if (!(my_table = calloc(1, sizeof(G2C_CODE_TABLE_T))))
+		    if (!(new_table = calloc(1, sizeof(G2C_CODE_TABLE_T))))
 			return G2C_ENOMEM;
-		    strncpy(my_table->title, (char *)key, G2C_MAX_GRIB_TITLE_LEN);
+		    strncpy(new_table->title, (char *)key, G2C_MAX_GRIB_TITLE_LEN);
 		    printf("title: %s\n", key);
+		    my_table = new_table;
 		}
 		xmlFree(key);
 	    }
-	    /* if ((!xmlStrcmp(child->name, (const xmlChar *)"CodeFlag"))) { */
-	    /* 	key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1); */
-	    /* 	if (strlen(key) > G2C_MAX_GRIB_CODE_LEN) */
-	    /* 	    return NC_ENAMETOOLONG; */
-	    /* 	strncpy(my_table->code, key, G2C_MAX_GRIB_CODE_LEN); */
-	    /* 	/\* printf("code: %s\n", key); *\/ */
-	    /* 	xmlFree(key); */
-	    /* } */
-	    /* if ((!xmlStrcmp(child->name, (const xmlChar *)"MeaningParameterDescription_en"))) { */
-	    /* 	key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1); */
-	    /* 	if (strlen(key) > G2C_MAX_GRIB_DESC_LEN) */
-	    /* 	    return NC_ENAMETOOLONG; */
-	    /* 	strncpy(my_table->desc, key, G2C_MAX_GRIB_DESC_LEN); */
-	    /* 	/\* printf("description: %s\n", key); *\/ */
-	    /* 	xmlFree(key); */
-	    /* } */
-	    /* if ((!xmlStrcmp(child->name, (const xmlChar *)"Status"))) { */
-	    /* 	key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1); */
-	    /* 	if (strlen(key) > G2C_MAX_GRIB_STATUS_LEN) */
-	    /* 	    return NC_ENAMETOOLONG; */
-	    /* 	strncpy(my_table->status, key, G2C_MAX_GRIB_STATUS_LEN); */
-	    /* 	/\* printf("status: %s\n", key); *\/ */
-	    /* 	xmlFree(key); */
-	    /* } */
+
+	    if (my_table)
+	    {
+		G2C_CODE_ENTRY_T *new_entry = NULL;
+
+		if ((!xmlStrcmp(child->name, (const xmlChar *)"CodeFlag")))
+		{
+		    G2C_CODE_ENTRY_T *e;
+		    
+		    if (!(new_entry = calloc(1, sizeof(G2C_CODE_ENTRY_T))))
+			return G2C_ENOMEM;
+		    key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1);
+		    if (strlen((char *)key) > G2C_MAX_GRIB_CODE_LEN)
+			return G2C_ENAMETOOLONG;
+		    strncpy(new_entry->code, (char *)key, G2C_MAX_GRIB_CODE_LEN);
+		    /* printf("code: %s\n", key); */
+		    xmlFree(key);
+
+		    /* Add entry at end of list. */
+		    for (e = my_table->entry; e->next; e = e->next)
+			;
+		    e->next = new_entry;
+		}
+		if ((!xmlStrcmp(child->name, (const xmlChar *)"MeaningParameterDescription_en")))
+		{
+		    key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1);
+		    if (strlen((char *)key) > G2C_MAX_GRIB_DESC_LEN)
+			return G2C_ENAMETOOLONG;
+		    if (!new_entry)
+			return G2C_EXML;
+		    strncpy(new_entry->desc, (char *)key, G2C_MAX_GRIB_DESC_LEN);
+		    /* printf("description: %s\n", key); */
+		    xmlFree(key);
+		}
+		if ((!xmlStrcmp(child->name, (const xmlChar *)"Status")))
+		{
+		    key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1);
+		    if (strlen((char *)key) > G2C_MAX_GRIB_STATUS_LEN)
+			return G2C_ENAMETOOLONG;
+		    if (!new_entry)
+			return G2C_EXML;
+		    strncpy(new_entry->status, (char *)key, G2C_MAX_GRIB_STATUS_LEN);
+		    /* printf("status: %s\n", key); */
+		    xmlFree(key);
+		}
+	    }
 
 	    /* Move to next node of XML document. */
 	    child = child->next;
 
 	    /* Add this table to our list of GRIB tables. */
-	    if (my_table)
+	    if (new_table)
 	    {
 		if (!g2c_table)
-		    g2c_table = my_table;
+		    g2c_table = new_table;
 		else
 		{
 		    G2C_CODE_TABLE_T *g = g2c_table;
@@ -172,14 +216,14 @@ g2c_xml_init()
 		    {
 			for (; g->next; g = g->next)
 			    ;
-			g->next = my_table;
+			g->next = new_table;
 		    }
 		    else
 		    {
-			g2c_table = my_table;
+			g2c_table = new_table;
 		    }
 		}
-		my_table = NULL;
+		new_table = NULL;
 	    }
 	}
 	
