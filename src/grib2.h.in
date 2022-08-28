@@ -285,6 +285,11 @@ g2int jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 #define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
 #define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
 
+#define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
+#define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
+#define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
+#define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
+
 /* File handling functions. */
 int g2c_open(const char *path, int mode, int *g2cid);
 int g2c_create(const char *path, int cmode, int *g2cid);
@@ -296,6 +301,8 @@ int g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to
 int g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
 		  size_t *bytes_in_msg);
 int g2c_xml_init();
+int g2c_find_desc(char *title, char *code, char *desc);
+void g2c_free_tables();
 
 /* Logging, for debugging purposes. */
 int g2c_set_log_level(int new_level);
@@ -367,5 +374,6 @@ int g2c_log_file(int g2cid);
 #define G2C_EMSG (-58) /**< Error decoding GRIB message. */
 #define G2C_ENOMSG (-59) /**< No GRIB message found. */
 #define G2C_EXML (-60) /**< XML error. */
+#define G2C_ENOTFOUND (-63) /**< Table or entry not found. */
 
 #endif  /*  _grib2_H  */

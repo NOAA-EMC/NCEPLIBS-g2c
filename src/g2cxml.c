@@ -11,11 +11,6 @@
 /** Contains the parsed XML document. */
 xmlDocPtr doc;
 
-#define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
-#define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
-#define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
-#define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
-
 /** An entry in a GRIB2 code table. */
 typedef struct g2c_entry
 {
@@ -79,6 +74,54 @@ g2c_free_tables()
 
 	free(t);
     }
+}
+
+/** Given a table title and a code, find a description.
+ *
+ * @param title Title of table.
+ * @param code Code to search for.
+ * @param desc Pointer that gets a copy of the description. Must be
+ * allocated to ::G2C_MAX_GRIB_DESC_LEN + 1.
+ *
+ * @author Ed Hartnett @date 8/28/22
+ *
+ * @return 0 for success, error code otherwise.
+ */
+int
+g2c_find_desc(char *title, char *code, char *desc)
+{
+    G2C_CODE_TABLE_T *t = NULL;
+    int found = 0;
+
+    /* Check inputs. */
+    if (!title || strlen(title) > G2C_MAX_GRIB_TITLE_LEN
+	|| !code || strlen(code) > G2C_MAX_GRIB_CODE_LEN || !desc)
+	return G2C_EINVAL;
+    
+    /* Find table. */
+    for (t = g2c_table; !found && t; t = t->next)
+    {
+	if (!strncmp(title, t->title, strlen(title)))
+	{
+	    G2C_CODE_ENTRY_T *e = NULL;
+	    
+	    /* Find entry. */
+	    for (e = t->entry; e; e = e->next)
+	    {
+		if (!strncmp(code, e->code, strlen(code)))
+		{
+		    strcpy(desc, e->desc);
+		    found++;
+		    break;
+		}
+	    }
+	}
+    }
+
+    if (!found)
+	return G2C_ENOTFOUND;
+    
+    return G2C_NOERROR;
 }
 
 /** Find a table given a key.
@@ -254,8 +297,6 @@ g2c_xml_init()
 
     g2c_print_tables();
 
-    g2c_free_tables();
-    
     xmlFreeDoc(doc);
     xmlCleanupParser();
 
