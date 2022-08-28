@@ -67,7 +67,16 @@ g2c_free_tables()
 
     for (t = g2c_table; t; t = the_next)
     {
+	G2C_CODE_ENTRY_T *e;
+	G2C_CODE_ENTRY_T *e_next;
+	
 	the_next = t->next;
+	for (e = t->entry; e; e = e_next)
+	{
+	    e_next = e->next;
+	    free(e);
+	}
+
 	free(t);
     }
 }
