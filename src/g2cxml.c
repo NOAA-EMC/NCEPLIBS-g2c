@@ -11,9 +11,9 @@
 /** Contains the parsed XML document. */
 xmlDocPtr doc;
 
-#define G2C_MAX_GRIB_DESC_LEN 40 /**< Maximum length of code description. */
+#define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
 #define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
-#define G2C_MAX_GRIB_CODE_LEN 10 /**< Maximum length of code. */
+#define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
 #define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
 
 /** An entry in a GRIB2 code table. */
@@ -47,7 +47,12 @@ g2c_print_tables()
 
     for (t = g2c_table; t; t = t->next)
     {
+	G2C_CODE_ENTRY_T *e;
+	
 	printf("%s\n", t->title);
+	for (e = t->entry; e; e = e->next)
+	    printf("code %s desc %s status %s\n", e->code, e->desc, e->status);
+	
     }
 }
 
@@ -120,6 +125,8 @@ g2c_xml_init()
 {
     xmlNode *cur;
     xmlChar *key;
+    G2C_CODE_TABLE_T *my_table = NULL;
+    G2C_CODE_ENTRY_T *new_entry = NULL;
 
     /* Ingest the XML document. */
     if (!(doc = xmlReadFile("CodeFlag.xml", NULL, 0)))
@@ -134,7 +141,6 @@ g2c_xml_init()
 	/* Each child at this level is a table of codes. */
 	while (child)
 	{
-	    G2C_CODE_TABLE_T *my_table = NULL;
 	    G2C_CODE_TABLE_T *new_table = NULL;
 	    
 	    if ((!xmlStrcmp(child->name, (const xmlChar *)"Title_en")))
@@ -155,25 +161,31 @@ g2c_xml_init()
 
 	    if (my_table)
 	    {
-		G2C_CODE_ENTRY_T *new_entry = NULL;
-
 		if ((!xmlStrcmp(child->name, (const xmlChar *)"CodeFlag")))
 		{
 		    G2C_CODE_ENTRY_T *e;
 		    
 		    if (!(new_entry = calloc(1, sizeof(G2C_CODE_ENTRY_T))))
 			return G2C_ENOMEM;
-		    key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1);
-		    if (strlen((char *)key) > G2C_MAX_GRIB_CODE_LEN)
-			return G2C_ENAMETOOLONG;
-		    strncpy(new_entry->code, (char *)key, G2C_MAX_GRIB_CODE_LEN);
-		    /* printf("code: %s\n", key); */
-		    xmlFree(key);
+		    if (child->xmlChildrenNode)
+		    {
+			key = xmlNodeListGetString(doc, child->xmlChildrenNode, 1);
+			if (strlen((char *)key) > G2C_MAX_GRIB_CODE_LEN)
+			    return G2C_ENAMETOOLONG;
+			strncpy(new_entry->code, (char *)key, G2C_MAX_GRIB_CODE_LEN);
+			/* printf("code: %s\n", key); */
+			xmlFree(key);
+		    }
 
 		    /* Add entry at end of list. */
-		    for (e = my_table->entry; e->next; e = e->next)
-			;
-		    e->next = new_entry;
+		    if (my_table->entry)
+		    {
+			for (e = my_table->entry; e->next; e = e->next)
+			    ;
+			e->next = new_entry;
+		    }
+		    else
+			my_table->entry = new_entry;
 		}
 		if ((!xmlStrcmp(child->name, (const xmlChar *)"MeaningParameterDescription_en")))
 		{
@@ -230,7 +242,7 @@ g2c_xml_init()
 	cur = cur->next;
     }
 
-    /* g2c_print_tables(); */
+    g2c_print_tables();
 
     g2c_free_tables();
     
