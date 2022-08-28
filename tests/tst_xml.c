@@ -11,8 +11,10 @@
 int
 main()
 {
+    printf("Testing XML ingestion...\n");
     if (g2c_xml_init())
 	return G2C_ERROR;
+    printf("SUCCESS!!!\n");
     return G2C_NOERROR;
 }
 
