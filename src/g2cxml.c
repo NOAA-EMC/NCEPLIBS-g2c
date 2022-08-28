@@ -81,7 +81,7 @@ g2c_find_table(char *key)
     G2C_CODE_TABLE_T *g;
 
     for (g = g2c_table; g; g = g->next)
-	if (!strncmp(key, g2c_table->title, G2C_MAX_GRIB_TITLE_LEN))
+	if (!strncmp(key, g->title, G2C_MAX_GRIB_TITLE_LEN))
 	    return g;
 
     return NULL;
