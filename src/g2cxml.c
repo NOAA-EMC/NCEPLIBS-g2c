@@ -95,6 +95,7 @@ g2c_find_table(char *key)
 /** Find an entry in a table given a description.
  *
  * @param desc The description of the entry to find.
+ * @param table A pointer to the table to search.
  *
  * @author Ed Hartnett @date 8/29/22
  *
