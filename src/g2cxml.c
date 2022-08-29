@@ -182,6 +182,10 @@ g2c_xml_init()
     G2C_CODE_TABLE_T *my_table = NULL;
     G2C_CODE_ENTRY_T *new_entry = NULL;
 
+    /* If g2c_table is not NULL, then tables have already been initialized. */
+    if (g2c_table)
+	return G2C_NOERROR;
+
     /* Ingest the XML document. */
     if (!(doc = xmlReadFile("CodeFlag.xml", NULL, 0)))
 	return G2C_EXML;

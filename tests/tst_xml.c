@@ -21,6 +21,11 @@ main()
 	return ret;
     if (strcmp("Meteorological products", desc))
 	return G2C_ERROR;
+
+    /* Calling init again is harmless. */
+    if (g2c_xml_init())
+	return G2C_ERROR;
+    
     g2c_free_tables();
     
     printf("desc %s\n", desc);
