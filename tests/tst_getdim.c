@@ -6,10 +6,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define SEC3_LEN 72
-#define G2C_ERROR 2
 
 /* Prototypes for some functions tested in this program. */
 g2int getdim(unsigned char *csec3, g2int *width, g2int *height, g2int *iscan);

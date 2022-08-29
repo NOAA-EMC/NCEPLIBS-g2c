@@ -11,7 +11,6 @@
 #define SEC1_LEN 21
 #define SEC3_LEN 34
 #define MSG_LEN 109
-#define G2C_ERROR 2
 
 int
 main()

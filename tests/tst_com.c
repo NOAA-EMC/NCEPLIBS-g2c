@@ -10,7 +10,6 @@
 
 #define DATA_LEN 4
 #define PACKED_LEN 200
-#define G2C_ERROR 2
 
 /* Prototypes we are testing. */
 int comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,

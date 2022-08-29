@@ -7,8 +7,6 @@
 #include <stdio.h>
 #include "grib2_int.h"
 
-#define G2C_ERROR 2
-
 int
 main()
 {
