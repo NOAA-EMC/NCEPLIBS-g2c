@@ -312,6 +312,11 @@ int g2c_log_file(int g2cid);
 #define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
 #define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
 
+#define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
+#define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
+#define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
+#define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
+
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
 #define G2_CREATE_GRIB_VERSION -1 /**< Wrong GRIB version for g2_create(), must be 2. */
