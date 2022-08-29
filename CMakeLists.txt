@@ -24,6 +24,9 @@ option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(FTP_TEST_FILES "Fetch and test with files on FTP site." OFF)
 option(LOGGING "Turn on internal logging messages. Only useful to g2c developers." OFF)
 
+# Set this to better handle files > 2 GB.
+add_compile_definitions(_LARGEFILE64_SOURCE)
+
 # Set pre-processor symbol if logging is desired.
 if(LOGGING)
   add_definitions(-DLOGGING)
@@ -66,6 +69,26 @@ else()
   message(STATUS "Will not build OpenJPEG support")
 endif()
 
+set(lib_name ${PROJECT_NAME})
+
+add_library(${lib_name} src/grib2_int.h src/cmplxpack.c src/compack.c
+src/comunpack.c src/drstemplates.c src/g2_addfield.c src/g2_addgrid.c
+src/g2_addlocal.c src/g2_create.c src/g2_free.c src/g2_getfld.c
+src/g2_gribend.c src/g2_info.c src/g2_miss.c src/g2_unpack1.c
+src/g2_unpack2.c src/g2_unpack3.c src/g2_unpack4.c src/g2_unpack5.c
+src/g2_unpack6.c src/g2_unpack7.c src/gbits.c src/getdim.c
+src/getpoly.c src/gridtemplates.c src/int_power.c src/misspack.c
+src/mkieee.c src/pack_gp.c src/pdstemplates.c src/rdieee.c
+src/reduce.c src/seekgb.c src/simpack.c src/simunpack.c src/specpack.c
+src/specunpack.c src/util.c src/g2cxml.c)
+
+set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
+
+# Find libxml2.
+find_package(LibXml2 2.9.0 REQUIRED)
+target_link_libraries(${lib_name} PRIVATE ${LIBXML2_LIBRARIES})
+target_include_directories(${lib_name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
+
 # Set the compiler flags.
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
   set(CMAKE_C_FLAGS "-g -traceback ${CMAKE_C_FLAGS}")
@@ -76,51 +99,6 @@ elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
   set(CMAKE_C_FLAGS_RELEASE "-O3")
   set(CMAKE_C_FLAGS_DEBUG "-O0 -ggdb -Wall")
 endif()
-
-set(lib_name ${PROJECT_NAME})
-
-add_library(${lib_name}
-    src/grib2_int.h
-    src/cmplxpack.c
-    src/compack.c
-    src/comunpack.c
-    src/drstemplates.c
-    src/g2_addfield.c
-    src/g2_addgrid.c
-    src/g2_addlocal.c
-    src/g2_create.c
-    src/g2_free.c
-    src/g2_getfld.c
-    src/g2_gribend.c
-    src/g2_info.c
-    src/g2_miss.c
-    src/g2_unpack1.c
-    src/g2_unpack2.c
-    src/g2_unpack3.c
-    src/g2_unpack4.c
-    src/g2_unpack5.c
-    src/g2_unpack6.c
-    src/g2_unpack7.c
-    src/gbits.c
-    src/getdim.c
-    src/getpoly.c
-    src/gridtemplates.c
-    src/int_power.c
-    src/misspack.c
-    src/mkieee.c
-    src/pack_gp.c
-    src/pdstemplates.c
-    src/rdieee.c
-    src/reduce.c
-    src/seekgb.c
-    src/simpack.c
-    src/simunpack.c
-    src/specpack.c
-    src/specunpack.c
-    src/util.c
-)
-
-set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
 
 # Build with PNG.
 if(PNG_FOUND)
@@ -222,6 +200,11 @@ install(EXPORT ${PROJECT_NAME}Exports
   NAMESPACE ${PROJECT_NAME}::
   FILE ${PROJECT_NAME}-targets.cmake
   DESTINATION ${CONFIG_INSTALL_DESTINATION})
+
+# XML data files.
+set(XML_FILES src/Template.xml src/CodeFlag.xml)
+install(FILES ${XML_FILES}
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})  
 
 # Determine whether or not to generate documentation.
 if(ENABLE_DOCS)
