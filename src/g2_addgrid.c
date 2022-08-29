@@ -80,9 +80,9 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
      * to the legacy G2 error codes. */
     if ((ret = g2c_check_msg(cgrib, &lencurr, 1)))
     {
-        if (ret == G2C_NOT_GRIB)
+        if (ret == G2C_ENOTGRIB)
             return G2_ADD_MSG_INIT;
-        if (ret == G2C_MSG_COMPLETE)
+        if (ret == G2C_EMSGCOMPLETE)
             return G2_ADD_MSG_COMPLETE;
     }
 
