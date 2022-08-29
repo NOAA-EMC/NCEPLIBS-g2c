@@ -308,6 +308,10 @@ void g2c_free_tables();
 int g2c_set_log_level(int new_level);
 int g2c_log_file(int g2cid);
 
+/* Useful constants. */
+#define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
+#define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
+
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
 #define G2_CREATE_GRIB_VERSION -1 /**< Wrong GRIB version for g2_create(), must be 2. */
