@@ -30,6 +30,12 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/gdaswave.t00z.wcoast.0p16.f000.grib2
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/gdaswave.t00z.wcoast.0p16.f000.grib2.idx
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
+# These are the XML files from the WMO with GRIB2 code data.
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+
 # Run each test.
 function(g2c_test name)
   add_executable(${name} ${name}.c)
@@ -52,6 +58,7 @@ if(FTP_TEST_FILES)
   endforeach()
 
   # Add tests that use the data downloaded from FTP.
+  g2c_test(tst_ftp_files)  
 endif()
 
 # Always run these tests.
@@ -71,6 +78,7 @@ g2c_test(tst_spec)
 g2c_test(tst_com)
 g2c_test(tst_g2_addlocal)
 g2c_test(tst_seekgb)
+g2c_test(tst_xml)
 
 # Run these tests only if libpng is linked.
 if(USE_PNG)
