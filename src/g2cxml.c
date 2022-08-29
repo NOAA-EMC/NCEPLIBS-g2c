@@ -60,11 +60,18 @@ g2c_free_tables()
 {
     G2C_CODE_TABLE_T *t, *the_next = NULL;
 
+    /* If g2c_table is NULL, then tables have already been
+     * freed. */
+    if (!g2c_table)
+	return;
+
+    /* Free each table. */
     for (t = g2c_table; t; t = the_next)
     {
 	G2C_CODE_ENTRY_T *e;
 	G2C_CODE_ENTRY_T *e_next;
-	
+
+	/* Free each entry in the table. */
 	the_next = t->next;
 	for (e = t->entry; e; e = e_next)
 	{
@@ -74,6 +81,8 @@ g2c_free_tables()
 
 	free(t);
     }
+
+    /* Set to NULL so we all know g2c_table has been freed. */
     g2c_table = NULL;
 }
 
@@ -182,7 +191,8 @@ g2c_xml_init()
     G2C_CODE_TABLE_T *my_table = NULL;
     G2C_CODE_ENTRY_T *new_entry = NULL;
 
-    /* If g2c_table is not NULL, then tables have already been initialized. */
+    /* If g2c_table is not NULL, then tables have already been
+     * initialized. */
     if (g2c_table)
 	return G2C_NOERROR;
 

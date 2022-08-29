@@ -27,6 +27,9 @@ main()
 	return G2C_ERROR;
     
     g2c_free_tables();
+
+    /* Calling free again is harmless. */
+    g2c_free_tables();
     
     printf("desc %s\n", desc);
     printf("SUCCESS!!!\n");
