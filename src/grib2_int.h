@@ -52,6 +52,23 @@ typedef struct g2c_file_info
     G2C_MESSAGE_INFO_T msg[G2C_MAX_MESSAGES]; /**< Information about the messages in the file. */
 } G2C_FILE_INFO_T;
 
+/** An entry in a GRIB2 code table. */
+typedef struct g2c_entry
+{
+    struct g2c_entry *next;
+    char desc[G2C_MAX_GRIB_DESC_LEN + 1];
+    char status[G2C_MAX_GRIB_STATUS_LEN + 1];
+    char code[G2C_MAX_GRIB_CODE_LEN + 1];
+} G2C_CODE_ENTRY_T;
+
+/** A GRIB2 code table. */
+typedef struct g2c_code_table
+{
+    struct g2c_code_table *next;
+    char title[G2C_MAX_GRIB_TITLE_LEN + 1];
+    G2C_CODE_ENTRY_T *entry;
+} G2C_CODE_TABLE_T;
+
 /**
  * Struct for GRIB template.
  */

@@ -10,6 +10,9 @@
 /** Global file information. */
 extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 
+/** Pointer to the list of code tables. */
+extern G2C_CODE_TABLE_T *g2c_table;
+
 /**
  * Check for 'GRIB' at the beginning of a GRIB message, and check to
  * see if the message is already terminated with '7777'.
@@ -153,6 +156,11 @@ g2c_log_file(int g2cid)
 {
 #ifdef LOGGING
     int m;
+    int ret;
+
+    /* Read in the XML GRIB2 code definitions. */
+    if ((ret = g2c_xml_init()))
+	return ret;
     
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
@@ -165,7 +173,22 @@ g2c_log_file(int g2cid)
 	G2C_MESSAGE_INFO_T *msg = &g2c_file[g2cid].msg[m];
 	LOG((1, "message %ld num_fields %d num_local %d msg->section0 (%d, %d, %d)", msg->message_number,
 	     msg->num_fields, msg->num_local, msg->section0[0], msg->section0[1], msg->section0[2]));
+
+	/* If we've loaded XML tables, decode te discipline flag. */
+	if (g2c_table)
+	{
+	    char disc[10];
+	    char desc[G2C_MAX_GRIB_DESC_LEN + 1];
+	    
+	    sprintf(disc, "%d", msg->section0[0]);
+	    if ((ret = g2c_find_desc("Code table 0.0", disc, desc)))
+		return ret;
+	    LOG((2, "discipline %s", desc));
+	}
     }
+
+    /* Free XML code memory. */
+    g2c_free_tables();
 
 #endif
     return G2C_NOERROR;
