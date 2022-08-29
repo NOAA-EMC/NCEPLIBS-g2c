@@ -74,6 +74,7 @@ g2c_free_tables()
 
 	free(t);
     }
+    g2c_table = NULL;
 }
 
 /** Given a table title and a code, find a description.
