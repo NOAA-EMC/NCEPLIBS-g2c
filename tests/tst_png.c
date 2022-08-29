@@ -6,16 +6,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2.h"
+#include "grib2_int.h"
 
 #define DATA_LEN 4
 #define PACKED_LEN 80
-#define G2C_ERROR 2
 #define EPSILON .0001
-
-/* Prototypes we are testing. */
-int enc_png(char *data, g2int width, g2int height, g2int nbits, char *pngbuf);
-int dec_png(unsigned char *pngbuf, g2int *width, g2int *height, char *cout);
 
 int
 main()
@@ -23,11 +18,11 @@ main()
     printf("Testing PNG functions.\n");
     printf("Testing enc_png() call...");
     {
-        char data[4] = {1, 2, 3, 4};
+        unsigned char data[4] = {1, 2, 3, 4};
         g2int width = 1, height = 1, nbits = 32;
         g2int width_in, height_in;
-        char pngbuf[200];
-        char cout[200];
+        unsigned char pngbuf[200];
+        unsigned char cout[200];
         int i, ret;
 
         /* Encode some data. */

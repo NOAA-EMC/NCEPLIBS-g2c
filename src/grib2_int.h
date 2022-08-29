@@ -22,6 +22,16 @@
 
 #define G2C_JASPER_JPEG_FORMAT_NAME "jpc" /**< Name of JPEG codec in Jasper. */
 
+#define G2C_MIN_MAX_BYTES 16 /**< Minimum acceptable value for max_bytes parameter of g2c_get_msg(). */
+
+#define G2C_ERROR 1 /**< Returned for test errors. */
+
+#define G2C_MAGIC_HEADER "GRIB" /**< GRIB magic header string. */
+
+#define G2C_MAGIC_HEADER_LEN 8 /**< Full length of magic header string (includes GRIB version byte). */
+
+#define G2C_MAX_MESSAGES 1024 /**< Maximum number of messages in a file. */
+
 /**
  * Struct for GRIB template.
  */

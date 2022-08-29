@@ -8,11 +8,8 @@
 #include <stdlib.h>
 #include "grib2_int.h"
 
-#define G2C_ERROR 2
-
 /* Prototypes. */
 g2int getgridindex(g2int number);
-
 
 int
 main()

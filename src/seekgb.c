@@ -25,13 +25,14 @@
  *
  * @param lugb FILE pointer for the file to search. File must be
  * opened before this routine is called.
- * @param iseek number of bytes in the file to skip before search.
- * @param mseek number of bytes to search at a time (must be at least
- * 16).
- * @param lskip number of bytes to skip from the beggining of the file
- * to where the GRIB message starts.
- * @param lgrib number of bytes in message (set to 0, if no message
- * found).
+ * @param iseek The number of bytes in the file to skip before search.
+ * @param mseek The maximum number of bytes to search at a time (must
+ * be at least 16, but larger numbers like 4092 will result in better
+ * perfomance).
+ * @param lskip Pointer that gets the number of bytes to skip from the
+ * beggining of the file to where the GRIB message starts.
+ * @param lgrib Pointer that gets the number of bytes in message (set
+ * to 0, if no message found).
  *
  * @author Stephen Gilbert @date 2002-10-28
  */
@@ -42,6 +43,9 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
     int end;
     unsigned char *cbuf;
 
+
+    LOG((3, "seekgb iseek %ld mseek %ld", iseek, mseek));
+    
     *lgrib = 0;
     cbuf = (unsigned char *)malloc(mseek);
     nread = mseek;
@@ -73,6 +77,7 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
                     gbit(cbuf, &lengrib, (k + 4) * BITS_PER_BYTE, 3 * BITS_PER_BYTE);
                 if (vers == 2)
                     gbit(cbuf, &lengrib, (k + 12) * BITS_PER_BYTE, 4 * BITS_PER_BYTE);
+		LOG((4, "lengrib %ld", lengrib));
 
                 /* Read the last 4 bytesof the message. */
                 fseek(lugb, ipos + k + lengrib - 4, SEEK_SET);
@@ -84,6 +89,7 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
                     /* GRIB message found. */
                     *lskip = ipos + k;
                     *lgrib = lengrib;
+		    LOG((4, "found end of message lengrib %ld", lengrib));
                     break;
                 }
             }
