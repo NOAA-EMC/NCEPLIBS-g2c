@@ -9,7 +9,8 @@ This is related to the
 For complete documentation see
 https://noaa-emc.github.io/NCEPLIBS-g2c/. For the NCEP WMO GRIB2
 Documentation see
-https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/.
+https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/. For the WMO
+GRIB2 templates and tables see https://github.com/wmo-im/GRIB2.
 
 The NCEPLIBS-g2c library is used by the
 [wgrib2](https://www.cpc.ncep.noaa.gov/products/wesley/wgrib2/),
