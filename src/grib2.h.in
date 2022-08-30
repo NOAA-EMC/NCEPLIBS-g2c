@@ -279,6 +279,9 @@ void g2c_free_tables();
 /* Logging, for debugging purposes. */
 int g2c_set_log_level(int new_level);
 
+/* Error handling. */
+const char *g2c_strerror(int g2cerr);
+
 /* Useful constants. */
 #define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
 #define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */

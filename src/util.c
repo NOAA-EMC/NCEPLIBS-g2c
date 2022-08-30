@@ -136,6 +136,53 @@ g2c_set_log_level(int new_level)
 }
 
 /**
+ * Given an error code, return an error message.
+ *
+ * @param g2cerr An error number returned by one of the g2c_*
+ * functions.
+ *
+ * @return The error message.
+ *
+ * @author Ed Hartnett
+ */
+const char *
+g2c_strerror(int g2cerr)
+{
+    /* If we're here, this is a netcdf error code. */
+    switch(g2cerr)
+    {
+    case G2C_NOERROR:
+	return "No error";
+    case G2C_ENOTGRIB:
+	return "GRIB2 header not found";
+    case G2C_EMSGCOMPLETE:
+	return "GRIB message is already complete.";
+    case G2C_ENAMETOOLONG:
+	return "Name too long";
+    case G2C_EINVAL:
+	return "Invalid input";
+    case G2C_EFILE:
+	return "Error reading file";
+    case G2C_EBADID:
+	return "Bad ID";
+    case G2C_ETOOMANYFILES:
+	return "Too many files open";
+    case G2C_ENOMEM:
+	return "Out of memory";
+    case G2C_EMSG:
+	return "Error decoding message";
+    case G2C_ENOMSG:
+	return "No GRIB message found";
+    case G2C_EXML:
+	return "Error parsing XML";
+    case G2C_ENOTFOUND:
+	return "Table or entry not found";
+     default:
+	 return "Unknown Error";	
+    }
+}
+
+/**
  * Print a summary of the contents of an open GRIB2 file. If the
  * NCEPLIBS-g2c library is built without the LOGGING option, this
  * function will do nothing.
