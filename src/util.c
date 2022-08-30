@@ -148,7 +148,6 @@ g2c_set_log_level(int new_level)
 const char *
 g2c_strerror(int g2cerr)
 {
-    /* If we're here, this is a netcdf error code. */
     switch(g2cerr)
     {
     case G2C_NOERROR:
