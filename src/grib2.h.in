@@ -273,7 +273,8 @@ g2int jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 
 /* Internal functions. */
 int g2c_xml_init();
-int g2c_find_desc(char *title, char *code, char *desc);
+int g2c_find_desc_str(char *title, char *code, char *desc);
+int g2c_find_desc(char *title, int code, char *desc);
 void g2c_free_tables();
 
 /* Logging, for debugging purposes. */
