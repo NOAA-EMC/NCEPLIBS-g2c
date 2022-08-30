@@ -319,6 +319,8 @@ read_metadata(int g2cid)
 	if (!ret)
 	{
 	    g2int listsec0[3], listsec1[13], numfields, numlocal;
+	    /* g2int *igds, *igdstmpl, mapgridlen, *ideflist, idefnum; */
+	    /* g2int iofst = 128; */
 	    int i;
 	    
 	    /* Set some message info. */
@@ -333,6 +335,10 @@ read_metadata(int g2cid)
 		g2c_file[g2cid].msg[msg_num].section1[i] = listsec1[i];
 	    g2c_file[g2cid].msg[msg_num].num_fields = numfields;
 	    g2c_file[g2cid].msg[msg_num].num_local = numlocal;
+
+	    /* Unpack section 3. */
+	    /* if ((ret = (int)g2_unpack3(cbuf, &iofst, &igds, &igdstmpl, &mapgridlen, &ideflist, &idefnum))) */
+	    /* 	return ret; */
 	}
 
 	/* Free memory. */
