@@ -17,7 +17,11 @@ main()
     printf("Testing XML ingestion...\n");
     if (g2c_xml_init())
 	return G2C_ERROR;
-    if ((ret = g2c_find_desc("Code table 0.0", "0", desc)))
+    if ((ret = g2c_find_desc("Code table 0.0", 0, desc)))
+	return ret;
+    if (strcmp("Meteorological products", desc))
+	return G2C_ERROR;
+    if ((ret = g2c_find_desc_str("Code table 0.0", "0", desc)))
 	return ret;
     if (strcmp("Meteorological products", desc))
 	return G2C_ERROR;
