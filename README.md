@@ -6,7 +6,7 @@ This library contains C decoder/encoder routines for GRIB edition 2.
 This is related to the
 [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
 
-For complete documentation see (the latest NCEPLIBS-g2c
+For complete documentation see the latest [NCEPLIBS-g2c
 documentation](https://noaa-emc.github.io/NCEPLIBS-g2c/). For more
 about GRIB2 see the [NCEP WMO GRIB2
 Documentation](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/). For
