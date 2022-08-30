@@ -174,16 +174,36 @@ g2c_log_file(int g2cid)
 	LOG((1, "message %ld num_fields %d num_local %d msg->section0 (%d, %d, %d)", msg->message_number,
 	     msg->num_fields, msg->num_local, msg->section0[0], msg->section0[1], msg->section0[2]));
 
-	/* If we've loaded XML tables, decode te discipline flag. */
+	/* If we've loaded XML tables, decode some flags. */
 	if (g2c_table)
 	{
-	    char disc[10];
 	    char desc[G2C_MAX_GRIB_DESC_LEN + 1];
-	    
-	    sprintf(disc, "%d", msg->section0[0]);
-	    if ((ret = g2c_find_desc("Code table 0.0", disc, desc)))
+
+	    /* Section 0 discipline flag. */
+	    if ((ret = g2c_find_desc("Code table 0.0", msg->section0[0], desc)))
 		return ret;
-	    LOG((2, "discipline %s", desc));
+	    LOG((2, "Discipline: %s", desc));
+
+	    /* Section 1 flags. */
+	    LOG((2, "Identification of originating/generating center: %d", msg->section1[0]));
+	    LOG((2, "Identification of originating/generating subcenter: %d", msg->section1[1]));
+	    if ((ret = g2c_find_desc("Code table 1.0", msg->section1[2], desc)))
+		return ret;
+	    LOG((2, "GRIB master tables version number: %s", desc));	
+	    if ((ret = g2c_find_desc("Code table 1.1", msg->section1[3], desc)))
+		return ret;
+	    LOG((2, "Version number of GRIB local tables used to augment Master Tables: %s", desc));
+	    if ((ret = g2c_find_desc("Code table 1.2", msg->section1[4], desc)))
+		return ret;
+	    LOG((2, "Significance of reference time: %s", desc));
+	    LOG((2, "Reference time: %d/%d/%d %d:%d:%d", msg->section1[6], msg->section1[7], msg->section1[5],
+		 msg->section1[8], msg->section1[9], msg->section1[10]));
+	    if ((ret = g2c_find_desc("Code table 1.3", msg->section1[11], desc)))
+		return ret;
+	    LOG((2, "Production Status of Processed data in the GRIB message: %s", desc));
+	    if ((ret = g2c_find_desc("Code table 1.4", msg->section1[11], desc)))
+		return ret;
+	    LOG((2, "Type of processed data in this GRIB message: %s", desc));
 	}
     }
 

@@ -81,7 +81,7 @@ g2c_free_tables()
  * @return 0 for success, error code otherwise.
  */
 int
-g2c_find_desc(char *title, char *code, char *desc)
+g2c_find_desc_str(char *title, char *code, char *desc)
 {
     G2C_CODE_TABLE_T *t = NULL;
     int found = 0;
@@ -115,6 +115,26 @@ g2c_find_desc(char *title, char *code, char *desc)
 	return G2C_ENOTFOUND;
     
     return G2C_NOERROR;
+}
+
+/** Given a table title and an integer code, find a description.
+ *
+ * @param title Title of table.
+ * @param code Code to search for as an int.
+ * @param desc Pointer that gets a copy of the description. Must be
+ * allocated to ::G2C_MAX_GRIB_DESC_LEN + 1.
+ *
+ * @author Ed Hartnett @date 8/28/22
+ *
+ * @return 0 for success, error code otherwise.
+ */
+int
+g2c_find_desc(char *title, int code, char *desc)
+{
+    char str_code[G2C_MAX_GRIB_CODE_LEN + 1];
+
+    sprintf(str_code, "%d", code);
+    return g2c_find_desc_str(title, str_code, desc);
 }
 
 /** Find a table given a key.
