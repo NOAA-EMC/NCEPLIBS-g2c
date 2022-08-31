@@ -189,7 +189,7 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
 
     LOG((2, "g2c_info"));
 
-    /*  Check for beginning of GRIB message in the first 100 bytes. */
+    /* Check for beginning of GRIB message in the first 100 bytes. */
     for (i = 0; i < G2C_BYTES_TO_SEARCH; i++)
     {
         if (cgrib[i] == 'G' && cgrib[i + 1] == 'R' && cgrib[i + 2] == 'I' &&
@@ -204,7 +204,7 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
 
     LOG((3, "msg found at byte %d", istart));
 
-    /*  Unpack Section 0 - Indicator Section. */
+    /* Unpack Section 0 - Indicator Section. */
     offset = BYTE * (istart + 6);
     g2c_gbit_int(cgrib, &my_listsec0[0], offset, BYTE);     /* Discipline */
     offset += BYTE;
@@ -217,11 +217,11 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
     ipos = istart + lensec0;
     LOG((3, "unpacked section 0, lengrib %d now at byte %d", lengrib, ipos));
 
-    /*  Currently handles only GRIB Edition 2. */
+    /* This function handles only GRIB Edition 2. */
     if (my_listsec0[1] != 2)
 	return G2C_ENOTGRIB2;
 
-    /*  Unpack Section 1 - Identification Section */
+    /* Unpack Section 1 - Identification Section */
     g2c_gbit_int(cgrib, &lensec1, offset, WORD);        /* Length of Section 1 */
     offset += WORD;
     g2c_gbit_int(cgrib, &secnum, offset, BYTE);         /* Section number (1) */
@@ -241,9 +241,9 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
     ipos += lensec1;
     LOG((3, "unpacked section 1, now at byte %d", ipos));    
 
-    /*  Loop through the remaining sections to see if they are
-     *  valid. Also count the number of times Section 2 and Section
-     *  4 appear. */
+    /* Loop through the remaining sections to see if they are
+       valid. Also count the number of times Section 2 and Section 4
+       appear. */
     for (;;)
     {
         if (cgrib[ipos] == '7' && cgrib[ipos + 1] == '7' && cgrib[ipos + 2] == '7' &&
@@ -286,11 +286,10 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
     if (listsec1)
 	for (i = 0; i < G2C_SECTION1_LEN; i++)
 	    listsec1[i] = my_listsec1[i];
-	
     if (numlocal)
 	*numlocal = my_numlocal;
     if (numfields)
 	*numfields = my_numfields;
 
-    return 0;
+    return G2C_NOERROR;
 }
