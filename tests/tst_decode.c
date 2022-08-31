@@ -76,27 +76,27 @@ int main()
      * same thing as the g2_info() function, but with some additional
      * parameters. */
     {
-	int listsec0_2[3];
-	int listsec0_ok_2[3] = {2, 2, 195};
-	int listsec1_2[13];
-	int listsec1_ok_2[13] = {7, 0, 2, 1, 1, 2021, 7, 14, 6, 0, 0, 0, 1};
-	g2int numfields_2;
-	g2int numlocal_2;
+	int listsec0_int[3];
+	int listsec0_ok_int[3] = {2, 2, 195};
+	int listsec1_int[13];
+	int listsec1_ok_int[13] = {7, 0, 2, 1, 1, 2021, 7, 14, 6, 0, 0, 0, 1};
+	int numfields_int;
+	int numlocal_int;
 	
-        if ((ret = g2c_info(cgrib, listsec0_2, listsec1_2, &numfields_2, &numlocal_2)) != 0)
+        if ((ret = g2c_info(cgrib, listsec0_int, listsec1_int, &numfields_int, &numlocal_int)) != 0)
             return G2C_ERROR;
 
         for (i = 0; i < 3; i++)
-            if (listsec0_2[i] != listsec0_ok_2[i])
+            if (listsec0_int[i] != listsec0_ok_int[i])
                 return G2C_ERROR;
 
         for (i = 0; i < 13; i++) 
-            if (listsec1_2[i] != listsec1_ok_2[i])
+            if (listsec1_int[i] != listsec1_ok_int[i])
                 return G2C_ERROR;
 
-        if (numfields_2 != 1)
+        if (numfields_int != 1)
             return G2C_ERROR;
-        if (numlocal_2 != 0)
+        if (numlocal_int != 0)
             return G2C_ERROR;
     }
 

@@ -70,13 +70,16 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
 {
     int listsec0_int[G2C_SECTION0_LEN];
     int listsec1_int[G2C_SECTION1_LEN];
+    int numfields_int, numlocal_int;
     int i;
     int ret;
 
     /* The g2c version of this function does the work. */
-    ret = g2c_info(cgrib, listsec0_int, listsec1_int, numfields, numlocal);
+    ret = g2c_info(cgrib, listsec0_int, listsec1_int, &numfields_int, &numlocal_int);
 
     /* Translate int types back to g2int. */
+    *numfields = numfields_int;
+    *numlocal = numlocal_int;
     for (i = 0; i < G2C_SECTION0_LEN; i++)
 	listsec0[i] = listsec0_int[i];
     for (i = 0; i < G2C_SECTION1_LEN; i++)
@@ -140,7 +143,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
  */
 int
 g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
-	 g2int *numfields, g2int *numlocal)
+	 int *numfields, int *numlocal)
 {
     g2int mapsec1len = 13;
     g2int mapsec1[13] = {2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};

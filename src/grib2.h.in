@@ -297,7 +297,7 @@ int g2c_close(int g2cid);
 
 /* Inquiry functions. */
 int g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
-	     g2int *numfields, g2int *numlocal);
+	     int *numfields, int *numlocal);
 
 /* Internal functions. */
 int g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
