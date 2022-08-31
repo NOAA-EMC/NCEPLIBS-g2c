@@ -69,15 +69,18 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         g2int *numfields, g2int *numlocal)
 {
     int listsec0_int[G2C_SECTION0_LEN];
+    int listsec1_int[G2C_SECTION1_LEN];
     int i;
     int ret;
 
     /* The g2c version of this function does the work. */
-    ret = g2c_info(cgrib, listsec0_int, listsec1, numfields, numlocal);
+    ret = g2c_info(cgrib, listsec0_int, listsec1_int, numfields, numlocal);
 
     /* Translate int types back to g2int. */
     for (i = 0; i < G2C_SECTION0_LEN; i++)
 	listsec0[i] = listsec0_int[i];
+    for (i = 0; i < G2C_SECTION1_LEN; i++)
+	listsec1[i] = listsec1_int[i];
     
     return ret;
 }
@@ -136,14 +139,14 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
  * @author Stephen Gilbeert @date 2002-10-28
  */
 int
-g2c_info(unsigned char *cgrib, int *listsec0, g2int *listsec1,
+g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
 	 g2int *numfields, g2int *numlocal)
 {
     g2int mapsec1len = 13;
     g2int mapsec1[13] = {2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};
-    g2int i, j, iofst, lengrib, lensec0, lensec1;
-    int iofst_int, istart, lengrib_int;
-    g2int ipos, isecnum, nbits, lensec;
+    g2int i, j, iofst, lengrib;
+    int iofst_int, istart, lengrib_int, lensec0, lensec1, isecnum_int;
+    g2int ipos, nbits, lensec, isecnum;
 
     *numlocal = 0;
     *numfields = 0;
@@ -182,8 +185,6 @@ g2c_info(unsigned char *cgrib, int *listsec0, g2int *listsec1,
     lensec0 = 16;
     ipos = istart + lensec0;
     LOG((3, "unpacked section 0, lengrib %ld now at byte %ld", lengrib_int, ipos));
-    iofst = iofst_int;
-    lengrib = lengrib_int;
 
     /*  Currently handles only GRIB Edition 2. */
     if (listsec0[1] != 2)
@@ -193,11 +194,11 @@ g2c_info(unsigned char *cgrib, int *listsec0, g2int *listsec1,
     }
 
     /*  Unpack Section 1 - Identification Section */
-    gbit(cgrib, &lensec1, iofst, 32);        /* Length of Section 1 */
-    iofst = iofst + 32;
-    gbit(cgrib, &isecnum, iofst, 8);         /* Section number (1) */
-    iofst = iofst + 8;
-    if (isecnum != 1)
+    g2c_gbit_int(cgrib, &lensec1, iofst_int, 32);        /* Length of Section 1 */
+    iofst_int = iofst_int + 32;
+    g2c_gbit_int(cgrib, &isecnum_int, iofst_int, 8);         /* Section number (1) */
+    iofst_int = iofst_int + 8;
+    if (isecnum_int != 1)
     {
         printf("g2_info: Could not find section 1.");
         return G2_INFO_NO_SEC1;
@@ -209,11 +210,14 @@ g2c_info(unsigned char *cgrib, int *listsec0, g2int *listsec1,
     for (i = 0; i < mapsec1len; i++)
     {
         nbits = mapsec1[i] * 8;
-        gbit(cgrib, &listsec1[i], iofst, nbits);
-        iofst = iofst + nbits;
+        g2c_gbit_int(cgrib, &listsec1[i], iofst_int, nbits);
+        iofst_int = iofst_int + nbits;
     }
     ipos = ipos + lensec1;
     LOG((3, "unpacked section 1, now at byte %ld", ipos));    
+
+    iofst = iofst_int;
+    lengrib = lengrib_int;
 
     /*  Loop through the remaining sections to see if they are
      *  valid. Also count the number of times Section 2 and Section
