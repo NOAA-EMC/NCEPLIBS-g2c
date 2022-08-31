@@ -98,6 +98,20 @@ int main()
             return G2C_ERROR;
         if (numlocal_int != 0)
             return G2C_ERROR;
+
+	/* NULL may be passed for any parameter. */
+        if ((ret = g2c_info(cgrib, listsec0_int, listsec1_int, NULL, &numlocal_int)) != 0)
+            return G2C_ERROR;
+        if ((ret = g2c_info(cgrib, listsec0_int, listsec1_int, &numfields_int, NULL)) != 0)
+            return G2C_ERROR;
+        if ((ret = g2c_info(cgrib, listsec0_int, listsec1_int, NULL, NULL)) != 0)
+            return G2C_ERROR;
+        if ((ret = g2c_info(cgrib, NULL, listsec1_int, NULL, NULL)) != 0)
+            return G2C_ERROR;
+        if ((ret = g2c_info(cgrib, listsec0_int, NULL, NULL, NULL)) != 0)
+            return G2C_ERROR;
+        if ((ret = g2c_info(cgrib, NULL, NULL, NULL, NULL)) != 0)
+            return G2C_ERROR;
     }
 
     if ((ret = g2_getfld(cgrib, 1, 1, 1, &gfld)) != 0)

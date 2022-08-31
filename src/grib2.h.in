@@ -395,6 +395,7 @@ int g2c_log_file(int g2cid);
 #define G2C_ENOTGRIB2 (-64) /**< Not GRIB 2. */
 #define G2C_ENOSECTION1 (-65) /**< Cannot find section 1. */
 #define G2C_ENOEND (-66) /**< Cannot find end of GRIB message. */
-#define G2C_EBADSECTION (-67) /**< Invalid section number. */
+#define G2C_EBADEND (-67) /**< Cannot find end of GRIB message. */
+#define G2C_EBADSECTION (-68) /**< Invalid section number. */
 
 #endif  /*  _grib2_H  */
