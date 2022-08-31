@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include "grib2_int.h"
 
+#define G2C_BYTES_TO_SEARCH 100 /**< Number of bytes to search for magic header 'GRIB'. */
+
 /**
  * This subroutine searches through a GRIB2 message and returns the
  * number of gridded fields found in the message and the number (and
@@ -120,6 +122,8 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
 }
 
 /**
+ * Get information about a GRIB2 message.
+ * 
  * This subroutine searches through a GRIB2 message and returns the
  * number of gridded fields found in the message and the number (and
  * maximum size) of Local Use Sections. Also various checks are
@@ -128,14 +132,14 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
  * @param cgrib Pointer to a buffer containing the GRIB2 message.
  * @param listsec0 Pointer to an array that gets the information
  * decoded from GRIB Indicator Section 0. Must be allocated with >= 3
- * elements (see ::G2C_SECTION0_LEN).
+ * elements (see ::G2C_SECTION0_LEN). Ignored if NULL.
  * - listsec0(0) Discipline-GRIB Master Table Number ([Code Table 0.0]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table0-0.shtml)).
  * - listsec0[1] GRIB Edition Number (currently 2).
  * - listsec0[2] Length of GRIB message.
  * @param listsec1 Pointer to an array that gets the information read
  * from GRIB Identification Section 1. Must be allocated with >= 13
- * elements (see ::G2C_SECTION1_LEN).
+ * elements (see ::G2C_SECTION1_LEN). Ignored if NULL.
  * - listsec1[0] Id of orginating centre ([Table 0]
  * (https://www.nco.ncep.noaa.gov/pmb/docs/on388/table0.html)).
  * - listsec1[1] Id of orginating sub-centre ([Table C]
@@ -158,9 +162,9 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
  *  (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-4.shtml)).
  * @param numfields A pointer that gets the number of gridded fields
  * found in the GRIB message. That is, the number of occurences of
- * Sections 4 - 7.
+ * Sections 4 - 7. Ignored if NULL.
  * @param numlocal A pointer that gets the number of Local Use
- * Sections (section 2) found in the GRIB message.
+ * Sections (section 2) found in the GRIB message. Ignored if NULL.
  *
  * @returns 0 for success, otherwise:
  * - ::G2C_ENOTGRIB Beginning characters "GRIB" not found.
@@ -186,7 +190,7 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
     LOG((2, "g2c_info"));
 
     /*  Check for beginning of GRIB message in the first 100 bytes. */
-    for (i = 0; i < 100; i++)
+    for (i = 0; i < G2C_BYTES_TO_SEARCH; i++)
     {
         if (cgrib[i] == 'G' && cgrib[i + 1] == 'R' && cgrib[i + 2] == 'I' &&
             cgrib[i + 3] == 'B')
@@ -205,12 +209,11 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
     g2c_gbit_int(cgrib, &my_listsec0[0], offset, 8);     /* Discipline */
     offset += 8;
     g2c_gbit_int(cgrib, &my_listsec0[1], offset, 8);     /* GRIB edition number */
-    offset += 8;
-    offset += 32;
+    offset += 8 + 32;
     g2c_gbit_int(cgrib, &lengrib, offset, 32);        /* Length of GRIB message */
     offset += 32;
     my_listsec0[2] = lengrib;
-    lensec0 = 16;
+    lensec0 = G2C_SECTION0_BYTES;
     ipos = istart + lensec0;
     LOG((3, "unpacked section 0, lengrib %ld now at byte %ld", lengrib, ipos));
 
