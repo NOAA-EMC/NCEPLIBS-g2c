@@ -395,11 +395,11 @@ const char *g2c_strerror(int g2cerr);
 #define G2C_EMSG (-58) /**< Error decoding GRIB message. */
 #define G2C_ENOMSG (-59) /**< No GRIB message found. */
 #define G2C_EXML (-60) /**< XML error. */
-#define G2C_ENOTFOUND (-63) /**< Table or entry not found. */
-#define G2C_ENOTGRIB2 (-64) /**< Not GRIB 2. */
-#define G2C_ENOSECTION1 (-65) /**< Cannot find section 1. */
-#define G2C_ENOEND (-66) /**< Cannot find end of GRIB message. */
-#define G2C_EBADEND (-67) /**< Cannot find end of GRIB message. */
-#define G2C_EBADSECTION (-68) /**< Invalid section number. */
+#define G2C_ENOTFOUND (-61) /**< Table or entry not found. */
+#define G2C_ENOTGRIB2 (-62) /**< Not GRIB 2. */
+#define G2C_ENOSECTION1 (-63) /**< Cannot find section 1. */
+#define G2C_ENOEND (-64) /**< Cannot find end of GRIB message. */
+#define G2C_EBADEND (-65) /**< End of message in wrong place. */
+#define G2C_EBADSECTION (-66) /**< Invalid section number. */
 
 #endif  /*  _grib2_H  */
