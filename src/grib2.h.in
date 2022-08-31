@@ -392,5 +392,9 @@ int g2c_log_file(int g2cid);
 #define G2C_ENOMSG (-59) /**< No GRIB message found. */
 #define G2C_EXML (-60) /**< XML error. */
 #define G2C_ENOTFOUND (-63) /**< Table or entry not found. */
+#define G2C_ENOTGRIB2 (-64) /**< Not GRIB 2. */
+#define G2C_ENOSECTION1 (-65) /**< Cannot find section 1. */
+#define G2C_ENOEND (-66) /**< Cannot find end of GRIB message. */
+#define G2C_EBADSECTION (-67) /**< Invalid section number. */
 
 #endif  /*  _grib2_H  */

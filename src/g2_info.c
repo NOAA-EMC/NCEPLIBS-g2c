@@ -84,7 +84,34 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
 	listsec0[i] = listsec0_int[i];
     for (i = 0; i < G2C_SECTION1_LEN; i++)
 	listsec1[i] = listsec1_int[i];
-    
+
+    /* Translate the error code, and print error message. */
+    if (ret == G2C_ENOTGRIB2)
+    {
+        printf("g2_info: can only decode GRIB edition 2.");	
+	return G2_INFO_GRIB_VERSION;
+    }
+    else if (ret == G2C_ENOTGRIB)
+    {
+        printf("g2_info:  Beginning characters GRIB not found.");
+        return G2_INFO_NO_GRIB;
+    }
+    else if (ret == G2C_ENOSECTION1)
+    {
+        printf("g2_info: Could not find section 1.");
+        return G2_INFO_NO_SEC1;
+    }
+    else if (ret == G2C_ENOEND)
+    {
+	printf("g2_info: '7777'  not found at end of GRIB message.\n");
+	return G2_INFO_BAD_END;
+    }
+    else if (ret == G2C_EBADSECTION)
+    {
+	printf("g2_info: Invalid section number found in GRIB message\n");
+	return G2_INFO_INVAL_SEC;
+    }
+	
     return ret;
 }
 
@@ -168,10 +195,7 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
         }
     }
     if (istart == -1)
-    {
-        printf("g2_info:  Beginning characters GRIB not found.");
-        return G2_INFO_NO_GRIB;
-    }
+	return G2C_ENOTGRIB;
 
     LOG((3, "msg found at byte %ld", istart));
 
@@ -191,10 +215,7 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
 
     /*  Currently handles only GRIB Edition 2. */
     if (listsec0[1] != 2)
-    {
-        printf("g2_info: can only decode GRIB edition 2.");
-        return G2_INFO_GRIB_VERSION;
-    }
+	return G2C_ENOTGRIB2;
 
     /*  Unpack Section 1 - Identification Section */
     g2c_gbit_int(cgrib, &lensec1, iofst_int, 32);        /* Length of Section 1 */
@@ -202,10 +223,7 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
     g2c_gbit_int(cgrib, &isecnum_int, iofst_int, 8);         /* Section number (1) */
     iofst_int = iofst_int + 8;
     if (isecnum_int != 1)
-    {
-        printf("g2_info: Could not find section 1.");
-        return G2_INFO_NO_SEC1;
-    }
+	return G2C_ENOSECTION1;
 
     /* Unpack each input value in array listsec1 into the
        appropriate number of octets, which are specified in
@@ -248,10 +266,8 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
         iofst = iofst + 8;
         ipos = ipos + lensec;                 /* Update beginning of section pointer */
         if (ipos > (istart + lengrib))
-        {
-            printf("g2_info: '7777'  not found at end of GRIB message.\n");
-            return G2_INFO_BAD_END;
-        }
+	    return G2C_ENOEND;
+
         if (isecnum >= 2 && isecnum <= 7)
         {
             /* Increment counter for total number of local sections
@@ -262,10 +278,10 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
                 (*numfields)++;
         }
         else
-        {
-            printf("g2_info: Invalid section number found in GRIB message: %ld\n", isecnum);
-            return G2_INFO_INVAL_SEC;
-        }
+	{
+	    LOG((0, "g2c_info: Invalid section number found in GRIB message %ld\n", isecnum));
+	    return G2C_EBADSECTION;
+	}
     }
 
     return 0;
