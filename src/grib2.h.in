@@ -295,6 +295,10 @@ int g2c_open(const char *path, int mode, int *g2cid);
 int g2c_create(const char *path, int cmode, int *g2cid);
 int g2c_close(int g2cid);
 
+/* Inquiry functions. */
+int g2c_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
+	     g2int *numfields, g2int *numlocal);
+
 /* Internal functions. */
 int g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
 		size_t *bytes_in_msg, unsigned char **cbuf);

@@ -68,6 +68,66 @@ g2int
 g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         g2int *numfields, g2int *numlocal)
 {
+    return g2c_info(cgrib, listsec0, listsec1, numfields, numlocal);
+}
+
+/**
+ * This subroutine searches through a GRIB2 message and returns the
+ * number of gridded fields found in the message and the number (and
+ * maximum size) of Local Use Sections. Also various checks are
+ * performed to see if the message is a valid GRIB2 message.
+ *
+ * @param cgrib Pointer to a buffer containing the GRIB2 message.
+ * @param listsec0 Pointer to an array that gets the information
+ * decoded from GRIB Indicator Section 0. Must be allocated with >= 3
+ * elements (see ::G2C_SECTION0_LEN).
+ * - listsec0(0) Discipline-GRIB Master Table Number ([Code Table 0.0]
+ * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table0-0.shtml)).
+ * - listsec0[1] GRIB Edition Number (currently 2).
+ * - listsec0[2] Length of GRIB message.
+ * @param listsec1 Pointer to an array that gets the information read
+ * from GRIB Identification Section 1. Must be allocated with >= 13
+ * elements (see ::G2C_SECTION1_LEN).
+ * - listsec1[0] Id of orginating centre ([Table 0]
+ * (https://www.nco.ncep.noaa.gov/pmb/docs/on388/table0.html)).
+ * - listsec1[1] Id of orginating sub-centre ([Table C]
+ * (https://www.nco.ncep.noaa.gov/pmb/docs/on388/tablec.html)).
+ * - listsec1[2] GRIB Master Tables Version Number ([Table 1.0]
+ * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-0.shtml)).
+ * - listsec1[3] GRIB Local Tables Version Number ([Table 1.1]
+ * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-1.shtml)).
+ * - listsec1[4] Significance of Reference Time ([Table 1.2]
+ * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-1.shtml))
+ * - listsec1[5] Reference Time - Year (4 digits)
+ * - listsec1[6] Reference Time - Month
+ * - listsec1[7] Reference Time - Day
+ * - listsec1[8] Reference Time - Hour
+ * - listsec1[9] Reference Time - Minute
+ * - listsec1[10] Reference Time - Second
+ * - listsec1[11] Production status of data ([Table 1.3]
+ * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-3.shtml)).
+ * - listsec1[12] Type of processed data ([Table 1.4]
+ *  (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table1-4.shtml)).
+ * @param numfields A pointer that gets the number of gridded fields
+ * found in the GRIB message. That is, the number of occurences of
+ * Sections 4 - 7.
+ * @param numlocal A pointer that gets the number of Local Use
+ * Sections (section 2) found in the GRIB message.
+ *
+ * @returns 0 for success, otherwise:
+ * - ::G2_INFO_NO_GRIB Beginning characters "GRIB" not found.
+ * - ::G2_INFO_GRIB_VERSION GRIB message is not Edition 2.
+ * - ::G2_INFO_NO_SEC1 Could not find Section 1, where expected.
+ * - ::G2_INFO_WRONG_END End string "7777" found, but not where expected.
+ * - ::G2_INFO_BAD_END End string "7777" not found at end of message.
+ * - ::G2_INFO_INVAL_SEC Invalid section number found.
+ *
+ * @author Stephen Gilbeert @date 2002-10-28
+ */
+int
+g2c_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
+	 g2int *numfields, g2int *numlocal)
+{
     g2int mapsec1len = 13;
     g2int mapsec1[13] = {2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};
     g2int i, j, istart, iofst, lengrib, lensec0, lensec1;
