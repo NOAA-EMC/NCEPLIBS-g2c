@@ -93,7 +93,7 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits,
                 (((int)*(in + index) >> (8 - bitcnt)) & ones[bitcnt - 1]);
         }
 
-        *(iout + i) = itmp;
+        iout[i] = itmp;
     }
 }
 
@@ -129,50 +129,33 @@ g2c_gbit_int(unsigned char *in, int *iout, int iskip, int nbits)
  * @param nskip Additional number of bits to skip on each iteration.
  * @param n Number of iterations.
  *
+ * @return 
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOMEM Out of memory.
+ *
  * @author Ed Hartnett @date 8/31/22
  */
-void
+int
 g2c_gbits_int(unsigned char *in, int *iout, int iskip, int nbits,
 	      int nskip, int n)
 {
-    int i, tbit, bitcnt, ibit, itmp;
-    int nbit, index;
-    static int ones[]={1, 3, 7, 15, 31, 63, 127, 255};
+    g2int *g2iout;
+    int i;
 
-    /* nbit is the start position of the field in bits */
-    nbit = iskip;
+    /* Get some memory for results. */
+    if (!(g2iout = malloc(n * sizeof(g2int))))
+	return G2C_ENOMEM;
+    
+    gbits(in, g2iout, iskip, nbits, nskip, n);
+
+    /* Copy from g2int to int. */
     for (i = 0; i < n; i++)
-    {
-        bitcnt = nbits;
-        index = nbit / 8;
-        ibit = nbit % 8;
-        nbit = nbit + nbits + nskip;
+	iout[i] = (int)g2iout[i];
 
-        /* first byte */
-        tbit = (bitcnt < (8 - ibit)) ? bitcnt : 8 - ibit;  // find min
-        itmp = (int)*(in + index) & ones[7 - ibit];
-        if (tbit != 8 - ibit)
-	    itmp >>= (8 - ibit - tbit);
-        index++;
-        bitcnt = bitcnt - tbit;
-
-        /* now transfer whole bytes */
-        while (bitcnt >= 8)
-        {
-            itmp = itmp << 8 | (int)*(in + index);
-            bitcnt = bitcnt - 8;
-            index++;
-        }
-
-        /* get data from last byte */
-        if (bitcnt > 0)
-        {
-            itmp = (itmp << bitcnt) |
-                (((int)*(in + index) >> (8 - bitcnt)) & ones[bitcnt - 1]);
-        }
-
-        *(iout + i) = itmp;
-    }
+    /* Free memory. */
+    free(g2iout);
+    
+    return G2C_NOERROR;
 }
 
 /**
