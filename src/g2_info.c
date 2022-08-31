@@ -202,30 +202,30 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
     if (istart == -1)
 	return G2C_ENOTGRIB;
 
-    LOG((3, "msg found at byte %ld", istart));
+    LOG((3, "msg found at byte %d", istart));
 
     /*  Unpack Section 0 - Indicator Section. */
-    offset = 8 * (istart + 6);
-    g2c_gbit_int(cgrib, &my_listsec0[0], offset, 8);     /* Discipline */
-    offset += 8;
-    g2c_gbit_int(cgrib, &my_listsec0[1], offset, 8);     /* GRIB edition number */
-    offset += 8 + 32;
-    g2c_gbit_int(cgrib, &lengrib, offset, 32);        /* Length of GRIB message */
-    offset += 32;
+    offset = BYTE * (istart + 6);
+    g2c_gbit_int(cgrib, &my_listsec0[0], offset, BYTE);     /* Discipline */
+    offset += BYTE;
+    g2c_gbit_int(cgrib, &my_listsec0[1], offset, BYTE);     /* GRIB edition number */
+    offset += BYTE + WORD;
+    g2c_gbit_int(cgrib, &lengrib, offset, WORD);        /* Length of GRIB message */
+    offset += WORD;
     my_listsec0[2] = lengrib;
     lensec0 = G2C_SECTION0_BYTES;
     ipos = istart + lensec0;
-    LOG((3, "unpacked section 0, lengrib %ld now at byte %ld", lengrib, ipos));
+    LOG((3, "unpacked section 0, lengrib %d now at byte %d", lengrib, ipos));
 
     /*  Currently handles only GRIB Edition 2. */
     if (my_listsec0[1] != 2)
 	return G2C_ENOTGRIB2;
 
     /*  Unpack Section 1 - Identification Section */
-    g2c_gbit_int(cgrib, &lensec1, offset, 32);        /* Length of Section 1 */
-    offset += 32;
-    g2c_gbit_int(cgrib, &secnum, offset, 8);         /* Section number (1) */
-    offset += 8;
+    g2c_gbit_int(cgrib, &lensec1, offset, WORD);        /* Length of Section 1 */
+    offset += WORD;
+    g2c_gbit_int(cgrib, &secnum, offset, BYTE);         /* Section number (1) */
+    offset += BYTE;
     if (secnum != 1)
 	return G2C_ENOSECTION1;
 
@@ -234,12 +234,12 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
        corresponding entries in array mapsec1. */
     for (i = 0; i < G2C_SECTION1_LEN; i++)
     {
-        nbits = mapsec1[i] * 8;
+        nbits = mapsec1[i] * BYTE;
         g2c_gbit_int(cgrib, &my_listsec1[i], offset, nbits);
         offset += nbits;
     }
     ipos += lensec1;
-    LOG((3, "unpacked section 1, now at byte %ld", ipos));    
+    LOG((3, "unpacked section 1, now at byte %d", ipos));    
 
     /*  Loop through the remaining sections to see if they are
      *  valid. Also count the number of times Section 2 and Section
@@ -249,19 +249,19 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
         if (cgrib[ipos] == '7' && cgrib[ipos + 1] == '7' && cgrib[ipos + 2] == '7' &&
             cgrib[ipos + 3] == '7')
         {
-	    LOG((3, "found 7777 at byte %ld", ipos));
+	    LOG((3, "found 7777 at byte %d", ipos));
             ipos += 4;
             if (ipos != (istart + lengrib))
 		return G2C_EBADEND;
             break;
         }
 
-        offset = ipos * 8;
-        g2c_gbit_int(cgrib, &lensec, offset, 32);        /* Get Length of Section */
-        offset += 32;
-        g2c_gbit_int(cgrib, &secnum, offset, 8);         /* Get Section number */
-	LOG((3, "found section number %ld of length %ld", secnum, lensec));
-        offset += 8;
+        offset = ipos * BYTE;
+        g2c_gbit_int(cgrib, &lensec, offset, WORD);        /* Get Length of Section */
+        offset += WORD;
+        g2c_gbit_int(cgrib, &secnum, offset, BYTE);         /* Get Section number */
+	LOG((3, "found section number %d of length %d", secnum, lensec));
+        offset += BYTE;
         ipos += lensec;                 /* Update beginning of section pointer */
         if (ipos > (istart + lengrib))
 	    return G2C_ENOEND;
@@ -276,10 +276,7 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
                 my_numfields++;
         }
         else
-	{
-	    LOG((0, "g2c_info: Invalid section number found in GRIB message %ld\n", secnum));
 	    return G2C_EBADSECTION;
-	}
     }
 
     /* Return values of interest to caller. */

@@ -32,6 +32,9 @@
 
 #define G2C_MAX_MESSAGES 1024 /**< Maximum number of messages in a file. */
 
+#define BYTE 8 /**< Number of bits in a byte. */
+#define WORD 32 /**< Number of bits in four bytes. */
+
 /** This is the information about each message. */
 typedef struct g2c_message_info
 {

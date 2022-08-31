@@ -1,10 +1,12 @@
-/*
+/* This is a test in the NCEPLIBS-g2c project.
+ *
  * This test is for decoding full grib2 message.
+ *
  * Dusan Jovic, July, 2021
+ * Ed Hartnett
  */
 
 #include "grib2_int.h"
-
 #include <stdio.h>
 
 int main()
