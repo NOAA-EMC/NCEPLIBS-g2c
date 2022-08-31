@@ -19,9 +19,12 @@
  * 2009-01-14 | Vuong | Changed structure name template to gtemplate
  *
  * @param cgrib Char array ontaining Section 3 of the GRIB2 message.
- * @param iofst Bit offset for the beginning of Section 3 in cgrib.
- * @param igds Contains information read from the appropriate GRIB
- * Grid Definition Section 3 for the field being returned.
+ * @param iofst Pointer to g2int which contains the bit offset for the
+ * beginning of Section 3 in cgrib.
+ * @param igds Pointer to a pointer which will get a pointer to memory
+ * allocated for the GDS array, of length 5. The array will contain
+ * information read from the appropriate GRIB Grid Definition Section
+ * 3 for the field being returned.
  * - igds[0] Source of grid definition (see [Table
  * 3.0](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-0.shtml)).
  * - igds[1] Number of grid points in the defined grid.
@@ -33,16 +36,18 @@
  *   3.11](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-11.shtml))
  * - igds[4] Grid Definition Template Number (see [Table
  3.1](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-1.shtml)).
- * @param igdstmpl Pointer to integer array containing the data
- * values for the Grid Definition Template specified by igds[4].
- * @param mapgridlen Number of elements in igdstmpl. i.e. number of
- * entries in Grid Defintion Template specified by igds[4].
+ * @param igdstmpl Pointer a pointer to g2int, which will get a
+ * pointer to an allocated array that contians containing the data
+ * values from the Grid Definition Template specified by igds[4].
+ * @param mapgridlen A pointer tat gets the number of elements in
+ * igdstmpl. i.e. number of entries in Grid Defintion Template
+ * specified by igds[4].
  * @param ideflist (Used if igds[2] .ne. 0) Pointer to integer array
  * containing the number of grid points contained in each row (or
  * column).
- * @param idefnum (Used if igds[2] .ne. 0) The number of entries in
- * array ideflist - i.e. number of rows (or columns) for which optional
- * grid points are defined.
+ * @param idefnum (Used if igds[2] != 0.) A pointer that gets the
+ * number of entries in array ideflist - i.e. number of rows (or
+ * columns) for which optional grid points are defined.
  *
  * @return
  * - ::G2_NO_ERROR No error.
