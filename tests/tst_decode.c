@@ -76,8 +76,8 @@ int main()
      * same thing as the g2_info() function, but with some additional
      * parameters. */
     {
-	g2int listsec0_2[3];
-	g2int listsec0_ok_2[3] = {2, 2, 195};
+	int listsec0_2[3];
+	int listsec0_ok_2[3] = {2, 2, 195};
 	g2int listsec1_2[13];
 	g2int listsec1_ok_2[13] = {7, 0, 2, 1, 1, 2021, 7, 14, 6, 0, 0, 0, 1};
 	g2int numfields_2;
