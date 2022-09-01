@@ -10,7 +10,7 @@
  * bit string, right justifying each value in the unpacked iout array.
  *
  * @param in pointer to character array input.
- * @param iout pointer to unpacked array output.
+ * @param iout pointer that gets the unpacked array output.
  * @param iskip initial number of bits to skip.
  * @param nbits number of bits to take.
  *
@@ -28,7 +28,7 @@ gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbits)
  *
  * @param out Pointer to packed array output. Must be allocated large
  * enough to hold output.
- * @param in Pointer to unpacked array input.
+ * @param in Pointer that gets the unpacked array input.
  * @param iskip Initial number of bits to skip.
  * @param nbits Number of bits to pack.
  *
@@ -45,7 +45,7 @@ sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbits)
  * bit string, right justifying each value in the unpacked iout array.
  *
  * @param in Pointer to character array input.
- * @param iout Pointer to unpacked array output.
+ * @param iout Pointer that gets the unpacked array output.
  * @param iskip Initial number of bits to skip.
  * @param nbits Number of bits to take.
  * @param nskip Additional number of bits to skip on each iteration.
@@ -61,7 +61,7 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits,
     g2int nbit, index;
     static g2int ones[]={1, 3, 7, 15, 31, 63, 127, 255};
 
-    /*     nbit is the start position of the field in bits */
+    /* nbit is the start position of the field in bits */
     nbit = iskip;
     for (i = 0; i < n; i++)
     {
@@ -70,14 +70,15 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits,
         ibit = nbit % 8;
         nbit = nbit + nbits + nskip;
 
-        /*        first byte */
+        /* first byte */
         tbit = (bitcnt < (8 - ibit)) ? bitcnt : 8 - ibit;  // find min
         itmp = (int)*(in + index) & ones[7 - ibit];
-        if (tbit != 8 - ibit) itmp >>= (8 - ibit - tbit);
+        if (tbit != 8 - ibit)
+	    itmp >>= (8 - ibit - tbit);
         index++;
         bitcnt = bitcnt - tbit;
 
-        /*        now transfer whole bytes */
+        /* now transfer whole bytes */
         while (bitcnt >= 8)
         {
             itmp = itmp << 8 | (int)*(in + index);
@@ -88,12 +89,77 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits,
         /* get data from last byte */
         if (bitcnt > 0)
         {
-            itmp = ( itmp << bitcnt ) |
+            itmp = (itmp << bitcnt) |
                 (((int)*(in + index) >> (8 - bitcnt)) & ones[bitcnt - 1]);
         }
 
-        *(iout + i) = itmp;
+        iout[i] = itmp;
     }
+}
+
+/**
+ * Get bits - unpack bits: Extract arbitrary size values from a packed
+ * bit string, right justifying each value in the unpacked iout
+ * array. This is similar to gbit(), but with int types instead of
+ * g2int.
+ *
+ * @param in pointer to character array input.
+ * @param iout pointer that gets the unpacked array output.
+ * @param iskip initial number of bits to skip.
+ * @param nbits number of bits to take.
+ *
+ * @author NOAA Programmer
+ */
+void
+g2c_gbit_int(unsigned char *in, int *iout, int iskip, int nbits)
+{
+    g2c_gbits_int(in, iout, iskip, nbits, 0, 1);
+}
+
+/**
+ * Get bits - unpack bits: Extract arbitrary size values from a packed
+ * bit string, right justifying each value in the unpacked iout
+ * array. This is similar to gbits(), but with int types instead of
+ * g2int.
+ *
+ * @param in Pointer to character array input.
+ * @param iout Pointer that gets the unpacked array output.
+ * @param iskip Initial number of bits to skip.
+ * @param nbits Number of bits to take.
+ * @param nskip Additional number of bits to skip on each iteration.
+ * @param n Number of iterations.
+ *
+ * @return 
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOMEM Out of memory.
+ *
+ * @author Ed Hartnett @date 8/31/22
+ */
+int
+g2c_gbits_int(unsigned char *in, int *iout, int iskip, int nbits,
+	      int nskip, int n)
+{
+    g2int *g2iout;
+    int i;
+
+    /* The in parameter is required. */
+    if (!in)
+	return G2C_EINVAL;
+
+    /* Get some memory for results. */
+    if (!(g2iout = malloc(n * sizeof(g2int))))
+	return G2C_ENOMEM;
+    
+    gbits(in, g2iout, iskip, nbits, nskip, n);
+
+    /* Copy from g2int to int. */
+    for (i = 0; i < n; i++)
+	iout[i] = (int)g2iout[i];
+
+    /* Free memory. */
+    free(g2iout);
+    
+    return G2C_NOERROR;
 }
 
 /**
@@ -102,7 +168,7 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits,
  *
  * @param out Pointer to packed array output. Must be allocated large
  * enough to hold output.
- * @param in Pointer to unpacked array input.
+ * @param in Pointer that gets the unpacked array input.
  * @param iskip Initial number of bits to skip.
  * @param nbits Number of bits to pack.
  * @param nskip Additional number of bits to skip on each iteration.
@@ -129,7 +195,7 @@ sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbits,
         ibit = nbit % 8;
         nbit = nbit + nbits + nskip;
 
-        /*        make byte aligned  */
+        /* make byte aligned  */
         if (ibit != 7)
         {
             tbit = (bitcnt < (ibit+1)) ? bitcnt : ibit + 1;  /* find min */
@@ -141,9 +207,9 @@ sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbits,
             itmp = itmp >> tbit;
             index--;
         }
-        /*        now byte aligned */
+        /* now byte aligned */
 
-        /*        do by bytes */
+        /* do by bytes */
         while (bitcnt >= 8)
         {
             out[index] = (unsigned char)(itmp & 255);
@@ -152,7 +218,7 @@ sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbits,
             index--;
         }
 
-        /*        do last byte */
+        /* do last byte */
         if (bitcnt > 0)
         {
             itmp2 = itmp & ones[bitcnt - 1];

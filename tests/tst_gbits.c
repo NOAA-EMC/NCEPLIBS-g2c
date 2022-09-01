@@ -122,6 +122,23 @@ main()
 
     }
     printf("ok!\n");
+    printf("Testing g2c_gbit_int() call...");
+    {
+#define MSG_LEN 109
+        int lencurr;
+        /* This message comes from the code in tst_g2_addgrid.c. */
+        unsigned char cgrib[MSG_LEN] = {71, 82, 73, 66, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0,
+            109, 0, 0, 0, 21, 1, 0, 7, 0, 4, 24, 0, 0, 7, 229, 10, 24, 6, 54, 59, 7, 192, 0, 0, 0,
+            72, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 3, 0, 0, 0, 4, 5, 0, 0, 0, 6, 0, 0,
+            0, 7, 0, 0, 0, 8, 0, 0, 0, 9, 0, 0, 0, 10, 0, 0, 0, 11, 0, 0, 0, 12, 13, 0, 0, 0, 14,
+            0, 0, 0, 15, 0, 0, 0, 16, 0, 0, 0, 17, 18};
+
+        g2c_gbit_int(cgrib, &lencurr, 96, 32);
+        if (lencurr != MSG_LEN)
+            return G2C_ERROR;
+
+    }
+    printf("ok!\n");
     printf("SUCCESS!\n");
     return 0;
 }
