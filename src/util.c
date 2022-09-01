@@ -176,7 +176,18 @@ g2c_strerror(int g2cerr)
 	return "Error parsing XML";
     case G2C_ENOTFOUND:
 	return "Table or entry not found";
-     default:
+    case G2C_ENOTGRIB2:
+	return "Not GRIB 2";
+    case G2C_ENOSECTION1:
+	return "Cannot find section 1";
+    case G2C_ENOEND:
+	return "Cannot find end of GRIB message";
+    case G2C_EBADEND:
+	return "End of message in wrong place";
+    case G2C_EBADSECTION:
+	return "Invalid section number";
+
+    default:
 	 return "Unknown Error";	
     }
 }

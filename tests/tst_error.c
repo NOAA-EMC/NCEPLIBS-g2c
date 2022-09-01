@@ -40,6 +40,16 @@ int main()
 	return G2C_ERROR;
     if (strncmp(g2c_strerror(-61), "Table or entry not found", MAX_LEN))
 	return G2C_ERROR;
+    if (strncmp(g2c_strerror(-62), "Not GRIB 2", MAX_LEN))
+	return G2C_ERROR;
+    if (strncmp(g2c_strerror(-63), "Cannot find section 1", MAX_LEN))
+	return G2C_ERROR;
+    if (strncmp(g2c_strerror(-64), "Cannot find end of GRIB message", MAX_LEN))
+	return G2C_ERROR;
+    if (strncmp(g2c_strerror(-65), "End of message in wrong place", MAX_LEN))
+	return G2C_ERROR;
+    if (strncmp(g2c_strerror(-66), "Invalid section number", MAX_LEN))
+	return G2C_ERROR;
     if (strncmp(g2c_strerror(999), "Unknown Error", MAX_LEN))
 	return G2C_ERROR;
 
