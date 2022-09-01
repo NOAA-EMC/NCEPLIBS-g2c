@@ -13,8 +13,10 @@
 #ifndef _grib2_int_H
 #define _grib2_int_H
 
-#include <assert.h>
+#include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
+#include <assert.h>
 #include <errno.h>
 #include "grib2.h"
 
