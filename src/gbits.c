@@ -142,6 +142,10 @@ g2c_gbits_int(unsigned char *in, int *iout, int iskip, int nbits,
     g2int *g2iout;
     int i;
 
+    /* The in parameter is required. */
+    if (!in)
+	return G2C_EINVAL;
+
     /* Get some memory for results. */
     if (!(g2iout = malloc(n * sizeof(g2int))))
 	return G2C_ENOMEM;
