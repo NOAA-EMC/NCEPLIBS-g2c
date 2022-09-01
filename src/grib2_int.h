@@ -15,6 +15,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <assert.h>
 #include "grib2.h"
 
