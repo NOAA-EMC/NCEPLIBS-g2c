@@ -1,5 +1,5 @@
 /** @file
- * @brief Unpack a data field that was packed into a JPEG2000 code
+ * @brief Unpack a data field that was packed with JPEG2000.
  * stream
  * @author Stephem Gilbert @date 2003-08-27
  */
@@ -8,10 +8,14 @@
 #include "grib2_int.h"
 
 /**
- * Unpack JPEG2000 compressed data into an array of floats, using info
- * from the GRIB2 Data Representation [Template
+ * This internal function will unpack JPEG2000 compressed data into an
+ * array of floats or doubles, using info from the GRIB2 Data
+ * Representation [Template
  * 5.40](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml)
  * or 5.40000.
+ *
+ * This function is used by jpcunpack(), g2c_jpcunpackf(), and
+ * g2c_jpcunpackd().
  *
  * @param cpack The packed data.
  * @param len The length of the packed data.
@@ -26,10 +30,9 @@
  *
  * @return 0 for success, 1 for memory allocation error.
  *
- * @author Stephem Gilbert @date 2003-08-27
- * @author Ed Hartnett
+ * @author Ed Hartnett @date 2022-09-06
  */
-static g2int
+static int
 jpcunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 	      void *fld, int fld_is_double)
 {
@@ -104,7 +107,6 @@ jpcunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  * @return 0 for success, 1 for memory allocation error.
  *
  * @author Stephem Gilbert @date 2003-08-27
- * @author Ed Hartnett
  */
 g2int
 jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
@@ -114,10 +116,12 @@ jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 }
 
 /**
- * Unpack JPEG2000 compressed data into an array of doubles, using
- * info from the GRIB2 Data Representation [Template
+ * Unpack JPEG2000 compressed data into an array of doubles, using info
+ * from the GRIB2 Data Representation [Template
  * 5.40](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml)
  * or 5.40000.
+ *
+ * This function is the V2 API version of jpcunpack() for doubles.
  *
  * @param cpack The packed data.
  * @param len The length of the packed data.
@@ -133,9 +137,38 @@ jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  *
  * @author Ed Hartnett @date 2022-08-12
  */
-g2int
-jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-	   double *fld)
+int
+g2c_jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+               double *fld)
 {
     return jpcunpack_int(cpack, len, idrstmpl, ndpts, fld, 1);
+}
+
+/**
+ * Unpack JPEG2000 compressed data into an array of floats, using
+ * info from the GRIB2 Data Representation [Template
+ * 5.40](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml)
+ * or 5.40000.
+ *
+ * This function is the V2 API version of jpcunpack() for floats.
+ *
+ * @param cpack The packed data.
+ * @param len The length of the packed data.
+ * @param idrstmpl Pointer to array of values for Data Representation
+ * [Template
+ * 5.40](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml)
+ * or 5.40000.
+ * @param ndpts The number of data values to unpack.
+ * @param fld A pointer that gets the unpacked data values as an array
+ * of double.
+ *
+ * @return 0 for success, 1 for memory allocation error.
+ *
+ * @author Ed Hartnett @date 2022-08-12
+ */
+int
+g2c_jpcunpackf(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+               float *fld)
+{
+    return jpcunpack_int(cpack, len, idrstmpl, ndpts, fld, 0);
 }
