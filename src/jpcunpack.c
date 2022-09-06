@@ -39,6 +39,8 @@ jpcunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
     float *ffld = fld;
     double *dfld = fld;
 
+    LOG((2, "len %ld ndpts %ld fld_is_double %d", len, ndpts, fld_is_double));
+
     rdieee(idrstmpl, &ref, 1);
     bscale = int_power(2.0, idrstmpl[1]);
     dscale = int_power(10.0, -idrstmpl[2]);
