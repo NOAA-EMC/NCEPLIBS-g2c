@@ -1,5 +1,5 @@
 /** @file
- * @brief Pack up a data field into a JPEG2000 code stream.
+ * @brief Pack and unpack an array of float/double using JPEG2000.
  * @author Stephen Gilbert @date 2003-08-17
  *
  * ### Program History Log
@@ -15,13 +15,12 @@
 #include <math.h>
 #include "grib2_int.h"
 
-/**
- * This subroutine packs up a float or double array into a JPEG2000
- * code stream. After the data field is scaled, and the reference
- * value is subtracted out, it is treated as a grayscale image and
- * passed to a JPEG2000 encoder. It also fills in GRIB2 Data
- * Representation Template 5.40 or 5.40000 with the appropriate
- * values.
+/** 
+ * This internal function packs up a float or double array into a
+ * JPEG2000 code stream.
+ *
+ * This function is used by jpcpack(), g2c_jpcpackf(), and
+ * g2c_jpcpackd().
  *
  * @param fld Pointer to the float or double data values to pack.
  * @param fld_is_double If non-zero, then fld points to array of
@@ -32,17 +31,6 @@
  * Representation Template [Table
  * 5.40](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml)
  * or 5.40000.
- * - 0 Reference value - ignored on input, set by jpcpack routine.
- * - 1 Binary Scale Factor - used on input, unchanged by jpcpack
- routine.
- * - 2 Decimal Scale Factor - used on input, unchanged by jpcpack
- routine.
- * - 3 number of bits for each data value - ignored on input
- * - 4 Original field type - currently ignored on input Data values
- assumed to be reals. Set to 0 on output.
- * - 5 if 0 use lossless compression, if 1 use lossy compression.
- * - 6 Desired compression ratio, if idrstmpl[5]=1. Set to 255, if
- idrstmpl[5]=0.
  * @param cpack A pointer that will get the packed data field. Must be
  * allocated before this function is called. Pass the allocated size
  * in the lcpack parameter.
@@ -50,10 +38,10 @@
  * cpack. This must be set by the calling function to the size
  * available in cpack.
  *
- * @return N/A
+ * @return 0 for success, error code otherwise
  * @author Stephen Gilbert, Ed Hartnett 
  */
-static void
+static int
 jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl,
 	    unsigned char *cpack, g2int *lcpack)
 {
@@ -213,16 +201,21 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         idrstmpl[6] = 255;       /* lossy not used */
     if (ifld)
         free(ifld);
+
+    return G2C_NOERROR;
 }
 
 /**
- * This subroutine packs up a data field into a JPEG2000 code
- * stream. After the data field is scaled, and the reference value is
- * subtracted out, it is treated as a grayscale image and passed to a
- * JPEG2000 encoder. It also fills in GRIB2 Data Representation
- * Template 5.40 or 5.40000 with the appropriate values.
+ * This function packs up a float array into a JPEG2000 code stream.
  *
- * @param fld Pointer to the float or double data values to pack.
+ * After the data are scaled, and the reference value is subtracted
+ * out, the data are treated as a grayscale image and passed to a
+ * JPEG2000 encoder.
+ *
+ * This function also fills in GRIB2 Data Representation Template 5.40
+ * or 5.40000 with the appropriate values.
+ *
+ * @param fld Pointer to the float data values to pack.
  * @param width The number of points in the x direction.
  * @param height The number of points in the y direction.
  * @param idrstmpl Contains the array of values for Data
@@ -257,13 +250,18 @@ jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
 }
 
 /**
- * This subroutine packs up a data field into a JPEG2000 code
- * stream. After the data field is scaled, and the reference value is
- * subtracted out, it is treated as a grayscale image and passed to a
- * JPEG2000 encoder. It also fills in GRIB2 Data Representation
- * Template 5.40 or 5.40000 with the appropriate values.
+ * This function packs up a float array into a JPEG2000 code stream.
  *
- * @param fld Pointer to the float or double data values to pack.
+ * After the data are scaled, and the reference value is subtracted
+ * out, the data are treated as a grayscale image and passed to a
+ * JPEG2000 encoder.
+ *
+ * This function also fills in GRIB2 Data Representation Template 5.40
+ * or 5.40000 with the appropriate values.
+ *
+ * This function is the V2 API version of jpcpack() for floats.
+ *
+ * @param fld Pointer to the float data values to pack.
  * @param width The number of points in the x direction.
  * @param height The number of points in the y direction.
  * @param idrstmpl Contains the array of values for Data
@@ -290,9 +288,55 @@ jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  *
  * @author Ed Hartnett
  */
-void
-jpcpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
-        unsigned char *cpack, g2int *lcpack)
+g2int
+g2c_jpcpackf(float *fld, g2int width, g2int height, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack)
 {
-    jpcpack_int(fld, 1, width, height, idrstmpl, cpack, lcpack);
+    return jpcpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack);
+}
+
+/**
+ * This function packs up a double array into a JPEG2000 code stream.
+ *
+ * After the data are scaled, and the reference value is subtracted
+ * out, the data are treated as a grayscale image and passed to a
+ * JPEG2000 encoder.
+ *
+ * This function also fills in GRIB2 Data Representation Template 5.40
+ * or 5.40000 with the appropriate values.
+ *
+ * This function is the V2 API version of jpcpack() for doubles.
+ *
+ * @param fld Pointer to the double data values to pack.
+ * @param width The number of points in the x direction.
+ * @param height The number of points in the y direction.
+ * @param idrstmpl Contains the array of values for Data
+ * Representation Template [Table
+ * 5.40](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml)
+ * or 5.40000.
+ * - 0 Reference value - ignored on input, set by jpcpack routine.
+ * - 1 Binary Scale Factor - used on input, unchanged by jpcpack
+ routine.
+ * - 2 Decimal Scale Factor - used on input, unchanged by jpcpack
+ routine.
+ * - 3 number of bits for each data value - ignored on input
+ * - 4 Original field type - currently ignored on input Data values
+ assumed to be reals. Set to 0 on output.
+ * - 5 if 0 use lossless compression, if 1 use lossy compression.
+ * - 6 Desired compression ratio, if idrstmpl[5]=1. Set to 255, if
+ idrstmpl[5]=0.
+ * @param cpack A pointer that will get the packed data field. Must be
+ * allocated before this function is called. Pass the allocated size
+ * in the lcpack parameter.
+ * @param lcpack Pointer that gets the length of packed field in
+ * cpack. This must be set by the calling function to the size
+ * available in cpack.
+ *
+ * @author Ed Hartnett
+ */
+int
+g2c_jpcpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack)
+{
+    return jpcpack_int(fld, 1, width, height, idrstmpl, cpack, lcpack);
 }

@@ -79,7 +79,7 @@ main()
         }
     }
     printf("ok!\n");
-    printf("Testing jpcpackd()/jpcunpackd() call...");
+    printf("Testing g2c_jpcpackd()/g2c_jpcunpackd() call...");
     {
         g2int height = 2, width = 2;
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
@@ -91,10 +91,10 @@ main()
         int i;
 
         /* Pack the data. */
-        jpcpackd(fld, width, height, idrstmpl, cpack, &lcpack);
+        g2c_jpcpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
         /* Unpack the data. */
-        if (jpcunpackd(cpack, len, idrstmpl, ndpts, fld_in))
+        if (g2c_jpcunpackd(cpack, len, idrstmpl, ndpts, fld_in))
             return G2C_ERROR;
 
         for (i = 0; i < DATA_LEN; i++)
@@ -141,7 +141,7 @@ main()
         }
     }
     printf("ok!\n");
-    printf("Testing jpcpackd()/jpcunpackd() call with different drstmpl values...");
+    printf("Testing g2c_jpcpackd()/g2c_jpcunpackd() call with different drstmpl values...");
     {
         g2int height = 2, width = 2;
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
@@ -163,10 +163,10 @@ main()
         int i;
 
         /* Pack the data. */
-        jpcpackd(fld, width, height, idrstmpl, cpack, &lcpack);
+        g2c_jpcpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
         /* Unpack the data. */
-        if (jpcunpackd(cpack, len, idrstmpl, ndpts, fld_in))
+        if (g2c_jpcunpackd(cpack, len, idrstmpl, ndpts, fld_in))
             return G2C_ERROR;
 
         for (i = 0; i < DATA_LEN; i++)
@@ -213,7 +213,7 @@ main()
         }
     }
     printf("ok!\n");
-    printf("Testing jpcpackd()/jpcunpackd() call with constant data field...");
+    printf("Testing g2c_jpcpackd()/g2c_jpcunpackd() call with constant data field...");
     {
         g2int height = 2, width = 2;
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
@@ -235,10 +235,10 @@ main()
         int i;
 
         /* Pack the data. */
-        jpcpackd(fld, width, height, idrstmpl, cpack, &lcpack);
+        g2c_jpcpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
         /* Unpack the data. */
-        if (jpcunpackd(cpack, len, idrstmpl, ndpts, fld_in))
+        if (g2c_jpcunpackd(cpack, len, idrstmpl, ndpts, fld_in))
             return G2C_ERROR;
 
         for (i = 0; i < DATA_LEN; i++)
