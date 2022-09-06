@@ -32,7 +32,7 @@
  *
  * @author Ed Hartnett @date 2022-09-06
  */
-static g2int
+static int
 jpcunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 	      void *fld, int fld_is_double)
 {
@@ -135,7 +135,7 @@ jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  *
  * @author Ed Hartnett @date 2022-08-12
  */
-g2int
+int
 g2c_jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                double *fld)
 {
@@ -164,7 +164,7 @@ g2c_jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  *
  * @author Ed Hartnett @date 2022-08-12
  */
-g2int
+int
 g2c_jpcunpackf(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                float *fld)
 {

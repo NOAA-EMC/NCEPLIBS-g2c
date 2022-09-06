@@ -286,9 +286,11 @@ jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * cpack. This must be set by the calling function to the size
  * available in cpack.
  *
+ * @return 0 for success, error code otherwise.
+ *
  * @author Ed Hartnett
  */
-g2int
+int
 g2c_jpcpackf(float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack)
 {
@@ -331,6 +333,8 @@ g2c_jpcpackf(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * @param lcpack Pointer that gets the length of packed field in
  * cpack. This must be set by the calling function to the size
  * available in cpack.
+ *
+ * @return 0 for success, error code otherwise.
  *
  * @author Ed Hartnett
  */
