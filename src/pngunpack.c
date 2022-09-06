@@ -28,7 +28,7 @@
  *
  * @author Stephen Gilbert, Ed Hartnett @date Aug 8, 2022
  */
-static g2int
+static int
 pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 	      void *fld, int fld_is_double)
 {
@@ -122,10 +122,33 @@ pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  *
  * @return 0 for success, 1 for memory allocation error.
  *
+ * @author Ed Hartnett
+ */
+int
+g2c_pngunpackf(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+              float *fld)
+{
+    return pngunpack_int(cpack, len, idrstmpl, ndpts, fld, 0);
+}
+
+/**
+ * This subroutine unpacks a data field that was packed into a PNG
+ * image format using info from the GRIB2 Data Representation Template
+ * 5.41 or 5.40010.
+ *
+ * @param cpack The packed data field (character*1 array).
+ * @param len length of packed field cpack().
+ * @param idrstmpl Pointer to array of values for Data Representation
+ * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml) or 5.40010.
+ * @param ndpts The number of data values to unpack.
+ * @param fld Contains the unpacked data values.
+ *
+ * @return 0 for success, 1 for memory allocation error.
+ *
  * @author Ed Hartnett @date Aug 8, 2022
  */
-g2int
-pngunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+int
+g2c_pngunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 	   double *fld)
 {
     return pngunpack_int(cpack, len, idrstmpl, ndpts, fld, 1);

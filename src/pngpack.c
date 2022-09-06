@@ -33,11 +33,12 @@
  output. Data values assumed to be reals.
  * @param cpack The packed data field.
  * @param lcpack length of packed field cpack.
- * @return void
+ *
+ * @return ::G2C_NOERROR for success, error code otherwise.
  *
  * @author Ed Hartnett @date Aug 8, 2022
  */
-static void
+static int
 pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl, 
 	    unsigned char *cpack, g2int *lcpack)
 {
@@ -189,6 +190,8 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     
     if (ifld)
         free(ifld);
+
+    return G2C_NOERROR;
 }
 
 /**
@@ -224,7 +227,45 @@ void
 pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl, 
         unsigned char *cpack, g2int *lcpack)
 {
+    /* Ignore the return value. */
     pngpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack);
+}
+
+/**
+ * This subroutine packs up a float data field into PNG image format. 
+ *
+ * After the data field is scaled, and the reference value is
+ * subtracted out, it is treated as a grayscale image and passed to a
+ * PNG encoder. It also fills in GRIB2 Data Representation Template
+ * 5.41 or 5.40010 with the appropriate values.
+ *
+ * @param fld Pointer to array of float that contains the data values
+ * to pack.
+ * @param width Number of points in the x direction.
+ * @param height Number of points in the y direction.
+ * @param idrstmpl Contains the array of values for Data
+ * Representation
+ * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
+ * or 5.40010.
+ * - 0 Reference value - ignored on input, set by pngpack routine.
+ * - 1 Binary Scale Factor - used on input.
+ * - 2 Decimal Scale Factor - used on input.
+ * - 3 number of bits for each grayscale pixel value - ignored on
+ input.
+ * - 4 Original field type - currently ignored on input, set = 0 on
+ output. Data values assumed to be reals.
+ * @param cpack The packed data field.
+ * @param lcpack length of packed field cpack.
+ *
+ * @return ::G2C_NOERROR for success, error code otherwise.
+ *
+ * @author Ed Hartnett
+ */
+int
+g2c_pngpackf(float *fld, g2int width, g2int height, g2int *idrstmpl, 
+             unsigned char *cpack, g2int *lcpack)
+{
+    return pngpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack);
 }
 
 /**
@@ -253,12 +294,14 @@ pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * @param cpack The packed data field.
  * @param lcpack length of packed field cpack.
  *
+ * @return ::G2C_NOERROR for success, error code otherwise.
+ *
  * @author Ed Hartnett @date Aug 8, 2022
  */
-void
-pngpackd(double *fld, g2int width, g2int height, g2int *idrstmpl, 
-	 unsigned char *cpack, g2int *lcpack)
+int
+g2c_pngpackd(double *fld, g2int width, g2int height, g2int *idrstmpl, 
+             unsigned char *cpack, g2int *lcpack)
 {
-    pngpack_int(fld, 1, width, height, idrstmpl, cpack, lcpack);
+    return pngpack_int(fld, 1, width, height, idrstmpl, cpack, lcpack);
 }
 
