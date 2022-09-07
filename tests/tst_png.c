@@ -69,7 +69,7 @@ main()
 	}
     }
     printf("ok!\n");
-    printf("Testing pngpackd()/pngunpackd() calls...");
+    printf("Testing g2c_pngpackd()/g2c_pngunpackd() calls...");
     {
 	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
 	double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
@@ -80,10 +80,10 @@ main()
 	int i;
 
 	/* Pack the data. */
-	pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
+	g2c_pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
 	/* Unpack the data. */
-	if (pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
+	if (g2c_pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
 	    return G2C_ERROR;
 
 	for (i = 0; i < DATA_LEN; i++)
@@ -126,7 +126,7 @@ main()
 	}
     }
     printf("ok!\n");
-    printf("Testing pngpackd()/pngunpackd() calls with different settings...");
+    printf("Testing g2c_pngpackd()/g2c_pngunpackd() calls with different settings...");
     {
 	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
 	double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
@@ -144,10 +144,10 @@ main()
 	int i;
 
 	/* Pack the data. */
-	pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
+	g2c_pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
 	/* Unpack the data. */
-	if (pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
+	if (g2c_pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
 	    return G2C_ERROR;
 
 	for (i = 0; i < DATA_LEN; i++)
@@ -190,7 +190,7 @@ main()
 	}
     }
     printf("ok!\n");
-    printf("Testing pngpackd()/pngunpackd() calls with constant data...");
+    printf("Testing g2c_pngpackd()/g2c_pngunpackd() calls with constant data...");
     {
 	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
 	double fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
@@ -208,10 +208,10 @@ main()
 	int i;
 
 	/* Pack the data. */
-	pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
+	g2c_pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
 	/* Unpack the data. */
-	if (pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
+	if (g2c_pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
 	    return G2C_ERROR;
 
 	for (i = 0; i < DATA_LEN; i++)
