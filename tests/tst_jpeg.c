@@ -11,16 +11,6 @@
 #define DATA_LEN 4
 #define PACKED_LEN 200
 
-/* Prototypes we are testing. */
-int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
-                 g2int ltype, g2int ratio, g2int retry, char *outjpc,
-                 g2int jpclen);
-int dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld);
-void jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
-             unsigned char *cpack, g2int *lcpack);
-g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-                float *fld);
-
 int
 main()
 {
@@ -38,9 +28,33 @@ main()
         /* Encode some data. */
         if ((ret = enc_jpeg2000(data, width, height, nbits, ltype,
                                 ratio, retry, outjpc, jpclen)) < 0)
-        {
             return G2C_ERROR;
+
+        /* Now decode it. */
+        if ((ret = dec_jpeg2000(outjpc, jpclen, outfld)))
+            return G2C_ERROR;
+
+        for (i = 0; i < DATA_LEN; i++)
+        {
+            if (outfld[i] != data[i])
+                return G2C_ERROR;
         }
+    }
+    printf("ok!\n");
+    printf("Testing g2c_enc_jpeg2000()/g2c_dec_jpeg2000() call...");
+    {
+        unsigned char data[DATA_LEN] = {1, 2, 3, 4};
+        g2int width = 2, height = 2, nbits = 4;
+        g2int ltype = 0, ratio = 0, retry = 0, jpclen = PACKED_LEN;
+        char outjpc[PACKED_LEN];
+        g2int outfld[DATA_LEN];
+        int i;
+        int ret;
+
+        /* Encode some data. */
+        if ((ret = g2c_enc_jpeg2000(data, width, height, nbits, ltype,
+                                    ratio, retry, outjpc, jpclen)) < 0)
+            return G2C_ERROR;
 
         /* Now decode it. */
         if ((ret = dec_jpeg2000(outjpc, jpclen, outfld)))

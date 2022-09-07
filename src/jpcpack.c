@@ -55,7 +55,7 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     float *ffld = fld;
     double *dfld = fld;
 
-    LOG((2, "jpcpack_int() fld_is_double %d width %ld height %ld idrstmpl[1] %ld *lcpack %ld",
+    LOG((2, "jpcpack_int() fld_is_double %d width %ld height %ld idrstmpl[1] %d *lcpack %ld",
 	 fld_is_double, width, height, idrstmpl[1], *lcpack));
     
     ndpts = width * height;

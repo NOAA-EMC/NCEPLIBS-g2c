@@ -48,6 +48,51 @@
  * @author Ed Hartnett
  */
 int
+g2c_enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
+                 g2int ltype, g2int ratio, g2int retry, char *outjpc,
+                 g2int jpclen)
+{
+    return enc_jpeg2000(cin, width, height, nbits, ltype, ratio, retry, outjpc, jpclen);
+}
+
+/**
+ * This Function encodes a grayscale image into a JPEG2000 code stream
+ * specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1)
+ * using [JasPer Software](https://github.com/jasper-software/jasper).
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|---------
+ * 2002-12-02 | Gilbert | Initial
+ * 2004-12-16 | Gilbert | Added retry argument allowing increased guard bits.
+ * 2022-04-15 | Hartnett | Converted to use jas_ instead of jpc_ functions.
+ *
+ * @param cin Packed matrix of Grayscale image values to encode.
+ * @param width width of image.
+ * @param height height of image.
+ * @param nbits depth (in bits) of image.  i.e number of bits used to
+ * hold each data value.
+ * @param ltype indicator of lossless or lossy compression.
+ * - 1, for lossy compression
+ * - != 1, for lossless compression
+ * @param ratio target compression ratio. (ratio:1) Used only when
+ * ltype == 1.
+ * @param retry If 1 try increasing number of guard bits.
+ * @param outjpc Output encoded JPEG2000 code stream.
+ * @param jpclen Number of bytes allocated for the output JPEG2000
+ * code stream in outjpc.
+ *
+ * @return
+ * - > 0 = Length in bytes of encoded JPEG2000 code stream
+ * - ::G2_JASPER_INIT Error initializing jasper library.
+ * - ::G2_JASPER_ENCODE Error encode jpeg2000 code stream.
+ *
+ * @note Requires JasPer Software version 1.500.4 or 1.700.2 or later.
+ *
+ * @author Stephen Gilbert @date 2002-12-02
+ * @author Ed Hartnett
+ */
+int
 enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
              g2int ltype, g2int ratio, g2int retry, char *outjpc,
              g2int jpclen)
