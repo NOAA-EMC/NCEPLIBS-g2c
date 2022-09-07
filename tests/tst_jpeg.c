@@ -96,7 +96,7 @@ main()
     printf("ok!\n");
     printf("Testing g2c_jpcpackd()/g2c_jpcunpackd() call...");
     {
-        g2int height = 2, width = 2;
+        int height = 2, width = 2;
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
         double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
         double fld_in[DATA_LEN];
