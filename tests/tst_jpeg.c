@@ -15,6 +15,7 @@ int
 main()
 {
     printf("Testing JPEG functions.\n");
+#ifdef USE_JPEG2000
     printf("Testing enc_jpeg2000()/dec_jpeg2000() call...");
     {
         unsigned char data[DATA_LEN] = {1, 2, 3, 4};
@@ -68,6 +69,7 @@ main()
         }
     }
     printf("ok!\n");
+#endif
     printf("Testing jpcpack()/jpcunpack() call...");
     {
         g2int height = 2, width = 2;
