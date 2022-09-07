@@ -45,10 +45,10 @@ main()
     {
         unsigned char data[DATA_LEN] = {1, 2, 3, 4};
         int width = 2, height = 2, nbits = 4;
-        int ltype = 0, ratio = 0, retry = 0, jpclen = PACKED_LEN;
-        g2int jpclen8;
+        int ltype = 0, ratio = 0, retry = 0;
+        size_t jpclen = PACKED_LEN;
         char outjpc[PACKED_LEN];
-        g2int outfld[DATA_LEN];
+        int outfld[DATA_LEN];
         int i;
         int ret;
 
@@ -58,8 +58,7 @@ main()
             return G2C_ERROR;
 
         /* Now decode it. */
-        jpclen8 = jpclen;
-        if ((ret = dec_jpeg2000(outjpc, jpclen8, outfld)))
+        if ((ret = g2c_dec_jpeg2000(outjpc, jpclen, outfld)))
             return G2C_ERROR;
 
         for (i = 0; i < DATA_LEN; i++)

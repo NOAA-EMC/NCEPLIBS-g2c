@@ -50,7 +50,7 @@
 int
 g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
                  int ltype, int ratio, int retry, char *outjpc,
-                 int jpclen)
+                 size_t jpclen)
 {
     g2int width8 = width, height8 = height, nbits8 = nbits, ltype8 = ltype;
     g2int ratio8 = ratio, retry8 = retry, jpclen8 = jpclen;
