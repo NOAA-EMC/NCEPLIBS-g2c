@@ -35,7 +35,7 @@
  * allocated before this function is called. Pass the allocated size
  * in the lcpack parameter.
  * @param lcpack Pointer that gets the length of packed field in
- * cpack. This must be set by the calling function to the size
+ * cpack. This must also be set by the calling function to the size
  * available in cpack.
  *
  * @return 0 for success, error code otherwise
@@ -340,9 +340,23 @@ g2c_jpcpackf(float *fld, int width, int height, g2int *idrstmpl,
  * @author Ed Hartnett
  */
 int
-g2c_jpcpackd(double *fld, int width, int height, g2int *idrstmpl,
-             unsigned char *cpack, g2int *lcpack)
+g2c_jpcpackd(double *fld, int width, int height, int *idrstmpl,
+             unsigned char *cpack, size_t *lcpack)
 {
-    g2int width8 = width, height8 = height;
-    return jpcpack_int(fld, 1, width8, height8, idrstmpl, cpack, lcpack);
+    g2int width8 = width, height8 = height, lcpack8 = *lcpack;
+    g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
+    int i, ret;
+    
+    for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+        idrstmpl8[i] = idrstmpl[i];
+
+    ret = jpcpack_int(fld, 1, width8, height8, idrstmpl8, cpack, &lcpack8);    
+
+    if (!ret)
+    {
+        for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+            idrstmpl[i] = (int)idrstmpl8[i];
+        *lcpack = (g2int)lcpack8;
+    }
+    return ret;
 }

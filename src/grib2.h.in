@@ -290,13 +290,11 @@ int g2c_pngunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts
                    double *fld);
 int g2c_jpcpackf(float *fld, int width, int height, g2int *idrstmpl,
                  unsigned char *cpack, g2int *lcpack);
-int g2c_jpcpackd(double *fld, int width, int height, g2int *idrstmpl,
-                 unsigned char *cpack, g2int *lcpack);
-int g2c_jpcpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
-                 unsigned char *cpack, g2int *lcpack);
+int g2c_jpcpackd(double *fld, int width, int height, int *idrstmpl,
+                 unsigned char *cpack, size_t *lcpack);
 int g2c_jpcunpackf(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                    float *fld);
-int g2c_jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+int g2c_jpcunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
                    double *fld);
 int g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
                      int ltype, int ratio, int retry, char *outjpc,
@@ -306,6 +304,8 @@ int g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld);
 /* Useful constants. */
 #define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
 #define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
+
+#define G2C_JPEG_DRS_TEMPLATE_LEN 7 /**< Length of the idrstmpl array. */
 
 #define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
 #define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */

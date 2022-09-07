@@ -99,12 +99,12 @@ main()
     printf("Testing g2c_jpcpackd()/g2c_jpcunpackd() call...");
     {
         int height = 2, width = 2;
-        g2int len = PACKED_LEN, ndpts = DATA_LEN;
+        size_t len = PACKED_LEN, ndpts = DATA_LEN;
         double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
         double fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
-        g2int lcpack = PACKED_LEN;
-        g2int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
+        size_t lcpack = PACKED_LEN;
+        int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
         int i;
 
         /* Pack the data. */

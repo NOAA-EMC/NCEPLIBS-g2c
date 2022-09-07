@@ -165,8 +165,15 @@ g2c_jpcunpackf(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  * @author Ed Hartnett @date 2022-08-12
  */
 int
-g2c_jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+g2c_jpcunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
                double *fld)
 {
-    return jpcunpack_int(cpack, len, idrstmpl, ndpts, fld, 1);
+    g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
+    g2int len8 = len, ndpts8 = ndpts;
+    int i;
+    
+    for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+        idrstmpl8[i] = idrstmpl[i];
+    
+    return jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 1);
 }
