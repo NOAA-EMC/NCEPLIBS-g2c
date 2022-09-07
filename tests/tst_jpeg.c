@@ -44,8 +44,9 @@ main()
     printf("Testing g2c_enc_jpeg2000()/g2c_dec_jpeg2000() call...");
     {
         unsigned char data[DATA_LEN] = {1, 2, 3, 4};
-        g2int width = 2, height = 2, nbits = 4;
-        g2int ltype = 0, ratio = 0, retry = 0, jpclen = PACKED_LEN;
+        int width = 2, height = 2, nbits = 4;
+        int ltype = 0, ratio = 0, retry = 0, jpclen = PACKED_LEN;
+        g2int jpclen8;
         char outjpc[PACKED_LEN];
         g2int outfld[DATA_LEN];
         int i;
@@ -57,7 +58,8 @@ main()
             return G2C_ERROR;
 
         /* Now decode it. */
-        if ((ret = dec_jpeg2000(outjpc, jpclen, outfld)))
+        jpclen8 = jpclen;
+        if ((ret = dec_jpeg2000(outjpc, jpclen8, outfld)))
             return G2C_ERROR;
 
         for (i = 0; i < DATA_LEN; i++)

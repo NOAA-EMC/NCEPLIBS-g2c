@@ -48,11 +48,15 @@
  * @author Ed Hartnett
  */
 int
-g2c_enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
-                 g2int ltype, g2int ratio, g2int retry, char *outjpc,
-                 g2int jpclen)
+g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
+                 int ltype, int ratio, int retry, char *outjpc,
+                 int jpclen)
 {
-    return enc_jpeg2000(cin, width, height, nbits, ltype, ratio, retry, outjpc, jpclen);
+    g2int width8 = width, height8 = height, nbits8 = nbits, ltype8 = ltype;
+    g2int ratio8 = ratio, retry8 = retry, jpclen8 = jpclen;
+    
+    return enc_jpeg2000(cin, width8, height8, nbits8, ltype8, ratio8, retry8,
+                        outjpc, jpclen8);
 }
 
 /**

@@ -296,9 +296,9 @@ int g2c_jpcunpackf(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts
                    float *fld);
 int g2c_jpcunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                    double *fld);
-int g2c_enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
-                     g2int ltype, g2int ratio, g2int retry, char *outjpc,
-                     g2int jpclen);
+int g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
+                     int ltype, int ratio, int retry, char *outjpc,
+                     int jpclen);
 
 /* Useful constants. */
 #define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
