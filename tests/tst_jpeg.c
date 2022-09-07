@@ -160,15 +160,15 @@ main()
     printf("ok!\n");
     printf("Testing g2c_jpcpackd()/g2c_jpcunpackd() call with different drstmpl values...");
     {
-        g2int height = 2, width = 2;
-        g2int len = PACKED_LEN, ndpts = DATA_LEN;
+        int height = 2, width = 2;
+        size_t len = PACKED_LEN, ndpts = DATA_LEN;
         double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
         double fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
-        g2int lcpack = PACKED_LEN;
+        size_t lcpack = PACKED_LEN;
         /* See
          * https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml */
-        g2int idrstmpl[7] = {
+        int idrstmpl[7] = {
             0, /* Reference value (R) (IEEE 32-bit floating-point value) */
             0, /* Binary scale factor (E) */
             1, /* Decimal scale factor (D) */
@@ -232,15 +232,15 @@ main()
     printf("ok!\n");
     printf("Testing g2c_jpcpackd()/g2c_jpcunpackd() call with constant data field...");
     {
-        g2int height = 2, width = 2;
-        g2int len = PACKED_LEN, ndpts = DATA_LEN;
+        int height = 2, width = 2;
+        size_t len = PACKED_LEN, ndpts = DATA_LEN;
         double fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
         double fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
-        g2int lcpack = PACKED_LEN;
+        size_t lcpack = PACKED_LEN;
         /* See
          * https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml */
-        g2int idrstmpl[7] = {
+        int idrstmpl[7] = {
             0, /* Reference value (R) (IEEE 32-bit floating-point value) */
             0, /* Binary scale factor (E) */
             1, /* Decimal scale factor (D) */
