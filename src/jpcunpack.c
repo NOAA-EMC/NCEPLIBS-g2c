@@ -27,14 +27,23 @@
  * @param fld A pointer that gets the unpacked data values.
  * @param fld_is_double Non-zero if the data are to be unpacked into a
  * double array, otherwise data will be unpacked into a float array.
+ * @param verbose If non-zero, error messages will be printed in case
+ * of error. Otherwise, error codes will be return but no error
+ * messages printed. Calls to the original g2c API may cause error
+ * messages to be printed in case of error. For the new g2c_ API, no
+ * error messages will be printed - instead an error code will be
+ * returned. Call g2c_strerror() to get the error message for any
+ * error code.
  *
- * @return 0 for success, 1 for memory allocation error.
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOMEM Out of memory.
  *
  * @author Ed Hartnett @date 2022-09-06
  */
 static int
 jpcunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-	      void *fld, int fld_is_double)
+	      void *fld, int fld_is_double, int verbose)
 {
     g2int *ifld;
     g2int j, nbits;
@@ -55,8 +64,9 @@ jpcunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
     {
         if (!(ifld = calloc(ndpts, sizeof(g2int))))
         {
-            fprintf(stderr, "Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
-            return G2_JPCUNPACK_MEM;
+	    if (verbose)
+		fprintf(stderr, "Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
+            return G2C_ENOMEM;
         }
         dec_jpeg2000((char *)cpack, len, ifld);
 	if (fld_is_double)
@@ -85,7 +95,7 @@ jpcunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 	}
     }
 
-    return G2_NO_ERROR;
+    return G2C_NOERROR;
 }
 
 /**
@@ -104,7 +114,9 @@ jpcunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  * @param fld A pointer that gets the unpacked data values as an array
  * of float.
  *
- * @return 0 for success, 1 for memory allocation error.
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2_JPCUNPACK_MEM Out of memory.
  *
  * @author Stephem Gilbert @date 2003-08-27
  */
@@ -112,7 +124,12 @@ g2int
 jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
           float *fld)
 {
-    return jpcunpack_int(cpack, len, idrstmpl, ndpts, fld, 0);
+    int ret;
+    
+    if ((ret = jpcunpack_int(cpack, len, idrstmpl, ndpts, fld, 0, 1)) == G2_JPCUNPACK_MEM)
+	return G2_JPCUNPACK_MEM;
+
+    return ret;
 }
 
 /**
@@ -143,17 +160,12 @@ g2c_jpcunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
 {
     g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
-    int i, ret;
+    int i;
     
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
     
-    ret = jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 0);
-    
-    if (ret == G2_JPCUNPACK_MEM)
-	ret = G2C_ENOMEM;
-
-    return ret;
+    return jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 0, 0);
 }
 
 /**
@@ -186,15 +198,10 @@ g2c_jpcunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
 {
     g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
-    int i, ret;
+    int i;
     
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
     
-    ret = jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 1);
-
-    if (ret == G2_JPCUNPACK_MEM)
-	ret = G2C_ENOMEM;
-
-    return ret;
+    return jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 1, 0);
 }
