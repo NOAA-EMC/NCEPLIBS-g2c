@@ -186,6 +186,8 @@ g2c_strerror(int g2cerr)
 	return "End of message in wrong place";
     case G2C_EBADSECTION:
 	return "Invalid section number";
+    case G2C_EJPEG:
+	return "Error encoding/decoding JPEG data";
 
     default:
 	 return "Unknown Error";	

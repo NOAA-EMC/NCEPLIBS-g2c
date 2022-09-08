@@ -37,13 +37,23 @@
  * @param lcpack Pointer that gets the length of packed field in
  * cpack. This must also be set by the calling function to the size
  * available in cpack.
+ * @param verbose If non-zero, error messages will be printed in case
+ * of error. Otherwise, error codes will be return but no error
+ * messages printed. Calls to the original g2c API may cause error
+ * messages to be printed in case of error. For the new g2c_ API, no
+ * error messages will be printed - instead an error code will be
+ * returned. Call g2c_strerror() to get the error message for any
+ * error code.
  *
- * @return 0 for success, error code otherwise
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EJPEG Error encoding/decoding JPEG data.
+ *
  * @author Stephen Gilbert, Ed Hartnett 
  */
 static int
 jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl,
-	    unsigned char *cpack, g2int *lcpack)
+	    unsigned char *cpack, g2int *lcpack, int verbose)
 {
     g2int  *ifld = NULL;
     static float alog2 = ALOG2;       /*  ln(2.0) */
@@ -54,6 +64,7 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     unsigned char *ctemp;
     float *ffld = fld;
     double *dfld = fld;
+    int ret = G2C_NOERROR;
 
     LOG((2, "jpcpack_int() fld_is_double %d width %ld height %ld idrstmpl[1] %d *lcpack %ld",
 	 fld_is_double, width, height, idrstmpl[1], *lcpack));
@@ -172,15 +183,23 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         if ((*lcpack = (g2int)enc_jpeg2000(ctemp, width, height, nbits, idrstmpl[5],
                                            idrstmpl[6], retry, (char *)cpack, nsize)) <= 0)
         {
-            printf("jpcpack: ERROR Packing JPC = %d\n", (int)*lcpack);
+	    if (verbose)
+		printf("jpcpack: ERROR Packing JPC = %d\n", (int)*lcpack);
             if (*lcpack == -3)
             {
                 retry = 1;
                 if ((*lcpack = (g2int)enc_jpeg2000(ctemp, width, height, nbits, idrstmpl[5],
                                                    idrstmpl[6], retry, (char *)cpack, nsize)) <= 0)
-                    printf("jpcpack: Retry Failed.\n");
+		{
+		    if (verbose)
+			printf("jpcpack: Retry Failed.\n");
+		    ret = G2C_EJPEG;
+		}
                 else
-                    printf("jpcpack: Retry Successful.\n");
+		{
+		    if (verbose)
+			printf("jpcpack: Retry Successful.\n");
+		}
             }
         }
         free(ctemp);
@@ -202,7 +221,7 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     if (ifld)
         free(ifld);
 
-    return G2C_NOERROR;
+    return ret;
 }
 
 /**
@@ -246,7 +265,7 @@ void
 jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
         unsigned char *cpack, g2int *lcpack)
 {
-    jpcpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack);
+    jpcpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack, 1);
 }
 
 /**
@@ -286,7 +305,9 @@ jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * cpack. This must be set by the calling function to the size
  * available in cpack.
  *
- * @return 0 for success, error code otherwise.
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EJPEG Error encoding/decoding JPEG data.
  *
  * @author Ed Hartnett
  */
@@ -301,7 +322,7 @@ g2c_jpcpackf(float *fld, int width, int height, int *idrstmpl,
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
 
-    ret = jpcpack_int(fld, 0, width8, height8, idrstmpl8, cpack, &lcpack8);
+    ret = jpcpack_int(fld, 0, width8, height8, idrstmpl8, cpack, &lcpack8, 0);
 
     if (!ret)
     {
@@ -349,7 +370,9 @@ g2c_jpcpackf(float *fld, int width, int height, int *idrstmpl,
  * cpack. This must be set by the calling function to the size
  * available in cpack.
  *
- * @return 0 for success, error code otherwise.
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EJPEG Error encoding/decoding JPEG data.
  *
  * @author Ed Hartnett
  */
@@ -364,7 +387,7 @@ g2c_jpcpackd(double *fld, int width, int height, int *idrstmpl,
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
 
-    ret = jpcpack_int(fld, 1, width8, height8, idrstmpl8, cpack, &lcpack8);    
+    ret = jpcpack_int(fld, 1, width8, height8, idrstmpl8, cpack, &lcpack8, 0);    
 
     if (!ret)
     {

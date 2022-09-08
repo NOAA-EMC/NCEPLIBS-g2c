@@ -384,5 +384,6 @@ int g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld);
 #define G2C_ENOEND (-64) /**< Cannot find end of GRIB message. */
 #define G2C_EBADEND (-65) /**< End of message in wrong place. */
 #define G2C_EBADSECTION (-66) /**< Invalid section number. */
+#define G2C_EJPEG (-67) /**< Error encoding/decoding JPEG data. */
 
 #endif  /*  _grib2_H  */

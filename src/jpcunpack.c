@@ -131,9 +131,11 @@ jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  * @param fld A pointer that gets the unpacked data values as an array
  * of float.
  *
- * @return 0 for success, 1 for memory allocation error.
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOMEM Out of memory.
  *
- * @author Stephem Gilbert @date 2003-08-27
+ * @author Ed Hartnett @date 2022-09-08
  */
 int
 g2c_jpcunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
@@ -141,12 +143,17 @@ g2c_jpcunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
 {
     g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
-    int i;
+    int i, ret;
     
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
     
-    return jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 0);
+    ret = jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 0);
+    
+    if (ret == G2_JPCUNPACK_MEM)
+	ret = G2C_ENOMEM;
+
+    return ret;
 }
 
 /**
@@ -167,7 +174,9 @@ g2c_jpcunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
  * @param fld A pointer that gets the unpacked data values as an array
  * of double.
  *
- * @return 0 for success, 1 for memory allocation error.
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOMEM Out of memory.
  *
  * @author Ed Hartnett @date 2022-08-12
  */
@@ -177,10 +186,15 @@ g2c_jpcunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
 {
     g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
-    int i;
+    int i, ret;
     
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
     
-    return jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 1);
+    ret = jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 1);
+
+    if (ret == G2_JPCUNPACK_MEM)
+	ret = G2C_ENOMEM;
+
+    return ret;
 }
