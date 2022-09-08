@@ -122,6 +122,32 @@ main()
         }
     }
     printf("ok!\n");
+    printf("Testing g2c_jpcpackf()/g2c_jpcunpackf() call...");
+    {
+        int height = 2, width = 2;
+        size_t len = PACKED_LEN, ndpts = DATA_LEN;
+	float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+        float fld_in[DATA_LEN];
+        unsigned char cpack[PACKED_LEN];
+        size_t lcpack = PACKED_LEN;
+        int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
+        int i;
+
+        /* Pack the data. */
+        g2c_jpcpackf(fld, width, height, idrstmpl, cpack, &lcpack);
+
+        /* Unpack the data. */
+        if (g2c_jpcunpackf(cpack, len, idrstmpl, ndpts, fld_in))
+            return G2C_ERROR;
+
+        for (i = 0; i < DATA_LEN; i++)
+        {
+            /* printf("%g %g\n", fld[i], fld_in[i]); */
+            if (fld[i] != fld_in[i])
+        	return G2C_ERROR;
+        }
+    }
+    printf("ok!\n");
     printf("Testing jpcpack()/jpcunpack() call with different drstmpl values...");
     {
         g2int height = 2, width = 2;

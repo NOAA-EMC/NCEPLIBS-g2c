@@ -136,10 +136,17 @@ jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  * @author Stephem Gilbert @date 2003-08-27
  */
 int
-g2c_jpcunpackf(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+g2c_jpcunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
                float *fld)
 {
-    return jpcunpack_int(cpack, len, idrstmpl, ndpts, fld, 0);
+    g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
+    g2int len8 = len, ndpts8 = ndpts;
+    int i;
+    
+    for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+        idrstmpl8[i] = idrstmpl[i];
+    
+    return jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 0);
 }
 
 /**
