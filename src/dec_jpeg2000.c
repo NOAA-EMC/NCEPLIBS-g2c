@@ -1,6 +1,12 @@
 /** @file
  * @brief Decodes JPEG2000 code stream.
  * @author Stephen Gilbert @date 2002-12-02
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|---------
+ * 2002-12-02 | Gilbert | Initial
+ * 2022-04-15 | Hartnett | Converted to use jas_ instead of jpc_ functions.
  */
 
 #include <stdio.h>
@@ -14,15 +20,14 @@
  * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using [JasPer
  * Software](https://github.com/jasper-software/jasper).
  *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2002-12-02 | Gilbert | Initial
- * 2022-04-15 | Hartnett | Converted to use jas_ instead of jpc_ functions.
- *
- * @param injpc Input JPEG2000 code stream.
- * @param bufsize Length (in bytes) of the input JPEG2000 code stream.
- * @param outfld Output matrix of grayscale image values.
+ * @param injpc Pointer to buffer that holds the input JPEG2000 code
+ * stream.
+ * @param bufsize Length (in bytes) of the buffer that holds the input
+ * JPEG2000 code stream.
+ * @param outfld Pointer to either int or g2int array, already
+ * allocated, that gets the unpacked data.
+ * @param out_is_g2int Non-zero if the output array is of type g2int
+ * (i.e. 64-bit ints), zero if output is an int array (32-bits).
  *
  * @return
  * - 0 Successful decode
@@ -34,8 +39,8 @@
  * @author Stephen Gilbert @date 2002-12-02
  * @author Ed Hartnett
  */
-int
-dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
+static int
+int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
 {
     g2int i, j, k;
     jas_image_t *image = NULL;
@@ -109,9 +114,18 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
 
     /* Copy data matrix to output integer array. */
     k = 0;
-    for (i = 0; i < pcmpt->height_; i++)
-        for (j = 0; j < pcmpt->width_; j++)
-            outfld[k++] = data->rows_[i][j];
+    if (out_is_g2int)
+    {
+        for (i = 0; i < pcmpt->height_; i++)
+            for (j = 0; j < pcmpt->width_; j++)
+                ((g2int *)outfld)[k++] = data->rows_[i][j];
+    }
+    else
+    {
+        for (i = 0; i < pcmpt->height_; i++)
+            for (j = 0; j < pcmpt->width_; j++)
+                ((int *)outfld)[k++] = data->rows_[i][j];
+    }
 
     /* Clean up JasPer work structures. */
     jas_matrix_destroy(data);
@@ -128,3 +142,58 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
 
     return 0;
 }
+
+/**
+ * This Function decodes a JPEG2000 code stream specified in the
+ * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using [JasPer
+ * Software](https://github.com/jasper-software/jasper).
+ *
+ * @param injpc Pointer to buffer that holds the input JPEG2000 code
+ * stream.
+ * @param bufsize Length (in bytes) of the buffer that holds the input
+ * JPEG2000 code stream.
+ * @param outfld Pointer to int array, already allocated, that gets
+ * the unpacked data.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2_JASPER_DECODE Error decode jpeg2000 code stream.
+ * - ::G2_JASPER_DECODE_COLOR decoded image had multiple color
+ *     components. Only grayscale is expected.
+ * - ::G2_JASPER_INIT Error inializing Jasper library.
+ *
+ * @author Ed Hartnett @date 9/7/22
+ */
+int
+g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld)
+{
+    return int_dec_jpeg2000(injpc, bufsize, outfld, 0);
+}
+
+/**
+ * This Function decodes a JPEG2000 code stream specified in the
+ * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using [JasPer
+ * Software](https://github.com/jasper-software/jasper).
+ *
+ * @param injpc Pointer to buffer that holds the input JPEG2000 code
+ * stream.
+ * @param bufsize Length (in bytes) of the buffer that holds the input
+ * JPEG2000 code stream.
+ * @param outfld Pointer to g2int array, already allocated, that gets
+ * the unpacked data.
+ *
+ * @return
+ * - 0 Successful decode
+ * - ::G2_JASPER_DECODE Error decode jpeg2000 code stream.
+ * - ::G2_JASPER_DECODE_COLOR decoded image had multiple color
+ *     components. Only grayscale is expected.
+ * - ::G2_JASPER_INIT Error inializing Jasper library.
+ *
+ * @author Stephen Gilbert, Ed Hartnett 
+ */
+int
+dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
+{
+    return int_dec_jpeg2000(injpc, bufsize, outfld, 1);
+}
+
