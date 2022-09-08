@@ -60,6 +60,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     unsigned char *ctemp;
     float *ffld = fld;
     double *dfld = fld;
+    int ret = G2C_NOERROR;
 
     LOG((2, "pngpack_int fld_is_double %d width %ld height %ld idrstmpl[1] %d",
 	 fld_is_double, width, height, idrstmpl[1]));
@@ -203,7 +204,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     if (ifld)
         free(ifld);
 
-    return G2C_NOERROR;
+    return ret;
 }
 
 /**
@@ -240,7 +241,7 @@ pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
         unsigned char *cpack, g2int *lcpack)
 {
     /* Ignore the return value. */
-    pngpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack);
+    pngpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack, 1);
 }
 
 /**
@@ -286,7 +287,7 @@ g2c_pngpackf(float *fld, int width, int height, int *idrstmpl,
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
 
-    ret = pngpack_int(fld, 0, width8, height8, idrstmpl8, cpack, &lcpack8);
+    ret = pngpack_int(fld, 0, width8, height8, idrstmpl8, cpack, &lcpack8, 0);
 
     if (!ret)
     {
@@ -340,7 +341,7 @@ g2c_pngpackd(double *fld, int width, int height, int *idrstmpl,
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
 
-    ret = pngpack_int(fld, 1, width8, height8, idrstmpl8, cpack, &lcpack8);
+    ret = pngpack_int(fld, 1, width8, height8, idrstmpl8, cpack, &lcpack8, 0);
 
     if (!ret)
     {
