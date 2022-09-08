@@ -185,6 +185,7 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         {
 	    if (verbose)
 		printf("jpcpack: ERROR Packing JPC = %d\n", (int)*lcpack);
+	    ret = G2C_EJPEG;
             if (*lcpack == -3)
             {
                 retry = 1;
@@ -199,6 +200,7 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 		{
 		    if (verbose)
 			printf("jpcpack: Retry Successful.\n");
+		    ret = G2C_NOERROR;
 		}
             }
         }
