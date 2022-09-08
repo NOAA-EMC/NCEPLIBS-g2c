@@ -188,6 +188,8 @@ g2c_strerror(int g2cerr)
 	return "Invalid section number";
     case G2C_EJPEG:
 	return "Error encoding/decoding JPEG data";
+    case G2C_EPNG:
+	return "Error encoding/decoding PNG data";
 
     default:
 	 return "Unknown Error";	

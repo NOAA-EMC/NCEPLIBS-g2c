@@ -33,14 +33,23 @@
  output. Data values assumed to be reals.
  * @param cpack The packed data field.
  * @param lcpack length of packed field cpack.
+ * @param verbose If non-zero, error messages will be printed in case
+ * of error. Otherwise, error codes will be return but no error
+ * messages printed. Calls to the original g2c API may cause error
+ * messages to be printed in case of error. For the new g2c_ API, no
+ * error messages will be printed - instead an error code will be
+ * returned. Call g2c_strerror() to get the error message for any
+ * error code.
  *
- * @return ::G2C_NOERROR for success, error code otherwise.
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EPNG Error encoding/decoding PNG data.
  *
  * @author Ed Hartnett @date Aug 8, 2022
  */
 static int
 pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl, 
-	    unsigned char *cpack, g2int *lcpack)
+	    unsigned char *cpack, g2int *lcpack, int verbose)
 {
     g2int *ifld = NULL;
     static float alog2 = ALOG2;       /*  ln(2.0) */
@@ -171,8 +180,11 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 
         /* Encode data into PNG Format. */
         if ((*lcpack = (g2int)enc_png(ctemp, width, height, nbits, cpack)) <= 0)
-            printf("pngpack: ERROR Packing PNG = %d\n", (int)*lcpack);
-        
+	{
+	    if (verbose)
+		printf("pngpack: ERROR Packing PNG = %d\n", (int)*lcpack);
+	    ret = G2C_EPNG;
+	}
         free(ctemp);
     }
     else
@@ -257,7 +269,9 @@ pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * @param cpack The packed data field.
  * @param lcpack length of packed field cpack.
  *
- * @return ::G2C_NOERROR for success, error code otherwise.
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EPNG Error encoding/decoding PNG data.
  *
  * @author Ed Hartnett
  */
@@ -309,7 +323,9 @@ g2c_pngpackf(float *fld, int width, int height, int *idrstmpl,
  * @param cpack The packed data field.
  * @param lcpack length of packed field cpack.
  *
- * @return ::G2C_NOERROR for success, error code otherwise.
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EPNG Error encoding/decoding PNG data.
  *
  * @author Ed Hartnett @date Aug 8, 2022
  */
