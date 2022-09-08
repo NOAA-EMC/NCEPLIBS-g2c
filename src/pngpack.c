@@ -262,10 +262,25 @@ pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * @author Ed Hartnett
  */
 int
-g2c_pngpackf(float *fld, g2int width, g2int height, g2int *idrstmpl, 
-             unsigned char *cpack, g2int *lcpack)
+g2c_pngpackf(float *fld, int width, int height, int *idrstmpl, 
+             unsigned char *cpack, int *lcpack)
 {
-    return pngpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack);
+    g2int width8 = width, height8 = height, lcpack8 = *lcpack;
+    g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
+    int i, ret;
+    
+    for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+        idrstmpl8[i] = idrstmpl[i];
+
+    ret = pngpack_int(fld, 0, width8, height8, idrstmpl8, cpack, &lcpack8);
+
+    if (!ret)
+    {
+        for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+            idrstmpl[i] = (int)idrstmpl8[i];
+        *lcpack = (g2int)lcpack8;
+    }
+    return ret;
 }
 
 /**
@@ -299,9 +314,24 @@ g2c_pngpackf(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * @author Ed Hartnett @date Aug 8, 2022
  */
 int
-g2c_pngpackd(double *fld, g2int width, g2int height, g2int *idrstmpl, 
-             unsigned char *cpack, g2int *lcpack)
+g2c_pngpackd(double *fld, int width, int height, int *idrstmpl, 
+             unsigned char *cpack, int *lcpack)
 {
-    return pngpack_int(fld, 1, width, height, idrstmpl, cpack, lcpack);
+    g2int width8 = width, height8 = height, lcpack8 = *lcpack;
+    g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
+    int i, ret;
+    
+    for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+        idrstmpl8[i] = idrstmpl[i];
+
+    ret = pngpack_int(fld, 1, width8, height8, idrstmpl8, cpack, &lcpack8);
+
+    if (!ret)
+    {
+        for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+            idrstmpl[i] = (int)idrstmpl8[i];
+        *lcpack = (g2int)lcpack8;
+    }
+    return ret;
 }
 

@@ -125,10 +125,17 @@ pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  * @author Ed Hartnett
  */
 int
-g2c_pngunpackf(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-              float *fld)
+g2c_pngunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
+	       float *fld)
 {
-    return pngunpack_int(cpack, len, idrstmpl, ndpts, fld, 0);
+    g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
+    g2int len8 = len, ndpts8 = ndpts;
+    int i;
+    
+    for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+        idrstmpl8[i] = idrstmpl[i];
+    
+    return pngunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 0);
 }
 
 /**
@@ -148,8 +155,15 @@ g2c_pngunpackf(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  * @author Ed Hartnett @date Aug 8, 2022
  */
 int
-g2c_pngunpackd(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-	   double *fld)
+g2c_pngunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
+	       double *fld)
 {
-    return pngunpack_int(cpack, len, idrstmpl, ndpts, fld, 1);
+    g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
+    g2int len8 = len, ndpts8 = ndpts;
+    int i;
+    
+    for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+        idrstmpl8[i] = idrstmpl[i];
+    
+    return pngunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 1);
 }
