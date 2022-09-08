@@ -147,11 +147,11 @@ int
 g2c_pngunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
 	       float *fld)
 {
-    g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
+    g2int idrstmpl8[G2C_PNG_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
     int i;
     
-    for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+    for (i = 0; i < G2C_PNG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
     
     return pngunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 0, 0);
@@ -179,11 +179,11 @@ int
 g2c_pngunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
 	       double *fld)
 {
-    g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
+    g2int idrstmpl8[G2C_PNG_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
     int i;
     
-    for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+    for (i = 0; i < G2C_PNG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
     
     return pngunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 1, 0);

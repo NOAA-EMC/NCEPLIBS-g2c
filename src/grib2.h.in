@@ -305,7 +305,8 @@ int g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld);
 #define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
 #define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
 
-#define G2C_JPEG_DRS_TEMPLATE_LEN 7 /**< Length of the idrstmpl array. */
+#define G2C_JPEG_DRS_TEMPLATE_LEN 7 /**< Length of the idrstmpl array for JPEG packing. */
+#define G2C_PNG_DRS_TEMPLATE_LEN 5 /**< Length of the idrstmpl array for PNG packing. */
 
 #define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
 #define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
