@@ -314,7 +314,7 @@ jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * @author Ed Hartnett
  */
 int
-g2c_jpcpackf(float *fld, int width, int height, int *idrstmpl,
+g2c_jpcpackf(float *fld, size_t width, size_t height, int *idrstmpl,
              unsigned char *cpack, size_t *lcpack)
 {
     g2int width8 = width, height8 = height, lcpack8 = *lcpack;
@@ -379,7 +379,7 @@ g2c_jpcpackf(float *fld, int width, int height, int *idrstmpl,
  * @author Ed Hartnett
  */
 int
-g2c_jpcpackd(double *fld, int width, int height, int *idrstmpl,
+g2c_jpcpackd(double *fld, size_t width, size_t height, int *idrstmpl,
              unsigned char *cpack, size_t *lcpack)
 {
     g2int width8 = width, height8 = height, lcpack8 = *lcpack;

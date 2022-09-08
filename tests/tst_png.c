@@ -71,7 +71,7 @@ main()
     printf("ok!\n");
     printf("Testing g2c_pngpackd()/g2c_pngunpackd() calls...");
     {
-	int height = 2, width = 2;
+	size_t height = 2, width = 2;
 	size_t ndpts = DATA_LEN, len = PACKED_LEN; 	
 	double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
 	double fld_in[DATA_LEN];
@@ -129,7 +129,7 @@ main()
     printf("ok!\n");
     printf("Testing g2c_pngpackd()/g2c_pngunpackd() calls with different settings...");
     {
-	int height = 2, width = 2;
+	size_t height = 2, width = 2;
 	size_t ndpts = DATA_LEN, len = PACKED_LEN; 	
 	double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
 	double fld_in[DATA_LEN];
@@ -194,7 +194,7 @@ main()
     printf("ok!\n");
     printf("Testing g2c_pngpackd()/g2c_pngunpackd() calls with constant data...");
     {
-	int height = 2, width = 2;
+	size_t height = 2, width = 2;
 	size_t ndpts = DATA_LEN, len = PACKED_LEN; 	
 	double fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
 	double fld_in[DATA_LEN];
