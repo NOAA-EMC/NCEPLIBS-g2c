@@ -280,17 +280,17 @@ int g2c_set_log_level(int new_level);
 const char *g2c_strerror(int g2cerr);
 
 /* Compression. */
-int g2c_pngpackf(float *fld, int width, int height, int *idrstmpl, 
+int g2c_pngpackf(float *fld, size_t width, size_t height, int *idrstmpl, 
 		 unsigned char *cpack, int *lcpack);
-int g2c_pngpackd(double *fld, int width, int height, int *idrstmpl, 
+int g2c_pngpackd(double *fld, size_t width, size_t height, int *idrstmpl, 
 		 unsigned char *cpack, int *lcpack);
 int g2c_pngunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
 		   float *fld);
 int g2c_pngunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
 		   double *fld);
-int g2c_jpcpackf(float *fld, int width, int height, int *idrstmpl,
+int g2c_jpcpackf(float *fld, size_t width, size_t height, int *idrstmpl,
 		 unsigned char *cpack, size_t *lcpack);
-int g2c_jpcpackd(double *fld, int width, int height, int *idrstmpl,
+int g2c_jpcpackd(double *fld, size_t width, size_t height, int *idrstmpl,
                  unsigned char *cpack, size_t *lcpack);
 int g2c_jpcunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
 		   float *fld);

@@ -124,7 +124,7 @@ main()
     printf("ok!\n");
     printf("Testing g2c_jpcpackf()/g2c_jpcunpackf() call...");
     {
-        int height = 2, width = 2;
+        size_t height = 2, width = 2;
         size_t len = PACKED_LEN, ndpts = DATA_LEN;
 	float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
         float fld_in[DATA_LEN];
@@ -186,7 +186,7 @@ main()
     printf("ok!\n");
     printf("Testing g2c_jpcpackd()/g2c_jpcunpackd() call with different drstmpl values...");
     {
-        int height = 2, width = 2;
+        size_t height = 2, width = 2;
         size_t len = PACKED_LEN, ndpts = DATA_LEN;
         double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
         double fld_in[DATA_LEN];
@@ -258,7 +258,7 @@ main()
     printf("ok!\n");
     printf("Testing g2c_jpcpackd()/g2c_jpcunpackd() call with constant data field...");
     {
-        int height = 2, width = 2;
+        size_t height = 2, width = 2;
         size_t len = PACKED_LEN, ndpts = DATA_LEN;
         double fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
         double fld_in[DATA_LEN];

@@ -18,8 +18,10 @@
  * @param fld Pointer to array of float or double that contains the
  * data values to pack.
  * @param fld_is_double If non-zero, then fld is double, otherwise float.
- * @param width Number of points in the x direction.
- * @param height Number of points in the y direction.
+ * @param width Number of points in the x direction. This is passed to
+ * the PNG layer as a uint32.
+ * @param height Number of points in the y direction. This is passed
+ * to the PNG layer as a uint32.
  * @param idrstmpl Contains the array of values for Data
  * Representation
  * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
@@ -277,7 +279,7 @@ pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * @author Ed Hartnett
  */
 int
-g2c_pngpackf(float *fld, int width, int height, int *idrstmpl, 
+g2c_pngpackf(float *fld, size_t width, size_t height, int *idrstmpl, 
              unsigned char *cpack, int *lcpack)
 {
     g2int width8 = width, height8 = height, lcpack8 = *lcpack;
@@ -331,7 +333,7 @@ g2c_pngpackf(float *fld, int width, int height, int *idrstmpl,
  * @author Ed Hartnett @date Aug 8, 2022
  */
 int
-g2c_pngpackd(double *fld, int width, int height, int *idrstmpl, 
+g2c_pngpackd(double *fld, size_t width, size_t height, int *idrstmpl, 
              unsigned char *cpack, int *lcpack)
 {
     g2int width8 = width, height8 = height, lcpack8 = *lcpack;
