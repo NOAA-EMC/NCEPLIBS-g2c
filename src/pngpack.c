@@ -18,8 +18,10 @@
  * @param fld Pointer to array of float or double that contains the
  * data values to pack.
  * @param fld_is_double If non-zero, then fld is double, otherwise float.
- * @param width Number of points in the x direction.
- * @param height Number of points in the y direction.
+ * @param width Number of points in the x direction. This is passed to
+ * the PNG layer as a uint32.
+ * @param height Number of points in the y direction. This is passed
+ * to the PNG layer as a uint32.
  * @param idrstmpl Contains the array of values for Data
  * Representation
  * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
@@ -33,13 +35,23 @@
  output. Data values assumed to be reals.
  * @param cpack The packed data field.
  * @param lcpack length of packed field cpack.
- * @return void
+ * @param verbose If non-zero, error messages will be printed in case
+ * of error. Otherwise, error codes will be return but no error
+ * messages printed. Calls to the original g2c API may cause error
+ * messages to be printed in case of error. For the new g2c_ API, no
+ * error messages will be printed - instead an error code will be
+ * returned. Call g2c_strerror() to get the error message for any
+ * error code.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EPNG Error encoding/decoding PNG data.
  *
  * @author Ed Hartnett @date Aug 8, 2022
  */
-static void
+static int
 pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl, 
-	    unsigned char *cpack, g2int *lcpack)
+	    unsigned char *cpack, g2int *lcpack, int verbose)
 {
     g2int *ifld = NULL;
     static float alog2 = ALOG2;       /*  ln(2.0) */
@@ -50,6 +62,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     unsigned char *ctemp;
     float *ffld = fld;
     double *dfld = fld;
+    int ret = G2C_NOERROR;
 
     LOG((2, "pngpack_int fld_is_double %d width %ld height %ld idrstmpl[1] %d",
 	 fld_is_double, width, height, idrstmpl[1]));
@@ -170,8 +183,11 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 
         /* Encode data into PNG Format. */
         if ((*lcpack = (g2int)enc_png(ctemp, width, height, nbits, cpack)) <= 0)
-            printf("pngpack: ERROR Packing PNG = %d\n", (int)*lcpack);
-        
+	{
+	    if (verbose)
+		printf("pngpack: ERROR Packing PNG = %d\n", (int)*lcpack);
+	    ret = G2C_EPNG;
+	}
         free(ctemp);
     }
     else
@@ -189,6 +205,8 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     
     if (ifld)
         free(ifld);
+
+    return ret;
 }
 
 /**
@@ -224,7 +242,62 @@ void
 pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl, 
         unsigned char *cpack, g2int *lcpack)
 {
-    pngpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack);
+    /* Ignore the return value. */
+    pngpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack, 1);
+}
+
+/**
+ * This subroutine packs up a float data field into PNG image format. 
+ *
+ * After the data field is scaled, and the reference value is
+ * subtracted out, it is treated as a grayscale image and passed to a
+ * PNG encoder. It also fills in GRIB2 Data Representation Template
+ * 5.41 or 5.40010 with the appropriate values.
+ *
+ * @param fld Pointer to array of float that contains the data values
+ * to pack.
+ * @param width Number of points in the x direction.
+ * @param height Number of points in the y direction.
+ * @param idrstmpl Contains the array of values for Data
+ * Representation
+ * [Template 5.41](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml)
+ * or 5.40010.
+ * - 0 Reference value - ignored on input, set by pngpack routine.
+ * - 1 Binary Scale Factor - used on input.
+ * - 2 Decimal Scale Factor - used on input.
+ * - 3 number of bits for each grayscale pixel value - ignored on
+ input.
+ * - 4 Original field type - currently ignored on input, set = 0 on
+ output. Data values assumed to be reals.
+ * @param cpack The packed data field.
+ * @param lcpack length of packed field cpack.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EPNG Error encoding/decoding PNG data.
+ *
+ * @author Ed Hartnett
+ */
+int
+g2c_pngpackf(float *fld, size_t width, size_t height, int *idrstmpl, 
+             unsigned char *cpack, int *lcpack)
+{
+    g2int width8 = width, height8 = height, lcpack8 = *lcpack;
+    g2int idrstmpl8[G2C_PNG_DRS_TEMPLATE_LEN];
+    int i, ret;
+    
+    for (i = 0; i < G2C_PNG_DRS_TEMPLATE_LEN; i++)
+        idrstmpl8[i] = idrstmpl[i];
+
+    ret = pngpack_int(fld, 0, width8, height8, idrstmpl8, cpack, &lcpack8, 0);
+
+    if (!ret)
+    {
+        for (i = 0; i < G2C_PNG_DRS_TEMPLATE_LEN; i++)
+            idrstmpl[i] = (int)idrstmpl8[i];
+        *lcpack = (g2int)lcpack8;
+    }
+    return ret;
 }
 
 /**
@@ -253,12 +326,31 @@ pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * @param cpack The packed data field.
  * @param lcpack length of packed field cpack.
  *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EPNG Error encoding/decoding PNG data.
+ *
  * @author Ed Hartnett @date Aug 8, 2022
  */
-void
-pngpackd(double *fld, g2int width, g2int height, g2int *idrstmpl, 
-	 unsigned char *cpack, g2int *lcpack)
+int
+g2c_pngpackd(double *fld, size_t width, size_t height, int *idrstmpl, 
+             unsigned char *cpack, int *lcpack)
 {
-    pngpack_int(fld, 1, width, height, idrstmpl, cpack, lcpack);
+    g2int width8 = width, height8 = height, lcpack8 = *lcpack;
+    g2int idrstmpl8[G2C_PNG_DRS_TEMPLATE_LEN];
+    int i, ret;
+    
+    for (i = 0; i < G2C_PNG_DRS_TEMPLATE_LEN; i++)
+        idrstmpl8[i] = idrstmpl[i];
+
+    ret = pngpack_int(fld, 1, width8, height8, idrstmpl8, cpack, &lcpack8, 0);
+
+    if (!ret)
+    {
+        for (i = 0; i < G2C_PNG_DRS_TEMPLATE_LEN; i++)
+            idrstmpl[i] = (int)idrstmpl8[i];
+        *lcpack = (g2int)lcpack8;
+    }
+    return ret;
 }
 

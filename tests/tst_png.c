@@ -69,21 +69,22 @@ main()
 	}
     }
     printf("ok!\n");
-    printf("Testing pngpackd()/pngunpackd() calls...");
+    printf("Testing g2c_pngpackd()/g2c_pngunpackd() calls...");
     {
-	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
+	size_t height = 2, width = 2;
+	size_t ndpts = DATA_LEN, len = PACKED_LEN; 	
 	double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
 	double fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
-	g2int lcpack;
-        g2int idrstmpl[5] = {0, 1, 1, 16, 0};
+	int lcpack;
+        int idrstmpl[5] = {0, 1, 1, 16, 0};
 	int i;
 
 	/* Pack the data. */
-	pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
+	g2c_pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
 	/* Unpack the data. */
-	if (pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
+	if (g2c_pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
 	    return G2C_ERROR;
 
 	for (i = 0; i < DATA_LEN; i++)
@@ -126,15 +127,16 @@ main()
 	}
     }
     printf("ok!\n");
-    printf("Testing pngpackd()/pngunpackd() calls with different settings...");
+    printf("Testing g2c_pngpackd()/g2c_pngunpackd() calls with different settings...");
     {
-	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
+	size_t height = 2, width = 2;
+	size_t ndpts = DATA_LEN, len = PACKED_LEN; 	
 	double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
 	double fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
-	g2int lcpack;
+	int lcpack;
         /* See https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml */
-        g2int idrstmpl[5] = {
+        int idrstmpl[5] = {
             0, /* Reference value (R) (IEEE 32-bit floating-point value) */
             0, /* Binary scale factor (E) */
             1, /* Decimal scale factor (D) */
@@ -144,10 +146,10 @@ main()
 	int i;
 
 	/* Pack the data. */
-	pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
+	g2c_pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
 	/* Unpack the data. */
-	if (pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
+	if (g2c_pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
 	    return G2C_ERROR;
 
 	for (i = 0; i < DATA_LEN; i++)
@@ -190,15 +192,16 @@ main()
 	}
     }
     printf("ok!\n");
-    printf("Testing pngpackd()/pngunpackd() calls with constant data...");
+    printf("Testing g2c_pngpackd()/g2c_pngunpackd() calls with constant data...");
     {
-	g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN; 	
+	size_t height = 2, width = 2;
+	size_t ndpts = DATA_LEN, len = PACKED_LEN; 	
 	double fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
 	double fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
-	g2int lcpack;
+	int lcpack;
         /* See https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml */
-        g2int idrstmpl[5] = {
+        int idrstmpl[5] = {
             0, /* Reference value (R) (IEEE 32-bit floating-point value) */
             0, /* Binary scale factor (E) */
             1, /* Decimal scale factor (D) */
@@ -208,10 +211,10 @@ main()
 	int i;
 
 	/* Pack the data. */
-	pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
+	g2c_pngpackd(fld, width, height, idrstmpl, cpack, &lcpack);
 
 	/* Unpack the data. */
-	if (pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
+	if (g2c_pngunpackd(cpack, len, idrstmpl, ndpts, fld_in))
 	    return G2C_ERROR;
 
 	for (i = 0; i < DATA_LEN; i++)

@@ -50,6 +50,10 @@ int main()
 	return G2C_ERROR;
     if (strncmp(g2c_strerror(-66), "Invalid section number", MAX_LEN))
 	return G2C_ERROR;
+    if (strncmp(g2c_strerror(-67), "Error encoding/decoding JPEG data", MAX_LEN))
+	return G2C_ERROR;
+    if (strncmp(g2c_strerror(-68), "Error encoding/decoding PNG data", MAX_LEN))
+	return G2C_ERROR;
     if (strncmp(g2c_strerror(999), "Unknown Error", MAX_LEN))
 	return G2C_ERROR;
 

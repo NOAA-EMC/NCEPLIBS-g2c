@@ -1,5 +1,5 @@
 /** @file
- * @brief Pack up a data field into a JPEG2000 code stream.
+ * @brief Pack and unpack an array of float/double using JPEG2000.
  * @author Stephen Gilbert @date 2003-08-17
  *
  * ### Program History Log
@@ -15,13 +15,12 @@
 #include <math.h>
 #include "grib2_int.h"
 
-/**
- * This subroutine packs up a float or double array into a JPEG2000
- * code stream. After the data field is scaled, and the reference
- * value is subtracted out, it is treated as a grayscale image and
- * passed to a JPEG2000 encoder. It also fills in GRIB2 Data
- * Representation Template 5.40 or 5.40000 with the appropriate
- * values.
+/** 
+ * This internal function packs up a float or double array into a
+ * JPEG2000 code stream.
+ *
+ * This function is used by jpcpack(), g2c_jpcpackf(), and
+ * g2c_jpcpackd().
  *
  * @param fld Pointer to the float or double data values to pack.
  * @param fld_is_double If non-zero, then fld points to array of
@@ -32,30 +31,29 @@
  * Representation Template [Table
  * 5.40](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml)
  * or 5.40000.
- * - 0 Reference value - ignored on input, set by jpcpack routine.
- * - 1 Binary Scale Factor - used on input, unchanged by jpcpack
- routine.
- * - 2 Decimal Scale Factor - used on input, unchanged by jpcpack
- routine.
- * - 3 number of bits for each data value - ignored on input
- * - 4 Original field type - currently ignored on input Data values
- assumed to be reals. Set to 0 on output.
- * - 5 if 0 use lossless compression, if 1 use lossy compression.
- * - 6 Desired compression ratio, if idrstmpl[5]=1. Set to 255, if
- idrstmpl[5]=0.
  * @param cpack A pointer that will get the packed data field. Must be
  * allocated before this function is called. Pass the allocated size
  * in the lcpack parameter.
  * @param lcpack Pointer that gets the length of packed field in
- * cpack. This must be set by the calling function to the size
+ * cpack. This must also be set by the calling function to the size
  * available in cpack.
+ * @param verbose If non-zero, error messages will be printed in case
+ * of error. Otherwise, error codes will be return but no error
+ * messages printed. Calls to the original g2c API may cause error
+ * messages to be printed in case of error. For the new g2c_ API, no
+ * error messages will be printed - instead an error code will be
+ * returned. Call g2c_strerror() to get the error message for any
+ * error code.
  *
- * @return N/A
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EJPEG Error encoding/decoding JPEG data.
+ *
  * @author Stephen Gilbert, Ed Hartnett 
  */
-static void
+static int
 jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl,
-	    unsigned char *cpack, g2int *lcpack)
+	    unsigned char *cpack, g2int *lcpack, int verbose)
 {
     g2int  *ifld = NULL;
     static float alog2 = ALOG2;       /*  ln(2.0) */
@@ -66,8 +64,9 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     unsigned char *ctemp;
     float *ffld = fld;
     double *dfld = fld;
+    int ret = G2C_NOERROR;
 
-    LOG((2, "jpcpack_int() fld_is_double %d width %ld height %ld idrstmpl[1] %ld *lcpack %ld",
+    LOG((2, "jpcpack_int() fld_is_double %d width %ld height %ld idrstmpl[1] %d *lcpack %ld",
 	 fld_is_double, width, height, idrstmpl[1], *lcpack));
     
     ndpts = width * height;
@@ -184,15 +183,25 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         if ((*lcpack = (g2int)enc_jpeg2000(ctemp, width, height, nbits, idrstmpl[5],
                                            idrstmpl[6], retry, (char *)cpack, nsize)) <= 0)
         {
-            printf("jpcpack: ERROR Packing JPC = %d\n", (int)*lcpack);
+	    if (verbose)
+		printf("jpcpack: ERROR Packing JPC = %d\n", (int)*lcpack);
+	    ret = G2C_EJPEG;
             if (*lcpack == -3)
             {
                 retry = 1;
                 if ((*lcpack = (g2int)enc_jpeg2000(ctemp, width, height, nbits, idrstmpl[5],
                                                    idrstmpl[6], retry, (char *)cpack, nsize)) <= 0)
-                    printf("jpcpack: Retry Failed.\n");
+		{
+		    if (verbose)
+			printf("jpcpack: Retry Failed.\n");
+		    ret = G2C_EJPEG;
+		}
                 else
-                    printf("jpcpack: Retry Successful.\n");
+		{
+		    if (verbose)
+			printf("jpcpack: Retry Successful.\n");
+		    ret = G2C_NOERROR;
+		}
             }
         }
         free(ctemp);
@@ -213,16 +222,21 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         idrstmpl[6] = 255;       /* lossy not used */
     if (ifld)
         free(ifld);
+
+    return ret;
 }
 
 /**
- * This subroutine packs up a data field into a JPEG2000 code
- * stream. After the data field is scaled, and the reference value is
- * subtracted out, it is treated as a grayscale image and passed to a
- * JPEG2000 encoder. It also fills in GRIB2 Data Representation
- * Template 5.40 or 5.40000 with the appropriate values.
+ * This function packs up a float array into a JPEG2000 code stream.
  *
- * @param fld Pointer to the float or double data values to pack.
+ * After the data are scaled, and the reference value is subtracted
+ * out, the data are treated as a grayscale image and passed to a
+ * JPEG2000 encoder.
+ *
+ * This function also fills in GRIB2 Data Representation Template 5.40
+ * or 5.40000 with the appropriate values.
+ *
+ * @param fld Pointer to the float data values to pack.
  * @param width The number of points in the x direction.
  * @param height The number of points in the y direction.
  * @param idrstmpl Contains the array of values for Data
@@ -253,17 +267,22 @@ void
 jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
         unsigned char *cpack, g2int *lcpack)
 {
-    jpcpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack);
+    jpcpack_int(fld, 0, width, height, idrstmpl, cpack, lcpack, 1);
 }
 
 /**
- * This subroutine packs up a data field into a JPEG2000 code
- * stream. After the data field is scaled, and the reference value is
- * subtracted out, it is treated as a grayscale image and passed to a
- * JPEG2000 encoder. It also fills in GRIB2 Data Representation
- * Template 5.40 or 5.40000 with the appropriate values.
+ * This function packs up a float array into a JPEG2000 code stream.
  *
- * @param fld Pointer to the float or double data values to pack.
+ * After the data are scaled, and the reference value is subtracted
+ * out, the data are treated as a grayscale image and passed to a
+ * JPEG2000 encoder.
+ *
+ * This function also fills in GRIB2 Data Representation Template 5.40
+ * or 5.40000 with the appropriate values.
+ *
+ * This function is the V2 API version of jpcpack() for floats.
+ *
+ * @param fld Pointer to the float data values to pack.
  * @param width The number of points in the x direction.
  * @param height The number of points in the y direction.
  * @param idrstmpl Contains the array of values for Data
@@ -288,11 +307,95 @@ jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * cpack. This must be set by the calling function to the size
  * available in cpack.
  *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EJPEG Error encoding/decoding JPEG data.
+ *
  * @author Ed Hartnett
  */
-void
-jpcpackd(double *fld, g2int width, g2int height, g2int *idrstmpl,
-        unsigned char *cpack, g2int *lcpack)
+int
+g2c_jpcpackf(float *fld, size_t width, size_t height, int *idrstmpl,
+             unsigned char *cpack, size_t *lcpack)
 {
-    jpcpack_int(fld, 1, width, height, idrstmpl, cpack, lcpack);
+    g2int width8 = width, height8 = height, lcpack8 = *lcpack;
+    g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
+    int i, ret;
+    
+    for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+        idrstmpl8[i] = idrstmpl[i];
+
+    ret = jpcpack_int(fld, 0, width8, height8, idrstmpl8, cpack, &lcpack8, 0);
+
+    if (!ret)
+    {
+        for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+            idrstmpl[i] = (int)idrstmpl8[i];
+        *lcpack = (g2int)lcpack8;
+    }
+    return ret;
+}
+
+/**
+ * This function packs up a double array into a JPEG2000 code stream.
+ *
+ * After the data are scaled, and the reference value is subtracted
+ * out, the data are treated as a grayscale image and passed to a
+ * JPEG2000 encoder.
+ *
+ * This function also fills in GRIB2 Data Representation Template 5.40
+ * or 5.40000 with the appropriate values.
+ *
+ * This function is the V2 API version of jpcpack() for doubles.
+ *
+ * @param fld Pointer to the double data values to pack.
+ * @param width The number of points in the x direction.
+ * @param height The number of points in the y direction.
+ * @param idrstmpl Contains the array of values for Data
+ * Representation Template [Table
+ * 5.40](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml)
+ * or 5.40000.
+ * - 0 Reference value - ignored on input, set by jpcpack routine.
+ * - 1 Binary Scale Factor - used on input, unchanged by jpcpack
+ routine.
+ * - 2 Decimal Scale Factor - used on input, unchanged by jpcpack
+ routine.
+ * - 3 number of bits for each data value - ignored on input
+ * - 4 Original field type - currently ignored on input Data values
+ assumed to be reals. Set to 0 on output.
+ * - 5 if 0 use lossless compression, if 1 use lossy compression.
+ * - 6 Desired compression ratio, if idrstmpl[5]=1. Set to 255, if
+ idrstmpl[5]=0.
+ * @param cpack A pointer that will get the packed data field. Must be
+ * allocated before this function is called. Pass the allocated size
+ * in the lcpack parameter.
+ * @param lcpack Pointer that gets the length of packed field in
+ * cpack. This must be set by the calling function to the size
+ * available in cpack.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EJPEG Error encoding/decoding JPEG data.
+ *
+ * @author Ed Hartnett
+ */
+int
+g2c_jpcpackd(double *fld, size_t width, size_t height, int *idrstmpl,
+             unsigned char *cpack, size_t *lcpack)
+{
+    g2int width8 = width, height8 = height, lcpack8 = *lcpack;
+    g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
+    int i, ret;
+    
+    for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+        idrstmpl8[i] = idrstmpl[i];
+
+    ret = jpcpack_int(fld, 1, width8, height8, idrstmpl8, cpack, &lcpack8, 0);    
+
+    if (!ret)
+    {
+        for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
+            idrstmpl[i] = (int)idrstmpl8[i];
+        *lcpack = (g2int)lcpack8;
+    }
+    return ret;
 }
