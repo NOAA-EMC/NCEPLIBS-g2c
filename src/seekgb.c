@@ -1,5 +1,5 @@
 /** @file
- * @brief Searches a file for the next GRIB message.
+ * @brief Search a file for the next GRIB message.
  * @author Stephen Gilbert @date 2002-10-28
  */
 #include <stdio.h>
@@ -10,12 +10,15 @@
 #define BITS_PER_BYTE 8
 
 /**
- * This subprogram searches a file for the next GRIB Message. The
- * search is done starting at byte offset iseek of the file referenced
- * by lugb for mseek bytes at a time. If found, the starting position
- * and length of the message are returned in lskip and lgrib,
- * respectively. The search is terminated when an EOF or I/O error is
- * encountered.
+ * Search a file for the next GRIB Message. 
+ * 
+ * The search is done starting at byte offset iseek of the file
+ * referenced by lugb for mseek bytes at a time. If found, the
+ * starting position and length of the message are returned in lskip
+ * and lgrib, respectively. The search is terminated when an EOF or
+ * I/O error is encountered.
+ *
+ * This function finds either GRIB1 and GRIB2 messages.
  *
  * ### Program History Log
  * Date | Programmer | Comments
@@ -31,8 +34,8 @@
  * perfomance).
  * @param lskip Pointer that gets the number of bytes to skip from the
  * beggining of the file to where the GRIB message starts.
- * @param lgrib Pointer that gets the number of bytes in message (set
- * to 0, if no message found).
+ * @param lgrib Pointer that gets the number of bytes in message (or
+ * 0, if no message found).
  *
  * @author Stephen Gilbert @date 2002-10-28
  */
@@ -59,7 +62,7 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
         nread = fread(cbuf, sizeof(unsigned char), mseek, lugb);
         lim = nread - 8;
 
-        /* Look for 'grib...' in partial section. */
+        /* Look for 'GRIB...' in partial section. */
         for (k = 0; k < lim; k++)
         {
             /* Look at the first 4 bytes - should be 'GRIB'. */

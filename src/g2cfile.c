@@ -277,7 +277,7 @@ find_available_g2cid(int *g2cid)
     return G2C_ETOOMANYFILES;
 }
 
-/** Read metadata from an opened GRIB2 file.
+/** Read metadata from a GRIB2 file being opened with g2c_open().
  *
  * @param g2cid The indentifier for the file.
  *
