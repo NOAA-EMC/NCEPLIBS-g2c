@@ -164,7 +164,7 @@ g2c_strerror(int g2cerr)
     case G2C_EINVAL:
 	return "Invalid input";
     case G2C_EFILE:
-	return "Error reading file";
+	return "File I/O error";
     case G2C_EBADID:
 	return "Bad ID";
     case G2C_ETOOMANYFILES:

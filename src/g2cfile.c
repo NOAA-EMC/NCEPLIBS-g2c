@@ -471,18 +471,53 @@ g2c_create(const char *path, int cmode, int *g2cid)
     return G2C_NOERROR;
 }
 
+/** Free resources holding the file metadata.
+ *
+ * @param g2cid Indentifier for the file.
+ *
+ * @return
+ * - ::G2C_NOERROR - No error.
+ * - ::G2C_EBADID - Bad file ID.
+ *
+ * @author Ed Hartnett @date Aug 16, 2022
+ */
+static int
+free_metadata(int g2cid)
+{
+    int m;
+    
+    /* Check input. */
+    if (g2cid > G2C_MAX_FILES)
+	return G2C_EBADID;
+    if (g2c_file[g2cid].g2cid != g2cid)
+	return G2C_EBADID;
+
+    /* Free memory allocated for each message in the file. */
+    for (m = 0; m < g2c_file[g2cid].num_messages; m++)
+    {
+        G2C_MESSAGE_INFO_T *msg = &g2c_file[g2cid].msg[m];
+        free(msg->section_number);
+        free(msg->section_offset);
+    }
+    
+    return G2C_NOERROR;
+}
+
 /** Close a GRIB2 file, freeing resources.
  *
  * @param g2cid Indentifier for the file.
  *
  * @return
  * - ::G2C_NOERROR - No error.
+ * - ::G2C_EBADID - Bad file ID.
  *
  * @author Ed Hartnett @date Aug 16, 2022
  */
 int
 g2c_close(int g2cid)
 {
+    int ret;
+    
     /* Check input. */
     if (g2cid > G2C_MAX_FILES)
 	return G2C_EBADID;
@@ -491,14 +526,20 @@ g2c_close(int g2cid)
 
     LOG((1, "g2c_close %d", g2cid));
 
+    /* Free resources. */
+    if ((ret = free_metadata(g2cid)))
+        return ret;
+    
     /* Close the file. */
-    fclose(g2c_file[g2cid].f);
+    if (fclose(g2c_file[g2cid].f))
+        return G2C_EFILE;
 
     /* Reset the file data. */
     g2c_file[g2cid].path[0] = 0;
     g2c_file[g2cid].g2cid = 0;
+    g2c_file[g2cid].num_messages = 0;
     g2c_file[g2cid].f = NULL;
-    
+
     return G2C_NOERROR;
 }
 

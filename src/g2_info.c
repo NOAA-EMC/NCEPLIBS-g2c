@@ -77,7 +77,8 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
     int ret;
 
     /* The g2c version of this function does the work. */
-    ret = g2c_info(cgrib, listsec0_int, listsec1_int, &numfields_int, &numlocal_int);
+    ret = g2c_info(cgrib, listsec0_int, listsec1_int, &numfields_int,
+                   &numlocal_int, NULL, NULL, NULL);
 
     /* Translate int types back to g2int. */
     *numfields = numfields_int;
@@ -165,6 +166,14 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
  * Sections 4 - 7. Ignored if NULL.
  * @param numlocal A pointer that gets the number of Local Use
  * Sections (section 2) found in the GRIB message. Ignored if NULL.
+ * @param numsection A pointer that gets the number of sections in the
+ * message. Ignored if NULL.
+ * @param section_number A pointer that gets an array of the section
+ * numbers in the message. This array must be allocated by the
+ * caller. Ignored if NULL.
+ * @param section_offset A pointer that gets an array of the byte offsets
+ * to each section in the message. This array must be allocated by the
+ * caller. Ignored if NULL.
  *
  * @returns 0 for success, otherwise:
  * - ::G2C_ENOTGRIB Beginning characters "GRIB" not found.
@@ -173,18 +182,23 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
  * - ::G2C_EBADEND End string "7777" found, but not where expected.
  * - ::G2C_ENOEND End string "7777" not found at end of message.
  * - ::G2C_EBADSECTION Invalid section number found.
+ * - ::G2C_ENOMEM Out of memory.
  *
  * @author Ed Hartnett @date 2022-08-31
  */
 int
 g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
-	 int *numfields, int *numlocal)
+	 int *numfields, int *numlocal, int *numsection, int *section_number,
+         size_t *section_offset)
 {
     int mapsec1[G2C_SECTION1_LEN] = {2, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1};
     int ipos, nbits, lensec;
     int offset, istart = -1, lengrib, lensec0, lensec1, secnum;
     int my_listsec0[G2C_SECTION0_LEN], my_listsec1[G2C_SECTION1_LEN];
     int my_numlocal = 0, my_numfields = 0;
+    int ns = 0; /* number of sections */
+    int my_section_number[G2C_MAX_NUM_SECTIONS];
+    size_t my_section_offset[G2C_MAX_NUM_SECTIONS];
     int i;
 
     LOG((2, "g2c_info"));
@@ -205,7 +219,7 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
     LOG((3, "msg found at byte %d", istart));
 
     /* Unpack Section 0 - Indicator Section. */
-    offset = BYTE * (istart + 6);
+    offset = BYTE * (istart + 6); /* Discipline starts at byte 7. */
     g2c_gbit_int(cgrib, &my_listsec0[0], offset, BYTE);     /* Discipline */
     offset += BYTE;
     g2c_gbit_int(cgrib, &my_listsec0[1], offset, BYTE);     /* GRIB edition number */
@@ -216,7 +230,11 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
     lensec0 = G2C_SECTION0_BYTES;
     ipos = istart + lensec0;
     LOG((3, "unpacked section 0, lengrib %d now at byte %d", lengrib, ipos));
-
+    my_section_number[ns] = 0;
+    my_section_offset[ns] = istart;
+    my_section_offset[ns + 1] = offset;
+    ns++;
+    
     /* This function handles only GRIB Edition 2. */
     if (my_listsec0[1] != 2)
 	return G2C_ENOTGRIB2;
@@ -240,6 +258,9 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
     }
     ipos += lensec1;
     LOG((3, "unpacked section 1, now at byte %d", ipos));    
+    my_section_number[ns] = 1;
+    my_section_offset[ns + 1] = offset / BYTE;
+    ns++;
 
     /* Loop through the remaining sections to see if they are
        valid. Also count the number of times Section 2 and Section 4
@@ -253,6 +274,7 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
             ipos += 4;
             if (ipos != (istart + lengrib))
 		return G2C_EBADEND;
+            my_section_number[ns] = 8;  /* Section 8 is the end of message. */
             break;
         }
 
@@ -263,6 +285,12 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
 	LOG((3, "found section number %d of length %d", secnum, lensec));
         offset += BYTE;
         ipos += lensec;                 /* Update beginning of section pointer */
+
+        /* Remember this information. */
+        my_section_number[ns] = (int)secnum;
+        my_section_offset[ns + 1] = ipos;
+        ns++;
+        
         if (ipos > (istart + lengrib))
 	    return G2C_ENOEND;
 
@@ -290,6 +318,14 @@ g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
 	*numlocal = my_numlocal;
     if (numfields)
 	*numfields = my_numfields;
+    if (numsection)
+        *numsection = ns;
+    if (section_number)
+        for (i = 0; i < ns; i++)
+            section_number[i] = my_section_number[i];
+    if (section_offset)
+        for (i = 0; i < ns; i++)
+            section_offset[i] = my_section_offset[i];
 
     return G2C_NOERROR;
 }

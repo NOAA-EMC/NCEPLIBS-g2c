@@ -45,6 +45,9 @@ typedef struct g2c_message_info
     int section1[G2C_SECTION1_LEN]; /**< Section 1 array. */
     int num_fields; /**< Number of fields in the message. */
     int num_local; /**< Number of local sections in the message. */
+    int num_sections; /**< Number of sections in the file. */
+    int *section_number; /** Array (length num_sections) of section numbers. */
+    size_t *section_offset; /** Array (length num_sections) of byte offsets from start of message to section. */
 } G2C_MESSAGE_INFO_T;
 
 /** This is the information about each open file. */

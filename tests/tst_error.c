@@ -24,7 +24,7 @@ int main()
 	return G2C_ERROR;
     if (strncmp(g2c_strerror(-53), "Invalid input", MAX_LEN))
 	return G2C_ERROR;
-    if (strncmp(g2c_strerror(-54), "Error reading file", MAX_LEN))
+    if (strncmp(g2c_strerror(-54), "File I/O error", MAX_LEN))
 	return G2C_ERROR;
     if (strncmp(g2c_strerror(-55), "Bad ID", MAX_LEN))
 	return G2C_ERROR;

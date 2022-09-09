@@ -291,7 +291,8 @@ int g2c_close(int g2cid);
 
 /* Inquiry functions. */
 int g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
-	     int *numfields, int *numlocal);
+             int *numfields, int *numlocal, int *numsection, int *section_number,
+             size_t *section_offset);
 
 /* Internal functions. */
 int g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
@@ -346,6 +347,7 @@ int g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld);
 #define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
 #define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
 #define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
+#define G2C_MAX_NUM_SECTIONS 1024 /**< Maximum number of sections that can be handled in one message. */
 
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
@@ -406,7 +408,7 @@ int g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld);
 #define G2C_EMSGCOMPLETE (-51) /**< GRIB message already complete. */
 #define G2C_ENAMETOOLONG (-52) /**< Name too long. */
 #define G2C_EINVAL (-53) /**< Invalid input. */
-#define G2C_EFILE (-54) /**< Invalid input. */
+#define G2C_EFILE (-54) /**< File I/O error. */
 #define G2C_EBADID (-55) /**< Bad ID. */
 #define G2C_ETOOMANYFILES (-56) /**< Trying to open too many files. */
 #define G2C_ENOMEM (-57) /**< Out of memory. */
