@@ -290,7 +290,7 @@ int g2c_create(const char *path, int cmode, int *g2cid);
 int g2c_close(int g2cid);
 
 /* Inquiry functions. */
-int g2c_info(unsigned char *cgrib, int *listsec0, int *listsec1,
+int g2c_info(unsigned char *cgrib, int *discipline, size_t *message_len, int *listsec1,
              int *numfields, int *numlocal, int *numsection, int *section_number,
              size_t *section_offset);
 
