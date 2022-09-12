@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grib2_int.h"
+#include <endian.h>
 
 #define G2C_SEEKMSG_BUFSIZE 4092 /**< Size of buffer used in g2c_seekmsg(). */
 
@@ -79,10 +80,15 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
         /* Look for 'GRIB...2' in partial section. */
         for (k = 0; k < lim; k++)
         {
-            if (!strncmp((char *)&cbuf[k], G2C_MAGIC_HEADER, strlen(G2C_MAGIC_HEADER)) && cbuf[7] == '2')
+            if (!strncmp((char *)&cbuf[k], G2C_MAGIC_HEADER, strlen(G2C_MAGIC_HEADER)) && cbuf[7] == 2)
             {
-                /* Find the length of the message. */
-                memcpy(&my_msglen, &cbuf[8], sizeof(size_t));
+                /* Find the length of the message. This is stored as
+                 * an 8-byte big-endian integer starting at positon
+                 * 8 in cbuf. */
+                /* memcpy(&my_msglen1, &cbuf[8], 8); */
+                /* my_msglen = be64toh(my_msglen1); */
+                my_msglen = be64toh(*(size_t *)&cbuf[8]);
+                
 		LOG((4, "my_msglen %ld", my_msglen));
 
                 /* Read the last 4 bytes of the message. */
@@ -92,7 +98,7 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
                     return G2C_EFILE;
                 }
                     
-                if ((k4 = fread(&end, 4, 1, g2c_file[g2cid].f)) != 4)
+                if ((k4 = fread(&end, 4, 1, g2c_file[g2cid].f)) != 1)
                 {
                     free(cbuf);
                     return G2C_EFILE;
@@ -103,7 +109,7 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
                 {
                     /* GRIB message found. */
                     my_offset = ipos + k;
-		    LOG((4, "found end of message"));
+		    LOG((4, "found end of message my_offset %ld", my_offset));
                     break;
                 }
             }

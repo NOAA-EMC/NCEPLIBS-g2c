@@ -306,6 +306,7 @@ void g2c_free_tables();
 void g2c_gbit_int(unsigned char *in, int *iout, int iskip, int nbits);
 int g2c_gbits_int(unsigned char *in, int *iout, int iskip, int nbits,
 		  int nskip, int n);
+int g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen);
 
 /* Logging, for debugging purposes. */
 int g2c_set_log_level(int new_level);
