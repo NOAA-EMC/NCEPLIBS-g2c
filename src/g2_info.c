@@ -425,7 +425,7 @@ g2c_msg_info(int g2cid, size_t skip_bytes, int *discipline, size_t *message_len,
     /* /\* Find GRIB2 message in the file. *\/ */
     /* seekgb(g2c_file[g2cid].f, skip_bytes, 4092, &lskip, &lgrib); */
 
-    LOG((3, "msg found at byte %ld", lskip));
+    /* LOG((3, "msg found at byte %ld", lskip)); */
 
     /* /\* Unpack Section 0 - Indicator Section. *\/ */
     /* offset = BYTE * (lskip + 6); /\* Discipline starts at byte 7. *\/ */
