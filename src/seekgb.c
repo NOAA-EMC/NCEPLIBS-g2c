@@ -14,7 +14,10 @@
 #include <stdlib.h>
 #include "grib2_int.h"
 
-#define G2C_SEEKMSG_BUFSIZE 4092 /*<< Size of buffer used in g2c_seekmsg(). */
+#define G2C_SEEKMSG_BUFSIZE 4092 /**< Size of buffer used in g2c_seekmsg(). */
+
+/** Global file information. */
+extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 
 /**
  * Search a file for the next GRIB2 Message. 
@@ -42,8 +45,8 @@
 int
 g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
 {
-    size_t k4, start, lengrib;
-    int k, lim, version;
+    size_t k4;
+    int k, lim;
     int end;
     unsigned char *cbuf;
     size_t bytes_read = G2C_SEEKMSG_BUFSIZE;
@@ -76,7 +79,7 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
         /* Look for 'GRIB...2' in partial section. */
         for (k = 0; k < lim; k++)
         {
-            if (!strncmp(&cbuf[k], G2C_MAGIC_HEADER, strlen(G2C_MAGIC_HEADER)) && cbuf[7] == '2'))
+            if (!strncmp((char *)&cbuf[k], G2C_MAGIC_HEADER, strlen(G2C_MAGIC_HEADER)) && cbuf[7] == '2')
             {
                 /* Find the length of the message. */
                 memcpy(&my_msglen, &cbuf[8], sizeof(size_t));
@@ -99,7 +102,7 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
                 if (k4 == 1 && end == 926365495)
                 {
                     /* GRIB message found. */
-                    offset = ipos + k;
+                    my_offset = ipos + k;
 		    LOG((4, "found end of message"));
                     break;
                 }
