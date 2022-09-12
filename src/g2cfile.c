@@ -361,6 +361,38 @@ find_available_g2cid(int *g2cid)
 /*     return ret; */
 /* } */
 
+/** Add new message to linked list. 
+ *
+ * @param file Pointer to the G2C_FILE_INFO_T for this file.
+ *
+ * @return
+ * - ::G2C_NOERROR - No error.
+ *
+ * @author Ed Hartnett @date Sep 12, 2022
+ */
+static int
+add_msg(G2C_FILE_INFO_T *file)
+{
+    G2C_MESSAGE_INFO_T *msg;
+        
+    /* Allocate storage for a new message. */
+    if (!(msg = calloc(sizeof(G2C_MESSAGE_INFO_T), 1)))
+        return G2C_ENOMEM;
+    
+    /* Add msg to end of linked list. */
+    if (!file->msg)
+        file->msg = msg;
+    else
+    {
+        G2C_MESSAGE_INFO_T *m;
+        
+        for (m = file->msg; m->next; m = m->next)
+            ;
+        m->next = msg;
+    }
+    
+    return G2C_NOERROR;
+}
 /** Read metadata from a GRIB2 file being opened with g2c_open().
  *
  * @param g2cid The indentifier for the file.
@@ -392,8 +424,6 @@ read_metadata2(int g2cid)
     /* Read each message in the file. */
     for (msg_num = 0; !ret; msg_num++)
     {
-        G2C_MESSAGE_INFO_T *msg, *m;
-        
         /* Find the message. */
         if ((ret = g2c_seekmsg(g2cid, file_pos, &bytes_to_msg, &bytes_in_msg)))
             return ret;
@@ -404,19 +434,10 @@ read_metadata2(int g2cid)
         if (!bytes_in_msg)
             break;
 
-        /* Allocate storage for a new message. */
-        if (!(msg = calloc(sizeof(G2C_MESSAGE_INFO_T), 1)))
-            return G2C_ENOMEM;
-
-        /* Add msg to end of linked list. */
-        if (!g2c_file[g2cid].msg)
-            g2c_file[g2cid].msg = msg;
-        else
-        {
-            for (m = g2c_file[g2cid].msg; m->next; m = m->next)
-                ;
-            m->next = msg;
-        }
+        /* Add new message to our list of messages. */
+        if ((ret = add_msg(&g2c_file[g2cid])))
+            return ret;
+        
         file_pos += bytes_in_msg;
     }    
 
