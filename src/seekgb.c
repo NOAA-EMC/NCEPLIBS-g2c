@@ -50,7 +50,7 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
     int end;
     unsigned char *cbuf;
     size_t bytes_read = G2C_SEEKMSG_BUFSIZE;
-    size_t my_msglen = 0, my_offset, ipos;
+    size_t my_msglen = 0, my_offset = 0, ipos;
 
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
