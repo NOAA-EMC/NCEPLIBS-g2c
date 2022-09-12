@@ -48,6 +48,7 @@ typedef struct g2c_message_info
     int num_sections; /**< Number of sections in the file. */
     int *section_number; /** Array (length num_sections) of section numbers. */
     size_t *section_offset; /** Array (length num_sections) of byte offsets from start of message to section. */
+    struct g2c_message_info *next;
 } G2C_MESSAGE_INFO_T;
 
 /** This is the information about each open file. */
@@ -57,7 +58,7 @@ typedef struct g2c_file_info
     char path[G2C_MAX_NAME + 1]; /**< Path of the file. */
     FILE *f; /**< FILE pointer to open file. */
     size_t num_messages; /**< Number of messages in the file. */
-    G2C_MESSAGE_INFO_T msg[G2C_MAX_MESSAGES]; /**< Information about the messages in the file. */
+    G2C_MESSAGE_INFO_T *msg; /**< Information about each message in the file. */
 } G2C_FILE_INFO_T;
 
 /** An entry in a GRIB2 code table. */

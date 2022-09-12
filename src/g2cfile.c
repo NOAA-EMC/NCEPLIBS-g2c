@@ -389,15 +389,34 @@ read_metadata2(int g2cid)
 
     LOG((2, "read_metadata g2cid %d", g2cid));
 
-    /* Read each message in the file. When there are 0 bytes_in_msg, we are done. */
-    for (msg_num = 0; !ret && bytes_in_msg; msg_num++)
+    /* Read each message in the file. */
+    for (msg_num = 0; !ret; msg_num++)
     {
-
+        G2C_MESSAGE_INFO_T *msg, *m;
+        
         /* Find the message. */
         if ((ret = g2c_seekmsg(g2cid, file_pos, &bytes_to_msg, &bytes_in_msg)))
             return ret;
 	LOG((3, "msg_num %d bytes_to_msg %ld bytes_in_msg %ld", msg_num, bytes_to_msg,
 	     bytes_in_msg));
+
+        /*  When there are 0 bytes_in_msg, we are done. */
+        if (!bytes_in_msg)
+            break;
+
+        /* Allocate storage for a new message. */
+        if (!(msg = calloc(sizeof(G2C_MESSAGE_INFO_T), 1)))
+            return G2C_ENOMEM;
+
+        /* Add msg to end of linked list. */
+        if (!g2c_file[g2cid].msg)
+            g2c_file[g2cid].msg = msg;
+        else
+        {
+            for (m = g2c_file[g2cid].msg; m->next; m = m->next)
+                ;
+            m->next = msg;
+        }
         file_pos += bytes_in_msg;
     }    
 
@@ -536,21 +555,31 @@ g2c_create(const char *path, int cmode, int *g2cid)
 static int
 free_metadata(int g2cid)
 {
-    int m;
-    
+    G2C_MESSAGE_INFO_T *msg;
+        
     /* Check input. */
     if (g2cid > G2C_MAX_FILES)
 	return G2C_EBADID;
     if (g2c_file[g2cid].g2cid != g2cid)
 	return G2C_EBADID;
 
-    /* Free memory allocated for each message in the file. */
-    for (m = 0; m < g2c_file[g2cid].num_messages; m++)
+    /* Free message resources. */
+    msg = g2c_file[g2cid].msg;
+    while (msg)
     {
-        G2C_MESSAGE_INFO_T *msg = &g2c_file[g2cid].msg[m];
-        free(msg->section_number);
-        free(msg->section_offset);
+        G2C_MESSAGE_INFO_T *mtmp;        
+        mtmp = msg->next;
+        free(msg);
+        msg = mtmp;
     }
+    
+    /* Free memory allocated for each message in the file. */
+    /* for (m = 0; m < g2c_file[g2cid].num_messages; m++) */
+    /* { */
+    /*     G2C_MESSAGE_INFO_T *msg = &g2c_file[g2cid].msg[m]; */
+    /*     free(msg->section_number); */
+    /*     free(msg->section_offset); */
+    /* } */
     
     return G2C_NOERROR;
 }

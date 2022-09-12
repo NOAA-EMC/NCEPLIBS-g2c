@@ -224,7 +224,7 @@ g2c_xml_init()
 		    if (!(new_table = calloc(1, sizeof(G2C_CODE_TABLE_T))))
 			return G2C_ENOMEM;
 		    strncpy(new_table->title, (char *)key, G2C_MAX_GRIB_TITLE_LEN);
-		    printf("title: %s\n", key);
+		    /* printf("title: %s\n", key); */
 		    my_table = new_table;
 		}
 		xmlFree(key);
@@ -313,7 +313,9 @@ g2c_xml_init()
 	cur = cur->next;
     }
 
-    g2c_print_tables();
+
+    /* Uncomment this to see the tables. */
+    /* g2c_print_tables(); */
 
     xmlFreeDoc(doc);
     xmlCleanupParser();
