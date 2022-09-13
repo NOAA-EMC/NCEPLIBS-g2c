@@ -12,14 +12,17 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <arpa/inet.h>
 #include "grib2_int.h"
-#if defined(APPLE)
-  #include <machine/endian.h>
-#else
-  #include <endian.h>
-#endif
+/* #if defined(APPLE) */
+/*   #include <machine/endian.h> */
+/* #else */
+/*   #include <endian.h> */
+/* #endif */
 
 #define G2C_SEEKMSG_BUFSIZE 4092 /**< Size of buffer used in g2c_seekmsg(). */
+
+#define bswap64(y) (((uint64_t)ntohl(y)) << 32 | ntohl(y>>32)) /**< Byte swap 64-bit ints. */
 
 /** Global file information. */
 extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
@@ -91,7 +94,8 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
                  * 8 in cbuf. */
                 /* memcpy(&my_msglen1, &cbuf[8], 8); */
                 /* my_msglen = be64toh(my_msglen1); */
-                my_msglen = be64toh(*(size_t *)&cbuf[8]);
+                /* my_msglen = be64toh(*(size_t *)&cbuf[8]); */
+                my_msglen = bswap64(*(size_t *)&cbuf[8]);
                 
 		LOG((4, "my_msglen %ld", my_msglen));
 
