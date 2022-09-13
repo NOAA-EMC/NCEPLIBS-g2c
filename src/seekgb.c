@@ -21,7 +21,7 @@
   #include <sys/endian.h>
 #else
   #include <endian.h>
-#endif#include <endian.h>
+#endif
 
 #define G2C_SEEKMSG_BUFSIZE 4092 /**< Size of buffer used in g2c_seekmsg(). */
 
