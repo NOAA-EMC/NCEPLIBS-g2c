@@ -89,6 +89,15 @@ find_package(LibXml2 2.9.0 REQUIRED)
 target_link_libraries(${lib_name} PRIVATE ${LIBXML2_LIBRARIES})
 target_include_directories(${lib_name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
 
+# Set pre-processor flags for build system type.
+if(WIN32)
+  target_compile_definitions(${lib_name} PRIVATE WIN32)  
+elseif(APPLE)
+  target_compile_definitions(${lib_name} PRIVATE APPLE)  
+elseif(UNIX)
+  target_compile_definitions(${lib_name} PRIVATE UNIX)  
+endif()
+
 # Set the compiler flags.
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
   set(CMAKE_C_FLAGS "-g -traceback ${CMAKE_C_FLAGS}")
