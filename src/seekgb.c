@@ -12,7 +12,11 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#if defined(WIN32)
+#include <winsock2.h>
+#else
 #include <arpa/inet.h>
+#endif
 #include "grib2_int.h"
 /* #if defined(APPLE) */
 /*   #include <machine/endian.h> */
