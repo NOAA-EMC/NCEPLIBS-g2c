@@ -18,6 +18,12 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <errno.h>
+#if defined(WIN32)
+#include <winsock2.h> /* ntohl() function for Windows. */
+#else
+#include <arpa/inet.h> /* ntohl() function for Unix/Mac. */
+#endif
+
 #include "grib2.h"
 
 #define ALOG2 (0.69314718) /**< ln(2.0) */
@@ -40,14 +46,31 @@
 /** This is the information about each message. */
 typedef struct g2c_message_info
 {
-    size_t message_number; /**< Number of message in file. */
-    int section0[G2C_SECTION0_LEN]; /**< Section 0 array. */
-    int section1[G2C_SECTION1_LEN]; /**< Section 1 array. */
+    size_t msg_num; /**< Number of message in file (0-based). */
+    size_t bytes_to_msg; /**< Number of bytes to skip in the file, to get to this message. */
+    size_t bytes_in_msg; /**< Number of bytes in this message. */
+    unsigned char discipline; /**< Discipline from section 0. */
+    int section1[G2C_SECTION1_ARRAY_LEN]; /**< Section 1 array. */
     int num_fields; /**< Number of fields in the message. */
     int num_local; /**< Number of local sections in the message. */
     int num_sections; /**< Number of sections in the file. */
-    int *section_number; /** Array (length num_sections) of section numbers. */
-    size_t *section_offset; /** Array (length num_sections) of byte offsets from start of message to section. */
+    int *section_number; /**< Array (length num_sections) of section numbers. */
+    size_t *section_offset; /**< Array (length num_sections) of byte offsets from start of message to section. */
+    int sec1_len; /**< Length of section 1. */
+    short center; /**< Originating center. */
+    short subcenter; /**< Originating subcenter. */
+    unsigned char master_version; /**< GRIB master tables version number. */
+    unsigned char local_version; /**< Version number of GRIB local tables used to augment Master Tables. */
+    unsigned char sig_ref_time; /**< Significance of reference time. */
+    short year; /**< Year. */
+    unsigned char month; /**< Month. */
+    unsigned char day; /**< Day. */
+    unsigned char hour; /**< Hour. */
+    unsigned char minute; /**< Minute. */
+    unsigned char second; /**< Second. */
+    unsigned char status; /**< Production Status of Processed data in the GRIB message. */
+    unsigned char type; /**< Type of processed data in this GRIB message. */
+    struct g2c_file_info *file;
     struct g2c_message_info *next;
 } G2C_MESSAGE_INFO_T;
 

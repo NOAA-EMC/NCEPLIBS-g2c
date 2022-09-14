@@ -12,11 +12,6 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#if defined(WIN32)
-#include <winsock2.h>
-#else
-#include <arpa/inet.h>
-#endif
 #include "grib2_int.h"
 /* #if defined(APPLE) */
 /*   #include <machine/endian.h> */
@@ -96,9 +91,6 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
                 /* Find the length of the message. This is stored as
                  * an 8-byte big-endian integer starting at positon
                  * 8 in cbuf. */
-                /* memcpy(&my_msglen1, &cbuf[8], 8); */
-                /* my_msglen = be64toh(my_msglen1); */
-                /* my_msglen = be64toh(*(size_t *)&cbuf[8]); */
                 my_msglen = bswap64(*(size_t *)&cbuf[8]);
                 
 		LOG((4, "my_msglen %ld", my_msglen));

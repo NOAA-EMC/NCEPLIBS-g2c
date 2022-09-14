@@ -18,6 +18,13 @@ int g2c_next_g2cid = 1;
 /** Default size of read-buffer. */
 #define READ_BUF_SIZE 4092
 
+/** Number of bytes to discipline field in GRIB2 message. */    
+#define BYTES_TO_DISCIPLINE 6
+
+#define ONE_BYTE 1 /**< One byte. */
+#define TWO_BYTES 2 /**< Two bytes. */
+#define FOUR_BYTES 4 /**< Four bytes. */
+
 /** Search a file for the next GRIB1 or GRIB2 message.
  *
  * A grib message is identified by its indicator section,
@@ -361,9 +368,109 @@ find_available_g2cid(int *g2cid)
 /*     return ret; */
 /* } */
 
-/** Add new message to linked list. 
+/**
+ * Read the file to get metadata about a message. 
+ *
+ * @param msg Pointer to the G2C_MESSAGE_INFO_T struct for this
+ * message.
+ *
+ * @return
+ * - ::G2C_NOERROR - No error.
+ *
+ * @author Ed Hartnett @date Sep 12, 2022
+*/
+static int
+read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
+{
+    int int_be;
+    short short_be;
+    char sec_num;
+    int total_read = G2C_SECTION0_BYTES;
+
+    /* Read section 0. */
+    if (fseek(msg->file->f, msg->bytes_to_msg + BYTES_TO_DISCIPLINE, SEEK_SET))
+        return G2C_EFILE;
+    if ((fread(&msg->discipline, ONE_BYTE, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    
+    /* Read section 1. */
+    if (fseek(msg->file->f, 9, SEEK_CUR))
+        return G2C_EFILE;
+    if ((fread(&int_be, FOUR_BYTES, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    msg->sec1_len = htonl(int_be);
+    if ((fread(&sec_num, 1, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    if (sec_num != 1)
+        return G2C_ENOSECTION1;
+    if ((fread(&short_be, TWO_BYTES, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    msg->center = htons(short_be);
+    if ((fread(&short_be, TWO_BYTES, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    msg->subcenter = htons(short_be);
+    if ((fread(&msg->master_version, ONE_BYTE, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&msg->local_version, ONE_BYTE, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&msg->sig_ref_time, ONE_BYTE, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&short_be, TWO_BYTES, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    msg->year = htons(short_be);
+    if ((fread(&msg->month, ONE_BYTE, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&msg->day, ONE_BYTE, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&msg->hour, ONE_BYTE, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&msg->minute, ONE_BYTE, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&msg->second, ONE_BYTE, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&msg->status, ONE_BYTE, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&msg->type, ONE_BYTE, 1, msg->file->f)) != 1)
+        return G2C_EFILE;
+    total_read += msg->sec1_len;
+
+    /* Read the sections. */
+    while (total_read < msg->bytes_in_msg - FOUR_BYTES)
+    {
+        int sec_len;
+        unsigned char sec_num;
+
+        /* Read section length and number. */
+        if ((fread(&int_be, FOUR_BYTES, 1, msg->file->f)) != 1)
+            return G2C_EFILE;
+        sec_len = htonl(int_be);
+        /* A section length of 926365495 indicates we've reached
+         * section 8, the end of the message. */        
+        if (sec_len != 926365495)
+        {
+            if ((fread(&sec_num, 1, 1, msg->file->f)) != 1)
+                return G2C_EFILE;
+            LOG((4, "sec_len %d sec_num %d", sec_len, sec_num));
+
+            /* Skip to next section. */ 
+            if (fseek(msg->file->f, sec_len - 5, SEEK_CUR))
+                return G2C_EFILE;
+            total_read += sec_len;
+            LOG((4, "total_read %d", total_read));
+        }
+    }
+    
+    return G2C_NOERROR;
+}
+
+/** 
+ * Add new message to linked list. 
  *
  * @param file Pointer to the G2C_FILE_INFO_T for this file.
+ * @param msg_num Number of the message in file (0-based).
+ * @param bytes_to_msg Number of bytes to the start of the message in
+ * the file.
+ * @param bytes_in_msg Length of message in bytes.
  *
  * @return
  * - ::G2C_NOERROR - No error.
@@ -371,9 +478,10 @@ find_available_g2cid(int *g2cid)
  * @author Ed Hartnett @date Sep 12, 2022
  */
 static int
-add_msg(G2C_FILE_INFO_T *file)
+add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in_msg)
 {
     G2C_MESSAGE_INFO_T *msg;
+    int ret;
         
     /* Allocate storage for a new message. */
     if (!(msg = calloc(sizeof(G2C_MESSAGE_INFO_T), 1)))
@@ -390,6 +498,19 @@ add_msg(G2C_FILE_INFO_T *file)
             ;
         m->next = msg;
     }
+
+    /* Remember values. */
+    msg->msg_num = msg_num;
+    msg->bytes_to_msg = bytes_to_msg;
+    msg->bytes_in_msg = bytes_in_msg;
+    msg->file = file;
+
+    /* Read message metadata. */
+    if ((ret = read_msg_metadata(msg)))
+        return ret;
+
+    /* Increment number of messages in the file. */
+    msg->file->num_messages++;
     
     return G2C_NOERROR;
 }
@@ -435,7 +556,7 @@ read_metadata2(int g2cid)
             break;
 
         /* Add new message to our list of messages. */
-        if ((ret = add_msg(&g2c_file[g2cid])))
+        if ((ret = add_msg(&g2c_file[g2cid], msg_num, bytes_to_msg, bytes_in_msg)))
             return ret;
         
         file_pos += bytes_in_msg;
@@ -593,14 +714,6 @@ free_metadata(int g2cid)
         free(msg);
         msg = mtmp;
     }
-    
-    /* Free memory allocated for each message in the file. */
-    /* for (m = 0; m < g2c_file[g2cid].num_messages; m++) */
-    /* { */
-    /*     G2C_MESSAGE_INFO_T *msg = &g2c_file[g2cid].msg[m]; */
-    /*     free(msg->section_number); */
-    /*     free(msg->section_offset); */
-    /* } */
     
     return G2C_NOERROR;
 }
