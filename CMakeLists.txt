@@ -91,7 +91,8 @@ target_include_directories(${lib_name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
 
 # Set pre-processor flags for build system type.
 if(WIN32)
-  target_compile_definitions(${lib_name} PRIVATE WIN32)  
+  target_compile_definitions(${lib_name} PRIVATE WIN32)
+  target_link_libraries(${lib_name} PRIVATE Ws2_32)
 elseif(APPLE)
   target_compile_definitions(${lib_name} PRIVATE APPLE)  
 elseif(UNIX)
