@@ -70,9 +70,20 @@ typedef struct g2c_message_info
     unsigned char second; /**< Second. */
     unsigned char status; /**< Production Status of Processed data in the GRIB message. */
     unsigned char type; /**< Type of processed data in this GRIB message. */
-    struct g2c_file_info *file;
-    struct g2c_message_info *next;
+    struct g2c_section_info *sec; /**< List of section metadata. */
+    struct g2c_file_info *file; /**< Pointer to containing file. */
+    struct g2c_message_info *next; /**< Pointer to next in list. */
 } G2C_MESSAGE_INFO_T;
+
+/** Information about a section 3 through 7 in a GRIB2 message. */
+typedef struct g2c_section_info
+{
+    unsigned int sec_len; /**< Length of the section (in bytes). */
+    unsigned char sec_num; /**< Section number. */
+    G2C_MESSAGE_INFO_T *msg; /**< Pointer to contianing message. */
+    struct g2c_section_info *next; /**< Pointer to next in list. */
+    struct g2c_section_info *prev; /**< Pointer to previous in list. */
+} G2C_SECTION_INFO_T;
 
 /** This is the information about each open file. */
 typedef struct g2c_file_info

@@ -231,6 +231,8 @@ g2c_log_file(int g2cid)
     LOG((1, "num_messages %ld", g2c_file[g2cid].num_messages));
     for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
     {
+        G2C_SECTION_INFO_T *sec;
+        
 	LOG((1, "message %ld num_fields %d num_local %d", msg->msg_num, msg->num_fields,
              msg->num_local));
         LOG((2, "sec1_len %d center %d subcenter %d master_version %d local_version %d",
@@ -269,6 +271,13 @@ g2c_log_file(int g2cid)
 		return ret;
 	    LOG((2, "Type of processed data in this GRIB message: %s", desc));
 	}
+
+        /* Section info. */
+        for (sec = msg->sec; sec; sec = sec->next)
+        {
+            LOG((3, "sec_len %d sec_num %d", sec->sec_len, sec->sec_num));
+        }
+        
     }
 
     /* Free XML code memory. */

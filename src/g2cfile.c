@@ -369,6 +369,47 @@ find_available_g2cid(int *g2cid)
 /* } */
 
 /**
+ * Add metadata about a new section 3, 4, 5, 6, or 7.
+ *
+ * @param msg Pointer to the G2C_MESSAGE_INFO_T struct.
+ * @param sec_len Length of section.
+ * @param sec_num Section number.
+ *
+ * @return
+ * - ::G2C_NOERROR - No error.
+ *
+ * @author Ed Hartnett @date Sep 12, 2022
+*/
+static int
+add_section(G2C_MESSAGE_INFO_T *msg, unsigned int sec_len, unsigned char sec_num)
+{
+    G2C_SECTION_INFO_T *sec;
+        
+    /* Allocate storage for a new section. */
+    if (!(sec = calloc(sizeof(G2C_SECTION_INFO_T), 1)))
+        return G2C_ENOMEM;
+    
+    /* Add sec to end of linked list. */
+    if (!msg->sec)
+        msg->sec = sec;
+    else
+    {
+        G2C_SECTION_INFO_T *s;
+        
+        for (s = msg->sec; s->next; s = s->next)
+            ;
+        s->next = sec;
+    }
+    
+    /* Remember values. */
+    sec->msg = msg;
+    sec->sec_len = sec_len;
+    sec->sec_num = sec_num;
+
+    return G2C_NOERROR;
+}
+
+/**
  * Read the file to get metadata about a message. 
  *
  * @param msg Pointer to the G2C_MESSAGE_INFO_T struct for this
@@ -386,6 +427,7 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
     short short_be;
     char sec_num;
     int total_read = G2C_SECTION0_BYTES;
+    int ret;
 
     /* Read section 0. */
     if (fseek(msg->file->f, msg->bytes_to_msg + BYTES_TO_DISCIPLINE, SEEK_SET))
@@ -440,17 +482,23 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
         int sec_len;
         unsigned char sec_num;
 
-        /* Read section length and number. */
+        /* Read section length. */
         if ((fread(&int_be, FOUR_BYTES, 1, msg->file->f)) != 1)
             return G2C_EFILE;
         sec_len = htonl(int_be);
+        
         /* A section length of 926365495 indicates we've reached
          * section 8, the end of the message. */        
         if (sec_len != 926365495)
         {
+            /* Read section number. */
             if ((fread(&sec_num, 1, 1, msg->file->f)) != 1)
                 return G2C_EFILE;
             LOG((4, "sec_len %d sec_num %d", sec_len, sec_num));
+
+            /* Add a new section to our list of sections. */
+            if ((ret = add_section(msg, sec_len, sec_num)))
+                return G2C_EBADSECTION;
 
             /* Skip to next section. */ 
             if (fseek(msg->file->f, sec_len - 5, SEEK_CUR))
@@ -709,7 +757,20 @@ free_metadata(int g2cid)
     msg = g2c_file[g2cid].msg;
     while (msg)
     {
-        G2C_MESSAGE_INFO_T *mtmp;        
+        G2C_MESSAGE_INFO_T *mtmp;
+        G2C_SECTION_INFO_T *sec;
+        
+        /* Free section metadata. */
+        sec = msg->sec;
+        while (sec)
+        {
+            G2C_SECTION_INFO_T *stmp;
+            stmp = sec->next;
+            free(sec);
+            sec = stmp;
+        }
+
+        /* Free message. */
         mtmp = msg->next;
         free(msg);
         msg = mtmp;
