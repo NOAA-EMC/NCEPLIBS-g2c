@@ -129,7 +129,7 @@ typedef struct g2c_code_table
 } G2C_CODE_TABLE_T;
 
 /**
- * Struct for GRIB template.
+ * Struct for GRIB template, returned by getgridtemplate().
  */
 struct gtemplate
 {

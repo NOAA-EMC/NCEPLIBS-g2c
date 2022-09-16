@@ -384,6 +384,7 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
     int int_be;
     short short_be;
     G2C_SECTION3_INFO_T *sec3_info;
+    struct gtemplate *gt;
     
     /* Check input. */
     assert(sec && !sec->sec_info && sec->sec_num == 3);
@@ -409,8 +410,15 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
          sec3_info->source_grid_def, sec3_info->num_data_points, sec3_info->num_opt, sec3_info->interp_list,
          sec3_info->grid_def));
 
+    /* Look up the information about this grid. */
+    if (!(gt = getgridtemplate(sec3_info->grid_def)))
+        return G2C_ENOTEMPLATE;
+
     /* Attach sec3_info to our section data. */
     sec->sec_info = sec3_info;
+
+    /* Free the template info. */
+    free(gt);
     
     return G2C_NOERROR;
 }

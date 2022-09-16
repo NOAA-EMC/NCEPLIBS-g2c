@@ -54,6 +54,8 @@ int main()
 	return G2C_ERROR;
     if (strncmp(g2c_strerror(-68), "Error encoding/decoding PNG data", MAX_LEN))
 	return G2C_ERROR;
+    if (strncmp(g2c_strerror(-69), "Template not found", MAX_LEN))
+	return G2C_ERROR;
     if (strncmp(g2c_strerror(999), "Unknown Error", MAX_LEN))
 	return G2C_ERROR;
 
