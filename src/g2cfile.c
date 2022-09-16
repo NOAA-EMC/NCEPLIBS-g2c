@@ -369,10 +369,59 @@ find_available_g2cid(int *g2cid)
 /* } */
 
 /**
+ * Read section 3 of a GRIB2 message.
+ *
+ * @param sec Pointer to the G2C_SECTION_INFO_T struct.
+ *
+ * @return
+ * - ::G2C_NOERROR - No error.
+ *
+ * @author Ed Hartnett @date Sep 15, 2022
+*/
+static int
+read_section3_metadata(G2C_SECTION_INFO_T *sec)
+{
+    int int_be;
+    short short_be;
+    G2C_SECTION3_INFO_T *sec3_info;
+    
+    /* Check input. */
+    assert(sec && !sec->sec_info && sec->sec_num == 3);
+
+    /* Allocate storage for a new section 3. */
+    if (!(sec3_info = calloc(sizeof(G2C_SECTION3_INFO_T), 1)))
+        return G2C_ENOMEM;
+
+    /* Read section 3. */
+    if ((fread(&sec3_info->source_grid_def, 1, 1, sec->msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
+        return G2C_EFILE;
+    sec3_info->num_data_points = htonl(int_be);
+    if ((fread(&sec3_info->num_opt, 1, 1, sec->msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&sec3_info->interp_list, 1, 1, sec->msg->file->f)) != 1)
+        return G2C_EFILE;
+    if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
+        return G2C_EFILE;
+    sec3_info->grid_def = htons(short_be);
+    LOG((5, "read_section3_metadata source_grid_def %d num_data_points %d num_opt %d interp_list %d grid_def %d",
+         sec3_info->source_grid_def, sec3_info->num_data_points, sec3_info->num_opt, sec3_info->interp_list,
+         sec3_info->grid_def));
+
+    /* Attach sec3_info to our section data. */
+    sec->sec_info = sec3_info;
+    
+    return G2C_NOERROR;
+}
+
+/**
  * Add metadata about a new section 3, 4, 5, 6, or 7.
  *
  * @param msg Pointer to the G2C_MESSAGE_INFO_T struct.
+ * @param sec_id 0-based section ID.
  * @param sec_len Length of section.
+ * @param bytes_to_sec Number of bytes from start of message to this section.
  * @param sec_num Section number.
  *
  * @return
@@ -381,9 +430,11 @@ find_available_g2cid(int *g2cid)
  * @author Ed Hartnett @date Sep 12, 2022
 */
 static int
-add_section(G2C_MESSAGE_INFO_T *msg, unsigned int sec_len, unsigned char sec_num)
+add_section(G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t bytes_to_sec,
+            unsigned char sec_num)
 {
     G2C_SECTION_INFO_T *sec;
+    int ret;
         
     /* Allocate storage for a new section. */
     if (!(sec = calloc(sizeof(G2C_SECTION_INFO_T), 1)))
@@ -399,12 +450,31 @@ add_section(G2C_MESSAGE_INFO_T *msg, unsigned int sec_len, unsigned char sec_num
         for (s = msg->sec; s->next; s = s->next)
             ;
         s->next = sec;
+        sec->prev = s;
     }
     
     /* Remember values. */
     sec->msg = msg;
+    sec->sec_id = sec_id;
     sec->sec_len = sec_len;
     sec->sec_num = sec_num;
+    sec->bytes_to_sec = bytes_to_sec;
+
+    switch (sec_num)
+    {
+    case 3:
+        if ((ret = read_section3_metadata(sec)))
+            return ret;
+        break;
+    case 4:
+        break;
+    case 5:
+        break;
+    case 6:
+        break;
+    case 7:
+        break;
+    }
 
     return G2C_NOERROR;
 }
@@ -427,6 +497,7 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
     short short_be;
     char sec_num;
     int total_read = G2C_SECTION0_BYTES;
+    int sec_id = 0;
     int ret;
 
     /* Read section 0. */
@@ -497,15 +568,17 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
             LOG((4, "sec_len %d sec_num %d", sec_len, sec_num));
 
             /* Add a new section to our list of sections. */
-            if ((ret = add_section(msg, sec_len, sec_num)))
+            if ((ret = add_section(msg, sec_id++, sec_len, total_read, sec_num)))
                 return G2C_EBADSECTION;
 
             /* Skip to next section. */ 
-            if (fseek(msg->file->f, sec_len - 5, SEEK_CUR))
-                return G2C_EFILE;
             total_read += sec_len;
             LOG((4, "total_read %d", total_read));
+            if (fseek(msg->file->f, total_read, SEEK_SET))
+                return G2C_EFILE;
         }
+        else
+            break;
     }
     
     return G2C_NOERROR;
@@ -766,6 +839,8 @@ free_metadata(int g2cid)
         {
             G2C_SECTION_INFO_T *stmp;
             stmp = sec->next;
+            if (sec->sec_info)
+                free(sec->sec_info);
             free(sec);
             sec = stmp;
         }

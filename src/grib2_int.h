@@ -78,12 +78,28 @@ typedef struct g2c_message_info
 /** Information about a section 3 through 7 in a GRIB2 message. */
 typedef struct g2c_section_info
 {
+    int sec_id; /**< ID of the section (0-based). */
     unsigned int sec_len; /**< Length of the section (in bytes). */
+    size_t bytes_to_sec; /**< Number of bytes from start of message to this section. */
     unsigned char sec_num; /**< Section number. */
     G2C_MESSAGE_INFO_T *msg; /**< Pointer to contianing message. */
+    void *sec_info; /**< Pointer to struct specific for section 3, 4, 5, 6, or 7. */
     struct g2c_section_info *next; /**< Pointer to next in list. */
     struct g2c_section_info *prev; /**< Pointer to previous in list. */
 } G2C_SECTION_INFO_T;
+
+/** Information about [Section 3 GRID DEFINITION
+ * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml). */
+typedef struct g2c_section3_info
+{
+    unsigned char source_grid_def; /**< Source of grid definition (See Table 3.0). */
+    unsigned int num_data_points; /**< Number of data points. */
+    unsigned char num_opt; /**< Number of octets for optional list of numbers defining number of points. */
+    unsigned char interp_list; /**< Interpetation of list of numbers defining number of points (See Table 3.11). */
+    unsigned short grid_def; /**< Grid definition template number (= N) (See Table 3.1). */
+    int *template; /**< Grid definition template (See Template 3.N, where N is the grid definition template number given in octets 13-14). */
+    int *optional; /**< Optional list of numbers defining number of points. */
+} G2C_SECTION3_INFO_T;
 
 /** This is the information about each open file. */
 typedef struct g2c_file_info

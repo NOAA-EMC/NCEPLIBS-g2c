@@ -275,7 +275,8 @@ g2c_log_file(int g2cid)
         /* Section info. */
         for (sec = msg->sec; sec; sec = sec->next)
         {
-            LOG((3, "sec_len %d sec_num %d", sec->sec_len, sec->sec_num));
+            LOG((3, "sec_id %d sec_len %d byte_to_sec %ld sec_num %d", sec->sec_id, sec->sec_len,
+                 sec->bytes_to_sec, sec->sec_num));
         }
         
     }
