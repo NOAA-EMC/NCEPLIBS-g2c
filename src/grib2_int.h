@@ -101,6 +101,28 @@ typedef struct g2c_section3_info
     int *optional; /**< Optional list of numbers defining number of points. */
 } G2C_SECTION3_INFO_T;
 
+/** Information about [Section 4 PRODUCT DEFINITION
+ * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml). */
+typedef struct g2c_section4_info
+{
+    unsigned short num_coord; /**< Number of coordinate values after template. */
+    unsigned short prod_def; /**< Product definition template number (See Table 4.0). */
+    int *template; /**< Grid definition template (See Template 4.N, where N is the grid definition template number given in octets 14-14). */
+    int *optional; /**< Optional list of numbers defining number of points. */
+} G2C_SECTION4_INFO_T;
+
+/** Information about [Section 5 DATA REPRESENTATION
+ * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect5.shtml). */
+typedef struct g2c_section5_info
+{
+    /** Number of data points where one or more values are specified
+     * in Section 7 when a bit map is present, total number of data
+     * points when a bit map is absent. */    
+    unsigned int num_data_points; 
+    unsigned short data_def; /**< Data representation template number (See Table 5.0). */
+    int *template; /**< Grid definition template. */
+} G2C_SECTION5_INFO_T;
+
 /** This is the information about each open file. */
 typedef struct g2c_file_info
 {

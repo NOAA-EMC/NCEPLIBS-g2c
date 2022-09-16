@@ -369,12 +369,20 @@ find_available_g2cid(int *g2cid)
 /* } */
 
 /**
- * Read section 3 of a GRIB2 message.
+ * Read the metadata from section 3 (Grid Definition Section) of a
+ * GRIB2 message.
+ *
+ * When this function is called, the file cursor is positioned just
+ * after the section number field in the section. The size of the
+ * section, and the section number, have already been read when this
+ * function is called.
  *
  * @param sec Pointer to the G2C_SECTION_INFO_T struct.
  *
  * @return
- * - ::G2C_NOERROR - No error.
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOMEM Out of memory.
+ * - ::G2C_ENOTEMPLATE Can't find template.
  *
  * @author Ed Hartnett @date Sep 15, 2022
 */
@@ -385,6 +393,7 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
     short short_be;
     G2C_SECTION3_INFO_T *sec3_info;
     struct gtemplate *gt;
+    int t;
     
     /* Check input. */
     assert(sec && !sec->sec_info && sec->sec_num == 3);
@@ -413,13 +422,277 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
     /* Look up the information about this grid. */
     if (!(gt = getgridtemplate(sec3_info->grid_def)))
         return G2C_ENOTEMPLATE;
+    LOG((5, "grid template type %d num %d maplen %d", gt->type, gt->num, gt->maplen));
 
-    /* Attach sec3_info to our section data. */
-    sec->sec_info = sec3_info;
+    /* Allocate space to hold the template info. */
+    if (!(sec3_info->template = calloc(sizeof(int) * gt->maplen, 1)))
+    {
+        free(gt);
+        return G2C_ENOMEM;
+    }
+    
+    /* Read the template info. */
+    for (t = 0; t < gt->maplen; t++)
+    {
+        unsigned char chr;
+
+        /* Take the absolute value of map[t] because some of the
+         * numbers are negative - used to indicate that the
+         * cooresponding fields can contain negative data (needed for
+         * unpacking). */
+        switch(abs(gt->map[t]))
+        {
+        case ONE_BYTE:
+            if ((fread(&chr, 1, 1, sec->msg->file->f)) != 1)
+            {
+                free(gt);
+                return G2C_EFILE;
+            }
+            sec3_info->template[t] = chr;
+            break;
+        case TWO_BYTES:
+            if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
+            {
+                free(gt);
+                return G2C_EFILE;
+            }
+            sec3_info->template[t] = htons(short_be);
+            break;
+        case FOUR_BYTES:
+            if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
+            {
+                free(gt);
+                return G2C_EFILE;
+            }
+            sec3_info->template[t] = htonl(int_be);
+            break;
+        default:
+            free(gt);
+            return G2C_EBADTEMPLATE;
+        }
+        LOG((7, "template[%d] %d", t, sec3_info->template[t]));
+    }
 
     /* Free the template info. */
     free(gt);
     
+    /* Attach sec3_info to our section data. */
+    sec->sec_info = sec3_info;
+
+    return G2C_NOERROR;
+}
+
+/**
+ * Read the metadata from section 4 (Product Definition Section) of a
+ * GRIB2 message.
+ *
+ * When this function is called, the file cursor is positioned just
+ * after the section number field in the section. The size of the
+ * section, and the section number, have already been read when this
+ * function is called.
+ *
+ * @param sec Pointer to the G2C_SECTION_INFO_T struct.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOMEM Out of memory.
+ * - ::G2C_ENOTEMPLATE Can't find template.
+ *
+ * @author Ed Hartnett @date Sep 16, 2022
+*/
+static int
+read_section4_metadata(G2C_SECTION_INFO_T *sec)
+{
+    short short_be;
+    G2C_SECTION4_INFO_T *sec4_info;
+    struct gtemplate *gt;
+    int t;
+    
+    /* Check input. */
+    assert(sec && !sec->sec_info && sec->sec_num == 4);
+
+    /* Allocate storage for a new section 4. */
+    if (!(sec4_info = calloc(sizeof(G2C_SECTION4_INFO_T), 1)))
+        return G2C_ENOMEM;
+
+    /* Read section 4. */
+    if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
+        return G2C_EFILE;
+    sec4_info->num_coord = htons(short_be);
+    if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
+        return G2C_EFILE;
+    sec4_info->prod_def = htons(short_be);
+    LOG((5, "read_section4_metadata num_coord %d prod_def %d", sec4_info->num_coord, sec4_info->prod_def));
+
+    /* Look up the information about this grid. */
+    if (!(gt = getpdstemplate(sec4_info->prod_def)))
+        return G2C_ENOTEMPLATE;
+    LOG((5, "grid template type %d num %d maplen %d", gt->type, gt->num, gt->maplen));
+
+    /* Allocate space to hold the template info. */
+    if (!(sec4_info->template = calloc(sizeof(int) * gt->maplen, 1)))
+    {
+        free(gt);
+        return G2C_ENOMEM;
+    }
+    
+    /* Read the template info. */
+    for (t = 0; t < gt->maplen; t++)
+    {
+        unsigned char chr;
+        int int_be;
+
+        /* Take the absolute value of map[t] because some of the
+         * numbers are negative - used to indicate that the
+         * cooresponding fields can contain negative data (needed for
+         * unpacking). */
+        switch(abs(gt->map[t]))
+        {
+        case ONE_BYTE:
+            if ((fread(&chr, 1, 1, sec->msg->file->f)) != 1)
+            {
+                free(gt);
+                return G2C_EFILE;
+            }
+            sec4_info->template[t] = chr;
+            break;
+        case TWO_BYTES:
+            if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
+            {
+                free(gt);
+                return G2C_EFILE;
+            }
+            sec4_info->template[t] = htons(short_be);
+            break;
+        case FOUR_BYTES:
+            if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
+            {
+                free(gt);
+                return G2C_EFILE;
+            }
+            sec4_info->template[t] = htonl(int_be);
+            break;
+        default:
+            free(gt);
+            return G2C_EBADTEMPLATE;
+        }
+        LOG((7, "template[%d] %d", t, sec4_info->template[t]));
+    }
+
+    /* Free the template info. */
+    free(gt);
+    
+    /* Attach sec4_info to our section data. */
+    sec->sec_info = sec4_info;
+
+    return G2C_NOERROR;
+}
+
+/**
+ * Read the metadata from section 5 (Data Representation Section) of a
+ * GRIB2 message.
+ *
+ * When this function is called, the file cursor is positioned just
+ * after the section number field in the section. The size of the
+ * section, and the section number, have already been read when this
+ * function is called.
+ *
+ * @param sec Pointer to the G2C_SECTION_INFO_T struct.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOMEM Out of memory.
+ * - ::G2C_ENOTEMPLATE Can't find template.
+ *
+ * @author Ed Hartnett @date Sep 16, 2022
+*/
+static int
+read_section5_metadata(G2C_SECTION_INFO_T *sec)
+{
+    int int_be;
+    short short_be;
+    G2C_SECTION5_INFO_T *sec5_info;
+    struct gtemplate *gt;
+    int t;
+    
+    /* Check input. */
+    assert(sec && !sec->sec_info && sec->sec_num == 5);
+
+    /* Allocate storage for a new section 5. */
+    if (!(sec5_info = calloc(sizeof(G2C_SECTION5_INFO_T), 1)))
+        return G2C_ENOMEM;
+
+    /* Read section 5. */
+    if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
+        return G2C_EFILE;
+    sec5_info->num_data_points = htonl(int_be);
+    if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
+        return G2C_EFILE;
+    sec5_info->data_def = htons(short_be);
+    LOG((5, "read_section5_metadata num_data_points %d data_def %d",
+         sec5_info->num_data_points, sec5_info->data_def));
+
+    /* Look up the information about this grid. */
+    if (!(gt = getdrstemplate(sec5_info->data_def)))
+        return G2C_ENOTEMPLATE;
+    LOG((5, "grid template type %d num %d maplen %d", gt->type, gt->num, gt->maplen));
+
+    /* Allocate space to hold the template info. */
+    if (!(sec5_info->template = calloc(sizeof(int) * gt->maplen, 1)))
+    {
+        free(gt);
+        return G2C_ENOMEM;
+    }
+    
+    /* Read the template info. */
+    for (t = 0; t < gt->maplen; t++)
+    {
+        unsigned char chr;
+        int int_be;
+
+        /* Take the absolute value of map[t] because some of the
+         * numbers are negative - used to indicate that the
+         * cooresponding fields can contain negative data (needed for
+         * unpacking). */
+        switch(abs(gt->map[t]))
+        {
+        case ONE_BYTE:
+            if ((fread(&chr, 1, 1, sec->msg->file->f)) != 1)
+            {
+                free(gt);
+                return G2C_EFILE;
+            }
+            sec5_info->template[t] = chr;
+            break;
+        case TWO_BYTES:
+            if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
+            {
+                free(gt);
+                return G2C_EFILE;
+            }
+            sec5_info->template[t] = htons(short_be);
+            break;
+        case FOUR_BYTES:
+            if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
+            {
+                free(gt);
+                return G2C_EFILE;
+            }
+            sec5_info->template[t] = htonl(int_be);
+            break;
+        default:
+            free(gt);
+            return G2C_EBADTEMPLATE;
+        }
+        LOG((7, "template[%d] %d", t, sec5_info->template[t]));
+    }
+
+    /* Free the template info. */
+    free(gt);
+    
+    /* Attach sec5_info to our section data. */
+    sec->sec_info = sec5_info;
+
     return G2C_NOERROR;
 }
 
@@ -475,8 +748,12 @@ add_section(G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t by
             return ret;
         break;
     case 4:
+        if ((ret = read_section4_metadata(sec)))
+            return ret;
         break;
     case 5:
+        if ((ret = read_section5_metadata(sec)))
+            return ret;
         break;
     case 6:
         break;
@@ -848,7 +1125,30 @@ free_metadata(int g2cid)
             G2C_SECTION_INFO_T *stmp;
             stmp = sec->next;
             if (sec->sec_info)
+            {
+                switch(sec->sec_num)
+                {
+                case 3:
+                    if (((G2C_SECTION3_INFO_T *)sec->sec_info)->template)
+                        free(((G2C_SECTION3_INFO_T *)sec->sec_info)->template);
+                    break;
+                case 4:
+                    if (((G2C_SECTION4_INFO_T *)sec->sec_info)->template)
+                        free(((G2C_SECTION4_INFO_T *)sec->sec_info)->template);
+                    break;
+                case 5:
+                    if (((G2C_SECTION5_INFO_T *)sec->sec_info)->template)
+                        free(((G2C_SECTION5_INFO_T *)sec->sec_info)->template);
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                default:
+                    return G2C_EBADSECTION;
+                }
                 free(sec->sec_info);
+            }
             free(sec);
             sec = stmp;
         }

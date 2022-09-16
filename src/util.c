@@ -195,6 +195,8 @@ g2c_strerror(int g2cerr)
 	return "Error encoding/decoding PNG data";
     case G2C_ENOTEMPLATE:
 	return "Template not found";
+    case G2C_EBADTEMPLATE:
+	return "Template problem";
 
     default:
 	 return "Unknown Error";	
