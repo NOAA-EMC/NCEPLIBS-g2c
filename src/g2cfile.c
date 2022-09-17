@@ -425,7 +425,8 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
     LOG((5, "grid template type %d num %d maplen %d", gt->type, gt->num, gt->maplen));
 
     /* Allocate space to hold the template info. */
-    if (!(sec3_info->template = calloc(sizeof(int) * gt->maplen, 1)))
+    sec->template_len = gt->maplen;
+    if (!(sec->template = calloc(sizeof(int) * gt->maplen, 1)))
     {
         free(gt);
         return G2C_ENOMEM;
@@ -448,7 +449,7 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
                 free(gt);
                 return G2C_EFILE;
             }
-            sec3_info->template[t] = chr;
+            sec->template[t] = chr;
             break;
         case TWO_BYTES:
             if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
@@ -456,7 +457,7 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
                 free(gt);
                 return G2C_EFILE;
             }
-            sec3_info->template[t] = htons(short_be);
+            sec->template[t] = htons(short_be);
             break;
         case FOUR_BYTES:
             if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
@@ -464,13 +465,13 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
                 free(gt);
                 return G2C_EFILE;
             }
-            sec3_info->template[t] = htonl(int_be);
+            sec->template[t] = htonl(int_be);
             break;
         default:
             free(gt);
             return G2C_EBADTEMPLATE;
         }
-        LOG((7, "template[%d] %d", t, sec3_info->template[t]));
+        LOG((7, "template[%d] %d", t, sec->template[t]));
     }
 
     /* Free the template info. */
@@ -530,7 +531,8 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
     LOG((5, "grid template type %d num %d maplen %d", gt->type, gt->num, gt->maplen));
 
     /* Allocate space to hold the template info. */
-    if (!(sec4_info->template = calloc(sizeof(int) * gt->maplen, 1)))
+    sec->template_len = gt->maplen;
+    if (!(sec->template = calloc(sizeof(int) * gt->maplen, 1)))
     {
         free(gt);
         return G2C_ENOMEM;
@@ -554,7 +556,7 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
                 free(gt);
                 return G2C_EFILE;
             }
-            sec4_info->template[t] = chr;
+            sec->template[t] = chr;
             break;
         case TWO_BYTES:
             if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
@@ -562,7 +564,7 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
                 free(gt);
                 return G2C_EFILE;
             }
-            sec4_info->template[t] = htons(short_be);
+            sec->template[t] = htons(short_be);
             break;
         case FOUR_BYTES:
             if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
@@ -570,13 +572,13 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
                 free(gt);
                 return G2C_EFILE;
             }
-            sec4_info->template[t] = htonl(int_be);
+            sec->template[t] = htonl(int_be);
             break;
         default:
             free(gt);
             return G2C_EBADTEMPLATE;
         }
-        LOG((7, "template[%d] %d", t, sec4_info->template[t]));
+        LOG((7, "template[%d] %d", t, sec->template[t]));
     }
 
     /* Free the template info. */
@@ -638,7 +640,8 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
     LOG((5, "grid template type %d num %d maplen %d", gt->type, gt->num, gt->maplen));
 
     /* Allocate space to hold the template info. */
-    if (!(sec5_info->template = calloc(sizeof(int) * gt->maplen, 1)))
+    sec->template_len = gt->maplen;
+    if (!(sec->template = calloc(sizeof(int) * gt->maplen, 1)))
     {
         free(gt);
         return G2C_ENOMEM;
@@ -662,7 +665,7 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
                 free(gt);
                 return G2C_EFILE;
             }
-            sec5_info->template[t] = chr;
+            sec->template[t] = chr;
             break;
         case TWO_BYTES:
             if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
@@ -670,7 +673,7 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
                 free(gt);
                 return G2C_EFILE;
             }
-            sec5_info->template[t] = htons(short_be);
+            sec->template[t] = htons(short_be);
             break;
         case FOUR_BYTES:
             if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
@@ -678,13 +681,13 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
                 free(gt);
                 return G2C_EFILE;
             }
-            sec5_info->template[t] = htonl(int_be);
+            sec->template[t] = htonl(int_be);
             break;
         default:
             free(gt);
             return G2C_EBADTEMPLATE;
         }
-        LOG((7, "template[%d] %d", t, sec5_info->template[t]));
+        LOG((7, "template[%d] %d", t, sec->template[t]));
     }
 
     /* Free the template info. */
@@ -1123,32 +1126,12 @@ free_metadata(int g2cid)
         while (sec)
         {
             G2C_SECTION_INFO_T *stmp;
+            
             stmp = sec->next;
+            if (sec->template)
+                free(sec->template);
             if (sec->sec_info)
-            {
-                switch(sec->sec_num)
-                {
-                case 3:
-                    if (((G2C_SECTION3_INFO_T *)sec->sec_info)->template)
-                        free(((G2C_SECTION3_INFO_T *)sec->sec_info)->template);
-                    break;
-                case 4:
-                    if (((G2C_SECTION4_INFO_T *)sec->sec_info)->template)
-                        free(((G2C_SECTION4_INFO_T *)sec->sec_info)->template);
-                    break;
-                case 5:
-                    if (((G2C_SECTION5_INFO_T *)sec->sec_info)->template)
-                        free(((G2C_SECTION5_INFO_T *)sec->sec_info)->template);
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                default:
-                    return G2C_EBADSECTION;
-                }
                 free(sec->sec_info);
-            }
             free(sec);
             sec = stmp;
         }

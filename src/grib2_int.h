@@ -86,6 +86,8 @@ typedef struct g2c_section_info
     void *sec_info; /**< Pointer to struct specific for section 3, 4, 5, 6, or 7. */
     struct g2c_section_info *next; /**< Pointer to next in list. */
     struct g2c_section_info *prev; /**< Pointer to previous in list. */
+    int *template; /**< Grid, product, or data template. */
+    int template_len; /**< Number of entries in template. */
 } G2C_SECTION_INFO_T;
 
 /** Information about [Section 3 GRID DEFINITION
@@ -97,7 +99,6 @@ typedef struct g2c_section3_info
     unsigned char num_opt; /**< Number of octets for optional list of numbers defining number of points. */
     unsigned char interp_list; /**< Interpetation of list of numbers defining number of points (See Table 3.11). */
     unsigned short grid_def; /**< Grid definition template number (= N) (See Table 3.1). */
-    int *template; /**< Grid definition template (See Template 3.N, where N is the grid definition template number given in octets 13-14). */
     int *optional; /**< Optional list of numbers defining number of points. */
 } G2C_SECTION3_INFO_T;
 
@@ -107,7 +108,6 @@ typedef struct g2c_section4_info
 {
     unsigned short num_coord; /**< Number of coordinate values after template. */
     unsigned short prod_def; /**< Product definition template number (See Table 4.0). */
-    int *template; /**< Grid definition template (See Template 4.N, where N is the grid definition template number given in octets 14-14). */
     int *optional; /**< Optional list of numbers defining number of points. */
 } G2C_SECTION4_INFO_T;
 
@@ -120,7 +120,6 @@ typedef struct g2c_section5_info
      * points when a bit map is absent. */    
     unsigned int num_data_points; 
     unsigned short data_def; /**< Data representation template number (See Table 5.0). */
-    int *template; /**< Grid definition template. */
 } G2C_SECTION5_INFO_T;
 
 /** This is the information about each open file. */
