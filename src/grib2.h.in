@@ -337,6 +337,9 @@ int g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
                      size_t jpclen);
 int g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld);
 
+/* Output. */
+int g2c_write_grib2_index(int g2cid, const char *fileout);
+
 /* Useful constants. */
 #define G2C_SECTION0_ARRAY_LEN 3 /**< Length of section 0 array. */
 #define G2C_SECTION1_ARRAY_LEN 13 /**< Length of section 1 array. */

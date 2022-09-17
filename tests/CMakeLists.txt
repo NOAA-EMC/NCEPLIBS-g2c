@@ -81,6 +81,7 @@ g2c_test(tst_seekgb)
 g2c_test(tst_files)
 g2c_test(tst_xml)
 g2c_test(tst_error)
+g2c_test(tst_grb2index)
 
 # Run these tests only if libpng is linked.
 if(USE_PNG)
