@@ -99,13 +99,14 @@ typedef struct g2c_section3_info
     unsigned char num_opt; /**< Number of octets for optional list of numbers defining number of points. */
     unsigned char interp_list; /**< Interpetation of list of numbers defining number of points (See Table 3.11). */
     unsigned short grid_def; /**< Grid definition template number (= N) (See Table 3.1). */
-    int *optional; /**< Optional list of numbers defining number of points. */
-} G2C_SECTION3_INFO_T;
+    int *optional; /**< Optional list of numbers defining number of points. */}
+ G2C_SECTION3_INFO_T;
 
 /** Information about [Section 4 PRODUCT DEFINITION
  * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml). */
 typedef struct g2c_section4_info
 {
+    int field_num;
     unsigned short num_coord; /**< Number of coordinate values after template. */
     unsigned short prod_def; /**< Product definition template number (See Table 4.0). */
     int *optional; /**< Optional list of numbers defining number of points. */

@@ -516,6 +516,9 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
     if (!(sec4_info = calloc(sizeof(G2C_SECTION4_INFO_T), 1)))
         return G2C_ENOMEM;
 
+    /* Assign a number to this field, and count the number of fields in the message. */
+    sec4_info->field_num = sec->msg->num_fields++;
+
     /* Read section 4. */
     if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
         return G2C_EFILE;
@@ -746,6 +749,9 @@ add_section(G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t by
 
     switch (sec_num)
     {
+    case 2:
+        msg->num_local++;
+        break;
     case 3:
         if ((ret = read_section3_metadata(sec)))
             return ret;
@@ -803,7 +809,7 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
     if ((fread(&sec_num, 1, 1, msg->file->f)) != 1)
         return G2C_EFILE;
     if (sec_num != 1)
-        return G2C_ENOSECTION1;
+        return G2C_ENOSECTION;
     if ((fread(&short_be, TWO_BYTES, 1, msg->file->f)) != 1)
         return G2C_EFILE;
     msg->center = htons(short_be);

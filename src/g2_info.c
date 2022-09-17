@@ -104,7 +104,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         printf("g2_info:  Beginning characters GRIB not found.");
         return G2_INFO_NO_GRIB;
     }
-    else if (ret == G2C_ENOSECTION1)
+    else if (ret == G2C_ENOSECTION)
     {
         printf("g2_info: Could not find section 1.");
         return G2_INFO_NO_SEC1;
@@ -182,7 +182,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
  * @returns 0 for success, otherwise:
  * - ::G2C_ENOTGRIB Beginning characters "GRIB" not found.
  * - ::G2C_ENOTGRIB2 GRIB message is not Edition 2.
- * - ::G2C_ENOSECTION1 Could not find Section 1, where expected.
+ * - ::G2C_ENOSECTION Could not find Section 1, where expected.
  * - ::G2C_EBADEND End string "7777" found, but not where expected.
  * - ::G2C_ENOEND End string "7777" not found at end of message.
  * - ::G2C_EBADSECTION Invalid section number found.
@@ -249,7 +249,7 @@ g2c_info(unsigned char *cgrib, int *discipline, size_t *message_len, int *listse
     g2c_gbit_int(cgrib, &secnum, offset, BYTE);         /* Section number (1) */
     offset += BYTE;
     if (secnum != 1)
-	return G2C_ENOSECTION1;
+	return G2C_ENOSECTION;
 
     /* Unpack each input value in array listsec1 into the
        appropriate number of octets, which are specified in
@@ -391,7 +391,7 @@ g2c_info(unsigned char *cgrib, int *discipline, size_t *message_len, int *listse
  * @returns 0 for success, otherwise:
  * - ::G2C_ENOTGRIB Beginning characters "GRIB" not found.
  * - ::G2C_ENOTGRIB2 GRIB message is not Edition 2.
- * - ::G2C_ENOSECTION1 Could not find Section 1, where expected.
+ * - ::G2C_ENOSECTION Could not find Section 1, where expected.
  * - ::G2C_EBADEND End string "7777" found, but not where expected.
  * - ::G2C_ENOEND End string "7777" not found at end of message.
  * - ::G2C_EBADSECTION Invalid section number found.
@@ -454,7 +454,7 @@ g2c_msg_info(int g2cid, size_t skip_bytes, int *discipline, size_t *message_len,
     /* g2c_gbit_int(cgrib, &secnum, offset, BYTE);         /\* Section number (1) *\/ */
     /* offset += BYTE; */
     /* if (secnum != 1) */
-    /*     return G2C_ENOSECTION1; */
+    /*     return G2C_ENOSECTION; */
 
     /* /\* Unpack each input value in array listsec1 into the */
     /*    appropriate number of octets, which are specified in */
