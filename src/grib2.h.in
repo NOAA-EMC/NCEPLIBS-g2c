@@ -320,7 +320,8 @@ int g2c_param_g1tog2(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2
 #define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
 #define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
 
-#define G2C_MAX_PARAMS 2000 /**< Maximum number of known parameters with NOAA abbreviations. */
+#define G2C_MAX_NOAA_PARAMS 2000 /**< Maximum number of known parameters with NOAA abbreviations. */
+#define G2C_MAX_NOAA_ABBREV_LEN 8 /**< Maximum length of a NOAA abbreviation of a parameter. */
 
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
