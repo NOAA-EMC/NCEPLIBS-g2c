@@ -26,12 +26,27 @@ static int
 read_params_csv()
 {
     FILE *f;
+    char *csv_filename;
     
     LOG((4, "read_params_csv()"));
 
+    /* Determine CSV filename. */
+    if (!(csv_filename = malloc(sizeof(char) * (strlen(DATADIR) + strlen(CSV_FILE)) + 2)))
+        return G2C_ENOMEM;
+    strcpy(csv_filename, DATADIR);
+    strcat(csv_filename, "/");
+    strcat(csv_filename, CSV_FILE);
+    LOG((4, "opening csv params file %s", csv_filename));
+
     /* Open the CSV file with NOAA parameters. */
-    if (!(f = fopen(CSV_FILE, "r")))
+    if (!(f = fopen(csv_filename, "r")))
+    {
+        free(csv_filename);
         return G2C_EFILE;
+    }
+
+    /* Free filename. */
+    free(csv_filename);
 
     /* Read the CSV file. */
 
@@ -65,9 +80,12 @@ read_params_csv()
 int
 g2c_param_g1tog2(int g1val, int g1ver, int *g2disc, int *g2cat, int *g2num)
 {
+    int ret;
+    
     /* If needed, ingest the CSV file of parameter information. */
     if (!init_params)
-        read_params_csv();
+        if ((ret = read_params_csv()))
+            return ret;
     
     return G2C_NOERROR;
 }
@@ -88,9 +106,12 @@ g2c_param_g1tog2(int g1val, int g1ver, int *g2disc, int *g2cat, int *g2num)
 int
 g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
 {
+    int ret;
+    
     /* If needed, ingest the CSV file of parameter information. */
     if (!init_params)
-        read_params_csv();
+        if ((ret = read_params_csv()))
+            return ret;
     
     return G2C_NOERROR;
 }
@@ -114,9 +135,12 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
 int
 g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver)
 {
+    int ret;
+    
     /* If needed, ingest the CSV file of parameter information. */
     if (!init_params)
-        read_params_csv();
+        if ((ret = read_params_csv()))
+            return ret;
     
     return G2C_NOERROR;
 }
@@ -146,9 +170,12 @@ int
 g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat,
               int *g2num, char *abbrev)
 {
+    int ret;
+    
     /* If needed, ingest the CSV file of parameter information. */
     if (!init_params)
-        read_params_csv();
+        if ((ret = read_params_csv()))
+            return ret;
     
     return G2C_NOERROR;
 }

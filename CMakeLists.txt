@@ -71,6 +71,7 @@ endif()
 
 set(lib_name ${PROJECT_NAME})
 
+# Specify the source code files for the library.
 add_library(${lib_name} src/grib2_int.h src/cmplxpack.c src/compack.c
 src/comunpack.c src/drstemplates.c src/g2_addfield.c src/g2_addgrid.c
 src/g2_addlocal.c src/g2_create.c src/g2_free.c src/g2_getfld.c
@@ -83,6 +84,12 @@ src/reduce.c src/seekgb.c src/simpack.c src/simunpack.c src/specpack.c
 src/specunpack.c src/util.c src/g2cxml.c src/g2cparams.c)
 
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
+
+# Copy the data file with the NOAA abbreviations.
+configure_file(src/noaa_grib2_params.csv ${CMAKE_CURRENT_BINARY_DIR}/noaa_grib2_params.csv COPYONLY)
+
+# Remember the location of the data file.
+add_compile_definitions(DATADIR="${CMAKE_CURRENT_BINARY_DIR}")
 
 # Find libxml2.
 find_package(LibXml2 2.9.0 REQUIRED)
