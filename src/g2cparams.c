@@ -20,7 +20,7 @@ static int init_params = 0;
  * @author Ed Hartnett @date 9/19/22
  */
 static int
-read_param_csv()
+read_params_csv()
 {
     /* Remember that we have read our CSV file. */
     init_params++;
@@ -61,6 +61,7 @@ g2c_param_g1tog2(int g1val, int g1ver, int *g2disc, int *g2cat, int *g2num)
  * @param g2disc The GRIB2 discipline number.
  * @param g2cat The GRIB2 category number.
  * @param g2num The GRIB2 parameter number.
+ * @param abbrev Pointer that gets the abbreviation.
  *
  * @return
  * - ::G2C_NOERROR No error.
@@ -94,7 +95,7 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
  * @author Ed Hartnett @date 9/19/22
  */
 int
-g2c_param_g1tog2(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver)
+g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver)
 {
     /* If needed, ingest the CSV file of parameter information. */
     if (!init_params)
@@ -106,7 +107,7 @@ g2c_param_g1tog2(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver)
 /**
  * Return all the information about a parameter.
  *
- * @param param_idx Parameter index between 0 and ::G2C_MAX_PARAMS.
+ * @param param_idx Parameter index between 0 and ::G2C_MAX_NOAA_PARAMS.
  * @param g1ver Pointer that gets the GRIB1 parameter table version
  * number. Ignored if NULL.
  * @param g1val Pointer that gets the GRIB1 parameter. Ignored if
@@ -117,6 +118,7 @@ g2c_param_g1tog2(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver)
  * if NULL.
  * @param g2num Pointer that gets the GRIB2 parameter number. Ignored
  * if NULL.
+ * @param abbrev Pointer that gets the abbreviation.
  *
  * @return
  * - ::G2C_NOERROR No error.
@@ -124,8 +126,8 @@ g2c_param_g1tog2(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver)
  * @author Ed Hartnett @date 9/19/22
  */
 int
-g2c_param_g1tog2(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat,
-                 int *g2num, char *abbdrev)
+g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat,
+              int *g2num, char *abbrev)
 {
     /* If needed, ingest the CSV file of parameter information. */
     if (!init_params)
