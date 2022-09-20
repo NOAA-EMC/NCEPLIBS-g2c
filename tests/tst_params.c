@@ -541,1523 +541,1523 @@ main()
             return ret;
         if (strcmp(abbrev, "CLWMR"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CRAIN"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CFRZR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CICEP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CSNOW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CPRAT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MCONV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(1, 1, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CPOFP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 199, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PEVAP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VWSH"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MFLX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "USTM"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VSTM"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "FRICV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MSLET"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DSWRF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "USWRF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 5, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DLWRF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 5, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ULWRF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CDLYR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "4LFTX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 6, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CAPE"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 7, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CIN"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 8, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "HLCY"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LFTX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 11, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TKE"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 191, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "NLAT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 191, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ELON"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(1, 0, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "BGRUN"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(1, 0, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SSRUN"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SOILW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "GFLUX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MSTAV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SFEXC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CNWAT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "BMIXL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 14, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "O3MR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "5WAVH"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 200, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PEVPR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CWORK"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "U-GWD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "V-GWD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "HPBL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "5WAVA"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 3, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SOILL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 3, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RLYRS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 201, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WILT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 3, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SLTYP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 3, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SOTYP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 198, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VGTYP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 3, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SMREF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 3, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SMDRY"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 201, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SNOWC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 3, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "POROS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 202, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "FRAIN"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 199, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "FICE"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 203, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RIME"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CUEFI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TCOND"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TCOLW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TCOLI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 204, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TCOLR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 205, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TCOLS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 198, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TCOLC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MXSALB"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SNFALB"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 24, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RWMR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 25, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SNMR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 199, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CCOND"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 200, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RSMIN"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 202, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RCS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 203, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RCT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 204, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RCQ"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 205, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RCSOL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(3, 1, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "USCT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(3, 1, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VSCT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 191, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TSEC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 14, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "OZCON"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 14, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "OZCAT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(1, 1, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "POP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(1, 1, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CPOZP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 22, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "GUST"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WDIR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WIND"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "HTSGW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 4, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WVDIR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 6, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WVPER"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 10, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DIRPW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 11, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PERPW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 12, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DIRSW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 13, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PERSW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 13, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PMTC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 13, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PMTF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TMP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 198, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MSLMA"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 13, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LPMTF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 13, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LIPMF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 23, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ICMR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 32, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "GRMR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 206, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TIPD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 17, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LTNG"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 206, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RDRIP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 15, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VPTMP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 207, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "NCIP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 208, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SNOT"))
-            return G2C_ERROR;
-        /* See https://github.com/NOAA-EMC/NCEPLIBS-g2/issues/314. */
-        /* if ((ret = g2c_param_abbrev(0, 3, 1, abbrev))) */
-        /*     return ret; */
-        /* if (strcmp(abbrev, "MSLSA")) */
-        /*     return G2C_ERROR; */
-        if ((ret = g2c_param_abbrev(0, 3, 199, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TSLSA"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 200, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PLPL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DUVB"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CDUVB"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 207, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ICWAT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 204, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MIXLY"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TTRAD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 16, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "REFD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 16, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "REFC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CSDSF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 209, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TCLSW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 210, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TCOLM"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 201, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LPSX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 202, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LPSY"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 203, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "HGTX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 204, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "HGTY"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "REV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 2, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ICEC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UOGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VOGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WTMP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DSLM"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 4, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SALTY"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UOGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VOGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WTMP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 4, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SALTY"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 9, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DZDT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MIXHT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PRMSL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 5, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "HGT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ELEV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 198, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MINRH"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 27, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MAXRH"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 29, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ASNOW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 16, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "REFZR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 16, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "REFZI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 16, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "REFZC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 198, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LAUV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 199, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LOUV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 200, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LAVV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 201, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LOVV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 202, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LAPP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 203, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LOPP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SSHG"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PRMSL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 5, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "HGT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 4, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WTMPC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 4, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SALIN"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "P2OMLT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "OMLU"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "OMLV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UBARO"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VBARO"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 205, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "FLGHT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 206, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CICEL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 207, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CIVIS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 208, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CIFLT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 209, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LAVNI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 210, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "HAVNI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 211, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SBSALB"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 212, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SWSALB"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 213, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "NBSALB"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 214, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "NWSALB"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WSTP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 211, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "EMNP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 205, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LAYTH"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 13, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CEIL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 12, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PBLREG"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 228, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ACOND"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 212, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SBSNO"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 3, 198, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "EVBS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 229, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "EVCW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 230, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TRANS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 204, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VEDH"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LRGHR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CNVHR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 20, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ICIP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 20, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ICIP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 21, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CTP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 21, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CTP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 22, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CAT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 22, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CAT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 25, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CBHE"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(255, 255, 255, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "IMGD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(255, 255, 255, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "IMGD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(255, 255, 255, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "IMGD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(255, 255, 255, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "IMGD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ICAHT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ICAHT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(255, 255, 255, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "IMGD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(255, 255, 255, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "IMGD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 6, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CWAT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 7, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SWDIR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 8, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SWELL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 9, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SWPER"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 5, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WVHGT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(3, 192, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SBT122"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(3, 192, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SBT123"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(3, 192, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SBT124"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(3, 192, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SBT126"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(3, 192, 4, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SBC123"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(3, 192, 5, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SBC124"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SURGE"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 193, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ETSRG"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 14, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PVORT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVMZ"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVTZ"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVTM"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "THFLX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 9, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DZDT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 17, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UFLX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 18, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VFLX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 6, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DIST"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "POT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 4, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SALTY"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UOGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VOGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 198, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TTDIA"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 199, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TTPHY"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 3, 199, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LSPA"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SWHR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 5, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LWHR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 198, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CSUSF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 5, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CSULF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 5, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CSDLF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 199, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CFNSF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 5, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CFNLF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 200, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VBDSF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 201, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VDDSF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 202, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "NBDSF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 203, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "NDDSF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UVI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 200, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TSD1D"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 206, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "NLGSP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 201, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SHAHR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 202, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VDFHR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 213, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CNVMR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 214, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SHAMR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 215, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VDFMR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 208, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VDFUA"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 209, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VDFVA"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CWDI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 204, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DTRF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 4, 205, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UTRF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 6, 200, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MFLUX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CWDI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 232, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VAFTD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 201, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SNOWC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 11, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SNOD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "KX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 5, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 4, 194, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "BKENG"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 4, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DBSS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "AOHFLX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 198, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ASHFL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 199, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SSTT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 200, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SSST"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 201, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "KENG"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 4, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "INTFD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 3, 202, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SLTFL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 4, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "OHC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 216, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CONP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 191, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MLYNO"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 65, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RPRATE"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 66, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SPRATE"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 67, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "FPRATE"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 68, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "IPRATE"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UPHL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 4, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VEG"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(1, 1, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CWR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 4, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVTW"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 5, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVZZ"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 6, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVMM"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 7, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVQZ"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 8, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVQM"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 9, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVTVV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 10, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVQVV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 11, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVPSPS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 12, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVQQ"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 13, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVVVVV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 192, 14, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "COVTT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 203, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "THZ0"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 218, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "QZ0"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 219, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "QMAX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 220, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "QMIN"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 210, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "GWDU"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 211, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "GWDV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 212, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CNVU"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 213, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CNVV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 214, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WTEND"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 215, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "OMGALF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 216, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CNGWDU"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 217, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CNGWDV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 207, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CNVUMF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 208, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CNVDMF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 209, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "CNVDEMF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 217, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LRGMR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 14, 195, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VDFOZ"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 14, 196, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "POZ"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 14, 197, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TOZ"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 14, 198, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "POZT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 14, 199, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "POZO"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 208, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "AKHS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 0, 209, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "AKMS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 218, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "EPSR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 192, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SNOHF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 204, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TCHP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 219, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TPFI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 198, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LAI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 210, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LMH"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 218, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LMV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PRES"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PRMSL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PTEND"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 14, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PVORT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ICAHT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 4, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "GP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 5, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "HGT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 6, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DIST"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 7, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "HSTDV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 14, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TOZNE"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TMP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VTMP"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "POT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "EPOT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 4, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TMAX"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 5, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TMIN"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 6, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DPT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 7, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DEPR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 8, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "LAPR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 19, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VIS"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 15, 6, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RDSP1"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 15, 7, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RDSP2"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 15, 8, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RDSP3"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 7, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PLI"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 0, 9, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "TMPA"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 8, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PRESA"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 3, 9, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "GPA"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WVSP1"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WVSP2"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WVSP3"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WDIR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "WIND"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 4, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "STRM"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 5, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VPOT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 6, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MNTSF"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 7, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SGCVV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 8, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VVEL"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 9, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DZDT"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 10, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ABSV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 11, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "ABSD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 12, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RELV"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 13, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RELD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 15, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VUCSH"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 2, 16, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VVCSH"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "DIRC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SPC"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "UOGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 1, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "VOGRD"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 0, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "SPFH"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 1, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "RH"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 2, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "MIXR"))
-            return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(0, 1, 3, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PWAT"))
-            return G2C_ERROR;
+       /*  if ((ret = g2c_param_abbrev(0, 1, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CRAIN")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CFRZR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CICEP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CSNOW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CPRAT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MCONV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(1, 1, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CPOFP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 199, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PEVAP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VWSH")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MFLX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "USTM")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VSTM")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "FRICV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MSLET")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DSWRF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "USWRF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 5, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DLWRF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 5, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ULWRF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CDLYR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "4LFTX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 6, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CAPE")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 7, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CIN")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 8, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "HLCY")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LFTX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 11, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TKE")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 191, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "NLAT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 191, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ELON")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(1, 0, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "BGRUN")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(1, 0, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SSRUN")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SOILW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "GFLUX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MSTAV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SFEXC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CNWAT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "BMIXL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 14, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "O3MR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "5WAVH")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 200, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PEVPR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CWORK")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "U-GWD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "V-GWD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "HPBL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "5WAVA")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 3, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SOILL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 3, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RLYRS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 201, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WILT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 3, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SLTYP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 3, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SOTYP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 198, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VGTYP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 3, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SMREF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 3, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SMDRY")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 201, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SNOWC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 3, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "POROS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 202, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "FRAIN")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 199, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "FICE")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 203, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RIME")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CUEFI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TCOND")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TCOLW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TCOLI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 204, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TCOLR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 205, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TCOLS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 198, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TCOLC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MXSALB")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SNFALB")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 24, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RWMR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 25, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SNMR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 199, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CCOND")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 200, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RSMIN")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 202, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RCS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 203, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RCT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 204, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RCQ")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 205, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RCSOL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(3, 1, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "USCT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(3, 1, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VSCT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 191, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TSEC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 14, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "OZCON")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 14, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "OZCAT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(1, 1, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "POP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(1, 1, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CPOZP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 22, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "GUST")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WDIR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WIND")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "HTSGW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 4, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WVDIR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 6, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WVPER")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 10, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DIRPW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 11, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PERPW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 12, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DIRSW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 13, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PERSW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 13, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PMTC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 13, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PMTF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TMP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 198, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MSLMA")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 13, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LPMTF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 13, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LIPMF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 23, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ICMR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 32, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "GRMR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 206, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TIPD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 17, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LTNG")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 206, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RDRIP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 15, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VPTMP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 207, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "NCIP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 208, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SNOT")) */
+       /*      return G2C_ERROR; */
+       /*  /\* See https://github.com/NOAA-EMC/NCEPLIBS-g2/issues/314. *\/ */
+       /*  /\* if ((ret = g2c_param_abbrev(0, 3, 1, abbrev))) *\/ */
+       /*  /\*     return ret; *\/ */
+       /*  /\* if (strcmp(abbrev, "MSLSA")) *\/ */
+       /*  /\*     return G2C_ERROR; *\/ */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 199, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TSLSA")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 200, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PLPL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DUVB")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CDUVB")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 207, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ICWAT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 204, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MIXLY")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TTRAD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 16, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "REFD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 16, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "REFC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CSDSF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 209, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TCLSW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 210, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TCOLM")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 201, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LPSX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 202, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LPSY")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 203, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "HGTX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 204, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "HGTY")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "REV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 2, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ICEC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UOGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VOGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WTMP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DSLM")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 4, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SALTY")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UOGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VOGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WTMP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 4, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SALTY")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 9, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DZDT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MIXHT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PRMSL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 5, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "HGT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ELEV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 198, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MINRH")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 27, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MAXRH")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 29, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ASNOW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 16, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "REFZR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 16, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "REFZI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 16, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "REFZC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 198, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LAUV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 199, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LOUV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 200, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LAVV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 201, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LOVV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 202, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LAPP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 203, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LOPP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SSHG")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PRMSL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 5, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "HGT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 4, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WTMPC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 4, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SALIN")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "P2OMLT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "OMLU")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "OMLV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UBARO")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VBARO")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 205, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "FLGHT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 206, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CICEL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 207, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CIVIS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 208, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CIFLT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 209, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LAVNI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 210, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "HAVNI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 211, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SBSALB")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 212, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SWSALB")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 213, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "NBSALB")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 214, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "NWSALB")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WSTP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 211, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "EMNP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 205, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LAYTH")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 13, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CEIL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 12, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PBLREG")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 228, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ACOND")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 212, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SBSNO")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 3, 198, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "EVBS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 229, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "EVCW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 230, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TRANS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 204, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VEDH")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LRGHR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CNVHR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 20, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ICIP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 20, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ICIP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 21, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CTP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 21, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CTP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 22, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CAT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 22, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CAT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 25, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CBHE")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(255, 255, 255, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "IMGD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(255, 255, 255, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "IMGD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(255, 255, 255, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "IMGD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(255, 255, 255, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "IMGD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ICAHT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ICAHT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(255, 255, 255, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "IMGD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(255, 255, 255, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "IMGD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 6, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CWAT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 7, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SWDIR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 8, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SWELL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 9, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SWPER")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 5, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WVHGT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(3, 192, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SBT122")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(3, 192, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SBT123")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(3, 192, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SBT124")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(3, 192, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SBT126")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(3, 192, 4, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SBC123")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(3, 192, 5, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SBC124")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SURGE")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 193, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ETSRG")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 14, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PVORT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVMZ")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVTZ")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVTM")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "THFLX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 9, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DZDT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 17, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UFLX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 18, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VFLX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 6, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DIST")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "POT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 4, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SALTY")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UOGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VOGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 198, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TTDIA")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 199, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TTPHY")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 3, 199, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LSPA")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SWHR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 5, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LWHR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 198, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CSUSF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 5, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CSULF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 5, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CSDLF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 199, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CFNSF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 5, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CFNLF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 200, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VBDSF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 201, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VDDSF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 202, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "NBDSF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 203, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "NDDSF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UVI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 200, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TSD1D")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 206, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "NLGSP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 201, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SHAHR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 202, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VDFHR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 213, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CNVMR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 214, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SHAMR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 215, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VDFMR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 208, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VDFUA")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 209, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VDFVA")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CWDI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 204, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DTRF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 4, 205, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UTRF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 6, 200, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MFLUX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CWDI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 232, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VAFTD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 201, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SNOWC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 11, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SNOD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "KX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 5, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 4, 194, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "BKENG")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 4, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DBSS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "AOHFLX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 198, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ASHFL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 199, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SSTT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 200, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SSST")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 201, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "KENG")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 4, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "INTFD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 3, 202, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SLTFL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 4, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "OHC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 216, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CONP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 191, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MLYNO")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 65, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RPRATE")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 66, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SPRATE")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 67, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "FPRATE")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 68, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "IPRATE")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UPHL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 4, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VEG")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(1, 1, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CWR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 4, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVTW")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 5, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVZZ")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 6, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVMM")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 7, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVQZ")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 8, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVQM")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 9, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVTVV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 10, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVQVV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 11, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVPSPS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 12, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVQQ")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 13, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVVVVV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 192, 14, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "COVTT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 203, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "THZ0")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 218, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "QZ0")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 219, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "QMAX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 220, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "QMIN")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 210, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "GWDU")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 211, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "GWDV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 212, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CNVU")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 213, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CNVV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 214, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WTEND")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 215, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "OMGALF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 216, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CNGWDU")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 217, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CNGWDV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 207, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CNVUMF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 208, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CNVDMF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 209, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "CNVDEMF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 217, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LRGMR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 14, 195, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VDFOZ")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 14, 196, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "POZ")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 14, 197, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TOZ")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 14, 198, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "POZT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 14, 199, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "POZO")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 208, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "AKHS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(2, 0, 209, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "AKMS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 218, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "EPSR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 192, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SNOHF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 204, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TCHP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 219, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TPFI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 198, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LAI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 210, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LMH")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 218, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LMV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PRES")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PRMSL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PTEND")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 14, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PVORT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ICAHT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 4, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "GP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 5, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "HGT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 6, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DIST")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 7, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "HSTDV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 14, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TOZNE")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TMP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VTMP")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "POT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "EPOT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 4, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TMAX")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 5, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TMIN")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 6, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DPT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 7, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DEPR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 8, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "LAPR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 19, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VIS")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 15, 6, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RDSP1")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 15, 7, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RDSP2")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 15, 8, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RDSP3")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 7, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PLI")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 0, 9, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "TMPA")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 8, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PRESA")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 3, 9, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "GPA")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WVSP1")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WVSP2")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 0, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WVSP3")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WDIR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "WIND")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 4, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "STRM")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 5, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VPOT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 6, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MNTSF")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 7, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SGCVV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 8, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VVEL")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 9, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DZDT")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 10, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ABSV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 11, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "ABSD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 12, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RELV")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 13, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RELD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 15, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VUCSH")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 2, 16, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VVCSH")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "DIRC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SPC")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "UOGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(10, 1, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "VOGRD")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 0, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "SPFH")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 1, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "RH")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 2, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "MIXR")) */
+       /*      return G2C_ERROR; */
+       /*  if ((ret = g2c_param_abbrev(0, 1, 3, abbrev))) */
+       /*      return ret; */
+       /*  if (strcmp(abbrev, "PWAT")) */
+       /*      return G2C_ERROR; */
         if ((ret = g2c_param_abbrev(0, 1, 4, abbrev)))
             return ret;
         if (strcmp(abbrev, "VAPP"))
@@ -2350,11 +2350,11 @@ main()
             return ret;
         if (strcmp(abbrev, "IMGD"))
             return G2C_ERROR;
-        /* See https://github.com/NOAA-EMC/NCEPLIBS-g2/issues/314. */
-        /* if ((ret = g2c_param_abbrev(0, 3, 1, abbrev))) */
-        /*     return ret; */
-        /* if (strcmp(abbrev, "MSLSA")) */
-        /*     return G2C_ERROR; */
+        /\* See https://github.com/NOAA-EMC/NCEPLIBS-g2/issues/314. *\/
+        /\* if ((ret = g2c_param_abbrev(0, 3, 1, abbrev))) *\/
+        /\*     return ret; *\/
+        /\* if (strcmp(abbrev, "MSLSA")) *\/
+        /\*     return G2C_ERROR; *\/
         if ((ret = g2c_param_abbrev(0, 3, 192, abbrev)))
             return ret;
         if (strcmp(abbrev, "MSLET"))
@@ -3611,22 +3611,22 @@ main()
             return ret;
         if (strcmp(abbrev, "LWSNWP"))
             return G2C_ERROR;
-        /* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) */
-        /*     return ret; */
-        /* if (strcmp(abbrev, "FRSTINX")) */
-        /*     return G2C_ERROR; */
-        /* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) */
-        /*     return ret; */
-        /* if (strcmp(abbrev, "SNWDEB")) */
-        /*     return G2C_ERROR; */
-        /* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) */
-        /*     return ret; */
-        /* if (strcmp(abbrev, "SHFLX")) */
-        /*     return G2C_ERROR; */
-        /* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) */
-        /*     return ret; */
-        /* if (strcmp(abbrev, "SOILDEP")) */
-        /*     return G2C_ERROR; */
+        /\* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) *\/
+        /\*     return ret; *\/
+        /\* if (strcmp(abbrev, "FRSTINX")) *\/
+        /\*     return G2C_ERROR; *\/
+        /\* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) *\/
+        /\*     return ret; *\/
+        /\* if (strcmp(abbrev, "SNWDEB")) *\/
+        /\*     return G2C_ERROR; *\/
+        /\* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) *\/
+        /\*     return ret; *\/
+        /\* if (strcmp(abbrev, "SHFLX")) *\/
+        /\*     return G2C_ERROR; *\/
+        /\* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) *\/
+        /\*     return ret; *\/
+        /\* if (strcmp(abbrev, "SOILDEP")) *\/
+        /\*     return G2C_ERROR; *\/
         if ((ret = g2c_param_abbrev(2, 4, 0, abbrev)))
             return ret;
         if (strcmp(abbrev, "FIREOLK"))
