@@ -8,18 +8,33 @@
 int
 main()
 {
-    char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
-    int ret;
-
     printf("Testing params handling.\n");
 
-    g2c_set_log_level(10);
-    printf("Testing g2c_param_abbrev()...\n");
-    if ((ret = g2c_param_abbrev(0, 3, 0, abbrev)))
-        return ret;
-    if (strcmp(abbrev, "PRES"))
-        return G2C_ERROR;
-    
+    printf("Testing g2c_param_abbrev()...");
+    {
+        char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
+        int ret;
+
+        /* This will work. */
+        if ((ret = g2c_param_abbrev(0, 3, 0, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PRES"))
+            return G2C_ERROR;
+        
+        /* This will succeed, but accomplish nothing. */
+        if ((ret = g2c_param_abbrev(0, 3, 0, NULL)))
+            return ret;
+        
+        /* This will fail. */
+        if (g2c_param_abbrev(0, 3000, 0, abbrev) != G2C_ENOPARAM)
+            return G2C_ERROR;
+    }
+    printf("OK!\n");
+    printf("Testing g2c_param_g1tog2()...");
+    {
+        g2c_set_log_level(10);
+    }
+    printf("OK!\n");
     printf("SUCCESS!!!\n");
     return G2C_NOERROR;
 }

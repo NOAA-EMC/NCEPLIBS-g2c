@@ -184,6 +184,8 @@ g2c_param_g1tog2(int g1val, int g1ver, int *g2disc, int *g2cat, int *g2num)
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_EFILE Error reading CSV file.
+ * - ::G2C_ENOPARAM Parameter not found.
  *
  * @author Ed Hartnett @date 9/19/22
  */
@@ -196,7 +198,7 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
     /* If this is NULL, the user doesn't care about the answer, so we're done. */
     if (!abbrev)
         return G2C_NOERROR;
-    
+
     /* If needed, ingest the CSV file of parameter information. */
     if (!init_params)
         if ((ret = read_params_csv()))
