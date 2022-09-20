@@ -8,14 +8,15 @@
 int
 main()
 {
-    /* char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1]; */
-    /* int ret; */
+    char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
+    int ret;
 
     printf("Testing params handling.\n");
 
+    g2c_set_log_level(10);
     printf("Testing g2c_param_abbrev()...\n");
-    /* if ((ret = g2c_param_abbrev(10, 3, 209, abbrev))) */
-    /*     return ret; */
+    if ((ret = g2c_param_abbrev(10, 3, 209, abbrev)))
+        return ret;
     /* if (strcmp(abbrev, "TWLDT")) */
     /*     return G2C_ERROR; */
     

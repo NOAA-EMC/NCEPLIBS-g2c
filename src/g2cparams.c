@@ -9,7 +9,10 @@
 
 /** This variable will be non-zero if the library has read the CSV
  * file contianing parameter information. */
-static int init_params = 0; 
+static int init_params = 0;
+
+/** The name of the CSV file which contains the NOAA abbreviations. */
+#define CSV_FILE "noaa_grib2_params.csv"
 
 /**
  * Read parameter information from the CSV file.
@@ -22,6 +25,20 @@ static int init_params = 0;
 static int
 read_params_csv()
 {
+    FILE *f;
+    
+    LOG((4, "read_params_csv()"));
+
+    /* Open the CSV file with NOAA parameters. */
+    if (!(f = fopen(CSV_FILE, "r")))
+        return G2C_EFILE;
+
+    /* Read the CSV file. */
+
+    /* Close the CSV file. */
+    if (fclose(f))
+        return G2C_EFILE;        
+    
     /* Remember that we have read our CSV file. */
     init_params++;
     
