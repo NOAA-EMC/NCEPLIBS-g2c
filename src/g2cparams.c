@@ -290,10 +290,10 @@ g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1num, int *g1ver)
  * Return all the information about a parameter.
  *
  * @param param_idx Parameter index between 0 and ::G2C_MAX_NOAA_PARAMS.
+ * @param g1num Pointer that gets the GRIB1 parameter. Ignored if
+ * NULL.
  * @param g1ver Pointer that gets the GRIB1 parameter table version
  * number. Ignored if NULL.
- * @param g1val Pointer that gets the GRIB1 parameter. Ignored if
- * NULL.
  * @param g2disc Pointer that gets the GRIB2 discipline
  * number. Ignored if NULL.
  * @param g2cat Pointer that gets the GRIB2 category number. Ignored
@@ -304,13 +304,14 @@ g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1num, int *g1ver)
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
  * - ::G2C_EFILE Error reading CSV file.
  * - ::G2C_ENOPARAM Parameter not found.
  *
  * @author Ed Hartnett @date 9/19/22
  */
 int
-g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat,
+g2c_param_all(int param_idx, int *g1num, int *g1ver, int *g2disc, int *g2cat,
               int *g2num, char *abbrev)
 {
     int ret;
@@ -319,6 +320,24 @@ g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat,
     if (!init_params)
         if ((ret = read_params_csv()))
             return ret;
+
+    /* Check input. */
+    if (param_idx < 0 || param_idx > G2C_MAX_NOAA_PARAMS)
+        return G2C_EINVAL;
+
+    /* Return results to caller. */
+    if (g1num)
+        *g1num = param[param_idx].g1num;
+    if (g1ver)
+        *g1ver = param[param_idx].g1ver;
+    if (g2disc)
+        *g2disc = param[param_idx].g2disc;
+    if (g2cat)
+        *g2cat = param[param_idx].g2cat;
+    if (g2num)
+        *g2num = param[param_idx].g2num;
+    if (abbrev)
+        strncpy(abbrev, param[param_idx].abbrev, G2C_MAX_NOAA_ABBREV_LEN);
     
     return G2C_NOERROR;
 }

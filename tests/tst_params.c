@@ -56,8 +56,6 @@ main()
         int g1num, g1ver;
         int ret;
         
-        g2c_set_log_level(10);
-
         /* This will work. */
         if ((ret = g2c_param_g2tog1(0, 3, 0, &g1num, &g1ver)))
             return ret;
@@ -70,6 +68,35 @@ main()
 
         /* This will fail. */
         if (g2c_param_g2tog1(0, 2000, 0, &g1num, &g1ver) != G2C_ENOPARAM)
+            return G2C_ERROR;
+        
+    }
+    printf("ok!\n");
+    printf("Testing g2c_param_all()...");
+    {
+        int g2disc, g2cat, g2num;        
+        int g1num, g1ver;
+        char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];        
+        int ret;
+        
+        g2c_set_log_level(10);
+
+        /* This will work. */
+        if ((ret = g2c_param_all(0, &g1num, &g1ver, &g2disc, &g2cat, &g2num, abbrev)))
+            return ret;
+        if (g1num != 1 || g1ver != 2 || g2disc != 0 || g2cat != 3 || g2num != 0)
+            return G2C_ERROR;
+        if (strcmp(abbrev, "PRES"))
+            return G2C_ERROR;
+
+        /* This will work but do nothing. */
+        if ((ret = g2c_param_all(0, NULL, NULL, NULL, NULL, NULL, NULL)))
+            return ret;
+
+        /* These will fail. */
+        if (g2c_param_all(G2C_MAX_NOAA_PARAMS + 1, &g1num, &g1ver, &g2disc, &g2cat, &g2num, abbrev) != G2C_EINVAL)
+            return G2C_ERROR;
+        if (g2c_param_all(-1, &g1num, &g1ver, &g2disc, &g2cat, &g2num, abbrev) != G2C_EINVAL)
             return G2C_ERROR;
         
     }
