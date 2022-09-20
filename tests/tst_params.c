@@ -46,6 +46,10 @@ main()
         /* This will work but do nothing. */
         if ((ret = g2c_param_g1tog2(1, 2, NULL, NULL, NULL)))
             return ret;
+
+        /* This will fail. */
+        if (g2c_param_g1tog2(1, 2000, , &g2disc, &g2cat, &g2num) != G2C_ENOPARAM)
+            return G2C_ERROR;
         
     }
     printf("OK!\n");
