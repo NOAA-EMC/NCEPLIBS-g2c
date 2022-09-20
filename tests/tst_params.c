@@ -32,7 +32,21 @@ main()
     printf("OK!\n");
     printf("Testing g2c_param_g1tog2()...");
     {
+        int g2disc, g2cat, g2num;
+        int ret;
+        
         g2c_set_log_level(10);
+
+        /* This will work. */
+        if ((ret = g2c_param_g1tog2(1, 2, &g2disc, &g2cat, &g2num)))
+            return ret;
+        if (g2disc != 0 || g2cat != 3 || g2num != 0)
+            return G2C_ERROR;
+
+        /* This will work but do nothing. */
+        if ((ret = g2c_param_g1tog2(1, 2, NULL, NULL, NULL)))
+            return ret;
+        
     }
     printf("OK!\n");
     printf("SUCCESS!!!\n");

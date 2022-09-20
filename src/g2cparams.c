@@ -147,7 +147,7 @@ read_params_csv()
 /**
  * Translate GRIB1 parameter to GRIB2 parameter.
  *
- * @param g1val The GRIB1 parameter.
+ * @param g1num The GRIB1 parameter.
  * @param g1ver The GRIB1 parameter table version number.
  * @param g2disc Pointer that gets the GRIB2 discipline
  * number. Ignored if NULL.
@@ -158,12 +158,15 @@ read_params_csv()
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_EFILE Error reading CSV file.
+ * - ::G2C_ENOPARAM Parameter not found.
  *
  * @author Ed Hartnett @date 9/19/22
  */
 int
-g2c_param_g1tog2(int g1val, int g1ver, int *g2disc, int *g2cat, int *g2num)
+g2c_param_g1tog2(int g1num, int g1ver, int *g2disc, int *g2cat, int *g2num)
 {
+    int p;
     int ret;
     
     /* If needed, ingest the CSV file of parameter information. */
@@ -171,6 +174,23 @@ g2c_param_g1tog2(int g1val, int g1ver, int *g2disc, int *g2cat, int *g2num)
         if ((ret = read_params_csv()))
             return ret;
     
+    /* Loop through array until matching values are found. */
+    for (p = 0; p < G2C_MAX_NOAA_PARAMS; p++)
+        if (param[p].g1num == g1num && param[p].g1ver == g1ver)
+            break;
+
+    /* Did we find the parameter? */
+    if (p == G2C_MAX_NOAA_PARAMS)
+        return G2C_ENOPARAM;
+
+    /* Does the user want the answers? */
+    if (g2disc)
+        *g2disc = param[p].g2disc;
+    if (g2cat)
+        *g2cat = param[p].g2cat;
+    if (g2num)
+        *g2num = param[p].g2num;
+
     return G2C_NOERROR;
 }
 
@@ -232,6 +252,8 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_EFILE Error reading CSV file.
+ * - ::G2C_ENOPARAM Parameter not found.
  *
  * @author Ed Hartnett @date 9/19/22
  */
@@ -266,6 +288,8 @@ g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver)
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_EFILE Error reading CSV file.
+ * - ::G2C_ENOPARAM Parameter not found.
  *
  * @author Ed Hartnett @date 9/19/22
  */
