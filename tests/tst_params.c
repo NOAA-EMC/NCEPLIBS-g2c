@@ -29,14 +29,12 @@ main()
         if (g2c_param_abbrev(0, 3000, 0, abbrev) != G2C_ENOPARAM)
             return G2C_ERROR;
     }
-    printf("OK!\n");
+    printf("ok!\n");
     printf("Testing g2c_param_g1tog2()...");
     {
         int g2disc, g2cat, g2num;
         int ret;
         
-        g2c_set_log_level(10);
-
         /* This will work. */
         if ((ret = g2c_param_g1tog2(1, 2, &g2disc, &g2cat, &g2num)))
             return ret;
@@ -52,7 +50,30 @@ main()
             return G2C_ERROR;
         
     }
-    printf("OK!\n");
+    printf("ok!\n");
+    printf("Testing g2c_param_g2tog1()...");
+    {
+        int g1num, g1ver;
+        int ret;
+        
+        g2c_set_log_level(10);
+
+        /* This will work. */
+        if ((ret = g2c_param_g2tog1(0, 3, 0, &g1num, &g1ver)))
+            return ret;
+        if (g1num != 1 || g1ver != 2)
+            return G2C_ERROR;
+
+        /* This will work but do nothing. */
+        if ((ret = g2c_param_g2tog1(0, 3, 0, NULL, NULL)))
+            return ret;
+
+        /* This will fail. */
+        if (g2c_param_g2tog1(0, 2000, 0, &g1num, &g1ver) != G2C_ENOPARAM)
+            return G2C_ERROR;
+        
+    }
+    printf("ok!\n");
     printf("SUCCESS!!!\n");
     return G2C_NOERROR;
 }

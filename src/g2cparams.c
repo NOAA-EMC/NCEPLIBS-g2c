@@ -245,7 +245,7 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
  * @param g2disc The GRIB2 discipline number.
  * @param g2cat The GRIB2 category number.
  * @param g2num The GRIB2 parameter number.
- * @param g1val Pointer that gets the GRIB1 parameter. Ignored if
+ * @param g1num Pointer that gets the GRIB1 parameter. Ignored if
  * NULL.
  * @param g1ver Pointer that gets the GRIB1 parameter table version
  * number. Ignored if NULL.
@@ -258,8 +258,9 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
  * @author Ed Hartnett @date 9/19/22
  */
 int
-g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver)
+g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1num, int *g1ver)
 {
+    int p;
     int ret;
     
     /* If needed, ingest the CSV file of parameter information. */
@@ -267,6 +268,21 @@ g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver)
         if ((ret = read_params_csv()))
             return ret;
     
+    /* Loop through array until matching values are found. */
+    for (p = 0; p < G2C_MAX_NOAA_PARAMS; p++)
+        if (param[p].g2disc == g2disc && param[p].g2cat == g2cat && param[p].g2num == g2num)
+            break;
+
+    /* Did we find the parameter? */
+    if (p == G2C_MAX_NOAA_PARAMS)
+        return G2C_ENOPARAM;
+
+    /* Does the user want the answers? */
+    if (g1num)
+        *g1num = param[p].g1num;
+    if (g1ver)
+        *g1ver = param[p].g1ver;
+
     return G2C_NOERROR;
 }
 
