@@ -14,6 +14,42 @@ static int init_params = 0;
 /** The name of the CSV file which contains the NOAA abbreviations. */
 #define CSV_FILE "noaa_grib2_params.csv"
 
+/** An array of parameter information. */
+static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS];
+
+/**
+ * Trim whitespace from a string.
+ * 
+ * @param str String to trim.
+ *
+ * @return Pointer to the trimmed string.
+ *
+ * @author Ed Hartnett @date 9/20/22
+ */
+static char *
+trim(char *str)
+{
+  char *end;
+
+  /* Trim leading space. */
+  while(isspace((unsigned char)*str))
+      str++;
+
+  /* All spaces? */
+  if (*str == 0)  
+      return str;
+
+  /* Trim trailing space. */
+  end = str + strlen(str) - 1;
+  while(end > str && isspace((unsigned char)*end))
+      end--;
+
+  /* Write new null terminator character. */
+  end[1] = '\0';
+
+  return str;
+}
+
 /**
  * Read parameter information from the CSV file.
  *
@@ -25,8 +61,11 @@ static int init_params = 0;
 static int
 read_params_csv()
 {
+
     FILE *f;
     char *csv_filename;
+    char row[G2C_MAX_NOAA_PARAM_LINE_LEN];
+    int p = 0;
     
     LOG((4, "read_params_csv()"));
 
@@ -48,7 +87,52 @@ read_params_csv()
     /* Free filename. */
     free(csv_filename);
 
-    /* Read the CSV file. */
+    /* Skip the first line of the CSV file. */
+    if (!fgets(row, G2C_MAX_NOAA_PARAM_LINE_LEN, f))
+        return G2C_EFILE;
+    
+    /* Read the CSV file one line at a time. */
+    while (fgets(row, G2C_MAX_NOAA_PARAM_LINE_LEN, f))
+    {
+        char *token;
+        int token_num = 0;
+
+        token = strtok(row, ",");
+        while (token)
+        {
+            switch (token_num)
+            {
+            case 0: /* do nothing */
+                break; 
+            case 1:
+                param[p].g1num = strtol(token, NULL, 10);
+                break;
+            case 2:
+                param[p].g1ver = strtol(token, NULL, 10);
+                break;
+            case 3:
+                param[p].g2disc = strtol(token, NULL, 10);
+                break;
+            case 4:
+                param[p].g2cat = strtol(token, NULL, 10);
+                break;
+            case 5:
+                param[p].g2num = strtol(token, NULL, 10);
+                break;
+            case 6:
+                strncpy(param[p].abbrev, trim(token), G2C_MAX_NOAA_ABBREV_LEN);
+                break;
+            }
+            token_num++;
+            token = strtok(NULL, ",");
+        }
+
+        LOG((5, "%d g1num %d g1ver %d g2disc %d g2cat %d g2val %d abbrev %s", p, param[p].g1num,
+             param[p].g1ver, param[p].g2disc, param[p].g2cat, param[p].g2num, param[p].abbrev));
+
+        /* Move to the next parameter. */
+        p++;
+    }    
 
     /* Close the CSV file. */
     if (fclose(f))
@@ -96,7 +180,7 @@ g2c_param_g1tog2(int g1val, int g1ver, int *g2disc, int *g2cat, int *g2num)
  * @param g2disc The GRIB2 discipline number.
  * @param g2cat The GRIB2 category number.
  * @param g2num The GRIB2 parameter number.
- * @param abbrev Pointer that gets the abbreviation.
+ * @param abbrev Pointer that gets the abbreviation. Ignored if NULL.
  *
  * @return
  * - ::G2C_NOERROR No error.
@@ -106,12 +190,29 @@ g2c_param_g1tog2(int g1val, int g1ver, int *g2disc, int *g2cat, int *g2num)
 int
 g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
 {
+    int p;
     int ret;
+
+    /* If this is NULL, the user doesn't care about the answer, so we're done. */
+    if (!abbrev)
+        return G2C_NOERROR;
     
     /* If needed, ingest the CSV file of parameter information. */
     if (!init_params)
         if ((ret = read_params_csv()))
             return ret;
+
+    /* Loop through array until matching values are found. */
+    for (p = 0; p < G2C_MAX_NOAA_PARAMS; p++)
+        if (param[p].g2disc == g2disc && param[p].g2cat == g2cat && param[p].g2num == g2num)
+            break;
+
+    /* Did we find the parameter? */
+    if (p == G2C_MAX_NOAA_PARAMS)
+        return G2C_ENOPARAM;
+
+    /* Return the abbreviation to the caller. */
+    strncpy(abbrev, param[p].abbrev, G2C_MAX_NOAA_ABBREV_LEN);
     
     return G2C_NOERROR;
 }

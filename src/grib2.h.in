@@ -322,6 +322,7 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 
 #define G2C_MAX_NOAA_PARAMS 2000 /**< Maximum number of known parameters with NOAA abbreviations. */
 #define G2C_MAX_NOAA_ABBREV_LEN 8 /**< Maximum length of a NOAA abbreviation of a parameter. */
+#define G2C_MAX_NOAA_PARAM_LINE_LEN 120 /**< Maximum length of a line in the NOAA abbreviation CSV file. */
 
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
@@ -397,5 +398,6 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_EBADSECTION (-66) /**< Invalid section number. */
 #define G2C_EJPEG (-67) /**< Error encoding/decoding JPEG data. */
 #define G2C_EPNG (-68) /**< Error encoding/decoding PNG data. */
+#define G2C_ENOPARAM (-69) /**< Parameter not found. */
 
 #endif  /*  _grib2_H  */

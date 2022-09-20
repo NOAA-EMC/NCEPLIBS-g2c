@@ -190,6 +190,8 @@ g2c_strerror(int g2cerr)
 	return "Error encoding/decoding JPEG data";
     case G2C_EPNG:
 	return "Error encoding/decoding PNG data";
+    case G2C_ENOPARAM:
+	return "Parameter not found";
 
     default:
 	 return "Unknown Error";	
