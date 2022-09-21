@@ -219,6 +219,8 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
     if (!abbrev)
         return G2C_NOERROR;
 
+    LOG((2, "g2c_param_abbrev g2disc %d g2cat %d g2num %d", g2dics, g2cat, g2num));
+
     /* If needed, ingest the CSV file of parameter information. */
     if (!init_params)
         if ((ret = read_params_csv()))

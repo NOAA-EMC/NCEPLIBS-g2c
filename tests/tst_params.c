@@ -3848,275 +3848,275 @@ main()
        /*      return ret; */
        /*  if (strcmp(abbrev, "MZPWW")) */
        /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 30, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "MZPTSW")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 31, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WDIRW")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 32, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "DIRWWW")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 33, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "DIRWTS")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 34, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "PWPER")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 35, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "PPERWW")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 36, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "PPERTS")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 37, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "ALTWH")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 38, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "ALCWH")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 39, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "ALRRC")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 40, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "MNWSOW")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 41, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "MWDIRW")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 42, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WESP")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 43, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "KSSEW")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 44, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "BENINX")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 45, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "SPFTR")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 46, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "PWAVEDIR")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 47, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "SWHFSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 48, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "SWHSSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 49, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "SWHTSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 50, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "MWPFSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 51, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "MWPSSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 52, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "MWPTSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 53, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "MWDFSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 54, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "MWDSSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 55, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "MWDTSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 56, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WDWFSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 57, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WDWSSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 58, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WDWTSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 59, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WFWFSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 60, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WFWSSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 61, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WFWTSWEL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 62, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WAVEFREW")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 63, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "FREWWW")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 0, 64, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "FREWTSW")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 1, 4, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "RIPCOP")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 2, 9, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "ICEPRS")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 2, 10, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "ZVCICEP")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 2, 11, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "MVCICEP")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 2, 12, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "CICES")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 2, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "CH")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 3, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "PRACTSAL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 204, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "FRZSPR")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 4, 13, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "ACWSRD")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 205, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "TWLWAV")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 206, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "RUNUP")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 207, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "SETUP")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 208, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "SWASH")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 209, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "TWLDT")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 210, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "TWLDC")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 250, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "ETCWL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 251, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "TIDE")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 252, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "EROSNP")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 3, 253, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "OWASHP")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 4, 14, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WDEPTH")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 4, 15, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WTMPSS")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 4, 16, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WATERDEN")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 4, 17, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WATDENA")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 4, 18, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WATPTEMP")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 4, 19, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WATPDEN")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 4, 20, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "WATPDENA")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(10, 4, 21, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "PRTSAL")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(0, 16, 3, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "RETOP")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(1, 0, 5, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "BGRUN")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(1, 0, 6, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "SSRUN")) */
-       /*      return G2C_ERROR; */
-       /*  if ((ret = g2c_param_abbrev(2, 3, 5, abbrev))) */
-       /*      return ret; */
-       /*  if (strcmp(abbrev, "SOILL")) */
-       /*      return G2C_ERROR; */
+        if ((ret = g2c_param_abbrev(10, 0, 30, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MZPTSW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 31, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WDIRW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 32, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DIRWWW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 33, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DIRWTS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 34, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PWPER"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 35, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PPERWW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 36, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PPERTS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 37, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ALTWH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 38, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ALCWH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 39, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ALRRC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 40, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MNWSOW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 41, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MWDIRW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 42, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WESP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 43, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "KSSEW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 44, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "BENINX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 45, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SPFTR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 46, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PWAVEDIR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 47, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWHFSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 48, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWHSSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 49, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWHTSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 50, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MWPFSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 51, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MWPSSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 52, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MWPTSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 53, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MWDFSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 54, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MWDSSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 55, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MWDTSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 56, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WDWFSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 57, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WDWSSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 58, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WDWTSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 59, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WFWFSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 60, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WFWSSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 61, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WFWTSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 62, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WAVEFREW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 63, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FREWWW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 64, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FREWTSW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 1, 4, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "RIPCOP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 9, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ICEPRS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 10, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ZVCICEP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 11, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MVCICEP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 12, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CICES"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 2, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 3, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PRACTSAL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 204, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FRZSPR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 13, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ACWSRD"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 205, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TWLWAV"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 206, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "RUNUP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 207, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SETUP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 208, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWASH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 209, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TWLDT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 210, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TWLDC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 250, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ETCWL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 251, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TIDE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 252, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EROSNP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 253, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "OWASHP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 14, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WDEPTH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 15, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WTMPSS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 16, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WATERDEN"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 17, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WATDENA"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 18, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WATPTEMP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 19, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WATPDEN"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 20, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WATPDENA"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 21, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PRTSAL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 16, 3, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "RETOP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 0, 5, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "BGRUN"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 0, 6, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SSRUN"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 3, 5, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SOILL"))
+            return G2C_ERROR;
         
         
-       /*  /\* This will fail. *\/ */
-       /*  if (g2c_param_abbrev(0, 3000, 0, abbrev) != G2C_ENOPARAM) */
-       /*      return G2C_ERROR; */
+        /* This will fail. */
+        if (g2c_param_abbrev(0, 3000, 0, abbrev) != G2C_ENOPARAM)
+            return G2C_ERROR;
     }
     printf("ok!\n");
     printf("Testing g2c_param_g1tog2()...");
@@ -4124,7 +4124,7 @@ main()
         int g2disc, g2cat, g2num;
         int ret;
         
-        /* This will work. */
+        /* This will work.
         if ((ret = g2c_param_g1tog2(1, 2, &g2disc, &g2cat, &g2num)))
             return ret;
         if (g2disc != 0 || g2cat != 3 || g2num != 0)
