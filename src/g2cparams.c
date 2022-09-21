@@ -53,6 +53,9 @@ trim(char *str)
 /**
  * Read parameter information from the CSV file.
  *
+ * @note Any abbreviation longer than ::G2C_MAX_NOAA_ABBREV_LEN will
+ * be truncated to that length.
+ *
  * @return
  * - ::G2C_NOERROR No error.
  *
@@ -121,7 +124,7 @@ read_params_csv()
                 break;
             case 6:
                 strncpy(param[p].abbrev, trim(token), G2C_MAX_NOAA_ABBREV_LEN + 1);
-                param[p].abbrev[strlen(trim(token))] = '\0';
+                param[p].abbrev[G2C_MAX_NOAA_ABBREV_LEN] = 0; /* ensure null-termination */
                 LOG((5, "abbrev %s", param[p].abbrev));
                 break;
             }
