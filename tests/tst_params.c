@@ -12,8 +12,8 @@ main()
 
     printf("Testing g2c_param_abbrev()...");
     {
-        /* char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1]; */
-        /* int ret; */
+        char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
+        int ret;
 
         /* /\* This will succeed, but accomplish nothing. *\/ */
         /* if ((ret = g2c_param_abbrev(0, 3, 0, NULL))) */
@@ -4124,7 +4124,7 @@ main()
         int g2disc, g2cat, g2num;
         int ret;
         
-        /* This will work.
+        /* This will work. */
         if ((ret = g2c_param_g1tog2(1, 2, &g2disc, &g2cat, &g2num)))
             return ret;
         if (g2disc != 0 || g2cat != 3 || g2num != 0)
