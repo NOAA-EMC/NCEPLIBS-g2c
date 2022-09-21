@@ -3913,10 +3913,10 @@ main()
             return ret;
         if (strcmp(abbrev, "SPFTR"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(10, 0, 46, abbrev)))
-            return ret;
-        if (strcmp(abbrev, "PWAVEDIR"))
-            return G2C_ERROR;
+        /* if ((ret = g2c_param_abbrev(10, 0, 46, abbrev))) */
+        /*     return ret; */
+        /* if (strcmp(abbrev, "PWAVEDIR")) */
+        /*     return G2C_ERROR; */
         if ((ret = g2c_param_abbrev(10, 0, 47, abbrev)))
             return ret;
         if (strcmp(abbrev, "SWHFSWEL"))
