@@ -120,7 +120,7 @@ read_params_csv()
                 param[p].g2num = strtol(token, NULL, 10);
                 break;
             case 6:
-                strncpy(param[p].abbrev, trim(token), G2C_MAX_NOAA_ABBREV_LEN);
+                strncpy(param[p].abbrev, trim(token), G2C_MAX_NOAA_ABBREV_LEN + 1);
                 break;
             }
             token_num++;
