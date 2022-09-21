@@ -238,7 +238,7 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
         return G2C_ENOPARAM;
 
     /* Return the abbreviation to the caller. */
-    strncpy(abbrev, param[p].abbrev, G2C_MAX_NOAA_ABBREV_LEN);
+    strncpy(abbrev, param[p].abbrev, G2C_MAX_NOAA_ABBREV_LEN + 1);
 
     LOG((2, "abbrev %s", abbrev));
     
