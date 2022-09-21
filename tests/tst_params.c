@@ -15,6 +15,7 @@ main()
         char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
         int ret;
 
+        g2c_set_log_level(5);
         /* /\* This will succeed, but accomplish nothing. *\/ */
         /* if ((ret = g2c_param_abbrev(0, 3, 0, NULL))) */
         /*     return ret; */
