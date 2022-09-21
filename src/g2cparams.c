@@ -271,6 +271,8 @@ g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1num, int *g1ver)
 {
     int p;
     int ret;
+
+    LOG((2, "g2c_param_g2tog1 g2disc %d g2cat %d g2num %d", g2disc, g2cat, g2num));
     
     /* If needed, ingest the CSV file of parameter information. */
     if (!init_params)
