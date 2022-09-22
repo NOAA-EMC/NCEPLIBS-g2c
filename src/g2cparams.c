@@ -66,7 +66,7 @@ read_params_csv()
 {
 
     FILE *f;
-    char *csv_filename;
+    char *csv_filename, *csv_filename_test = NULL;
     char row[G2C_MAX_NOAA_PARAM_LINE_LEN];
     int p = 0;
     
@@ -80,15 +80,31 @@ read_params_csv()
     strcat(csv_filename, CSV_FILE);
     LOG((4, "opening csv params file %s", csv_filename));
 
-    /* Open the CSV file with NOAA parameters. */
+    /* Open the CSV file with NOAA parameters. If it doesn't work, try
+     * the test directory. */
     if (!(f = fopen(csv_filename, "r")))
     {
-        free(csv_filename);
-        return G2C_EFILE;
+        /* Determine CSV filename. */
+        if (!(csv_filename_test = malloc(sizeof(char) * (strlen(INSTALL_DATADIR) + strlen(CSV_FILE)) + 2)))
+            return G2C_ENOMEM;
+        strcpy(csv_filename_test, INSTALL_DATADIR);
+        strcat(csv_filename_test, "/");
+        strcat(csv_filename_test, CSV_FILE);
+        LOG((4, "installed CSV data flle not found, tryping to open test version %s", csv_filename_test));
+        
+        /* Open the CSV file with NOAA parameters in the test direcotory. */
+        if (!(f = fopen(csv_filename_test, "r")))
+        {
+            free(csv_filename);
+            free(csv_filename_test);
+            return G2C_EFILE;
+        }
     }
 
-    /* Free filename. */
+    /* Free filenames. */
     free(csv_filename);
+    if (csv_filename_test)
+        free(csv_filename);
 
     /* Skip the first line of the CSV file. */
     if (!fgets(row, G2C_MAX_NOAA_PARAM_LINE_LEN, f))
