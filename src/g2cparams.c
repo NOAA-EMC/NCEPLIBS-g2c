@@ -66,34 +66,34 @@ read_params_csv()
 {
 
     FILE *f;
-    char *csv_filename, *csv_filename_test = NULL;
+    char *csv_filename = NULL, *csv_filename_test;
     char row[G2C_MAX_NOAA_PARAM_LINE_LEN];
     int p = 0;
     
     LOG((4, "read_params_csv()"));
 
     /* Determine CSV filename. */
-    if (!(csv_filename = malloc(sizeof(char) * (strlen(DATADIR) + strlen(CSV_FILE)) + 2)))
+    if (!(csv_filename_test = malloc(sizeof(char) * (strlen(DATADIR) + strlen(CSV_FILE)) + 2)))
         return G2C_ENOMEM;
-    strcpy(csv_filename, DATADIR);
-    strcat(csv_filename, "/");
-    strcat(csv_filename, CSV_FILE);
-    LOG((4, "opening csv params file %s", csv_filename));
+    strcpy(csv_filename_test, DATADIR);
+    strcat(csv_filename_test, "/");
+    strcat(csv_filename_test, CSV_FILE);
+    LOG((4, "opening csv params file %s", csv_filename_test));
 
     /* Open the CSV file with NOAA parameters. If it doesn't work, try
-     * the test directory. */
-    if (!(f = fopen(csv_filename, "r")))
+     * the install/lib directory. */
+    if (!(f = fopen(csv_filename_test, "r")))
     {
-        /* Determine CSV filename. */
-        if (!(csv_filename_test = malloc(sizeof(char) * (strlen(INSTALL_DATADIR) + strlen(CSV_FILE)) + 2)))
+        /* Determine installed CSV filename. */
+        if (!(csv_filename = malloc(sizeof(char) * (strlen(INSTALL_DATADIR) + strlen(CSV_FILE)) + 2)))
             return G2C_ENOMEM;
-        strcpy(csv_filename_test, INSTALL_DATADIR);
-        strcat(csv_filename_test, "/");
-        strcat(csv_filename_test, CSV_FILE);
-        LOG((4, "installed CSV data flle not found, tryping to open test version %s", csv_filename_test));
+        strcpy(csv_filename, INSTALL_DATADIR);
+        strcat(csv_filename, "/");
+        strcat(csv_filename, CSV_FILE);
+        LOG((4, "test CSV data flle not found, tryping to open installed version %s", csv_filename));
         
         /* Open the CSV file with NOAA parameters in the test direcotory. */
-        if (!(f = fopen(csv_filename_test, "r")))
+        if (!(f = fopen(csv_filename, "r")))
         {
             free(csv_filename);
             free(csv_filename_test);
@@ -102,8 +102,8 @@ read_params_csv()
     }
 
     /* Free filenames. */
-    free(csv_filename);
-    if (csv_filename_test)
+    free(csv_filename_test);
+    if (csv_filename)
         free(csv_filename);
 
     /* Skip the first line of the CSV file. */
