@@ -86,7 +86,8 @@ src/specunpack.c src/util.c src/g2cxml.c src/g2cparams.c)
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
 
 # Copy the data file with the NOAA abbreviations.
-configure_file(src/noaa_grib2_params.csv ${CMAKE_CURRENT_BINARY_DIR}/noaa_grib2_params.csv COPYONLY)
+set(DATA_FILE noaa_grib2_params.csv)
+configure_file(src/noaa_grib2_params.csv ${CMAKE_CURRENT_BINARY_DIR}/${DATA_FILE} COPYONLY)
 
 # Remember the location of the data file.
 add_compile_definitions(DATADIR="${CMAKE_CURRENT_BINARY_DIR}")
@@ -170,7 +171,7 @@ target_include_directories(
 
 target_link_libraries(${lib_name} INTERFACE m)
 
-### Install g2c library
+# Install g2c library
 install(
   TARGETS ${lib_name}
   EXPORT ${PROJECT_NAME}Exports
@@ -178,8 +179,10 @@ install(
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/${DATA_FILE}
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-### Package config
+# Package config
 include(CMakePackageConfigHelpers)
 set(CONFIG_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
 
