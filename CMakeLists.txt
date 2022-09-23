@@ -81,11 +81,8 @@ src/g2_unpack6.c src/g2_unpack7.c src/gbits.c src/getdim.c
 src/getpoly.c src/gridtemplates.c src/int_power.c src/misspack.c
 src/mkieee.c src/pack_gp.c src/pdstemplates.c src/rdieee.c
 src/reduce.c src/seekgb.c src/simpack.c src/simunpack.c src/specpack.c
-<<<<<<< HEAD
-src/specunpack.c src/util.c src/g2cfile.c src/g2cxml.c src/g2cdegrib2.c)
-=======
+src/specunpack.c src/util.c src/g2cfile.c src/g2cxml.c src/g2cdegrib2.c
 src/specunpack.c src/util.c src/g2cxml.c src/g2cparams.c)
->>>>>>> develop
 
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
 
