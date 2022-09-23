@@ -58,6 +58,8 @@ int main()
 	return G2C_ERROR;
     if (strncmp(g2c_strerror(-70), "Template problem", MAX_LEN))
 	return G2C_ERROR;
+    if (strncmp(g2c_strerror(-71), "Parameter not found", MAX_LEN))
+	return G2C_ERROR;
     if (strncmp(g2c_strerror(999), "Unknown Error", MAX_LEN))
 	return G2C_ERROR;
 

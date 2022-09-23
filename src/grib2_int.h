@@ -17,6 +17,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <ctype.h>
+
 #include <errno.h>
 #if defined(WIN32)
 #include <winsock2.h> /* ntohl() function for Windows. */
@@ -149,6 +151,17 @@ typedef struct g2c_code_table
     char title[G2C_MAX_GRIB_TITLE_LEN + 1];
     G2C_CODE_ENTRY_T *entry;
 } G2C_CODE_TABLE_T;
+
+/** An entry in the table of NOAA abbreviations for GRIB parameters. */
+typedef struct g2c_param
+{
+    int g1ver; /**< GRIB1 table version. */
+    int g1num; /**< GRIB1 parameter number. */
+    int g2disc; /**< GRIB2 discipline. */
+    int g2cat; /**< GRIB2 category number. */
+    int g2num; /**< GRIB2 parameter number. */
+    char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1]; /**< NOAA abbreviation for this parameter. */
+} G2C_PARAM_T;
 
 /**
  * Struct for GRIB template, returned by getgridtemplate().

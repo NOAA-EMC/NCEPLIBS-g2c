@@ -340,6 +340,13 @@ int g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld);
 /* Output. */
 int g2c_write_grib2_index(int g2cid, const char *fileout);
 
+/* Parameters. */
+int g2c_param_g1tog2(int g1val, int g1ver, int *g2disc, int *g2cat, int *g2num);
+int g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev);
+int g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver);
+int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat,
+                  int *g2num, char *abbdrev);
+
 /* Useful constants. */
 #define G2C_SECTION0_ARRAY_LEN 3 /**< Length of section 0 array. */
 #define G2C_SECTION1_ARRAY_LEN 13 /**< Length of section 1 array. */
@@ -352,6 +359,10 @@ int g2c_write_grib2_index(int g2cid, const char *fileout);
 #define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
 #define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
 #define G2C_MAX_NUM_SECTIONS 1024 /**< Maximum number of sections that can be handled in one message. */
+
+#define G2C_MAX_NOAA_PARAMS 2000 /**< Maximum number of known parameters with NOAA abbreviations. */
+#define G2C_MAX_NOAA_ABBREV_LEN 8 /**< Maximum length of a NOAA abbreviation of a parameter. */
+#define G2C_MAX_NOAA_PARAM_LINE_LEN 120 /**< Maximum length of a line in the NOAA abbreviation CSV file. */
 
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
@@ -429,5 +440,6 @@ int g2c_write_grib2_index(int g2cid, const char *fileout);
 #define G2C_EPNG (-68) /**< Error encoding/decoding PNG data. */
 #define G2C_ENOTEMPLATE (-69) /**< Template not found. */
 #define G2C_EBADTEMPLATE (-70) /**< Template problem. */
+#define G2C_ENOPARAM (-71) /**< Parameter not found. */
 
 #endif  /*  _grib2_H  */

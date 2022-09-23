@@ -71,6 +71,7 @@ endif()
 
 set(lib_name ${PROJECT_NAME})
 
+# Specify the source code files for the library.
 add_library(${lib_name} src/grib2_int.h src/cmplxpack.c src/compack.c
 src/comunpack.c src/drstemplates.c src/g2_addfield.c src/g2_addgrid.c
 src/g2_addlocal.c src/g2_create.c src/g2_free.c src/g2_getfld.c
@@ -80,9 +81,21 @@ src/g2_unpack6.c src/g2_unpack7.c src/gbits.c src/getdim.c
 src/getpoly.c src/gridtemplates.c src/int_power.c src/misspack.c
 src/mkieee.c src/pack_gp.c src/pdstemplates.c src/rdieee.c
 src/reduce.c src/seekgb.c src/simpack.c src/simunpack.c src/specpack.c
+<<<<<<< HEAD
 src/specunpack.c src/util.c src/g2cfile.c src/g2cxml.c src/g2cdegrib2.c)
+=======
+src/specunpack.c src/util.c src/g2cxml.c src/g2cparams.c)
+>>>>>>> develop
 
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
+
+# Copy the data file with the NOAA abbreviations.
+set(DATA_FILE noaa_grib2_params.csv)
+configure_file(src/noaa_grib2_params.csv ${CMAKE_CURRENT_BINARY_DIR}/${DATA_FILE} COPYONLY)
+
+# Remember the location of the data file.
+add_compile_definitions(DATADIR="${CMAKE_CURRENT_BINARY_DIR}")
+add_compile_definitions(INSTALL_DATADIR="${CMAKE_INSTALL_FULL_LIBDIR}")
 
 # Find libxml2.
 find_package(LibXml2 2.9.0 REQUIRED)
@@ -173,7 +186,7 @@ target_include_directories(
 
 target_link_libraries(${lib_name} INTERFACE m)
 
-### Install g2c library
+# Install g2c library
 install(
   TARGETS ${lib_name}
   EXPORT ${PROJECT_NAME}Exports
@@ -181,8 +194,10 @@ install(
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/${DATA_FILE}
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-### Package config
+# Package config
 include(CMakePackageConfigHelpers)
 set(CONFIG_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
 

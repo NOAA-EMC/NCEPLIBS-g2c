@@ -313,7 +313,6 @@ g2c_xml_init()
 	cur = cur->next;
     }
 
-
     /* Uncomment this to see the tables. */
     /* g2c_print_tables(); */
 
