@@ -349,7 +349,7 @@ g2c_param_all(int param_idx, int *g1num, int *g1ver, int *g2disc, int *g2cat,
             return ret;
 
     /* Check input. */
-    if (param_idx < 0 || param_idx > G2C_MAX_NOAA_PARAMS)
+    if (param_idx < 0 || param_idx >= G2C_MAX_NOAA_PARAMS)
         return G2C_EINVAL;
 
     /* Return results to caller. */
