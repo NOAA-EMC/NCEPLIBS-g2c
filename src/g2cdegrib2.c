@@ -18,6 +18,177 @@ extern G2C_CODE_TABLE_T *g2c_table;
 #define G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN  40
 
 /**
+ * Convert date and time from GRIB2 info to string output.
+ *
+ * @note This function is based on the prvtime() function in
+ * NCEPLIBS-grib_utils.
+ *
+ * @param[in] ipdtn Product Definition Template Number ([Code Table
+ * 4.0]
+ * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table4-0.shtml)).
+ * @param ipdtmpl Array of data values for the Product Definition
+ * Template specified by ipdtn.
+ * @param listsec1 Contains information read from GRIB
+ * Identification Section 1. Must be dimensioned >= 13.
+ * @param tabbrev Character array that will get the date and time
+ * string. Must be of length 100.
+ *
+ * @author Ed Hartnett @date Sep 28, 2022
+ */
+static int
+prvtime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char day,
+        unsigned char hour, unsigned char minute, unsigned char second, char *tabbrev)
+{
+    int iutpos, iutpos2, iunit, iunit2;
+    char tunit[16], tunit2[16];
+    char reftime[16];
+    int itemp;
+  /* character(len = 16) :: reftime, endtime */
+  /* character(len = 10) :: tmpval, tmpval2 */
+  /* character(len = 10) :: tunit, tunit2 */
+  /* integer, dimension(200) :: ipos, ipos2 */
+  /* integer :: is, itemp, itemp2, iunit, iuni2t2, iunit2, iutpos, iutpos2, j */
+  
+  /* data ipos  /7*0, 16, 23, 17, 19, 18, 32, 31, 27*0, 17, 20, 0, 0, 22,  & */
+  /*      25, 43*0, 23, 109*0/ */
+
+  /* data ipos2 /7*0, 26, 33, 27, 29, 28, 42, 41, 27*0, 22, 30, 0, 0, 32,  & */
+  /*      35, 43*0, 33, 109*0/ */
+
+  /* tabbrev(1:100) = " " */
+
+    /* Check inputs. */
+    assert(ipdtn >= 0 && ipdtmpl && tabbrev);
+
+    /* The unit of time range is stored in the product template, but
+     * stored at different places for different template numbers. Find
+     * where it is stored for this product template number. */
+    if (ipdtn <= 15 || ipdtn == 32 || ipdtn == 50 || ipdtn == 51 || ipdtn == 91) 
+        iutpos = 7;
+    else if (ipdtn >= 40 && ipdtn <= 43) 
+        iutpos = 8;
+    else if (ipdtn >= 44 && ipdtn <= 47)
+        iutpos = 13;
+    else if (ipdtn == 48)
+        iutpos = 18;
+    else if (ipdtn == 52)
+        iutpos = 10;
+    else
+        iutpos = 7;
+
+    /* Determine first unit of time range. */
+    switch (ipdtmpl[iutpos])
+    {
+    case 0:
+        strcpy(tunit, "minute");
+        iunit = 1;
+        break;
+    case 1:
+        strcpy(tunit, "hour");
+        iunit = 1;
+        break;
+    case 2:
+        strcpy(tunit, "day");
+        iunit = 1;
+        break;
+    case 3:
+        strcpy(tunit, "month");
+        iunit = 1;
+        break;
+    case 4:
+        strcpy(tunit, "year");
+        iunit = 1;
+        break;
+    case 10:
+        strcpy(tunit, "hour");
+        iunit = 3;
+        break;
+    case 11:
+        strcpy(tunit, "hour");
+        iunit = 6;
+        break;
+    default:
+        strcpy(tunit, "hour");
+        iunit = 1;
+    }
+
+    /* Determine second unit of time range. */
+    /* iutpos2 = ipos2[ipdtn]; */
+    iutpos2 = 0;
+    switch (ipdtmpl[iutpos2])
+    {
+    case 0:
+        strcpy(tunit2, "minute");
+        iunit2 = 1;
+        break;
+    case 1:
+        strcpy(tunit2, "hour");
+        iunit2 = 1;
+        break;
+    case 2:
+        strcpy(tunit2, "day");
+        iunit2 = 1;
+        break;
+    case 3:
+        strcpy(tunit2, "month");
+        iunit2 = 1;
+        break;
+    case 4:
+        strcpy(tunit2, "year");
+        iunit2 = 1;
+        break;
+    case 10:
+        strcpy(tunit2, "hour");
+        iunit2 = 3;
+        break;
+    case 11:
+        strcpy(tunit2, "hour");
+        iunit2 = 6;
+        break;
+    default:
+        strcpy(tunit2, "hour");
+        iunit2 = 1;
+    }
+
+    /* Write a string with the date and time from section 1 of the message. */
+    sprintf(reftime, "%d%d%d%d:%d:%d", year, month, day, hour, minute, second);
+
+    itemp = abs(ipdtmpl[iutpos + 1]) * iunit;
+    
+  /* write(tmpval, '(I0)') itemp */
+
+    sprintf(tabbrev, "valid at  %d", ipdtmpl[iutpos + 1]);
+  /* write(tabbrev, fmt = '("valid at  ", i4)') ipdtmpl(iutpos + 1) */
+
+  /* Determine Reference Time: Year, Month, Day, Hour, Minute, Second. */
+    
+    if ((ipdtn >= 0 && ipdtn <= 7) || ipdtn == 15 || ipdtn == 20 || (ipdtn >= 30 && ipdtn <= 32) || ipdtn == 40 ||
+        ipdtn == 41 || ipdtn == 44 || ipdtn == 45 || ipdtn == 48 || (ipdtn >= 50 && ipdtn <= 52)) /*  Point in time. */
+    {
+        sprintf(tabbrev, "valid  %d %s after %s", itemp, tunit, reftime);
+    }
+    else
+    {
+  /*    is = ipos(ipdtn) ! Continuous time interval */
+  /*    write(endtime, fmt = '(i4,3i2.2,":",i2.2,":",i2.2)') (ipdtmpl(j), j = is, is + 5) */
+  /*    if (ipdtn == 8 && ipdtmpl(9) .lt. 0) then */
+  /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // ") valid  " // trim(tmpval) // " " // trim(tunit) // " before " // reftime // " to " //endtime */
+
+  /*                                             else if ((ipdtn >= 8 && ipdtn <= 14) || (ipdtn >= 42 && ipdtn <= 47) || ipdtn == 91) then /\* Continuous time interval *\/ */
+  /*       itemp2 = abs (ipdtmpl(iutpos2 + 1)) * iunit2 */
+  /*       itemp2 = itemp + itemp2 */
+  /*       write(tmpval2, '(I0)') itemp2 */
+
+  /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // " hr) valid  " // trim(tmpval) // " " // trim(tunit) // " after " // reftime // " to " // endtime */
+
+  /*    endif */
+  /* endif */
+    }
+
+    return G2C_NOERROR;
+}
+
+/**
  * Determine the string that describes the level information, given
  * the GRIB2 Product Definition Template information.
  *
@@ -354,6 +525,7 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
             G2C_SECTION4_INFO_T *sec4_info;
             char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
             char labbrev[G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN + 1];
+            char tabbrev[100 + 1];
             int t;
             
             fprintf(f, "\n");
@@ -403,6 +575,9 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
                 fprintf(f, " %d", sec->template[t]);
             fprintf(f, "\n");
             if ((ret = get_level_abbrev(sec4_info->prod_def, sec->template, labbrev)))
+                return ret;
+            if ((ret = prvtime(sec4_info->prod_def, sec->template, msg->year, msg->month, msg->day,
+                               msg->hour, msg->minute, msg->second, tabbrev)))
                 return ret;
             fprintf(f, "  FIELD: %-8s %s valid  0 hour after 2021113000:00:00\n", abbrev, labbrev);
 
