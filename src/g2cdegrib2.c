@@ -17,7 +17,7 @@ extern G2C_CODE_TABLE_T *g2c_table;
 /** Maximum length of "Type of first fixed surface" string. */
 #define G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN  40
 
-#define G2C_DATE_TIME_LEN 17 /**< Size of the date/time string. */
+#define G2C_DATE_TIME_LEN 60 /**< Size of the date/time string. */
 
 /**
  * Convert date and time from GRIB2 info to string output.
