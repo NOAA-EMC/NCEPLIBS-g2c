@@ -48,165 +48,165 @@ static int
 prvtime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char day,
         unsigned char hour, unsigned char minute, unsigned char second, char *tabbrev)
 {
-    int iutpos, iutpos2, iunit, iunit2;
-    char tunit[G2C_DATE_TIME_LEN], tunit2[G2C_DATE_TIME_LEN];
-    char reftime[G2C_DATE_TIME_LEN], endtime[G2C_DATE_TIME_LEN], tmpval2[G2C_DATE_TIME_LEN];
-    int itemp, itemp2, is;
-  /* character(len = 16) :: reftime, endtime */
-  /* character(len = 10) :: tmpval, tmpval2 */
-  /* character(len = 10) :: tunit, tunit2 */
-  /* integer, dimension(200) :: ipos, ipos2 */
-  /* integer :: is, itemp, itemp2, iunit, iuni2t2, iunit2, iutpos, iutpos2, j */
+  /*   int iutpos, iutpos2, iunit, iunit2; */
+  /*   char tunit[G2C_DATE_TIME_LEN], tunit2[G2C_DATE_TIME_LEN]; */
+  /*   char reftime[G2C_DATE_TIME_LEN], endtime[G2C_DATE_TIME_LEN], tmpval2[G2C_DATE_TIME_LEN]; */
+  /*   int itemp, itemp2, is; */
+  /* /\* character(len = 16) :: reftime, endtime *\/ */
+  /* /\* character(len = 10) :: tmpval, tmpval2 *\/ */
+  /* /\* character(len = 10) :: tunit, tunit2 *\/ */
+  /* /\* integer, dimension(200) :: ipos, ipos2 *\/ */
+  /* /\* integer :: is, itemp, itemp2, iunit, iuni2t2, iunit2, iutpos, iutpos2, j *\/ */
   
-  /* data ipos  /7*0, 16, 23, 17, 19, 18, 32, 31, 27*0, 17, 20, 0, 0, 22,  & */
-  /*      25, 43*0, 23, 109*0/ */
+  /* /\* data ipos  /7*0, 16, 23, 17, 19, 18, 32, 31, 27*0, 17, 20, 0, 0, 22,  & *\/ */
+  /* /\*      25, 43*0, 23, 109*0/ *\/ */
 
-    int ipos[200] = {
-        0, 0, 0, 0, 0, 0, 0, 16, 23, 17, 19, 18, 32, 31, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 17, 20, 0, 0, 22, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    };
-  /* data ipos2 /7*0, 26, 33, 27, 29, 28, 42, 41, 27*0, 22, 30, 0, 0, 32,  & */
-  /*      35, 43*0, 33, 109*0/ */
+  /*   int ipos[200] = { */
+  /*       0, 0, 0, 0, 0, 0, 0, 16, 23, 17, 19, 18, 32, 31, 0, 0, 0, 0, 0, 0, */
+  /*       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, */
+  /*       0, 17, 20, 0, 0, 22, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, */
+  /*       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, */
+  /*       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0,  */
+  /*       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, */
+  /*       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, */
+  /*       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, */
+  /*       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, */
+  /*       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 */
+  /*   }; */
+  /* /\* data ipos2 /7*0, 26, 33, 27, 29, 28, 42, 41, 27*0, 22, 30, 0, 0, 32,  & *\/ */
+  /* /\*      35, 43*0, 33, 109*0/ *\/ */
 
-  /* tabbrev(1:100) = " " */
+  /* /\* tabbrev(1:100) = " " *\/ */
 
-    /* Check inputs. */
-    assert(ipdtn >= 0 && ipdtmpl && tabbrev);
+  /*   /\* Check inputs. *\/ */
+  /*   assert(ipdtn >= 0 && ipdtmpl && tabbrev); */
 
-    /* The unit of time range is stored in the product template, but
-     * stored at different places for different template numbers. Find
-     * where it is stored for this product template number. */
-    if (ipdtn <= 15 || ipdtn == 32 || ipdtn == 50 || ipdtn == 51 || ipdtn == 91) 
-        iutpos = 7;
-    else if (ipdtn >= 40 && ipdtn <= 43) 
-        iutpos = 8;
-    else if (ipdtn >= 44 && ipdtn <= 47)
-        iutpos = 13;
-    else if (ipdtn == 48)
-        iutpos = 18;
-    else if (ipdtn == 52)
-        iutpos = 10;
-    else
-        iutpos = 7;
+  /*   /\* The unit of time range is stored in the product template, but */
+  /*    * stored at different places for different template numbers. Find */
+  /*    * where it is stored for this product template number. *\/ */
+  /*   if (ipdtn <= 15 || ipdtn == 32 || ipdtn == 50 || ipdtn == 51 || ipdtn == 91)  */
+  /*       iutpos = 7; */
+  /*   else if (ipdtn >= 40 && ipdtn <= 43)  */
+  /*       iutpos = 8; */
+  /*   else if (ipdtn >= 44 && ipdtn <= 47) */
+  /*       iutpos = 13; */
+  /*   else if (ipdtn == 48) */
+  /*       iutpos = 18; */
+  /*   else if (ipdtn == 52) */
+  /*       iutpos = 10; */
+  /*   else */
+  /*       iutpos = 7; */
 
-    /* Determine first unit of time range. */
-    switch (ipdtmpl[iutpos])
-    {
-    case 0:
-        strcpy(tunit, "minute");
-        iunit = 1;
-        break;
-    case 1:
-        strcpy(tunit, "hour");
-        iunit = 1;
-        break;
-    case 2:
-        strcpy(tunit, "day");
-        iunit = 1;
-        break;
-    case 3:
-        strcpy(tunit, "month");
-        iunit = 1;
-        break;
-    case 4:
-        strcpy(tunit, "year");
-        iunit = 1;
-        break;
-    case 10:
-        strcpy(tunit, "hour");
-        iunit = 3;
-        break;
-    case 11:
-        strcpy(tunit, "hour");
-        iunit = 6;
-        break;
-    default:
-        strcpy(tunit, "hour");
-        iunit = 1;
-    }
+  /*   /\* Determine first unit of time range. *\/ */
+  /*   switch (ipdtmpl[iutpos]) */
+  /*   { */
+  /*   case 0: */
+  /*       strcpy(tunit, "minute"); */
+  /*       iunit = 1; */
+  /*       break; */
+  /*   case 1: */
+  /*       strcpy(tunit, "hour"); */
+  /*       iunit = 1; */
+  /*       break; */
+  /*   case 2: */
+  /*       strcpy(tunit, "day"); */
+  /*       iunit = 1; */
+  /*       break; */
+  /*   case 3: */
+  /*       strcpy(tunit, "month"); */
+  /*       iunit = 1; */
+  /*       break; */
+  /*   case 4: */
+  /*       strcpy(tunit, "year"); */
+  /*       iunit = 1; */
+  /*       break; */
+  /*   case 10: */
+  /*       strcpy(tunit, "hour"); */
+  /*       iunit = 3; */
+  /*       break; */
+  /*   case 11: */
+  /*       strcpy(tunit, "hour"); */
+  /*       iunit = 6; */
+  /*       break; */
+  /*   default: */
+  /*       strcpy(tunit, "hour"); */
+  /*       iunit = 1; */
+  /*   } */
 
-    /* Determine second unit of time range. */
-    /* iutpos2 = ipos2[ipdtn]; */
-    iutpos2 = 0;
-    switch (ipdtmpl[iutpos2])
-    {
-    case 0:
-        strcpy(tunit2, "minute");
-        iunit2 = 1;
-        break;
-    case 1:
-        strcpy(tunit2, "hour");
-        iunit2 = 1;
-        break;
-    case 2:
-        strcpy(tunit2, "day");
-        iunit2 = 1;
-        break;
-    case 3:
-        strcpy(tunit2, "month");
-        iunit2 = 1;
-        break;
-    case 4:
-        strcpy(tunit2, "year");
-        iunit2 = 1;
-        break;
-    case 10:
-        strcpy(tunit2, "hour");
-        iunit2 = 3;
-        break;
-    case 11:
-        strcpy(tunit2, "hour");
-        iunit2 = 6;
-        break;
-    default:
-        strcpy(tunit2, "hour");
-        iunit2 = 1;
-    }
+  /*   /\* Determine second unit of time range. *\/ */
+  /*   /\* iutpos2 = ipos2[ipdtn]; *\/ */
+  /*   iutpos2 = 0; */
+  /*   switch (ipdtmpl[iutpos2]) */
+  /*   { */
+  /*   case 0: */
+  /*       strcpy(tunit2, "minute"); */
+  /*       iunit2 = 1; */
+  /*       break; */
+  /*   case 1: */
+  /*       strcpy(tunit2, "hour"); */
+  /*       iunit2 = 1; */
+  /*       break; */
+  /*   case 2: */
+  /*       strcpy(tunit2, "day"); */
+  /*       iunit2 = 1; */
+  /*       break; */
+  /*   case 3: */
+  /*       strcpy(tunit2, "month"); */
+  /*       iunit2 = 1; */
+  /*       break; */
+  /*   case 4: */
+  /*       strcpy(tunit2, "year"); */
+  /*       iunit2 = 1; */
+  /*       break; */
+  /*   case 10: */
+  /*       strcpy(tunit2, "hour"); */
+  /*       iunit2 = 3; */
+  /*       break; */
+  /*   case 11: */
+  /*       strcpy(tunit2, "hour"); */
+  /*       iunit2 = 6; */
+  /*       break; */
+  /*   default: */
+  /*       strcpy(tunit2, "hour"); */
+  /*       iunit2 = 1; */
+  /*   } */
 
-    /* Write a string with the date and time from section 1 of the message. */
-    sprintf(reftime, "%4.4d%2.2d%2.2d%2.2d:%2.2d:%2.2d", year, month, day, hour, minute, second);
+  /*   /\* Write a string with the date and time from section 1 of the message. *\/ */
+  /*   sprintf(reftime, "%4.4d%2.2d%2.2d%2.2d:%2.2d:%2.2d", year, month, day, hour, minute, second); */
 
-    itemp = abs(ipdtmpl[iutpos + 1]) * iunit;
+  /*   itemp = abs(ipdtmpl[iutpos + 1]) * iunit; */
     
-  /* write(tmpval, '(I0)') itemp */
+  /* /\* write(tmpval, '(I0)') itemp *\/ */
 
-    sprintf(tabbrev, "valid at  %d", ipdtmpl[iutpos + 1]);
-  /* write(tabbrev, fmt = '("valid at  ", i4)') ipdtmpl(iutpos + 1) */
+  /*   sprintf(tabbrev, "valid at  %d", ipdtmpl[iutpos + 1]); */
+  /* /\* write(tabbrev, fmt = '("valid at  ", i4)') ipdtmpl(iutpos + 1) *\/ */
 
-  /* Determine Reference Time: Year, Month, Day, Hour, Minute, Second. */
+  /* /\* Determine Reference Time: Year, Month, Day, Hour, Minute, Second. *\/ */
     
-    if ((ipdtn >= 0 && ipdtn <= 7) || ipdtn == 15 || ipdtn == 20 || (ipdtn >= 30 && ipdtn <= 32) || ipdtn == 40 ||
-        ipdtn == 41 || ipdtn == 44 || ipdtn == 45 || ipdtn == 48 || (ipdtn >= 50 && ipdtn <= 52)) /*  Point in time. */
-    {
-        sprintf(tabbrev, "valid  %d %s after %s", itemp, tunit, reftime);
-    }
-    else
-    {
-        is = ipos[ipdtn]; /* Continuous time interval. */
-        printf("%d", is);
-        sprintf(endtime, "%d%d%d%d:%d:%d", year, month, day, hour, minute, second);
-  /*    write(endtime, fmt = '(i4,3i2.2,":",i2.2,":",i2.2)') (ipdtmpl(j), j = is, is + 5) */
-        if (ipdtn == 8 && ipdtmpl[9] < 0)
-        {
-  /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // ") valid  " // trim(tmpval) // " " // trim(tunit) // " before " // reftime // " to " //endtime */
-        }
-        else if ((ipdtn >= 8 && ipdtn <= 14) || (ipdtn >= 42 && ipdtn <= 47) || ipdtn == 91) /* Continuous time interval */
-        {
-            itemp2 = abs(ipdtmpl[iutpos2 + 1]) * iunit2;
-            itemp2 = itemp + itemp2;
-            sprintf(tmpval2, "%d", itemp2);
-            /*       write(tmpval2, '(I0)') itemp2 */
-  /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // " hr) valid  " // trim(tmpval) // " " // trim(tunit) // " after " // reftime // " to " // endtime */
-        }
-    }
+  /*   if ((ipdtn >= 0 && ipdtn <= 7) || ipdtn == 15 || ipdtn == 20 || (ipdtn >= 30 && ipdtn <= 32) || ipdtn == 40 || */
+  /*       ipdtn == 41 || ipdtn == 44 || ipdtn == 45 || ipdtn == 48 || (ipdtn >= 50 && ipdtn <= 52)) /\*  Point in time. *\/ */
+  /*   { */
+  /*       sprintf(tabbrev, "valid  %d %s after %s", itemp, tunit, reftime); */
+  /*   } */
+  /*   else */
+  /*   { */
+  /*       is = ipos[ipdtn]; /\* Continuous time interval. *\/ */
+  /*       printf("%d", is); */
+  /*       sprintf(endtime, "%d%d%d%d:%d:%d", year, month, day, hour, minute, second); */
+  /* /\*    write(endtime, fmt = '(i4,3i2.2,":",i2.2,":",i2.2)') (ipdtmpl(j), j = is, is + 5) *\/ */
+  /*       if (ipdtn == 8 && ipdtmpl[9] < 0) */
+  /*       { */
+  /* /\*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // ") valid  " // trim(tmpval) // " " // trim(tunit) // " before " // reftime // " to " //endtime *\/ */
+  /*       } */
+  /*       else if ((ipdtn >= 8 && ipdtn <= 14) || (ipdtn >= 42 && ipdtn <= 47) || ipdtn == 91) /\* Continuous time interval *\/ */
+  /*       { */
+  /*           itemp2 = abs(ipdtmpl[iutpos2 + 1]) * iunit2; */
+  /*           itemp2 = itemp + itemp2; */
+  /*           sprintf(tmpval2, "%d", itemp2); */
+  /*           /\*       write(tmpval2, '(I0)') itemp2 *\/ */
+  /* /\*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // " hr) valid  " // trim(tmpval) // " " // trim(tunit) // " after " // reftime // " to " // endtime *\/ */
+  /*       } */
+  /*   } */
 
     return G2C_NOERROR;
 }
