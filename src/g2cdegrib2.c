@@ -17,6 +17,8 @@ extern G2C_CODE_TABLE_T *g2c_table;
 /** Maximum length of "Type of first fixed surface" string. */
 #define G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN  40
 
+#define G2C_DATE_TIME_LEN 17 /**< Size of the date/time string. */
+
 /**
  * Convert date and time from GRIB2 info to string output.
  *
@@ -47,8 +49,8 @@ prvtime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char 
         unsigned char hour, unsigned char minute, unsigned char second, char *tabbrev)
 {
     int iutpos, iutpos2, iunit, iunit2;
-    char tunit[16], tunit2[16];
-    char reftime[16], endtime[16], tmpval2[16];
+    char tunit[G2C_DATE_TIME_LEN], tunit2[G2C_DATE_TIME_LEN];
+    char reftime[G2C_DATE_TIME_LEN], endtime[G2C_DATE_TIME_LEN], tmpval2[G2C_DATE_TIME_LEN];
     int itemp, itemp2, is;
   /* character(len = 16) :: reftime, endtime */
   /* character(len = 10) :: tmpval, tmpval2 */
@@ -170,7 +172,7 @@ prvtime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char 
     }
 
     /* Write a string with the date and time from section 1 of the message. */
-    sprintf(reftime, "%d%d%d%d:%d:%d", year, month, day, hour, minute, second);
+    sprintf(reftime, "%4.4d%2.2d%2.2d%2.2d:%2.2d:%2.2d", year, month, day, hour, minute, second);
 
     itemp = abs(ipdtmpl[iutpos + 1]) * iunit;
     
