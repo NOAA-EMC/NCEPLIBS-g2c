@@ -28,10 +28,17 @@ extern G2C_CODE_TABLE_T *g2c_table;
  * (https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table4-0.shtml)).
  * @param ipdtmpl Array of data values for the Product Definition
  * Template specified by ipdtn.
- * @param listsec1 Contains information read from GRIB
- * Identification Section 1. Must be dimensioned >= 13.
+ * @param year year
+ * @param month month
+ * @param day day
+ * @param hour hour
+ * @param minute minute
+ * @param second second
  * @param tabbrev Character array that will get the date and time
  * string. Must be of length 100.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
  *
  * @author Ed Hartnett @date Sep 28, 2022
  */
@@ -41,8 +48,8 @@ prvtime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char 
 {
     int iutpos, iutpos2, iunit, iunit2;
     char tunit[16], tunit2[16];
-    char reftime[16];
-    int itemp;
+    char reftime[16], endtime[16], tmpval2[16];
+    int itemp, itemp2, is;
   /* character(len = 16) :: reftime, endtime */
   /* character(len = 10) :: tmpval, tmpval2 */
   /* character(len = 10) :: tunit, tunit2 */
@@ -52,6 +59,18 @@ prvtime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char 
   /* data ipos  /7*0, 16, 23, 17, 19, 18, 32, 31, 27*0, 17, 20, 0, 0, 22,  & */
   /*      25, 43*0, 23, 109*0/ */
 
+    int ipos[200] = {
+        0, 0, 0, 0, 0, 0, 0, 16, 23, 17, 19, 18, 32, 31, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 17, 20, 0, 0, 22, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    };
   /* data ipos2 /7*0, 26, 33, 27, 29, 28, 42, 41, 27*0, 22, 30, 0, 0, 32,  & */
   /*      35, 43*0, 33, 109*0/ */
 
@@ -169,20 +188,22 @@ prvtime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char 
     }
     else
     {
-  /*    is = ipos(ipdtn) ! Continuous time interval */
+        is = ipos[ipdtn]; /* Continuous time interval. */
+        printf("%d", is);
+        sprintf(endtime, "%d%d%d%d:%d:%d", year, month, day, hour, minute, second);
   /*    write(endtime, fmt = '(i4,3i2.2,":",i2.2,":",i2.2)') (ipdtmpl(j), j = is, is + 5) */
-  /*    if (ipdtn == 8 && ipdtmpl(9) .lt. 0) then */
+        if (ipdtn == 8 && ipdtmpl[9] < 0)
+        {
   /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // ") valid  " // trim(tmpval) // " " // trim(tunit) // " before " // reftime // " to " //endtime */
-
-  /*                                             else if ((ipdtn >= 8 && ipdtn <= 14) || (ipdtn >= 42 && ipdtn <= 47) || ipdtn == 91) then /\* Continuous time interval *\/ */
-  /*       itemp2 = abs (ipdtmpl(iutpos2 + 1)) * iunit2 */
-  /*       itemp2 = itemp + itemp2 */
-  /*       write(tmpval2, '(I0)') itemp2 */
-
+        }
+        else if ((ipdtn >= 8 && ipdtn <= 14) || (ipdtn >= 42 && ipdtn <= 47) || ipdtn == 91) /* Continuous time interval */
+        {
+            itemp2 = abs(ipdtmpl[iutpos2 + 1]) * iunit2;
+            itemp2 = itemp + itemp2;
+            sprintf(tmpval2, "%d", itemp2);
+            /*       write(tmpval2, '(I0)') itemp2 */
   /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // " hr) valid  " // trim(tmpval) // " " // trim(tunit) // " after " // reftime // " to " // endtime */
-
-  /*    endif */
-  /* endif */
+        }
     }
 
     return G2C_NOERROR;
