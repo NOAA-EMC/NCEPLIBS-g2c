@@ -178,8 +178,8 @@ g2c_strerror(int g2cerr)
 	return "Table or entry not found";
     case G2C_ENOTGRIB2:
 	return "Not GRIB 2";
-    case G2C_ENOSECTION1:
-	return "Cannot find section 1";
+    case G2C_ENOSECTION:
+	return "Cannot find section";
     case G2C_ENOEND:
 	return "Cannot find end of GRIB message";
     case G2C_EBADEND:
@@ -190,6 +190,10 @@ g2c_strerror(int g2cerr)
 	return "Error encoding/decoding JPEG data";
     case G2C_EPNG:
 	return "Error encoding/decoding PNG data";
+    case G2C_ENOTEMPLATE:
+	return "Template not found";
+    case G2C_EBADTEMPLATE:
+	return "Template problem";
     case G2C_ENOPARAM:
 	return "Parameter not found";
 
