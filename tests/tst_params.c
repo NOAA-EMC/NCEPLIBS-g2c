@@ -9,7 +9,6 @@ int
 main()
 {
     printf("Testing params handling.\n");
-
     printf("Testing g2c_param_abbrev()...");
     {
         char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
