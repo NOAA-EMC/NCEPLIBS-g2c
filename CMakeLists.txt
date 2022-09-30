@@ -81,7 +81,6 @@ src/g2_unpack6.c src/g2_unpack7.c src/gbits.c src/getdim.c
 src/getpoly.c src/gridtemplates.c src/int_power.c src/misspack.c
 src/mkieee.c src/pack_gp.c src/pdstemplates.c src/rdieee.c
 src/reduce.c src/seekgb.c src/simpack.c src/simunpack.c src/specpack.c
-src/specunpack.c src/util.c src/g2cfile.c src/g2cxml.c src/g2cdegrib2.c
 src/specunpack.c src/util.c src/g2cxml.c src/g2cparams.c)
 
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
@@ -91,23 +90,13 @@ set(DATA_FILE noaa_grib2_params.csv)
 configure_file(src/noaa_grib2_params.csv ${CMAKE_CURRENT_BINARY_DIR}/${DATA_FILE} COPYONLY)
 
 # Remember the location of the data file.
-add_compile_definitions(DATADIR="${CMAKE_CURRENT_BINARY_DIR}")
-add_compile_definitions(INSTALL_DATADIR="${CMAKE_INSTALL_FULL_LIBDIR}")
+add_compile_definitions(G2C_DATADIR="${CMAKE_CURRENT_BINARY_DIR}")
+add_compile_definitions(INSTALL_G2C_DATADIR="${CMAKE_INSTALL_FULL_LIBDIR}")
 
 # Find libxml2.
 find_package(LibXml2 2.9.0 REQUIRED)
 target_link_libraries(${lib_name} PRIVATE ${LIBXML2_LIBRARIES})
 target_include_directories(${lib_name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
-
-# Set pre-processor flags for build system type.
-if(WIN32)
-  target_compile_definitions(${lib_name} PRIVATE WIN32)
-  target_link_libraries(${lib_name} PRIVATE Ws2_32)
-elseif(APPLE)
-  target_compile_definitions(${lib_name} PRIVATE APPLE)  
-elseif(UNIX)
-  target_compile_definitions(${lib_name} PRIVATE UNIX)  
-endif()
 
 # Set the compiler flags.
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")

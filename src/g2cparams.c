@@ -73,9 +73,9 @@ read_params_csv()
     LOG((4, "read_params_csv()"));
 
     /* Determine CSV filename. */
-    if (!(csv_filename_test = malloc(sizeof(char) * (strlen(DATADIR) + strlen(CSV_FILE)) + 2)))
+    if (!(csv_filename_test = malloc(sizeof(char) * (strlen(G2C_DATADIR) + strlen(CSV_FILE)) + 2)))
         return G2C_ENOMEM;
-    strcpy(csv_filename_test, DATADIR);
+    strcpy(csv_filename_test, G2C_DATADIR);
     strcat(csv_filename_test, "/");
     strcat(csv_filename_test, CSV_FILE);
     LOG((4, "opening csv params file %s", csv_filename_test));
@@ -85,9 +85,9 @@ read_params_csv()
     if (!(f = fopen(csv_filename_test, "r")))
     {
         /* Determine installed CSV filename. */
-        if (!(csv_filename = malloc(sizeof(char) * (strlen(INSTALL_DATADIR) + strlen(CSV_FILE)) + 2)))
+        if (!(csv_filename = malloc(sizeof(char) * (strlen(INSTALL_G2C_DATADIR) + strlen(CSV_FILE)) + 2)))
             return G2C_ENOMEM;
-        strcpy(csv_filename, INSTALL_DATADIR);
+        strcpy(csv_filename, INSTALL_G2C_DATADIR);
         strcat(csv_filename, "/");
         strcat(csv_filename, CSV_FILE);
         LOG((4, "test CSV data flle not found, tryping to open installed version %s", csv_filename));
