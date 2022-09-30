@@ -42,7 +42,7 @@ int main()
 	return G2C_ERROR;
     if (strncmp(g2c_strerror(-62), "Not GRIB 2", MAX_LEN))
 	return G2C_ERROR;
-    if (strncmp(g2c_strerror(-63), "Cannot find section 1", MAX_LEN))
+    if (strncmp(g2c_strerror(-63), "Cannot find section", MAX_LEN))
 	return G2C_ERROR;
     if (strncmp(g2c_strerror(-64), "Cannot find end of GRIB message", MAX_LEN))
 	return G2C_ERROR;
@@ -54,9 +54,13 @@ int main()
 	return G2C_ERROR;
     if (strncmp(g2c_strerror(-68), "Error encoding/decoding PNG data", MAX_LEN))
 	return G2C_ERROR;
-    if (strncmp(g2c_strerror(-69), "Parameter not found", MAX_LEN))
+    if (strncmp(g2c_strerror(-70), "Template problem", MAX_LEN))
+	return G2C_ERROR;
+    if (strncmp(g2c_strerror(-71), "Parameter not found", MAX_LEN))
 	return G2C_ERROR;
     if (strncmp(g2c_strerror(999), "Unknown Error", MAX_LEN))
+	return G2C_ERROR;
+   if (strncmp(g2c_strerror(999), "Unknown Error", MAX_LEN))
 	return G2C_ERROR;
 
     printf("SUCCESS!\n");

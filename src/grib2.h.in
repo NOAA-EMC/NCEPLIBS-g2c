@@ -272,9 +272,11 @@ void g2c_free_tables();
 void g2c_gbit_int(unsigned char *in, int *iout, int iskip, int nbits);
 int g2c_gbits_int(unsigned char *in, int *iout, int iskip, int nbits,
 		  int nskip, int n);
+int g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen);
 
 /* Logging, for debugging purposes. */
 int g2c_set_log_level(int new_level);
+int g2c_log_file(int g2cid);
 
 /* Error handling. */
 const char *g2c_strerror(int g2cerr);
@@ -308,9 +310,19 @@ int g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver);
 int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat,
                   int *g2num, char *abbdrev);
 
+/* Defines for file handling. */
+#define G2C_MAX_FILES 3 /**< Maximum number of open files. */
+#define G2C_MAX_NAME 1024 /**< Maximum length of a name. */
+#define G2C_NOWRITE       0x0000 /**< Set read-only access for g2c_open(). */
+#define G2C_WRITE         0x0001 /**< Set read-write access for g2c_open(). */
+#define G2C_CLOBBER       0x0000 /**< Destroy existing file. Mode flag for g2c_create(). */
+#define G2C_NOCLOBBER     0x0004 /**< Don't destroy existing file. Mode flag for g2c_create(). */
+
 /* Useful constants. */
+#define G2C_SECTION0_BYTES 16 /**< Number of bytes in section 1. */
 #define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
 #define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
+#define G2C_SECTION1_ARRAY_LEN 13 /**< Length of section 1 array. */
 
 #define G2C_JPEG_DRS_TEMPLATE_LEN 7 /**< Length of the idrstmpl array for JPEG packing. */
 #define G2C_PNG_DRS_TEMPLATE_LEN 5 /**< Length of the idrstmpl array for PNG packing. */
@@ -392,12 +404,14 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_EXML (-60) /**< XML error. */
 #define G2C_ENOTFOUND (-61) /**< Table or entry not found. */
 #define G2C_ENOTGRIB2 (-62) /**< Not GRIB 2. */
-#define G2C_ENOSECTION1 (-63) /**< Cannot find section 1. */
+#define G2C_ENOSECTION (-63) /**< Cannot find section. */
 #define G2C_ENOEND (-64) /**< Cannot find end of GRIB message. */
 #define G2C_EBADEND (-65) /**< End of message in wrong place. */
 #define G2C_EBADSECTION (-66) /**< Invalid section number. */
 #define G2C_EJPEG (-67) /**< Error encoding/decoding JPEG data. */
 #define G2C_EPNG (-68) /**< Error encoding/decoding PNG data. */
-#define G2C_ENOPARAM (-69) /**< Parameter not found. */
+#define G2C_ENOTEMPLATE (-69) /**< Template not found. */
+#define G2C_EBADTEMPLATE (-70) /**< Template problem. */
+#define G2C_ENOPARAM (-71) /**< Parameter not found. */
 
 #endif  /*  _grib2_H  */
