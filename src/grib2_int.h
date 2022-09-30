@@ -155,8 +155,8 @@ typedef struct g2c_code_table
 /** An entry in the table of NOAA abbreviations for GRIB parameters. */
 typedef struct g2c_param
 {
-    int g1ver; /**< GRIB1 table version. */
     int g1num; /**< GRIB1 parameter number. */
+    int g1ver; /**< GRIB1 table version. */
     int g2disc; /**< GRIB2 discipline. */
     int g2cat; /**< GRIB2 category number. */
     int g2num; /**< GRIB2 parameter number. */
