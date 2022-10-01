@@ -940,6 +940,7 @@ add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in
     
     return G2C_NOERROR;
 }
+
 /** Read metadata from a GRIB2 file being opened with g2c_open().
  *
  * @param g2cid The indentifier for the file.
