@@ -868,7 +868,7 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
             /* Skip to next section. */ 
             total_read += sec_len;
             LOG((4, "total_read %d", total_read));
-            if (fseek(msg->file->f, total_read, SEEK_SET))
+            if (fseek(msg->file->f, msg->bytes_to_msg + total_read, SEEK_SET))
                 return G2C_EFILE;
         }
         else
