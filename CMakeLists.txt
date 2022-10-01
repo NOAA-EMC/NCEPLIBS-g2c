@@ -163,7 +163,7 @@ target_include_directories(
 )
 
 target_link_libraries(${lib_name} INTERFACE m)
-if (WINDOWS)
+if (WIN32)
   target_link_libraries(${lib_name} INTERFACE ws2_32)
 endif()
 
