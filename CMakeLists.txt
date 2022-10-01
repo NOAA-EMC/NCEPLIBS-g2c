@@ -163,6 +163,9 @@ target_include_directories(
 )
 
 target_link_libraries(${lib_name} INTERFACE m)
+if (WINDOWS)
+  target_link_libraries(${lib_name} INTERFACE Ws2_32)
+endif()
 
 # Install g2c library
 install(
