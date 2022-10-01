@@ -512,6 +512,7 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
 {
     FILE *f;
     G2C_MESSAGE_INFO_T *msg;
+    int total_fields = 0;
     int ret;
 
     /* Check inputs. */
@@ -532,7 +533,7 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
         int fld;
         
         fprintf(f, "\n");
-        fprintf(f, " GRIB MESSAGE  %-2ld starts at %ld\n", msg->msg_num + 1, msg->bytes_to_msg + 1);
+        fprintf(f, " GRIB MESSAGE  %ld  starts at %ld\n", msg->msg_num + 1, msg->bytes_to_msg + 1);
         fprintf(f, "\n");
         fprintf(f, "  SECTION 0:  %d 2 %ld\n", msg->discipline, msg->bytes_in_msg);
         fprintf(f, "  SECTION 1:  %d %d %d %d %d %d %d %d %d %d %d %d %d\n", msg->center, msg->subcenter,
@@ -594,7 +595,8 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
              * number. */
             if ((ret = g2c_param_abbrev(msg->discipline, sec->template[0], sec->template[1], abbrev)))
                 return ret;
-            fprintf(f, "( PARAMETER = %-8s %d %d %d ) ", abbrev, sec4_info->prod_def, sec->template[0], sec->template[1]);
+            fprintf(f, "( PARAMETER = %-8s %d %d %d ) ", abbrev, sec->msg->discipline, sec->template[0],
+		    sec->template[1]);
             for (t = 0; t < sec->template_len; t++)
                 fprintf(f, " %d", sec->template[t]);
             fprintf(f, "\n");
@@ -629,10 +631,14 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
             fprintf(f, "\n");
 	    fprintf(f, "  Data Values:\n");
 	    fprintf(f, "  Num. of Data Points =  %d   Num. of Data Undefined = 0\n", sec5_info->num_data_points);
-	    fprintf(f, "( PARM= WIND ) :  MIN=               0.09999999 AVE=               5.64625025 MAX=              16.43000031\n");
+	    fprintf(f, "( PARM= %s ) :  MIN=               0.09999999 AVE=               5.64625025 MAX=              16.43000031\n", abbrev);
+
+	    total_fields++;
         }
     }
 
+    fprintf(f, "\n  Total Number of Fields Found =  %d\n", total_fields);
+    
     /* Close output file. */
     if (fclose(f))
         return G2C_EFILE;
