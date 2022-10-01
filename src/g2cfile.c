@@ -1040,6 +1040,7 @@ g2c_open(const char *path, int mode, int *g2cid)
     return G2C_NOERROR;
 }
 
+#if 0
 /** Create a new GRIB2 file.
  *
  * @param path Path of the file.
@@ -1098,6 +1099,7 @@ g2c_create(const char *path, int cmode, int *g2cid)
     
     return G2C_NOERROR;
 }
+#endif
 
 /** Free resources holding the file metadata.
  *

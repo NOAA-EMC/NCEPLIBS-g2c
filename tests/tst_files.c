@@ -16,43 +16,43 @@ int
 main()
 {
     printf("Testing g2c file functions.\n");
-    printf("Testing g2c_create()/g2c_close() calls...");
-    {
-        int g2cid;
-        int ret;
+    /* printf("Testing g2c_create()/g2c_close() calls..."); */
+    /* { */
+    /*     int g2cid; */
+    /*     int ret; */
 
-        /* Create a file and close it. */
-        if ((ret = g2c_create(FILE_NAME, G2C_CLOBBER, &g2cid)))
-            return ret;
-        if ((ret = g2c_close(g2cid)))
-            return ret;
+    /*     /\* Create a file and close it. *\/ */
+    /*     if ((ret = g2c_create(FILE_NAME, G2C_CLOBBER, &g2cid))) */
+    /*         return ret; */
+    /*     if ((ret = g2c_close(g2cid))) */
+    /*         return ret; */
 
-        /* Now try to re-create with NOCLOBBER. It will fail. */
-        if (g2c_create(FILE_NAME, G2C_NOCLOBBER, &g2cid) != G2C_EFILE)
-            return G2C_ERROR;
-    }
-    printf("ok!\n");
-    printf("Testing G2C_MAX_FILES...");
-    {
-        int g2cid[G2C_MAX_FILES], g2cid2;
-        int i;
-        int ret;
+    /*     /\* Now try to re-create with NOCLOBBER. It will fail. *\/ */
+    /*     if (g2c_create(FILE_NAME, G2C_NOCLOBBER, &g2cid) != G2C_EFILE) */
+    /*         return G2C_ERROR; */
+    /* } */
+    /* printf("ok!\n"); */
+    /* printf("Testing G2C_MAX_FILES..."); */
+    /* { */
+    /*     int g2cid[G2C_MAX_FILES], g2cid2; */
+    /*     int i; */
+    /*     int ret; */
 
-        /* Create max number of files. */
-        for (i = 0; i < G2C_MAX_FILES; i++)
-            if ((ret = g2c_create(FILE_NAME, G2C_CLOBBER, &g2cid[i])))
-        	return ret;
+    /*     /\* Create max number of files. *\/ */
+    /*     for (i = 0; i < G2C_MAX_FILES; i++) */
+    /*         if ((ret = g2c_create(FILE_NAME, G2C_CLOBBER, &g2cid[i]))) */
+    /*     	return ret; */
 
-        /* Try to create one more. */
-        if (g2c_create(FILE_NAME, G2C_CLOBBER, &g2cid2) != G2C_ETOOMANYFILES)
-            return G2C_ERROR;
+    /*     /\* Try to create one more. *\/ */
+    /*     if (g2c_create(FILE_NAME, G2C_CLOBBER, &g2cid2) != G2C_ETOOMANYFILES) */
+    /*         return G2C_ERROR; */
 
-	/* Close all open files. */
-        for (i = 0; i < G2C_MAX_FILES; i++)
-            if ((ret = g2c_close(g2cid[i])))
-        	return ret;
-    }
-    printf("ok!\n");
+    /* 	/\* Close all open files. *\/ */
+    /*     for (i = 0; i < G2C_MAX_FILES; i++) */
+    /*         if ((ret = g2c_close(g2cid[i]))) */
+    /*     	return ret; */
+    /* } */
+    /* printf("ok!\n"); */
     printf("Testing g2c_find_msg2 on file %s...", WAVE_FILE);
     {
 	int g2cid;

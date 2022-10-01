@@ -286,7 +286,6 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 
 /* File handling functions. */
 int g2c_open(const char *path, int mode, int *g2cid);
-int g2c_create(const char *path, int cmode, int *g2cid);
 int g2c_close(int g2cid);
 
 /* Internal functions. */
