@@ -264,7 +264,36 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 float *fld);
 
 
+/* The new g2c API is being introduced in version 2.0 of the library. */
+
+/* Defines for file handling. */
+#define G2C_MAX_FILES 3 /**< Maximum number of open files. */
+#define G2C_MAX_NAME 1024 /**< Maximum length of a name. */
+#define G2C_NOWRITE       0x0000 /**< Set read-only access for g2c_open(). */
+#define G2C_WRITE         0x0001 /**< Set read-write access for g2c_open(). */
+#define G2C_CLOBBER       0x0000 /**< Destroy existing file. Mode flag for g2c_create(). */
+#define G2C_NOCLOBBER     0x0004 /**< Don't destroy existing file. Mode flag for g2c_create(). */
+
+/* Useful constants. */
+#define G2C_SECTION0_BYTES 16 /**< Number of bytes in section 1. */
+#define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
+#define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
+
+#define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
+#define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
+#define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
+#define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
+
+/* File handling functions. */
+int g2c_open(const char *path, int mode, int *g2cid);
+int g2c_create(const char *path, int cmode, int *g2cid);
+int g2c_close(int g2cid);
+
 /* Internal functions. */
+int g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
+		size_t *bytes_in_msg, unsigned char **cbuf);
+int g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
+		  size_t *bytes_in_msg);
 int g2c_xml_init();
 int g2c_find_desc_str(char *title, char *code, char *desc);
 int g2c_find_desc(char *title, int code, char *desc);
@@ -310,18 +339,8 @@ int g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1val, int *g1ver);
 int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat,
                   int *g2num, char *abbdrev);
 
-/* Defines for file handling. */
-#define G2C_MAX_FILES 3 /**< Maximum number of open files. */
-#define G2C_MAX_NAME 1024 /**< Maximum length of a name. */
-#define G2C_NOWRITE       0x0000 /**< Set read-only access for g2c_open(). */
-#define G2C_WRITE         0x0001 /**< Set read-write access for g2c_open(). */
-#define G2C_CLOBBER       0x0000 /**< Destroy existing file. Mode flag for g2c_create(). */
-#define G2C_NOCLOBBER     0x0004 /**< Don't destroy existing file. Mode flag for g2c_create(). */
-
 /* Useful constants. */
-#define G2C_SECTION0_BYTES 16 /**< Number of bytes in section 1. */
-#define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
-#define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
+#define G2C_SECTION0_ARRAY_LEN 3 /**< Length of section 0 array. */
 #define G2C_SECTION1_ARRAY_LEN 13 /**< Length of section 1 array. */
 
 #define G2C_JPEG_DRS_TEMPLATE_LEN 7 /**< Length of the idrstmpl array for JPEG packing. */
@@ -331,6 +350,7 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
 #define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
 #define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
+#define G2C_MAX_NUM_SECTIONS 1024 /**< Maximum number of sections that can be handled in one message. */
 
 #define G2C_MAX_NOAA_PARAMS 2000 /**< Maximum number of known parameters with NOAA abbreviations. */
 #define G2C_MAX_NOAA_ABBREV_LEN 8 /**< Maximum length of a NOAA abbreviation of a parameter. */
@@ -395,7 +415,7 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_EMSGCOMPLETE (-51) /**< GRIB message already complete. */
 #define G2C_ENAMETOOLONG (-52) /**< Name too long. */
 #define G2C_EINVAL (-53) /**< Invalid input. */
-#define G2C_EFILE (-54) /**< Invalid input. */
+#define G2C_EFILE (-54) /**< File I/O error. */
 #define G2C_EBADID (-55) /**< Bad ID. */
 #define G2C_ETOOMANYFILES (-56) /**< Trying to open too many files. */
 #define G2C_ENOMEM (-57) /**< Out of memory. */
