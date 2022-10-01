@@ -47,7 +47,10 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
 
     /* Find the product. */
     for (sec = msg->sec; sec; sec = sec->next)
-	if (sec->sec_num = 4 
+	if (sec->sec_num == 4)
+	    break;
+    if (!sec)
+	return G2C_ENOSECTION;
 
     /* Read the product. */
 
