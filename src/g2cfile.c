@@ -480,6 +480,8 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
     /* Attach sec3_info to our section data. */
     sec->sec_info = sec3_info;
 
+    LOG((6, "finished reading section 3 at file position %ld", ftell(sec->msg->file->f)));    
+
     return G2C_NOERROR;
 }
 
@@ -510,14 +512,18 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
     int t;
     
     /* Check input. */
-    assert(sec && !sec->sec_info && sec->sec_num == 4);
+    assert(sec && !sec->sec_info && sec->sec_num == 4 && sec->msg);
 
+    LOG((3, "read_section4_metadata msg_num %d", sec->msg->msg_num));
+    
     /* Allocate storage for a new section 4. */
     if (!(sec4_info = calloc(sizeof(G2C_SECTION4_INFO_T), 1)))
         return G2C_ENOMEM;
 
     /* Assign a number to this field, and count the number of fields in the message. */
     sec4_info->field_num = sec->msg->num_fields++;
+
+    LOG((6, "reading section 4 starting at file position %ld", ftell(sec->msg->file->f)));
 
     /* Read section 4. */
     if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
@@ -723,6 +729,8 @@ add_section(G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t by
     G2C_SECTION_INFO_T *sec;
     int ret;
         
+    LOG((6, "add_section() called at file position %ld", ftell(msg->file->f)));    
+
     /* Allocate storage for a new section. */
     if (!(sec = calloc(sizeof(G2C_SECTION_INFO_T), 1)))
         return G2C_ENOMEM;
@@ -797,6 +805,7 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
     /* Read section 0. */
     if (fseek(msg->file->f, msg->bytes_to_msg + BYTES_TO_DISCIPLINE, SEEK_SET))
         return G2C_EFILE;
+    LOG((6, "reading section 0 discipline starting at file position %ld", ftell(msg->file->f)));    
     if ((fread(&msg->discipline, ONE_BYTE, 1, msg->file->f)) != 1)
         return G2C_EFILE;
     
@@ -846,6 +855,8 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
     {
         int sec_len;
         unsigned char sec_num;
+
+	LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));    
 
         /* Read section length. */
         if ((fread(&int_be, FOUR_BYTES, 1, msg->file->f)) != 1)
@@ -929,6 +940,7 @@ add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in
     
     return G2C_NOERROR;
 }
+
 /** Read metadata from a GRIB2 file being opened with g2c_open().
  *
  * @param g2cid The indentifier for the file.
