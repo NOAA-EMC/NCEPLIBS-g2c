@@ -64,9 +64,11 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
 
     *fld = NULL;
 
-    gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
+    /* Get Length of Section */
+    gbit(cgrib, &lensec, *iofst, 32);
     *iofst = *iofst + 32;
-    gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
+    /* Get Section Number */
+    gbit(cgrib, &isecnum, *iofst, 8);
     *iofst = *iofst + 8;
 
     if (isecnum != 7)
@@ -91,9 +93,9 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
         simunpack(cgrib + ipos, idrstmpl, ndpts - 1, lfld + 1);
         rdieee(idrstmpl + 4, lfld, 1);
     }
-    else if (idrsnum == 51)              
+    else if (idrsnum == 51)
     {
-        /* Spectral complex */        
+        /* Spectral complex */
         if (igdsnum >= 50 && igdsnum <= 53)
             specunpack(cgrib + ipos, idrstmpl, ndpts, igdstmpl[0], igdstmpl[2],
                        igdstmpl[2], lfld);
