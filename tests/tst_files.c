@@ -131,27 +131,27 @@ main()
 	    return ret;
     }
     printf("ok!\n");
-    /* printf("Testing g2c_get_prod() on file %s...", WAVE_FILE); */
-    /* { */
-    /*     int g2cid; */
-    /*     int num_data_points; */
-    /*     float *data; */
-    /*     int ret; */
+    printf("Testing g2c_get_prod() on file %s...", WAVE_FILE);
+    {
+        int g2cid;
+        int num_data_points;
+        float *data;
+        int ret;
 
-    /*     g2c_set_log_level(10); */
-    /*     if ((ret = g2c_open(WAVE_FILE, 0, &g2cid))) */
-    /*         return ret; */
-    /*     if ((ret = g2c_get_prod(g2cid, 0, 0, &num_data_points, NULL))) */
-    /*         return ret; */
-    /*     if (!(data = malloc(num_data_points * sizeof(float)))) */
-    /*         return G2C_ERROR; */
-    /*     if ((ret = g2c_get_prod(g2cid, 0, 0, NULL, data))) */
-    /*         return ret; */
-    /*     if ((ret = g2c_close(g2cid))) */
-    /*         return ret; */
-    /*     free(data); */
-    /* } */
-    /* printf("ok!\n"); */
+        g2c_set_log_level(10);
+        if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+            return ret;
+        if ((ret = g2c_get_prod(g2cid, 0, 0, &num_data_points, NULL)))
+            return ret;
+        if (!(data = malloc(num_data_points * sizeof(float))))
+            return G2C_ERROR;
+        if ((ret = g2c_get_prod(g2cid, 0, 0, NULL, data)))
+            return ret;
+        if ((ret = g2c_close(g2cid)))
+            return ret;
+        free(data);
+    }
+    printf("ok!\n");
     printf("SUCCESS!\n");
     return 0;
 }
