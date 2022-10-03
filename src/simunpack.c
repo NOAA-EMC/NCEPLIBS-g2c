@@ -14,7 +14,7 @@
  * @param idrstmpl pointer to the array of values for Data
  * Representation Template 5.0.
  * @param ndpts The number of data values to unpack.
- * @param fld Contains the unpacked data values. fld must be
+ * @param fld A pointer that gets the unpacked data values. fld must be
 `* allocated with at least ndpts * sizeof(float) bytes before calling
  * this routine.
  *
