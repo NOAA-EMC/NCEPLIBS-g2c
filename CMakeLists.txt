@@ -81,7 +81,7 @@ src/g2_unpack6.c src/g2_unpack7.c src/gbits.c src/getdim.c
 src/getpoly.c src/gridtemplates.c src/int_power.c src/misspack.c
 src/mkieee.c src/pack_gp.c src/pdstemplates.c src/rdieee.c
 src/reduce.c src/seekgb.c src/simpack.c src/simunpack.c src/specpack.c
-src/specunpack.c src/util.c src/g2cxml.c src/g2cparams.c)
+src/specunpack.c src/util.c src/g2cxml.c src/g2cparams.c src/g2cfile.c)
 
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
 
@@ -163,6 +163,9 @@ target_include_directories(
 )
 
 target_link_libraries(${lib_name} INTERFACE m)
+if (WIN32)
+  target_link_libraries(${lib_name} INTERFACE ws2_32)
+endif()
 
 # Install g2c library
 install(

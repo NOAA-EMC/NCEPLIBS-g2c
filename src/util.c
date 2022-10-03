@@ -8,7 +8,10 @@
 #include <stdarg.h>
 
 /** Global file information. */
-/* extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1]; */
+extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
+
+/** Pointer to the list of code tables. */
+extern G2C_CODE_TABLE_T *g2c_table;
 
 /**
  * Check for 'GRIB' at the beginning of a GRIB message, and check to
@@ -215,25 +218,78 @@ g2c_strerror(int g2cerr)
  *
  * @author Ed Hartnett 8/22/22
  */
-/* int */
-/* g2c_log_file(int g2cid) */
-/* { */
-/* #ifdef LOGGING */
-/*     int m; */
+int
+g2c_log_file(int g2cid)
+{
+#ifdef LOGGING
+    G2C_MESSAGE_INFO_T *msg;
+    int ret;
+
+    /* Read in the XML GRIB2 code definitions. */
+    if ((ret = g2c_xml_init()))
+	return ret;
     
-/*     /\* Find the open file struct. *\/ */
-/*     if (g2c_file[g2cid].g2cid != g2cid) */
-/* 	return G2C_EBADID; */
+    /* Find the open file struct. */
+    if (g2c_file[g2cid].g2cid != g2cid)
+	return G2C_EBADID;
 
-/*     LOG((1, "path %s", g2c_file[g2cid].path)); */
-/*     LOG((1, "num_messages %ld", g2c_file[g2cid].num_messages)); */
-/*     for (m = 0; m < g2c_file[g2cid].num_messages; m++) */
-/*     { */
-/* 	G2C_MESSAGE_INFO_T *msg = &g2c_file[g2cid].msg[m]; */
-/* 	LOG((1, "message %ld num_fields %d num_local %d msg->section0 (%d, %d, %d)", msg->message_number, */
-/* 	     msg->num_fields, msg->num_local, msg->section0[0], msg->section0[1], msg->section0[2])); */
-/*     } */
+    LOG((1, "path %s", g2c_file[g2cid].path));
+    LOG((1, "num_messages %ld", g2c_file[g2cid].num_messages));
+    for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+    {
+        G2C_SECTION_INFO_T *sec;
+        
+	LOG((1, "message %ld num_fields %d num_local %d", msg->msg_num, msg->num_fields,
+             msg->num_local));
+        LOG((2, "sec1_len %d center %d subcenter %d master_version %d local_version %d",
+             msg->sec1_len, msg->center, msg->subcenter, msg->master_version, msg->local_version));
+        LOG((2, "sig_ref_time %d %d %d %d %d:%d:%d status %d type %d", msg->sig_ref_time, msg->year,
+             msg->month, msg->day, msg->hour, msg->minute, msg->second, msg->status, msg->type));
 
-/* #endif */
-/*     return G2C_NOERROR; */
-/* } */
+	/* If we've loaded XML tables, decode some flags. */
+	if (g2c_table)
+	{
+	    char desc[G2C_MAX_GRIB_DESC_LEN + 1];
+
+	    /* Section 0 discipline flag. */
+	    if ((ret = g2c_find_desc("Code table 0.0", msg->discipline, desc)))
+		return ret;
+	    LOG((2, "Discipline: %s", desc));
+
+	    /* Section 1 flags. */
+	    LOG((2, "Identification of originating/generating center: %d", msg->center));
+	    LOG((2, "Identification of originating/generating subcenter: %d", msg->subcenter));
+	    if ((ret = g2c_find_desc("Code table 1.0", msg->master_version, desc)))
+		return ret;
+	    LOG((2, "GRIB master tables version number: %s", desc));	
+	    if ((ret = g2c_find_desc("Code table 1.1", msg->local_version, desc)))
+		return ret;
+	    LOG((2, "Version number of GRIB local tables used to augment Master Tables: %s", desc));
+	    if ((ret = g2c_find_desc("Code table 1.2", msg->sig_ref_time, desc)))
+		return ret;
+	    LOG((2, "Significance of reference time: %s", desc));
+	    LOG((2, "Reference time: %d/%d/%d %d:%d:%d", msg->year, msg->month, msg->day,
+		 msg->hour, msg->minute, msg->second));
+	    if ((ret = g2c_find_desc("Code table 1.3", msg->status, desc)))
+		return ret;
+	    LOG((2, "Production Status of Processed data in the GRIB message: %s", desc));
+	    if ((ret = g2c_find_desc("Code table 1.4", msg->type, desc)))
+		return ret;
+	    LOG((2, "Type of processed data in this GRIB message: %s", desc));
+	}
+
+        /* Section info. */
+        for (sec = msg->sec; sec; sec = sec->next)
+        {
+            LOG((3, "sec_id %d sec_len %d byte_to_sec %ld sec_num %d", sec->sec_id, sec->sec_len,
+                 sec->bytes_to_sec, sec->sec_num));
+        }
+        
+    }
+
+    /* Free XML code memory. */
+    g2c_free_tables();
+
+#endif
+    return G2C_NOERROR;
+}

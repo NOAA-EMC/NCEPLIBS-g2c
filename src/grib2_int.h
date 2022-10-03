@@ -18,6 +18,14 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <ctype.h>
+
+#include <errno.h>
+#if defined(WIN32)
+#include <winsock2.h> /* ntohl() function for Windows. */
+#else
+#include <arpa/inet.h> /* ntohl() function for Unix/Mac. */
+#endif
+
 #include "grib2.h"
 
 #define ALOG2 (0.69314718) /**< ln(2.0) */
@@ -33,6 +41,99 @@
 #define G2C_MAGIC_HEADER_LEN 8 /**< Full length of magic header string (includes GRIB version byte). */
 
 #define G2C_MAX_MESSAGES 1024 /**< Maximum number of messages in a file. */
+
+#define BYTE 8 /**< Number of bits in a byte. */
+#define WORD 32 /**< Number of bits in four bytes. */
+
+/** This is the information about each message. */
+typedef struct g2c_message_info
+{
+    size_t msg_num; /**< Number of message in file (0-based). */
+    size_t bytes_to_msg; /**< Number of bytes to skip in the file, to get to this message. */
+    size_t bytes_in_msg; /**< Number of bytes in this message. */
+    unsigned char discipline; /**< Discipline from section 0. */
+    int section1[G2C_SECTION1_ARRAY_LEN]; /**< Section 1 array. */
+    int num_fields; /**< Number of fields in the message. */
+    int num_local; /**< Number of local sections in the message. */
+    int num_sections; /**< Number of sections in the file. */
+    int *section_number; /**< Array (length num_sections) of section numbers. */
+    size_t *section_offset; /**< Array (length num_sections) of byte offsets from start of message to section. */
+    int sec1_len; /**< Length of section 1. */
+    short center; /**< Originating center. */
+    short subcenter; /**< Originating subcenter. */
+    unsigned char master_version; /**< GRIB master tables version number. */
+    unsigned char local_version; /**< Version number of GRIB local tables used to augment Master Tables. */
+    unsigned char sig_ref_time; /**< Significance of reference time. */
+    short year; /**< Year. */
+    unsigned char month; /**< Month. */
+    unsigned char day; /**< Day. */
+    unsigned char hour; /**< Hour. */
+    unsigned char minute; /**< Minute. */
+    unsigned char second; /**< Second. */
+    unsigned char status; /**< Production Status of Processed data in the GRIB message. */
+    unsigned char type; /**< Type of processed data in this GRIB message. */
+    struct g2c_section_info *sec; /**< List of section metadata. */
+    struct g2c_file_info *file; /**< Pointer to containing file. */
+    struct g2c_message_info *next; /**< Pointer to next in list. */
+} G2C_MESSAGE_INFO_T;
+
+/** Information about a section 3 through 7 in a GRIB2 message. */
+typedef struct g2c_section_info
+{
+    int sec_id; /**< ID of the section (0-based). */
+    unsigned int sec_len; /**< Length of the section (in bytes). */
+    size_t bytes_to_sec; /**< Number of bytes from start of message to this section. */
+    unsigned char sec_num; /**< Section number. */
+    G2C_MESSAGE_INFO_T *msg; /**< Pointer to contianing message. */
+    void *sec_info; /**< Pointer to struct specific for section 3, 4, 5, 6, or 7. */
+    struct g2c_section_info *next; /**< Pointer to next in list. */
+    struct g2c_section_info *prev; /**< Pointer to previous in list. */
+    int *template; /**< Grid, product, or data template. */
+    int template_len; /**< Number of entries in template. */
+} G2C_SECTION_INFO_T;
+
+/** Information about [Section 3 GRID DEFINITION
+ * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml). */
+typedef struct g2c_section3_info
+{
+    unsigned char source_grid_def; /**< Source of grid definition (See Table 3.0). */
+    unsigned int num_data_points; /**< Number of data points. */
+    unsigned char num_opt; /**< Number of octets for optional list of numbers defining number of points. */
+    unsigned char interp_list; /**< Interpetation of list of numbers defining number of points (See Table 3.11). */
+    unsigned short grid_def; /**< Grid definition template number (= N) (See Table 3.1). */
+    int *optional; /**< Optional list of numbers defining number of points. */}
+ G2C_SECTION3_INFO_T;
+
+/** Information about [Section 4 PRODUCT DEFINITION
+ * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml). */
+typedef struct g2c_section4_info
+{
+    int field_num;
+    unsigned short num_coord; /**< Number of coordinate values after template. */
+    unsigned short prod_def; /**< Product definition template number (See Table 4.0). */
+    int *optional; /**< Optional list of numbers defining number of points. */
+} G2C_SECTION4_INFO_T;
+
+/** Information about [Section 5 DATA REPRESENTATION
+ * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect5.shtml). */
+typedef struct g2c_section5_info
+{
+    /** Number of data points where one or more values are specified
+     * in Section 7 when a bit map is present, total number of data
+     * points when a bit map is absent. */    
+    unsigned int num_data_points; 
+    unsigned short data_def; /**< Data representation template number (See Table 5.0). */
+} G2C_SECTION5_INFO_T;
+
+/** This is the information about each open file. */
+typedef struct g2c_file_info
+{
+    int g2cid; /**< ID of the file. */
+    char path[G2C_MAX_NAME + 1]; /**< Path of the file. */
+    FILE *f; /**< FILE pointer to open file. */
+    size_t num_messages; /**< Number of messages in the file. */
+    G2C_MESSAGE_INFO_T *msg; /**< Information about each message in the file. */
+} G2C_FILE_INFO_T;
 
 /** An entry in a GRIB2 code table. */
 typedef struct g2c_entry
@@ -63,7 +164,7 @@ typedef struct g2c_param
 } G2C_PARAM_T;
 
 /**
- * Struct for GRIB template.
+ * Struct for GRIB template, returned by getgridtemplate().
  */
 struct gtemplate
 {
