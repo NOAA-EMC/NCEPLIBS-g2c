@@ -481,7 +481,6 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
     sec->sec_info = sec3_info;
 
     LOG((6, "finished reading section 3 at file position %ld", ftell(sec->msg->file->f)));    
-
     return G2C_NOERROR;
 }
 
@@ -856,7 +855,7 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
         int sec_len;
         unsigned char sec_num;
 
-	LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));    
+	      LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));    
 
         /* Read section length. */
         if ((fread(&int_be, FOUR_BYTES, 1, msg->file->f)) != 1)
