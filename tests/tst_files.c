@@ -53,99 +53,105 @@ main()
     /*     	return ret; */
     /* } */
     /* printf("ok!\n"); */
-    /* printf("Testing g2c_find_msg2 on file %s...", WAVE_FILE); */
-    /* { */
-    /*     int g2cid; */
-    /*     size_t bytes_to_msg, bytes_in_msg; */
-    /*     size_t test_buf_size[NUM_BUF_SIZE_TESTS] = {100, 200, 1024, 2000, 3000, 4000}; */
-    /*     int i; */
-    /*     int ret; */
-
-    /*     /\* g2c_set_log_level(4); *\/ */
-    /*     if ((ret = g2c_open(WAVE_FILE, 0, &g2cid))) */
-    /*         return ret; */
-    /*     for (i = 0; i < NUM_BUF_SIZE_TESTS; i++) */
-    /*     { */
-    /*         if ((ret = g2c_find_msg2(g2cid, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg))) */
-    /*     	return ret; */
-    /*         /\* printf("bytes_to_msg %ld bytes_in_msg %ld\n", bytes_to_msg, bytes_in_msg); *\/ */
-    /*         if (bytes_to_msg != 0 || bytes_in_msg != 15254) */
-    /*     	return G2C_ERROR; */
-    /*     } */
-    /*     if ((ret = g2c_close(g2cid))) */
-    /*         return ret; */
-    /* } */
-    /* printf("ok!\n"); */
-    /* printf("Testing g2c_get_msg on file %s...", WAVE_FILE); */
-    /* { */
-    /*     int g2cid; */
-    /*     size_t bytes_to_msg, bytes_in_msg; */
-    /*     size_t test_buf_size[NUM_BUF_SIZE_TESTS] = {100, 200, 1024, 2000, 3000, 4000}; */
-    /*     unsigned char *cbuf = NULL; */
-    /*     int i; */
-    /*     int ret; */
-
-    /*     /\* g2c_set_log_level(3); *\/ */
-    /*     if ((ret = g2c_open(WAVE_FILE, 0, &g2cid))) */
-    /*         return ret; */
-    /*     for (i = 0; i < NUM_BUF_SIZE_TESTS; i++) */
-    /*     { */
-	    
-    /*         if ((ret = g2c_get_msg(g2cid, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg, */
-    /*     			   &cbuf))) */
-    /*     	return ret; */
-    /*         for (i = 0; i < 10; i++) */
-    /*     	printf("cbuf[%d] = %2x\n", i, cbuf[i]); */
-    /*         printf("bytes_to_msg %ld bytes_in_msg %ld\n", bytes_to_msg, bytes_in_msg); */
-    /*         if (bytes_to_msg != 0 || bytes_in_msg != 15254) */
-    /*     	return G2C_ERROR; */
-
-    /*         /\* Learn about this message. *\/ */
-    /*         { */
-    /*     	g2int listsec0[3], listsec1[13], numfields, numlocal; */
-    /*     	if ((ret = g2_info(cbuf, listsec0, listsec1, &numfields, &numlocal))) */
-    /*     	    return G2C_EMSG; */
-    /*         } */
-	    
-    /*         free(cbuf); */
-    /*     } */
-    /*     if ((ret = g2c_close(g2cid))) */
-    /*         return ret; */
-    /* } */
-    /* printf("ok!\n"); */
-    /* printf("Testing g2c_open on file %s...", WAVE_FILE); */
-    /* { */
-    /*     int g2cid; */
-    /*     int ret; */
-
-    /*     g2c_set_log_level(10); */
-    /*     if ((ret = g2c_open(WAVE_FILE, 0, &g2cid))) */
-    /*         return ret; */
-    /*     if ((ret = g2c_close(g2cid))) */
-    /*         return ret; */
-    /* } */
-    /* printf("ok!\n"); */
-    printf("Testing g2c_get_prod() on file %s...", WAVE_FILE);
+    printf("Testing g2c_find_msg2 on file %s...", WAVE_FILE);
     {
 	int g2cid;
-        int num_data_points;
-        float *data;
+	size_t bytes_to_msg, bytes_in_msg;
+	size_t test_buf_size[NUM_BUF_SIZE_TESTS] = {100, 200, 1024, 2000, 3000, 4000};
+	int i;
+	int ret;
+
+	/* g2c_set_log_level(4); */
+	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+	    return ret;
+	for (i = 0; i < NUM_BUF_SIZE_TESTS; i++)
+	{
+	    if ((ret = g2c_find_msg2(g2cid, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg)))
+		return ret;
+	    /* printf("bytes_to_msg %ld bytes_in_msg %ld\n", bytes_to_msg, bytes_in_msg); */
+	    if (bytes_to_msg != 0 || bytes_in_msg != 15254)
+		return G2C_ERROR;
+	}
+	if ((ret = g2c_close(g2cid)))
+	    return ret;
+    }
+    printf("ok!\n");
+    printf("Testing g2c_get_msg on file %s...", WAVE_FILE);
+    {
+	int g2cid;
+	size_t bytes_to_msg, bytes_in_msg;
+	size_t test_buf_size[NUM_BUF_SIZE_TESTS] = {100, 200, 1024, 2000, 3000, 4000};
+	unsigned char *cbuf = NULL;
+	int i;
+	int ret;
+
+	/* g2c_set_log_level(3); */
+	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+	    return ret;
+	for (i = 0; i < NUM_BUF_SIZE_TESTS; i++)
+	{
+	    
+	    if ((ret = g2c_get_msg(g2cid, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg,
+				   &cbuf)))
+		return ret;
+	    for (i = 0; i < 10; i++)
+		printf("cbuf[%d] = %2x\n", i, cbuf[i]);
+	    printf("bytes_to_msg %ld bytes_in_msg %ld\n", bytes_to_msg, bytes_in_msg);
+	    if (bytes_to_msg != 0 || bytes_in_msg != 15254)
+		return G2C_ERROR;
+
+	    /* Learn about this message. */
+	    {
+		g2int listsec0[3], listsec1[13], numfields, numlocal;
+		if ((ret = g2_info(cbuf, listsec0, listsec1, &numfields, &numlocal)))
+		    return G2C_EMSG;
+	    }
+	    
+	    free(cbuf);
+	}
+	if ((ret = g2c_close(g2cid)))
+	    return ret;
+    }
+    printf("ok!\n");
+    printf("Testing g2c_open() on file %s (twice)...", WAVE_FILE);
+    {
+	int g2cid;
 	int ret;
 
 	g2c_set_log_level(10);
 	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
 	    return ret;
-        if ((ret = g2c_get_prod(g2cid, 0, 0, &num_data_points, NULL)))
-            return ret;
-        if (!(data = malloc(num_data_points * sizeof(float))))
-            return G2C_ERROR;
-        if ((ret = g2c_get_prod(g2cid, 0, 0, NULL, data)))
-            return ret;
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
-        free(data);
+
+        /* Try it again. */
+	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+	    return ret;
+	if ((ret = g2c_close(g2cid)))
+	    return ret;
     }
     printf("ok!\n");
+    /* printf("Testing g2c_get_prod() on file %s...", WAVE_FILE); */
+    /* { */
+    /*     int g2cid; */
+    /*     int num_data_points; */
+    /*     float *data; */
+    /*     int ret; */
+
+    /*     g2c_set_log_level(10); */
+    /*     if ((ret = g2c_open(WAVE_FILE, 0, &g2cid))) */
+    /*         return ret; */
+    /*     if ((ret = g2c_get_prod(g2cid, 0, 0, &num_data_points, NULL))) */
+    /*         return ret; */
+    /*     if (!(data = malloc(num_data_points * sizeof(float)))) */
+    /*         return G2C_ERROR; */
+    /*     if ((ret = g2c_get_prod(g2cid, 0, 0, NULL, data))) */
+    /*         return ret; */
+    /*     if ((ret = g2c_close(g2cid))) */
+    /*         return ret; */
+    /*     free(data); */
+    /* } */
+    /* printf("ok!\n"); */
     printf("SUCCESS!\n");
     return 0;
 }

@@ -1040,6 +1040,10 @@ g2c_open(const char *path, int mode, int *g2cid)
 
     /* Remember the id. */
     g2c_file[my_g2cid].g2cid = my_g2cid;
+
+    /* Initialize other values in struct. */
+    g2c_file[my_g2cid].msg = NULL;    
+    g2c_file[my_g2cid].num_messages = 0;    
     
     /* Pass id back to user. */
     *g2cid = my_g2cid;
