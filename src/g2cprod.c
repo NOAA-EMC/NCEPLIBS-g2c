@@ -29,8 +29,9 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
 {
     G2C_MESSAGE_INFO_T *msg;
     G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec7;
+    /* G2C_SECTION3_INFO_T *sec3_info; */
     /* G2C_SECTION4_INFO_T *sec4_info; */
-    G2C_SECTION5_INFO_T *sec3_info, *sec5_info;
+    G2C_SECTION5_INFO_T *sec5_info;
     char *buf;
     size_t bytes_read;
     int ret = G2C_NOERROR;
@@ -59,16 +60,18 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
 	return G2C_ENOPRODUCT;
     /* sec4_info = (G2C_SECTION4_INFO_T *)sec4->sec_info; */
 
-    /* Find the grid definiton section, section 3. */
-    for (sec3 = msg->sec4; sec3; sec3 = sec3->prev)
+    /* Find the grid definiton section, section 3. It will come
+     * earlier in the list. */
+    for (sec3 = sec4; sec3; sec3 = sec3->prev)
 	if (sec3->sec_num == 3)
 	    break;
     if (!sec3)
 	return G2C_ENOSECTION;
-    sec3_info = (G2C_SECTION3_INFO_T *)sec3->sec_info;
+    /* sec3_info = (G2C_SECTION3_INFO_T *)sec3->sec_info; */
 
     /* Find the section 5, data representation section, to learn how
-     * this product is compressed. */
+     * this product is compressed. Section 5 is after section 4 in the
+     * list. */
     for (sec5 = sec4; sec5; sec5 = sec5->next)
         if (sec5->sec_num == 5)
             break;
@@ -105,7 +108,7 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
 
     /* Unpack the char buffer into a float array, which must be
      * allocated by the caller. */
-    ret = g2c_unpack7(buf, );
+    /* ret = g2c_unpack7(buf, ); */
 
     /* Free the char buffer. */
     free(buf);

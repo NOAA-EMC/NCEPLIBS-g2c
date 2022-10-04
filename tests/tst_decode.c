@@ -1,4 +1,4 @@
-/* 
+/*
  * This is test code from the NCEPLIBS-g2c project.
  *
  * This test is for decoding full grib2 message.
@@ -57,7 +57,7 @@ int main()
         g2int idrstmpl[5] = {0, 0, 0, 1, 0};
         g2int ndpts = 121;
         float *fld;
-        
+
         g2c_set_log_level(10);
 
         /* Call g2_unpack7() on our message. */
@@ -84,7 +84,7 @@ int main()
         gribfield* gfld = NULL;
 
         /* Call g2_info() on our message. */
-        g2c_set_log_level(10);        
+        g2c_set_log_level(10);
         if ((ret = g2_info(cgrib, listsec0, listsec1, &numfields, &numlocal)))
             return ret;
 
