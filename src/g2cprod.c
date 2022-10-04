@@ -108,7 +108,8 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
 
     /* Unpack the char buffer into a float array, which must be
      * allocated by the caller. */
-    /* ret = g2c_unpack7(buf, ); */
+    ret = g2c_unpack7(buf, sec3_info->grid_def, sec3->template, sec5_info->data_def, sec5->template,
+                      sec5_info->num_data_points, data);
 
     /* Free the char buffer. */
     free(buf);

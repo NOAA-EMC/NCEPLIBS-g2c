@@ -90,18 +90,24 @@ g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstm
         return G2_UNPACK_BAD_SEC;
 
     ipos = *iofst / 8;
-    if (!(lfld = calloc(ndpts ? ndpts : 1, sizeof(float))))
-        return G2_UNPACK_NO_MEM;
 
-    *fld = lfld;
+    /* If we're using the V1 API, allocate memory for the unpacked
+     * data. If we are using the v2 API, the caller is responsible for
+     * allocating memory to hold the data. */
+    if (v1)
+    {
+        if (!(lfld = calloc(ndpts ? ndpts : 1, sizeof(float))))
+            return G2_UNPACK_NO_MEM;
+        *fld = lfld;
+    }
 
     if (idrsnum == 0)
     {
-        simunpack(cgrib + ipos, idrstmpl, ndpts, lfld);
+        simunpack(cgrib + ipos, idrstmpl, ndpts, *fld);
     }
     else if (idrsnum == 2 || idrsnum == 3)
     {
-        if (comunpack(cgrib+ipos, lensec, idrsnum, idrstmpl, ndpts, lfld))
+        if (comunpack(cgrib+ipos, lensec, idrsnum, idrstmpl, ndpts, *fld))
             return G2_UNPACK7_CORRUPT_SEC;
     }
     else if (idrsnum == 50)
@@ -130,13 +136,13 @@ g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstm
 #if defined USE_JPEG2000 || defined USE_OPENJPEG
     else if (idrsnum == 40 || idrsnum == 40000)
     {
-        jpcunpack(cgrib + ipos, lensec - 5, idrstmpl, ndpts, lfld);
+        jpcunpack(cgrib + ipos, lensec - 5, idrstmpl, ndpts, *fld);
     }
 #endif  /* USE_JPEG2000 */
 #ifdef USE_PNG
     else if (idrsnum == 41 || idrsnum == 40010)
     {
-        pngunpack(cgrib + ipos, lensec - 5, idrstmpl, ndpts, lfld);
+        pngunpack(cgrib + ipos, lensec - 5, idrstmpl, ndpts, *fld);
     }
 #endif  /* USE_PNG */
     else
@@ -225,9 +231,8 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
  * (N=idrsnum). Each element of this integer array contains an entry
  * (in the order specified) of Data Representation Template 5.N
  * @param ndpts Number of data points to be unpacked and returned.
- * @param fld Pointer to a float pointer which gets a pointer to an
- * array allocated by this function to hold the unpacked data. This
- * memory must be freed by the caller.
+ * @param fld Pointer which the data. Memory must be allocated in
+ * advance by caller.
  *
  * @return
  * - ::G2_NO_ERROR No error.
@@ -239,14 +244,14 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
  *
  * @author Stephen Gilbert @date 2002-10-31
  */
-g2int
-g2c_unpack7(unsigned char *cgrib, g2int igdsnum, g2int *igdstmpl,
-            g2int idrsnum, g2int *idrstmpl, g2int ndpts, float **fld)
+int
+g2c_unpack7(unsigned char *cgrib, int igdsnum, g2int *igdstmpl,
+            int idrsnum, g2int *idrstmpl, int ndpts, float *fld)
 {
     g2int iofst = 0;    
 
     return g2c_unpack7_int(cgrib, &iofst, igdsnum, igdstmpl, idrsnum, idrstmpl,
-                           ndpts, 0, fld);
+                           ndpts, 0, &fld);
 }
 
 
