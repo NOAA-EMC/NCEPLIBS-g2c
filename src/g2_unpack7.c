@@ -45,8 +45,9 @@
  * (N=idrsnum). Each element of this integer array contains an entry
  * (in the order specified) of Data Representation Template 5.N
  * @param ndpts Number of data points to be unpacked and returned.
- * @param verbose If non-zero, then print error messages to stderr in
- * the event of error. Otherwise, just return error code.
+ * @param v1 If non-zero, then act like the V1 G2C API. This includes: 
+ * - printing error messages to stderr in the event of error.
+ * - returning V1 error codes. 
  * @param fld Pointer to a float pointer which gets a pointer to an
  * array allocated by this function to hold the unpacked data. This
  * memory must be freed by the caller.
@@ -63,7 +64,7 @@
  */
 static g2int
 g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
-                g2int idrsnum, g2int *idrstmpl, g2int ndpts, int verbose, float **fld)
+                g2int idrsnum, g2int *idrstmpl, g2int ndpts, int v1, float **fld)
 {
     g2int isecnum;
     g2int ipos, lensec;
@@ -71,8 +72,8 @@ g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstm
 
     assert(cgrib && iofst && idrstmpl && fld);
     
-    LOG((2, "g2c_unpack7_int *iofst %ld igdsnum %ld idrsnum %ld ndpts %ld verbose %d",
-         *iofst, igdsnum, idrsnum, ndpts, verbose));
+    LOG((2, "g2c_unpack7_int *iofst %ld igdsnum %ld idrsnum %ld ndpts %ld v1 %d",
+         *iofst, igdsnum, idrsnum, ndpts, v1));
     
     *fld = NULL;
 
@@ -117,7 +118,7 @@ g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstm
                        igdstmpl[2], lfld);
         else
         {
-            if (verbose)
+            if (v1)
                 fprintf(stderr, "g2_unpack7: Cannot use GDT 3.%d to unpack Data Section 5.51.\n",
                         (int)igdsnum);
             if (lfld)
@@ -140,7 +141,7 @@ g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstm
 #endif  /* USE_PNG */
     else
     {
-        if (verbose)
+        if (v1)
             fprintf(stderr, "g2_unpack7: Data Representation Template 5.%d not yet "
                     "implemented.\n", (int)idrsnum);
         if (lfld)
@@ -202,4 +203,50 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
     return g2c_unpack7_int(cgrib, iofst, igdsnum, igdstmpl, idrsnum, idrstmpl,
                            ndpts, 1, fld);
 }
+
+/**
+ * This subroutine unpacks Section 7 (Data Section) of a GRIB2
+ * message.
+ *
+ * This function is the newer version of g2_unpack7().
+ *
+ * @param cgrib char array containing Section 7 of the GRIB2 message
+ * @param igdsnum Grid Definition Template Number (see Code Table
+ * 3.0). (Only used for DRS Template 5.51.)
+ * @param igdstmpl Pointer to an integer array containing the data
+ * values for the specified Grid Definition Template (N=igdsnum). Each
+ * element of this integer array contains an entry (in the order
+ * specified) of Grid Definition Template 3.N. (Only used for DRS
+ * Template 5.51).
+ * @param idrsnum Data Representation Template Number (see Code Table
+ * 5.0).
+ * @param idrstmpl Pointer to an integer array containing the data
+ * values for the specified Data Representation Template
+ * (N=idrsnum). Each element of this integer array contains an entry
+ * (in the order specified) of Data Representation Template 5.N
+ * @param ndpts Number of data points to be unpacked and returned.
+ * @param fld Pointer to a float pointer which gets a pointer to an
+ * array allocated by this function to hold the unpacked data. This
+ * memory must be freed by the caller.
+ *
+ * @return
+ * - ::G2_NO_ERROR No error.
+ * - ::G2_UNPACK_BAD_SEC Array passed had incorrect section number.
+ * - ::G2_UNPACK7_BAD_DRT Unrecognized Data Representation Template.
+ * - ::G2_UNPACK7_WRONG_GDT need one of GDT 3.50 through 3.53 to decode DRT 5.51
+ * - ::G2_UNPACK_NO_MEM Memory allocation error.
+ * - ::G2_UNPACK7_CORRUPT_SEC Corrupt section 7.
+ *
+ * @author Stephen Gilbert @date 2002-10-31
+ */
+g2int
+g2c_unpack7(unsigned char *cgrib, g2int igdsnum, g2int *igdstmpl,
+            g2int idrsnum, g2int *idrstmpl, g2int ndpts, float **fld)
+{
+    g2int iofst = 0;    
+
+    return g2c_unpack7_int(cgrib, &iofst, igdsnum, igdstmpl, idrsnum, idrstmpl,
+                           ndpts, 0, fld);
+}
+
 

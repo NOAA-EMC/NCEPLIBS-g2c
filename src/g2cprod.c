@@ -28,11 +28,12 @@ int
 g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *data)
 {
     G2C_MESSAGE_INFO_T *msg;
-    G2C_SECTION_INFO_T *sec4, *sec5, *sec7;
+    G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec7;
     /* G2C_SECTION4_INFO_T *sec4_info; */
-    G2C_SECTION5_INFO_T *sec5_info;
+    G2C_SECTION5_INFO_T *sec3_info, *sec5_info;
     char *buf;
     size_t bytes_read;
+    int ret = G2C_NOERROR;
         
     /* Check inputs. */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES)
@@ -49,14 +50,22 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
     if (!msg)
 	return G2C_ENOMSG;
 
-    /* Find the product. After this, sec will point to the
+    /* Find the product. After this, sec4 will point to the
      * appropropriate section 4 G2C_SECTION_INFO_T. */
     for (sec4 = msg->sec; sec4; sec4 = sec4->next)
 	if (sec4->sec_num == 4 && ((G2C_SECTION4_INFO_T *)sec4->sec_info)->field_num == prod_num)
 	    break;
     if (!sec4)
 	return G2C_ENOPRODUCT;
-    /* sec4_info = (G2C_SECTION4_INFO_T *)sec->sec_info; */
+    /* sec4_info = (G2C_SECTION4_INFO_T *)sec4->sec_info; */
+
+    /* Find the grid definiton section, section 3. */
+    for (sec3 = msg->sec4; sec3; sec3 = sec3->prev)
+	if (sec3->sec_num == 3)
+	    break;
+    if (!sec3)
+	return G2C_ENOSECTION;
+    sec3_info = (G2C_SECTION3_INFO_T *)sec3->sec_info;
 
     /* Find the section 5, data representation section, to learn how
      * this product is compressed. */
@@ -94,11 +103,12 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
     if ((bytes_read = fread(buf, 1, sec7->sec_len - 5, g2c_file[g2cid].f)) != sec7->sec_len - 5)
 	return G2C_EFILE;
 
-    /* Unpack the char buffer into a float array, which must be allocated by the caller. */
-    
+    /* Unpack the char buffer into a float array, which must be
+     * allocated by the caller. */
+    ret = g2c_unpack7(buf, );
 
     /* Free the char buffer. */
     free(buf);
 
-    return G2C_NOERROR;
+    return ret;
 }

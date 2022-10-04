@@ -69,6 +69,8 @@ int main()
             if (fld[i] != fld_ok[i])
                 return G2C_ERROR;
 
+        /* Free memory allocated by g2_unpack7(). */
+        free(fld);
     }
     printf("ok!\n");
     printf("Testing g2_info() and g2_getfld()...");
