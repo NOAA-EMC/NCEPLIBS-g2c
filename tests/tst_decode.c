@@ -1,14 +1,16 @@
-/*
+/* 
+ * This is test code from the NCEPLIBS-g2c project.
+ *
  * This test is for decoding full grib2 message.
+ *
  * Dusan Jovic, July, 2021
+ * Ed Hartnett
  */
-
 #include "grib2_int.h"
-
-#include <stdio.h>
 
 int main()
 {
+    /* This is the GRIB2 message. */
     unsigned char cgrib[] = {
         0x47, 0x52, 0x49, 0x42, 0x00, 0x00, 0x02, 0x02, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0xc3, 0x00, 0x00, 0x00, 0x15, 0x01, 0x00, 0x07, 0x00,
@@ -28,14 +30,7 @@ int main()
         0x00, 0x00, 0x08, 0x00, 0x01, 0x83, 0x38, 0xee, 0x3f, 0xa7, 0x80, 0x37,
         0x37, 0x37, 0x37
     };
-
-    g2int listsec0[3];
-    g2int listsec0_ok[3] = {2, 2, 195};
-    g2int listsec1[13];
-    g2int listsec1_ok[13] = {7, 0, 2, 1, 1, 2021, 7, 14, 6, 0, 0, 0, 1};
-    g2int numfields;
-    g2int numlocal;
-
+    /* This is the data encoded in the GRIB2 message. */
     float fld_ok[121] = {   /* 11x11 grid */
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1,
@@ -49,8 +44,6 @@ int main()
         0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1,
         1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1
     };
-
-    gribfield* gfld = NULL;
     int i;
     int ret;
 
@@ -73,16 +66,21 @@ int main()
 
         /* Check the data. */
         for (i = 0; i < ndpts; i++)
-        {
-            printf("fld[%d] = %g\n", i, fld[i]);
             if (fld[i] != fld_ok[i])
                 return G2C_ERROR;
-        }
 
     }
     printf("ok!\n");
     printf("Testing g2_info() and g2_getfld()...");
     {
+        g2int listsec0[3];
+        g2int listsec0_ok[3] = {2, 2, 195};
+        g2int listsec1[13];
+        g2int listsec1_ok[13] = {7, 0, 2, 1, 1, 2021, 7, 14, 6, 0, 0, 0, 1};
+        g2int numfields;
+        g2int numlocal;
+        gribfield* gfld = NULL;
+
         /* Call g2_info() on our message. */
         g2c_set_log_level(10);        
         if ((ret = g2_info(cgrib, listsec0, listsec1, &numfields, &numlocal)))
