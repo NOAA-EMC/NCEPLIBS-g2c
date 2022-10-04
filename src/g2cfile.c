@@ -481,7 +481,6 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
     sec->sec_info = sec3_info;
 
     LOG((6, "finished reading section 3 at file position %ld", ftell(sec->msg->file->f)));    
-
     return G2C_NOERROR;
 }
 
@@ -856,7 +855,7 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
         int sec_len;
         unsigned char sec_num;
 
-	LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));    
+	      LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));    
 
         /* Read section length. */
         if ((fread(&int_be, FOUR_BYTES, 1, msg->file->f)) != 1)
@@ -1041,6 +1040,10 @@ g2c_open(const char *path, int mode, int *g2cid)
 
     /* Remember the id. */
     g2c_file[my_g2cid].g2cid = my_g2cid;
+
+    /* Initialize other values in struct. */
+    g2c_file[my_g2cid].msg = NULL;    
+    g2c_file[my_g2cid].num_messages = 0;    
     
     /* Pass id back to user. */
     *g2cid = my_g2cid;

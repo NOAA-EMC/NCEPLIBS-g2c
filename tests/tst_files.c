@@ -113,12 +113,18 @@ main()
 	    return ret;
     }
     printf("ok!\n");
-    printf("Testing g2c_open on file %s...", WAVE_FILE);
+    printf("Testing g2c_open() on file %s (twice)...", WAVE_FILE);
     {
 	int g2cid;
 	int ret;
 
 	g2c_set_log_level(10);
+	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+	    return ret;
+	if ((ret = g2c_close(g2cid)))
+	    return ret;
+
+        /* Try it again. */
 	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
 	    return ret;
 	if ((ret = g2c_close(g2cid)))
