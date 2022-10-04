@@ -51,44 +51,69 @@ int main()
     };
 
     gribfield* gfld = NULL;
-
+    int i;
     int ret;
 
     printf("Testing decoding full grib2 message.\n");
+    printf("Testing g2_unpack7()...");
+    {
+        g2int iofst = 1360;
+        g2int igdsnum = 0;
+        g2int *igdstmpl = NULL;
+        g2int idrsnum = 0;
+        g2int idrstmpl[5] = {0, 0, 0, 1, 0};
+        g2int ndpts = 121;
+        float *fld;
+        
+        g2c_set_log_level(10);
 
-    if ((ret = g2_info(cgrib, listsec0, listsec1, &numfields, &numlocal)) != 0)
-        return G2C_ERROR;
+        /* Call g2_unpack7() on our message. */
+        if ((ret = g2_unpack7(cgrib, &iofst, igdsnum, igdstmpl, idrsnum, idrstmpl, ndpts, &fld)))
+            return ret;
 
-    int i;
-    for (i = 0; i < 3; i++) {
-        if (listsec0[i] != listsec0_ok[i])
-            return G2C_ERROR;
+        /* /\* Check the data. *\/ */
+        /* for (i = 0; i < gfld->ndpts; i++)  */
+        /*     if (fld[i] != fld_ok[i]) */
+        /*         return G2C_ERROR; */
+
     }
-    for (i = 0; i < 13; i++) {
-        if (listsec1[i] != listsec1_ok[i])
+    printf("ok!\n");
+    printf("Testing g2_info() and g2_getfld()...");
+    {
+        /* Call g2_info() on our message. */
+        g2c_set_log_level(10);        
+        if ((ret = g2_info(cgrib, listsec0, listsec1, &numfields, &numlocal)))
+            return ret;
+
+        /* Check results. */
+        for (i = 0; i < 3; i++)
+            if (listsec0[i] != listsec0_ok[i])
+                return G2C_ERROR;
+        for (i = 0; i < 13; i++)
+            if (listsec1[i] != listsec1_ok[i])
+                return G2C_ERROR;
+        if (numfields != 1)
             return G2C_ERROR;
-    }
-    if (numfields != 1)
-        return G2C_ERROR;
-    if (numlocal != 0)
-        return G2C_ERROR;
-
-    if ((ret = g2_getfld(cgrib, 1, 1, 1, &gfld)) != 0)
-        return G2C_ERROR;
-
-    if (gfld->version != 2)
-        return G2C_ERROR;
-
-    if (gfld->ndpts != 121) /* 11x11 grid */
-        return G2C_ERROR;
-
-    for (i = 0; i < gfld->ndpts; i++) {
-        if (gfld->fld[i] != fld_ok[i])
+        if (numlocal != 0)
             return G2C_ERROR;
+
+        /* Now read the data field. */
+        if ((ret = g2_getfld(cgrib, 1, 1, 1, &gfld)) != 0)
+            return G2C_ERROR;
+
+        /* Check results. */
+        if (gfld->version != 2)
+            return G2C_ERROR;
+        if (gfld->ndpts != 121) /* 11x11 grid */
+            return G2C_ERROR;
+        for (i = 0; i < gfld->ndpts; i++)
+            if (gfld->fld[i] != fld_ok[i])
+                return G2C_ERROR;
+
+        /* Free resources. */
+        g2_free(gfld);
     }
-
-    g2_free(gfld);
-
+    printf("ok!\n");
     printf("SUCCESS!\n");
     return 0;
 }
