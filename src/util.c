@@ -199,6 +199,8 @@ g2c_strerror(int g2cerr)
 	return "Template problem";
     case G2C_ENOPARAM:
 	return "Parameter not found";
+    case G2C_ENOPRODUCT:
+	return "Product not found";
 
     default:
 	 return "Unknown Error";	
