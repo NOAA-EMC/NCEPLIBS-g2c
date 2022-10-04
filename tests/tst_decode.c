@@ -71,10 +71,13 @@ int main()
         if ((ret = g2_unpack7(cgrib, &iofst, igdsnum, igdstmpl, idrsnum, idrstmpl, ndpts, &fld)))
             return ret;
 
-        /* /\* Check the data. *\/ */
-        /* for (i = 0; i < gfld->ndpts; i++)  */
-        /*     if (fld[i] != fld_ok[i]) */
-        /*         return G2C_ERROR; */
+        /* Check the data. */
+        for (i = 0; i < ndpts; i++)
+        {
+            printf("fld[%d] = %g\n", i, fld[i]);
+            if (fld[i] != fld_ok[i])
+                return G2C_ERROR;
+        }
 
     }
     printf("ok!\n");
