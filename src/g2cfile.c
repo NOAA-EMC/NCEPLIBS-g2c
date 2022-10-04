@@ -284,90 +284,6 @@ find_available_g2cid(int *g2cid)
     return G2C_ETOOMANYFILES;
 }
 
-/* Read metadata from a GRIB2 file being opened with g2c_open().
- *
- * @param g2cid The indentifier for the file.
- *
- * @return
- * - ::G2C_NOERROR - No error.
- * - ::G2C_EBADID g2cid not found.
- * - ::G2C_EFILE File error.
- * - ::G2C_EINVAL Invalid input.
- * - ::G2C_ENOMEM Out of memory.
- * - ::G2C_ENOMSG No GRIB message found.
- *
- * @author Ed Hartnett @date Aug 22, 2022
- */
-/* static int */
-/* read_metadata(int g2cid) */
-/* { */
-/*     size_t msg_num; */
-/*     size_t file_pos = 0; */
-/*     int ret = G2C_NOERROR; */
-
-/*     /\* Find the open file struct. *\/ */
-/*     if (g2c_file[g2cid].g2cid != g2cid) */
-/* 	return G2C_EBADID; */
-
-/*     LOG((2, "read_metadata g2cid %d", g2cid)); */
-
-/*     /\* Read each message in the file. *\/ */
-/*     for (msg_num = 0; !ret; msg_num++) */
-/*     { */
-/* 	size_t bytes_to_msg, bytes_in_msg; */
-/* 	unsigned char *cbuf = NULL; */
-
-/* 	/\* Read the message, allocating memory. *\/ */
-/* 	ret = g2c_get_msg(g2cid, file_pos, READ_BUF_SIZE, &bytes_to_msg, &bytes_in_msg, &cbuf); */
-/* 	LOG((3, "msg_num %d bytes_to_msg %ld bytes_in_msg %ld", msg_num, bytes_to_msg, */
-/* 	     bytes_in_msg)); */
-
-/* 	/\* Learn about this message. *\/ */
-/* 	if (!ret) */
-/* 	{ */
-/* 	    g2int listsec0[3], listsec1[13], numfields, numlocal; */
-/* 	    /\* g2int *igds, *igdstmpl, mapgridlen, *ideflist, idefnum; *\/ */
-/* 	    /\* g2int iofst = 128; *\/ */
-/* 	    int i; */
-	    
-/* 	    /\* Set some message info. *\/ */
-/* 	    g2c_file[g2cid].num_messages++; */
-/* 	    g2c_file[g2cid].msg[msg_num].message_number = msg_num; */
-
-/* 	    if ((ret = g2_info(cbuf, listsec0, listsec1, &numfields, &numlocal))) */
-/* 		return G2C_EMSG; */
-/* 	    for (i = 0; i < G2C_SECTION0_LEN; i++) */
-/* 		g2c_file[g2cid].msg[msg_num].section0[i] = listsec0[i];		 */
-/* 	    for (i = 0; i < G2C_SECTION1_LEN; i++) */
-/* 		g2c_file[g2cid].msg[msg_num].section1[i] = listsec1[i]; */
-/* 	    g2c_file[g2cid].msg[msg_num].num_fields = numfields; */
-/* 	    g2c_file[g2cid].msg[msg_num].num_local = numlocal; */
-
-/* 	    /\* Unpack section 3. *\/ */
-/* 	    /\* if ((ret = (int)g2_unpack3(cbuf, &iofst, &igds, &igdstmpl, &mapgridlen, &ideflist, &idefnum))) *\/ */
-/* 	    /\* 	return ret; *\/ */
-/* 	} */
-
-/* 	/\* Free memory. *\/ */
-/* 	if (cbuf) */
-/* 	    free(cbuf); */
-
-/* 	/\* Move to next message. *\/ */
-/* 	file_pos += bytes_in_msg; */
-/*     }     */
-
-/*     /\* If we run out of messages, that's success. *\/ */
-/*     if (ret == G2C_ENOMSG) */
-/* 	ret = G2C_NOERROR; */
-
-/* #ifdef LOGGING */
-/*     /\* Print the file contents for library debugging. *\/ */
-/*     g2c_log_file(g2cid); */
-/* #endif */
-
-/*     return ret; */
-/* } */
-
 /**
  * Read the metadata from section 3 (Grid Definition Section) of a
  * GRIB2 message.
@@ -728,7 +644,7 @@ add_section(G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t by
     G2C_SECTION_INFO_T *sec;
     int ret;
         
-    LOG((6, "add_section() called at file position %ld", ftell(msg->file->f)));    
+    LOG((6, "add_section file position %ld", ftell(msg->file->f)));    
 
     /* Allocate storage for a new section. */
     if (!(sec = calloc(sizeof(G2C_SECTION_INFO_T), 1)))
@@ -756,6 +672,8 @@ add_section(G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t by
 
     switch (sec_num)
     {
+    case 1:
+        break;
     case 2:
         msg->num_local++;
         break;
@@ -775,6 +693,8 @@ add_section(G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t by
         break;
     case 7:
         break;
+    default:
+        return G2C_EBADSECTION;
     }
 
     return G2C_NOERROR;
@@ -955,7 +875,7 @@ add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in
  * @author Ed Hartnett @date Aug 22, 2022
  */
 static int
-read_metadata2(int g2cid)
+read_metadata(int g2cid)
 {
     size_t msg_num;
     size_t file_pos = 0;
@@ -1049,7 +969,7 @@ g2c_open(const char *path, int mode, int *g2cid)
     *g2cid = my_g2cid;
     
     /* Read the metadata. */
-    if ((ret = read_metadata2(my_g2cid)))
+    if ((ret = read_metadata(my_g2cid)))
 	return ret;
 
     return G2C_NOERROR;
