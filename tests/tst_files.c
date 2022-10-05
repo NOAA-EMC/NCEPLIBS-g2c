@@ -153,21 +153,32 @@ main()
         int i;
         int ret;
 
-        g2c_set_log_level(10);
+        /* Open GRIB2 file. */
         if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
             return ret;
+
+        /* Get the size of the data from message 0, product 0. */
         if ((ret = g2c_get_prod(g2cid, 0, 0, &num_data_points, NULL)))
             return ret;
+
+        /* Allocate storage for the data. */
         if (!(data = malloc(num_data_points * sizeof(float))))
             return G2C_ERROR;
+        
+        /* Get the data from message 0, product 0. */
         if ((ret = g2c_get_prod(g2cid, 0, 0, NULL, data)))
             return ret;
+
+        /* Close the file. */
         if ((ret = g2c_close(g2cid)))
             return ret;
 
+        /* Check the first 100 values of the data. */
         for (i = 0; i < 100; i++)
             if (abs(data[i] - expected_data[i]) > EPSILON)
                 return G2C_ERROR;
+
+        /* Free the memory allocated to hold the data. */
         free(data);
     }
     printf("ok!\n");
