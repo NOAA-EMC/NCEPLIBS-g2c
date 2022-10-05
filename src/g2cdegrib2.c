@@ -660,6 +660,9 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
 	    fprintf(f, "( PARM= %s ) :  MIN=               %g AVE=               %g MAX=              %g\n",
                     abbrev, min, total/sec5_info->num_data_points, max);
 
+            /* Free the data. */
+            free(data);
+
 	    total_fields++;
         }
     }
