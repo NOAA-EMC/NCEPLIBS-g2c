@@ -22,7 +22,6 @@ main()
 	int g2cid;
 	int ret;
 
-	g2c_set_log_level(10);
 	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
 	    return ret;
         if ((ret = g2c_write_grib2_index(g2cid, FILE_NAME)))
