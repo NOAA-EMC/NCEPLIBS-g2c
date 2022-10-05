@@ -32,12 +32,13 @@
  * value pointed to by iofst will be the number of bits to the end of
  * section 7 in cbuf.
  * @param igdsnum Grid Definition Template Number (see Code Table
- * 3.0). (Only used for DRS Template 5.51.)
+ * 3.0). (Only used for DRS Template 5.51. May be 0 for other
+ * templates.)
  * @param igdstmpl Pointer to an integer array containing the data
  * values for the specified Grid Definition Template (N=igdsnum). Each
  * element of this integer array contains an entry (in the order
  * specified) of Grid Definition Template 3.N. (Only used for DRS
- * Template 5.51).
+ * Template 5.51, may be NULL for other templates).
  * @param idrsnum Data Representation Template Number (see Code Table
  * 5.0).
  * @param idrstmpl Pointer to an integer array containing the data
@@ -218,13 +219,14 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
  *
  * @param cgrib char array containing Section 7 of the GRIB2 message
  * @param igdsnum Grid Definition Template Number (see Code Table
- * 3.0). (Only used for DRS Template 5.51.)
+ * 3.0). (Only used for DRS Template 5.51.) May be zero for other
+ * templates.
  * @param gds_tmpl_len Number of elements in the GDS template.
  * @param gdstmpl Pointer to an integer array containing the data
  * values for the specified Grid Definition Template (N=igdsnum). Each
  * element of this integer array contains an entry (in the order
  * specified) of Grid Definition Template 3.N. (Only used for DRS
- * Template 5.51).
+ * Template 5.51). May be NULL.
  * @param idrsnum Data Representation Template Number (see Code Table
  * 5.0).
  * @param drs_tmpl_len Number of elements in the DRS template.
@@ -251,20 +253,27 @@ g2c_unpack7(unsigned char *cgrib, int igdsnum, int gds_tmpl_len, int *gdstmpl,
             int idrsnum, int drs_tmpl_len, int *drstmpl, int ndpts, float *fld)
 {
     g2int iofst = 0;
-    g2int *igdstmpl, *idrstmpl;
+    g2int *igdstmpl = NULL, *idrstmpl;
     int i;
     int ret;
 
+    /* Check inputs. */
+    assert(cgrib && drstmpl && fld);
+    if (gds_tmpl_len && !gdstmpl)
+        return G2C_EINVAL;
+
     /* Allocate memory to hold the g2int versions of the DRS and GDS
      * template arrays. */
-    if (!(igdstmpl = malloc(gds_tmpl_len * sizeof(g2int))))
-	return G2C_ENOMEM;
+    if (gds_tmpl_len)
+        if (!(igdstmpl = malloc(gds_tmpl_len * sizeof(g2int))))
+            return G2C_ENOMEM;
     if (!(idrstmpl = malloc(drs_tmpl_len * sizeof(g2int))))
 	return G2C_ENOMEM;
 
     /* Copy the templates. */
-    for (i = 0; i < gds_tmpl_len; i++)
-	igdstmpl[i] = gdstmpl[i];
+    if (gds_tmpl_len)
+        for (i = 0; i < gds_tmpl_len; i++)
+            igdstmpl[i] = gdstmpl[i];
     for (i = 0; i < drs_tmpl_len; i++)
 	idrstmpl[i] = drstmpl[i];
     
@@ -273,7 +282,8 @@ g2c_unpack7(unsigned char *cgrib, int igdsnum, int gds_tmpl_len, int *gdstmpl,
 			  ndpts, 0, &fld);
 
     /* Free the g2int versions of the templates. */
-    free(igdstmpl);
+    if (igdstmpl)
+        free(igdstmpl);
     free(idrstmpl);
 
     return ret;
