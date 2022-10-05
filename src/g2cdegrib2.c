@@ -657,7 +657,7 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
                 if (data[i] < min)
                     min = data[i];
             }
-	    fprintf(f, "( PARM= %s ) :  MIN=               %g AVE=               %g MAX=              %g\n",
+	    fprintf(f, "( PARM= %s ) :  MIN=%25.8f AVE=%25.8f MAX=%25.8f\n",
                     abbrev, min, total/sec5_info->num_data_points, max);
 
             /* Free the data. */
@@ -667,7 +667,7 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
         }
     }
 
-    fprintf(f, "\n  Total Number of Fields Found =  %d\n", total_fields);
+    fprintf(f, "  \n  Total Number of Fields Found =  %d\n", total_fields);
     
     /* Close output file. */
     if (fclose(f))
