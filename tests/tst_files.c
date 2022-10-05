@@ -131,6 +131,7 @@ main()
 	    return ret;
     }
     printf("ok!\n");
+#if defined(USE_Jasper) || defined(USE_OpenJPEG)
     printf("Testing g2c_get_prod() on file %s...", WAVE_FILE);
     {
         int g2cid;
@@ -152,6 +153,7 @@ main()
         free(data);
     }
     printf("ok!\n");
+#endif
     printf("SUCCESS!\n");
     return 0;
 }
