@@ -131,12 +131,13 @@ main()
 	    return ret;
     }
     printf("ok!\n");
-#if defined(USE_Jasper) || defined(USE_OpenJPEG)
+#ifdef JPEG
     printf("Testing g2c_get_prod() on file %s...", WAVE_FILE);
     {
         int g2cid;
         int num_data_points;
         float *data;
+        int i;
         int ret;
 
         g2c_set_log_level(10);
@@ -150,6 +151,9 @@ main()
             return ret;
         if ((ret = g2c_close(g2cid)))
             return ret;
+
+        for (i = 0; i < 100; i++)
+            printf("data[%d] %g\n", i, data[i]);
         free(data);
     }
     printf("ok!\n");

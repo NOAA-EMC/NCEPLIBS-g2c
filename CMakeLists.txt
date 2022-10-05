@@ -134,6 +134,7 @@ if(JASPER_FOUND)
     message(STATUS "      JASPER is version 3.0 or greater")    
     add_definitions(-DJASPER3)
   endif()
+  add_definitions(-DJPEG)
 endif()
 
 # Build with OpenJPEG.
@@ -148,6 +149,7 @@ if(OPENJPEG_FOUND)
   target_link_libraries(${lib_name} PRIVATE ${OpenJPEG_LIBRARIES})
   target_include_directories(${lib_name} PRIVATE "${OpenJPEG_INCLUDE_DIRS}")
   set(G2_JPEG2000_ENABLED ON)
+  add_definitions(-DJPEG)
 endif()
 
 # Create this header file, which has the contents of the VERSION file
