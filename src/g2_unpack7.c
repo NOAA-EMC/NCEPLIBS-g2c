@@ -75,8 +75,6 @@ g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstm
     LOG((2, "g2c_unpack7_int *iofst %ld igdsnum %ld idrsnum %ld ndpts %ld v1 %d",
          *iofst, igdsnum, idrsnum, ndpts, v1));
     
-    *fld = NULL;
-
     /* Get Length of Section */
     gbit(cgrib, &lensec, *iofst, 32);
     *iofst = *iofst + 32;
