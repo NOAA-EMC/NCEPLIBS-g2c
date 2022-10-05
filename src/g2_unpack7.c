@@ -219,14 +219,16 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
  * @param cgrib char array containing Section 7 of the GRIB2 message
  * @param igdsnum Grid Definition Template Number (see Code Table
  * 3.0). (Only used for DRS Template 5.51.)
- * @param igdstmpl Pointer to an integer array containing the data
+ * @param gds_tmpl_len Number of elements in the GDS template.
+ * @param gdstmpl Pointer to an integer array containing the data
  * values for the specified Grid Definition Template (N=igdsnum). Each
  * element of this integer array contains an entry (in the order
  * specified) of Grid Definition Template 3.N. (Only used for DRS
  * Template 5.51).
  * @param idrsnum Data Representation Template Number (see Code Table
  * 5.0).
- * @param idrstmpl Pointer to an integer array containing the data
+ * @param drs_tmpl_len Number of elements in the DRS template.
+ * @param drstmpl Pointer to an integer array containing the data
  * values for the specified Data Representation Template
  * (N=idrsnum). Each element of this integer array contains an entry
  * (in the order specified) of Data Representation Template 5.N
@@ -245,13 +247,36 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
  * @author Stephen Gilbert @date 2002-10-31
  */
 int
-g2c_unpack7(unsigned char *cgrib, int igdsnum, g2int *igdstmpl,
-            int idrsnum, g2int *idrstmpl, int ndpts, float *fld)
+g2c_unpack7(unsigned char *cgrib, int igdsnum, int gds_tmpl_len, int *gdstmpl,
+            int idrsnum, int drs_tmpl_len, int *drstmpl, int ndpts, float *fld)
 {
-    g2int iofst = 0;    
+    g2int iofst = 0;
+    g2int *igdstmpl, *idrstmpl;
+    int i;
+    int ret;
 
-    return g2c_unpack7_int(cgrib, &iofst, igdsnum, igdstmpl, idrsnum, idrstmpl,
-                           ndpts, 0, &fld);
+    /* Allocate memory to hold the g2int versions of the DRS and GDS
+     * template arrays. */
+    if (!(igdstmpl = malloc(gds_tmpl_len * sizeof(g2int))))
+	return G2C_ENOMEM;
+    if (!(idrstmpl = malloc(drs_tmpl_len * sizeof(g2int))))
+	return G2C_ENOMEM;
+
+    /* Copy the templates. */
+    for (i = 0; i < gds_tmpl_len; i++)
+	igdstmpl[i] = gdstmpl[i];
+    for (i = 0; i < drs_tmpl_len; i++)
+	idrstmpl[i] = drstmpl[i];
+    
+    /* Call the internal function that does the work. */
+    ret = g2c_unpack7_int(cgrib, &iofst, igdsnum, igdstmpl, idrsnum, idrstmpl,
+			  ndpts, 0, &fld);
+
+    /* Free the g2int versions of the templates. */
+    free(igdstmpl);
+    free(idrstmpl);
+
+    return ret;
 }
 
 

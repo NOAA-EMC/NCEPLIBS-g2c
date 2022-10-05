@@ -314,8 +314,8 @@ int g2c_log_file(int g2cid);
 const char *g2c_strerror(int g2cerr);
 
 /* Compression. */
-int g2c_unpack7(unsigned char *cgrib, g2int igdsnum, g2int *igdstmpl,
-                g2int idrsnum, g2int *idrstmpl, g2int ndpts, float *fld);
+int g2c_unpack7(unsigned char *cgrib, int igdsnum, int gds_tmpl_len, int *gdstmpl,
+		int idrsnum, int drs_tmpl_len, int *drstmpl, int ndpts, float *fld);
 int g2c_pngpackf(float *fld, size_t width, size_t height, int *idrstmpl, 
 		 unsigned char *cpack, int *lcpack);
 int g2c_pngpackd(double *fld, size_t width, size_t height, int *idrstmpl, 
