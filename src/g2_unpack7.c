@@ -98,6 +98,8 @@ g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstm
             return G2_UNPACK_NO_MEM;
         *fld = lfld;
     }
+    else
+        lfld = *fld;
 
     if (idrsnum == 0)
     {
