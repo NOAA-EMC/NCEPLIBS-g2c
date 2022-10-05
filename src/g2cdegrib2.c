@@ -513,6 +513,7 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
     FILE *f;
     G2C_MESSAGE_INFO_T *msg;
     int total_fields = 0;
+    int i;
     int ret;
 
     /* Check inputs. */
@@ -551,6 +552,8 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
             char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
             char level_desc[G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN + 1];
             char date_time[100 + 1];
+            float *data;
+            float total, max, min;
             int t;
             
             fprintf(f, "\n");
@@ -631,7 +634,31 @@ g2c_write_grib2_index(int g2cid, const char *fileout)
             fprintf(f, "\n");
 	    fprintf(f, "  Data Values:\n");
 	    fprintf(f, "  Num. of Data Points =  %d   Num. of Data Undefined = 0\n", sec5_info->num_data_points);
-	    fprintf(f, "( PARM= %s ) :  MIN=               0.09999999 AVE=               5.64625025 MAX=              16.43000031\n", abbrev);
+
+            /* Now read the data and find the min, max, and average values. */
+
+            /* Allocate storage for the data. */
+            if (!(data = malloc(sec5_info->num_data_points * sizeof(float))))
+                return G2C_ERROR;
+            
+            /* Get the data from message 0, product 0. */
+            if ((ret = g2c_get_prod(g2cid, msg->msg_num, fld, NULL, data)))
+                return ret;
+
+            /* Find min/max/avg. */
+            max = data[0];
+            min = data[0];
+            total = data[0];
+            for (i = 1; i < sec5_info->num_data_points; i++)
+            {
+                total += data[i];
+                if (data[i] > max)
+                    max = data[i];
+                if (data[i] < min)
+                    min = data[i];
+            }
+	    fprintf(f, "( PARM= %s ) :  MIN=               %g AVE=               %g MAX=              %g\n",
+                    abbrev, min, total/sec5_info->num_data_points, max);
 
 	    total_fields++;
         }
