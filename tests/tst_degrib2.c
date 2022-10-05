@@ -16,6 +16,7 @@ int
 main()
 {
     printf("Testing g2c degrib2 function.\n");
+#ifdef JPEG
     printf("Testing g2c_degrib2() on file %s...", WAVE_FILE);
     {
 	int g2cid;
@@ -30,6 +31,7 @@ main()
 	    return ret;
     }
     printf("ok!\n");
+#endif
     printf("SUCCESS!\n");
     return 0;
 }
