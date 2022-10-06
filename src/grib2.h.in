@@ -288,6 +288,10 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 int g2c_open(const char *path, int mode, int *g2cid);
 int g2c_close(int g2cid);
 
+/* Getting data. */
+int g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points,
+                 float *data);
+
 /* Internal functions. */
 int g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
 		size_t *bytes_in_msg, unsigned char **cbuf);
