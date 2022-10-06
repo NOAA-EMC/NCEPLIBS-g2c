@@ -70,4 +70,7 @@ jobs:
     - name: test
       run: |
         cd $GITHUB_WORKSPACE/g2c/build
+        cd tests
+        ./tst_degrib2
+        cd ..
         ctest  --output-on-failure --rerun-failed 
