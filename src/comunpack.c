@@ -51,6 +51,8 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
     float ref, bscale, dscale, rmiss1, rmiss2;
     g2int totBit,  totLen;
 
+    LOG((3, "comunpack lensec %ld idrsnum %ld ndpts %ld", lensec, idrsnum, ndpts));
+
     rdieee(idrstmpl, &ref, 1);
     bscale = (float)int_power(2.0, idrstmpl[1]);
     dscale = (float)int_power(10.0, -idrstmpl[2]);
