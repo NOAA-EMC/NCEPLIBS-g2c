@@ -105,7 +105,7 @@ main()
 
 	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
 	    return ret;
-        if ((ret = g2c_write_grib2_index(g2cid, FILE_NAME)))
+        if ((ret = g2c_degrib2(g2cid, FILE_NAME)))
             return ret;
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
