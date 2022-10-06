@@ -12,37 +12,90 @@
 #define FILE_NAME "tst_degrib2.txt"
 #define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
 #define REF_FILE "ref_gdaswave.degrib2.txt"
+#define MAX_LINE_LEN 256
+#define MAX_VALUE_LEN 25
+#define NUM_MATCHING 7
 
-/* Return 0 if two files are the same. */
+/* Return 0 if two lines of the DEGRIB2 output are euqal. 
+ * 
+ * For most lines this means they must be exactly equal. Lines that
+ * show the min, avg, and max values may be slightly different from
+ * the reference file, because the intel compiler produces slight
+ * different results.
+ *
+ * Ed Hartnett 10/6/22
+ */
 int
-compare_files(char *fname1, char *fname2)
+degrib2_lines_not_equal(char *l1, char *l2)
+{
+    char abbrev1[G2C_MAX_NOAA_ABBREV_LEN + 1];
+    char abbrev2[G2C_MAX_NOAA_ABBREV_LEN + 1];
+    char cmin1[MAX_VALUE_LEN + 1], cavg1[MAX_VALUE_LEN + 1], cmax1[MAX_VALUE_LEN + 1];
+    char cmin2[MAX_VALUE_LEN + 1], cavg2[MAX_VALUE_LEN + 1], cmax2[MAX_VALUE_LEN + 1];
+    
+    /* If the lines are the same, we're done. */
+    if (!strcmp(l1, l2))
+        return 0;
+
+    /* If the lines are different, is it a line like this:
+       ( PARM= WIND ) :  MIN=               0.09999998 AVE=               5.64625024 MAX=              16.43000032
+    */
+    if (sscanf(l1, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", abbrev1, cmin1, cavg1, cmax1) == 4)
+    {
+        if (sscanf(l2, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", abbrev2, cmin2, cavg2, cmax2) != 4)
+            return G2C_ERROR;
+        /* printf("abbrev1 %s min1 %s avg1 %s max1 %s\n", abbrev1, cmin1, cavg1, cmax1); */
+        /* printf("abbrev2 %s min2 %s avg2 %s max2 %s\n", abbrev2, cmin2, cavg2, cmax2); */
+        if (strcmp(abbrev1, abbrev2))
+            return G2C_ERROR;
+        if (strncmp(cmin1, cmin2, NUM_MATCHING))
+            return G2C_ERROR;
+        if (strncmp(cavg1, cavg2, NUM_MATCHING))
+            return G2C_ERROR;
+        if (strncmp(cmax1, cmax2, NUM_MATCHING))
+            return G2C_ERROR;
+    }
+
+    return G2C_NOERROR;
+}
+
+/* Return 0 if two files are the same. 
+ *
+ * Ed Hartnett 10/6/22
+ */
+int
+compare_files2(char *fname1, char *fname2)
 {
    FILE *fp1, *fp2;
-   int ch1, ch2;
-   int ret = G2C_NOERROR;
- 
+   char *l1, *l2;
+   size_t len1 = 0, len2 = 0;
+
+   /* Open the two files. */
    if (!(fp1 = fopen(fname1, "r")))
        return G2C_ERROR;
    if (!(fp2 = fopen(fname2, "r")))
        return G2C_ERROR;
- 
-   ch1 = getc(fp1);
-   ch2 = getc(fp2);
-   printf("%d %d %d %d\n", ch1, ch2, (ch1 != EOF), (ch2 != EOF));
-   while ((ch1 != EOF) && (ch2 != EOF) && (ch1 == ch2))
-   {
-       ch1 = getc(fp1);
-       ch2 = getc(fp2);
-       printf("%d %d %d %d\n", ch1, ch2, (ch1 != EOF), (ch2 != EOF));       
-   }
- 
-   if (ch1 != ch2)
-       ret = G2C_ERROR;
 
+   /* Check each line in the file. */
+   while ((getline(&l1, &len1, fp1) != -1))
+   {
+       if (getline(&l2, &len2, fp2) == -1)
+           return G2C_ERROR;
+       /* printf("l1: %s\n", l1); */
+       /* printf("l2: %s\n", l2); */
+       if (degrib2_lines_not_equal(l1, l2))
+           return G2C_ERROR;
+    }
+
+   /* Close files. */
    fclose(fp1);
    fclose(fp2);
+
+   /* Free memory. */
+   free(l1);
+   free(l2);
    
-   return ret;
+   return G2C_NOERROR;
 }
 
 int
@@ -61,8 +114,9 @@ main()
             return ret;
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
-        /* if ((ret = compare_files(FILE_NAME, REF_FILE))) */
-        /*     return ret; */
+        
+        if ((ret = compare_files2(FILE_NAME, REF_FILE)))
+            return ret;
     }
     printf("ok!\n");
 #endif

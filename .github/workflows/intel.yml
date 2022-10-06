@@ -78,6 +78,6 @@ jobs:
     - name: upload-test-file
       uses: actions/upload-artifact@v2
       with:
-        name: g2c-test-coverage
+        name: tst_degrib2.txt
         path: g2c/build/tests/tst_degrib2.txt
       
