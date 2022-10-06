@@ -29,6 +29,8 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/gdaswave.t00z.wcoast.0p16.f000.grib2
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/gdaswave.t00z.wcoast.0p16.f000.grib2.idx
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_gdaswave.degrib2.txt
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
 # These are the XML files from the WMO with GRIB2 code data.
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
@@ -84,6 +86,7 @@ g2c_test(tst_error)
 g2c_test(tst_params)
 g2c_test(tst_params2)
 g2c_test(tst_params3)
+g2c_test(tst_degrib2)
 
 # Run these tests only if libpng is linked.
 if(USE_PNG)
