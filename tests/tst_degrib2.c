@@ -28,7 +28,7 @@ compare_files(char *fname1, char *fname2)
  
    ch1 = getc(fp1);
    ch2 = getc(fp2);
-   printf("%d %d\n", ch1, ch2);
+   printf("%d %d %d %d\n", ch1, ch2, (ch1 != EOF), (ch2 != EOF));
    while ((ch1 != EOF) && (ch2 != EOF) && (ch1 == ch2))
    {
        ch1 = getc(fp1);
