@@ -44,8 +44,8 @@ degrib2_lines_not_equal(char *l1, char *l2)
     {
         if (sscanf(l2, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", abbrev2, cmin2, cavg2, cmax2) != 4)
             return G2C_ERROR;
-        /* printf("abbrev1 %s min1 %s avg1 %s max1 %s\n", abbrev1, cmin1, cavg1, cmax1); */
-        /* printf("abbrev2 %s min2 %s avg2 %s max2 %s\n", abbrev2, cmin2, cavg2, cmax2); */
+        printf("abbrev1 %s min1 %s avg1 %s max1 %s\n", abbrev1, cmin1, cavg1, cmax1);
+        printf("abbrev2 %s min2 %s avg2 %s max2 %s\n", abbrev2, cmin2, cavg2, cmax2);
         if (strcmp(abbrev1, abbrev2))
             return G2C_ERROR;
         if (strncmp(cmin1, cmin2, NUM_MATCHING))
