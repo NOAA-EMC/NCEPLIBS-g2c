@@ -73,6 +73,33 @@ int main()
         free(fld);
     }
     printf("ok!\n");
+    printf("Testing g2c_unpack7()...");
+    {
+        int igdsnum = 0;
+        int *igdstmpl = NULL;
+        int idrsnum = 0;
+        int idrstmpl[5] = {0, 0, 0, 1, 0};
+        int ndpts = 121;
+        float *fld;
+
+        g2c_set_log_level(10);
+
+        /* Allocate memory to hold data. */
+        if (!(fld = malloc(sizeof(float) * ndpts)))
+            return G2C_ERROR;
+
+        /* Call g2c_unpack7() on our message. */
+        if ((ret = g2c_unpack7(&cgrib[1360/8], igdsnum, 0, igdstmpl, idrsnum, 5, idrstmpl, ndpts, fld)))
+            return ret;
+
+        /* Check the data. */
+        for (i = 0; i < ndpts; i++)
+            if (fld[i] != fld_ok[i])
+                return G2C_ERROR;
+
+        /* Free memory allocated by g2_unpack7(). */
+        free(fld);
+    }
     printf("Testing g2_info() and g2_getfld()...");
     {
         g2int listsec0[3];
