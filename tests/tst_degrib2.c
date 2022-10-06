@@ -67,8 +67,7 @@ int
 compare_files2(char *fname1, char *fname2)
 {
    FILE *fp1, *fp2;
-   char *l1, *l2;
-   size_t len1 = 0, len2 = 0;
+   char l1[MAX_LINE_LEN], l2[MAX_LINE_LEN];
 
    /* Open the two files. */
    if (!(fp1 = fopen(fname1, "r")))
@@ -77,9 +76,9 @@ compare_files2(char *fname1, char *fname2)
        return G2C_ERROR;
 
    /* Check each line in the file. */
-   while ((getline(&l1, &len1, fp1) != -1))
+   while (fgets(l1, MAX_LINE_LEN, fp1))
    {
-       if (getline(&l2, &len2, fp2) == -1)
+       if (!fgets(l2, MAX_LINE_LEN, fp2))
            return G2C_ERROR;
        /* printf("l1: %s\n", l1); */
        /* printf("l2: %s\n", l2); */
@@ -91,10 +90,6 @@ compare_files2(char *fname1, char *fname2)
    fclose(fp1);
    fclose(fp2);
 
-   /* Free memory. */
-   free(l1);
-   free(l2);
-   
    return G2C_NOERROR;
 }
 
