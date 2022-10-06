@@ -14,7 +14,7 @@
 #define REF_FILE "ref_gdaswave.degrib2.txt"
 #define MAX_LINE_LEN 256
 #define MAX_VALUE_LEN 25
-#define NUM_MATCHING 7
+#define NUM_MATCHING 5
 
 /* Return 0 if two lines of the DEGRIB2 output are euqal. 
  * 
@@ -44,7 +44,7 @@ degrib2_lines_not_equal(char *l1, char *l2)
     {
         if (sscanf(l2, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", abbrev2, cmin2, cavg2, cmax2) != 4)
             return G2C_ERROR;
-        printf("abbrev1 %s min1 %s avg1 %s max1 %s\n", abbrev1, cmin1, cavg1, cmax1);
+        printf("\nabbrev1 %s min1 %s avg1 %s max1 %s\n", abbrev1, cmin1, cavg1, cmax1);
         printf("abbrev2 %s min2 %s avg2 %s max2 %s\n", abbrev2, cmin2, cavg2, cmax2);
         if (strcmp(abbrev1, abbrev2))
             return G2C_ERROR;
