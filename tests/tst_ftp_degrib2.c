@@ -11,7 +11,7 @@
 
 #define FILE_NAME "tst_ftp_degrib2.txt"
 #define WW3_WEST_FILE "WW3_Regional_US_West_Coast_20220718_0000.grib2"
-#define REF_FILE "ref_gdaswave.degrib2.txt"
+#define REF_FILE "ref_WW3_Regional_US_West_Coast_20220718_0000_2.txt"
 #define MAX_LINE_LEN 256
 #define MAX_VALUE_LEN 25
 #define NUM_MATCHING 5
@@ -103,7 +103,7 @@ main()
 	int g2cid;
 	int ret;
 
-        g2c_set_log_level(10);
+        /* g2c_set_log_level(10); */
 	if ((ret = g2c_open(WW3_WEST_FILE, 0, &g2cid)))
 	    return ret;
         if ((ret = g2c_degrib2(g2cid, FILE_NAME)))
@@ -111,8 +111,8 @@ main()
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
         
-        /* if ((ret = compare_files2(FILE_NAME, REF_FILE))) */
-        /*     return ret; */
+        if ((ret = compare_files2(FILE_NAME, REF_FILE)))
+            return ret;
     }
     printf("ok!\n");
 #endif
