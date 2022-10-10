@@ -30,7 +30,7 @@
  * @param idrstmpl Contains the array of values for Data
  * Representation Template [Table
  * 5.40](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml)
- * or 5.40000.
+ * or 5.40000. May be modified in this function.
  * @param cpack A pointer that will get the packed data field. Must be
  * allocated before this function is called. Pass the allocated size
  * in the lcpack parameter.
