@@ -256,6 +256,7 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
  * - 5 if 0 use lossless compression, if 1 use lossy compression.
  * - 6 Desired compression ratio, if idrstmpl[5]=1. Set to 255, if
  idrstmpl[5]=0.
+ * May be modified in this function.
  * @param cpack A pointer that will get the packed data field. Must be
  * allocated before this function is called. Pass the allocated size
  * in the lcpack parameter.
@@ -302,6 +303,7 @@ jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * - 5 if 0 use lossless compression, if 1 use lossy compression.
  * - 6 Desired compression ratio, if idrstmpl[5]=1. Set to 255, if
  idrstmpl[5]=0.
+ * May be modified in this function.
  * @param cpack A pointer that will get the packed data field. Must be
  * allocated before this function is called. Pass the allocated size
  * in the lcpack parameter.
@@ -367,6 +369,7 @@ g2c_jpcpackf(float *fld, size_t width, size_t height, int *idrstmpl,
  * - 5 if 0 use lossless compression, if 1 use lossy compression.
  * - 6 Desired compression ratio, if idrstmpl[5]=1. Set to 255, if
  idrstmpl[5]=0.
+ * May be modified in this function.
  * @param cpack A pointer that will get the packed data field. Must be
  * allocated before this function is called. Pass the allocated size
  * in the lcpack parameter.
