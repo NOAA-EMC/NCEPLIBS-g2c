@@ -15,6 +15,7 @@ int
 main()
 {
     printf("Testing JPEG functions.\n");
+    g2c_set_log_level(10);
 #ifdef USE_JPEG2000
     printf("Testing enc_jpeg2000()/dec_jpeg2000() call...");
     {

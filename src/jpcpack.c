@@ -68,6 +68,8 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 
     LOG((2, "jpcpack_int() fld_is_double %d width %ld height %ld idrstmpl[1] %d *lcpack %ld",
 	 fld_is_double, width, height, idrstmpl[1], *lcpack));
+    LOG((3, "idrstmpl: %ld %ld %ld %ld %ld %ld %ld", idrstmpl[0], idrstmpl[1], idrstmpl[2],
+	 idrstmpl[3], idrstmpl[4], idrstmpl[5], idrstmpl[6]));
     
     ndpts = width * height;
     bscale = int_power(2.0, -idrstmpl[1]);
