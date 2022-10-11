@@ -508,7 +508,7 @@ get_level_desc(int ipdtn, int *ipdtmpl, char *level_desc)
  * @author Ed Hartnett @date Sep 17, 2022
  */
 int
-g2c_write_grib2_index(int g2cid, const char *fileout)
+g2c_degrib2(int g2cid, const char *fileout)
 {
     FILE *f;
     G2C_MESSAGE_INFO_T *msg;

@@ -86,12 +86,12 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
         /* Look for 'GRIB...2' in partial section. */
         for (k = 0; k < lim; k++)
         {
-            if (!strncmp((char *)&cbuf[k], G2C_MAGIC_HEADER, strlen(G2C_MAGIC_HEADER)) && cbuf[7] == 2)
+            if (!strncmp((char *)&cbuf[k], G2C_MAGIC_HEADER, strlen(G2C_MAGIC_HEADER)) && cbuf[k + 7] == 2)
             {
                 /* Find the length of the message. This is stored as
                  * an 8-byte big-endian integer starting at positon
                  * 8 in cbuf. */
-                my_msglen = bswap64(*(size_t *)&cbuf[8]);
+                my_msglen = bswap64(*(size_t *)&cbuf[k + 8]);
                 
 		LOG((4, "my_msglen %ld", my_msglen));
 
