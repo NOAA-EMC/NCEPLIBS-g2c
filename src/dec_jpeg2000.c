@@ -50,6 +50,8 @@ int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
     jas_matrix_t *data;
     int fmt;
 
+    LOG((3, "int_dec_jpeg2000 bufsize %ld out_is_g2int %d", bufsize, out_is_g2int));
+
     /* Initialize Jasper. */
 #ifdef JASPER3
     jas_conf_clear();
