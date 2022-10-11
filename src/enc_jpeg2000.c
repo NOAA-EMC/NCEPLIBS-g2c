@@ -108,6 +108,9 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     char opts[MAXOPTSSIZE];
     int fmt;
 
+    LOG((3, "enc_jpeg2000 width %ld height %ld nbits %ld ltype %ld ratio %ld retry %ld jpclen %d",
+	 width, height, nbits, ltype, ratio, retry, jpclen));
+
     /* Set lossy compression options, if requested. */
     if (ltype != 1)
         opts[0] = (char)0;
