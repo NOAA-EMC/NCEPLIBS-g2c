@@ -891,6 +891,8 @@ read_metadata(int g2cid)
     /* Read each message in the file. */
     for (msg_num = 0; !ret; msg_num++)
     {
+	if (msg_num == 55)
+	    LOG((4, "msg_num 55"));
         /* Find the message. */
         if ((ret = g2c_seekmsg(g2cid, file_pos, &bytes_to_msg, &bytes_in_msg)))
             return ret;

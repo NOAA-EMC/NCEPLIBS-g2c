@@ -1096,7 +1096,7 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
     if (!abbrev)
         return G2C_NOERROR;
 
-    LOG((1, "g2c_param_abbrev g2disc %d g2cat %d g2num %d", g2disc, g2cat, g2num));
+    LOG((11, "g2c_param_abbrev g2disc %d g2cat %d g2num %d", g2disc, g2cat, g2num));
 
     /* Loop through array until matching values are found. */
     for (p = 0; p < G2C_MAX_NOAA_PARAMS; p++)
@@ -1110,7 +1110,7 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
     /* Return the abbreviation to the caller. */
     strncpy(abbrev, param[p].abbrev, G2C_MAX_NOAA_ABBREV_LEN + 1);
 
-    LOG((2, "abbrev %s", abbrev));
+    LOG((12, "abbrev %s", abbrev));
     
     return G2C_NOERROR;
 }
