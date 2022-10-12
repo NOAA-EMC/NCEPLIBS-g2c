@@ -241,8 +241,8 @@ g2c_log_file(int g2cid)
     {
         G2C_SECTION_INFO_T *sec;
         
-	LOG((1, "message %ld num_fields %d num_local %d", msg->msg_num, msg->num_fields,
-             msg->num_local));
+	LOG((1, "message %ld bytes_to_msg %ld bytes_in_msg %ld num_fields %d num_local %d",
+	     msg->msg_num, msg->bytes_to_msg, msg->bytes_in_msg, msg->num_fields, msg->num_local));
         LOG((2, "sec1_len %d center %d subcenter %d master_version %d local_version %d",
              msg->sec1_len, msg->center, msg->subcenter, msg->master_version, msg->local_version));
         LOG((2, "sig_ref_time %d %d %d %d %d:%d:%d status %d type %d", msg->sig_ref_time, msg->year,
@@ -285,6 +285,16 @@ g2c_log_file(int g2cid)
         {
             LOG((3, "sec_id %d sec_len %d byte_to_sec %ld sec_num %d", sec->sec_id, sec->sec_len,
                  sec->bytes_to_sec, sec->sec_num));
+	    if (sec->sec_num == 4)
+	    {
+		char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
+		
+		/* Look up the parameter abbreviation with the discipline,
+		 * category, and product number. */
+		if ((ret = g2c_param_abbrev(msg->discipline, sec->template[0], sec->template[1], abbrev)))
+		    return ret;
+		LOG((4, "%s", abbrev));
+	    }
         }
         
     }
