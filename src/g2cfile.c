@@ -891,8 +891,6 @@ read_metadata(int g2cid)
     /* Read each message in the file. */
     for (msg_num = 0; !ret; msg_num++)
     {
-	if (msg_num == 55)
-	    LOG((4, "msg_num 55"));
         /* Find the message. */
         if ((ret = g2c_seekmsg(g2cid, file_pos, &bytes_to_msg, &bytes_in_msg)))
             return ret;
@@ -906,10 +904,11 @@ read_metadata(int g2cid)
         /* Add new message to our list of messages. */
         if ((ret = add_msg(&g2c_file[g2cid], msg_num, bytes_to_msg, bytes_in_msg)))
             return ret;
-        
-        /* file_pos += bytes_in_msg; */
+
+	/* Move the file position to the end of this message, ready to
+	 * scan for the next message. */
 	file_pos = bytes_to_msg + bytes_in_msg;
-	LOG((4, "file_pos %ld", file_pos));
+	LOG((6, "file_pos %ld", file_pos));
     }    
 
     /* If we run out of messages, that's success. */
