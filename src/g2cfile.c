@@ -907,7 +907,9 @@ read_metadata(int g2cid)
         if ((ret = add_msg(&g2c_file[g2cid], msg_num, bytes_to_msg, bytes_in_msg)))
             return ret;
         
-        file_pos += bytes_in_msg;
+        /* file_pos += bytes_in_msg; */
+	file_pos = bytes_to_msg + bytes_in_msg;
+	LOG((4, "file_pos %ld", file_pos));
     }    
 
     /* If we run out of messages, that's success. */

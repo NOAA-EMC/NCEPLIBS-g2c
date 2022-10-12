@@ -11,7 +11,7 @@
 
 #define FILE_NAME "tst_ftp_degrib2.txt"
 #define WW3_WEST_FILE "WW3_Regional_US_West_Coast_20220718_0000.grib2"
-#define REF_FILE "ref_WW3_Regional_US_West_Coast_20220718_0000_2.txt"
+#define REF_FILE "ref_WW3_Regional_US_West_Coast_20220718_0000.txt"
 #define MAX_LINE_LEN 256
 #define MAX_VALUE_LEN 25
 #define NUM_MATCHING 5
