@@ -89,6 +89,7 @@ g2c_test(tst_params)
 g2c_test(tst_params2)
 g2c_test(tst_params3)
 g2c_test(tst_degrib2)
+g2c_test(tst_index)
 
 # Run these tests only if libpng is linked.
 if(USE_PNG)
