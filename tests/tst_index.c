@@ -10,10 +10,7 @@
 
 #define FILE_NAME "tst_index.txt"
 #define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
-#define REF_FILE "ref_gdaswave.degrib2.txt"
-#define MAX_LINE_LEN 256
-#define MAX_VALUE_LEN 25
-#define NUM_MATCHING 5
+#define REF_FILE "ref_gdaswave.t00z.wcoast.0p16.f000_2.grb2index"
 
 int
 main()
