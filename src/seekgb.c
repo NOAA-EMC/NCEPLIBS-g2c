@@ -21,8 +21,6 @@
 
 #define G2C_SEEKMSG_BUFSIZE 4092 /**< Size of buffer used in g2c_seekmsg(). */
 
-#define bswap64(y) (((uint64_t)ntohl(y)) << 32 | ntohl(y>>32)) /**< Byte swap 64-bit ints. */
-
 /** Global file information. */
 extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 

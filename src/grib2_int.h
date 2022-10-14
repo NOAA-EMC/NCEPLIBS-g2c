@@ -45,6 +45,15 @@
 #define BYTE 8 /**< Number of bits in a byte. */
 #define WORD 32 /**< Number of bits in four bytes. */
 
+/**< Byte swap 64-bit ints. This converts big-endian 8-byte ints into
+ * native endian 8-byte ints. */
+#define bswap64(y) (((uint64_t)ntohl(y)) << 32 | ntohl(y>>32))
+
+#define ONE_BYTE 1 /**< One byte. */
+#define TWO_BYTES 2 /**< Two bytes. */
+#define FOUR_BYTES 4 /**< Four bytes. */
+#define EIGHT_BYTES 8 /**< Eight bytes. */
+
 /** This is the information about each message. */
 typedef struct g2c_message_info
 {

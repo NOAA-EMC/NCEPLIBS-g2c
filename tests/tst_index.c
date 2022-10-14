@@ -10,7 +10,7 @@
 
 #define FILE_NAME "tst_index.txt"
 #define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
-#define REF_FILE "ref_gdaswave.t00z.wcoast.0p16.f000_2.grb2index"
+#define REF_FILE "ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
 
 int
 main()
@@ -19,18 +19,21 @@ main()
 #ifdef JPEG
     printf("Testing g2c_read_index() on file %s...", WAVE_FILE);
     {
-	/* int g2cid; */
-	/* int ret; */
+	int g2cid;
+	int ret;
 
-	/* if ((ret = g2c_open(WAVE_FILE, 0, &g2cid))) */
-	/*     return ret; */
-        /* if ((ret = g2c_degrib2(g2cid, FILE_NAME))) */
-        /*     return ret; */
+	/* Will not work. */
+	if (g2c_read_index(NULL, &g2cid) != G2C_EINVAL)
+	    return G2C_ERROR;
+	if (g2c_read_index("bad", &g2cid) != G2C_EFILE)
+	    return G2C_ERROR;
+
+	/* This will work. */
+	g2c_set_log_level(10);
+	if ((ret = g2c_read_index(REF_FILE, &g2cid)))
+	    return ret;
 	/* if ((ret = g2c_close(g2cid))) */
 	/*     return ret; */
-        
-        /* if ((ret = compare_files2(FILE_NAME, REF_FILE))) */
-        /*     return ret; */
     }
     printf("ok!\n");
 #endif
