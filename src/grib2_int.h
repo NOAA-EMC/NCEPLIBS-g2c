@@ -49,6 +49,44 @@
  * native endian 8-byte ints. */
 #define bswap64(y) (((uint64_t)ntohl(y)) << 32 | ntohl(y>>32))
 
+/** Read a big-endian 1-byte int from an open file; since it is only 1
+ * byte, no conversion is nevessary. */
+#define READ_BE_INT1(f, var)				\
+	    do {					\
+		if ((fread(&var, 1, 1, f)) != 1)	\
+		    return G2C_EFILE;			\
+	    } while(0)
+
+/** Read a big-endian 2-byte int from an open file, and convert it to
+ * machine-native format. The integer short_be must be declared before
+ * this macro is used. */
+#define READ_BE_INT2(f, var)				\
+	    do {					\
+		if ((fread(&short_be, TWO_BYTES, 1, f)) != 1)	\
+		    return G2C_EFILE;				\
+		var = htons(short_be);				\
+	    } while(0)
+
+/** Read a big-endian 4-byte int from an open file, and convert it to
+ * machine-native format. The integer int_be must be declared before
+ * this macro is used. */
+#define READ_BE_INT4(f, var)				\
+	    do {					\
+		if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)	\
+		    return G2C_EFILE;				\
+		var = htonl(int_be);				\
+	    } while(0)
+
+/** Read a big-endian 8-byte int from an open file, and convert it to
+ * machine-native format. The integer size_t_be must be declared before
+ * this macro is used. */
+#define READ_BE_INT8(f, var)				\
+	    do {					\
+		if ((fread(&size_t_be, EIGHT_BYTES, 1, f)) != 1)	\
+		    return G2C_EFILE;				\
+		var = bswap64(size_t_be);			\
+	    } while(0)
+
 #define ONE_BYTE 1 /**< One byte. */
 #define TWO_BYTES 2 /**< Two bytes. */
 #define FOUR_BYTES 4 /**< Four bytes. */

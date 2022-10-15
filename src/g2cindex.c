@@ -104,47 +104,25 @@ g2c_read_index(char *index_file, int *g2cid)
 		return G2C_EFILE;
 
 	    /* Read the index record. */
-	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
-		return G2C_EFILE;
-	    reclen = htonl(int_be);
-	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
-		return G2C_EFILE;
-	    msg = htonl(int_be);
-	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
-		return G2C_EFILE;
-	    local = htonl(int_be);
-	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
-		return G2C_EFILE;
-	    gds = htonl(int_be);
-	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
-		return G2C_EFILE;
-	    pds = htonl(int_be);
-	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
-		return G2C_EFILE;
-	    drs = htonl(int_be);
-	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
-		return G2C_EFILE;
-	    bms = htonl(int_be);
-	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
-		return G2C_EFILE;
-	    data = htonl(int_be);
-	    if ((fread(&size_t_be, EIGHT_BYTES, 1, f)) != 1)
-		return G2C_EFILE;
-	    msglen = bswap64(size_t_be);
-	    if ((fread(&version, 1, 1, f)) != 1)
-		return G2C_EFILE;
-	    if ((fread(&discipline, 1, 1, f)) != 1)
-		return G2C_EFILE;
-	    if ((fread(&short_be, TWO_BYTES, 1,f)) != 1)
-		return G2C_EFILE;
-	    fieldnum = htons(short_be);
+	    READ_BE_INT4(f, reclen);
+	    READ_BE_INT4(f, msg);
+	    READ_BE_INT4(f, local);
+	    READ_BE_INT4(f, gds);
+	    READ_BE_INT4(f, pds);
+	    READ_BE_INT4(f, drs);
+	    READ_BE_INT4(f, bms);
+	    READ_BE_INT4(f, data);
+	    READ_BE_INT8(f, msglen);
+	    READ_BE_INT1(f, version);
+	    READ_BE_INT1(f, discipline);
+	    READ_BE_INT2(f, fieldnum);
 
 	    LOG((3, "reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d "
 		 "msglen %ld version %d discipline %d fieldnum %d",
 		 reclen, msg, local, gds, pds, drs, bms, data, msglen,
 		 version, discipline, fieldnum));
 	    printf("reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d "
-		 "msglen %ld version %d discipline %d fieldnum %d",
+		 "msglen %ld version %d discipline %d fieldnum %d\n",
 		 reclen, msg, local, gds, pds, drs, bms, data, msglen,
 		 version, discipline, fieldnum);
 
