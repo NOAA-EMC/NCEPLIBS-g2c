@@ -92,10 +92,12 @@ g2c_read_index(char *index_file, int *g2cid)
 	for (rec = 0; rec < num_rec; rec++)
 	{
 	    int int_be;
-	    /* short short_be; */
+	    short short_be;
 	    size_t size_t_be;
-	    int reclen, msg, gds, pds, drs, bms;
+	    int reclen, msg, local, gds, pds, drs, bms, data;
 	    size_t msglen;
+	    unsigned char version, discipline;
+	    short fieldnum;
 
 	    /* Move to beginning of index record. */
 	    if (fseek(f, file_pos, SEEK_SET))
@@ -110,6 +112,9 @@ g2c_read_index(char *index_file, int *g2cid)
 	    msg = htonl(int_be);
 	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
 		return G2C_EFILE;
+	    local = htonl(int_be);
+	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
+		return G2C_EFILE;
 	    gds = htonl(int_be);
 	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
 		return G2C_EFILE;
@@ -120,12 +125,24 @@ g2c_read_index(char *index_file, int *g2cid)
 	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
 		return G2C_EFILE;
 	    bms = htonl(int_be);
+	    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
+		return G2C_EFILE;
+	    data = htonl(int_be);
 	    if ((fread(&size_t_be, EIGHT_BYTES, 1, f)) != 1)
 		return G2C_EFILE;
-	    msglen = htonl(size_t_be);
+	    msglen = bswap64(size_t_be);
+	    if ((fread(&version, 1, 1, f)) != 1)
+		return G2C_EFILE;
+	    if ((fread(&discipline, 1, 1, f)) != 1)
+		return G2C_EFILE;
+	    if ((fread(&short_be, TWO_BYTES, 1,f)) != 1)
+		return G2C_EFILE;
+	    fieldnum = htons(short_be);
 
-	    LOG((3, "reclen %d msg %d gds %d pds %d drs %d bms %d msglen %ld",
-		 reclen, msg, gds, pds, drs, bms, msglen));
+	    LOG((3, "reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d "
+		 "msglen %ld version %d discipline %d fieldnum %d",
+		 reclen, msg, local, gds, pds, drs, bms, data, msglen,
+		 version, discipline, fieldnum));
 
 	    /* Move the file position to the start of the next index record. */
 	    file_pos += reclen;
