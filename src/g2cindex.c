@@ -49,7 +49,6 @@ g2c_write_index(int g2cid, char *index_file)
 int
 g2c_read_index(char *index_file, int *g2cid)
 {
-#ifdef LOGGING
     int my_g2cid = 0;
     FILE *f;
     size_t bytes_read;
@@ -144,6 +143,10 @@ g2c_read_index(char *index_file, int *g2cid)
 		 "msglen %ld version %d discipline %d fieldnum %d",
 		 reclen, msg, local, gds, pds, drs, bms, data, msglen,
 		 version, discipline, fieldnum));
+	    printf("reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d "
+		 "msglen %ld version %d discipline %d fieldnum %d",
+		 reclen, msg, local, gds, pds, drs, bms, data, msglen,
+		 version, discipline, fieldnum);
 
 	    /* Move the file position to the start of the next index record. */
 	    file_pos += reclen;
@@ -159,6 +162,5 @@ g2c_read_index(char *index_file, int *g2cid)
     if (g2cid)
 	*g2cid = my_g2cid;
 
-#endif
     return G2C_NOERROR;
 }
