@@ -45,7 +45,7 @@
 #define BYTE 8 /**< Number of bits in a byte. */
 #define WORD 32 /**< Number of bits in four bytes. */
 
-/**< Byte swap 64-bit ints. This converts big-endian 8-byte ints into
+/** Byte swap 64-bit ints. This converts big-endian 8-byte ints into
  * native endian 8-byte ints. */
 #define bswap64(y) (((uint64_t)ntohl(y)) << 32 | ntohl(y>>32))
 
