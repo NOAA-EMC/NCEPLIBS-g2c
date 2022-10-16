@@ -738,6 +738,13 @@ g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
     READ_BE_INT1(f, msg->second);
     READ_BE_INT1(f, msg->status);
     READ_BE_INT1(f, msg->type);
+
+    /* Section 1 may contain optional numbers at the end of the
+     * section. The sec1_len tells us if there are extra values. If
+     * so, skip them. */
+    if (msg->sec1_len > G2C_SECTION1_BYTES)
+	fseek(f, msg->sec1_len - G2C_SECTION1_BYTES, SEEK_CUR);
+    
     return G2C_NOERROR;
 }
 

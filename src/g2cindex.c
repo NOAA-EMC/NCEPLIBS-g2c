@@ -126,6 +126,22 @@ g2c_read_index(char *index_file, int *g2cid)
 		 reclen, msg, local, gds, pds, drs, bms, data, msglen,
 		 version, discipline, fieldnum);
 
+	    /* Read section 1. */
+	    {
+		G2C_MESSAGE_INFO_T *msg;
+		int ret;
+
+		if (!(msg = malloc(sizeof(G2C_MESSAGE_INFO_T))))
+		    return G2C_ENOMEM;
+		msg->discipline = discipline;
+		msg->bytes_to_msg = msg;
+		if ((ret = g2c_read_section1_metadata(f, 0, msg)))
+		    return ret;
+		if ((ret = g2c_log_section1(msg)))
+		    return ret;
+		free(msg);
+	    }
+
 	    /* Move the file position to the start of the next index record. */
 	    file_pos += reclen;
 	}
