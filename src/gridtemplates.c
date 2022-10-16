@@ -337,7 +337,7 @@ g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *extlen,
 		    map[m] = templatesgrid[j].mapgrid[m];
 	    if (templatesgrid[j].needext)
 	    {
-		g2int *list;
+		g2int *list = NULL;
 		gtemplate *gt;
 
 		if (!(gt = extgridtemplate(grid_template_num, list)))
