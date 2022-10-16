@@ -128,18 +128,18 @@ g2c_read_index(char *index_file, int *g2cid)
 
 	    /* Read section 1. */
 	    {
-		G2C_MESSAGE_INFO_T *msg;
+		G2C_MESSAGE_INFO_T *msgp;
 		int ret;
 
-		if (!(msg = malloc(sizeof(G2C_MESSAGE_INFO_T))))
+		if (!(msgp = malloc(sizeof(G2C_MESSAGE_INFO_T))))
 		    return G2C_ENOMEM;
-		msg->discipline = discipline;
-		msg->bytes_to_msg = msg;
-		if ((ret = g2c_read_section1_metadata(f, 0, msg)))
+		msgp->discipline = discipline;
+		msgp->bytes_to_msg = msg;
+		if ((ret = g2c_read_section1_metadata(f, 0, msgp)))
 		    return ret;
-		if ((ret = g2c_log_section1(msg)))
+		if ((ret = g2c_log_section1(msgp)))
 		    return ret;
-		free(msg);
+		free(msgp);
 	    }
 
 	    /* Move the file position to the start of the next index record. */
