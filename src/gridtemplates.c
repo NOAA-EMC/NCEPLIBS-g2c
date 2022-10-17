@@ -352,6 +352,7 @@ g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *extlen,
 		if (ext)
 		    for (e = 0; e < gt->extlen; e++)
 			ext[e] = gt->ext[e];
+		free(gt->ext);
 		free(gt);
 	    }
 	    else

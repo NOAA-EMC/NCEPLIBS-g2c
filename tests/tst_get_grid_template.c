@@ -12,9 +12,10 @@ main()
     printf("Testing g2c_get_grid_template()\n");
     printf("Testing simple g2c_get_grid_template() calls...\n");
     {
-#define NUM_TESTS 26
-	int template_number[NUM_TESTS] = {0, 1, 2, 3, 12, 101, 140, 10, 20, 30, 31, 40, 41, 42, 43, 50, 51, 52, 53, 90, 100, 110, 204, 32768, 32769, 1100};
-	int expected_maplen[NUM_TESTS] = {19, 22, 22, 25, 22, 4, 17, 19, 18, 22, 22, 19, 22, 22, 25, 5, 8, 8, 11, 21, 11, 16, 19, 19, 21, 28};
+#define NUM_TESTS 27
+	int template_number[NUM_TESTS] = {0, 1, 2, 3, 12, 101, 140, 10, 20, 30, 31, 40, 41, 42, 43, 50, 51, 52, 53, 90, 100, 110, 204, 32768, 32769, 1100, 1200};
+	int expected_maplen[NUM_TESTS] = {19, 22, 22, 25, 22, 4, 17, 19, 18, 22, 22, 19, 22, 22, 25, 5, 8, 8, 11, 21, 11, 16, 19, 19, 21, 28, 16};
+	int expected_extlen[NUM_TESTS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2};
 	int expected_map[NUM_TESTS][28] = {
 	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 0, 0, 0}, /* 0 */
 	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, 0, 0, 0, 0, 0, 0}, /* 1 */
@@ -41,7 +42,8 @@ main()
 	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}, /* 204 */
 	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}, /* 32768 */
 	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 4, 4}, /* 32769 */
-	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, -4, 4, 1, -4, 4, 1, 4, 1, -4, 1, 1, -4, 2, 1, 1, 1, 1, 1} /* 1100 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, -4, 4, 1, -4, 4, 1, 4, 1, -4, 1, 1, -4, 2, 1, 1, 1, 1, 1}, /* 1100 */
+	    {4, 1, -4, 1, 1, -4, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2} /* 1200 */
 	};
 	    
 	int maplen, extlen;
@@ -54,14 +56,14 @@ main()
 	if (g2c_get_grid_template(G2C_MAX_GRID_TEMPLATE + 1, &maplen, map, &extlen, ext) != G2C_ENOTEMPLATE)
 	    return G2C_ERROR;
 
-	/* Find some templates and check results. */
-
+	/* Check all templates that don't have extensions. */
 	for (t = 0; t < NUM_TESTS; t++)
 	{
 	    printf("\ttesting grid template %d...", template_number[t]);
 	    if ((ret = g2c_get_grid_template(template_number[t], &maplen, map, &extlen, ext)))
 		return ret;
-	    if (maplen != expected_maplen[t] || extlen)
+	    printf("extlen %d\n", extlen);
+	    if (maplen != expected_maplen[t] || extlen != expected_extlen[t])
 		return G2C_ERROR;
 	    for (i = 0; i < maplen; i++)
 		if (map[i] != expected_map[t][i])
