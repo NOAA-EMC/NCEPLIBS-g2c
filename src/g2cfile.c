@@ -304,8 +304,9 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
     int int_be;
     short short_be;
     G2C_SECTION3_INFO_T *sec3_info;
-    struct gtemplate *gt;
+    int maplen, needsext, map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
     int t;
+    int ret;
     
     /* Check input. */
     assert(sec && !sec->sec_info && sec->sec_num == 3);
@@ -315,37 +316,26 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
         return G2C_ENOMEM;
 
     /* Read section 3. */
-    if ((fread(&sec3_info->source_grid_def, 1, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    sec3_info->num_data_points = htonl(int_be);
-    if ((fread(&sec3_info->num_opt, 1, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&sec3_info->interp_list, 1, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    sec3_info->grid_def = htons(short_be);
+    READ_BE_INT1(sec->msg->file->f, sec3_info->source_grid_def);        
+    READ_BE_INT4(sec->msg->file->f, sec3_info->num_data_points);        
+    READ_BE_INT1(sec->msg->file->f, sec3_info->num_opt);        
+    READ_BE_INT1(sec->msg->file->f, sec3_info->interp_list);        
+    READ_BE_INT2(sec->msg->file->f, sec3_info->grid_def);        
     LOG((5, "read_section3_metadata source_grid_def %d num_data_points %d num_opt %d interp_list %d grid_def %d",
          sec3_info->source_grid_def, sec3_info->num_data_points, sec3_info->num_opt, sec3_info->interp_list,
          sec3_info->grid_def));
 
     /* Look up the information about this grid. */
-    if (!(gt = getgridtemplate(sec3_info->grid_def)))
-        return G2C_ENOTEMPLATE;
-    LOG((5, "grid template type %d num %d maplen %d", gt->type, gt->num, gt->maplen));
-
+    if ((ret = g2c_get_grid_template(sec3_info->grid_def, &maplen, map, &needsext)))
+        return ret;
+    
     /* Allocate space to hold the template info. */
-    sec->template_len = gt->maplen;
-    if (!(sec->template = calloc(sizeof(int) * gt->maplen, 1)))
-    {
-        free(gt);
+    sec->template_len = maplen;
+    if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
         return G2C_ENOMEM;
-    }
     
     /* Read the template info. */
-    for (t = 0; t < gt->maplen; t++)
+    for (t = 0; t < maplen; t++)
     {
         unsigned char chr;
 
@@ -353,42 +343,29 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
          * numbers are negative - used to indicate that the
          * cooresponding fields can contain negative data (needed for
          * unpacking). */
-        switch(abs(gt->map[t]))
+        switch(abs(map[t]))
         {
         case ONE_BYTE:
             if ((fread(&chr, 1, 1, sec->msg->file->f)) != 1)
-            {
-                free(gt);
                 return G2C_EFILE;
-            }
             sec->template[t] = chr;
             break;
         case TWO_BYTES:
             if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
-            {
-                free(gt);
                 return G2C_EFILE;
-            }
             sec->template[t] = htons(short_be);
             break;
         case FOUR_BYTES:
             if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
-            {
-                free(gt);
                 return G2C_EFILE;
-            }
             sec->template[t] = htonl(int_be);
             break;
         default:
-            free(gt);
             return G2C_EBADTEMPLATE;
         }
         LOG((7, "template[%d] %d", t, sec->template[t]));
     }
 
-    /* Free the template info. */
-    free(gt);
-    
     /* Attach sec3_info to our section data. */
     sec->sec_info = sec3_info;
 
@@ -788,17 +765,14 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
 	LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));    
 
         /* Read section length. */
-        if ((fread(&int_be, FOUR_BYTES, 1, msg->file->f)) != 1)
-            return G2C_EFILE;
-        sec_len = htonl(int_be);
+        READ_BE_INT4(msg->file->f, sec_len);        
         
         /* A section length of 926365495 indicates we've reached
          * section 8, the end of the message. */        
         if (sec_len != 926365495)
         {
             /* Read section number. */
-            if ((fread(&sec_num, 1, 1, msg->file->f)) != 1)
-                return G2C_EFILE;
+            READ_BE_INT1(msg->file->f, sec_num);        
             LOG((4, "sec_len %d sec_num %d", sec_len, sec_num));
 
             /* Add a new section to our list of sections. */
