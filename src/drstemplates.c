@@ -1,4 +1,4 @@
-/** 
+/**
  * @file
  * @brief Functions for GRIB2 Data Representation Templates (DRT) for
  * the Data Representation Setcion.
@@ -57,23 +57,23 @@ static const struct drstemplate templatesdrs[MAXDRSTEMP] =
 {
     /** [5.0: Grid point data - Simple
      * Packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-0.shtml) */
-    { 0, 5, 0, {4,-2,-2,1,1} },
+    {0, 5, 0, {4, -2, -2, 1, 1}},
 
     /** [5.2: Grid point data - Complex
      * Packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-2.shtml) */
-    { 2, 16, 0, {4,-2,-2,1,1,1,1,4,4,4,1,1,4,1,4,1} },
+    {2, 16, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1}},
 
     /** [5.3: Grid point data - Complex Packing and spatial
      * differencing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-3.shtml) */
-    { 3, 18, 0, {4,-2,-2,1,1,1,1,4,4,4,1,1,4,1,4,1,1,1} },
+    {3, 18, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1, 1, 1}},
 
     /** [5.50: Spectral Data - Simple
      * Packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-50.shtml) */
-    { 50, 5, 0, {4,-2,-2,1,4} },
+    {50, 5, 0, {4, -2, -2, 1, 4}},
 
     /** [5.51: Spherical Harmonics data - Complex
      * packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml) */
-    { 51, 10, 0, {4,-2,-2,1,-4,2,2,2,4,1} },
+    {51, 10, 0, {4, -2, -2, 1, -4, 2, 2, 2, 4, 1}},
 
     /* 5.1: Matrix values at gridpoint - Simple packing.
      * Comment from Stephen Gilbert in 2021:
@@ -95,27 +95,27 @@ static const struct drstemplate templatesdrs[MAXDRSTEMP] =
      * in the future.
      */
 
-    /* { 1, 15, 1, {4,-2,-2,1,1,1,4,2,2,1,1,1,1,1,1} }, */
+    /* {1, 15, 1, {4, -2, -2, 1, 1, 1, 4, 2, 2, 1, 1, 1, 1, 1, 1}}, */
 
     /** [5.40: Grid point data - JPEG2000
      * encoding](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml) */
-    { 40, 7, 0, {4,-2,-2,1,1,1,1} },
+    {40, 7, 0, {4, -2, -2, 1, 1, 1, 1}},
 
     /** [5.41: Grid point data - PNG
      * encoding](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml) */
-    { 41, 5, 0, {4,-2,-2,1,1} },
+    {41, 5, 0, {4, -2, -2, 1, 1}},
 
     /** 5.40000: Grid point data - JPEG2000 encoding
      *
      * This is a local template number, from a time before WMO standardized use of JPEG2000
      * with 5.40. This should not be used in new data files. Use 5.40 instead. */
-    { 40000, 7, 0, {4,-2,-2,1,1,1,1} },
+    {40000, 7, 0, {4, -2, -2, 1, 1, 1, 1}},
 
     /** 5.40010: Grid point data - PNG encoding
      *
      * This is a local template number, from a time before WMO standardized use of PNG
      * with 5.41. This should not be used in new data files. Use 5.41 instead. */
-    { 40010, 5, 0, {4,-2,-2,1,1} }
+    {40010, 5, 0, {4, -2, -2, 1, 1}}
 } ;
 
 /**
@@ -232,6 +232,6 @@ extdrstemplate(g2int number, g2int *list)
     /*         new->ext[i] = 4; */
     /*     } */
     /* } */
-    
+
     return new;
 }

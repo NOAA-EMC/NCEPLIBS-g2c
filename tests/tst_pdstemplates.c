@@ -14,7 +14,7 @@ g2int getpdsindex(g2int number);
 int
 main()
 {
-    
+
     printf("Testing pdstemplates.\n");
     printf("Testing simple getpdstemplate() calls...");
     {
