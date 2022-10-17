@@ -233,7 +233,7 @@ extgridtemplate(g2int number, g2int *list)
 
     index = getgridindex(number);
     if (index == -1)
-        return(0);
+        return NULL;
 
     new = getgridtemplate(number);
 
@@ -302,4 +302,63 @@ extgridtemplate(g2int number, g2int *list)
     }
 
     return(new);
+}
+
+/**
+ * Get grid template information.
+ *
+ * @param grid_template_num The grid template number.
+ * @param maplen Pointer that gets the length of the map. Ignored if
+ * NULL.
+ * @param map Pointer that gets the map as an array of int. Memory
+ * must be allocated by caller. Ignored if NULL.
+ * @param extlen Pointer that gets the length of the extension. Ignored if NULL.
+ * @param ext Pointer that gets template extension, if there is one,
+ * or NULL if there is not one. Ignored if NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ *
+ * @author Ed Hartnett @date 10/16/22
+ */
+int
+g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *extlen, int *ext)
+{
+    int j, m, e;
+    
+    for (j = 0; j < MAXGRIDTEMP; j++)
+    {
+        if (grid_template_num == templatesgrid[j].template_num)
+        {
+	    if (maplen)
+		*maplen = templatesgrid[j].mapgridlen;
+	    if (map)
+		for (m = 0; m < templatesgrid[j].mapgridlen; m++)
+		    map[m] = templatesgrid[j].mapgrid[m];
+	    if (templatesgrid[j].needext)
+	    {
+		g2int *list = NULL;
+		gtemplate *gt;
+
+		if (!(gt = extgridtemplate(grid_template_num, list)))
+		    return G2C_ENOTEMPLATE;
+		if (extlen)
+		    *extlen = gt->extlen;
+		if (ext)
+		    for (e = 0; e < gt->extlen; e++)
+			ext[e] = gt->ext[e];
+		free(list);
+		free(gt);
+	    }
+	    else
+	    {
+		if (extlen)
+		    *extlen = 0;
+		if (ext)
+		    ext = NULL;
+	    }
+	}
+    }
+    
+    return G2C_NOERROR;
 }
