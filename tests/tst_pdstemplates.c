@@ -336,6 +336,42 @@ main()
         free(tmpl);
     }
     printf("ok!\n");
+    printf("Testing all getpdstemplate() calls with extensions...\n");
+    {
+#define NUM_TEST 6
+        int number[NUM_TEST] = {0, 1, 2, 5, 6, 7};
+        int expected_maplen[NUM_TEST] = {15, 18, 17, 22, 16, 15};
+        int expected_map[NUM_TEST][31] = {
+            {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}, /* 0 */
+            {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}, /* 1 */
+            {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1}, /* 2 */
+            {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, -1, -4, -1, -4}, /* 5 */
+            {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1}, /* 6 */
+            {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4} /* 7 */
+        };
+        int t;
+
+        for (t = 0; t < NUM_TEST; t++)
+        {
+            gtemplate *tmpl;
+            int m;
+
+            printf("\tchecking templage %d...", number[t]);
+            tmpl = getpdstemplate(number[t]);
+            if (!tmpl)
+                return G2C_ERROR;
+            if (tmpl->num != number[t] || tmpl->maplen != expected_maplen[t] ||
+                tmpl->needext)
+                return G2C_ERROR;
+            for (m = 0; m < tmpl->maplen; m++)
+                if (tmpl->map[m] != expected_map[t][m])
+                    return G2C_ERROR;
+                   
+            free(tmpl);
+            printf("ok!\n");
+        }
+    }
+    printf("ok!\n");
     printf("SUCCESS!\n");
     return 0;
 }
