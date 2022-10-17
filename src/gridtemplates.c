@@ -27,7 +27,7 @@
  *
  * ### Program History Log
  * Date | Programmer | Comments
- * -----|------------|--------- 
+ * -----|------------|---------
  * 2001-06-28 | Gilbert | Initial
  * 2007-08-16 | Vuong | Added GDT 3.204  Curvilinear Orthogonal Grid
  * 2008-07-08 | Vuong | Added GDT 3.32768 Rotate Lat/Lon E-grid (Arakawa)
@@ -251,8 +251,8 @@ extgridtemplate(g2int number, g2int *template)
     }
     else if (number == 4 || number == 5)
     {
-	/* The extension is of length template[7] + template[8]. The first
-	 * template[7] values are 4, the next template[8] values are -4. */
+        /* The extension is of length template[7] + template[8]. The first
+         * template[7] values are 4, the next template[8] values are -4. */
         new->extlen = template[7] + template[8];
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < new->extlen; i++)
@@ -299,51 +299,51 @@ extgridtemplate(g2int number, g2int *template)
  */
 int
 g2c_get_grid_template_extension(int grid_template_num, int *template,
-				int *extlen, int *ext)
+                                int *extlen, int *ext)
 {
     int j, t;
 
     /* Check input. */
     if (!template)
-	return G2C_EINVAL;
+        return G2C_EINVAL;
 
     /* Look through the array of templates to find a matching one. */
     for (j = 0; j < G2C_MAX_GRID_TEMPLATE; j++)
     {
         if (grid_template_num == templatesgrid[j].template_num)
         {
-	    /* Is there an extension to this template? */
-	    if (templatesgrid[j].needext)
-	    {
-		gtemplate *gt;		
-		g2int *template8;
-		int e;
+            /* Is there an extension to this template? */
+            if (templatesgrid[j].needext)
+            {
+                gtemplate *gt;
+                g2int *template8;
+                int e;
 
-		/* Copy templage to g2int for extgridtemplate() function. */
-		if (!(template8 = malloc(sizeof(g2int) * templatesgrid[j].mapgridlen)))
-		    return G2C_ENOMEM;
-		for (t = 0; t < templatesgrid[j].mapgridlen; t++)
-		    template8[t] = template[t];
-		if (!(gt = extgridtemplate(grid_template_num, template8)))
-		    return G2C_ENOTEMPLATE;
-		free(template8);
-		if (extlen)
-		    *extlen = gt->extlen;
-		if (ext)
-		    for (e = 0; e < gt->extlen; e++)
-			ext[e] = gt->ext[e];
-		free(gt->ext);
-		free(gt);
-	    }
-	    else
-	    {
-		if (extlen)
-		    *extlen = 0;
-	    }
+                /* Copy templage to g2int for extgridtemplate() function. */
+                if (!(template8 = malloc(sizeof(g2int) * templatesgrid[j].mapgridlen)))
+                    return G2C_ENOMEM;
+                for (t = 0; t < templatesgrid[j].mapgridlen; t++)
+                    template8[t] = template[t];
+                if (!(gt = extgridtemplate(grid_template_num, template8)))
+                    return G2C_ENOTEMPLATE;
+                free(template8);
+                if (extlen)
+                    *extlen = gt->extlen;
+                if (ext)
+                    for (e = 0; e < gt->extlen; e++)
+                        ext[e] = gt->ext[e];
+                free(gt->ext);
+                free(gt);
+            }
+            else
+            {
+                if (extlen)
+                    *extlen = 0;
+            }
 
-	    /* Done. */
-	    return G2C_NOERROR;
-	}
+            /* Done. */
+            return G2C_NOERROR;
+        }
     }
 
     /* If we didn't find a template, return an error. */
@@ -382,18 +382,18 @@ g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *needsex
     {
         if (grid_template_num == templatesgrid[j].template_num)
         {
-	    /* Copy maplen and map if the caller wants them. */
-	    if (maplen)
-		*maplen = templatesgrid[j].mapgridlen;
-	    if (map)
-		for (m = 0; m < templatesgrid[j].mapgridlen; m++)
-		    map[m] = templatesgrid[j].mapgrid[m];
-	    if (needsext)
-		*needsext = templatesgrid[j].needext;
+            /* Copy maplen and map if the caller wants them. */
+            if (maplen)
+                *maplen = templatesgrid[j].mapgridlen;
+            if (map)
+                for (m = 0; m < templatesgrid[j].mapgridlen; m++)
+                    map[m] = templatesgrid[j].mapgrid[m];
+            if (needsext)
+                *needsext = templatesgrid[j].needext;
 
-	    /* Done. */
-	    return G2C_NOERROR;
-	}
+            /* Done. */
+            return G2C_NOERROR;
+        }
     }
 
     /* If we didn't find a template, return an error. */
