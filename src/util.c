@@ -208,6 +208,58 @@ g2c_strerror(int g2cerr)
 }
 
 /**
+ * Log section 0 information.
+ *
+ * @param msg Pointer to ::G2C_MESSAGE_INFO_T which contains section 0
+ * information.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ *
+ * @author Ed Hartnett @date 10/16/22
+ */
+int
+g2c_log_section1(G2C_MESSAGE_INFO_T *msg)
+{
+#ifdef LOGGING
+    char desc[G2C_MAX_GRIB_DESC_LEN + 1];
+    int ret;
+
+    /* Read in the XML GRIB2 code definitions. */
+    if ((ret = g2c_xml_init()))
+	return ret;
+
+    /* Section 0 discipline flag. */
+    if ((ret = g2c_find_desc("Code table 0.0", msg->discipline, desc)))
+	return ret;
+    LOG((2, "Discipline: %s", desc));
+
+    /* Section 1 flags. */
+    LOG((2, "Identification of originating/generating center: %d", msg->center));
+    LOG((2, "Identification of originating/generating subcenter: %d", msg->subcenter));
+    if ((ret = g2c_find_desc("Code table 1.0", msg->master_version, desc)))
+	return ret;
+    LOG((2, "GRIB master tables version number: %s", desc));	
+    if ((ret = g2c_find_desc("Code table 1.1", msg->local_version, desc)))
+	return ret;
+    LOG((2, "Version number of GRIB local tables used to augment Master Tables: %s", desc));
+    if ((ret = g2c_find_desc("Code table 1.2", msg->sig_ref_time, desc)))
+	return ret;
+    LOG((2, "Significance of reference time: %s", desc));
+    LOG((2, "Reference time: %d/%d/%d %d:%d:%d", msg->year, msg->month, msg->day,
+	 msg->hour, msg->minute, msg->second));
+    if ((ret = g2c_find_desc("Code table 1.3", msg->status, desc)))
+	return ret;
+    LOG((2, "Production Status of Processed data in the GRIB message: %s", desc));
+    if ((ret = g2c_find_desc("Code table 1.4", msg->type, desc)))
+	return ret;
+    LOG((2, "Type of processed data in this GRIB message: %s", desc));
+    
+#endif
+    return G2C_NOERROR;
+}
+
+/**
  * Print a summary of the contents of an open GRIB2 file. If the
  * NCEPLIBS-g2c library is built without the LOGGING option, this
  * function will do nothing.
@@ -250,35 +302,8 @@ g2c_log_file(int g2cid)
 
 	/* If we've loaded XML tables, decode some flags. */
 	if (g2c_table)
-	{
-	    char desc[G2C_MAX_GRIB_DESC_LEN + 1];
-
-	    /* Section 0 discipline flag. */
-	    if ((ret = g2c_find_desc("Code table 0.0", msg->discipline, desc)))
+	    if ((ret = g2c_log_section1(msg)))
 		return ret;
-	    LOG((2, "Discipline: %s", desc));
-
-	    /* Section 1 flags. */
-	    LOG((2, "Identification of originating/generating center: %d", msg->center));
-	    LOG((2, "Identification of originating/generating subcenter: %d", msg->subcenter));
-	    if ((ret = g2c_find_desc("Code table 1.0", msg->master_version, desc)))
-		return ret;
-	    LOG((2, "GRIB master tables version number: %s", desc));	
-	    if ((ret = g2c_find_desc("Code table 1.1", msg->local_version, desc)))
-		return ret;
-	    LOG((2, "Version number of GRIB local tables used to augment Master Tables: %s", desc));
-	    if ((ret = g2c_find_desc("Code table 1.2", msg->sig_ref_time, desc)))
-		return ret;
-	    LOG((2, "Significance of reference time: %s", desc));
-	    LOG((2, "Reference time: %d/%d/%d %d:%d:%d", msg->year, msg->month, msg->day,
-		 msg->hour, msg->minute, msg->second));
-	    if ((ret = g2c_find_desc("Code table 1.3", msg->status, desc)))
-		return ret;
-	    LOG((2, "Production Status of Processed data in the GRIB message: %s", desc));
-	    if ((ret = g2c_find_desc("Code table 1.4", msg->type, desc)))
-		return ret;
-	    LOG((2, "Type of processed data in this GRIB message: %s", desc));
-	}
 
         /* Section info. */
         for (sec = msg->sec; sec; sec = sec->next)
