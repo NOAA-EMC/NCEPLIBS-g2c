@@ -34,13 +34,11 @@
  * 2009-01-14 | Vuong | Changed structure name template to gtemplate
  * 2010-05-11 | Vuong | Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
  * 2013-08-06 | Vuong | Added GDT 3.4, 3.5, 3.12, 3.101, 3.140
+ * 2022-10-16 | Hartnett | Added g2c_get_grid_template().
  *
  * @author Stephen Gilbert @date 2001-06-28
  */
-#include <stdlib.h>
 #include "grib2_int.h"
-#define MAXGRIDTEMP 31 /**< Maximum number of templates. */
-#define MAXGRIDMAPLEN 200 /**< Maximum template map length. */
 
 /**
  * Struct for grid template.
@@ -50,78 +48,78 @@ struct gridtemplate
     g2int template_num; /**< Template number. */
     g2int mapgridlen; /**< The number of entries in the template. */
     g2int needext; /**< Does template need extension? */
-    g2int mapgrid[MAXGRIDMAPLEN]; /**< Number of bytes for each template value. */
+    g2int mapgrid[G2C_MAX_GRID_TEMPLATE_MAPLEN]; /**< Number of bytes for each template value. */
 };
 
 /**
  * Templates grid.
  */
-static const struct gridtemplate templatesgrid[MAXGRIDTEMP] =
+static const struct gridtemplate templatesgrid[G2C_MAX_GRID_TEMPLATE] =
 {
     /* 3.0: Lat/Lon grid */
-    { 0, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },
+    {0, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
     /* 3.1: Rotated Lat/Lon grid */
-    { 1, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4} },
+    {1, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4}},
     /* 3.2: Stretched Lat/Lon grid */
-    { 2, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,-4} },
+    {2, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4}},
     /* 3.3: Stretched & Rotated Lat/Lon grid */
-    { 3, 25, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4,-4,4,-4} },
+    {3, 25, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, -4, 4, -4}},
     /* Added GDT 3.4,3.5    (08/05/2013) */
     /* 3.4: Variable resolution Latitude/Longitude */
-    { 4, 13, 1, {1,1,4,1,4,1,4,4,4,4,4,1,1} },
+    {4, 13, 1, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, 1, 1}},
     /* 3.5: Variable resolution rotate Latitude/Longitude */
-    { 5, 16, 1, {1,1,4,1,4,1,4,4,4,4,4,1,1,-4,4,4} },
+    {5, 16, 1, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, 1, 1, -4, 4, 4}},
     /* 3.12: Transverse Mercator */
-    {12, 22, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,1,4,4,-4,-4,-4,-4} },
+    {12, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 1, 4, 4, -4, -4, -4, -4}},
     /* 3.101: General unstructured grid */
-    {101, 4, 0, {1,4,1,-4} },
+    {101, 4, 0, {1, 4, 1, -4}},
     /* 3.140: Lambert Azimuthal Equal Area Projection */
-    {140, 17, 0, {1,1,4,1,4,1,4,4,4,-4,4,4,4,1,4,4,1} },
+    {140, 17, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 4, 4, 1, 4, 4, 1}},
 
     /* 3.10: Mercator */
-    {10, 19, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,-4,4,1,4,4,4} },
+    {10, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, -4, 4, 1, 4, 4, 4}},
     /* 3.20: Polar Stereographic Projection */
-    {20, 18, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1} },
+    {20, 18, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1}},
     /* 3.30: Lambert Conformal */
-    {30, 22, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1,-4,-4,-4,4} },
+    {30, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1, -4, -4, -4, 4}},
     /* 3.31: Albers equal area */
-    {31, 22, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1,-4,-4,-4,4} },
+    {31, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1, -4, -4, -4, 4}},
     /* 3.40: Guassian Lat/Lon */
-    {40, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },
+    {40, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
     /* 3.41: Rotated Gaussian Lat/Lon */
-    {41, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4} },
+    {41, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4}},
     /* 3.42: Stretched Gaussian Lat/Lon */
-    {42, 22, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,-4} },
+    {42, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4}},
     /* 3.43: Stretched and Rotated Gaussian Lat/Lon */
-    {43, 25, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4,-4,4,-4} },
+    {43, 25, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, -4, 4, -4}},
     /* 3.50: Spherical Harmonic Coefficients */
-    {50, 5, 0, {4,4,4,1,1} },
+    {50, 5, 0, {4, 4, 4, 1, 1}},
     /* 3.51: Rotated Spherical Harmonic Coefficients */
-    {51, 8, 0, {4,4,4,1,1,-4,4,4} },
+    {51, 8, 0, {4, 4, 4, 1, 1, -4, 4, 4}},
     /* 3.52: Stretched Spherical Harmonic Coefficients */
-    {52, 8, 0, {4,4,4,1,1,-4,4,-4} },
+    {52, 8, 0, {4, 4, 4, 1, 1, -4, 4, -4}},
     /* 3.53: Stretched and Rotated Spherical Harmonic Coefficients */
-    {53, 11, 0, {4,4,4,1,1,-4,4,4,-4,4,-4} },
+    {53, 11, 0, {4, 4, 4, 1, 1, -4, 4, 4, -4, 4, -4}},
     /* 3.90: Space View Perspective or orthographic */
-    {90, 21, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,4,4,4,4,1,4,4,4,4} },
+    {90, 21, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, 4, 4, 4, 4, 1, 4, 4, 4, 4}},
     /* 3.100: Triangular grid based on an icosahedron */
-    {100, 11, 0, {1,1,2,1,-4,4,4,1,1,1,4} },
+    {100, 11, 0, {1, 1, 2, 1, -4, 4, 4, 1, 1, 1, 4}},
     /* 3.110: Equatorial Azimuthal equidistant */
-    {110, 16, 0, {1,1,4,1,4,1,4,4,4,-4,4,1,4,4,1,1} },
+    {110, 16, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, 4, 4, 1, 1}},
     /* 3.120: Azimuth-range projection */
-    {120, 7, 1, {4,4,-4,4,4,4,1} },
+    {120, 7, 1, {4, 4, -4, 4, 4, 4, 1}},
     /* 3.204: Curvilinear Orthogonal Grid */
-    {204, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },
+    {204, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
     /* 3.32768: Rot Lat/Lon E-grid (Arakawa) */
-    {32768, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },
+    {32768, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
     /* 3.32769: Rot Lat/Lon Non-E Staggered grid (Arakawa) */
-    {32769, 21, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,4,4} },
+    {32769, 21, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 4, 4}},
     /* 3.1000: Cross Section Grid */
-    {1000, 20, 1, {1,1,4,1,4,1,4,4,4,4,-4,4,1,4,4,1,2,1,1,2} },
+    {1000, 20, 1, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, -4, 4, 1, 4, 4, 1, 2, 1, 1, 2}},
     /* 3.1100: Hovmoller Diagram Grid */
-    {1100, 28, 0, {1,1,4,1,4,1,4,4,4,4,-4,4,1,-4,4,1,4,1,-4,1,1,-4,2,1,1,1,1,1} },
+    {1100, 28, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, -4, 4, 1, -4, 4, 1, 4, 1, -4, 1, 1, -4, 2, 1, 1, 1, 1, 1}},
     /* 3.1200: Time Section Grid */
-    {1200, 16, 1, {4,1,-4,1,1,-4,2,1,1,1,1,1,2,1,1,2} }
+    {1200, 16, 1, {4, 1, -4, 1, 1, -4, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2}}
 } ;
 
 /**
@@ -143,7 +141,7 @@ getgridindex(g2int number)
 {
     g2int j, getgridindex = -1;
 
-    for (j = 0; j < MAXGRIDTEMP; j++)
+    for (j = 0; j < G2C_MAX_GRID_TEMPLATE; j++)
     {
         if (number == templatesgrid[j].template_num)
         {
@@ -217,8 +215,7 @@ getgridtemplate(g2int number)
  *
  * @param number The number of the Grid Definition
  * Template that is being requested.
- * @param list The list of values for each entry in the Grid
- * Definition Template.
+ * @param map The grid definition template map.
  *
  * @return Pointer to the returned template struct. Returns NULL
  * pointer, if template not found.
@@ -226,14 +223,14 @@ getgridtemplate(g2int number)
  * @author Stephen Gilbert @date 2000-05-09
  */
 gtemplate *
-extgridtemplate(g2int number, g2int *list)
+extgridtemplate(g2int number, g2int *map)
 {
     gtemplate *new;
     g2int index, i;
 
     index = getgridindex(number);
     if (index == -1)
-        return(0);
+        return NULL;
 
     new = getgridtemplate(number);
 
@@ -242,7 +239,7 @@ extgridtemplate(g2int number, g2int *list)
 
     if (number == 120)
     {
-        new->extlen = list[1] * 2;
+        new->extlen = map[1] * 2;
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < new->extlen; i++)
         {
@@ -254,13 +251,13 @@ extgridtemplate(g2int number, g2int *list)
     }
     else if (number == 4)
     {
-        new->extlen = list[7];
+        new->extlen = map[7];
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < new->extlen; i++)
         {
             new->ext[i] = 4;
         }
-        new->extlen = list[8];
+        new->extlen = map[8];
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < new->extlen; i++)
         {
@@ -269,13 +266,13 @@ extgridtemplate(g2int number, g2int *list)
     }
     else if (number == 5)
     {
-        new->extlen = list[7];
+        new->extlen = map[7];
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < new->extlen; i++)
         {
             new->ext[i] = 4;
         }
-        new->extlen = list[8];
+        new->extlen = map[8];
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < new->extlen; i++)
         {
@@ -284,7 +281,7 @@ extgridtemplate(g2int number, g2int *list)
     }
     else if (number == 1000)
     {
-        new->extlen = list[19];
+        new->extlen = map[19];
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < new->extlen; i++)
         {
@@ -293,7 +290,7 @@ extgridtemplate(g2int number, g2int *list)
     }
     else if (number == 1200)
     {
-        new->extlen = list[15];
+        new->extlen = map[15];
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < new->extlen; i++)
         {
@@ -302,4 +299,73 @@ extgridtemplate(g2int number, g2int *list)
     }
 
     return(new);
+}
+
+/**
+ * Get grid template information.
+ *
+ * The grid template consists of a template map, its length, and, for
+ * some templates, an extra extension map, and its length.
+ *
+ * @param grid_template_num The grid template number.
+ * @param maplen Pointer that gets the length of the map. Ignored if
+ * NULL.
+ * @param map Pointer that gets the map as an array of int. Memory
+ * must be allocated by caller. Ignored if NULL.
+ * @param extlen Pointer that gets the length of the extension. Ignored if NULL.
+ * @param ext Pointer that gets template extension array, if there is
+ * one. Memory must be allocated by the caller. Ignored if NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOTEMPLATE Template not found.
+ *
+ * @author Ed Hartnett @date 10/16/22
+ */
+int
+g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *extlen,
+		      int *ext)
+{
+    int j, m, e;
+
+    /* Look through the array of templates to find a matching one. */
+    for (j = 0; j < G2C_MAX_GRID_TEMPLATE; j++)
+    {
+        if (grid_template_num == templatesgrid[j].template_num)
+        {
+	    /* Copy maplen and map if the caller wants them. */
+	    if (maplen)
+		*maplen = templatesgrid[j].mapgridlen;
+	    if (map)
+		for (m = 0; m < templatesgrid[j].mapgridlen; m++)
+		    map[m] = templatesgrid[j].mapgrid[m];
+
+	    /* Is there an extension to this template? */
+	    if (templatesgrid[j].needext)
+	    {
+		gtemplate *gt;		
+
+		if (!(gt = extgridtemplate(grid_template_num, (g2int *)templatesgrid[j].mapgrid)))
+		    return G2C_ENOTEMPLATE;
+		if (extlen)
+		    *extlen = gt->extlen;
+		if (ext)
+		    for (e = 0; e < gt->extlen; e++)
+			ext[e] = gt->ext[e];
+		free(gt->ext);
+		free(gt);
+	    }
+	    else
+	    {
+		if (extlen)
+		    *extlen = 0;
+	    }
+
+	    /* Done. */
+	    return G2C_NOERROR;
+	}
+    }
+
+    /* If we didn't find a template, return an error. */
+    return G2C_ENOTEMPLATE;
 }
