@@ -21,10 +21,6 @@ int g2c_next_g2cid = 1;
 /** Number of bytes to discipline field in GRIB2 message. */    
 #define BYTES_TO_DISCIPLINE 6
 
-#define ONE_BYTE 1 /**< One byte. */
-#define TWO_BYTES 2 /**< Two bytes. */
-#define FOUR_BYTES 4 /**< Four bytes. */
-
 /** Search a file for the next GRIB1 or GRIB2 message.
  *
  * A grib message is identified by its indicator section,
@@ -701,6 +697,58 @@ add_section(G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t by
 }
 
 /**
+ * Read Section 1.
+ *
+ * @param f Pointer to open file.
+ * @param skip Skip this many bytes to get to section 0.
+ * @param msg Pointer to G2C_MESSAGE_INFO_T which will be populated
+ * with the values of section 0.
+ *
+ * @return
+ * -G2C_NOERROR No error.
+ *
+ * @author Ed Hartnett @date 10/16/22
+ */
+int
+g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
+{
+    int int_be;
+    short short_be;
+    char sec_num;
+    
+    /* Skip to section 1. */
+    if (fseek(f, skip, SEEK_CUR))
+        return G2C_EFILE;
+
+    /* Read the section. */
+    READ_BE_INT4(f, msg->sec1_len);
+    READ_BE_INT1(f, sec_num);
+    if (sec_num != 1)
+        return G2C_ENOSECTION;
+    READ_BE_INT2(f, msg->center);
+    READ_BE_INT2(f, msg->subcenter);
+    READ_BE_INT1(f, msg->master_version);
+    READ_BE_INT1(f, msg->local_version);
+    READ_BE_INT1(f, msg->sig_ref_time);
+    READ_BE_INT2(f, msg->year);
+    READ_BE_INT1(f, msg->month);
+    READ_BE_INT1(f, msg->day);
+    READ_BE_INT1(f, msg->hour);
+    READ_BE_INT1(f, msg->minute);
+    READ_BE_INT1(f, msg->second);
+    READ_BE_INT1(f, msg->status);
+    READ_BE_INT1(f, msg->type);
+
+    /* Section 1 may contain optional numbers at the end of the
+     * section. The sec1_len tells us if there are extra values. If
+     * so, skip them. */
+    if (msg->sec1_len > G2C_SECTION1_BYTES)
+	fseek(f, msg->sec1_len - G2C_SECTION1_BYTES, SEEK_CUR);
+    
+    return G2C_NOERROR;
+}
+
+/**
  * Read the file to get metadata about a message. 
  *
  * @param msg Pointer to the G2C_MESSAGE_INFO_T struct for this
@@ -715,8 +763,6 @@ static int
 read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
 {
     int int_be;
-    short short_be;
-    char sec_num;
     int total_read = G2C_SECTION0_BYTES;
     int sec_id = 0;
     int ret;
@@ -729,44 +775,8 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
         return G2C_EFILE;
     
     /* Read section 1. */
-    if (fseek(msg->file->f, 9, SEEK_CUR))
-        return G2C_EFILE;
-    if ((fread(&int_be, FOUR_BYTES, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    msg->sec1_len = htonl(int_be);
-    if ((fread(&sec_num, 1, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    if (sec_num != 1)
-        return G2C_ENOSECTION;
-    if ((fread(&short_be, TWO_BYTES, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    msg->center = htons(short_be);
-    if ((fread(&short_be, TWO_BYTES, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    msg->subcenter = htons(short_be);
-    if ((fread(&msg->master_version, ONE_BYTE, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&msg->local_version, ONE_BYTE, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&msg->sig_ref_time, ONE_BYTE, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&short_be, TWO_BYTES, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    msg->year = htons(short_be);
-    if ((fread(&msg->month, ONE_BYTE, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&msg->day, ONE_BYTE, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&msg->hour, ONE_BYTE, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&msg->minute, ONE_BYTE, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&msg->second, ONE_BYTE, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&msg->status, ONE_BYTE, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&msg->type, ONE_BYTE, 1, msg->file->f)) != 1)
-        return G2C_EFILE;
+    if ((ret = g2c_read_section1_metadata(msg->file->f, 9, msg)))
+	return ret;
     total_read += msg->sec1_len;
 
     /* Read the sections. */
@@ -775,7 +785,7 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
         int sec_len;
         unsigned char sec_num;
 
-	      LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));    
+	LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));    
 
         /* Read section length. */
         if ((fread(&int_be, FOUR_BYTES, 1, msg->file->f)) != 1)
