@@ -34,13 +34,11 @@
  * 2009-01-14 | Vuong | Changed structure name template to gtemplate
  * 2010-05-11 | Vuong | Added GDT 3.32769 Rotate Lat/Lon Non-E Staggered grid (Arakawa)
  * 2013-08-06 | Vuong | Added GDT 3.4, 3.5, 3.12, 3.101, 3.140
+ * 2022-10-16 | Hartnett | Added g2c_get_grid_template().
  *
  * @author Stephen Gilbert @date 2001-06-28
  */
-#include <stdlib.h>
 #include "grib2_int.h"
-#define MAXGRIDTEMP 31 /**< Maximum number of templates. */
-#define MAXGRIDMAPLEN 200 /**< Maximum template map length. */
 
 /**
  * Struct for grid template.
@@ -50,13 +48,13 @@ struct gridtemplate
     g2int template_num; /**< Template number. */
     g2int mapgridlen; /**< The number of entries in the template. */
     g2int needext; /**< Does template need extension? */
-    g2int mapgrid[MAXGRIDMAPLEN]; /**< Number of bytes for each template value. */
+    g2int mapgrid[G2C_MAX_GRID_TEMPLATE_MAPLEN]; /**< Number of bytes for each template value. */
 };
 
 /**
  * Templates grid.
  */
-static const struct gridtemplate templatesgrid[MAXGRIDTEMP] =
+static const struct gridtemplate templatesgrid[G2C_MAX_GRID_TEMPLATE] =
 {
     /* 3.0: Lat/Lon grid */
     { 0, 19, 0, {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1} },
@@ -143,7 +141,7 @@ getgridindex(g2int number)
 {
     g2int j, getgridindex = -1;
 
-    for (j = 0; j < MAXGRIDTEMP; j++)
+    for (j = 0; j < G2C_MAX_GRID_TEMPLATE; j++)
     {
         if (number == templatesgrid[j].template_num)
         {
@@ -307,34 +305,43 @@ extgridtemplate(g2int number, g2int *list)
 /**
  * Get grid template information.
  *
+ * The grid template consists of a template map, its length, and, for
+ * some templates, an extra extension map, and its length.
+ *
  * @param grid_template_num The grid template number.
  * @param maplen Pointer that gets the length of the map. Ignored if
  * NULL.
  * @param map Pointer that gets the map as an array of int. Memory
  * must be allocated by caller. Ignored if NULL.
  * @param extlen Pointer that gets the length of the extension. Ignored if NULL.
- * @param ext Pointer that gets template extension, if there is one,
- * or NULL if there is not one. Ignored if NULL.
+ * @param ext Pointer that gets template extension array, if there is
+ * one. Memory must be allocated by the caller. Ignored if NULL.
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOTEMPLATE Template not found.
  *
  * @author Ed Hartnett @date 10/16/22
  */
 int
-g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *extlen, int *ext)
+g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *extlen,
+		      int *ext)
 {
     int j, m, e;
-    
-    for (j = 0; j < MAXGRIDTEMP; j++)
+
+    /* Look through the array of templates to find a matching one. */
+    for (j = 0; j < G2C_MAX_GRID_TEMPLATE; j++)
     {
         if (grid_template_num == templatesgrid[j].template_num)
         {
+	    /* Copy maplen and map if the caller wants them. */
 	    if (maplen)
 		*maplen = templatesgrid[j].mapgridlen;
 	    if (map)
 		for (m = 0; m < templatesgrid[j].mapgridlen; m++)
 		    map[m] = templatesgrid[j].mapgrid[m];
+
+	    /* Is there an extension to this template? */
 	    if (templatesgrid[j].needext)
 	    {
 		g2int *list = NULL;
@@ -354,11 +361,13 @@ g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *extlen,
 	    {
 		if (extlen)
 		    *extlen = 0;
-		if (ext)
-		    ext = NULL;
 	    }
 	}
     }
+
+    /* If we didn't find a template, return an error. */
+    if (j == G2C_MAX_GRID_TEMPLATE)
+	return G2C_ENOTEMPLATE;
     
     return G2C_NOERROR;
 }
