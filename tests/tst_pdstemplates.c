@@ -338,9 +338,10 @@ main()
     printf("ok!\n");
     printf("Testing all getpdstemplate() calls with extensions...\n");
     {
-#define NUM_TEST 21
-        int number[NUM_TEST] = {0, 1, 2, 5, 6, 7, 15, 20, 40, 41, 254, 1000, 1001, 1002, 1100, 1101, 44, 45, 48, 50, 52};
-        int expected_maplen[NUM_TEST] = {15, 18, 17, 22, 16, 15, 18, 19, 16, 19, 3, 9, 16, 15, 15, 22, 21, 24, 26, 21, 15};
+#define NUM_TEST 22
+        int number[NUM_TEST] = {0, 1, 2, 5, 6, 7, 15, 20, 40, 41, 254, 1000, 1001, 1002, 1100, 1101, 44, 45, 48, 50, 52, 60};
+        int expected_maplen[NUM_TEST] = {15, 18, 17, 22, 16, 15, 18, 19, 16, 19, 3, 9, 16, 15, 15, 22, 21, 24, 26, 21, 15, 24};
+        int expected_needext[NUM_TEST] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         int expected_map[NUM_TEST][31] = {
             {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}, /* 0 */
             {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}, /* 1 */
@@ -363,6 +364,7 @@ main()
             {1, 1, 2, 1, -1, -4, -1, -4, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}, /* 48 */
             {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 4, 4, 4, 4}, /* 50 */
             {1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4}, /* 52 */
+            {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1}, /* 60 */
         };
         int t;
 
@@ -376,7 +378,7 @@ main()
             if (!tmpl)
                 return G2C_ERROR;
             if (tmpl->num != number[t] || tmpl->maplen != expected_maplen[t] ||
-                tmpl->needext)
+                tmpl->needext != expected_needext[t])
                 return G2C_ERROR;
             for (m = 0; m < tmpl->maplen; m++)
                 if (tmpl->map[m] != expected_map[t][m])
