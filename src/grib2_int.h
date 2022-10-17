@@ -45,6 +45,53 @@
 #define BYTE 8 /**< Number of bits in a byte. */
 #define WORD 32 /**< Number of bits in four bytes. */
 
+/** Byte swap 64-bit ints. This converts big-endian 8-byte ints into
+ * native endian 8-byte ints. */
+#define bswap64(y) (((uint64_t)ntohl(y)) << 32 | ntohl(y>>32))
+
+/** Read a big-endian 1-byte int from an open file; since it is only 1
+ * byte, no conversion is nevessary. */
+#define READ_BE_INT1(f, var)				\
+	    do {					\
+		if ((fread(&var, 1, 1, f)) != 1)	\
+		    return G2C_EFILE;			\
+	    } while(0)
+
+/** Read a big-endian 2-byte int from an open file, and convert it to
+ * machine-native format. The integer short_be must be declared before
+ * this macro is used. */
+#define READ_BE_INT2(f, var)				\
+	    do {					\
+		if ((fread(&short_be, TWO_BYTES, 1, f)) != 1)	\
+		    return G2C_EFILE;				\
+		var = htons(short_be);				\
+	    } while(0)
+
+/** Read a big-endian 4-byte int from an open file, and convert it to
+ * machine-native format. The integer int_be must be declared before
+ * this macro is used. */
+#define READ_BE_INT4(f, var)				\
+	    do {					\
+		if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)	\
+		    return G2C_EFILE;				\
+		var = htonl(int_be);				\
+	    } while(0)
+
+/** Read a big-endian 8-byte int from an open file, and convert it to
+ * machine-native format. The integer size_t_be must be declared before
+ * this macro is used. */
+#define READ_BE_INT8(f, var)				\
+	    do {					\
+		if ((fread(&size_t_be, EIGHT_BYTES, 1, f)) != 1)	\
+		    return G2C_EFILE;				\
+		var = bswap64(size_t_be);			\
+	    } while(0)
+
+#define ONE_BYTE 1 /**< One byte. */
+#define TWO_BYTES 2 /**< Two bytes. */
+#define FOUR_BYTES 4 /**< Four bytes. */
+#define EIGHT_BYTES 8 /**< Eight bytes. */
+
 /** This is the information about each message. */
 typedef struct g2c_message_info
 {
@@ -263,6 +310,10 @@ int pack_gp(g2int *kfildo, g2int *ic, g2int *nxy,
 
 /* Check the message header and check for message termination. */
 int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
+
+/* Read section metadata. */
+int g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg);
+int g2c_log_section1(G2C_MESSAGE_INFO_T *msg);
 
 /* Handle logging. */
 #ifdef LOGGING

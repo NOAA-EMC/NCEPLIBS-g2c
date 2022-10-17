@@ -275,7 +275,12 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 #define G2C_NOCLOBBER     0x0004 /**< Don't destroy existing file. Mode flag for g2c_create(). */
 
 /* Useful constants. */
-#define G2C_SECTION0_BYTES 16 /**< Number of bytes in section 1. */
+#define G2C_SECTION0_BYTES 16 /**< Number of bytes in section 0. */
+
+/** Number of bytes in section 1 (not including reserved, optional
+ * data at the end of the section). */
+#define G2C_SECTION1_BYTES 21 
+
 #define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
 #define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
 
@@ -287,6 +292,8 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 /* File handling functions. */
 int g2c_open(const char *path, int mode, int *g2cid);
 int g2c_close(int g2cid);
+int g2c_write_index(int g2cid, char *index_file);
+int g2c_read_index(char *index_file, int *g2cid);
 
 /* Getting data. */
 int g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points,
