@@ -58,6 +58,44 @@ main()
 
     }
     printf("ok!\n");
+    printf("Testing all getdrstemplate() calls...\n");
+    {
+#define NUM_TEST 9
+        int number[NUM_TEST] = {0, 2, 3, 50, 51, 40, 41, 40000, 40010};
+        int expected_maplen[NUM_TEST] = {5, 16, 18, 5, 10, 7, 5, 7, 5};
+        int expected_map[NUM_TEST][18] = {
+            {4, -2, -2, 1, 1}, /* 0 */
+            {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1}, /* 2 */
+            {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1, 1, 1}, /* 3 */
+            {4, -2, -2, 1, 4}, /* 50 */
+            {4, -2, -2, 1, -4, 2, 2, 2, 4, 1}, /* 51 */
+            {4, -2, -2, 1, 1, 1, 1}, /* 40 */
+            {4, -2, -2, 1, 1}, /* 41 */
+            {4, -2, -2, 1, 1, 1, 1}, /* 40000 */
+            {4, -2, -2, 1, 1} /* 40010 */
+        };
+            
+        int t;
+
+        for (t = 0; t < NUM_TEST; t++)
+        {
+            gtemplate *tmpl;
+            int m;
+            
+            printf("\ttesting templage %d...", number[t]);
+            tmpl = getdrstemplate(number[t]);
+            if (!tmpl)
+                return G2C_ERROR;
+            if (tmpl->num != number[t] || tmpl->maplen != expected_maplen[t] || tmpl->needext)
+                return G2C_ERROR;
+            for (m = 0; m < tmpl->maplen; m++)
+                if (tmpl->map[m] != expected_map[t][m])
+                    return G2C_ERROR;
+            free(tmpl);
+            printf("ok\n");
+        }
+    }
+    printf("ok!\n");
     printf("SUCCESS!\n");
     return 0;
 }
