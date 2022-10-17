@@ -10,19 +10,44 @@ int
 main()
 {
     printf("Testing g2c_get_grid_template()\n");
-    printf("Testing simple g2c_get_grid_template() calls...");
+    printf("Testing simple g2c_get_grid_template() calls...\n");
     {
+#define NUM_TESTS 26
+	int template_number[NUM_TESTS] = {0, 1, 2, 3, 12, 101, 140, 10, 20, 30, 31, 40, 41, 42, 43, 50, 51, 52, 53, 90, 100, 110, 204, 32768, 32769, 1100};
+	int expected_maplen[NUM_TESTS] = {19, 22, 22, 25, 22, 4, 17, 19, 18, 22, 22, 19, 22, 22, 25, 5, 8, 8, 11, 21, 11, 16, 19, 19, 21, 28};
+	int expected_map[NUM_TESTS][28] = {
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 0, 0, 0}, /* 0 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, 0, 0, 0, 0, 0, 0}, /* 1 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4, 0, 0, 0, 0, 0, 0}, /* 2 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, -4, 4, -4, 0, 0, 0}, /* 3 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 1, 4, 4, -4, -4, -4, -4, 0, 0, 0, 0, 0, 0}, /* 12 */
+	    {1, 4, 1, -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, /* 101 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 4, 4, 1, 4, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, /* 140 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, -4, 4, 1, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0}, /* 10 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, /* 20 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1, -4, -4, -4, 4, 0, 0, 0, 0, 0, 0}, /* 30 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1, -4, -4, -4, 4, 0, 0, 0, 0, 0, 0}, /* 31 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, /* 40 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, 0, 0, 0, 0, 0, 0}, /* 41 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4, 0, 0, 0, 0, 0, 0}, /* 42 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, -4, 4, -4, 0, 0, 0}, /* 43 */
+	    {4, 4, 4, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, /* 50 */
+	    {4, 4, 4, 1, 1, -4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, /* 51 */
+	    {4, 4, 4, 1, 1, -4, 4, -4}, /* 52 */
+	    {4, 4, 4, 1, 1, -4, 4, 4, -4, 4, -4}, /* 53 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, 4, 4, 4, 4, 1, 4, 4, 4, 4}, /* 90 */
+	    {1, 1, 2, 1, -4, 4, 4, 1, 1, 1, 4}, /* 100 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, 4, 4, 1, 1}, /* 110 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}, /* 204 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}, /* 32768 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 4, 4}, /* 32769 */
+	    {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, -4, 4, 1, -4, 4, 1, 4, 1, -4, 1, 1, -4, 2, 1, 1, 1, 1, 1} /* 1100 */
+	};
+	    
 	int maplen, extlen;
 	int map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
 	int ext[G2C_MAX_GRID_TEMPLATE_MAPLEN];
-	int expected_map_0[19] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1};
-	int expected_map_1[22] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4};
-	int expected_map_2[22] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4};
-	int expected_map_3[25] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, -4, 4, -4};
-	/* int expected_map_4[13] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, 1, 1}; */
-	int expected_map_12[22] = {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 1, 4, 4, -4, -4, -4, -4};
-	int expected_map_101[4] = {1, 4, 1, -4};
-	int i;
+	int i, t;
 	int ret;
 
 	/* This won't work. */
@@ -30,117 +55,19 @@ main()
 	    return G2C_ERROR;
 
 	/* Find some templates and check results. */
-	/* Get template 0. */
-	if ((ret = g2c_get_grid_template(0, &maplen, map, &extlen, ext)))
-	    return ret;
-	if (maplen != 19 || extlen)
-	    return G2C_ERROR;
-	for (i = 0; i < maplen; i++)
-	    if (map[i] != expected_map_0[i])
-		return G2C_ERROR;
 
-	/* Get template 1. */
-	if ((ret = g2c_get_grid_template(1, &maplen, map, &extlen, ext)))
-	    return ret;
-	if (maplen != 22 || extlen)
-	    return G2C_ERROR;
-	for (i = 0; i < maplen; i++)
-	    if (map[i] != expected_map_1[i])
+	for (t = 0; t < NUM_TESTS; t++)
+	{
+	    printf("\ttesting grid template %d...", template_number[t]);
+	    if ((ret = g2c_get_grid_template(template_number[t], &maplen, map, &extlen, ext)))
+		return ret;
+	    if (maplen != expected_maplen[t] || extlen)
 		return G2C_ERROR;
-	    
-	/* Get template 2. */
-	if ((ret = g2c_get_grid_template(2, &maplen, map, &extlen, ext)))
-	    return ret;
-	if (maplen != 22 || extlen)
-	    return G2C_ERROR;
-	for (i = 0; i < maplen; i++)
-	    if (map[i] != expected_map_2[i])
-		return G2C_ERROR;
-	    
-	/* Get template 3. */
-	if ((ret = g2c_get_grid_template(3, &maplen, map, &extlen, ext)))
-	    return ret;
-	if (maplen != 25 || extlen)
-	    return G2C_ERROR;
-	for (i = 0; i < maplen; i++)
-	    if (map[i] != expected_map_3[i])
-		return G2C_ERROR;
-	    
-	/* Get template 4. This cannot work until this bug is fixed:
-	 * https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues/150. */
-	/* if ((ret = g2c_get_grid_template(4, &maplen, map, &extlen, ext))) */
-	/*     return ret; */
-	/* if (maplen != 13 || extlen) */
-	/*     return G2C_ERROR; */
-	/* for (i = 0; i < maplen; i++) */
-	/*     if (map[i] != expected_map_4[i]) */
-	/* 	return G2C_ERROR; */
-	    
-	/* Get template 12. */
-	if ((ret = g2c_get_grid_template(12, &maplen, map, &extlen, ext)))
-	    return ret;
-	if (maplen != 22 || extlen)
-	    return G2C_ERROR;
-	for (i = 0; i < maplen; i++)
-	    if (map[i] != expected_map_12[i])
-		return G2C_ERROR;
-	    
-	/* Get template 101. */
-	if ((ret = g2c_get_grid_template(101, &maplen, map, &extlen, ext)))
-	    return ret;
-	if (maplen != 4 || extlen)
-	    return G2C_ERROR;
-	for (i = 0; i < maplen; i++)
-	    if (map[i] != expected_map_101[i])
-		return G2C_ERROR;
-	    
-        /* /\* Check for one that's there and does need extension. *\/ */
-        /* if (!(tmpl = getgridtemplate(4))) */
-        /*     return G2C_ERROR; */
-        /* if (tmpl->type != 3 || tmpl->num != 4 || tmpl->maplen != 13 || !tmpl->needext) */
-        /*     return G2C_ERROR; */
-        /* free(tmpl); */
-
-        /* Check for one that's there and does need extension. This
-         * code fails CI because of a memory leak in the library, see
-         * https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues/150. */
-        /* if (!(tmpl = extgridtemplate(4, list))) */
-        /*     return G2C_ERROR; */
-        /* if (tmpl->type != 3 || tmpl->num != 4 || tmpl->maplen != 13 || !tmpl->needext) */
-        /*     return G2C_ERROR; */
-        /* free(tmpl->ext); */
-        /* free(tmpl); */
-
-        /* if (!(tmpl = extgridtemplate(120, list))) */
-        /*     return G2C_ERROR; */
-        /* if (tmpl->type != 3 || tmpl->num != 120 || tmpl->maplen != 7 || !tmpl->needext) */
-        /*     return G2C_ERROR; */
-        /* if (!tmpl->ext) */
-        /*     return G2C_ERROR; */
-        /* free(tmpl->ext); */
-        /* free(tmpl); */
-
-        /* if (!(tmpl = extgridtemplate(1000, list2))) */
-        /*     return G2C_ERROR; */
-        /* if (tmpl->type != 3 || tmpl->num != 1000 || tmpl->maplen != 20 || !tmpl->needext) */
-        /*     return G2C_ERROR; */
-        /* if (!tmpl->ext) */
-        /*     return G2C_ERROR; */
-        /* free(tmpl->ext); */
-        /* free(tmpl); */
-
-        /* if (!(tmpl = extgridtemplate(1200, list2))) */
-        /*     return G2C_ERROR; */
-        /* if (tmpl->type != 3 || tmpl->num != 1200 || tmpl->maplen != 16 || !tmpl->needext) */
-        /*     return G2C_ERROR; */
-        /* if (!tmpl->ext) */
-        /*     return G2C_ERROR; */
-        /* free(tmpl->ext); */
-        /* free(tmpl); */
-
-        /* /\* Check for one that's not there. *\/ */
-        /* if ((tmpl = getgridtemplate(-1))) */
-        /*     return G2C_ERROR; */
+	    for (i = 0; i < maplen; i++)
+		if (map[i] != expected_map[t][i])
+		    return G2C_ERROR;
+	    printf("ok!\n");
+	}
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
