@@ -235,10 +235,8 @@ extdrstemplate(g2int number, g2int *list)
 /**
  * Get DRS template information.
  *
- * The DRS template consists of a template map, its length, and, for
- * some templates, an extra extension map, and its length. If an
- * extension is needed, use g2c_get_DRS_template_extension() to get
- * it.
+ * The DRS template consists of a template map, and its length. There
+ * are no supported DRS templates with extensions.
  *
  * @param drs_template_num The DRS template number.
  * @param maplen Pointer that gets the length of the map. Ignored if
