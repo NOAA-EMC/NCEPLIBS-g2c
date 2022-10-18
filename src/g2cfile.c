@@ -478,8 +478,9 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
     int int_be;
     short short_be;
     G2C_SECTION5_INFO_T *sec5_info;
-    struct gtemplate *gt;
+    int maplen, needsext, map[G2C_MAX_PDS_TEMPLATE_MAPLEN];
     int t;
+    int ret;
 
     /* Check input. */
     assert(sec && !sec->sec_info && sec->sec_num == 5);
@@ -489,73 +490,43 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
         return G2C_ENOMEM;
 
     /* Read section 5. */
-    if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    sec5_info->num_data_points = htonl(int_be);
-    if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    sec5_info->data_def = htons(short_be);
+    READ_BE_INT4(sec->msg->file->f, sec5_info->num_data_points);
+    READ_BE_INT2(sec->msg->file->f, sec5_info->data_def);
     LOG((5, "read_section5_metadata num_data_points %d data_def %d",
          sec5_info->num_data_points, sec5_info->data_def));
 
     /* Look up the information about this grid. */
-    if (!(gt = getdrstemplate(sec5_info->data_def)))
-        return G2C_ENOTEMPLATE;
-    LOG((5, "grid template type %d num %d maplen %d", gt->type, gt->num, gt->maplen));
+    if ((ret = g2c_get_drs_template(sec5_info->data_def, &maplen, map, &needsext)))
+    LOG((5, "grid template maplen %d", maplen));
 
     /* Allocate space to hold the template info. */
-    sec->template_len = gt->maplen;
-    if (!(sec->template = calloc(sizeof(int) * gt->maplen, 1)))
-    {
-        free(gt);
+    sec->template_len = maplen;
+    if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
         return G2C_ENOMEM;
-    }
 
     /* Read the template info. */
-    for (t = 0; t < gt->maplen; t++)
+    for (t = 0; t < maplen; t++)
     {
-        unsigned char chr;
-        int int_be;
-
         /* Take the absolute value of map[t] because some of the
          * numbers are negative - used to indicate that the
          * cooresponding fields can contain negative data (needed for
          * unpacking). */
-        switch(abs(gt->map[t]))
+        switch(abs(map[t]))
         {
         case ONE_BYTE:
-            if ((fread(&chr, 1, 1, sec->msg->file->f)) != 1)
-            {
-                free(gt);
-                return G2C_EFILE;
-            }
-            sec->template[t] = chr;
+            READ_BE_INT1(sec->msg->file->f, sec->template[t]);
             break;
         case TWO_BYTES:
-            if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
-            {
-                free(gt);
-                return G2C_EFILE;
-            }
-            sec->template[t] = htons(short_be);
+            READ_BE_INT2(sec->msg->file->f, sec->template[t]);
             break;
         case FOUR_BYTES:
-            if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
-            {
-                free(gt);
-                return G2C_EFILE;
-            }
-            sec->template[t] = htonl(int_be);
+            READ_BE_INT4(sec->msg->file->f, sec->template[t]);
             break;
         default:
-            free(gt);
             return G2C_EBADTEMPLATE;
         }
         LOG((7, "template[%d] %d", t, sec->template[t]));
     }
-
-    /* Free the template info. */
-    free(gt);
 
     /* Attach sec5_info to our section data. */
     sec->sec_info = sec5_info;
