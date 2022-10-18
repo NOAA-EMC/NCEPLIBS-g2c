@@ -28,15 +28,11 @@
  * -----|------------|---------
  * 2001-06-28 | Gilbert | Initial
  * 2009-01-14 | Vuong | Changed structure name template to gtemplate
+ * 2022-10-18 | Hartnett | Added g2c_get_drs_template().
  *
  * @author Stephen Gilbert @date 2001-06-28
  */
-
-#include <stdlib.h>
 #include "grib2_int.h"
-
-#define MAXDRSTEMP 9 /**< maximum number of templates */
-#define MAXDRSMAPLEN 200 /**< maximum template map length */
 
 /**
  * Stuct for GRIB2 Data Representation Section (DRS) template.
@@ -46,14 +42,14 @@ struct drstemplate
     g2int template_num; /**< The number of entries in the template. */
     g2int mapdrslen; /**< Length of map of the template. */
     g2int needext; /**< Whether the Template needs to be extended. */
-    g2int mapdrs[MAXDRSMAPLEN]; /**< A map of the template. */
+    g2int mapdrs[G2C_MAX_DRS_TEMPLATE_MAPLEN]; /**< A map of the template. */
 };
 
 /**
  * Stuct holding data for GRIB2 Data Representation Section (DRS)
  * template.
  */
-static const struct drstemplate templatesdrs[MAXDRSTEMP] =
+static const struct drstemplate templatesdrs[G2C_MAX_DRS_TEMPLATE] =
 {
     /** [5.0: Grid point data - Simple
      * Packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-0.shtml) */
@@ -135,7 +131,7 @@ getdrsindex(g2int number)
 {
     g2int j, getdrsindex = -1;
 
-    for (j = 0; j < MAXDRSTEMP; j++)
+    for (j = 0; j < G2C_MAX_DRS_TEMPLATE; j++)
     {
         if (number == templatesdrs[j].template_num)
         {
@@ -235,3 +231,54 @@ extdrstemplate(g2int number, g2int *list)
 
     return new;
 }
+
+/**
+ * Get DRS template information.
+ *
+ * The DRS template consists of a template map, its length, and, for
+ * some templates, an extra extension map, and its length. If an
+ * extension is needed, use g2c_get_DRS_template_extension() to get
+ * it.
+ *
+ * @param drs_template_num The DRS template number.
+ * @param maplen Pointer that gets the length of the map. Ignored if
+ * NULL.
+ * @param map Pointer that gets the map as an array of int. Memory
+ * must be allocated by caller. Ignored if NULL.
+ * @param needsext Pointer that a non-zero value if an extension to
+ * this template is needed. Ignored if NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOTEMPLATE Template not found.
+ *
+ * @author Ed Hartnett @date 10/18/22
+ */
+int
+g2c_get_drs_template(int drs_template_num, int *maplen, int *map, int *needsext)
+{
+    int j, m;
+
+    /* Look through the array of templates to find a matching one. */
+    for (j = 0; j < G2C_MAX_DRS_TEMPLATE; j++)
+    {
+        if (drs_template_num == templatesdrs[j].template_num)
+        {
+            /* Copy maplen and map if the caller wants them. */
+            if (maplen)
+                *maplen = templatesdrs[j].mapdrslen;
+            if (map)
+                for (m = 0; m < templatesdrs[j].mapdrslen; m++)
+                    map[m] = templatesdrs[j].mapdrs[m];
+            if (needsext)
+                *needsext = templatesdrs[j].needext;
+
+            /* Done. */
+            return G2C_NOERROR;
+        }
+    }
+
+    /* If we didn't find a template, return an error. */
+    return G2C_ENOTEMPLATE;
+}
+
