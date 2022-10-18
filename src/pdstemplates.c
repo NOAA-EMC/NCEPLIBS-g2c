@@ -542,7 +542,7 @@ extpdstemplate(g2int number, g2int *list)
     }
     else if (number == 32)
     {
-        new->extlen = list[9] * 10;
+        new->extlen = list[9] * 5;
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < list[9]; i++)
         {
