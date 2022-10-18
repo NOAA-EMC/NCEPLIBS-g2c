@@ -294,6 +294,8 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 #define G2C_MAX_GRID_TEMPLATE_MAPLEN 200 /**< Maximum grid template map length. */
 #define G2C_MAX_PDS_TEMPLATE 47 /**< Maximum number of PDS templates. */
 #define G2C_MAX_PDS_TEMPLATE_MAPLEN 200 /**< Maximum template map length. */
+#define G2C_MAX_DRS_TEMPLATE 9 /**< Maximum number of DRS templates. */
+#define G2C_MAX_DRS_TEMPLATE_MAPLEN 200 /**< Maximum DRS template map length. */
 
 /* File handling functions. */
 int g2c_open(const char *path, int mode, int *g2cid);
@@ -310,6 +312,7 @@ int g2c_get_grid_template_extension(int grid_template_num, int *template,
 int g2c_get_pds_template_extension(int pds_template_num, int *template,
                                    int *extlen, int *ext);
 int g2c_get_pds_template(int pds_template_num, int *maplen, int *map, int *needext);
+int g2c_get_drs_template(int drs_template_num, int *maplen, int *map, int *needext);
 
 /* Internal functions. */
 int g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
