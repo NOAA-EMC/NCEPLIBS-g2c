@@ -75,16 +75,16 @@ static const struct pdstemplate templatespds[MAXPDSTEMP] =
     /** 4.4: Derived Fcst based on Ensemble cluster over circular
         area at Horiz Level/Layer at a point in time. */
     {4, 30, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 1, 1, 1, 1, -4, 4, 4, 1, -1, 4, -1, 4}},
-    /** 4.5: Probablility Forecast at Horiz Level/Layer
+    /** 4.5: probablility forecast at horiz level/layer
         at a point in time. */
     {5, 22, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, -1, -4, -1, -4}},
-    /** 4.6: Percentile Forecast at Horiz Level/Layer
+    /** 4.6: percentile forecast at horiz level/layer
         at a point in time. */
     {6, 16, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1}},
-    /** 4.7: Analysis or Forecast Error at Horizontal Level/Layer
+    /** 4.7: analysis or forecast error at horizontal level/layer
         at a point in time. */
     {7, 15, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
-    /** 4.8: Ave/Accum/etc... at Horiz Level/Layer
+    /** 4.8: ave/accum/etc... at horiz level/layer
         in a time interval. */
     {8, 29, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.9: Probablility Forecast at Horiz Level/Layer
@@ -723,3 +723,55 @@ extpdstemplate(g2int number, g2int *list)
 
     return new;
 }
+
+/**
+ * Get PDS template information.
+ *
+ * The PDS template consists of a template map, its length, and, for
+ * some templates, an extra extension map, and its length. If an
+ * extension is needed, use g2c_get_pds_template_extension() to get
+ * it.
+ *
+ * @param pds_template_num The PDS template number.
+ * @param maplen Pointer that gets the length of the map. Ignored if
+ * NULL.
+ * @param map Pointer that gets the map as an array of int. Memory
+ * must be allocated by caller. Ignored if NULL.
+ * @param needsext Pointer that a non-zero value if an extension to
+ * this template is needed. Ignored if NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOTEMPLATE Template not found.
+ *
+ * @author Ed Hartnett @date 10/18/22
+ */
+int
+g2c_get_pds_template(int pds_template_num, int *maplen, int *map, int *needsext)
+{
+    int j, m;
+
+    /* Look through the array of templates to find a matching one. */
+    for (j = 0; j < G2C_MAX_PDS_TEMPLATE; j++)
+    {
+        if (pds_template_num == templatespds[j].template_num)
+        {
+            /* Copy maplen and map if the caller wants them. */
+            if (maplen)
+                *maplen = templatespds[j].mappdslen;
+            if (map)
+                for (m = 0; m < templatespds[j].mappdslen; m++)
+                    map[m] = templatespds[j].mappds[m];
+            if (needsext)
+                *needsext = templatespds[j].needext;
+
+            /* Done. */
+            return G2C_NOERROR;
+        }
+    }
+
+    /* If we didn't find a template, return an error. */
+    return G2C_ENOTEMPLATE;
+}
+
+
