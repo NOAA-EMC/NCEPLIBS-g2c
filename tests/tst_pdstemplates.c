@@ -417,23 +417,43 @@ main()
 
         for (t = 0; t < NUM_TEST; t++)
         {
-            gtemplate *tmpl;
-            int m;
-
-            printf("\tchecking templage %d...", number[t]);
-            /* if (number[t] == 54) */
-            /*     printf("here\n"); */
-            tmpl = getpdstemplate(number[t]);
-            if (!tmpl)
-                return G2C_ERROR;
-            if (tmpl->num != number[t] || tmpl->maplen != expected_maplen[t] ||
-                tmpl->needext != expected_needext[t])
-                return G2C_ERROR;
-            for (m = 0; m < tmpl->maplen; m++)
-                if (tmpl->map[m] != expected_map[t][m])
+            printf("\tchecking getpdstemplate() with template %d...", number[t]);
+            {
+                gtemplate *tmpl;
+                int m;
+                
+                /* if (number[t] == 54) */
+                /*     printf("here\n"); */
+                tmpl = getpdstemplate(number[t]);
+                if (!tmpl)
                     return G2C_ERROR;
-                   
-            free(tmpl);
+                if (tmpl->num != number[t] || tmpl->maplen != expected_maplen[t] ||
+                    tmpl->needext != expected_needext[t])
+                    return G2C_ERROR;
+                for (m = 0; m < tmpl->maplen; m++)
+                    if (tmpl->map[m] != expected_map[t][m])
+                        return G2C_ERROR;
+                
+                free(tmpl);
+            }
+            printf("ok!\n");
+            printf("\tchecking g2c_get_pds_template() with template %d...", number[t]);
+            {
+                /* if (number[t] == 54) */
+                /*     printf("here\n"); */
+                int maplen, needext;
+                int map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+                int m, ret;
+                
+                /* This will work. */
+                if ((ret = g2c_get_pds_template(number[t], &maplen, map, &needext)))
+                    return ret;
+                if (maplen != expected_maplen[t] || needext != expected_needext[t])
+                    return G2C_ERROR;
+                for (m = 0; m < maplen; m++)
+                    if (map[m] != expected_map[t][m])
+                        return G2C_ERROR;
+            }
             printf("ok!\n");
         }
     }
