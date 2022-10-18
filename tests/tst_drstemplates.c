@@ -33,6 +33,29 @@ main()
             return G2C_ERROR;
     }
     printf("ok!\n");
+    printf("Testing simple g2c_get_drs_template() call...");
+    {
+        
+        int maplen, needext;
+        int map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+        int expected_map[5] = {4, -2, -2, 1, 1};
+        int m;
+        int ret;
+
+        /* This won't work. */
+        if (g2c_get_drs_template(G2C_MAX_DRS_TEMPLATE + 1, &maplen, map, &needext) != G2C_ENOTEMPLATE)
+            return G2C_ERROR;
+        
+        /* Check for one that's there. */
+        if ((ret = g2c_get_drs_template(0, &maplen, map, &needext)))
+            return ret;
+        if (maplen != 5 || needext)
+            return G2C_ERROR;
+        for (m = 0; m < maplen; m++)
+            if (map[m] != expected_map[m])
+                return G2C_ERROR;
+    }
+    printf("ok!\n");
     printf("Testing extdrstemplate() calls (expect and ignore error messages)...");
     {
 #define MAX_LIST 40
@@ -79,19 +102,37 @@ main()
 
         for (t = 0; t < NUM_TEST; t++)
         {
-            gtemplate *tmpl;
-            int m;
-            
-            printf("\ttesting templage %d...", number[t]);
-            tmpl = getdrstemplate(number[t]);
-            if (!tmpl)
-                return G2C_ERROR;
-            if (tmpl->num != number[t] || tmpl->maplen != expected_maplen[t] || tmpl->needext)
-                return G2C_ERROR;
-            for (m = 0; m < tmpl->maplen; m++)
-                if (tmpl->map[m] != expected_map[t][m])
+            printf("\ttesting getdrstemplate() for template %d...", number[t]);
+            {
+                gtemplate *tmpl;
+                int m;
+                
+                tmpl = getdrstemplate(number[t]);
+                if (!tmpl)
                     return G2C_ERROR;
-            free(tmpl);
+                if (tmpl->num != number[t] || tmpl->maplen != expected_maplen[t] || tmpl->needext)
+                    return G2C_ERROR;
+                for (m = 0; m < tmpl->maplen; m++)
+                    if (tmpl->map[m] != expected_map[t][m])
+                        return G2C_ERROR;
+                free(tmpl);
+            }
+            printf("ok\n");
+            printf("\ttesting g2c_get_drs_template() for template %d...", number[t]);
+            {
+                int maplen, needext;
+                int map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+                int m;
+                int ret;
+                
+                if ((ret = g2c_get_drs_template(number[t], &maplen, map, &needext)))
+                    return ret;
+                if (maplen != expected_maplen[t] || needext)
+                    return G2C_ERROR;
+                for (m = 0; m < maplen; m++)
+                    if (map[m] != expected_map[t][m])
+                        return G2C_ERROR;
+            }
             printf("ok\n");
         }
     }
