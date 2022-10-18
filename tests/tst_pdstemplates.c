@@ -581,10 +581,10 @@ main()
                         /* Get extension. */
                         if ((ret = g2c_get_pds_template_extension(number[t], template, &extlen, ext)))
                             return ret;
-                        /* printf("extlen %d {", extlen); */
-                        /* for (e = 0; e < extlen; e++) */
-                        /*     printf("%d%s", ext[e], e < extlen - 1 ? ", " : ""); */
-                        /* printf("}\n"); */
+                        printf("extlen %d {", extlen);
+                        for (e = 0; e < extlen; e++)
+                            printf("%d%s", ext[e], e < extlen - 1 ? ", " : "");
+                        printf("}\n");
 
                         /* Check results. */
                         if (extlen != expected_extlen[ext_t])
