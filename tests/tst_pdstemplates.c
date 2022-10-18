@@ -414,6 +414,7 @@ main()
             {1, 1, 1, 1, 1, 1}, /* 35 */
         };
         int t;
+        int ext_t = 0;
 
         for (t = 0; t < NUM_TEST; t++)
         {
@@ -439,8 +440,8 @@ main()
             printf("ok!\n");
             printf("\tchecking g2c_get_pds_template() with template %d...", number[t]);
             {
-                /* if (number[t] == 54) */
-                /*     printf("here\n"); */
+                if (number[t] == 35)
+                    printf("here\n");
                 int maplen, needext;
                 int map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
                 int m, ret;
@@ -454,15 +455,38 @@ main()
                     if (map[m] != expected_map[t][m])
                         return G2C_ERROR;
 
-                if (number[t] == 3)
+                /* There's a bug with 35 see https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp4-35.shtml. */
+                if (number[t] != 35)
                 {
-#define NUM_EXT_TEST 1
+#define NUM_EXT_TEST 24
                     int template[G2C_MAX_GRID_TEMPLATE_MAPLEN];
-                    /* int expected_ext[NUM_EXT_TEST][48] = { */
-                    /*     {4} */
-                    /* }; */
-                    /* int expected_extlen[NUM_EXT_TEST] = {1}; */
-                    int ext_t = 0;
+                    int expected_extlen[NUM_EXT_TEST] = {2, 2, 6, 6, 6, 6, 6, 8, 8, 10, 10, 6, 6, 20, 6, 6, 22, 8, 2, 8, 2, 2, 30, 6};
+                    int expected_ext[NUM_EXT_TEST][48] = {
+                        {1, 1}, /* 3 */
+                        {1, 1}, /* 4 */
+                        {1, 1, 1, 4, 1, 4}, /* 8 */
+                        {1, 1, 1, 4, 1, 4}, /* 9 */
+                        {1, 1, 1, 4, 1, 4}, /* 10 */
+                        {1, 1, 1, 4, 1, 4}, /* 11 */
+                        {1, 1, 1, 4, 1, 4}, /* 12 */
+                        {1, 1, 1, 4, 1, 4, 1, 1}, /* 13 */
+                        {1, 1, 1, 4, 1, 4, 1, 1}, /* 14 */
+                        {2, 2, 1, 1, 4, 2, 2, 1, 1, 4}, /* 30 */
+                        {2, 2, 2, 1, 4, 2, 2, 2, 1, 4}, /* 31 */
+                        {1, 1, 1, 4, 1, 4}, /* 42 */
+                        {1, 1, 1, 4, 1, 4}, /* 43 */
+                        {2, 2, 2, -1, -4, 2, 2, 2, -1, -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, /* 32 */
+                        {1, 1, 1, 4, 1, 4}, /* 46 */
+                        {1, 1, 1, 4, 1, 4}, /* 47 */
+                        {1, 1, -1, -4, -1, -4, 1, 1, -1, -4, -1, -4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, /* 51 */
+                        {1, 1, 1, 4, 1, 4, 1, 1}, /* 91 */
+                        {1, 1}, /* 33 */
+                        {1, 1, 1, 4, 1, 4, 1, 1}, /* 34 */
+                        {1, 1}, /* 53 */
+                        {1, 1}, /* 54 */
+                        {1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}, /* 57 */
+                        {1, 1, 1, 4, 1, 4}, /* 61 */
+                    };
                     
                     if (needext)
                     {
@@ -476,19 +500,108 @@ main()
                         case 3:
                             template[26] = 2;
                             break;
+                        case 4:
+                            template[25] = 2;
+                            break;
+                        case 8:
+                            template[21] = 2;
+                            break;
+                        case 9:
+                            template[28] = 2;
+                            break;
+                        case 10:
+                            template[22] = 2;
+                            break;
+                        case 11:
+                            template[24] = 2;
+                            break;
+                        case 12:
+                            template[23] = 2;
+                            break;
+                        case 13:
+                            template[26] = 2;
+                            template[37] = 2;
+                            break;
+                        case 14:
+                            template[25] = 2;
+                            template[36] = 2;
+                            break;
+                        case 30:
+                            template[4] = 2;
+                            break;
+                        case 31:
+                            template[4] = 2;
+                            break;
+                        case 42:
+                            template[22] = 2;
+                            break;
+                        case 43:
+                            template[25] = 2;
+                            break;
+                        case 32:
+                            template[9] = 2;
+                            break;
+                        case 46:
+                            template[27] = 2;
+                            break;
+                        case 47:
+                            template[30] = 2;
+                            break;
+                        case 51:
+                            template[15] = 2;
+                            break;
+                        case 33:
+                            template[9] = 2;
+                            break;
+                        case 34:
+                            template[9] = 2;
+                            template[24] = 2;
+                            break;
+                        case 53:
+                            template[3] = 2;
+                            break;
+                        case 54:
+                            template[3] = 2;
+                            break;
+                        case 91:
+                            template[15] = 2;
+                            template[28] = 2;
+                            template[29] = 2;
+                            break;
+                        case 57:
+                            template[6] = 2;
+                            break;
+                        case 61:
+                            template[30] = 2;
+                            break;
+                        default:
+                            return G2C_ERROR;
                         }
-                        
+
+                        /* Get extension. */
                         if ((ret = g2c_get_pds_template_extension(number[t], template, &extlen, ext)))
                             return ret;
-                        printf("extlen %d\n", extlen);
-                        for (e = 0; e < extlen; e++)
-                            printf("ext[%d] %d\n", e, ext[e]);
-                        /* if (extlen != expected_extlen[ext_t]) */
-                        /*     return G2C_ERROR; */
+                        /* printf("extlen %d {", extlen); */
                         /* for (e = 0; e < extlen; e++) */
-                        /*     if (ext[e] != expected_ext[ext_t][e]) */
-                        /*         return G2C_ERROR;                                 */
+                        /*     printf("%d%s", ext[e], e < extlen - 1 ? ", " : ""); */
+                        /* printf("}\n"); */
 
+                        /* Check results. */
+                        if (extlen != expected_extlen[ext_t])
+                        {
+                            printf("expected_extlen[%d] %d\n", ext_t, expected_extlen[ext_t]);
+                            return G2C_ERROR;
+                        }
+                        for (e = 0; e < extlen; e++)
+                        {
+                            if (ext[e] != expected_ext[ext_t][e])
+                            {
+                                printf("expected_ext[%d][%d] %d\n", ext_t, e, expected_ext[ext_t][e]);
+                                return G2C_ERROR;
+                            }
+                        }
+
+                        /* Move to next set of expected results. */
                         ext_t++;
                         
                     }
