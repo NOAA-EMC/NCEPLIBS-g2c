@@ -34,15 +34,11 @@
  * 2012-03-29 | Vuong | Added Templates 4.44,4.45,4.46,4.47,4.48,4.50, 4.51,4.91,4.32 and 4.52
  * 2013-08-05 | Vuong | Corrected 4.91 and added Templates 4.33,4.34,4.53,4.54
  * 2015-10-07 | Vuong | Added Templates 4.57, 4.60, 4.61 and allow a forecast time to be negative
+ * 2022-10-18 | Hartnett | Added g2c_get_pds_template() and g2c_get_pds_template_extension().
  *
  * @author Stephen Gilbert @date 2001-06-28
  */
-
-#include <stdlib.h>
 #include "grib2_int.h"
-
-#define MAXPDSTEMP 47 /**< Maximum number of templates. */
-#define MAXPDSMAPLEN 200 /**< Maximum template map length. */
 
 /**
  * Struct for PDS template.
@@ -52,13 +48,13 @@ struct pdstemplate
     g2int template_num; /**< Template number. */
     g2int mappdslen; /**< The number of entries in the template. */
     g2int needext; /**< Does template need extension? */
-    g2int mappds[MAXPDSMAPLEN]; /**< Number of bytes for each template value. */
+    g2int mappds[G2C_MAX_PDS_TEMPLATE_MAPLEN]; /**< Number of bytes for each template value. */
 };
 
 /**
  * Data for struct for PDS template.
  */
-static const struct pdstemplate templatespds[MAXPDSTEMP] =
+static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
 {
     /** 4.0: Analysis or Forecast at Horizontal Level/Layer
         at a point in time. */
@@ -247,7 +243,7 @@ getpdsindex(g2int number)
 {
     g2int j, getpdsindex = -1;
 
-    for (j = 0; j < MAXPDSTEMP; j++)
+    for (j = 0; j < G2C_MAX_PDS_TEMPLATE; j++)
     {
         if (number == templatespds[j].template_num)
         {
@@ -725,6 +721,76 @@ extpdstemplate(g2int number, g2int *list)
 }
 
 /**
+ * Get pds template extension information.
+ *
+ * @param pds_template_num The pds template number.
+ * @param template Pointer to array that contains the template values.
+ * @param extlen Pointer that gets the length of the extension. Ignored if NULL.
+ * @param ext Pointer that gets template extension array, if there is
+ * one. Memory must be allocated by the caller. Ignored if NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_ENOTEMPLATE Template not found.
+ * - ::G2C_ENOMEM Out of memory.
+ *
+ * @author Ed Hartnett @date 10/16/22
+ */
+int
+g2c_get_pds_template_extension(int pds_template_num, int *template,
+                                int *extlen, int *ext)
+{
+    int j, t;
+
+    /* Check input. */
+    if (!template)
+        return G2C_EINVAL;
+
+    /* Look through the array of templates to find a matching one. */
+    for (j = 0; j < G2C_MAX_PDS_TEMPLATE; j++)
+    {
+        if (pds_template_num == templatespds[j].template_num)
+        {
+            /* Is there an extension to this template? */
+            if (templatespds[j].needext)
+            {
+                gtemplate *gt;
+                g2int *template8;
+                int e;
+
+                /* Copy templage to g2int for extpdstemplate() function. */
+                if (!(template8 = malloc(sizeof(g2int) * templatespds[j].mappdslen)))
+                    return G2C_ENOMEM;
+                for (t = 0; t < templatespds[j].mappdslen; t++)
+                    template8[t] = template[t];
+                if (!(gt = extpdstemplate(pds_template_num, template8)))
+                    return G2C_ENOTEMPLATE;
+                free(template8);
+                if (extlen)
+                    *extlen = gt->extlen;
+                if (ext)
+                    for (e = 0; e < gt->extlen; e++)
+                        ext[e] = gt->ext[e];
+                free(gt->ext);
+                free(gt);
+            }
+            else
+            {
+                if (extlen)
+                    *extlen = 0;
+            }
+
+            /* Done. */
+            return G2C_NOERROR;
+        }
+    }
+
+    /* If we didn't find a template, return an error. */
+    return G2C_ENOTEMPLATE;
+}
+
+/**
  * Get PDS template information.
  *
  * The PDS template consists of a template map, its length, and, for
@@ -737,7 +803,7 @@ extpdstemplate(g2int number, g2int *list)
  * NULL.
  * @param map Pointer that gets the map as an array of int. Memory
  * must be allocated by caller. Ignored if NULL.
- * @param needsext Pointer that a non-zero value if an extension to
+ * @param needext Pointer that a non-zero value if an extension to
  * this template is needed. Ignored if NULL.
  *
  * @return
@@ -747,7 +813,7 @@ extpdstemplate(g2int number, g2int *list)
  * @author Ed Hartnett @date 10/18/22
  */
 int
-g2c_get_pds_template(int pds_template_num, int *maplen, int *map, int *needsext)
+g2c_get_pds_template(int pds_template_num, int *maplen, int *map, int *needext)
 {
     int j, m;
 
@@ -762,8 +828,8 @@ g2c_get_pds_template(int pds_template_num, int *maplen, int *map, int *needsext)
             if (map)
                 for (m = 0; m < templatespds[j].mappdslen; m++)
                     map[m] = templatespds[j].mappds[m];
-            if (needsext)
-                *needsext = templatespds[j].needext;
+            if (needext)
+                *needext = templatespds[j].needext;
 
             /* Done. */
             return G2C_NOERROR;

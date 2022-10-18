@@ -15,7 +15,7 @@ int
 main()
 {
 
-    printf("Testing pdstemplates.\n");
+    printf("Testing pdstemplates, expect and ignore error messages.\n");
     printf("Testing simple getpdstemplate() calls...");
     {
         gtemplate *tmpl;
@@ -32,6 +32,27 @@ main()
         tmpl = getpdstemplate(-1);
         if (tmpl)
             return G2C_ERROR;
+    }
+    printf("ok!\n");
+    printf("Testing simple g2c_get_pds_template() calls...");
+    {
+        int maplen, needext;
+        int map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+        int expected_map[15] = {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4};
+        int m, ret;
+
+        /* This won't work. */
+        if (g2c_get_pds_template(424242, &maplen, map, &needext) != G2C_ENOTEMPLATE)
+            return G2C_ERROR;
+
+        /* This will work. */
+        if ((ret = g2c_get_pds_template(0, &maplen, map, &needext)))
+            return ret;
+        if (maplen != 15 || needext)
+            return G2C_ERROR;
+        for (m = 0; m < 15; m++)
+            if (map[m] != expected_map[m])
+                return G2C_ERROR;
     }
     printf("ok!\n");
     printf("Testing extpdstemplate() calls...");
