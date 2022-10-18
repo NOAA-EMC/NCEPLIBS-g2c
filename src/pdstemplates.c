@@ -71,16 +71,16 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
     /** 4.4: Derived Fcst based on Ensemble cluster over circular
         area at Horiz Level/Layer at a point in time. */
     {4, 30, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 1, 1, 1, 1, -4, 4, 4, 1, -1, 4, -1, 4}},
-    /** 4.5: probablility forecast at horiz level/layer
+    /** 4.5: Probablility Forecast at Horiz Level/Layer
         at a point in time. */
     {5, 22, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, -1, -4, -1, -4}},
-    /** 4.6: percentile forecast at horiz level/layer
+    /** 4.6: Percentile Forecast at Horiz Level/Layer
         at a point in time. */
     {6, 16, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1}},
-    /** 4.7: analysis or forecast error at horizontal level/layer
+    /** 4.7: Analysis or Forecast Error at Horizontal Level/Layer
         at a point in time. */
     {7, 15, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
-    /** 4.8: ave/accum/etc... at horiz level/layer
+    /** 4.8: Ave/Accum/etc... at Horiz Level/Layer
         in a time interval. */
     {8, 29, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.9: Probablility Forecast at Horiz Level/Layer
