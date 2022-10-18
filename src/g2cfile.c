@@ -1,4 +1,4 @@
-/** 
+/**
  * @file
  * @brief File functions for the g2c library.
  * @author Ed Hartnett @date Aug 16, 2022
@@ -18,7 +18,7 @@ int g2c_next_g2cid = 1;
 /** Default size of read-buffer. */
 #define READ_BUF_SIZE 4092
 
-/** Number of bytes to discipline field in GRIB2 message. */    
+/** Number of bytes to discipline field in GRIB2 message. */
 #define BYTES_TO_DISCIPLINE 6
 
 /** Search a file for the next GRIB1 or GRIB2 message.
@@ -47,7 +47,7 @@ int g2c_next_g2cid = 1;
  */
 int
 g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
-	      size_t *bytes_in_msg)
+              size_t *bytes_in_msg)
 {
     size_t bytes_to_read = MIN(READ_BUF_SIZE, max_bytes);
     size_t bytes_read;
@@ -63,84 +63,84 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
 
     /* Check inputs. */
     if (!bytes_to_msg || !bytes_in_msg)
-	return G2C_EINVAL;
-    
+        return G2C_EINVAL;
+
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
-	return G2C_EBADID;
-    
+        return G2C_EBADID;
+
     /* Skip some bytes if desired. */
     if (fseek(g2c_file[g2cid].f, (off_t)skip_bytes, SEEK_SET))
-	return G2C_ERROR;
+        return G2C_ERROR;
 
     /* Allocate storage to read into. */
     if (!(buf = calloc(bytes_to_read, sizeof(char))))
-	return G2C_ENOMEM;
+        return G2C_ENOMEM;
 
     for (num_blocks = 0; !eof && !done; num_blocks++)
-    {	
-	/* Read some bytes. If we don't get the number expected, either a
-	 * read error occured, or we reached the end of file. */
-	if ((ftell_pos = ftell(g2c_file[g2cid].f)) == -1)
-	    return G2C_EFILE;
-	LOG((4, "before read ftell() is %ld (0x%x) reading %ld bytes", ftell_pos,
-	     ftell_pos, bytes_to_read));
-	if ((bytes_read = fread(buf, 1, bytes_to_read, g2c_file[g2cid].f)) != bytes_to_read)
-	{
-	    if (ferror(g2c_file[g2cid].f))
-		ret = G2C_EFILE;
-	    eof++;
-	}
+    {
+        /* Read some bytes. If we don't get the number expected, either a
+         * read error occured, or we reached the end of file. */
+        if ((ftell_pos = ftell(g2c_file[g2cid].f)) == -1)
+            return G2C_EFILE;
+        LOG((4, "before read ftell() is %ld (0x%x) reading %ld bytes", ftell_pos,
+             ftell_pos, bytes_to_read));
+        if ((bytes_read = fread(buf, 1, bytes_to_read, g2c_file[g2cid].f)) != bytes_to_read)
+        {
+            if (ferror(g2c_file[g2cid].f))
+                ret = G2C_EFILE;
+            eof++;
+        }
 
-	/* Scan for 'GRIB2' in the bytes we have read. */
-	if (!ret)
-	{
-	    for (i = 0; i < bytes_read; i++)
-	    {
+        /* Scan for 'GRIB2' in the bytes we have read. */
+        if (!ret)
+        {
+            for (i = 0; i < bytes_read; i++)
+            {
 #ifdef LOGGING
-		/* if (i < 10) LOG((3, "buf[%ld] = %2.2x", i, buf[i])); */
+                /* if (i < 10) LOG((3, "buf[%ld] = %2.2x", i, buf[i])); */
 #endif
-		/* Find the beginning of a GRIB message. */
-		if (buf[i] == 'G' && i < bytes_read - G2C_MAGIC_HEADER_LEN
-		    && buf[i + 1] == 'R' && buf[i + 2] == 'I' && buf[i + 3] == 'B')
-		{
-		    msg_found++;
-		    *bytes_to_msg = ftell_pos + i;
-		    grib_version = buf[i + 7];
-		    LOG((3, "bytes_to_msg %ld grib_version %d", *bytes_to_msg, grib_version));
-		    if (grib_version != 1 && grib_version != 2)
-		    {
-			ret = G2C_EMSG;
-			done++;
-			break;
-		    }
-		}
+                /* Find the beginning of a GRIB message. */
+                if (buf[i] == 'G' && i < bytes_read - G2C_MAGIC_HEADER_LEN
+                    && buf[i + 1] == 'R' && buf[i + 2] == 'I' && buf[i + 3] == 'B')
+                {
+                    msg_found++;
+                    *bytes_to_msg = ftell_pos + i;
+                    grib_version = buf[i + 7];
+                    LOG((3, "bytes_to_msg %ld grib_version %d", *bytes_to_msg, grib_version));
+                    if (grib_version != 1 && grib_version != 2)
+                    {
+                        ret = G2C_EMSG;
+                        done++;
+                        break;
+                    }
+                }
 
-		/* Find the end of a GRIB message. And then we're done. */
-		if (msg_found && buf[i] == '7' && i < bytes_read - G2C_MAGIC_HEADER_LEN
-		    && buf[i + 1] == '7' && buf[i + 2] == '7' && buf[i + 3] == '7')
-		{
-		    msg_found--;
-		    *bytes_in_msg = ftell_pos + i - *bytes_to_msg + 4;
-		    LOG((3, "bytes_in_msg %ld", *bytes_in_msg));
-		    ret = G2C_NOERROR;
-		    done++;
-		    break;
-		}
-	    }
-	}
+                /* Find the end of a GRIB message. And then we're done. */
+                if (msg_found && buf[i] == '7' && i < bytes_read - G2C_MAGIC_HEADER_LEN
+                    && buf[i + 1] == '7' && buf[i + 2] == '7' && buf[i + 3] == '7')
+                {
+                    msg_found--;
+                    *bytes_in_msg = ftell_pos + i - *bytes_to_msg + 4;
+                    LOG((3, "bytes_in_msg %ld", *bytes_in_msg));
+                    ret = G2C_NOERROR;
+                    done++;
+                    break;
+                }
+            }
+        }
 
-	/* Back up 8 bytes in case the "GRIB" magic header occurred
-	 * within the last 8 bytes of the previous read. */
-	if (!done)
-	    if (fseek(g2c_file[g2cid].f, (off_t)(ftell(g2c_file[g2cid].f) - G2C_MAGIC_HEADER_LEN),
-		      SEEK_SET))
-		return G2C_ERROR;
+        /* Back up 8 bytes in case the "GRIB" magic header occurred
+         * within the last 8 bytes of the previous read. */
+        if (!done)
+            if (fseek(g2c_file[g2cid].f, (off_t)(ftell(g2c_file[g2cid].f) - G2C_MAGIC_HEADER_LEN),
+                      SEEK_SET))
+                return G2C_ERROR;
     }
 
     /* Free storage. */
     free(buf);
-    
+
     return ret;
 }
 
@@ -176,62 +176,62 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
  */
 int
 g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
-	    size_t *bytes_in_msg, unsigned char **cbuf)
+            size_t *bytes_in_msg, unsigned char **cbuf)
 {
     size_t bytes_read;
     int ret = G2C_NOERROR;
 
     /* Check inputs. */
     if (!bytes_to_msg || !bytes_in_msg || !cbuf || max_bytes < G2C_MIN_MAX_BYTES)
-	return G2C_EINVAL;
+        return G2C_EINVAL;
 
     LOG((2, "g2c_get_msg g2cid %d skip_bytes %ld max_bytes %ld", g2cid, skip_bytes,
-	 max_bytes));
-    
+         max_bytes));
+
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
-	return G2C_EBADID;
+        return G2C_EBADID;
 
     /* Find the start and length of the GRIB message. */
     /* if ((ret = g2c_find_msg2(g2cid, skip_bytes, max_bytes, bytes_to_msg, */
-    /* 			     bytes_in_msg))) */
-    /* 	return ret; */
+    /*                       bytes_in_msg))) */
+    /*  return ret; */
     {
-	g2int bytes_to_msg_g, bytes_in_msg_g;
-	seekgb(g2c_file[g2cid].f, (g2int)skip_bytes, (g2int)max_bytes, &bytes_to_msg_g,
-		   &bytes_in_msg_g);
-	*bytes_to_msg = bytes_to_msg_g;
-	*bytes_in_msg = bytes_in_msg_g;
+        g2int bytes_to_msg_g, bytes_in_msg_g;
+        seekgb(g2c_file[g2cid].f, (g2int)skip_bytes, (g2int)max_bytes, &bytes_to_msg_g,
+               &bytes_in_msg_g);
+        *bytes_to_msg = bytes_to_msg_g;
+        *bytes_in_msg = bytes_in_msg_g;
     }
     LOG((3, "*bytes_to_msg %ld *bytes_in_msg %ld", *bytes_to_msg, *bytes_in_msg));
 
     /* If no message was found, return an error. */
     if (*bytes_in_msg == 0)
-	return G2C_ENOMSG;
+        return G2C_ENOMSG;
 
     /* Allocate storage for the GRIB message. */
     if (!(*cbuf = malloc(*bytes_in_msg)))
-	return G2C_ENOMEM;
+        return G2C_ENOMEM;
 
     /* Position file at start of GRIB message. */
     if (fseek(g2c_file[g2cid].f, (off_t)*bytes_to_msg, SEEK_SET))
     {
 #ifdef LOGGING
-	int my_errno = errno;
-	LOG((0, "fseek error %s", strerror(my_errno)));
+        int my_errno = errno;
+        LOG((0, "fseek error %s", strerror(my_errno)));
 #endif
-	return G2C_ERROR;
+        return G2C_ERROR;
     }
 
     /* Read the message from the file into the buffer. */
     if ((bytes_read = fread(*cbuf, 1, *bytes_in_msg, g2c_file[g2cid].f)) != *bytes_in_msg)
-	return G2C_EFILE;
+        return G2C_EFILE;
 
 #ifdef LOGGING
     {
-	int i;
-	for (i = 0; i < 10; i++)
-	    LOG((4, "cbuf[%d] = %2x", i, (*cbuf)[i]));
+        int i;
+        for (i = 0; i < 10; i++)
+            LOG((4, "cbuf[%d] = %2x", i, (*cbuf)[i]));
     }
 #endif
 
@@ -253,27 +253,27 @@ static int
 find_available_g2cid(int *g2cid)
 {
     int i;
-    
+
     /* Check input. */
     if (!g2cid)
-	return G2C_EINVAL;
+        return G2C_EINVAL;
 
     /* Find a new g2cid. */
     for (i = 0; i < G2C_MAX_FILES + 1; i++)
     {
-	int id = (i + g2c_next_g2cid) % (G2C_MAX_FILES + 1);
+        int id = (i + g2c_next_g2cid) % (G2C_MAX_FILES + 1);
 
-	/* Skip id 0. */
-	if (!id)
-	    continue;
-	
-	/* Is this ID available? If so, we're done. */
-	if (!g2c_file[id].g2cid)
-	{
-	    *g2cid = id;
-	    g2c_next_g2cid = id + 1;
-	    return G2C_NOERROR;
-	}
+        /* Skip id 0. */
+        if (!id)
+            continue;
+
+        /* Is this ID available? If so, we're done. */
+        if (!g2c_file[id].g2cid)
+        {
+            *g2cid = id;
+            g2c_next_g2cid = id + 1;
+            return G2C_NOERROR;
+        }
     }
 
     /* If we couldn't find one, they are all open. */
@@ -297,16 +297,17 @@ find_available_g2cid(int *g2cid)
  * - ::G2C_ENOTEMPLATE Can't find template.
  *
  * @author Ed Hartnett @date Sep 15, 2022
-*/
+ */
 static int
 read_section3_metadata(G2C_SECTION_INFO_T *sec)
 {
     int int_be;
     short short_be;
     G2C_SECTION3_INFO_T *sec3_info;
-    struct gtemplate *gt;
+    int maplen, needsext, map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
     int t;
-    
+    int ret;
+
     /* Check input. */
     assert(sec && !sec->sec_info && sec->sec_num == 3);
 
@@ -315,84 +316,52 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
         return G2C_ENOMEM;
 
     /* Read section 3. */
-    if ((fread(&sec3_info->source_grid_def, 1, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    sec3_info->num_data_points = htonl(int_be);
-    if ((fread(&sec3_info->num_opt, 1, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&sec3_info->interp_list, 1, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
-        return G2C_EFILE;
-    sec3_info->grid_def = htons(short_be);
+    READ_BE_INT1(sec->msg->file->f, sec3_info->source_grid_def);
+    READ_BE_INT4(sec->msg->file->f, sec3_info->num_data_points);
+    READ_BE_INT1(sec->msg->file->f, sec3_info->num_opt);
+    READ_BE_INT1(sec->msg->file->f, sec3_info->interp_list);
+    READ_BE_INT2(sec->msg->file->f, sec3_info->grid_def);
     LOG((5, "read_section3_metadata source_grid_def %d num_data_points %d num_opt %d interp_list %d grid_def %d",
          sec3_info->source_grid_def, sec3_info->num_data_points, sec3_info->num_opt, sec3_info->interp_list,
          sec3_info->grid_def));
 
     /* Look up the information about this grid. */
-    if (!(gt = getgridtemplate(sec3_info->grid_def)))
-        return G2C_ENOTEMPLATE;
-    LOG((5, "grid template type %d num %d maplen %d", gt->type, gt->num, gt->maplen));
+    if ((ret = g2c_get_grid_template(sec3_info->grid_def, &maplen, map, &needsext)))
+        return ret;
 
     /* Allocate space to hold the template info. */
-    sec->template_len = gt->maplen;
-    if (!(sec->template = calloc(sizeof(int) * gt->maplen, 1)))
-    {
-        free(gt);
+    sec->template_len = maplen;
+    if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
         return G2C_ENOMEM;
-    }
-    
-    /* Read the template info. */
-    for (t = 0; t < gt->maplen; t++)
-    {
-        unsigned char chr;
 
+    /* Read the template info. */
+    for (t = 0; t < maplen; t++)
+    {
         /* Take the absolute value of map[t] because some of the
          * numbers are negative - used to indicate that the
          * cooresponding fields can contain negative data (needed for
          * unpacking). */
-        switch(abs(gt->map[t]))
+        switch(abs(map[t]))
         {
         case ONE_BYTE:
-            if ((fread(&chr, 1, 1, sec->msg->file->f)) != 1)
-            {
-                free(gt);
-                return G2C_EFILE;
-            }
-            sec->template[t] = chr;
+            READ_BE_INT1(sec->msg->file->f, sec->template[t]);
             break;
         case TWO_BYTES:
-            if ((fread(&short_be, TWO_BYTES, 1, sec->msg->file->f)) != 1)
-            {
-                free(gt);
-                return G2C_EFILE;
-            }
-            sec->template[t] = htons(short_be);
+            READ_BE_INT2(sec->msg->file->f, sec->template[t]);
             break;
         case FOUR_BYTES:
-            if ((fread(&int_be, FOUR_BYTES, 1, sec->msg->file->f)) != 1)
-            {
-                free(gt);
-                return G2C_EFILE;
-            }
-            sec->template[t] = htonl(int_be);
+            READ_BE_INT4(sec->msg->file->f, sec->template[t]);
             break;
         default:
-            free(gt);
             return G2C_EBADTEMPLATE;
         }
         LOG((7, "template[%d] %d", t, sec->template[t]));
     }
 
-    /* Free the template info. */
-    free(gt);
-    
     /* Attach sec3_info to our section data. */
     sec->sec_info = sec3_info;
 
-    LOG((6, "finished reading section 3 at file position %ld", ftell(sec->msg->file->f)));    
+    LOG((6, "finished reading section 3 at file position %ld", ftell(sec->msg->file->f)));
     return G2C_NOERROR;
 }
 
@@ -413,7 +382,7 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
  * - ::G2C_ENOTEMPLATE Can't find template.
  *
  * @author Ed Hartnett @date Sep 16, 2022
-*/
+ */
 static int
 read_section4_metadata(G2C_SECTION_INFO_T *sec)
 {
@@ -421,12 +390,12 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
     G2C_SECTION4_INFO_T *sec4_info;
     struct gtemplate *gt;
     int t;
-    
+
     /* Check input. */
     assert(sec && !sec->sec_info && sec->sec_num == 4 && sec->msg);
 
     LOG((3, "read_section4_metadata msg_num %d", sec->msg->msg_num));
-    
+
     /* Allocate storage for a new section 4. */
     if (!(sec4_info = calloc(sizeof(G2C_SECTION4_INFO_T), 1)))
         return G2C_ENOMEM;
@@ -457,7 +426,7 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
         free(gt);
         return G2C_ENOMEM;
     }
-    
+
     /* Read the template info. */
     for (t = 0; t < gt->maplen; t++)
     {
@@ -503,7 +472,7 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
 
     /* Free the template info. */
     free(gt);
-    
+
     /* Attach sec4_info to our section data. */
     sec->sec_info = sec4_info;
 
@@ -527,7 +496,7 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
  * - ::G2C_ENOTEMPLATE Can't find template.
  *
  * @author Ed Hartnett @date Sep 16, 2022
-*/
+ */
 static int
 read_section5_metadata(G2C_SECTION_INFO_T *sec)
 {
@@ -536,7 +505,7 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
     G2C_SECTION5_INFO_T *sec5_info;
     struct gtemplate *gt;
     int t;
-    
+
     /* Check input. */
     assert(sec && !sec->sec_info && sec->sec_num == 5);
 
@@ -566,7 +535,7 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
         free(gt);
         return G2C_ENOMEM;
     }
-    
+
     /* Read the template info. */
     for (t = 0; t < gt->maplen; t++)
     {
@@ -612,7 +581,7 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
 
     /* Free the template info. */
     free(gt);
-    
+
     /* Attach sec5_info to our section data. */
     sec->sec_info = sec5_info;
 
@@ -632,33 +601,33 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
  * - ::G2C_NOERROR - No error.
  *
  * @author Ed Hartnett @date Sep 12, 2022
-*/
+ */
 static int
 add_section(G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t bytes_to_sec,
             unsigned char sec_num)
 {
     G2C_SECTION_INFO_T *sec;
     int ret;
-        
-    LOG((6, "add_section file position %ld", ftell(msg->file->f)));    
+
+    LOG((6, "add_section file position %ld", ftell(msg->file->f)));
 
     /* Allocate storage for a new section. */
     if (!(sec = calloc(sizeof(G2C_SECTION_INFO_T), 1)))
         return G2C_ENOMEM;
-    
+
     /* Add sec to end of linked list. */
     if (!msg->sec)
         msg->sec = sec;
     else
     {
         G2C_SECTION_INFO_T *s;
-        
+
         for (s = msg->sec; s->next; s = s->next)
             ;
         s->next = sec;
         sec->prev = s;
     }
-    
+
     /* Remember values. */
     sec->msg = msg;
     sec->sec_id = sec_id;
@@ -715,7 +684,7 @@ g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
     int int_be;
     short short_be;
     char sec_num;
-    
+
     /* Skip to section 1. */
     if (fseek(f, skip, SEEK_CUR))
         return G2C_EFILE;
@@ -743,13 +712,13 @@ g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
      * section. The sec1_len tells us if there are extra values. If
      * so, skip them. */
     if (msg->sec1_len > G2C_SECTION1_BYTES)
-	fseek(f, msg->sec1_len - G2C_SECTION1_BYTES, SEEK_CUR);
-    
+        fseek(f, msg->sec1_len - G2C_SECTION1_BYTES, SEEK_CUR);
+
     return G2C_NOERROR;
 }
 
 /**
- * Read the file to get metadata about a message. 
+ * Read the file to get metadata about a message.
  *
  * @param msg Pointer to the G2C_MESSAGE_INFO_T struct for this
  * message.
@@ -758,7 +727,7 @@ g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
  * - ::G2C_NOERROR - No error.
  *
  * @author Ed Hartnett @date Sep 12, 2022
-*/
+ */
 static int
 read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
 {
@@ -770,13 +739,13 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
     /* Read section 0. */
     if (fseek(msg->file->f, msg->bytes_to_msg + BYTES_TO_DISCIPLINE, SEEK_SET))
         return G2C_EFILE;
-    LOG((6, "reading section 0 discipline starting at file position %ld", ftell(msg->file->f)));    
+    LOG((6, "reading section 0 discipline starting at file position %ld", ftell(msg->file->f)));
     if ((fread(&msg->discipline, ONE_BYTE, 1, msg->file->f)) != 1)
         return G2C_EFILE;
-    
+
     /* Read section 1. */
     if ((ret = g2c_read_section1_metadata(msg->file->f, 9, msg)))
-	return ret;
+        return ret;
     total_read += msg->sec1_len;
 
     /* Read the sections. */
@@ -785,27 +754,24 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
         int sec_len;
         unsigned char sec_num;
 
-	LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));    
+        LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));
 
         /* Read section length. */
-        if ((fread(&int_be, FOUR_BYTES, 1, msg->file->f)) != 1)
-            return G2C_EFILE;
-        sec_len = htonl(int_be);
-        
+        READ_BE_INT4(msg->file->f, sec_len);
+
         /* A section length of 926365495 indicates we've reached
-         * section 8, the end of the message. */        
+         * section 8, the end of the message. */
         if (sec_len != 926365495)
         {
             /* Read section number. */
-            if ((fread(&sec_num, 1, 1, msg->file->f)) != 1)
-                return G2C_EFILE;
+            READ_BE_INT1(msg->file->f, sec_num);
             LOG((4, "sec_len %d sec_num %d", sec_len, sec_num));
 
             /* Add a new section to our list of sections. */
             if ((ret = add_section(msg, sec_id++, sec_len, total_read, sec_num)))
                 return G2C_EBADSECTION;
 
-            /* Skip to next section. */ 
+            /* Skip to next section. */
             total_read += sec_len;
             LOG((4, "total_read %d", total_read));
             if (fseek(msg->file->f, msg->bytes_to_msg + total_read, SEEK_SET))
@@ -814,12 +780,12 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
         else
             break;
     }
-    
+
     return G2C_NOERROR;
 }
 
-/** 
- * Add new message to linked list. 
+/**
+ * Add new message to linked list.
  *
  * @param file Pointer to the G2C_FILE_INFO_T for this file.
  * @param msg_num Number of the message in file (0-based).
@@ -837,18 +803,18 @@ add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in
 {
     G2C_MESSAGE_INFO_T *msg;
     int ret;
-        
+
     /* Allocate storage for a new message. */
     if (!(msg = calloc(sizeof(G2C_MESSAGE_INFO_T), 1)))
         return G2C_ENOMEM;
-    
+
     /* Add msg to end of linked list. */
     if (!file->msg)
         file->msg = msg;
     else
     {
         G2C_MESSAGE_INFO_T *m;
-        
+
         for (m = file->msg; m->next; m = m->next)
             ;
         m->next = msg;
@@ -866,7 +832,7 @@ add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in
 
     /* Increment number of messages in the file. */
     msg->file->num_messages++;
-    
+
     return G2C_NOERROR;
 }
 
@@ -894,7 +860,7 @@ read_metadata(int g2cid)
 
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
-	return G2C_EBADID;
+        return G2C_EBADID;
 
     LOG((2, "read_metadata g2cid %d", g2cid));
 
@@ -904,8 +870,8 @@ read_metadata(int g2cid)
         /* Find the message. */
         if ((ret = g2c_seekmsg(g2cid, file_pos, &bytes_to_msg, &bytes_in_msg)))
             return ret;
-	LOG((3, "msg_num %d bytes_to_msg %ld bytes_in_msg %ld", msg_num, bytes_to_msg,
-	     bytes_in_msg));
+        LOG((3, "msg_num %d bytes_to_msg %ld bytes_in_msg %ld", msg_num, bytes_to_msg,
+             bytes_in_msg));
 
         /*  When there are 0 bytes_in_msg, we are done. */
         if (!bytes_in_msg)
@@ -915,15 +881,15 @@ read_metadata(int g2cid)
         if ((ret = add_msg(&g2c_file[g2cid], msg_num, bytes_to_msg, bytes_in_msg)))
             return ret;
 
-	/* Move the file position to the end of this message, ready to
-	 * scan for the next message. */
-	file_pos = bytes_to_msg + bytes_in_msg;
-	LOG((6, "file_pos %ld", file_pos));
-    }    
+        /* Move the file position to the end of this message, ready to
+         * scan for the next message. */
+        file_pos = bytes_to_msg + bytes_in_msg;
+        LOG((6, "file_pos %ld", file_pos));
+    }
 
     /* If we run out of messages, that's success. */
     if (ret == G2C_ENOMSG)
-	ret = G2C_NOERROR;
+        ret = G2C_NOERROR;
 
 #ifdef LOGGING
     /* Print the file contents for library debugging. */
@@ -954,19 +920,19 @@ g2c_open(const char *path, int mode, int *g2cid)
 
     /* Check inputs. */
     if (strlen(path) > G2C_MAX_NAME)
-	return G2C_ENAMETOOLONG;
+        return G2C_ENAMETOOLONG;
     if (!g2cid)
-	return G2C_EINVAL;
+        return G2C_EINVAL;
 
     LOG((1, "g2c_open path %s mode %d", path, mode));
 
     /* Find a file ID. */
     if ((ret = find_available_g2cid(&my_g2cid)))
-	return ret;
+        return ret;
 
     /* Open the file. */
     if (!(g2c_file[my_g2cid].f = fopen(path, (mode & G2C_WRITE ? "rb+" : "rb"))))
-	return G2C_EFILE;
+        return G2C_EFILE;
 
     /* Copy the path. */
     strncpy(g2c_file[my_g2cid].path, path, G2C_MAX_NAME);
@@ -975,15 +941,15 @@ g2c_open(const char *path, int mode, int *g2cid)
     g2c_file[my_g2cid].g2cid = my_g2cid;
 
     /* Initialize other values in struct. */
-    g2c_file[my_g2cid].msg = NULL;    
-    g2c_file[my_g2cid].num_messages = 0;    
-    
+    g2c_file[my_g2cid].msg = NULL;
+    g2c_file[my_g2cid].num_messages = 0;
+
     /* Pass id back to user. */
     *g2cid = my_g2cid;
-    
+
     /* Read the metadata. */
     if ((ret = read_metadata(my_g2cid)))
-	return ret;
+        return ret;
 
     return G2C_NOERROR;
 }
@@ -1006,33 +972,33 @@ g2c_create(const char *path, int cmode, int *g2cid)
 {
     int my_g2cid;
     int ret;
-    
+
     /* Check inputs. */
     if (strlen(path) > G2C_MAX_NAME)
-	return G2C_ENAMETOOLONG;
+        return G2C_ENAMETOOLONG;
     if (!g2cid)
-	return G2C_EINVAL;
+        return G2C_EINVAL;
 
     LOG((1, "g2c_create path %s cmode %d", path, cmode));
 
     /* If NOCLOBBER, check if file exists. */
     if (cmode & G2C_NOCLOBBER)
     {
-	FILE *f;
-	if ((f = fopen(path, "r")))
-	{
-	    fclose(f);
-	    return G2C_EFILE;
-	}
+        FILE *f;
+        if ((f = fopen(path, "r")))
+        {
+            fclose(f);
+            return G2C_EFILE;
+        }
     }
 
     /* Find a file ID. */
     if ((ret = find_available_g2cid(&my_g2cid)))
-	return ret;
+        return ret;
 
     /* Create the file. */
     if (!(g2c_file[my_g2cid].f = fopen(path, "w+")))
-	return G2C_EFILE;
+        return G2C_EFILE;
 
     /* Read the metadata. */
 
@@ -1044,7 +1010,7 @@ g2c_create(const char *path, int cmode, int *g2cid)
 
     /* Pass id back to user. */
     *g2cid = my_g2cid;
-    
+
     return G2C_NOERROR;
 }
 #endif
@@ -1063,12 +1029,12 @@ static int
 free_metadata(int g2cid)
 {
     G2C_MESSAGE_INFO_T *msg;
-        
+
     /* Check input. */
     if (g2cid > G2C_MAX_FILES)
-	return G2C_EBADID;
+        return G2C_EBADID;
     if (g2c_file[g2cid].g2cid != g2cid)
-	return G2C_EBADID;
+        return G2C_EBADID;
 
     /* Free message resources. */
     msg = g2c_file[g2cid].msg;
@@ -1076,13 +1042,13 @@ free_metadata(int g2cid)
     {
         G2C_MESSAGE_INFO_T *mtmp;
         G2C_SECTION_INFO_T *sec;
-        
+
         /* Free section metadata. */
         sec = msg->sec;
         while (sec)
         {
             G2C_SECTION_INFO_T *stmp;
-            
+
             stmp = sec->next;
             if (sec->template)
                 free(sec->template);
@@ -1097,7 +1063,7 @@ free_metadata(int g2cid)
         free(msg);
         msg = mtmp;
     }
-    
+
     return G2C_NOERROR;
 }
 
@@ -1115,19 +1081,19 @@ int
 g2c_close(int g2cid)
 {
     int ret;
-    
+
     /* Check input. */
     if (g2cid > G2C_MAX_FILES)
-	return G2C_EBADID;
+        return G2C_EBADID;
     if (g2c_file[g2cid].g2cid != g2cid)
-	return G2C_EBADID;
+        return G2C_EBADID;
 
     LOG((1, "g2c_close %d", g2cid));
 
     /* Free resources. */
     if ((ret = free_metadata(g2cid)))
         return ret;
-    
+
     /* Close the file. */
     if (fclose(g2c_file[g2cid].f))
         return G2C_EFILE;
@@ -1140,5 +1106,3 @@ g2c_close(int g2cid)
 
     return G2C_NOERROR;
 }
-
-
