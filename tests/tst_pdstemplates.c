@@ -453,6 +453,38 @@ main()
                 for (m = 0; m < maplen; m++)
                     if (map[m] != expected_map[t][m])
                         return G2C_ERROR;
+
+                if (number[t] == 3)
+                {
+#define NUM_EXT_TEST 1
+                    int template[NUM_EXT_TEST][G2C_MAX_GRID_TEMPLATE_MAPLEN] = {
+                        {4}
+                    };
+                    /* int expected_ext[NUM_EXT_TEST][48] = { */
+                    /*     {4} */
+                    /* }; */
+                    /* int expected_extlen[NUM_EXT_TEST] = {1}; */
+                    int ext_t = 0;
+                    
+                    if (needext)
+                    {
+                        int ext[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+                        int extlen;
+                        /* int e; */
+                        int ret;
+                        
+                        if ((ret = g2c_get_pds_template_extension(number[t], template[ext_t], &extlen, ext)))
+                            return ret;
+                        /* if (extlen != expected_extlen[ext_t]) */
+                        /*     return G2C_ERROR; */
+                        /* for (e = 0; e < extlen; e++) */
+                        /*     if (ext[e] != expected_ext[ext_t][e]) */
+                        /*         return G2C_ERROR;                                 */
+
+                        ext_t++;
+                        
+                    }
+                }
             }
             printf("ok!\n");
         }
