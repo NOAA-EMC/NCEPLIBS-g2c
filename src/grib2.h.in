@@ -304,10 +304,10 @@ int g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points,
                  float *data);
 
 /* Templates. */
-int g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *needsext);
+int g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *needext);
 int g2c_get_grid_template_extension(int grid_template_num, int *template,
                                     int *extlen, int *ext);
-int g2c_get_drs_template(int drs_template_num, int *maplen, int *map, int *needsext);
+int g2c_get_drs_template(int drs_template_num, int *maplen, int *map, int *needext);
 
 /* Internal functions. */
 int g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,

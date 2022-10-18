@@ -243,7 +243,7 @@ extdrstemplate(g2int number, g2int *list)
  * NULL.
  * @param map Pointer that gets the map as an array of int. Memory
  * must be allocated by caller. Ignored if NULL.
- * @param needsext Pointer that a non-zero value if an extension to
+ * @param needext Pointer that a non-zero value if an extension to
  * this template is needed. Ignored if NULL.
  *
  * @return
@@ -253,7 +253,7 @@ extdrstemplate(g2int number, g2int *list)
  * @author Ed Hartnett @date 10/18/22
  */
 int
-g2c_get_drs_template(int drs_template_num, int *maplen, int *map, int *needsext)
+g2c_get_drs_template(int drs_template_num, int *maplen, int *map, int *needext)
 {
     int j, m;
 
@@ -268,8 +268,8 @@ g2c_get_drs_template(int drs_template_num, int *maplen, int *map, int *needsext)
             if (map)
                 for (m = 0; m < templatesdrs[j].mapdrslen; m++)
                     map[m] = templatesdrs[j].mapdrs[m];
-            if (needsext)
-                *needsext = templatesdrs[j].needext;
+            if (needext)
+                *needext = templatesdrs[j].needext;
 
             /* Done. */
             return G2C_NOERROR;
