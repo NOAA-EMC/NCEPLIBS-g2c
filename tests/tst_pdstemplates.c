@@ -457,9 +457,7 @@ main()
                 if (number[t] == 3)
                 {
 #define NUM_EXT_TEST 1
-                    int template[NUM_EXT_TEST][G2C_MAX_GRID_TEMPLATE_MAPLEN] = {
-                        {4}
-                    };
+                    int template[G2C_MAX_GRID_TEMPLATE_MAPLEN];
                     /* int expected_ext[NUM_EXT_TEST][48] = { */
                     /*     {4} */
                     /* }; */
@@ -470,11 +468,21 @@ main()
                     {
                         int ext[G2C_MAX_GRID_TEMPLATE_MAPLEN];
                         int extlen;
-                        /* int e; */
+                        int e;
                         int ret;
+
+                        switch (number[t])
+                        {
+                        case 3:
+                            template[26] = 2;
+                            break;
+                        }
                         
-                        if ((ret = g2c_get_pds_template_extension(number[t], template[ext_t], &extlen, ext)))
+                        if ((ret = g2c_get_pds_template_extension(number[t], template, &extlen, ext)))
                             return ret;
+                        printf("extlen %d\n", extlen);
+                        for (e = 0; e < extlen; e++)
+                            printf("ext[%d] %d\n", e, ext[e]);
                         /* if (extlen != expected_extlen[ext_t]) */
                         /*     return G2C_ERROR; */
                         /* for (e = 0; e < extlen; e++) */

@@ -759,7 +759,7 @@ g2c_get_pds_template_extension(int pds_template_num, int *template,
                 g2int *template8;
                 int e;
 
-                /* Copy templage to g2int for extpdstemplate() function. */
+                /* Copy template to g2int for extpdstemplate() function. */
                 if (!(template8 = malloc(sizeof(g2int) * templatespds[j].mappdslen)))
                     return G2C_ENOMEM;
                 for (t = 0; t < templatespds[j].mappdslen; t++)
