@@ -39,7 +39,12 @@ g2c_read_section1_metadata_2(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
         return G2C_EFILE;
 
     /* Read the section. */
-    READ_BE_INT4(f, msg->sec1_len);
+    /* READ_BE_INT4(f, msg->sec1_len); */
+    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)                
+        return G2C_EFILE;
+    LOG((9, "int_be %d", int_be));
+    msg->sec1_len = htonl(int_be);                                        
+    
     READ_BE_INT1(f, sec_num);
     LOG((9, "msg->sec1_len %d sec_num %d", msg->sec1_len, sec_num));
     /* if (sec_num != 1) */
