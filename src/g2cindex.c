@@ -129,7 +129,7 @@ g2c_read_index(char *index_file, int *g2cid)
 
 	    {
 		G2C_MESSAGE_INFO_T *msgp;
-		/* int ret; */
+		int ret;
 
 		if (!(msgp = malloc(sizeof(G2C_MESSAGE_INFO_T))))
 		    return G2C_ENOMEM;
@@ -137,8 +137,8 @@ g2c_read_index(char *index_file, int *g2cid)
 		msgp->bytes_to_msg = msg;
                 
                 /* Read section 1. */
-		/* if ((ret = g2c_read_section1_metadata(f, 0, msgp))) */
-		/*     return ret; */
+		if ((ret = g2c_read_section1_metadata(f, 0, msgp)))
+		    return ret;
 		/* if ((ret = g2c_log_section1(msgp))) */
 		/*     return ret; */
 
