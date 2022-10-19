@@ -298,7 +298,7 @@ find_available_g2cid(int *g2cid)
  *
  * @author Ed Hartnett @date Sep 15, 2022
  */
-static int
+int
 read_section3_metadata(G2C_SECTION_INFO_T *sec)
 {
     int int_be;

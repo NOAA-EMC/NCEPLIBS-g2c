@@ -143,10 +143,10 @@ g2c_read_index(char *index_file, int *g2cid)
 		    return ret;
 
                 /* Read section 3 */
-		if ((ret = g2c_read_section3_metadata(f, 0, msgp)))
-		    return ret;
-		if ((ret = g2c_log_section1(msgp)))
-		    return ret;
+		/* if ((ret = g2c_read_section3_metadata(f, 0, msgp))) */
+		/*     return ret; */
+		/* if ((ret = g2c_log_section1(msgp))) */
+		/*     return ret; */
 
 		free(msgp);
 	    }

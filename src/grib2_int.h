@@ -314,6 +314,7 @@ int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
 /* Read section metadata. */
 int g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg);
 int g2c_log_section1(G2C_MESSAGE_INFO_T *msg);
+int read_section3_metadata(G2C_SECTION_INFO_T *sec);
 
 /* Handle logging. */
 #ifdef LOGGING
