@@ -363,7 +363,7 @@ g2c_get_grid_template_extension(int grid_template_num, int *template,
  * NULL.
  * @param map Pointer that gets the map as an array of int. Memory
  * must be allocated by caller. Ignored if NULL.
- * @param needsext Pointer that a non-zero value if an extension to
+ * @param needext Pointer that a non-zero value if an extension to
  * this template is needed. Ignored if NULL.
  *
  * @return
@@ -373,7 +373,7 @@ g2c_get_grid_template_extension(int grid_template_num, int *template,
  * @author Ed Hartnett @date 10/16/22
  */
 int
-g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *needsext)
+g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *needext)
 {
     int j, m;
 
@@ -388,8 +388,8 @@ g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *needsex
             if (map)
                 for (m = 0; m < templatesgrid[j].mapgridlen; m++)
                     map[m] = templatesgrid[j].mapgrid[m];
-            if (needsext)
-                *needsext = templatesgrid[j].needext;
+            if (needext)
+                *needext = templatesgrid[j].needext;
 
             /* Done. */
             return G2C_NOERROR;
