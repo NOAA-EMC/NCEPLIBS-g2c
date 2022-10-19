@@ -164,6 +164,7 @@ g2c_read_index(char *index_file, int *g2cid)
 		return G2C_EFILE;
 
 	    /* Read the index record. */
+            LOG((4, "reading index record at file position %ld", ftell(f)));
 	    READ_BE_INT4(f, reclen);
 	    READ_BE_INT4(f, msg);
 	    READ_BE_INT4(f, local);
@@ -176,6 +177,7 @@ g2c_read_index(char *index_file, int *g2cid)
 	    READ_BE_INT1(f, version);
 	    READ_BE_INT1(f, discipline);
 	    READ_BE_INT2(f, fieldnum);
+            LOG((4, "read start of index record, now at at file position %ld", ftell(f)));
 
 	    LOG((3, "reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d "
 		 "msglen %ld version %d discipline %d fieldnum %d",
