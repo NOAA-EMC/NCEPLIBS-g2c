@@ -41,8 +41,8 @@ g2c_read_section1_metadata_2(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
     /* Read the section. */
     READ_BE_INT4(f, msg->sec1_len);
     READ_BE_INT1(f, sec_num);
-    if (sec_num != 1)
-        return G2C_ENOSECTION;
+    /* if (sec_num != 1) */
+    /*     return G2C_ENOSECTION; */
     READ_BE_INT2(f, msg->center);
     /* READ_BE_INT2(f, msg->subcenter); */
     /* READ_BE_INT1(f, msg->master_version); */
