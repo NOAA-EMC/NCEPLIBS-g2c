@@ -30,17 +30,17 @@
 int
 g2c_read_section1_metadata_2(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
 {
-    /* int int_be; */
+    int int_be;
     /* short short_be; */
-    /* char sec_num; */
+    char sec_num;
 
-    /* /\* Skip to section 1. *\/ */
-    /* if (fseek(f, skip, SEEK_CUR)) */
-    /*     return G2C_EFILE; */
+    /* Skip to section 1. */
+    if (fseek(f, skip, SEEK_CUR))
+        return G2C_EFILE;
 
-    /* /\* Read the section. *\/ */
-    /* READ_BE_INT4(f, msg->sec1_len); */
-    /* READ_BE_INT1(f, sec_num); */
+    /* Read the section. */
+    READ_BE_INT4(f, msg->sec1_len);
+    READ_BE_INT1(f, sec_num);
     /* if (sec_num != 1) */
     /*     return G2C_ENOSECTION; */
     /* READ_BE_INT2(f, msg->center); */
