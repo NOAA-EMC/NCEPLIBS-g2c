@@ -178,8 +178,8 @@ g2c_read_index(char *index_file, int *g2cid)
             LOG((4, "second middle of index record, now at at file position %ld", ftell(f)));
 	    READ_BE_INT1(f, version);
             LOG((4, "about to read discipline, now at at file position %ld", ftell(f)));
-            if ((fread(&discipline, 1, 1, f)) != 1)            \
-                return G2C_EFILE;			\
+            if ((fread(&discipline, 1, 1, f)) != 1)
+                return G2C_EFILE;	
 	    /* READ_BE_INT1(f, discipline); */
             LOG((4, "have read discipline, now at at file position %ld", ftell(f)));
 	    READ_BE_INT2(f, fieldnum);
