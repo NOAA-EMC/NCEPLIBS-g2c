@@ -129,7 +129,7 @@ g2c_read_index(char *index_file, int *g2cid)
 
 	    {
 		G2C_MESSAGE_INFO_T *msgp;
-		int ret;
+		/* int ret; */
 
 		if (!(msgp = malloc(sizeof(G2C_MESSAGE_INFO_T))))
 		    return G2C_ENOMEM;
