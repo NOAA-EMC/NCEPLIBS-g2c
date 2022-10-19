@@ -89,6 +89,7 @@ g2c_read_index(char *index_file, int *g2cid)
 	LOG((2, "line %s", line));	
 	LOG((2, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
 
+        /* Read each index record. */
 	for (rec = 0; rec < num_rec; rec++)
 	{
 	    int int_be;
@@ -126,7 +127,6 @@ g2c_read_index(char *index_file, int *g2cid)
 		 reclen, msg, local, gds, pds, drs, bms, data, msglen,
 		 version, discipline, fieldnum);
 
-	    /* Read section 1. */
 	    {
 		G2C_MESSAGE_INFO_T *msgp;
 		int ret;
@@ -135,10 +135,19 @@ g2c_read_index(char *index_file, int *g2cid)
 		    return G2C_ENOMEM;
 		msgp->discipline = discipline;
 		msgp->bytes_to_msg = msg;
+                
+                /* Read section 1. */
 		if ((ret = g2c_read_section1_metadata(f, 0, msgp)))
 		    return ret;
 		if ((ret = g2c_log_section1(msgp)))
 		    return ret;
+
+                /* Read section 3 */
+		if ((ret = g2c_read_section3_metadata(f, 0, msgp)))
+		    return ret;
+		if ((ret = g2c_log_section1(msgp)))
+		    return ret;
+
 		free(msgp);
 	    }
 

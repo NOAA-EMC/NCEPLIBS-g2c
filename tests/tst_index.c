@@ -29,9 +29,9 @@ main()
 	    return G2C_ERROR;
 
 	/* This will work. */
-	g2c_set_log_level(10);
-	if ((ret = g2c_read_index(REF_FILE, &g2cid)))
-	    return ret;
+	/* g2c_set_log_level(10); */
+	/* if ((ret = g2c_read_index(REF_FILE, &g2cid))) */
+	/*     return ret; */
 	/* if ((ret = g2c_close(g2cid))) */
 	/*     return ret; */
     }
