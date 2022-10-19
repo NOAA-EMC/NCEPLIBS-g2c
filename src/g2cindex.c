@@ -127,29 +127,29 @@ g2c_read_index(char *index_file, int *g2cid)
 		 reclen, msg, local, gds, pds, drs, bms, data, msglen,
 		 version, discipline, fieldnum);
 
-	    {
-		G2C_MESSAGE_INFO_T *msgp;
-		int ret;
+	    /* { */
+	    /*     G2C_MESSAGE_INFO_T *msgp; */
+	    /*     int ret; */
 
-		if (!(msgp = malloc(sizeof(G2C_MESSAGE_INFO_T))))
-		    return G2C_ENOMEM;
-		msgp->discipline = discipline;
-		msgp->bytes_to_msg = msg;
+	    /*     if (!(msgp = malloc(sizeof(G2C_MESSAGE_INFO_T)))) */
+	    /*         return G2C_ENOMEM; */
+	    /*     msgp->discipline = discipline; */
+	    /*     msgp->bytes_to_msg = msg; */
                 
-                /* Read section 1. */
-		if ((ret = g2c_read_section1_metadata(f, 0, msgp)))
-		    return ret;
-		if ((ret = g2c_log_section1(msgp)))
-		    return ret;
+            /*     /\* Read section 1. *\/ */
+	    /*     if ((ret = g2c_read_section1_metadata(f, 0, msgp))) */
+	    /*         return ret; */
+	    /*     if ((ret = g2c_log_section1(msgp))) */
+	    /*         return ret; */
 
-                /* Read section 3 */
-		/* if ((ret = g2c_read_section3_metadata(f, 0, msgp))) */
-		/*     return ret; */
-		/* if ((ret = g2c_log_section1(msgp))) */
-		/*     return ret; */
+            /*     /\* Read section 3 *\/ */
+	    /*     /\* if ((ret = g2c_read_section3_metadata(f, 0, msgp))) *\/ */
+	    /*     /\*     return ret; *\/ */
+	    /*     /\* if ((ret = g2c_log_section1(msgp))) *\/ */
+	    /*     /\*     return ret; *\/ */
 
-		free(msgp);
-	    }
+	    /*     free(msgp); */
+	    /* } */
 
 	    /* Move the file position to the start of the next index record. */
 	    file_pos += reclen;

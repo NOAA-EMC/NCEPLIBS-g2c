@@ -20,7 +20,7 @@ main()
     printf("Testing g2c_read_index() on file %s...", WAVE_FILE);
     {
 	int g2cid;
-	/* int ret; */
+	int ret;
 
 	/* Will not work. */
 	if (g2c_read_index(NULL, &g2cid) != G2C_EINVAL)
@@ -29,9 +29,9 @@ main()
 	    return G2C_ERROR;
 
 	/* This will work. */
-	/* g2c_set_log_level(10); */
-	/* if ((ret = g2c_read_index(REF_FILE, &g2cid))) */
-	/*     return ret; */
+	g2c_set_log_level(10);
+	if ((ret = g2c_read_index(REF_FILE, &g2cid)))
+	    return ret;
 	/* if ((ret = g2c_close(g2cid))) */
 	/*     return ret; */
     }
