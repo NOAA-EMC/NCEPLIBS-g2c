@@ -119,7 +119,7 @@ g2c_read_index(char *index_file, int *g2cid)
     LOG((1, "g2c_read_index index_file %s", index_file));
 
     /* Open the index file. */
-    if (!(f = fopen(index_file, "r")))
+    if (!(f = fopen(index_file, "rb")))
 	return G2C_EFILE;
 
     /* Read the header. */
