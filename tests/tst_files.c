@@ -95,9 +95,9 @@ main()
 	    if ((ret = g2c_get_msg(g2cid, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg,
 				   &cbuf)))
 		return ret;
-	    for (i = 0; i < 10; i++)
-		printf("cbuf[%d] = %2x\n", i, cbuf[i]);
-	    printf("bytes_to_msg %ld bytes_in_msg %ld\n", bytes_to_msg, bytes_in_msg);
+	    /* for (i = 0; i < 10; i++) */
+	    /*     printf("cbuf[%d] = %2x\n", i, cbuf[i]); */
+	    /* printf("bytes_to_msg %ld bytes_in_msg %ld\n", bytes_to_msg, bytes_in_msg); */
 	    if (bytes_to_msg != 0 || bytes_in_msg != 15254)
 		return G2C_ERROR;
 
