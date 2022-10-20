@@ -58,7 +58,7 @@ int main()
         g2int ndpts = 121;
         float *fld;
 
-        g2c_set_log_level(10);
+        /* g2c_set_log_level(10); */
 
         /* Call g2_unpack7() on our message. */
         if ((ret = g2_unpack7(cgrib, &iofst, igdsnum, igdstmpl, idrsnum, idrstmpl, ndpts, &fld)))
@@ -82,7 +82,7 @@ int main()
         int ndpts = 121;
         float *fld;
 
-        g2c_set_log_level(10);
+        /* g2c_set_log_level(10); */
 
         /* Allocate memory to hold data. */
         if (!(fld = malloc(sizeof(float) * ndpts)))
@@ -111,7 +111,7 @@ int main()
         gribfield* gfld = NULL;
 
         /* Call g2_info() on our message. */
-        g2c_set_log_level(10);
+        /* g2c_set_log_level(10); */
         if ((ret = g2_info(cgrib, listsec0, listsec1, &numfields, &numlocal)))
             return ret;
 

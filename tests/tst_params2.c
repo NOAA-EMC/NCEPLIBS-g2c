@@ -15,7 +15,7 @@ main()
         int g1num, g1ver;
         int ret;
 
-        g2c_set_log_level(5);
+        /* g2c_set_log_level(5); */
         /* This will work. */
         if ((ret = g2c_param_g2tog1(0, 3, 0, &g1num, &g1ver)))
             return ret;
