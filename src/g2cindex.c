@@ -15,60 +15,6 @@
 #define G2C_INDEX_HEADER_LEN 81
 
 /**
- * Read Section 1.
- *
- * @param f Pointer to open file.
- * @param skip Skip this many bytes to get to section 0.
- * @param msg Pointer to G2C_MESSAGE_INFO_T which will be populated
- * with the values of section 0.
- *
- * @return
- * -G2C_NOERROR No error.
- *
- * @author Ed Hartnett @date 10/16/22
- */
-int
-g2c_read_section1_metadata_2(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
-{
-    int int_be;
-    short short_be;
-    char sec_num;
-
-    /* Skip to section 1. */
-    if (fseek(f, skip, SEEK_CUR))
-        return G2C_EFILE;
-
-    /* Read the section. */
-    LOG((4, "reading secion 1 file position %ld", ftell(f)));
-    READ_BE_INT4(f, msg->sec1_len);
-    READ_BE_INT1(f, sec_num);
-    LOG((9, "msg->sec1_len %d sec_num %d", msg->sec1_len, sec_num));
-    if (sec_num != 1)
-        return G2C_ENOSECTION;
-    READ_BE_INT2(f, msg->center);
-    READ_BE_INT2(f, msg->subcenter);
-    READ_BE_INT1(f, msg->master_version);
-    READ_BE_INT1(f, msg->local_version);
-    READ_BE_INT1(f, msg->sig_ref_time);
-    READ_BE_INT2(f, msg->year);
-    READ_BE_INT1(f, msg->month);
-    READ_BE_INT1(f, msg->day);
-    READ_BE_INT1(f, msg->hour);
-    READ_BE_INT1(f, msg->minute);
-    READ_BE_INT1(f, msg->second);
-    READ_BE_INT1(f, msg->status);
-    READ_BE_INT1(f, msg->type);
-
-    /* Section 1 may contain optional numbers at the end of the
-     * section. The sec1_len tells us if there are extra values. If
-     * so, skip them. */
-    if (msg->sec1_len > G2C_SECTION1_BYTES)
-        fseek(f, msg->sec1_len - G2C_SECTION1_BYTES, SEEK_CUR);
-
-    return G2C_NOERROR;
-}
-
-/**
  * Create an index file from a GRIB2 file.
  *
  * @param g2cid File it for an open GRIB2 file, as returned by
@@ -199,7 +145,7 @@ g2c_read_index(char *index_file, int *g2cid)
 		msgp->bytes_to_msg = msg;
                 
                 /* Read section 1. */
-		if ((ret = g2c_read_section1_metadata_2(f, 0, msgp)))
+		if ((ret = g2c_read_section1_metadata(f, 0, msgp)))
 		    return ret;
 		/* if ((ret = g2c_log_section1(msgp))) */
 		/*     return ret; */
