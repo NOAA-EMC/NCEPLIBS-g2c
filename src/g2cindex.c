@@ -173,9 +173,15 @@ g2c_read_index(char *index_file, int *g2cid)
 	    READ_BE_INT4(f, drs);
 	    READ_BE_INT4(f, bms);
 	    READ_BE_INT4(f, data);
+            LOG((4, "middle of index record, now at at file position %ld", ftell(f)));
 	    READ_BE_INT8(f, msglen);
+            LOG((4, "second middle of index record, now at at file position %ld", ftell(f)));
 	    READ_BE_INT1(f, version);
-	    READ_BE_INT1(f, discipline);
+            LOG((4, "about to read discipline, now at at file position %ld", ftell(f)));
+            if ((fread(&discipline, 1, 1, f)) != 1)
+                return G2C_EFILE;	
+	    /* READ_BE_INT1(f, discipline); */
+            LOG((4, "have read discipline, now at at file position %ld", ftell(f)));
 	    READ_BE_INT2(f, fieldnum);
             LOG((4, "read start of index record, now at at file position %ld", ftell(f)));
 
