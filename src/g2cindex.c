@@ -40,35 +40,30 @@ g2c_read_section1_metadata_2(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
 
     /* Read the section. */
     LOG((4, "reading secion 1 file position %ld", ftell(f)));
-    /* READ_BE_INT4(f, msg->sec1_len); */
-    if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)                
-        return G2C_EFILE;
-    LOG((9, "int_be %d", int_be));
-    msg->sec1_len = htonl(int_be);                                        
-
+    READ_BE_INT4(f, msg->sec1_len);
     READ_BE_INT1(f, sec_num);
     LOG((9, "msg->sec1_len %d sec_num %d", msg->sec1_len, sec_num));
-    /* if (sec_num != 1) */
-    /*     return G2C_ENOSECTION; */
+    if (sec_num != 1)
+        return G2C_ENOSECTION;
     READ_BE_INT2(f, msg->center);
-    /* READ_BE_INT2(f, msg->subcenter); */
-    /* READ_BE_INT1(f, msg->master_version); */
-    /* READ_BE_INT1(f, msg->local_version); */
-    /* READ_BE_INT1(f, msg->sig_ref_time); */
-    /* READ_BE_INT2(f, msg->year); */
-    /* READ_BE_INT1(f, msg->month); */
-    /* READ_BE_INT1(f, msg->day); */
-    /* READ_BE_INT1(f, msg->hour); */
-    /* READ_BE_INT1(f, msg->minute); */
-    /* READ_BE_INT1(f, msg->second); */
-    /* READ_BE_INT1(f, msg->status); */
-    /* READ_BE_INT1(f, msg->type); */
+    READ_BE_INT2(f, msg->subcenter);
+    READ_BE_INT1(f, msg->master_version);
+    READ_BE_INT1(f, msg->local_version);
+    READ_BE_INT1(f, msg->sig_ref_time);
+    READ_BE_INT2(f, msg->year);
+    READ_BE_INT1(f, msg->month);
+    READ_BE_INT1(f, msg->day);
+    READ_BE_INT1(f, msg->hour);
+    READ_BE_INT1(f, msg->minute);
+    READ_BE_INT1(f, msg->second);
+    READ_BE_INT1(f, msg->status);
+    READ_BE_INT1(f, msg->type);
 
-    /* /\* Section 1 may contain optional numbers at the end of the */
-    /*  * section. The sec1_len tells us if there are extra values. If */
-    /*  * so, skip them. *\/ */
-    /* if (msg->sec1_len > G2C_SECTION1_BYTES) */
-    /*     fseek(f, msg->sec1_len - G2C_SECTION1_BYTES, SEEK_CUR); */
+    /* Section 1 may contain optional numbers at the end of the
+     * section. The sec1_len tells us if there are extra values. If
+     * so, skip them. */
+    if (msg->sec1_len > G2C_SECTION1_BYTES)
+        fseek(f, msg->sec1_len - G2C_SECTION1_BYTES, SEEK_CUR);
 
     return G2C_NOERROR;
 }

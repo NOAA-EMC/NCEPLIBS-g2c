@@ -943,7 +943,7 @@ g2c_create(const char *path, int cmode, int *g2cid)
         return ret;
 
     /* Create the file. */
-    if (!(g2c_file[my_g2cid].f = fopen(path, "w+")))
+    if (!(g2c_file[my_g2cid].f = fopen(path, "bw+")))
         return G2C_EFILE;
 
     /* Read the metadata. */
