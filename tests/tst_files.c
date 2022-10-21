@@ -84,11 +84,16 @@ main()
 	size_t test_buf_size[NUM_BUF_SIZE_TESTS] = {100, 200, 1024, 2000, 3000, 4000};
 	unsigned char *cbuf = NULL;
 	int i;
+        int num_msg;
 	int ret;
 
 	/* g2c_set_log_level(3); */
 	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
 	    return ret;
+        if ((ret = g2c_inq(g2cid, &num_msg)))
+            return ret;
+        if (num_msg != 19)
+            return G2C_ERROR;
 	for (i = 0; i < NUM_BUF_SIZE_TESTS; i++)
 	{
 	    

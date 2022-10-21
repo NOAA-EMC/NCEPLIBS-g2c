@@ -30,6 +30,7 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 int
 g2c_write_index(int g2cid, char *index_file)
 {
+    
     return G2C_NOERROR;
 }
 
