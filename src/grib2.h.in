@@ -305,6 +305,8 @@ int g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid);
 
 /* Inquiry functions. */
 int g2c_inq(int g2cid, int *num_msg);
+int g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_filelds,
+                int *num_local);
 
 /* Getting data. */
 int g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points,
