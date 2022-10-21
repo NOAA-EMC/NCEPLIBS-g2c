@@ -260,6 +260,39 @@ g2c_log_section1(G2C_MESSAGE_INFO_T *msg)
 }
 
 /**
+ * Log info about a section.
+ *
+ * @param sec Pointer to ::G2C_SECTION_INFO_T.
+ *
+ * @return 
+ * - ::G2C_NOERROR No error.
+ *
+ * @author Ed Hartnett 10/20/22
+ */
+int
+g2c_log_section(G2C_SECTION_INFO_T *sec)
+{
+#ifdef LOGGING
+    int ret;
+    
+    LOG((3, "sec_id %d sec_len %d byte_to_sec %ld sec_num %d", sec->sec_id, sec->sec_len,
+         sec->bytes_to_sec, sec->sec_num));
+    if (sec->sec_num == 4)
+    {
+        char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
+	
+        /* Look up the parameter abbreviation with the discipline,
+         * category, and product number. */
+        if ((ret = g2c_param_abbrev(sec->msg->discipline, sec->template[0], sec->template[1], abbrev)))
+            return ret;
+        LOG((4, "%s", abbrev));
+    }
+    
+#endif
+    return G2C_NOERROR;
+}
+
+/**
  * Print a summary of the contents of an open GRIB2 file. If the
  * NCEPLIBS-g2c library is built without the LOGGING option, this
  * function will do nothing.
@@ -307,21 +340,8 @@ g2c_log_file(int g2cid)
 
         /* Section info. */
         for (sec = msg->sec; sec; sec = sec->next)
-        {
-            LOG((3, "sec_id %d sec_len %d byte_to_sec %ld sec_num %d", sec->sec_id, sec->sec_len,
-                 sec->bytes_to_sec, sec->sec_num));
-	    if (sec->sec_num == 4)
-	    {
-		char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
-		
-		/* Look up the parameter abbreviation with the discipline,
-		 * category, and product number. */
-		if ((ret = g2c_param_abbrev(msg->discipline, sec->template[0], sec->template[1], abbrev)))
-		    return ret;
-		LOG((4, "%s", abbrev));
-	    }
-        }
-        
+            if ((ret = g2c_log_section(sec)))
+                return ret;
     }
 
     /* Free XML code memory. */

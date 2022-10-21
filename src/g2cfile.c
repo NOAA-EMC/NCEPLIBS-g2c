@@ -289,6 +289,7 @@ find_available_g2cid(int *g2cid)
  * section, and the section number, have already been read when this
  * function is called.
  *
+ * @param f FILE pointer to open GRIB2 file.
  * @param sec Pointer to the G2C_SECTION_INFO_T struct.
  *
  * @return
@@ -299,7 +300,7 @@ find_available_g2cid(int *g2cid)
  * @author Ed Hartnett @date Sep 15, 2022
  */
 static int
-read_section3_metadata(G2C_SECTION_INFO_T *sec)
+read_section3_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
 {
     int int_be;
     short short_be;
@@ -310,17 +311,18 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
 
     /* Check input. */
     assert(sec && !sec->sec_info && sec->sec_num == 3);
+    LOG((6, "starting to read section 3 at file position %ld", ftell(f)));
 
     /* Allocate storage for a new section 3. */
     if (!(sec3_info = calloc(sizeof(G2C_SECTION3_INFO_T), 1)))
         return G2C_ENOMEM;
 
     /* Read section 3. */
-    READ_BE_INT1(sec->msg->file->f, sec3_info->source_grid_def);
-    READ_BE_INT4(sec->msg->file->f, sec3_info->num_data_points);
-    READ_BE_INT1(sec->msg->file->f, sec3_info->num_opt);
-    READ_BE_INT1(sec->msg->file->f, sec3_info->interp_list);
-    READ_BE_INT2(sec->msg->file->f, sec3_info->grid_def);
+    READ_BE_INT1(f, sec3_info->source_grid_def);
+    READ_BE_INT4(f, sec3_info->num_data_points);
+    READ_BE_INT1(f, sec3_info->num_opt);
+    READ_BE_INT1(f, sec3_info->interp_list);
+    READ_BE_INT2(f, sec3_info->grid_def);
     LOG((5, "read_section3_metadata source_grid_def %d num_data_points %d num_opt %d interp_list %d grid_def %d",
          sec3_info->source_grid_def, sec3_info->num_data_points, sec3_info->num_opt, sec3_info->interp_list,
          sec3_info->grid_def));
@@ -344,13 +346,13 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
         switch(abs(map[t]))
         {
         case ONE_BYTE:
-            READ_BE_INT1(sec->msg->file->f, sec->template[t]);
+            READ_BE_INT1(f, sec->template[t]);
             break;
         case TWO_BYTES:
-            READ_BE_INT2(sec->msg->file->f, sec->template[t]);
+            READ_BE_INT2(f, sec->template[t]);
             break;
         case FOUR_BYTES:
-            READ_BE_INT4(sec->msg->file->f, sec->template[t]);
+            READ_BE_INT4(f, sec->template[t]);
             break;
         default:
             return G2C_EBADTEMPLATE;
@@ -361,7 +363,7 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
     /* Attach sec3_info to our section data. */
     sec->sec_info = sec3_info;
 
-    LOG((6, "finished reading section 3 at file position %ld", ftell(sec->msg->file->f)));
+    LOG((6, "finished reading section 3 at file position %ld", ftell(f)));
     return G2C_NOERROR;
 }
 
@@ -374,6 +376,7 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
  * section, and the section number, have already been read when this
  * function is called.
  *
+ * @param f FILE pointer to open GRIB2 file.
  * @param sec Pointer to the G2C_SECTION_INFO_T struct.
  *
  * @return
@@ -384,7 +387,7 @@ read_section3_metadata(G2C_SECTION_INFO_T *sec)
  * @author Ed Hartnett @date Sep 16, 2022
  */
 static int
-read_section4_metadata(G2C_SECTION_INFO_T *sec)
+read_section4_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
 {
     short short_be;
     G2C_SECTION4_INFO_T *sec4_info;
@@ -404,11 +407,11 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
     /* Assign a number to this field, and count the number of fields in the message. */
     sec4_info->field_num = sec->msg->num_fields++;
 
-    LOG((6, "reading section 4 starting at file position %ld", ftell(sec->msg->file->f)));
+    LOG((6, "reading section 4 starting at file position %ld", ftell(f)));
 
     /* Read section 4. */
-    READ_BE_INT2(sec->msg->file->f, sec4_info->num_coord);
-    READ_BE_INT2(sec->msg->file->f, sec4_info->prod_def);
+    READ_BE_INT2(f, sec4_info->num_coord);
+    READ_BE_INT2(f, sec4_info->prod_def);
     LOG((5, "read_section4_metadata num_coord %d prod_def %d", sec4_info->num_coord, sec4_info->prod_def));
 
     /* Look up the information about this grid. */
@@ -434,13 +437,13 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
         switch(abs(map[t]))
         {
         case ONE_BYTE:
-            READ_BE_INT1(sec->msg->file->f, sec->template[t]);            
+            READ_BE_INT1(f, sec->template[t]);            
             break;
         case TWO_BYTES:
-            READ_BE_INT2(sec->msg->file->f, sec->template[t]);            
+            READ_BE_INT2(f, sec->template[t]);            
             break;
         case FOUR_BYTES:
-            READ_BE_INT4(sec->msg->file->f, sec->template[t]);            
+            READ_BE_INT4(f, sec->template[t]);            
             break;
         default:
             return G2C_EBADTEMPLATE;
@@ -463,6 +466,7 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
  * section, and the section number, have already been read when this
  * function is called.
  *
+ * @param f FILE pointer to open GRIB2 file.
  * @param sec Pointer to the G2C_SECTION_INFO_T struct.
  *
  * @return
@@ -473,7 +477,7 @@ read_section4_metadata(G2C_SECTION_INFO_T *sec)
  * @author Ed Hartnett @date Sep 16, 2022
  */
 static int
-read_section5_metadata(G2C_SECTION_INFO_T *sec)
+read_section5_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
 {
     int int_be;
     short short_be;
@@ -484,14 +488,15 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
 
     /* Check input. */
     assert(sec && !sec->sec_info && sec->sec_num == 5);
+    LOG((6, "starting to read section 5 at file position %ld", ftell(f)));    
 
     /* Allocate storage for a new section 5. */
     if (!(sec5_info = calloc(sizeof(G2C_SECTION5_INFO_T), 1)))
         return G2C_ENOMEM;
 
     /* Read section 5. */
-    READ_BE_INT4(sec->msg->file->f, sec5_info->num_data_points);
-    READ_BE_INT2(sec->msg->file->f, sec5_info->data_def);
+    READ_BE_INT4(f, sec5_info->num_data_points);
+    READ_BE_INT2(f, sec5_info->data_def);
     LOG((5, "read_section5_metadata num_data_points %d data_def %d",
          sec5_info->num_data_points, sec5_info->data_def));
 
@@ -514,13 +519,13 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
         switch(abs(map[t]))
         {
         case ONE_BYTE:
-            READ_BE_INT1(sec->msg->file->f, sec->template[t]);
+            READ_BE_INT1(f, sec->template[t]);
             break;
         case TWO_BYTES:
-            READ_BE_INT2(sec->msg->file->f, sec->template[t]);
+            READ_BE_INT2(f, sec->template[t]);
             break;
         case FOUR_BYTES:
-            READ_BE_INT4(sec->msg->file->f, sec->template[t]);
+            READ_BE_INT4(f, sec->template[t]);
             break;
         default:
             return G2C_EBADTEMPLATE;
@@ -537,6 +542,7 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
 /**
  * Add metadata about a new section 3, 4, 5, 6, or 7.
  *
+ * @param f FILE pointer to open GRIB2 file.
  * @param msg Pointer to the G2C_MESSAGE_INFO_T struct.
  * @param sec_id 0-based section ID.
  * @param sec_len Length of section.
@@ -548,14 +554,12 @@ read_section5_metadata(G2C_SECTION_INFO_T *sec)
  *
  * @author Ed Hartnett @date Sep 12, 2022
  */
-static int
-add_section(G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t bytes_to_sec,
-            unsigned char sec_num)
+int
+add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
+            size_t bytes_to_sec, unsigned char sec_num)
 {
     G2C_SECTION_INFO_T *sec;
     int ret;
-
-    LOG((6, "add_section file position %ld", ftell(msg->file->f)));
 
     /* Allocate storage for a new section. */
     if (!(sec = calloc(sizeof(G2C_SECTION_INFO_T), 1)))
@@ -589,15 +593,15 @@ add_section(G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t by
         msg->num_local++;
         break;
     case 3:
-        if ((ret = read_section3_metadata(sec)))
+        if ((ret = read_section3_metadata(f, sec)))
             return ret;
         break;
     case 4:
-        if ((ret = read_section4_metadata(sec)))
+        if ((ret = read_section4_metadata(f, sec)))
             return ret;
         break;
     case 5:
-        if ((ret = read_section5_metadata(sec)))
+        if ((ret = read_section5_metadata(f, sec)))
             return ret;
         break;
     case 6:
@@ -682,10 +686,11 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
     int sec_id = 0;
     int ret;
 
+    LOG((6, "read_msg_metadata file position %ld", ftell(msg->file->f)));
+
     /* Read section 0. */
     if (fseek(msg->file->f, msg->bytes_to_msg + BYTES_TO_DISCIPLINE, SEEK_SET))
         return G2C_EFILE;
-    LOG((6, "reading section 0 discipline starting at file position %ld", ftell(msg->file->f)));
     if ((fread(&msg->discipline, ONE_BYTE, 1, msg->file->f)) != 1)
         return G2C_EFILE;
 
@@ -714,7 +719,7 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
             LOG((4, "sec_len %d sec_num %d", sec_len, sec_num));
 
             /* Add a new section to our list of sections. */
-            if ((ret = add_section(msg, sec_id++, sec_len, total_read, sec_num)))
+            if ((ret = add_section(msg->file->f, msg, sec_id++, sec_len, total_read, sec_num)))
                 return G2C_EBADSECTION;
 
             /* Skip to next section. */
@@ -738,46 +743,57 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
  * @param bytes_to_msg Number of bytes to the start of the message in
  * the file.
  * @param bytes_in_msg Length of message in bytes.
+ * @param read_file Set to true to cause metadata to be read from a
+ * GRIB2 data file.
+ * @param msg Pointer to a pointer that will get the location of the
+ * newly created ::G2C_MESSAGE_INFO_T object. Ignored if NULL.
  *
  * @return
  * - ::G2C_NOERROR - No error.
  *
  * @author Ed Hartnett @date Sep 12, 2022
  */
-static int
-add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in_msg)
+int
+add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in_msg,
+        int read_file, G2C_MESSAGE_INFO_T **msg)
 {
-    G2C_MESSAGE_INFO_T *msg;
+    G2C_MESSAGE_INFO_T *my_msg;
     int ret;
 
     /* Allocate storage for a new message. */
-    if (!(msg = calloc(sizeof(G2C_MESSAGE_INFO_T), 1)))
+    if (!(my_msg = calloc(sizeof(G2C_MESSAGE_INFO_T), 1)))
         return G2C_ENOMEM;
 
-    /* Add msg to end of linked list. */
+    /* Add my_msg to end of linked list. */
     if (!file->msg)
-        file->msg = msg;
+        file->msg = my_msg;
     else
     {
         G2C_MESSAGE_INFO_T *m;
 
         for (m = file->msg; m->next; m = m->next)
             ;
-        m->next = msg;
+        m->next = my_msg;
     }
 
     /* Remember values. */
-    msg->msg_num = msg_num;
-    msg->bytes_to_msg = bytes_to_msg;
-    msg->bytes_in_msg = bytes_in_msg;
-    msg->file = file;
+    my_msg->msg_num = msg_num;
+    my_msg->bytes_to_msg = bytes_to_msg;
+    my_msg->bytes_in_msg = bytes_in_msg;
+    my_msg->file = file;
 
-    /* Read message metadata. */
-    if ((ret = read_msg_metadata(msg)))
-        return ret;
+    /* Read message metadata. We do this if we are opening a GRIB2
+     * data file, but not if we are reading a GRIB2 index file. */
+    if (read_file)
+        if ((ret = read_msg_metadata(my_msg)))
+            return ret;
 
     /* Increment number of messages in the file. */
-    msg->file->num_messages++;
+    my_msg->file->num_messages++;
+
+    /* Return pointer to caller, if desired. */
+    if (msg)
+        *msg = my_msg;
 
     return G2C_NOERROR;
 }
@@ -824,7 +840,8 @@ read_metadata(int g2cid)
             break;
 
         /* Add new message to our list of messages. */
-        if ((ret = add_msg(&g2c_file[g2cid], msg_num, bytes_to_msg, bytes_in_msg)))
+        if ((ret = add_msg(&g2c_file[g2cid], msg_num, bytes_to_msg, bytes_in_msg,
+                           1, NULL)))
             return ret;
 
         /* Move the file position to the end of this message, ready to
@@ -845,6 +862,54 @@ read_metadata(int g2cid)
     return ret;
 }
 
+/**
+ * Open a GRIB2 file and add it to the list of open files.
+ *
+ * @param path Path of the file.
+ * @param mode Open mode flags.
+ * @param g2cid Pointer that gets an indentifier for the file.
+ *
+ * @return
+ * - ::G2C_NOERROR - No error.
+ * - ::G2C_EINVAL - Invalid input.
+ * - ::G2C_ETOOMANYFILES - Trying to open too many files at the same time.
+ *
+ * @author Ed Hartnett @date Aug 16, 2022
+ */
+int
+g2c_add_file(const char *path, int mode, int *g2cid)
+{
+    int ret;
+    
+   /* Check inputs. */
+    if (strlen(path) > G2C_MAX_NAME)
+        return G2C_ENAMETOOLONG;
+    if (!g2cid)
+        return G2C_EINVAL;
+
+    LOG((1, "g2c_add_file path %s mode %d", path, mode));
+
+    /* Find a file ID. */
+    if ((ret = find_available_g2cid(g2cid)))
+        return ret;
+
+    /* Open the file. */
+    if (!(g2c_file[*g2cid].f = fopen(path, (mode & G2C_WRITE ? "rb+" : "rb"))))
+        return G2C_EFILE;
+
+    /* Copy the path. */
+    strncpy(g2c_file[*g2cid].path, path, G2C_MAX_NAME);
+
+    /* Remember the id. */
+    g2c_file[*g2cid].g2cid = *g2cid;
+
+    /* Initialize other values in struct. */
+    g2c_file[*g2cid].msg = NULL;
+    g2c_file[*g2cid].num_messages = 0;
+
+     return G2C_NOERROR;
+}
+
 /** Open an existing GRIB2 file.
  *
  * @param path Path of the file.
@@ -861,40 +926,14 @@ read_metadata(int g2cid)
 int
 g2c_open(const char *path, int mode, int *g2cid)
 {
-    int my_g2cid;
     int ret;
 
-    /* Check inputs. */
-    if (strlen(path) > G2C_MAX_NAME)
-        return G2C_ENAMETOOLONG;
-    if (!g2cid)
-        return G2C_EINVAL;
-
-    LOG((1, "g2c_open path %s mode %d", path, mode));
-
-    /* Find a file ID. */
-    if ((ret = find_available_g2cid(&my_g2cid)))
+    /* Open the file and add it to the list of open files. */
+    if ((ret = g2c_add_file(path, mode, g2cid)))
         return ret;
-
-    /* Open the file. */
-    if (!(g2c_file[my_g2cid].f = fopen(path, (mode & G2C_WRITE ? "rb+" : "rb"))))
-        return G2C_EFILE;
-
-    /* Copy the path. */
-    strncpy(g2c_file[my_g2cid].path, path, G2C_MAX_NAME);
-
-    /* Remember the id. */
-    g2c_file[my_g2cid].g2cid = my_g2cid;
-
-    /* Initialize other values in struct. */
-    g2c_file[my_g2cid].msg = NULL;
-    g2c_file[my_g2cid].num_messages = 0;
-
-    /* Pass id back to user. */
-    *g2cid = my_g2cid;
-
+    
     /* Read the metadata. */
-    if ((ret = read_metadata(my_g2cid)))
+    if ((ret = read_metadata(*g2cid)))
         return ret;
 
     return G2C_NOERROR;
@@ -943,7 +982,7 @@ g2c_create(const char *path, int cmode, int *g2cid)
         return ret;
 
     /* Create the file. */
-    if (!(g2c_file[my_g2cid].f = fopen(path, "w+")))
+    if (!(g2c_file[my_g2cid].f = fopen(path, "bw+")))
         return G2C_EFILE;
 
     /* Read the metadata. */
