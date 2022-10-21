@@ -52,7 +52,7 @@ g2c_inq(int g2cid, int *num_msg)
  *
  * @return
  * - ::G2C_NOERROR No error.
- * - ::G2C_NOMSG Message not found.
+ * - ::G2C_ENOMSG Message not found.
  *
  * @author Ed Hartnett @date 10/21/22
  */
