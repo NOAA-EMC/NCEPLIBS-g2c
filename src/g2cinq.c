@@ -45,7 +45,7 @@ g2c_inq(int g2cid, int *num_msg)
  * first message as 0.
  * @param discipline Pointer that gets the discipline from the
  * message. Ignored if NULL.
- * @param num_filelds Pointer that gets the number of fields in the
+ * @param num_fields Pointer that gets the number of fields in the
  * message. Ignored if NULL.
  * @param num_local Pointer that gets the number of local sections in
  * the message. Ignored if NULL.
