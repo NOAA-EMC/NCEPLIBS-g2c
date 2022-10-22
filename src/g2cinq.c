@@ -26,7 +26,7 @@ int
 g2c_inq(int g2cid, int *num_msg)
 {
     /* Is this an open GRIB2 file? */
-    if (g2c_file[g2cid].g2cid != g2cid)
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
 	return G2C_EBADID;
 
     /* If the caller wants to know the number of messages, tell
@@ -63,7 +63,7 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
     G2C_MESSAGE_INFO_T *msg;
     
     /* Is this an open GRIB2 file? */
-    if (g2c_file[g2cid].g2cid != g2cid)
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
 	return G2C_EBADID;
 
     /* Find the file and message. */
@@ -113,7 +113,7 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
     int t;
     
     /* Is this an open GRIB2 file? */
-    if (g2c_file[g2cid].g2cid != g2cid)
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
 	return G2C_EBADID;
 
     /* Find the message. */

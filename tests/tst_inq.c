@@ -23,8 +23,12 @@ main()
 	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
 	    return ret;
 
-        /* This won't work. */
-        if (g2c_inq(100, NULL) != G2C_EBADID)
+        /* These won't work - bad file ID. */
+        if (g2c_inq(-1, NULL) != G2C_EBADID)
+            return G2C_ERROR;
+        if (g2c_inq(G2C_MAX_FILES + 1, NULL) != G2C_EBADID)
+            return G2C_ERROR;
+        if (g2c_inq(10, NULL) != G2C_EBADID)
             return G2C_ERROR;
 
         /* This works but does nothing. */
