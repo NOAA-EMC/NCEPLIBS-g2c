@@ -152,7 +152,10 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                 if ((ret = add_msg(&g2c_file[*g2cid], rec, msg, msglen, 0, &msgp)))
                     return ret;
 		msgp->discipline = discipline;
-                
+                msgp->bytes_to_local = local;
+                msgp->bytes_to_bms = bms;
+                msgp->bytes_to_data = data;
+                                
                 /* Read section 1. */
 		if ((ret = g2c_read_section1_metadata(f, 0, msgp)))
 		    return ret;
@@ -164,11 +167,32 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                 /* Add a new section to our list of sections. */
                 for (s = 3; s < 6; s++)
                 {
+                    size_t bytes_to_sec;
+
+                    /* Select the value from the index record which is
+                     * the number of bytes to section s. */
+                    if (sec_num == 3)
+                        bytes_to_sec = gds;
+                    else if (sec_num == 4)
+                        bytes_to_sec = pds;
+                    else if (sec_num == 5)
+                        bytes_to_sec = drs;
+
+                    /* Read the section length and number from the index record. */
                     READ_BE_INT4(f, sec_len);
                     READ_BE_INT1(f, sec_num);
+
+                    /* Check some stuff. */
                     if (sec_num != s)
                         return G2C_EBADSECTION;
-                    if ((ret = add_section(f, msgp, sec_id++, sec_len, gds, sec_num)))
+                    if (sec_num == 4)
+                        if (fieldnum < 0) /* to silence warning */
+                            return G2C_EBADSECTION;
+
+                    /* Read the section info from the index file,
+                     * using the same functions that read it from the
+                     * GRIB2 data file. */
+                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, sec_num)))
                         return ret;
                 }
 	    }
