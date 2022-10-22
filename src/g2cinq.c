@@ -112,6 +112,10 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
     G2C_SECTION_INFO_T *sec4;
     int t;
     
+    /* Is this an open GRIB2 file? */
+    if (g2c_file[g2cid].g2cid != g2cid)
+	return G2C_EBADID;
+
     /* Find the message. */
     for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
 	if (msg->msg_num == msg_num)

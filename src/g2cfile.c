@@ -263,10 +263,6 @@ find_available_g2cid(int *g2cid)
     {
         int id = (i + g2c_next_g2cid) % (G2C_MAX_FILES + 1);
 
-        /* Skip id 0. */
-        if (!id)
-            continue;
-
         /* Is this ID available? If so, we're done. */
         if (!g2c_file[id].g2cid)
         {
