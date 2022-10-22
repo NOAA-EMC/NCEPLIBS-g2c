@@ -290,8 +290,8 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 #define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
 
 /* Constants to help with templates. */
-#define G2C_MAX_GRID_TEMPLATE 31 /**< Maximum number of grid templates. */
-#define G2C_MAX_GRID_TEMPLATE_MAPLEN 200 /**< Maximum grid template map length. */
+#define G2C_MAX_GDS_TEMPLATE 31 /**< Maximum number of grid templates. */
+#define G2C_MAX_GDS_TEMPLATE_MAPLEN 200 /**< Maximum grid template map length. */
 #define G2C_MAX_PDS_TEMPLATE 47 /**< Maximum number of PDS templates. */
 #define G2C_MAX_PDS_TEMPLATE_MAPLEN 200 /**< Maximum template map length. */
 #define G2C_MAX_DRS_TEMPLATE 9 /**< Maximum number of DRS templates. */

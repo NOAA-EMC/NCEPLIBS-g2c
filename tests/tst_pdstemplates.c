@@ -37,7 +37,7 @@ main()
     printf("Testing simple g2c_get_pds_template() calls...");
     {
         int maplen, needext;
-        int map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+        int map[G2C_MAX_PDS_TEMPLATE_MAPLEN];
         int expected_map[15] = {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4};
         int m, ret;
 
@@ -443,7 +443,7 @@ main()
                 if (number[t] == 35)
                     printf("here\n");
                 int maplen, needext;
-                int map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+                int map[G2C_MAX_PDS_TEMPLATE_MAPLEN];
                 int m, ret;
                 
                 /* This will work. */
@@ -459,7 +459,7 @@ main()
                 if (number[t] != 35)
                 {
 #define NUM_EXT_TEST 24
-                    int template[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+                    int template[G2C_MAX_PDS_TEMPLATE_MAPLEN];
                     int expected_extlen[NUM_EXT_TEST] = {2, 2, 6, 6, 6, 6, 6, 8, 8, 10, 10, 6, 6, 10, 6, 6, 12, 8, 2, 8, 2, 2, 30, 6};
                     int expected_ext[NUM_EXT_TEST][48] = {
                         {1, 1}, /* 3 */
@@ -490,7 +490,7 @@ main()
                     
                     if (needext)
                     {
-                        int ext[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+                        int ext[G2C_MAX_PDS_TEMPLATE_MAPLEN];
                         int extlen;
                         int e;
                         int ret;

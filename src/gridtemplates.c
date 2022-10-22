@@ -48,13 +48,13 @@ struct gridtemplate
     g2int template_num; /**< Template number. */
     g2int mapgridlen; /**< The number of entries in the template. */
     g2int needext; /**< Does template need extension? */
-    g2int mapgrid[G2C_MAX_GRID_TEMPLATE_MAPLEN]; /**< Number of bytes for each template value. */
+    g2int mapgrid[G2C_MAX_GDS_TEMPLATE_MAPLEN]; /**< Number of bytes for each template value. */
 };
 
 /**
  * Templates grid.
  */
-static const struct gridtemplate templatesgrid[G2C_MAX_GRID_TEMPLATE] =
+static const struct gridtemplate templatesgrid[G2C_MAX_GDS_TEMPLATE] =
 {
     /* 3.0: Lat/Lon grid */
     {0, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
@@ -141,7 +141,7 @@ getgridindex(g2int number)
 {
     g2int j, getgridindex = -1;
 
-    for (j = 0; j < G2C_MAX_GRID_TEMPLATE; j++)
+    for (j = 0; j < G2C_MAX_GDS_TEMPLATE; j++)
     {
         if (number == templatesgrid[j].template_num)
         {
@@ -308,7 +308,7 @@ g2c_get_grid_template_extension(int grid_template_num, int *template,
         return G2C_EINVAL;
 
     /* Look through the array of templates to find a matching one. */
-    for (j = 0; j < G2C_MAX_GRID_TEMPLATE; j++)
+    for (j = 0; j < G2C_MAX_GDS_TEMPLATE; j++)
     {
         if (grid_template_num == templatesgrid[j].template_num)
         {
@@ -378,7 +378,7 @@ g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *needext
     int j, m;
 
     /* Look through the array of templates to find a matching one. */
-    for (j = 0; j < G2C_MAX_GRID_TEMPLATE; j++)
+    for (j = 0; j < G2C_MAX_GDS_TEMPLATE; j++)
     {
         if (grid_template_num == templatesgrid[j].template_num)
         {
