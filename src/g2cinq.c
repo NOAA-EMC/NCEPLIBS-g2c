@@ -88,6 +88,14 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
                 *num_fields = msg->num_fields;
             if (num_local)
                 *num_local = msg->num_local;
+            if (center)
+                *center = msg->center;
+            if (subcenter)
+                *subcenter = msg->subcenter;
+            if (master_version)
+                *master_version = msg->master_version;
+            if (local_version)
+                *local_version = msg->local_version;
             return G2C_NOERROR;
         }
     }
