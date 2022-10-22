@@ -167,13 +167,11 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                 /* Add a new section to our list of sections. */
                 for (s = 3; s < 6; s++)
                 {
-                    size_t bytes_to_sec = 0;
+                    size_t bytes_to_sec = gds;
 
                     /* Select the value from the index record which is
                      * the number of bytes to section s. */
-                    if (sec_num == 3)
-                        bytes_to_sec = gds;
-                    else if (sec_num == 4)
+                    if (sec_num == 4)
                         bytes_to_sec = pds;
                     else if (sec_num == 5)
                         bytes_to_sec = drs;
