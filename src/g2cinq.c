@@ -88,8 +88,8 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
  * Inquire about a product.
  *
  * @param g2cid File ID.
- * @param msgnum Message number.
- * @param prodnum Product number.
+ * @param msg_num Message number.
+ * @param prod_num Product number.
  * @param pds_template_len PDS template length. Ignored if NULL.
  * @param pds_template The PDS template. Ignored if NULL.
  * @param gds_template_len GDS template length. Ignored if NULL.
@@ -104,11 +104,12 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
  * @author Ed Hartnett @date 10/21/22
  */
 int
-g2c_inq_prod(int g2cid, int msgnum, int prodnum, int *pds_template_len,
+g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
              int *pds_template, int *gds_template_len, int *gds_template,
              int *drs_template_len, int *drs_template)
 {
     G2C_MESSAGE_INFO_T *msg;
+    G2C_SECTION_INFO_T *sec4;
     int t;
     
     /* Find the message. */
@@ -129,10 +130,10 @@ g2c_inq_prod(int g2cid, int msgnum, int prodnum, int *pds_template_len,
 
     /* Return the info to the caller. */
     if (pds_template_len)
-        *pds_template_len = sec->template_len;
+        *pds_template_len = sec4->template_len;
     if (pds_template)
-        for (t = 0; t < sec->template_len; t++)
-            pds_template[t] = sec->template[t];
+        for (t = 0; t < sec4->template_len; t++)
+            pds_template[t] = sec4->template[t];
 
     /* Find the GDS. */
     

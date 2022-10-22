@@ -63,20 +63,20 @@ main()
             {4, 4}
         };
         int maplen, extlen;
-        int map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
-        int ext[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+        int map[G2C_MAX_GDS_TEMPLATE_MAPLEN];
+        int ext[G2C_MAX_GDS_TEMPLATE_MAPLEN];
         int i, t, ext_count = 0;
         int ret;
 
         /* This won't work. */
-        if (g2c_get_grid_template(G2C_MAX_GRID_TEMPLATE + 1, &maplen, map, &extlen) != G2C_ENOTEMPLATE)
+        if (g2c_get_grid_template(G2C_MAX_GDS_TEMPLATE + 1, &maplen, map, &extlen) != G2C_ENOTEMPLATE)
             return G2C_ERROR;
 
         /* Check all templates that don't have extensions. */
         for (t = 0; t < NUM_TESTS; t++)
         {
             int needsext;
-            int template[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+            int template[G2C_MAX_GDS_TEMPLATE_MAPLEN];
 
             printf("\ttesting grid template %d...", template_number[t]);
             if ((ret = g2c_get_grid_template(template_number[t], &maplen, map, &needsext)))

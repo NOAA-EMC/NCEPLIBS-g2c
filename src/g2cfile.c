@@ -305,7 +305,7 @@ read_section3_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
     int int_be;
     short short_be;
     G2C_SECTION3_INFO_T *sec3_info;
-    int maplen, needsext, map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+    int maplen, needsext, map[G2C_MAX_GDS_TEMPLATE_MAPLEN];
     int t;
     int ret;
 
