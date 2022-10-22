@@ -21,8 +21,8 @@ main()
         int ret;
 
         /* Open our test file. */
-	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
-	    return ret;
+        if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+            return ret;
 
         /* These won't work - bad file ID. */
         if (g2c_inq(-1, NULL) != G2C_EBADID)
@@ -35,7 +35,7 @@ main()
         /* This works but does nothing. */
         if ((ret = g2c_inq(g2cid, NULL)))
             return ret;
-        
+
         /* Check values. */
         if ((ret = g2c_inq(g2cid, &num_msg)))
             return ret;
@@ -69,7 +69,7 @@ main()
         /* This won't work - bad msg number. */
         if (g2c_inq_prod(g2cid, NUM_MSG, 0, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_ENOMSG)
             return G2C_ERROR;
-        
+
         /* This won't work - bad prod number. */
         if (g2c_inq_prod(g2cid, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_ENOPRODUCT)
             return G2C_ERROR;
@@ -89,24 +89,47 @@ main()
             int drs_template[G2C_MAX_DRS_TEMPLATE_MAPLEN];
             int expected_pds_template[NUM_MSG][G2C_MAX_PDS_TEMPLATE_MAPLEN] = {
                 {2, 1, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
-                {2, 0, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},  
-                {2, 2, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},  
-                {2, 3, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},  
-                {0, 3, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},  
-                {0, 11, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0}, 
-                {0, 10, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0}, 
-                {0, 5, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},  
+                {2, 0, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
+                {2, 2, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
+                {2, 3, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
+                {0, 3, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
+                {0, 11, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
+                {0, 10, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
+                {0, 5, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
                 {0, 8, 2, 0, 11, 0, 0, 1, 0, 241, 0, 1, 255, 0, 0},
                 {0, 8, 2, 0, 11, 0, 0, 1, 0, 241, 0, 2, 255, 0, 0},
                 {0, 8, 2, 0, 11, 0, 0, 1, 0, 241, 0, 3, 255, 0, 0},
-                {0, 6, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},  
+                {0, 6, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
                 {0, 9, 2, 0, 11, 0, 0, 1, 0, 241, 0, 1, 255, 0, 0},
                 {0, 9, 2, 0, 11, 0, 0, 1, 0, 241, 0, 2, 255, 0, 0},
                 {0, 9, 2, 0, 11, 0, 0, 1, 0, 241, 0, 3, 255, 0, 0},
-                {0, 4, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},  
+                {0, 4, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
                 {0, 7, 2, 0, 11, 0, 0, 1, 0, 241, 0, 1, 255, 0, 0},
                 {0, 7, 2, 0, 11, 0, 0, 1, 0, 241, 0, 2, 255, 0, 0},
                 {0, 7, 2, 0, 11, 0, 0, 1, 0, 241, 0, 3, 255, 0, 0}
+            };
+            int expected_gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN] =
+                {6, 0, 0, 0, 0, 0, 0, 241, 151, 0, 0, 50000000, 210000000, 48, 25000000, 250000000, 166667, 166667, 0};
+            int expected_drs_template[NUM_MSG][G2C_MAX_DRS_TEMPLATE_MAPLEN] = {
+                {1092616192, 0, 2, 11, 0, 0, 255},
+                {1065353216, 0, 2, 16, 0, 0, 255},
+                {-1006403584, 0, 2, 11, 0, 0, 255},
+                {-996777984, 0, 2, 12, 0, 0, 255},
+                {1102053376, 0, 2, 9, 0, 0, 255},
+                {1144815616, 0, 2, 10, 0, 0, 255},
+                {1185159680, 0, 2, 14, 0, 0, 255},
+                {1086324736, 0, 2, 9, 0, 0, 255},
+                {1095761920, 0, 2, 9, 0, 0, 255},
+                {1086324736, 0, 2, 8, 0, 0, 255},
+                {1084227584, 0, 2, 7, 0, 0, 255},
+                {1125908480, 0, 2, 11, 0, 0, 255},
+                {1136328704, 0, 2, 11, 0, 0, 255},
+                {1135411200, 0, 2, 11, 0, 0, 255},
+                {1133510656, 0, 2, 11, 0, 0, 255},
+                {0, 0, 2, 16, 0, 0, 255},
+                {1183603200, 0, 2, 14, 0, 0, 255},
+                {1140424704, 0, 2, 16, 0, 0, 255},
+                {1092616192, 0, 2, 16, 0, 0, 255}
             };
             int p;
 
@@ -124,22 +147,32 @@ main()
                                     &gds_template_len, gds_template, &drs_template_len,
                                     drs_template)))
                 return ret;
-            printf("pds_template_len %d pds_template {", pds_template_len);
-            for (p = 0; p < pds_template_len; p++)
-                printf("%d%s", pds_template[p], (p < pds_template_len - 1) ? ", " : "");
+            printf("drs_template_len %d drs_template {", drs_template_len);
+            for (p = 0; p < drs_template_len; p++)
+                printf("%d%s", drs_template[p], (p < drs_template_len - 1) ? ", " : "");
             printf("}\n");
-            
+
             /* Check results. */
             if (pds_template_len != 15)
                 return G2C_ERROR;
             for (p = 0; p < pds_template_len; p++)
                 if (pds_template[p] != expected_pds_template[m][p])
                     return G2C_ERROR;
+            if (gds_template_len != 19)
+                return G2C_ERROR;
+            for (p = 0; p < gds_template_len; p++)
+                if (gds_template[p] != expected_gds_template[p])
+                    return G2C_ERROR;
+            if (drs_template_len != 7)
+                return G2C_ERROR;
+            for (p = 0; p < drs_template_len; p++)
+                if (drs_template[p] != expected_drs_template[m][p])
+                    return G2C_ERROR;
         }
 
         /* Close the file. */
         if ((ret = g2c_close(g2cid)))
-	    return ret;
+            return ret;
     }
     printf("ok!\n");
     printf("SUCCESS!\n");

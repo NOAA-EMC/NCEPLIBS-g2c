@@ -109,7 +109,7 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
              int *drs_template_len, int *drs_template)
 {
     G2C_MESSAGE_INFO_T *msg;
-    G2C_SECTION_INFO_T *sec4;
+    G2C_SECTION_INFO_T *sec4, *sec3, *sec5;
     int t;
     
     /* Is this an open GRIB2 file? */
@@ -140,8 +140,33 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
             pds_template[t] = sec4->template[t];
 
     /* Find the GDS. */
+    for (sec3 = sec4->prev; sec3; sec3 = sec3->prev)
+        if (sec3->sec_num == 3)
+            break;
+    if (!sec3)
+        return G2C_ENOSECTION;
     
+    /* Return the info to the caller. */
+    if (gds_template_len)
+        *gds_template_len = sec3->template_len;
+    if (gds_template)
+        for (t = 0; t < sec3->template_len; t++)
+            gds_template[t] = sec3->template[t];
+
+    /* Find the DRS. */
+    for (sec5 = sec4->next; sec5; sec5 = sec5->next)
+        if (sec5->sec_num == 5)
+            break;
+    if (!sec5)
+        return G2C_ENOSECTION;
     
+    /* Return the info to the caller. */
+    if (drs_template_len)
+        *drs_template_len = sec5->template_len;
+    if (drs_template)
+        for (t = 0; t < sec5->template_len; t++)
+            drs_template[t] = sec5->template[t];
+
     return G2C_NOERROR;
 }
 
