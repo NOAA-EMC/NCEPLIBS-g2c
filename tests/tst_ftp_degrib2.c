@@ -165,8 +165,8 @@ main()
             if ((ret = g2c_inq_msg(g2cid, m, &discipline, &num_fields, &num_local,
                                    &center, &subcenter, &master_version, &local_version)))
                 return ret;
-            printf("center %d subcenter %d master_version %d local_version %d\n",
-                   center, subcenter, master_version, local_version);            
+            if (center != 7 || subcenter != 0 || master_version != 2 || local_version != 1)
+                return G2C_ERROR;
             if (num_fields != 1 || num_local)
                 return G2C_ERROR;
             if (discipline != expected_discipline[m])
