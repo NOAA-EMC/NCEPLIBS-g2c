@@ -131,6 +131,8 @@ main()
                 {1140424704, 0, 2, 16, 0, 0, 255},
                 {1092616192, 0, 2, 16, 0, 0, 255}
             };
+            unsigned char sig_ref_time, month, day, hour, minute, second;
+            short year;
             int p;
 
             /* Inquire about this message. */
@@ -138,19 +140,25 @@ main()
                 return ret;
 
             /* Check results. */
-            if (num_local || num_fields != 1 || discipline != (m < 4 ? 0 : 10))
+           if (num_local || num_fields != 1 || discipline != (m < 4 ? 0 : 10))
                 return G2C_ERROR;
 
+            /* Inquire about the date/time. */
+            if ((ret = g2c_inq_msg_time(g2cid, m, &sig_ref_time, &year, &month, &day, &hour,
+                                        &minute, &second)))
+                return ret;
+
+            /* Check date/time. All messages in this file have the same date/time. */
+            if (sig_ref_time != 1 || year != 2021 || month != 11 || day != 30 ||
+                hour != 0 || minute != 0 || second != 0)
+                return G2C_ERROR;
+ 
             /* Each message in the test file has one product. Inqure
              * about it. */
             if ((ret = g2c_inq_prod(g2cid, m, 0, &pds_template_len, pds_template,
                                     &gds_template_len, gds_template, &drs_template_len,
                                     drs_template)))
                 return ret;
-            printf("drs_template_len %d drs_template {", drs_template_len);
-            for (p = 0; p < drs_template_len; p++)
-                printf("%d%s", drs_template[p], (p < drs_template_len - 1) ? ", " : "");
-            printf("}\n");
 
             /* Check results. */
             if (pds_template_len != 15)

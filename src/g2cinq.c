@@ -85,6 +85,71 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
 }
 
 /**
+ * Learn about the date/time information in a GRIB2 message.
+ *
+ * @param g2cid ID of the opened file, as from g2c_open().
+ * @param msg_num Number of the message in the file, starting with the
+ * first message as 0.
+ * @param sig_ref_time Pointer that gets Significane of reference time
+ * value from the message. Ignored if NULL.
+ * @param year Pointer that gets the year from the message. Ignored if
+ * NULL.
+ * @param month Pointer that gets the month from the message. Ignored
+ * if NULL.
+ * @param day Pointer that gets the day from the message. Ignored if
+ * NULL.
+ * @param hour Pointer that gets the hour from the message. Ignored if
+ * NULL.
+ * @param minute Pointer that gets the minute from the
+ * message. Ignored if NULL.
+ * @param second Pointer that gets the seconds from the
+ * message. Ignored if NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EBADID File ID not found.
+ * - ::G2C_ENOMSG Message not found.
+ *
+ * @author Ed Hartnett @date 10/22/22
+ */
+int
+g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *year,
+                 unsigned char *month, unsigned char *day, unsigned char *hour,
+                 unsigned char *minute, unsigned char *second)
+{
+    G2C_MESSAGE_INFO_T *msg;
+    
+    /* Is this an open GRIB2 file? */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
+	return G2C_EBADID;
+
+    /* Find the message. */
+    for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+    {
+        if (msg->msg_num == msg_num)
+        {
+            if (sig_ref_time)
+                *sig_ref_time = msg->sig_ref_time;
+            if (year)
+                *year = msg->year;
+            if (month)
+                *month = msg->month;
+            if (day)
+                *day = msg->day;
+            if (hour)
+                *hour = msg->hour;
+            if (minute)
+                *minute = msg->minute;
+            if (second)
+                *second = msg->second;
+            return G2C_NOERROR;
+        }
+    }
+    
+    return G2C_ENOMSG;
+}
+
+/**
  * Inquire about a product.
  *
  * @param g2cid File ID.

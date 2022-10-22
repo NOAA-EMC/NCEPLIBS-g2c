@@ -305,6 +305,9 @@ int g2c_close(int g2cid);
 int g2c_inq(int g2cid, int *num_msg);
 int g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
                 int *num_local);
+int g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *year,
+                     unsigned char *month, unsigned char *day, unsigned char *hour,
+                     unsigned char *minute, unsigned char *second);
 int g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
                  int *pds_template, int *gds_template_len, int *gds_template,
                  int *drs_template_len, int *drs_template);
