@@ -19,6 +19,7 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_EBADID File ID not found.
  *
  * @author Ed Hartnett @date 10/21/22
  */
@@ -49,16 +50,26 @@ g2c_inq(int g2cid, int *num_msg)
  * message. Ignored if NULL.
  * @param num_local Pointer that gets the number of local sections in
  * the message. Ignored if NULL.
+ * @param center Pointer that gets the code for the producing center from
+ * the message. Ignored if NULL.
+ * @param subcenter Pointer that gets the code for the producing subcenter from
+ * the message. Ignored if NULL.
+ * @param master_version Pointer that gets the master version from
+ * the message. Ignored if NULL.
+ * @param local_version Pointer that gets the local version from
+ * the message. Ignored if NULL.
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_EBADID File ID not found.
  * - ::G2C_ENOMSG Message not found.
  *
  * @author Ed Hartnett @date 10/21/22
  */
 int
 g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
-            int *num_local)
+            int *num_local, short *center, short *subcenter, unsigned char *master_version,
+            unsigned char *local_version)
 {
     G2C_MESSAGE_INFO_T *msg;
     
@@ -164,7 +175,10 @@ g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *yea
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_EBADID File ID not found.
  * - ::G2C_ENOMSG Message not found.
+ * - ::G2C_ENOPRODUCT Product not found.
+ * - ::G2C_ENOSECTION Section not found.
  *
  * @author Ed Hartnett @date 10/21/22
  */

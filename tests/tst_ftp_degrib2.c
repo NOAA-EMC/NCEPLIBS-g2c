@@ -105,6 +105,8 @@ main()
         int num_msg;
         unsigned char discipline;
         int num_fields, num_local;
+        short center, subcenter;
+        unsigned char master_version, local_version;
         unsigned char expected_discipline[NUM_MSG] =
             {10, 10, 10, 10, 0, 10, 10, 10, 0, 10, 10, 10, 10, 0, 10, 0, 10, 10,
              10, 0, 0, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 0, 0, 10, 10, 10,
@@ -160,8 +162,11 @@ main()
             return G2C_ERROR;
         for (m = 0; m < num_msg; m++)
         {
-            if ((ret = g2c_inq_msg(g2cid, m, &discipline, &num_fields, &num_local)))
+            if ((ret = g2c_inq_msg(g2cid, m, &discipline, &num_fields, &num_local,
+                                   &center, &subcenter, &master_version, &local_version)))
                 return ret;
+            printf("center %d subcenter %d master_version %d local_version %d\n",
+                   center, subcenter, master_version, local_version);            
             if (num_fields != 1 || num_local)
                 return G2C_ERROR;
             if (discipline != expected_discipline[m])

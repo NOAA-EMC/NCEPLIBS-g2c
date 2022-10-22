@@ -43,19 +43,19 @@ main()
             return G2C_ERROR;
 
         /* These won't work - bad file ID. */
-        if (g2c_inq_msg(-1, 0, NULL, NULL, NULL) != G2C_EBADID)
+        if (g2c_inq_msg(-1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
             return G2C_ERROR;
-        if (g2c_inq_msg(10, 0, NULL, NULL, NULL) != G2C_EBADID)
+        if (g2c_inq_msg(10, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
             return G2C_ERROR;
-        if (g2c_inq_msg(G2C_MAX_FILES + 1, 0, NULL, NULL, NULL) != G2C_EBADID)
+        if (g2c_inq_msg(G2C_MAX_FILES + 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
             return G2C_ERROR;
 
         /* This won't work - bad msg number. */
-        if (g2c_inq_msg(g2cid, NUM_MSG, NULL, NULL, NULL) != G2C_ENOMSG)
+        if (g2c_inq_msg(g2cid, NUM_MSG, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_ENOMSG)
             return G2C_ERROR;
 
         /* This works but does nothing. */
-        if ((ret = g2c_inq_msg(g2cid, 0, NULL, NULL, NULL)))
+        if ((ret = g2c_inq_msg(g2cid, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL)))
             return ret;
 
         /* These won't work - bad file number. */
@@ -133,11 +133,16 @@ main()
             };
             unsigned char sig_ref_time, month, day, hour, minute, second;
             short year;
+            short center, subcenter;
+            unsigned char master_version, local_version;
             int p;
 
             /* Inquire about this message. */
-            if ((ret = g2c_inq_msg(g2cid, m, &discipline, &num_fields, &num_local)))
+            if ((ret = g2c_inq_msg(g2cid, m, &discipline, &num_fields, &num_local,
+                                   &center, &subcenter, &master_version, &local_version)))
                 return ret;
+            printf("center %d subcenter %d master_version %d local_version %d\n",
+                   center, subcenter, master_version, local_version);            
 
             /* Check results. */
            if (num_local || num_fields != 1 || discipline != (m < 4 ? 0 : 10))
@@ -148,7 +153,8 @@ main()
                                         &minute, &second)))
                 return ret;
 
-            /* Check date/time. All messages in this file have the same date/time. */
+            /* Check date/time. All messages in this file have the
+             * same date/time. */
             if (sig_ref_time != 1 || year != 2021 || month != 11 || day != 30 ||
                 hour != 0 || minute != 0 || second != 0)
                 return G2C_ERROR;
