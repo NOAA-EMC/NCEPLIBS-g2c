@@ -41,8 +41,12 @@ main()
         if (num_msg != 19)
             return G2C_ERROR;
 
-        /* This won't work - bad file ID. */
-        if (g2c_inq_msg(100, 0, NULL, NULL, NULL) != G2C_EBADID)
+        /* These won't work - bad file ID. */
+        if (g2c_inq_msg(-1, 0, NULL, NULL, NULL) != G2C_EBADID)
+            return G2C_ERROR;
+        if (g2c_inq_msg(10, 0, NULL, NULL, NULL) != G2C_EBADID)
+            return G2C_ERROR;
+        if (g2c_inq_msg(G2C_MAX_FILES + 1, 0, NULL, NULL, NULL) != G2C_EBADID)
             return G2C_ERROR;
 
         /* This won't work - bad msg number. */
@@ -51,6 +55,22 @@ main()
 
         /* This works but does nothing. */
         if ((ret = g2c_inq_msg(g2cid, 0, NULL, NULL, NULL)))
+            return ret;
+
+        /* These won't work - bad file number. */
+        if (g2c_inq_prod(-1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
+            return G2C_ERROR;
+        if (g2c_inq_prod(10, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
+            return G2C_ERROR;
+        if (g2c_inq_prod(G2C_MAX_FILES + 1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
+            return G2C_ERROR;
+
+        /* This won't work - bad msg number. */
+        if (g2c_inq_prod(g2cid, 19, 0, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_ENOMSG)
+            return G2C_ERROR;
+
+        /* This works but does nothing. */
+        if ((ret = g2c_inq_prod(g2cid, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL)))
             return ret;
         
         for (m = 0; m < num_msg; m++)
