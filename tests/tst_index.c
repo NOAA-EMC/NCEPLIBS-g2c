@@ -19,9 +19,9 @@ main()
 #ifdef JPEG
     printf("Testing g2c_read_index() on file %s...", WAVE_FILE);
     {
-	int g2cid;
-        int num_msg;
-	int ret;
+	/* int g2cid; */
+        /* int num_msg; */
+	/* int ret; */
 
 	/* Will not work. */
 	/* if (g2c_read_index(NULL, NULL, 0, &g2cid) != G2C_EINVAL) */
