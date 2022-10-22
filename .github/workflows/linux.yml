@@ -73,11 +73,12 @@ jobs:
           export CC=clang
         elif [[ ${{ matrix.ccompiler }} == "gcc" ]]; then
           export CC=gcc
+          export CFLAGS='-Wall -Werror'
         fi
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DENABLE_OpenJPEG=ON -DCMAKE_C_FLAGS="-g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address -Wall -Werror" -DFTP_TEST_FILES=ON ..
+        cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DENABLE_OpenJPEG=ON -DCMAKE_C_FLAGS="-g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address" -DFTP_TEST_FILES=ON ..
         make -j2
 
     - name: test
