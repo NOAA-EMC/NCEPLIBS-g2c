@@ -57,6 +57,12 @@ jobs:
     - name: test
       run: |
         cd g2c/build
-        cd tests
-        ctest  --output-on-failure --rerun-failed --extra-verbose
+        ctest  --output-on-failure --rerun-failed --extra-verbose --output-log log.txt
+        
+    - name: upload-log
+      uses: actions/upload-artifact@v2
+      with:
+        name: g2c-log
+        path: |
+          g2c/build/log.txt
 
