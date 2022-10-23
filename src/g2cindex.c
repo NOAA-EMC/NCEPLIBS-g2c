@@ -152,7 +152,6 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
 		int ret;
 
                 /* Allocate storage for message. */
-                LOG((3, "howdy"));
                 if ((ret = add_msg(&g2c_file[*g2cid], rec, msg, msglen, 0, &msgp)))
                     return ret;
 		msgp->discipline = discipline;
@@ -166,6 +165,7 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
 		    return ret;
 		if ((ret = g2c_log_section1(msgp)))
 		    return ret;
+                LOG((3, "howdy3"));
 
                 LOG((4, "reading section info at file position %ld", ftell(f)));
 
