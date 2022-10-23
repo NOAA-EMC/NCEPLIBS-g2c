@@ -137,7 +137,6 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
 		 "msglen %ld version %d discipline %d fieldnum %d",
 		 reclen, msg, local, gds, pds, drs, bms, data, msglen,
 		 version, discipline, fieldnum));
-            LOG((3, "howdy"));
 	    /* printf("reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d " */
 	    /*      "msglen %ld version %d discipline %d fieldnum %d", */
 	    /*      reclen, msg, local, gds, pds, drs, bms, data, msglen, */
@@ -153,6 +152,7 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
 		int ret;
 
                 /* Allocate storage for message. */
+                LOG((3, "howdy"));
                 if ((ret = add_msg(&g2c_file[*g2cid], rec, msg, msglen, 0, &msgp)))
                     return ret;
 		msgp->discipline = discipline;
@@ -161,6 +161,7 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                 msgp->bytes_to_data = data;
                                 
                 /* Read section 1. */
+                LOG((3, "howdy2"));
 		if ((ret = g2c_read_section1_metadata(f, 0, msgp)))
 		    return ret;
 		if ((ret = g2c_log_section1(msgp)))
