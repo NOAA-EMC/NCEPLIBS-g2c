@@ -140,7 +140,7 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
 	    /* printf("reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d " */
 	    /*      "msglen %ld version %d discipline %d fieldnum %d", */
 	    /*      reclen, msg, local, gds, pds, drs, bms, data, msglen, */
-	    /*      version, discipline, fieldnum); */
+	    /*      version, discipline, fieldnum);  */
 
             /* Read ingest the metadata for sections 3, 4, and 5 from
              * the index record. */
