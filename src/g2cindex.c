@@ -181,8 +181,8 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                     LOG((3, "howdy5 sec_num %d", sec_num));
                     if (sec_num == 4)
                         bytes_to_sec = pds;
-                    /* else if (sec_num == 5) */
-                    /*     bytes_to_sec = drs; */
+                    else if (sec_num == 5)
+                        bytes_to_sec = drs;
                     LOG((3, "howdy6"));
 
                     /* Read the section length and number from the index record. */
