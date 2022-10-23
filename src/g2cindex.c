@@ -168,35 +168,35 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
 
                 LOG((4, "reading section info at file position %ld", ftell(f)));
 
-                /* /\* Add a new section to our list of sections. *\/ */
-                /* for (s = 3; s < 6; s++) */
-                /* { */
-                /*     size_t bytes_to_sec = gds; */
+                /* Add a new section to our list of sections. */
+                for (s = 3; s < 6; s++)
+                {
+                    size_t bytes_to_sec = gds;
 
-                /*     /\* Select the value from the index record which is */
-                /*      * the number of bytes to section s. *\/ */
-                /*     if (sec_num == 4) */
-                /*         bytes_to_sec = pds; */
-                /*     else if (sec_num == 5) */
-                /*         bytes_to_sec = drs; */
+                    /* Select the value from the index record which is
+                     * the number of bytes to section s. */
+                    if (sec_num == 4)
+                        bytes_to_sec = pds;
+                    else if (sec_num == 5)
+                        bytes_to_sec = drs;
 
-                /*     /\* Read the section length and number from the index record. *\/ */
-                /*     READ_BE_INT4(f, sec_len); */
-                /*     READ_BE_INT1(f, sec_num); */
+                    /* Read the section length and number from the index record. */
+                    READ_BE_INT4(f, sec_len);
+                    READ_BE_INT1(f, sec_num);
 
-                /*     /\* Check some stuff. *\/ */
-                /*     if (sec_num != s) */
-                /*         return G2C_EBADSECTION; */
-                /*     if (sec_num == 4) */
-                /*         if (fieldnum < 0) /\* to silence warning *\/ */
-                /*             return G2C_EBADSECTION; */
+                    /* /\* Check some stuff. *\/ */
+                    /* if (sec_num != s) */
+                    /*     return G2C_EBADSECTION; */
+                    /* if (sec_num == 4) */
+                    /*     if (fieldnum < 0) /\* to silence warning *\/ */
+                    /*         return G2C_EBADSECTION; */
 
-                /*     /\* Read the section info from the index file, */
-                /*      * using the same functions that read it from the */
-                /*      * GRIB2 data file. *\/ */
-                /*     if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, sec_num))) */
-                /*         return ret; */
-                /* } */
+                    /* Read the section info from the index file,
+                     * using the same functions that read it from the
+                     * GRIB2 data file. */
+                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, sec_num)))
+                        return ret;
+                }
 	    }
 
 	    /* Move the file position to the start of the next index record. */
