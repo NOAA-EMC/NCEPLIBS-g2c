@@ -889,7 +889,7 @@ g2c_add_file(const char *path, int mode, int *g2cid)
     if ((ret = find_available_g2cid(g2cid)))
         return ret;
 
-    /* Open the file. */
+    /* Open the file. */  
     if (!(g2c_file[*g2cid].f = fopen(path, (mode & G2C_WRITE ? "rb+" : "rb"))))
         return G2C_EFILE;
 
