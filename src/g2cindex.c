@@ -145,10 +145,9 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
             /* Read ingest the metadata for sections 3, 4, and 5 from
              * the index record. */
 	    {
-                /* int sec_id = 0; */
-                /* int sec_len; */
-                /* char sec_num; */
-                /* int s; */
+                int sec_len;
+                char sec_num;
+                int s;
                 G2C_MESSAGE_INFO_T *msgp;
 		int ret;
 
@@ -172,6 +171,7 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                 for (s = 3; s < 6; s++)
                 {
                     size_t bytes_to_sec = gds;
+                    int sec_id = 0;
 
                     /* Select the value from the index record which is
                      * the number of bytes to section s. */
@@ -179,17 +179,18 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                         bytes_to_sec = pds;
                     else if (sec_num == 5)
                         bytes_to_sec = drs;
+                    printf("sec_len %d bytes_to_sec %ld\n", sec_len, bytes_to_sec);
 
                     /* Read the section length and number from the index record. */
                     READ_BE_INT4(f, sec_len);
                     READ_BE_INT1(f, sec_num);
 
-                    /* /\* Check some stuff. *\/ */
-                    /* if (sec_num != s) */
-                    /*     return G2C_EBADSECTION; */
-                    /* if (sec_num == 4) */
-                    /*     if (fieldnum < 0) /\* to silence warning *\/ */
-                    /*         return G2C_EBADSECTION; */
+                    /* Check some stuff. */
+                    if (sec_num != s)
+                        return G2C_EBADSECTION;
+                    if (sec_num == 4)
+                        if (fieldnum < 0) /* to silence warning */
+                            return G2C_EBADSECTION;
 
                     /* Read the section info from the index file,
                      * using the same functions that read it from the
