@@ -149,6 +149,7 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                 char sec_num;
                 int s;
                 G2C_MESSAGE_INFO_T *msgp;
+                int sec_id = 0;
 		int ret;
 
                 /* Allocate storage for message. */
@@ -168,10 +169,9 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                 LOG((4, "reading section info at file position %ld", ftell(f)));
 
                 /* Add a new section to our list of sections. */
-                for (s = 3; s < 6; s++)
+                for (s = 3; s < 8; s++)
                 {
                     size_t bytes_to_sec = gds; /* Correct value for section 3. */
-                    int sec_id = 0;
 
                     /* Read the section length and number from the index record. */
                     READ_BE_INT4(f, sec_len);
@@ -183,6 +183,10 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                         bytes_to_sec = pds;
                     else if (sec_num == 5)
                         bytes_to_sec = drs;
+                    else if (sec_num == 6)
+                        bytes_to_sec = bms;
+                    else if (sec_num == 7)
+                        bytes_to_sec = data;
 
                     /* Check some stuff. */
                     if (sec_num != s)
@@ -196,6 +200,17 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                      * GRIB2 data file. */
                     if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, sec_num)))
                         return ret;
+
+                    /* For sections 6 and 7, skip to the end of the
+                     * section so the next section can be read. */
+                    if (sec_num == 6 || sec_num == 7)
+                    {
+                        if (fseek(f, sec_len - 5, SEEK_CUR))
+                            return G2C_EFILE;
+                        LOG((4, "skipping rest of sec %d, now at file position %ld",
+                             sec_num, ftell(f)));
+                    }
+                        
                 }
 	    }
 
