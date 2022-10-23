@@ -137,10 +137,10 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
 		 "msglen %ld version %d discipline %d fieldnum %d",
 		 reclen, msg, local, gds, pds, drs, bms, data, msglen,
 		 version, discipline, fieldnum));
-	    printf("reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d "
-	         "msglen %ld version %d discipline %d fieldnum %d",
-	         reclen, msg, local, gds, pds, drs, bms, data, msglen,
-	         version, discipline, fieldnum);
+	    /* printf("reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d " */
+	    /*      "msglen %ld version %d discipline %d fieldnum %d", */
+	    /*      reclen, msg, local, gds, pds, drs, bms, data, msglen, */
+	    /*      version, discipline, fieldnum); */
 
             /* Read ingest the metadata for sections 3, 4, and 5 from
              * the index record. */
@@ -160,36 +160,29 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                 msgp->bytes_to_data = data;
                                 
                 /* Read section 1. */
-                LOG((3, "howdy2"));
 		if ((ret = g2c_read_section1_metadata(f, 0, msgp)))
 		    return ret;
 		if ((ret = g2c_log_section1(msgp)))
 		    return ret;
-                LOG((3, "howdy3"));
 
                 LOG((4, "reading section info at file position %ld", ftell(f)));
 
                 /* Add a new section to our list of sections. */
                 for (s = 3; s < 6; s++)
                 {
-                    size_t bytes_to_sec = gds;
+                    size_t bytes_to_sec = gds; /* Correct value for section 3. */
                     int sec_id = 0;
-                    LOG((3, "howdy4 s %d sec_num %d", s, sec_num));
 
                     /* Read the section length and number from the index record. */
-                    LOG((3, "howdy4 s %d sec_num %d", s, sec_num));
                     READ_BE_INT4(f, sec_len);
                     READ_BE_INT1(f, sec_num);
-                    LOG((3, "howdy5"));
 
                     /* Select the value from the index record which is
                      * the number of bytes to section s. */
-                    LOG((3, "howdy5 sec_num %d", sec_num));
                     if (sec_num == 4)
                         bytes_to_sec = pds;
                     else if (sec_num == 5)
                         bytes_to_sec = drs;
-                    LOG((3, "howdy6"));
 
                     /* Check some stuff. */
                     if (sec_num != s)
