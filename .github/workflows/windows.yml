@@ -57,5 +57,7 @@ jobs:
     - name: test
       run: |
         cd g2c/build
-        ctest  --output-on-failure --rerun-failed --extra-verbose
+        cd tests
+        ./tst_index
+#        ctest  --output-on-failure --rerun-failed --extra-verbose
 

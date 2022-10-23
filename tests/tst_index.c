@@ -23,13 +23,13 @@ main()
         /* int num_msg; */
 	int ret;
 
-	/* Will not work. */
-	if (g2c_read_index(NULL, NULL, 0, &g2cid) != G2C_EINVAL)
-	    return G2C_ERROR;
-	if (g2c_read_index("bad", NULL, 0, &g2cid) != G2C_EINVAL)
-	    return G2C_ERROR;
-	if (g2c_read_index("bad", "bad", 0, &g2cid) != G2C_EFILE)
-	    return G2C_ERROR;
+	/* /\* Will not work. *\/ */
+	/* if (g2c_read_index(NULL, NULL, 0, &g2cid) != G2C_EINVAL) */
+	/*     return G2C_ERROR; */
+	/* if (g2c_read_index("bad", NULL, 0, &g2cid) != G2C_EINVAL) */
+	/*     return G2C_ERROR; */
+	/* if (g2c_read_index("bad", "bad", 0, &g2cid) != G2C_EFILE) */
+	/*     return G2C_ERROR; */
 
 	/* This will work. */
 	g2c_set_log_level(10);
