@@ -16,7 +16,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        ccompiler: [clang, gcc]
+        ccompiler: [gcc, clang]
     defaults:
       run:
         shell: msys2 {0}
