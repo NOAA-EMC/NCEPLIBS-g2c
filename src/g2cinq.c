@@ -1,4 +1,4 @@
-/** 
+/**
  * @file
  * @brief Inquiry functions.
  *
@@ -229,6 +229,7 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
             break;
     if (!sec3)
         return G2C_ENOSECTION;
+
     /* Return the info to the caller. */
     if (gds_template_len)
         *gds_template_len = sec3->template_len;
@@ -242,6 +243,7 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
             break;
     if (!sec5)
         return G2C_ENOSECTION;
+
     /* Return the info to the caller. */
     if (drs_template_len)
         *drs_template_len = sec5->template_len;
