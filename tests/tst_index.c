@@ -43,7 +43,10 @@ main()
         if (num_msg != 19)
             return G2C_ERROR;
 
-        /* Output a degrib2 file. */
+        /* Output a degrib2 file. See tst_index.c for a version of
+         * this test that also checks the degrib2 output for
+         * correctness. For this test, we just ensure it runs without
+         * error. */
         if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE)))
             return ret;
 
