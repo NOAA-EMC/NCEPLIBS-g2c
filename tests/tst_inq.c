@@ -19,8 +19,7 @@ main()
     {
         int op;
 
-        /* for (op = 0; op < NUM_OPEN; op++) */
-        for (op = 0; op < 1; op++)
+        for (op = 0; op < NUM_OPEN; op++)
         {
             int g2cid;
             int num_msg;

@@ -517,9 +517,7 @@ g2c_degrib2(int g2cid, const char *fileout)
     int ret;
 
     /* Check inputs. */
-    if (g2cid > G2C_MAX_FILES)
-	return G2C_EBADID;
-    if (g2c_file[g2cid].g2cid != g2cid)
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
 	return G2C_EBADID;
     if (!fileout)
         return G2C_EINVAL;

@@ -34,7 +34,6 @@ g2c_inq(int g2cid, int *num_msg)
      * them. */
     if (num_msg)
         *num_msg = g2c_file[g2cid].num_messages;
-
     return G2C_NOERROR;
 }
 

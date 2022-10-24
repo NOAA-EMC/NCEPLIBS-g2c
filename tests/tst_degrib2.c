@@ -12,6 +12,8 @@
 #define FILE_NAME "tst_degrib2.txt"
 #define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
 #define REF_FILE "ref_gdaswave.degrib2.txt"
+#define DEGRIB2_FILE "gdaswave.t00z.wcoast.0p16.f000.degrib2"
+#define REF_INDEX_FILE "ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
 #define MAX_LINE_LEN 256
 #define MAX_VALUE_LEN 25
 #define NUM_MATCHING 5
@@ -111,6 +113,36 @@ main()
 	    return ret;
         
         if ((ret = compare_files2(FILE_NAME, REF_FILE)))
+            return ret;
+    }
+    printf("ok!\n");
+    printf("Testing g2c_read_index() to make a degrib2 file...");
+    {
+	int g2cid;
+        int num_msg;
+	int ret;
+
+	g2c_set_log_level(10);
+	/* Open the data file using the index file. */
+	if ((ret = g2c_read_index(WAVE_FILE, REF_INDEX_FILE, 0, &g2cid)))
+	    return ret;
+
+        /* Check some stuff. */
+        if ((ret = g2c_inq(g2cid, &num_msg)))
+            return ret;
+        if (num_msg != 19)
+            return G2C_ERROR;
+
+        /* Output a degrib2 file. */
+        if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE)))
+            return ret;
+
+        /* Close the data file. */
+	if ((ret = g2c_close(g2cid)))
+	    return ret;
+
+        /* Compare the degrib2 output to our reference file. */
+        if ((ret = compare_files2(DEGRIB2_FILE, REF_FILE)))
             return ret;
     }
     printf("ok!\n");

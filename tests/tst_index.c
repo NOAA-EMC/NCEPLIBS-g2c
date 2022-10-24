@@ -11,6 +11,7 @@
 #define FILE_NAME "tst_index.txt"
 #define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
 #define REF_FILE "ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
+#define DEGRIB2_FILE "gdaswave.t00z.wcoast.0p16.f000.degrib2"
 
 int
 main()
@@ -31,6 +32,12 @@ main()
 	if (g2c_read_index("bad", "bad", 0, &g2cid) != G2C_EFILE)
 	    return G2C_ERROR;
 
+	g2c_set_log_level(10);
+	/* Open the data file using the index file. */
+	if ((ret = g2c_read_index(WAVE_FILE, REF_FILE, 0, &g2cid)))
+	    return ret;
+
+        /* Check some stuff. */
 	/* This will work. */
 	g2c_set_log_level(10);
 	if ((ret = g2c_read_index(WAVE_FILE, REF_FILE, 0, &g2cid)))
@@ -39,6 +46,15 @@ main()
             return ret;
         if (num_msg != 19)
             return G2C_ERROR;
+
+        /* Output a degrib2 file. See tst_index.c for a version of
+         * this test that also checks the degrib2 output for
+         * correctness. For this test, we just ensure it runs without
+         * error. */
+        if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE)))
+            return ret;
+
+        /* Close the file. */
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
     }

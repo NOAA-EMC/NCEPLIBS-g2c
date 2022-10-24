@@ -149,6 +149,7 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                 char sec_num;
                 int s;
                 G2C_MESSAGE_INFO_T *msgp;
+                int sec_id = 0;
 		int ret;
 
                 /* Allocate storage for message. */
@@ -168,24 +169,45 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                 LOG((4, "reading section info at file position %ld", ftell(f)));
 
                 /* Add a new section to our list of sections. */
-                for (s = 3; s < 6; s++)
+                for (s = 3; s < 8; s++)
                 {
                     size_t bytes_to_sec = gds; /* Correct value for section 3. */
-                    int sec_id = 0;
 
-                    /* Read the section length and number from the index record. */
-                    READ_BE_INT4(f, sec_len);
-                    READ_BE_INT1(f, sec_num);
+                    /* For sections 3, 4, 5, read the section length
+                     * and number from the index record. */
+                    if (s < 6)
+                    {
+                        READ_BE_INT4(f, sec_len);
+                        READ_BE_INT1(f, sec_num);
+                    }
+                    else
+                    {
+                        /* For section 7, the length of the section is
+                         * not in the index file, but is needed for
+                         * data read operations. So we will open the
+                         * data file and get the length of this
+                         * section. */
+                        if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data, SEEK_SET))
+                            return G2C_EFILE;
+                        READ_BE_INT4(g2c_file[*g2cid].f, sec_len);
+                        READ_BE_INT1(g2c_file[*g2cid].f, sec_num);
+                        LOG((4, "read section 7 info from data file. sec_len %d sec_num %d",
+                             sec_len, sec_num));
+                    }
 
                     /* Select the value from the index record which is
                      * the number of bytes to section s. */
-                    if (sec_num == 4)
+                    if (s == 4)
                         bytes_to_sec = pds;
-                    else if (sec_num == 5)
+                    else if (s == 5)
                         bytes_to_sec = drs;
+                    else if (s == 6)
+                        bytes_to_sec = bms;
+                    else if (s == 7)
+                        bytes_to_sec = data;
 
                     /* Check some stuff. */
-                    if (sec_num != s)
+                    if (s < 6 && sec_num != s)
                         return G2C_EBADSECTION;
                     if (sec_num == 4)
                         if (fieldnum < 0) /* to silence warning */
@@ -194,7 +216,7 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                     /* Read the section info from the index file,
                      * using the same functions that read it from the
                      * GRIB2 data file. */
-                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, sec_num)))
+                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, s)))
                         return ret;
                 }
 	    }
