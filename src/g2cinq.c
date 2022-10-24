@@ -71,7 +71,6 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
             unsigned char *local_version)
 {
     G2C_MESSAGE_INFO_T *msg;
-
     /* Is this an open GRIB2 file? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
         return G2C_EBADID;
