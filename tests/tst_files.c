@@ -124,6 +124,7 @@ main()
 	int g2cid;
 	int ret;
 
+	/* g2c_set_log_level(10); */
 	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
 	    return ret;
 	if ((ret = g2c_close(g2cid)))
@@ -157,7 +158,6 @@ main()
         int i;
         int ret;
 
-	g2c_set_log_level(10);
         /* Open GRIB2 file. */
         if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
             return ret;
