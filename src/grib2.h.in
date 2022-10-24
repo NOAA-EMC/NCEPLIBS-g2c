@@ -300,6 +300,20 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 /* File handling functions. */
 int g2c_open(const char *path, int mode, int *g2cid);
 int g2c_close(int g2cid);
+int g2c_write_index(int g2cid, char *index_file);
+int g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid);
+
+/* Inquiry functions. */
+int g2c_inq(int g2cid, int *num_msg);
+int g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
+                int *num_local, short *center, short *subcenter, unsigned char *master_version,
+                unsigned char *local_version);
+int g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *year,
+                     unsigned char *month, unsigned char *day, unsigned char *hour,
+                     unsigned char *minute, unsigned char *second);
+int g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
+                 int *pds_template, int *gds_template_len, int *gds_template,
+                 int *drs_template_len, int *drs_template);
 
 /* Inquiry functions. */
 int g2c_inq(int g2cid, int *num_msg);

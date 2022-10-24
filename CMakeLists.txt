@@ -82,7 +82,7 @@ src/getpoly.c src/gridtemplates.c src/int_power.c src/misspack.c
 src/mkieee.c src/pack_gp.c src/pdstemplates.c src/rdieee.c
 src/reduce.c src/seekgb.c src/simpack.c src/simunpack.c src/specpack.c
 src/specunpack.c src/util.c src/g2cxml.c src/g2cparams.c src/g2cfile.c
-src/g2cdegrib2.c src/g2cprod.c src/g2cinq.c)
+src/g2cdegrib2.c src/g2cprod.c src/g2cinq.c src/g2cindex.c)
 
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
 
@@ -131,7 +131,7 @@ if(JASPER_FOUND)
   target_include_directories(${lib_name} PRIVATE "${JASPER_INCLUDE_DIR}")
   set(G2_JPEG2000_ENABLED ON)
   if(JASPER_VERSION_STRING VERSION_GREATER_EQUAL "3")
-    message(STATUS "      JASPER is version 3.0 or greater")    
+    message(STATUS "      JASPER is version 3.0 or greater")
     add_definitions(-DJASPER3)
   endif()
   add_definitions(-DJPEG)
@@ -211,7 +211,7 @@ install(EXPORT ${PROJECT_NAME}Exports
 # XML data files.
 set(XML_FILES src/Template.xml src/CodeFlag.xml)
 install(FILES ${XML_FILES}
-  DESTINATION ${CMAKE_INSTALL_LIBDIR})  
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 # Determine whether or not to generate documentation.
 if(ENABLE_DOCS)

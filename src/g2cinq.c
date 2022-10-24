@@ -72,7 +72,6 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
             unsigned char *local_version)
 {
     G2C_MESSAGE_INFO_T *msg;
-
     /* Is this an open GRIB2 file? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
         return G2C_EBADID;
@@ -99,7 +98,6 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
             return G2C_NOERROR;
         }
     }
-
     return G2C_ENOMSG;
 }
 
@@ -164,7 +162,6 @@ g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *yea
             return G2C_NOERROR;
         }
     }
-
     return G2C_ENOMSG;
 }
 

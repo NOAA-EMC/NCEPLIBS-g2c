@@ -16,7 +16,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        ccompiler: [clang, gcc]
+        ccompiler: [gcc, clang]
     defaults:
       run:
         shell: msys2 {0}
@@ -57,5 +57,12 @@ jobs:
     - name: test
       run: |
         cd g2c/build
-        ctest  --output-on-failure --rerun-failed --extra-verbose
+        ctest  --output-on-failure --extra-verbose --output-log log.txt
+        
+    - name: upload-log
+      uses: actions/upload-artifact@v2
+      with:
+        name: g2c-log
+        path: |
+          g2c/build/log.txt
 

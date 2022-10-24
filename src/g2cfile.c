@@ -557,6 +557,9 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
     G2C_SECTION_INFO_T *sec;
     int ret;
 
+    LOG((3, "add_section sec_id %d sec_len %d, bytes_to_sec %ld, sec_num %d",
+         sec_id, sec_len, bytes_to_sec, sec_num));
+    
     /* Allocate storage for a new section. */
     if (!(sec = calloc(sizeof(G2C_SECTION_INFO_T), 1)))
         return G2C_ENOMEM;
@@ -631,6 +634,8 @@ g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
     short short_be;
     char sec_num;
 
+    LOG((2, "g2c_read_section1_metadata skip %ld", skip));
+        
     /* Skip to section 1. */
     if (fseek(f, skip, SEEK_CUR))
         return G2C_EFILE;
@@ -756,6 +761,9 @@ add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in
     G2C_MESSAGE_INFO_T *my_msg;
     int ret;
 
+    LOG((3, "add_msg msg_num %d bytes_to_msg %ld bytes_in_msg %ld read_file %d",
+         msg_num, bytes_to_msg, bytes_in_msg, read_file));
+    
     /* Allocate storage for a new message. */
     if (!(my_msg = calloc(sizeof(G2C_MESSAGE_INFO_T), 1)))
         return G2C_ENOMEM;

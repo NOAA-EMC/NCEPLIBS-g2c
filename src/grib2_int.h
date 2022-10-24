@@ -102,6 +102,9 @@ typedef struct g2c_message_info
     int section1[G2C_SECTION1_ARRAY_LEN]; /**< Section 1 array. */
     int num_fields; /**< Number of fields in the message. */
     int num_local; /**< Number of local sections in the message. */
+    int bytes_to_local; /**< Number of bytes in the message before the (first) local section. */
+    int bytes_to_bms; /**< Number of bytes in the message to the bitmap section. */
+    int bytes_to_data; /**< Number of bytes in the message to the (first) data section. */
     int num_sections; /**< Number of sections in the file. */
     int *section_number; /**< Array (length num_sections) of section numbers. */
     size_t *section_offset; /**< Array (length num_sections) of byte offsets from start of message to section. */
@@ -311,7 +314,12 @@ int pack_gp(g2int *kfildo, g2int *ic, g2int *nxy,
 /* Check the message header and check for message termination. */
 int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
 
-/* Read section metadata. */
+/* Read and remember file, message, and section metadata. */
+int g2c_add_file(const char *path, int mode, int *g2cid);
+int add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in_msg,
+            int read_file, G2C_MESSAGE_INFO_T **msg);
+int add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t bytes_to_sec,
+                unsigned char sec_num);
 int g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg);
 int g2c_log_section1(G2C_MESSAGE_INFO_T *msg);
 
