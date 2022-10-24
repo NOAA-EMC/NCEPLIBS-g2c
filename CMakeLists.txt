@@ -131,7 +131,7 @@ if(JASPER_FOUND)
   target_include_directories(${lib_name} PRIVATE "${JASPER_INCLUDE_DIR}")
   set(G2_JPEG2000_ENABLED ON)
   if(JASPER_VERSION_STRING VERSION_GREATER_EQUAL "3")
-    message(STATUS "      JASPER is version 3.0 or greater")    
+    message(STATUS "      JASPER is version 3.0 or greater")
     add_definitions(-DJASPER3)
   endif()
   add_definitions(-DJPEG)
@@ -211,7 +211,7 @@ install(EXPORT ${PROJECT_NAME}Exports
 # XML data files.
 set(XML_FILES src/Template.xml src/CodeFlag.xml)
 install(FILES ${XML_FILES}
-  DESTINATION ${CMAKE_INSTALL_LIBDIR})  
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 # Determine whether or not to generate documentation.
 if(ENABLE_DOCS)
