@@ -263,10 +263,6 @@ find_available_g2cid(int *g2cid)
     {
         int id = (i + g2c_next_g2cid) % (G2C_MAX_FILES + 1);
 
-        /* Skip id 0. */
-        if (!id)
-            continue;
-
         /* Is this ID available? If so, we're done. */
         if (!g2c_file[id].g2cid)
         {
@@ -305,7 +301,7 @@ read_section3_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
     int int_be;
     short short_be;
     G2C_SECTION3_INFO_T *sec3_info;
-    int maplen, needsext, map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+    int maplen, needsext, map[G2C_MAX_GDS_TEMPLATE_MAPLEN];
     int t;
     int ret;
 

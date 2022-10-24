@@ -37,7 +37,7 @@ main()
     {
         
         int maplen, needext;
-        int map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+        int map[G2C_MAX_DRS_TEMPLATE_MAPLEN];
         int expected_map[5] = {4, -2, -2, 1, 1};
         int m;
         int ret;
@@ -121,7 +121,7 @@ main()
             printf("\ttesting g2c_get_drs_template() for template %d...", number[t]);
             {
                 int maplen, needext;
-                int map[G2C_MAX_GRID_TEMPLATE_MAPLEN];
+                int map[G2C_MAX_DRS_TEMPLATE_MAPLEN];
                 int m;
                 int ret;
                 
