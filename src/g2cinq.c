@@ -1,4 +1,4 @@
-/** 
+/**
  * @file
  * @brief Inquiry functions.
  *
@@ -28,13 +28,13 @@ g2c_inq(int g2cid, int *num_msg)
 {
     /* Is this an open GRIB2 file? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
-	return G2C_EBADID;
+        return G2C_EBADID;
 
     /* If the caller wants to know the number of messages, tell
      * them. */
     if (num_msg)
         *num_msg = g2c_file[g2cid].num_messages;
-    
+
     return G2C_NOERROR;
 }
 
@@ -72,10 +72,9 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
             unsigned char *local_version)
 {
     G2C_MESSAGE_INFO_T *msg;
-    
     /* Is this an open GRIB2 file? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
-	return G2C_EBADID;
+        return G2C_EBADID;
 
     /* Find the file and message. */
     for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
@@ -99,7 +98,6 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
             return G2C_NOERROR;
         }
     }
-    
     return G2C_ENOMSG;
 }
 
@@ -137,10 +135,10 @@ g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *yea
                  unsigned char *minute, unsigned char *second)
 {
     G2C_MESSAGE_INFO_T *msg;
-    
+
     /* Is this an open GRIB2 file? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
-	return G2C_EBADID;
+        return G2C_EBADID;
 
     /* Find the message. */
     for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
@@ -164,7 +162,6 @@ g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *yea
             return G2C_NOERROR;
         }
     }
-    
     return G2C_ENOMSG;
 }
 
@@ -198,25 +195,25 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
     G2C_MESSAGE_INFO_T *msg;
     G2C_SECTION_INFO_T *sec4, *sec3, *sec5;
     int t;
-    
+
     /* Is this an open GRIB2 file? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
-	return G2C_EBADID;
+        return G2C_EBADID;
 
     /* Find the message. */
     for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
-	if (msg->msg_num == msg_num)
-	    break;
+        if (msg->msg_num == msg_num)
+            break;
     if (!msg)
-	return G2C_ENOMSG;
+        return G2C_ENOMSG;
 
     /* Find the product. After this, sec4 will point to the
      * appropropriate section 4 G2C_SECTION_INFO_T. */
     for (sec4 = msg->sec; sec4; sec4 = sec4->next)
-	if (sec4->sec_num == 4 && ((G2C_SECTION4_INFO_T *)sec4->sec_info)->field_num == prod_num)
-	    break;
+        if (sec4->sec_num == 4 && ((G2C_SECTION4_INFO_T *)sec4->sec_info)->field_num == prod_num)
+            break;
     if (!sec4)
-	return G2C_ENOPRODUCT;
+        return G2C_ENOPRODUCT;
     /* sec4_info = (G2C_SECTION4_INFO_T *)sec4->sec_info; */
 
     /* Return the info to the caller. */
@@ -232,7 +229,7 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
             break;
     if (!sec3)
         return G2C_ENOSECTION;
-    
+
     /* Return the info to the caller. */
     if (gds_template_len)
         *gds_template_len = sec3->template_len;
@@ -246,7 +243,7 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
             break;
     if (!sec5)
         return G2C_ENOSECTION;
-    
+
     /* Return the info to the caller. */
     if (drs_template_len)
         *drs_template_len = sec5->template_len;
@@ -256,4 +253,3 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
 
     return G2C_NOERROR;
 }
-
