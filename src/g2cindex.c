@@ -180,6 +180,20 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                         READ_BE_INT4(f, sec_len);
                         READ_BE_INT1(f, sec_num);
                     }
+                    else
+                    {
+                        /* For section 7, the length of the section is
+                         * not in the index file, but is needed for
+                         * data read operations. So we will open the
+                         * data file and get the length of this
+                         * section. */
+                        if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data, SEEK_SET))
+                            return G2C_EFILE;
+                        READ_BE_INT4(g2c_file[*g2cid].f, sec_len);
+                        READ_BE_INT1(g2c_file[*g2cid].f, sec_num);
+                        LOG((4, "read section 7 info from data file. sec_len %d sec_num %d",
+                             sec_len, sec_num));
+                    }
 
                     /* Select the value from the index record which is
                      * the number of bytes to section s. */
