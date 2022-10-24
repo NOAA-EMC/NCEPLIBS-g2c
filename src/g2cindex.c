@@ -173,23 +173,27 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                 {
                     size_t bytes_to_sec = gds; /* Correct value for section 3. */
 
-                    /* Read the section length and number from the index record. */
-                    READ_BE_INT4(f, sec_len);
-                    READ_BE_INT1(f, sec_num);
+                    /* For sections 3, 4, 5, read the section length
+                     * and number from the index record. */
+                    if (s < 6)
+                    {
+                        READ_BE_INT4(f, sec_len);
+                        READ_BE_INT1(f, sec_num);
+                    }
 
                     /* Select the value from the index record which is
                      * the number of bytes to section s. */
-                    if (sec_num == 4)
+                    if (s == 4)
                         bytes_to_sec = pds;
-                    else if (sec_num == 5)
+                    else if (s == 5)
                         bytes_to_sec = drs;
-                    else if (sec_num == 6)
+                    else if (s == 6)
                         bytes_to_sec = bms;
-                    else if (sec_num == 7)
+                    else if (s == 7)
                         bytes_to_sec = data;
 
                     /* Check some stuff. */
-                    if (sec_num != s)
+                    if (s < 6 && sec_num != s)
                         return G2C_EBADSECTION;
                     if (sec_num == 4)
                         if (fieldnum < 0) /* to silence warning */
@@ -198,19 +202,8 @@ g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
                     /* Read the section info from the index file,
                      * using the same functions that read it from the
                      * GRIB2 data file. */
-                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, sec_num)))
+                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, s)))
                         return ret;
-
-                    /* For sections 6 and 7, skip to the end of the
-                     * section so the next section can be read. */
-                    if (sec_num == 6 || sec_num == 7)
-                    {
-                        if (fseek(f, sec_len - 5, SEEK_CUR))
-                            return G2C_EFILE;
-                        LOG((4, "skipping rest of sec %d, now at file position %ld",
-                             sec_num, ftell(f)));
-                    }
-                        
                 }
 	    }
 
