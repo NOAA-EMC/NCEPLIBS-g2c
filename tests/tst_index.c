@@ -73,6 +73,16 @@ main()
         if (num_msg != 19)
             return G2C_ERROR;
 
+        /* These won't work. */
+	if (g2c_write_index(-1, INDEX_FILE) != G2C_EBADID)
+	    return G2C_ERROR;
+	if (g2c_write_index(G2C_MAX_FILES + 1, INDEX_FILE) != G2C_EBADID)
+	    return G2C_ERROR;
+	if (g2c_write_index(10, INDEX_FILE) != G2C_EBADID)
+	    return G2C_ERROR;
+	if (g2c_write_index(g2cid, NULL) != G2C_EINVAL)
+	    return G2C_ERROR;
+        
         /* Write an index file. */
 	if ((ret = g2c_write_index(g2cid, INDEX_FILE)))
 	    return ret;

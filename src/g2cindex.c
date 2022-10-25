@@ -30,6 +30,11 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 int
 g2c_write_index(int g2cid, char *index_file)
 {
+    /* Is this an open GRIB2 file? */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
+        return G2C_EBADID;
+    if (!index_file)
+        return G2C_EINVAL;
     
     return G2C_NOERROR;
 }
