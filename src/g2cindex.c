@@ -18,6 +18,32 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
  * Create an index file from a GRIB2 file, just like those created by
  * the grb2index utility.
  *
+ * The index file starts with two header records:
+ * 1. 81-byte header with 'gb2ix1' in columns 42-47.
+ * 2. 81-byte header with number of bytes to skip before index records,
+ * total length in bytes of the index records, number of index records,
+ * and grib file basename written in format ('ix1form:',3i10,2x,a40).
+ *
+ * Each following index record corresponds to a grib message
+ * and has the internal format:
+ * - byte 001 - 004 length of index record
+ * - byte 005 - 008 bytes to skip in data file before grib message
+ * - byte 009 - 012 bytes to skip in message before lus (local use) (0, if none).
+ * - byte 013 - 016 bytes to skip in message before gds
+ * - byte 017 - 020 bytes to skip in message before pds
+ * - byte 021 - 024 bytes to skip in message before drs
+ * - byte 025 - 028 bytes to skip in message before bms
+ * - byte 029 - 032 bytes to skip in message before data section
+ * - byte 033 - 040 bytes total in the message
+ * - byte 041 - 041 grib version number (currently 2)
+ * - byte 042 - 042 message discipline
+ * - byte 043 - 044 field number within grib2 message
+ * - byte 045 -  ii identification section (ids)
+ * - byte ii+1-  jj grid definition section (gds)
+ * - byte jj+1-  kk product definition section (pds)
+ * - byte kk+1-  ll the data representation section (drs)
+ * - byte ll+1-ll+6 first 6 bytes of the bit map section (bms)
+ *
  * @param g2cid File it for an open GRIB2 file, as returned by
  * g2c_open().
  * @param mode Mode flags. Set ::G2C_NOCLOBBER to avoid overwriting
@@ -56,10 +82,10 @@ g2c_write_index(int g2cid, int mode, char *index_file)
     }
 
     /* Create the index file. */
-    LOG((3, "about to open index file %s", index_file));
     if (!(f = fopen(index_file, "w+")))
         return G2C_EFILE;
-    LOG((3, "opened index file"));
+
+    /* Write header 1. */
 
     /* Close the index file. */
     if (fclose(f))

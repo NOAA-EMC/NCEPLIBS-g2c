@@ -93,8 +93,8 @@ main()
         }
 
         /* Make sure NOCLOBBER works. */
-	/* if (g2c_write_index(g2cid, G2C_NOCLOBBER, INDEX_FILE) != G2C_EFILE) */
-	/*     return G2C_ERROR; */
+	if (g2c_write_index(g2cid, G2C_NOCLOBBER, INDEX_FILE) != G2C_EFILE)
+	    return G2C_ERROR;
         
         /* Close the file. */
 	if ((ret = g2c_close(g2cid)))
