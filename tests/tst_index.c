@@ -14,7 +14,6 @@
 #define DEGRIB2_FILE "gdaswave.t00z.wcoast.0p16.f000.degrib2"
 #define FTP_FILE "WW3_Regional_US_West_Coast_20220718_0000.grib2"
 #define REF_FTP_FILE "ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index"
-#define FTP_DEGRIB2_FILE "WW3_Regional_US_West_Coast_20220718_0000.degrib2"
 
 int
 main()
@@ -99,13 +98,6 @@ main()
         if (sig_ref_time != 1 || year != 2022 || month != 7 || day != 18 ||
             hour != 0 || minute != 0 || second != 0)
             return G2C_ERROR;
-
-        /* Output a degrib2 file. See tst_degrib2.c for a version of
-         * this test that also checks the degrib2 output for
-         * correctness. For this test, we just ensure it runs without
-         * error. */
-        if ((ret = g2c_degrib2(g2cid, FTP_DEGRIB2_FILE)))
-            return ret;
 
         /* Close the file. */
 	if ((ret = g2c_close(g2cid)))
