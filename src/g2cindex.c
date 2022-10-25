@@ -6,6 +6,7 @@
  * @author Ed Hartnett @date 10/12/22
  */
 #include "grib2_int.h"
+#include <time.h>
 #include <stdarg.h>
 
 /** Global file information. */
@@ -13,6 +14,9 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 
 /** Length of the two header lines at the top of the index file. */
 #define G2C_INDEX_HEADER_LEN 81
+
+/** Length of the basename in header record 2. */
+#define G2C_INDEX_BASENAME_LEN 40
 
 /**
  * Create an index file from a GRIB2 file, just like those created by
@@ -57,9 +61,15 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
  * @author Ed Hartnett @date 10/12/22
  */
 int
-g2c_write_index(int g2cid, int mode, char *index_file)
+g2c_write_index(int g2cid, int mode, const char *index_file)
 {
     FILE *f;
+    char h1[G2C_INDEX_HEADER_LEN * 2 + 1]; /* need extra space to silence GNU warnings */
+    char h2[G2C_INDEX_HEADER_LEN + 1];
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    size_t items_written;
+    char my_path[G2C_INDEX_BASENAME_LEN + 1];
     
     /* Is this an open GRIB2 file? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
@@ -85,7 +95,23 @@ g2c_write_index(int g2cid, int mode, char *index_file)
     if (!(f = fopen(index_file, "w+")))
         return G2C_EFILE;
 
+    /* Create header 1. */
+    sprintf(h1, "!GFHDR!  1   1   162 %d-%d-%d %d:%d:%d GB2IX1        hfe08           grb2index",
+            (tm.tm_year + 1900), (tm.tm_mon + 1), tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    
     /* Write header 1. */
+    if ((items_written = fwrite(h1, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
+        return G2C_EFILE;
+
+    /* Create header 2. Awkwardly it wants to know the total length of
+     * all index records, and we don't know that yet. */
+    strncpy(my_path, g2c_file[g2cid].path, G2C_INDEX_BASENAME_LEN + 1);
+    sprintf(h2, "IX1FORM:       162      %d        %ld  %s    ", 0,
+            g2c_file[g2cid].num_messages, my_path);
+
+    /* Write header 2. */
+    if ((items_written = fwrite(h2, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
+        return G2C_EFILE;
 
     /* Close the index file. */
     if (fclose(f))
@@ -116,7 +142,8 @@ g2c_write_index(int g2cid, int mode, char *index_file)
  * @author Ed Hartnett @date 10/12/22
  */
 int
-g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid)
+g2c_read_index(const char *data_file, const char *index_file, int mode,
+               int *g2cid)
 {
     FILE *f;
     size_t bytes_read;
