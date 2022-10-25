@@ -35,6 +35,10 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_WW3_Regional_US_West_Coast_20220718_00
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_gdaswave.t00z.wcoast.0p16.f000.grb2index
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
 # These are the XML files from the WMO with GRIB2 code data.
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
@@ -63,8 +67,9 @@ if(FTP_TEST_FILES)
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
 
-  # Add tests that use the data downloaded from FTP.
-  g2c_test(tst_ftp_degrib2)  
+  # Add this preprocessor definition so test files can conditionally
+  # include testing based on FTP files.
+  add_definitions(-DFTP_TEST_FILES)
 endif()
 
 # Always run these tests.
