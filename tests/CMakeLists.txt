@@ -70,9 +70,6 @@ if(FTP_TEST_FILES)
   # Add this preprocessor definition so test files can conditionally
   # include testing based on FTP files.
   add_definitions(-DFTP_TEST_FILES)
-
-  # Add tests that use the data downloaded from FTP.
-  g2c_test(tst_ftp_degrib2)  
 endif()
 
 # Always run these tests.
