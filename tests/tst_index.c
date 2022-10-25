@@ -11,6 +11,7 @@
 #define FILE_NAME "tst_index.txt"
 #define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
 #define REF_FILE "ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
+#define INDEX_FILE "gdaswave.t00z.wcoast.0p16.f000.grb2index"
 #define DEGRIB2_FILE "gdaswave.t00z.wcoast.0p16.f000.degrib2"
 #define FTP_FILE "WW3_Regional_US_West_Coast_20220718_0000.grib2"
 #define REF_FTP_FILE "ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index"
@@ -50,6 +51,31 @@ main()
          * error. */
         if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE)))
             return ret;
+
+        /* Close the file. */
+	if ((ret = g2c_close(g2cid)))
+	    return ret;
+    }
+    printf("ok!\n");
+    printf("Testing g2c_write_index() on file %s...", WAVE_FILE);
+    {
+	int g2cid;
+        int num_msg;
+	int ret;
+
+	/* Open the data file. */
+	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+	    return ret;
+
+        /* Check some stuff. */
+        if ((ret = g2c_inq(g2cid, &num_msg)))
+            return ret;
+        if (num_msg != 19)
+            return G2C_ERROR;
+
+        /* Write an index file. */
+	if ((ret = g2c_write_index(g2cid, INDEX_FILE)))
+	    return ret;
 
         /* Close the file. */
 	if ((ret = g2c_close(g2cid)))
