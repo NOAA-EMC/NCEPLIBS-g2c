@@ -105,7 +105,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 
     /* Create header 2. Awkwardly it wants to know the total length of
      * all index records, and we don't know that yet. */
-    strncpy(my_path, g2c_file[g2cid].path, G2C_INDEX_BASENAME_LEN + 1);
+    strncpy(my_path, g2c_file[g2cid].path, G2C_INDEX_BASENAME_LEN);
     sprintf(h2, "IX1FORM:       162      %d        %ld  %s    ", 0,
             g2c_file[g2cid].num_messages, my_path);
 
