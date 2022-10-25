@@ -15,10 +15,13 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 #define G2C_INDEX_HEADER_LEN 81
 
 /**
- * Create an index file from a GRIB2 file.
+ * Create an index file from a GRIB2 file, just like those created by
+ * the grb2index utility.
  *
  * @param g2cid File it for an open GRIB2 file, as returned by
  * g2c_open().
+ * @param mode Mode flags. Set ::G2C_NOCLOBBER to avoid overwriting
+ * and existing file.
  * @param index_file The name that will be given to the index file. An
  * existing file will be overwritten.
  *
@@ -28,14 +31,40 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
  * @author Ed Hartnett @date 10/12/22
  */
 int
-g2c_write_index(int g2cid, char *index_file)
+g2c_write_index(int g2cid, int mode, char *index_file)
 {
+    FILE *f;
+    
     /* Is this an open GRIB2 file? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
         return G2C_EBADID;
     if (!index_file)
         return G2C_EINVAL;
-    
+
+    LOG((1, "g2c_write_index g2cid %d mode %d index_file %s", g2cid, mode,
+         index_file));
+
+    /* If NOCLOBBER, check if file exists. */
+    if (mode & G2C_NOCLOBBER)
+    {
+        FILE *f;
+        if ((f = fopen(index_file, "r")))
+        {
+            fclose(f);
+            return G2C_EFILE;
+        }
+    }
+
+    /* Create the index file. */
+    LOG((3, "about to open index file %s", index_file));
+    if (!(f = fopen(index_file, "w+")))
+        return G2C_EFILE;
+    LOG((3, "opened index file"));
+
+    /* Close the index file. */
+    if (fclose(f))
+        return G2C_EFILE;
+
     return G2C_NOERROR;
 }
 

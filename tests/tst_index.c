@@ -74,19 +74,28 @@ main()
             return G2C_ERROR;
 
         /* These won't work. */
-	if (g2c_write_index(-1, INDEX_FILE) != G2C_EBADID)
+	if (g2c_write_index(-1, 0, INDEX_FILE) != G2C_EBADID)
 	    return G2C_ERROR;
-	if (g2c_write_index(G2C_MAX_FILES + 1, INDEX_FILE) != G2C_EBADID)
+	if (g2c_write_index(G2C_MAX_FILES + 1, 0, INDEX_FILE) != G2C_EBADID)
 	    return G2C_ERROR;
-	if (g2c_write_index(10, INDEX_FILE) != G2C_EBADID)
+	if (g2c_write_index(10, 0, INDEX_FILE) != G2C_EBADID)
 	    return G2C_ERROR;
-	if (g2c_write_index(g2cid, NULL) != G2C_EINVAL)
+	if (g2c_write_index(g2cid, 0, NULL) != G2C_EINVAL)
 	    return G2C_ERROR;
-        
-        /* Write an index file. */
-	if ((ret = g2c_write_index(g2cid, INDEX_FILE)))
-	    return ret;
 
+        /* Write an index file. */
+        g2c_set_log_level(20);
+	if ((ret = g2c_write_index(g2cid, 0, INDEX_FILE)))
+        {
+            if (ret == G2C_EFILE)
+                printf("Error: %d (%s)\n", errno, strerror(errno));
+	    return ret;
+        }
+
+        /* Make sure NOCLOBBER works. */
+	/* if (g2c_write_index(g2cid, G2C_NOCLOBBER, INDEX_FILE) != G2C_EFILE) */
+	/*     return G2C_ERROR; */
+        
         /* Close the file. */
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
