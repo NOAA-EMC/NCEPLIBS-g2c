@@ -64,34 +64,6 @@
  * big-endian 8-byte ints. */
 #define hton64(y) (((uint64_t)htonl(y)) << WORD | htonl(y >> WORD))
 
-/** Read a big-endian 1-byte int from an open file; since it is only 1
- * byte, no conversion is nevessary. */
-#define READ_BE_INT1(f, var)                    \
-    do {                                        \
-        if ((fread(&var, 1, 1, f)) != 1)        \
-            return G2C_EFILE;                   \
-    } while(0)
-
-/** Read a big-endian 2-byte int from an open file, and convert it to
- * machine-native format. The integer short_be must be declared before
- * this macro is used. */
-#define READ_BE_INT2(f, var)                            \
-    do {                                                \
-        if ((fread(&short_be, TWO_BYTES, 1, f)) != 1)   \
-            return G2C_EFILE;                           \
-        var = htons(short_be);                          \
-    } while(0)
-
-/** Read a big-endian 4-byte int from an open file, and convert it to
- * machine-native format. The integer int_be must be declared before
- * this macro is used. */
-#define READ_BE_INT4(f, var)                            \
-    do {                                                \
-        if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)    \
-            return G2C_EFILE;                           \
-        var = htonl(int_be);                            \
-    } while(0)
-
 #define G2C_FILE_READ 0 /**< Read. */
 #define G2C_FILE_WRITE 1 /**< Write. */
 
