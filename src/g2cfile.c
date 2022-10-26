@@ -286,6 +286,8 @@ find_available_g2cid(int *g2cid)
  * function is called.
  *
  * @param f FILE pointer to open GRIB2 file.
+ * @param rw_flag ::G2C_FILE_WRITE if function should write,
+ * ::G2C_FILE_READ if it should read.
  * @param sec Pointer to the G2C_SECTION_INFO_T struct.
  *
  * @return
@@ -295,31 +297,33 @@ find_available_g2cid(int *g2cid)
  *
  * @author Ed Hartnett @date Sep 15, 2022
  */
-static int
-read_section3_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
+int
+g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 {
     int int_be;
     short short_be;
-    G2C_SECTION3_INFO_T *sec3_info;
+    G2C_SECTION3_INFO_T *sec3_info = NULL;
     int maplen, needsext, map[G2C_MAX_GDS_TEMPLATE_MAPLEN];
     int t;
     int ret;
 
     /* Check input. */
     assert(sec && !sec->sec_info && sec->sec_num == 3);
-    LOG((6, "starting to read section 3 at file position %ld", ftell(f)));
+    LOG((6, "starting to %s section 3 at file position %ld", rw_flag ? "write" : "read",
+         ftell(f)));
 
-    /* Allocate storage for a new section 3. */
-    if (!(sec3_info = calloc(sizeof(G2C_SECTION3_INFO_T), 1)))
-        return G2C_ENOMEM;
+    /* If reading, allocate storage for a new section 3. */
+    if (!rw_flag)
+        if (!(sec3_info = calloc(sizeof(G2C_SECTION3_INFO_T), 1)))
+            return G2C_ENOMEM;
 
-    /* Read section 3. */
-    FILE_BE_INT1(f, G2C_FILE_READ, sec3_info->source_grid_def);
-    FILE_BE_INT4(f, G2C_FILE_READ, sec3_info->num_data_points);
-    FILE_BE_INT1(f, G2C_FILE_READ, sec3_info->num_opt);
-    FILE_BE_INT1(f, G2C_FILE_READ, sec3_info->interp_list);
-    FILE_BE_INT2(f, G2C_FILE_READ, sec3_info->grid_def);
-    LOG((5, "read_section3_metadata source_grid_def %d num_data_points %d num_opt %d interp_list %d grid_def %d",
+    /* Read or write section 3. */
+    FILE_BE_INT1P(f, rw_flag, &sec3_info->source_grid_def);
+    FILE_BE_INT4P(f, rw_flag, &sec3_info->num_data_points);
+    FILE_BE_INT1P(f, rw_flag, &sec3_info->num_opt);
+    FILE_BE_INT1P(f, rw_flag, &sec3_info->interp_list);
+    FILE_BE_INT2P(f, rw_flag, &sec3_info->grid_def);
+    LOG((5, "rw_section3_metadata source_grid_def %d num_data_points %d num_opt %d interp_list %d grid_def %d",
          sec3_info->source_grid_def, sec3_info->num_data_points, sec3_info->num_opt, sec3_info->interp_list,
          sec3_info->grid_def));
 
@@ -327,12 +331,13 @@ read_section3_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
     if ((ret = g2c_get_grid_template(sec3_info->grid_def, &maplen, map, &needsext)))
         return ret;
 
-    /* Allocate space to hold the template info. */
+    /* When reading, allocate space to hold the template info. */
     sec->template_len = maplen;
-    if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
-        return G2C_ENOMEM;
+    if (!rw_flag)
+        if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
+            return G2C_ENOMEM;
 
-    /* Read the template info. */
+    /* Read or write the template info. */
     for (t = 0; t < maplen; t++)
     {
         /* Take the absolute value of map[t] because some of the
@@ -342,13 +347,13 @@ read_section3_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
         switch(abs(map[t]))
         {
         case ONE_BYTE:
-            FILE_BE_INT1(f, G2C_FILE_READ, sec->template[t]);
+            FILE_BE_INT1P(f, rw_flag, &sec->template[t]);
             break;
         case TWO_BYTES:
-            FILE_BE_INT2(f, G2C_FILE_READ, sec->template[t]);
+            FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            FILE_BE_INT4(f, G2C_FILE_READ, sec->template[t]);
+            FILE_BE_INT4P(f, rw_flag, &sec->template[t]);
             break;
         default:
             return G2C_EBADTEMPLATE;
@@ -592,7 +597,7 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
         msg->num_local++;
         break;
     case 3:
-        if ((ret = read_section3_metadata(f, sec)))
+        if ((ret = g2c_rw_section3_metadata(f, G2C_FILE_READ, sec)))
             return ret;
         break;
     case 4:

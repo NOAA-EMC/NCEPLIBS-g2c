@@ -328,8 +328,8 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                     {
                         /* For section 7, the length of the section is
                          * not in the index file, but is needed for
-                         * data read operations. So we will open the
-                         * data file and get the length of this
+                         * data read operations. So we will use the
+                         * open data file and get the length of this
                          * section. */
                         if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data, SEEK_SET))
                             return G2C_EFILE;
