@@ -65,7 +65,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 {
     FILE *f;
     char h1[G2C_INDEX_HEADER_LEN * 2 + 1]; /* need extra space to silence GNU warnings */
-    char h2[G2C_INDEX_HEADER_LEN + 1];
+    char h2[G2C_INDEX_HEADER_LEN + 10];
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
     size_t items_written;
@@ -92,11 +92,11 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     }
 
     /* Create the index file. */
-    if (!(f = fopen(index_file, "w+")))
+    if (!(f = fopen(index_file, "wb+")))
         return G2C_EFILE;
 
     /* Create header 1. */
-    sprintf(h1, "!GFHDR!  1   1   162 %d-%d-%d %d:%d:%d GB2IX1        hfe08           grb2index",
+    sprintf(h1, "!GFHDR!  1   1   162 %4.4u-%2.2u-%2.2u %2.2u:%2.2u:%2.2u GB2IX1        hfe08           grb2index",
             (tm.tm_year + 1900), (tm.tm_mon + 1), tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
     
     /* Write header 1. */
@@ -106,7 +106,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     /* Create header 2. Awkwardly it wants to know the total length of
      * all index records, and we don't know that yet. */
     strncpy(my_path, g2c_file[g2cid].path, G2C_INDEX_BASENAME_LEN);
-    sprintf(h2, "IX1FORM:       162      %d        %ld  %s    ", 0,
+    sprintf(h2, "IX1FORM:       162    %6d    %6ld  %s    ", 0,
             g2c_file[g2cid].num_messages, my_path);
 
     /* Write header 2. */
