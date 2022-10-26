@@ -30,17 +30,23 @@
 
 #define ALOG2 (0.69314718) /**< ln(2.0) */
 
-#define G2C_JASPER_JPEG_FORMAT_NAME "jpc" /**< Name of JPEG codec in Jasper. */
+/** Name of JPEG codec in Jasper. */
+#define G2C_JASPER_JPEG_FORMAT_NAME "jpc" 
 
-#define G2C_MIN_MAX_BYTES 16 /**< Minimum acceptable value for max_bytes parameter of g2c_get_msg(). */
+/** Minimum acceptable value for max_bytes parameter of g2c_get_msg(). */
+#define G2C_MIN_MAX_BYTES 16 
 
-#define G2C_ERROR 1 /**< Returned for test errors. */
+/** Returned for test errors. */
+#define G2C_ERROR 1 
 
-#define G2C_MAGIC_HEADER "GRIB" /**< GRIB magic header string. */
+/** GRIB magic header string. */
+#define G2C_MAGIC_HEADER "GRIB" 
 
-#define G2C_MAGIC_HEADER_LEN 8 /**< Full length of magic header string (includes GRIB version byte). */
+/** Full length of magic header string (includes GRIB version byte). */
+#define G2C_MAGIC_HEADER_LEN 8 
 
-#define G2C_MAX_MESSAGES 1024 /**< Maximum number of messages in a file. */
+/** Maximum number of messages in a file. */
+#define G2C_MAX_MESSAGES 1024 
 
 #define BYTE 8 /**< Number of bits in a byte. */
 #define WORD 32 /**< Number of bits in four bytes. */
@@ -52,45 +58,88 @@
 
 /** Byte swap 64-bit ints. This converts big-endian 8-byte ints into
  * native endian 8-byte ints. */
-#define bswap64(y) (((uint64_t)ntohl(y)) << 32 | ntohl(y>>32))
+#define ntoh64(y) (((uint64_t)ntohl(y)) << WORD | ntohl(y >> WORD))
+
+/** Byte swap 64-bit ints. This converts native-endian 8-byte ints into
+ * big-endian 8-byte ints. */
+#define hton64(y) (((uint64_t)htonl(y)) << WORD | htonl(y >> WORD))
 
 /** Read a big-endian 1-byte int from an open file; since it is only 1
  * byte, no conversion is nevessary. */
-#define READ_BE_INT1(f, var)				\
-	    do {					\
-		if ((fread(&var, 1, 1, f)) != 1)	\
-		    return G2C_EFILE;			\
-	    } while(0)
+#define READ_BE_INT1(f, var)                    \
+    do {                                        \
+        if ((fread(&var, 1, 1, f)) != 1)        \
+            return G2C_EFILE;                   \
+    } while(0)
 
 /** Read a big-endian 2-byte int from an open file, and convert it to
  * machine-native format. The integer short_be must be declared before
  * this macro is used. */
-#define READ_BE_INT2(f, var)				\
-	    do {					\
-		if ((fread(&short_be, TWO_BYTES, 1, f)) != 1)	\
-		    return G2C_EFILE;				\
-		var = htons(short_be);				\
-	    } while(0)
+#define READ_BE_INT2(f, var)                            \
+    do {                                                \
+        if ((fread(&short_be, TWO_BYTES, 1, f)) != 1)   \
+            return G2C_EFILE;                           \
+        var = htons(short_be);                          \
+    } while(0)
 
 /** Read a big-endian 4-byte int from an open file, and convert it to
  * machine-native format. The integer int_be must be declared before
  * this macro is used. */
-#define READ_BE_INT4(f, var)				\
-	    do {					\
-		if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)	\
-		    return G2C_EFILE;				\
-		var = htonl(int_be);				\
-	    } while(0)
+#define READ_BE_INT4(f, var)                            \
+    do {                                                \
+        if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)    \
+            return G2C_EFILE;                           \
+        var = htonl(int_be);                            \
+    } while(0)
 
 /** Read a big-endian 8-byte int from an open file, and convert it to
  * machine-native format. The integer size_t_be must be declared before
  * this macro is used. */
-#define READ_BE_INT8(f, var)				\
-	    do {					\
-		if ((fread(&size_t_be, EIGHT_BYTES, 1, f)) != 1)	\
-		    return G2C_EFILE;				\
-		var = bswap64(size_t_be);			\
-	    } while(0)
+#define READ_BE_INT8(f, var)                                    \
+    do {                                                        \
+        if ((fread(&size_t_be, EIGHT_BYTES, 1, f)) != 1)        \
+            return G2C_EFILE;                                   \
+        var = hton64(size_t_be);                                \
+    } while(0)
+
+/** Write a big-endian 1-byte int to an open file. The integer int_be
+ * must be declared before this macro is used. */
+#define WRITE_BE_INT1(f, var)                   \
+    do {                                        \
+        if ((fwrite(&var, 1, 1, f)) != 1)       \
+            return G2C_EFILE;                   \
+    } while(0)
+
+/** Write a big-endian 2-byte int to an open file, after converting it
+ * to big-endian format. The integer short_be must be declared before
+ * this macro is used. */
+#define WRITE_BE_INT2(f, var)                           \
+    do {                                                \
+        short_be = ntohs(var);                          \
+        if ((fwrite(&short_be, TWO_BYTES, 1, f)) != 1)  \
+            return G2C_EFILE;                           \
+    } while(0)
+
+/** Write a big-endian 4-byte int to an open file, after converting it
+ * to big-endian format. The integer int_be must be declared before
+ * this macro is used. */
+#define WRITE_BE_INT4(f, var)                           \
+    do {                                                \
+        int_be = ntohl(var);                            \
+        if ((fwrite(&int_be, FOUR_BYTES, 1, f)) != 1)   \
+            return G2C_EFILE;                           \
+    } while(0)
+
+/** Write a big-endian 8-byte int to an open file, after converting it
+ * to big-endian format. The integer size_t_be must be declared before
+ * this macro is used. */
+#define WRITE_BE_INT8(f, var)                                   \
+    do {                                                        \
+        size_t_be = ntoh64(var);                                \
+        if ((fwrite(&size_t_be, EIGHT_BYTES, 1, f)) != 1)       \
+            return G2C_EFILE;                                   \
+    } while(0)
+
 
 /** This is the information about each message. */
 typedef struct g2c_message_info
@@ -152,7 +201,7 @@ typedef struct g2c_section3_info
     unsigned char interp_list; /**< Interpetation of list of numbers defining number of points (See Table 3.11). */
     unsigned short grid_def; /**< Grid definition template number (= N) (See Table 3.1). */
     int *optional; /**< Optional list of numbers defining number of points. */}
- G2C_SECTION3_INFO_T;
+    G2C_SECTION3_INFO_T;
 
 /** Information about [Section 4 PRODUCT DEFINITION
  * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml). */
@@ -170,8 +219,8 @@ typedef struct g2c_section5_info
 {
     /** Number of data points where one or more values are specified
      * in Section 7 when a bit map is present, total number of data
-     * points when a bit map is absent. */    
-    unsigned int num_data_points; 
+     * points when a bit map is absent. */
+    unsigned int num_data_points;
     unsigned short data_def; /**< Data representation template number (See Table 5.0). */
 } G2C_SECTION5_INFO_T;
 
