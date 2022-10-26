@@ -70,6 +70,8 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     struct tm tm = *localtime(&t);
     size_t items_written;
     char my_path[G2C_INDEX_BASENAME_LEN + 1];
+    int m;
+    /* int reclen; */
     
     /* Is this an open GRIB2 file? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
@@ -112,6 +114,16 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     /* Write header 2. */
     if ((items_written = fwrite(h2, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
         return G2C_EFILE;
+
+    /* Write a record of index file for each message in the file. */
+    for (m = 0; m < g2c_file[g2cid].num_messages; m++)
+    {
+        /* What will be the length of this index record? */
+       /* reclen = 42 + m->sec1_len; /\* starting count *\/ */
+
+
+        
+    }
 
     /* Close the index file. */
     if (fclose(f))
@@ -207,18 +219,18 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
 
 	    /* Read the index record. */
             LOG((4, "reading index record at file position %ld", ftell(f)));
-	    READ_BE_INT4(f, reclen);
-	    READ_BE_INT4(f, msg);
-	    READ_BE_INT4(f, local);
-	    READ_BE_INT4(f, gds);
-	    READ_BE_INT4(f, pds);
-	    READ_BE_INT4(f, drs);
-	    READ_BE_INT4(f, bms);
-	    READ_BE_INT4(f, data);
-	    READ_BE_INT8(f, msglen);
-	    READ_BE_INT1(f, version);
-	    READ_BE_INT1(f, discipline);
-	    READ_BE_INT2(f, fieldnum);
+	    FILE_BE_INT4(f, G2C_FILE_READ, reclen);
+	    FILE_BE_INT4(f, G2C_FILE_READ, msg);
+	    FILE_BE_INT4(f, G2C_FILE_READ, local);
+	    FILE_BE_INT4(f, G2C_FILE_READ, gds);
+	    FILE_BE_INT4(f, G2C_FILE_READ, pds);
+	    FILE_BE_INT4(f, G2C_FILE_READ, drs);
+	    FILE_BE_INT4(f, G2C_FILE_READ, bms);
+	    FILE_BE_INT4(f, G2C_FILE_READ, data);
+	    FILE_BE_INT8(f, G2C_FILE_READ, msglen);
+	    FILE_BE_INT1(f, G2C_FILE_READ, version);
+	    FILE_BE_INT1(f, G2C_FILE_READ, discipline);
+	    FILE_BE_INT2(f, G2C_FILE_READ, fieldnum);
 
 	    LOG((3, "reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d "
 		 "msglen %ld version %d discipline %d fieldnum %d",
@@ -264,8 +276,8 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                      * and number from the index record. */
                     if (s < 6)
                     {
-                        READ_BE_INT4(f, sec_len);
-                        READ_BE_INT1(f, sec_num);
+                        FILE_BE_INT4(f, G2C_FILE_READ, sec_len);
+                        FILE_BE_INT1(f, G2C_FILE_READ, sec_num);
                     }
                     else
                     {
@@ -276,8 +288,8 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                          * section. */
                         if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data, SEEK_SET))
                             return G2C_EFILE;
-                        READ_BE_INT4(g2c_file[*g2cid].f, sec_len);
-                        READ_BE_INT1(g2c_file[*g2cid].f, sec_num);
+                        FILE_BE_INT4(g2c_file[*g2cid].f, G2C_FILE_READ, sec_len);
+                        FILE_BE_INT1(g2c_file[*g2cid].f, G2C_FILE_READ, sec_num);
                         LOG((4, "read section 7 info from data file. sec_len %d sec_num %d",
                              sec_len, sec_num));
                     }

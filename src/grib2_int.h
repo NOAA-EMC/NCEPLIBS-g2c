@@ -92,6 +92,9 @@
         var = htonl(int_be);                            \
     } while(0)
 
+#define G2C_FILE_READ 0 /**< Read. */
+#define G2C_FILE_WRITE 1 /**< Write. */
+
 /** Read a big-endian 8-byte int from an open file, and convert it to
  * machine-native format. The integer size_t_be must be declared before
  * this macro is used. */
@@ -102,44 +105,82 @@
         var = hton64(size_t_be);                                \
     } while(0)
 
-/** Write a big-endian 1-byte int to an open file. The integer int_be
- * must be declared before this macro is used. */
-#define WRITE_BE_INT1(f, var)                   \
+/**
+ * Read or write a big-endian 1-byte int to an open file.
+ */
+#define FILE_BE_INT1(f, write, var)             \
     do {                                        \
-        if ((fwrite(&var, 1, 1, f)) != 1)       \
-            return G2C_EFILE;                   \
+        if (write)                              \
+        {                                       \
+            if ((fwrite(&var, 1, 1, f)) != 1)   \
+                return G2C_EFILE;               \
+        }                                       \
+        else                                    \
+        {                                       \
+            if ((fread(&var, 1, 1, f)) != 1)    \
+                return G2C_EFILE;               \
+        }                                       \
     } while(0)
 
-/** Write a big-endian 2-byte int to an open file, after converting it
- * to big-endian format. The integer short_be must be declared before
- * this macro is used. */
-#define WRITE_BE_INT2(f, var)                           \
-    do {                                                \
-        short_be = ntohs(var);                          \
-        if ((fwrite(&short_be, TWO_BYTES, 1, f)) != 1)  \
-            return G2C_EFILE;                           \
+/**
+ * Read or write a big-endian 2-byte int to an open file, with
+ * conversion between native and big-endian format. The integer
+ * short_be must be declared before this macro is used. */
+#define FILE_BE_INT2(f, write, var)                             \
+    do {                                                        \
+        if (write)                                              \
+        {                                                       \
+            short_be = ntohs(var);                              \
+            if ((fwrite(&short_be, TWO_BYTES, 1, f)) != 1)      \
+                return G2C_EFILE;                               \
+        }                                                       \
+        else                                                    \
+        {                                                       \
+            if ((fread(&short_be, TWO_BYTES, 1, f)) != 1)       \
+                return G2C_EFILE;                               \
+            var = htons(short_be);                              \
+        }                                                       \
     } while(0)
 
-/** Write a big-endian 4-byte int to an open file, after converting it
- * to big-endian format. The integer int_be must be declared before
- * this macro is used. */
-#define WRITE_BE_INT4(f, var)                           \
+/**
+ * Read or write a big-endian 4-byte int to an open file, with
+ * conversion between native and big-endian format. The integer int_be
+ * must be declared before this macro is used. */
+#define FILE_BE_INT4(f, write, var)                     \
     do {                                                \
+    if (write)                                          \
+    {                                                   \
         int_be = ntohl(var);                            \
         if ((fwrite(&int_be, FOUR_BYTES, 1, f)) != 1)   \
             return G2C_EFILE;                           \
+    }                                                   \
+    else                                                \
+    {                                                   \
+        if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)    \
+            return G2C_EFILE;                           \
+        var = htonl(int_be);                            \
+    }                                                   \
     } while(0)
 
-/** Write a big-endian 8-byte int to an open file, after converting it
- * to big-endian format. The integer size_t_be must be declared before
- * this macro is used. */
-#define WRITE_BE_INT8(f, var)                                   \
+/**
+ * Read or write a big-endian 8-byte int to an open file, with
+ * conversion between native and big-endian format. The integer
+ * size_t_be must be declared before this macro is used. */
+#define FILE_BE_INT8(f, write, var)                             \
     do {                                                        \
+    if (write)                                                  \
+    {                                                           \
         size_t_be = ntoh64(var);                                \
         if ((fwrite(&size_t_be, EIGHT_BYTES, 1, f)) != 1)       \
             return G2C_EFILE;                                   \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        if ((fread(&size_t_be, EIGHT_BYTES, 1, f)) != 1)        \
+            return G2C_EFILE;                                   \
+        var = hton64(size_t_be);                                \
+    }                                                           \
     } while(0)
-
 
 /** This is the information about each message. */
 typedef struct g2c_message_info
