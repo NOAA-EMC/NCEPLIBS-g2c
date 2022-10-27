@@ -311,6 +311,14 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                                               &msg->discipline, &fieldnum)))
                 return ret;
 
+            /* Write the section 1, identification section. */
+            if ((ret = g2c_rw_section1_metadata(f, G2C_FILE_WRITE, msg)))
+                return ret;
+            
+            /* Write the section 3, grid definition section. */
+            if ((ret = g2c_rw_section3_metadata(f, G2C_FILE_WRITE, sec3)))
+                return ret;
+
         } /* next product */
     } /* next message */
 
@@ -439,7 +447,7 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                 msgp->bytes_to_data = data;
 
                 /* Read section 1. */
-		if ((ret = g2c_rw_section1_metadata(f, 0, G2C_FILE_READ, msgp)))
+		if ((ret = g2c_rw_section1_metadata(f, G2C_FILE_READ, msgp)))
 		    return ret;
 		if ((ret = g2c_log_section1(msgp)))
 		    return ret;

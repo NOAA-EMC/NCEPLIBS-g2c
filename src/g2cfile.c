@@ -292,6 +292,7 @@ find_available_g2cid(int *g2cid)
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
  * - ::G2C_ENOMEM Out of memory.
  * - ::G2C_ENOTEMPLATE Can't find template.
  *
@@ -308,15 +309,21 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     int ret;
 
     /* Check input. */
-    assert(sec && !sec->sec_info && sec->sec_num == 3);
-    LOG((6, "starting to %s section 3 at file position %ld", rw_flag ? "write" : "read",
-         ftell(f)));
+    if (!f || !sec)
+        return G2C_EINVAL;
+    
+    LOG((6, "g2c_rw_section3_metadata starting to %s section 3 at file position %ld",
+         rw_flag ? "write" : "read", ftell(f)));
 
     /* If reading, allocate storage for a new section 3. */
     if (!rw_flag)
+    {
         if (!(sec3_info = calloc(sizeof(G2C_SECTION3_INFO_T), 1)))
             return G2C_ENOMEM;
-
+    }
+    else
+        sec3_info = sec->sec_info;
+            
     /* Read or write section 3. */
     FILE_BE_INT1P(f, rw_flag, &sec3_info->source_grid_def);
     FILE_BE_INT4P(f, rw_flag, &sec3_info->num_data_points);
@@ -332,10 +339,12 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         return ret;
 
     /* When reading, allocate space to hold the template info. */
-    sec->template_len = maplen;
     if (!rw_flag)
+    {
+        sec->template_len = maplen;
         if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
             return G2C_ENOMEM;
+    }
 
     /* Read or write the template info. */
     for (t = 0; t < maplen; t++)
@@ -362,9 +371,10 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     }
 
     /* Attach sec3_info to our section data. */
-    sec->sec_info = sec3_info;
+    if (!rw_flag)
+        sec->sec_info = sec3_info;
 
-    LOG((6, "finished reading section 3 at file position %ld", ftell(f)));
+    LOG((6, "finished reading or writing section 3 at file position %ld", ftell(f)));
     return G2C_NOERROR;
 }
 
@@ -389,7 +399,7 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
  *
  * @author Ed Hartnett @date Sep 16, 2022
  */
-static int
+int
 g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 {
     short short_be;
@@ -476,6 +486,7 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
  * - ::G2C_ENOMEM Out of memory.
  * - ::G2C_ENOTEMPLATE Can't find template.
  *
@@ -492,29 +503,41 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     int ret;
 
     /* Check input. */
-    assert(sec && !sec->sec_info && sec->sec_num == 5);
-    LOG((6, "starting to read section 5 at file position %ld", ftell(f)));    
+    if (!f || !sec)
+        return G2C_EINVAL;
+    LOG((5, "g2c_rw_section5_metadata rw_flag %d at file position %ld", rw_flag,
+         ftell(f)));    
 
-    /* Allocate storage for a new section 5. */
-    if (!(sec5_info = calloc(sizeof(G2C_SECTION5_INFO_T), 1)))
-        return G2C_ENOMEM;
+    /* When reading, allocate storage for a new section 5. When
+     * writing, get a pointer to the exitsing sec5_info. */
+    if (!rw_flag)
+    {
+        if (!(sec5_info = calloc(sizeof(G2C_SECTION5_INFO_T), 1)))
+            return G2C_ENOMEM;
+    }
+    else
+        sec5_info = sec->sec_info;
 
     /* Read section 5. */
     FILE_BE_INT4(f, G2C_FILE_READ, sec5_info->num_data_points);
     FILE_BE_INT2(f, G2C_FILE_READ, sec5_info->data_def);
-    LOG((5, "read_section5_metadata num_data_points %d data_def %d",
+    LOG((5, "g2c_rw_section5_metadata num_data_points %d data_def %d",
          sec5_info->num_data_points, sec5_info->data_def));
 
     /* Look up the information about this grid. */
     if ((ret = g2c_get_drs_template(sec5_info->data_def, &maplen, map, &needsext)))
+        return ret;
     LOG((5, "grid template maplen %d", maplen));
 
-    /* Allocate space to hold the template info. */
-    sec->template_len = maplen;
-    if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
-        return G2C_ENOMEM;
+    /* WHen reading, allocate space to hold the template info. */
+    if (!rw_flag)
+    {
+        sec->template_len = maplen;
+        if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
+            return G2C_ENOMEM;
+    }
 
-    /* Read the template info. */
+    /* Read or write the template info. */
     for (t = 0; t < maplen; t++)
     {
         /* Take the absolute value of map[t] because some of the
@@ -538,8 +561,9 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         LOG((7, "template[%d] %d", t, sec->template[t]));
     }
 
-    /* Attach sec5_info to our section data. */
-    sec->sec_info = sec5_info;
+    /* When reading, attach sec5_info to our section data. */
+    if (!rw_flag)
+        sec->sec_info = sec5_info;
 
     return G2C_NOERROR;
 }
@@ -627,7 +651,6 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
  * Read Section 1.
  *
  * @param f Pointer to open file.
- * @param skip Skip this many bytes to get to section 0.
  * @param rw_flag ::G2C_FILE_WRITE if function should write,
  * ::G2C_FILE_READ if it should read.
  * @param msg Pointer to G2C_MESSAGE_INFO_T which will be populated
@@ -639,18 +662,14 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
  * @author Ed Hartnett @date 10/16/22
  */
 int
-g2c_rw_section1_metadata(FILE *f, size_t skip, int rw_flag, G2C_MESSAGE_INFO_T *msg)
+g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
 {
     int int_be;
     short short_be;
     char sec_num = 1;
 
-    LOG((2, "g2c_read_section1_metadata skip %ld", skip));
+    LOG((2, "g2c_rw_section1_metadata rw_flag %d", rw_flag));
         
-    /* Skip to section 1. */
-    if (fseek(f, skip, SEEK_CUR))
-        return G2C_EFILE;
-
     /* Read the section. */
     FILE_BE_INT4(f, rw_flag, msg->sec1_len);
     FILE_BE_INT1(f, rw_flag, sec_num);
@@ -706,8 +725,12 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
     if ((fread(&msg->discipline, ONE_BYTE, 1, msg->file->f)) != 1)
         return G2C_EFILE;
 
+    /* Skip to section 1. */
+    if (fseek(msg->file->f, 9, SEEK_CUR))
+        return G2C_EFILE;
+
     /* Read section 1. */
-    if ((ret = g2c_rw_section1_metadata(msg->file->f, 9, G2C_FILE_READ, msg)))
+    if ((ret = g2c_rw_section1_metadata(msg->file->f, G2C_FILE_READ, msg)))
         return ret;
     total_read += msg->sec1_len;
 
