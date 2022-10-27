@@ -18,6 +18,9 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 /** Length of the basename in header record 2. */
 #define G2C_INDEX_BASENAME_LEN 40
 
+/** Length of bitmap section included in the index record. */
+#define G2C_INDEX_BITMAP_BYTES 6
+
 /**
  * Read or write the start of an index record.
  *
@@ -326,6 +329,24 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             /* Write the section 5, data representation section. */
             if ((ret = g2c_rw_section5_metadata(f, G2C_FILE_WRITE, sec4)))
                 return ret;
+
+            /* Write the first 6 bytes of the bitmap section, if there
+             * is one. */
+            if (sec6)
+            {
+                unsigned char sample[G2C_INDEX_BITMAP_BYTES];
+                int b;
+                    
+                /* Read the first 6 bytes of the bitmap section. */
+                if (fseek(msg->file->f, msg->bytes_to_msg + sec6->bytes_to_sec, SEEK_SET))
+                    return G2C_EFILE;
+                if ((fread(sample, ONE_BYTE, G2C_INDEX_BITMAP_BYTES, msg->file->f)) != G2C_INDEX_BITMAP_BYTES)
+                    return G2C_EFILE;
+
+                /* Now write these bytes to the end of the index record. */
+                for (b = 0; b < G2C_INDEX_BITMAP_BYTES; b++)
+                    FILE_BE_INT1(f, G2C_FILE_WRITE, sample[b]);                    
+            }
 
         } /* next product */
     } /* next message */
