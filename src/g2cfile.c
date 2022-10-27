@@ -369,8 +369,8 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 }
 
 /**
- * Read the metadata from section 4 (Product Definition Section) of a
- * GRIB2 message.
+ * Read or write the metadata from section 4 (Product Definition
+ * Section) of a GRIB2 message.
  *
  * When this function is called, the file cursor is positioned just
  * after the section number field in the section. The size of the
@@ -378,6 +378,8 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
  * function is called.
  *
  * @param f FILE pointer to open GRIB2 file.
+ * @param rw_flag ::G2C_FILE_WRITE if function should write,
+ * ::G2C_FILE_READ if it should read.
  * @param sec Pointer to the G2C_SECTION_INFO_T struct.
  *
  * @return
@@ -388,7 +390,7 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
  * @author Ed Hartnett @date Sep 16, 2022
  */
 static int
-read_section4_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
+g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 {
     short short_be;
     G2C_SECTION4_INFO_T *sec4_info;
@@ -459,8 +461,8 @@ read_section4_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
 }
 
 /**
- * Read the metadata from section 5 (Data Representation Section) of a
- * GRIB2 message.
+ * Read or write the metadata from section 5 (Data Representation
+ * Section) of a GRIB2 message.
  *
  * When this function is called, the file cursor is positioned just
  * after the section number field in the section. The size of the
@@ -468,6 +470,8 @@ read_section4_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
  * function is called.
  *
  * @param f FILE pointer to open GRIB2 file.
+ * @param rw_flag ::G2C_FILE_WRITE if function should write,
+ * ::G2C_FILE_READ if it should read.
  * @param sec Pointer to the G2C_SECTION_INFO_T struct.
  *
  * @return
@@ -477,8 +481,8 @@ read_section4_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
  *
  * @author Ed Hartnett @date Sep 16, 2022
  */
-static int
-read_section5_metadata(FILE *f, G2C_SECTION_INFO_T *sec)
+int
+g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 {
     int int_be;
     short short_be;
@@ -601,11 +605,11 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
             return ret;
         break;
     case 4:
-        if ((ret = read_section4_metadata(f, sec)))
+        if ((ret = g2c_rw_section4_metadata(f, G2C_FILE_READ, sec)))
             return ret;
         break;
     case 5:
-        if ((ret = read_section5_metadata(f, sec)))
+        if ((ret = g2c_rw_section5_metadata(f, G2C_FILE_READ, sec)))
             return ret;
         break;
     case 6:
@@ -624,6 +628,8 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
  *
  * @param f Pointer to open file.
  * @param skip Skip this many bytes to get to section 0.
+ * @param rw_flag ::G2C_FILE_WRITE if function should write,
+ * ::G2C_FILE_READ if it should read.
  * @param msg Pointer to G2C_MESSAGE_INFO_T which will be populated
  * with the values of section 0.
  *
@@ -633,11 +639,11 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
  * @author Ed Hartnett @date 10/16/22
  */
 int
-g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
+g2c_rw_section1_metadata(FILE *f, size_t skip, int rw_flag, G2C_MESSAGE_INFO_T *msg)
 {
     int int_be;
     short short_be;
-    char sec_num;
+    char sec_num = 1;
 
     LOG((2, "g2c_read_section1_metadata skip %ld", skip));
         
@@ -646,23 +652,23 @@ g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg)
         return G2C_EFILE;
 
     /* Read the section. */
-    FILE_BE_INT4(f, G2C_FILE_READ, msg->sec1_len);
-    FILE_BE_INT1(f, G2C_FILE_READ, sec_num);
-    if (sec_num != 1)
+    FILE_BE_INT4(f, rw_flag, msg->sec1_len);
+    FILE_BE_INT1(f, rw_flag, sec_num);
+    if (!rw_flag && sec_num != 1) /* When reading sec num must be 1. */
         return G2C_ENOSECTION;
-    FILE_BE_INT2(f, G2C_FILE_READ, msg->center);
-    FILE_BE_INT2(f, G2C_FILE_READ, msg->subcenter);
-    FILE_BE_INT1(f, G2C_FILE_READ, msg->master_version);
-    FILE_BE_INT1(f, G2C_FILE_READ, msg->local_version);
-    FILE_BE_INT1(f, G2C_FILE_READ, msg->sig_ref_time);
-    FILE_BE_INT2(f, G2C_FILE_READ, msg->year);
-    FILE_BE_INT1(f, G2C_FILE_READ, msg->month);
-    FILE_BE_INT1(f, G2C_FILE_READ, msg->day);
-    FILE_BE_INT1(f, G2C_FILE_READ, msg->hour);
-    FILE_BE_INT1(f, G2C_FILE_READ, msg->minute);
-    FILE_BE_INT1(f, G2C_FILE_READ, msg->second);
-    FILE_BE_INT1(f, G2C_FILE_READ, msg->status);
-    FILE_BE_INT1(f, G2C_FILE_READ, msg->type);
+    FILE_BE_INT2(f, rw_flag, msg->center);
+    FILE_BE_INT2(f, rw_flag, msg->subcenter);
+    FILE_BE_INT1(f, rw_flag, msg->master_version);
+    FILE_BE_INT1(f, rw_flag, msg->local_version);
+    FILE_BE_INT1(f, rw_flag, msg->sig_ref_time);
+    FILE_BE_INT2(f, rw_flag, msg->year);
+    FILE_BE_INT1(f, rw_flag, msg->month);
+    FILE_BE_INT1(f, rw_flag, msg->day);
+    FILE_BE_INT1(f, rw_flag, msg->hour);
+    FILE_BE_INT1(f, rw_flag, msg->minute);
+    FILE_BE_INT1(f, rw_flag, msg->second);
+    FILE_BE_INT1(f, rw_flag, msg->status);
+    FILE_BE_INT1(f, rw_flag, msg->type);
 
     /* Section 1 may contain optional numbers at the end of the
      * section. The sec1_len tells us if there are extra values. If
@@ -701,7 +707,7 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
         return G2C_EFILE;
 
     /* Read section 1. */
-    if ((ret = g2c_read_section1_metadata(msg->file->f, 9, msg)))
+    if ((ret = g2c_rw_section1_metadata(msg->file->f, 9, G2C_FILE_READ, msg)))
         return ret;
     total_read += msg->sec1_len;
 

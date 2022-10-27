@@ -449,7 +449,7 @@ int add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t byte
             int read_file, G2C_MESSAGE_INFO_T **msg);
 int add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t bytes_to_sec,
                 unsigned char sec_num);
-int g2c_read_section1_metadata(FILE *f, size_t skip, G2C_MESSAGE_INFO_T *msg);
+int g2c_rw_section1_metadata(FILE *f, size_t skip, int rw_flag, G2C_MESSAGE_INFO_T *msg);
 int g2c_log_section1(G2C_MESSAGE_INFO_T *msg);
 
 /* Handle logging. */
