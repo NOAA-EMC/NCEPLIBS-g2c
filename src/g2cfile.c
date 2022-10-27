@@ -311,6 +311,8 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     /* Check input. */
     if (!f || !sec)
         return G2C_EINVAL;
+    if (!rw_flag && sec->sec_num != 3)
+        return G2C_EINVAL;
     
     LOG((6, "g2c_rw_section3_metadata starting to %s section 3 at file position %ld",
          rw_flag ? "write" : "read", ftell(f)));
@@ -384,8 +386,8 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
  *
  * When this function is called, the file cursor is positioned just
  * after the section number field in the section. The size of the
- * section, and the section number, have already been read when this
- * function is called.
+ * section, and the section number, have already been read/written
+ * when this function is called.
  *
  * @param f FILE pointer to open GRIB2 file.
  * @param rw_flag ::G2C_FILE_WRITE if function should write,
@@ -394,6 +396,7 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
  *
  * @return
  * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
  * - ::G2C_ENOMEM Out of memory.
  * - ::G2C_ENOTEMPLATE Can't find template.
  *
@@ -409,22 +412,32 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     int ret;
 
     /* Check input. */
-    assert(sec && !sec->sec_info && sec->sec_num == 4 && sec->msg);
+    if (!f || !sec)
+        return G2C_EINVAL;
+    if (!rw_flag && sec->sec_num != 4)
+        return G2C_EINVAL;
 
-    LOG((3, "read_section4_metadata msg_num %d", sec->msg->msg_num));
+    LOG((3, "read_section4_metadata rw_flag %d", rw_flag));
 
-    /* Allocate storage for a new section 4. */
-    if (!(sec4_info = calloc(sizeof(G2C_SECTION4_INFO_T), 1)))
-        return G2C_ENOMEM;
+    /* When reading, allocate storage for a new section 4. */
+    if (!rw_flag)
+    {
+        if (!(sec4_info = calloc(sizeof(G2C_SECTION4_INFO_T), 1)))
+            return G2C_ENOMEM;
+    }
+    else
+        sec4_info = sec->sec_info;
 
-    /* Assign a number to this field, and count the number of fields in the message. */
-    sec4_info->field_num = sec->msg->num_fields++;
+    /* When reading, assign a number to this field, and count the
+     * number of fields in the message. */
+    if (!rw_flag)
+        sec4_info->field_num = sec->msg->num_fields++;
 
     LOG((6, "reading section 4 starting at file position %ld", ftell(f)));
 
     /* Read section 4. */
-    FILE_BE_INT2(f, G2C_FILE_READ, sec4_info->num_coord);
-    FILE_BE_INT2(f, G2C_FILE_READ, sec4_info->prod_def);
+    FILE_BE_INT2(f, rw_flag, sec4_info->num_coord);
+    FILE_BE_INT2(f, rw_flag, sec4_info->prod_def);
     LOG((5, "read_section4_metadata num_coord %d prod_def %d", sec4_info->num_coord, sec4_info->prod_def));
 
     /* Look up the information about this grid. */
@@ -432,12 +445,15 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         return ret;
     LOG((5, "pds template maplen %d", maplen));
 
-    /* Allocate space to hold the template info. */
-    sec->template_len = maplen;
-    if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
-        return G2C_ENOMEM;
+    /* When reading, allocate space to hold the template info. */
+    if (!rw_flag)
+    {
+        sec->template_len = maplen;
+        if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
+            return G2C_ENOMEM;
+    }
 
-    /* Read the template info. */
+    /* Read or write the template info. */
     for (t = 0; t < maplen; t++)
     {
         short short_be;
@@ -450,13 +466,13 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         switch(abs(map[t]))
         {
         case ONE_BYTE:
-            FILE_BE_INT1(f, G2C_FILE_READ, sec->template[t]);            
+            FILE_BE_INT1(f, rw_flag, sec->template[t]);            
             break;
         case TWO_BYTES:
-            FILE_BE_INT2(f, G2C_FILE_READ, sec->template[t]);            
+            FILE_BE_INT2(f, rw_flag, sec->template[t]);            
             break;
         case FOUR_BYTES:
-            FILE_BE_INT4(f, G2C_FILE_READ, sec->template[t]);            
+            FILE_BE_INT4(f, rw_flag, sec->template[t]);            
             break;
         default:
             return G2C_EBADTEMPLATE;
@@ -464,8 +480,9 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         LOG((7, "template[%d] %d", t, sec->template[t]));
     }
 
-    /* Attach sec4_info to our section data. */
-    sec->sec_info = sec4_info;
+    /* When reading, attach sec4_info to our section data. */
+    if (!rw_flag)
+        sec->sec_info = sec4_info;
 
     return G2C_NOERROR;
 }
@@ -519,8 +536,8 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         sec5_info = sec->sec_info;
 
     /* Read section 5. */
-    FILE_BE_INT4(f, G2C_FILE_READ, sec5_info->num_data_points);
-    FILE_BE_INT2(f, G2C_FILE_READ, sec5_info->data_def);
+    FILE_BE_INT4(f, rw_flag, sec5_info->num_data_points);
+    FILE_BE_INT2(f, rw_flag, sec5_info->data_def);
     LOG((5, "g2c_rw_section5_metadata num_data_points %d data_def %d",
          sec5_info->num_data_points, sec5_info->data_def));
 
@@ -547,13 +564,13 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         switch(abs(map[t]))
         {
         case ONE_BYTE:
-            FILE_BE_INT1(f, G2C_FILE_READ, sec->template[t]);
+            FILE_BE_INT1(f, rw_flag, sec->template[t]);
             break;
         case TWO_BYTES:
-            FILE_BE_INT2(f, G2C_FILE_READ, sec->template[t]);
+            FILE_BE_INT2(f, rw_flag, sec->template[t]);
             break;
         case FOUR_BYTES:
-            FILE_BE_INT4(f, G2C_FILE_READ, sec->template[t]);
+            FILE_BE_INT4(f, rw_flag, sec->template[t]);
             break;
         default:
             return G2C_EBADTEMPLATE;

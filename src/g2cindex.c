@@ -319,6 +319,10 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             if ((ret = g2c_rw_section3_metadata(f, G2C_FILE_WRITE, sec3)))
                 return ret;
 
+            /* Write the section 4, product definition section. */
+            if ((ret = g2c_rw_section4_metadata(f, G2C_FILE_WRITE, sec4)))
+                return ret;
+
         } /* next product */
     } /* next message */
 
