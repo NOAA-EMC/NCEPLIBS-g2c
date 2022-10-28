@@ -176,17 +176,17 @@ main()
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
 
-        /* /\* Reopen the data file, using the index we just generated. *\/ */
-	/* if ((ret = g2c_read_index(WAVE_FILE, TEST_INDEX_FILE, 0, &g2cid))) */
-	/*     return ret; */
+        /* Reopen the data file, using the index we just generated. */
+	if ((ret = g2c_read_index(WAVE_FILE, TEST_INDEX_FILE, 0, &g2cid)))
+	    return ret;
 
-        /* /\* Output a degrib2 file. *\/ */
-        /* if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE))) */
-        /*     return ret; */
+        /* Output a degrib2 file. */
+        if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE)))
+            return ret;
 
-        /* /\* Close the data file. *\/ */
-	/* if ((ret = g2c_close(g2cid))) */
-	/*     return ret; */
+        /* Close the data file. */
+	if ((ret = g2c_close(g2cid)))
+	    return ret;
 
         /* Compare the degrib2 output to our reference file. */
         /* if ((ret = compare_files2(DEGRIB2_FILE, REF_FILE))) */
