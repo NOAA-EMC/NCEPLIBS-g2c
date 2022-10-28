@@ -189,8 +189,8 @@ main()
 	    return ret;
 
         /* Compare the degrib2 output to our reference file. */
-        /* if ((ret = compare_files2(DEGRIB2_FILE, REF_FILE))) */
-        /*     return ret; */
+        if ((ret = compare_files2(DEGRIB2_FILE, REF_FILE)))
+            return ret;
     }
     printf("ok!\n");
 #endif
