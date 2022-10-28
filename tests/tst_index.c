@@ -156,11 +156,11 @@ main()
 	if ((ret = g2c_read_index(WAVE_FILE, INDEX_FILE, 0, &g2cid)))
 	    return ret;
 
-        /* /\* Check some stuff. *\/ */
-        /* if ((ret = g2c_inq(g2cid, &num_msg))) */
-        /*     return ret; */
-        /* if (num_msg != 19) */
-        /*     return G2C_ERROR; */
+        /* Check some stuff. */
+        if ((ret = g2c_inq(g2cid, &num_msg)))
+            return ret;
+        if (num_msg != 19)
+            return G2C_ERROR;
 
         /* Close the file. */
 	if ((ret = g2c_close(g2cid)))
