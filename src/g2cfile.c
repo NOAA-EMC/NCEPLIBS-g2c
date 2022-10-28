@@ -436,8 +436,8 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     LOG((6, "reading section 4 starting at file position %ld", ftell(f)));
 
     /* Read section 4. */
-    FILE_BE_INT2(f, rw_flag, sec4_info->num_coord);
-    FILE_BE_INT2(f, rw_flag, sec4_info->prod_def);
+    FILE_BE_INT2P(f, rw_flag, &sec4_info->num_coord);
+    FILE_BE_INT2P(f, rw_flag, &sec4_info->prod_def);
     LOG((5, "read_section4_metadata num_coord %d prod_def %d", sec4_info->num_coord, sec4_info->prod_def));
 
     /* Look up the information about this grid. */
@@ -466,13 +466,13 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         switch(abs(map[t]))
         {
         case ONE_BYTE:
-            FILE_BE_INT1(f, rw_flag, sec->template[t]);            
+            FILE_BE_INT1P(f, rw_flag, &sec->template[t]);            
             break;
         case TWO_BYTES:
-            FILE_BE_INT2(f, rw_flag, sec->template[t]);            
+            FILE_BE_INT2P(f, rw_flag, &sec->template[t]);            
             break;
         case FOUR_BYTES:
-            FILE_BE_INT4(f, rw_flag, sec->template[t]);            
+            FILE_BE_INT4P(f, rw_flag, &sec->template[t]);            
             break;
         default:
             return G2C_EBADTEMPLATE;
@@ -536,8 +536,8 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         sec5_info = sec->sec_info;
 
     /* Read section 5. */
-    FILE_BE_INT4(f, rw_flag, sec5_info->num_data_points);
-    FILE_BE_INT2(f, rw_flag, sec5_info->data_def);
+    FILE_BE_INT4P(f, rw_flag, &sec5_info->num_data_points);
+    FILE_BE_INT2P(f, rw_flag, &sec5_info->data_def);
     LOG((5, "g2c_rw_section5_metadata num_data_points %d data_def %d",
          sec5_info->num_data_points, sec5_info->data_def));
 
@@ -564,13 +564,13 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         switch(abs(map[t]))
         {
         case ONE_BYTE:
-            FILE_BE_INT1(f, rw_flag, sec->template[t]);
+            FILE_BE_INT1P(f, rw_flag, &sec->template[t]);
             break;
         case TWO_BYTES:
-            FILE_BE_INT2(f, rw_flag, sec->template[t]);
+            FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            FILE_BE_INT4(f, rw_flag, sec->template[t]);
+            FILE_BE_INT4P(f, rw_flag, &sec->template[t]);
             break;
         default:
             return G2C_EBADTEMPLATE;
@@ -688,23 +688,23 @@ g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
     LOG((2, "g2c_rw_section1_metadata rw_flag %d", rw_flag));
         
     /* Read the section. */
-    FILE_BE_INT4(f, rw_flag, msg->sec1_len);
-    FILE_BE_INT1(f, rw_flag, sec_num);
+    FILE_BE_INT4P(f, rw_flag, &msg->sec1_len);
+    FILE_BE_INT1P(f, rw_flag, &sec_num);
     if (!rw_flag && sec_num != 1) /* When reading sec num must be 1. */
         return G2C_ENOSECTION;
-    FILE_BE_INT2(f, rw_flag, msg->center);
-    FILE_BE_INT2(f, rw_flag, msg->subcenter);
-    FILE_BE_INT1(f, rw_flag, msg->master_version);
-    FILE_BE_INT1(f, rw_flag, msg->local_version);
-    FILE_BE_INT1(f, rw_flag, msg->sig_ref_time);
-    FILE_BE_INT2(f, rw_flag, msg->year);
-    FILE_BE_INT1(f, rw_flag, msg->month);
-    FILE_BE_INT1(f, rw_flag, msg->day);
-    FILE_BE_INT1(f, rw_flag, msg->hour);
-    FILE_BE_INT1(f, rw_flag, msg->minute);
-    FILE_BE_INT1(f, rw_flag, msg->second);
-    FILE_BE_INT1(f, rw_flag, msg->status);
-    FILE_BE_INT1(f, rw_flag, msg->type);
+    FILE_BE_INT2P(f, rw_flag, &msg->center);
+    FILE_BE_INT2P(f, rw_flag, &msg->subcenter);
+    FILE_BE_INT1P(f, rw_flag, &msg->master_version);
+    FILE_BE_INT1P(f, rw_flag, &msg->local_version);
+    FILE_BE_INT1P(f, rw_flag, &msg->sig_ref_time);
+    FILE_BE_INT2P(f, rw_flag, &msg->year);
+    FILE_BE_INT1P(f, rw_flag, &msg->month);
+    FILE_BE_INT1P(f, rw_flag, &msg->day);
+    FILE_BE_INT1P(f, rw_flag, &msg->hour);
+    FILE_BE_INT1P(f, rw_flag, &msg->minute);
+    FILE_BE_INT1P(f, rw_flag, &msg->second);
+    FILE_BE_INT1P(f, rw_flag, &msg->status);
+    FILE_BE_INT1P(f, rw_flag, &msg->type);
 
     /* Section 1 may contain optional numbers at the end of the
      * section. The sec1_len tells us if there are extra values. If
@@ -760,14 +760,14 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
         LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));
 
         /* Read section length. */
-        FILE_BE_INT4(msg->file->f, G2C_FILE_READ, sec_len);
+        FILE_BE_INT4P(msg->file->f, G2C_FILE_READ, &sec_len);
 
         /* A section length of 926365495 indicates we've reached
          * section 8, the end of the message. */
         if (sec_len != 926365495)
         {
             /* Read section number. */
-            FILE_BE_INT1(msg->file->f, G2C_FILE_READ, sec_num);
+            FILE_BE_INT1P(msg->file->f, G2C_FILE_READ, &sec_num);
             LOG((4, "sec_len %d sec_num %d", sec_len, sec_num));
 
             /* Add a new section to our list of sections. */

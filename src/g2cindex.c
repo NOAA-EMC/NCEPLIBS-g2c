@@ -398,7 +398,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 
                 /* Now write these bytes to the end of the index record. */
                 for (b = 0; b < G2C_INDEX_BITMAP_BYTES; b++)
-                    FILE_BE_INT1(f, G2C_FILE_WRITE, sample[b]);                    
+                    FILE_BE_INT1P(f, G2C_FILE_WRITE, &sample[b]);                    
             }
         } /* next product */
     } /* next message */
@@ -545,8 +545,8 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                      * and number from the index record. */
                     if (s < 6)
                     {
-                        FILE_BE_INT4(f, G2C_FILE_READ, sec_len);
-                        FILE_BE_INT1(f, G2C_FILE_READ, sec_num);
+                        FILE_BE_INT4P(f, G2C_FILE_READ, &sec_len);
+                        FILE_BE_INT1P(f, G2C_FILE_READ, &sec_num);
                     }
                     else
                     {
@@ -557,8 +557,8 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                          * section. */
                         if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data, SEEK_SET))
                             return G2C_EFILE;
-                        FILE_BE_INT4(g2c_file[*g2cid].f, G2C_FILE_READ, sec_len);
-                        FILE_BE_INT1(g2c_file[*g2cid].f, G2C_FILE_READ, sec_num);
+                        FILE_BE_INT4P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_len);
+                        FILE_BE_INT1P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_num);
                         LOG((4, "read section 7 info from data file. sec_len %d sec_num %d",
                              sec_len, sec_num));
                     }
