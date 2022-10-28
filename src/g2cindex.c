@@ -21,6 +21,9 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 /** Length of bitmap section included in the index record. */
 #define G2C_INDEX_BITMAP_BYTES 6
 
+/** Length of beginning of index record. */
+#define G2C_INDEX_FIXED_LEN 44
+
 /**
  * Read or write the start of an index record.
  *
@@ -37,12 +40,13 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
  * @param msglen Pointer to msglen.
  * @param version Pointer to version.
  * @param discipline Pointer to discipline.
- * @param fieldnum Pointer to fieldnum.
+ * @param fieldnum Pointer to fieldnum, 0- based. (It is 1-based in
+ * the index file.)
  *
  * @return
  * - ::G2C_NOERROR No error.
- * - ::G2C_EFILE File I/O error.
  * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_EFILE File I/O error.
  *
  * @author Ed Hartnett 10/26/22
  */
@@ -54,12 +58,20 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
     int int_be;
     short short_be;
     size_t size_t_be;
+    short fieldnum1; /* This is for the 1-based fieldnum in the index file. */
 
     /* All pointers must be provided. */
     if (!f || !reclen || !msg || !local || !gds || !pds || !drs || !bms || !data
         || !msglen || !version || !discipline || !fieldnum)
         return G2C_EINVAL;
 
+    /* When writing, set the fieldnum1 to be a 1-based index, just
+     * like in Fortran. */
+    if (rw_flag)
+        fieldnum1 = *fieldnum + 1;
+
+    /* Read or write the values at the beginning of each index
+     * record. */
     FILE_BE_INT4P(f, rw_flag, reclen);
     FILE_BE_INT4P(f, rw_flag, msg);
     FILE_BE_INT4P(f, rw_flag, local);
@@ -71,7 +83,12 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
     FILE_BE_INT8P(f, rw_flag, msglen);
     FILE_BE_INT1P(f, rw_flag, version);
     FILE_BE_INT1P(f, rw_flag, discipline);
-    FILE_BE_INT2P(f, rw_flag, fieldnum);
+    FILE_BE_INT2P(f, rw_flag, &fieldnum1);
+
+    /* When reading, translate the 1-based fieldnum1 into the 0-based
+     * fieldnum that C programmers will expect and love. */
+    if (!rw_flag)
+        *fieldnum = fieldnum1 - 1;
 
     return G2C_NOERROR;
 }
@@ -210,7 +227,7 @@ g2c_get_prod_sections(G2C_MESSAGE_INFO_T *msg, int fieldnum, G2C_SECTION_INFO_T 
  * - byte 033 - 040 bytes total in the message
  * - byte 041 - 041 grib version number (currently 2)
  * - byte 042 - 042 message discipline
- * - byte 043 - 044 field number within grib2 message
+ * - byte 043 - 044 field number within grib2 message (1-based)
  * - byte 045 -  ii identification section (ids)
  * - byte ii+1-  jj grid definition section (gds)
  * - byte jj+1-  kk product definition section (pds)
@@ -240,6 +257,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     size_t items_written;
     char my_path[G2C_INDEX_BASENAME_LEN + 1];
     G2C_MESSAGE_INFO_T *msg;
+    int total_index_size = 0; /* Does not include size of header records. */
     int reclen;
 
     /* Is this an open GRIB2 file? */
@@ -267,18 +285,40 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
         return G2C_EFILE;
 
     /* Create header 1. */
-    sprintf(h1, "!GFHDR!  1   1   162 %4.4u-%2.2u-%2.2u %2.2u:%2.2u:%2.2u GB2IX1        hfe08           grb2index",
+    sprintf(h1, "!GFHDR!  1   1   162 %4.4u-%2.2u-%2.2u %2.2u:%2.2u:%2.2u GB2IX1        hfe08           grb2index\n",
             (tm.tm_year + 1900), (tm.tm_mon + 1), tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
     /* Write header 1. */
     if ((items_written = fwrite(h1, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
         return G2C_EFILE;
 
-    /* Create header 2. Awkwardly it wants to know the total length of
-     * all index records, and we don't know that yet. */
+    /* Find the total length of the index we are generating. */
+    for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+    {
+        short fieldnum;
+
+        /* Find information for each field in the message. */
+        for (fieldnum = 0; fieldnum < msg->num_fields; fieldnum++)
+        {
+            G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
+            int ret;
+            
+            if ((ret = g2c_get_prod_sections(msg, fieldnum, &sec3, &sec4, &sec5, &sec6, &sec7)))
+                return ret;
+
+            /* What will be the length of this index record? */
+            reclen = G2C_INDEX_FIXED_LEN + msg->sec1_len + sec3->sec_len + sec4->sec_len +
+                sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
+            total_index_size += reclen;
+            LOG((4, "fieldnum %d reclen %d total_index_size %d", fieldnum, reclen, total_index_size));
+        } /* next product */
+    } /* next message */
+
+    /* Create header 2. */
     strncpy(my_path, g2c_file[g2cid].path, G2C_INDEX_BASENAME_LEN);
-    sprintf(h2, "IX1FORM:       162    %6d    %6ld  %s    ", 0,
+    sprintf(h2, "IX1FORM:       162    %6d    %6ld  %s    \n", total_index_size,
             g2c_file[g2cid].num_messages, my_path);
+    LOG((5, "header 2: %s", h2));
 
     /* Write header 2. */
     if ((items_written = fwrite(h2, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
@@ -308,11 +348,13 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             bs7 = (int)sec7->bytes_to_sec;
 
             /* What will be the length of this index record? */
-            reclen = 42 + msg->sec1_len; /* starting count */
+            reclen = G2C_INDEX_FIXED_LEN + msg->sec1_len + sec3->sec_len + sec4->sec_len +
+                sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
+            LOG((4, "fieldnum %d reclen %d", fieldnum, reclen));
 
             /* Write the beginning of the index record. */
             if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &msg->bytes_to_local,
-                                              &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->local_version,
+                                              &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
                                               &msg->discipline, &fieldnum)))
                 return ret;
 
@@ -338,7 +380,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             sec_num = 5;
             FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec5->sec_len);            
             FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);            
-            if ((ret = g2c_rw_section5_metadata(f, G2C_FILE_WRITE, sec4)))
+            if ((ret = g2c_rw_section5_metadata(f, G2C_FILE_WRITE, sec5)))
                 return ret;
 
             /* Write the first 6 bytes of the bitmap section, if there
@@ -358,7 +400,6 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 for (b = 0; b < G2C_INDEX_BITMAP_BYTES; b++)
                     FILE_BE_INT1(f, G2C_FILE_WRITE, sample[b]);                    
             }
-
         } /* next product */
     } /* next message */
 
@@ -485,6 +526,7 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                 msgp->bytes_to_local = local;
                 msgp->bytes_to_bms = bms;
                 msgp->bytes_to_data = data;
+                msgp->master_version = version;
 
                 /* Read section 1. */
 		if ((ret = g2c_rw_section1_metadata(f, G2C_FILE_READ, msgp)))
