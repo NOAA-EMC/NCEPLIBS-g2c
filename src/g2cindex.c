@@ -295,6 +295,8 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
             int bytes_to_msg = (int)msg->bytes_to_msg;
             int bs3, bs4, bs5, bs6, bs7; /* bytes to each section, as ints. */
+            int sec_num;
+            int int_be;
             int ret;
             
             if ((ret = g2c_get_prod_sections(msg, fieldnum, &sec3, &sec4, &sec5, &sec6, &sec7)))
@@ -319,14 +321,23 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 return ret;
             
             /* Write the section 3, grid definition section. */
+            sec_num = 3;
+            FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec3->sec_len);            
+            FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);            
             if ((ret = g2c_rw_section3_metadata(f, G2C_FILE_WRITE, sec3)))
                 return ret;
 
             /* Write the section 4, product definition section. */
+            sec_num = 4;
+            FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec4->sec_len);            
+            FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);            
             if ((ret = g2c_rw_section4_metadata(f, G2C_FILE_WRITE, sec4)))
                 return ret;
 
             /* Write the section 5, data representation section. */
+            sec_num = 5;
+            FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec5->sec_len);            
+            FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);            
             if ((ret = g2c_rw_section5_metadata(f, G2C_FILE_WRITE, sec4)))
                 return ret;
 
