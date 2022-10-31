@@ -300,8 +300,8 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 /* File handling functions. */
 int g2c_open(const char *path, int mode, int *g2cid);
 int g2c_close(int g2cid);
-int g2c_write_index(int g2cid, char *index_file);
-int g2c_read_index(char *data_file, char *index_file, int mode, int *g2cid);
+int g2c_write_index(int g2cid, int mode, const char *index_file);
+int g2c_read_index(const char *data_file, const char *index_file, int mode, int *g2cid);
 
 /* Inquiry functions. */
 int g2c_inq(int g2cid, int *num_msg);

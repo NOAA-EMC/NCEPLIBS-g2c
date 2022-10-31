@@ -12,6 +12,7 @@
 #define REF_FILE "ref_gdaswave.degrib2.txt"
 #define DEGRIB2_FILE "gdaswave.t00z.wcoast.0p16.f000.degrib2"
 #define REF_INDEX_FILE "ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
+#define TEST_INDEX_FILE "tst_gdaswave.t00z.wcoast.0p16.f000.grb2index"
 #define FTP_FILE "WW3_Regional_US_West_Coast_20220718_0000.grib2"
 #define REF_FTP_INDEX_FILE "ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index"
 #define FTP_DEGRIB2_FILE "WW3_Regional_US_West_Coast_20220718_0000.degrib2"
@@ -136,6 +137,48 @@ main()
             return ret;
         if (num_msg != 19)
             return G2C_ERROR;
+
+        /* Output a degrib2 file. */
+        if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE)))
+            return ret;
+
+        /* Close the data file. */
+	if ((ret = g2c_close(g2cid)))
+	    return ret;
+
+        /* Compare the degrib2 output to our reference file. */
+        if ((ret = compare_files2(DEGRIB2_FILE, REF_FILE)))
+            return ret;
+    }
+    printf("ok!\n");
+    printf("Testing g2c_write_index() make an index and then to make a degrib2 file from it...");
+    {
+	int g2cid;
+        int num_msg;
+	int ret;
+
+	/* g2c_set_log_level(10); */
+	/* Open the data file using the index file. */
+	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+	    return ret;
+
+        /* Check some stuff. */
+        if ((ret = g2c_inq(g2cid, &num_msg)))
+            return ret;
+        if (num_msg != 19)
+            return G2C_ERROR;
+
+        /* Write an index file. */
+        if ((ret = g2c_write_index(g2cid, G2C_CLOBBER, TEST_INDEX_FILE)))
+            return ret;
+
+        /* Close the data file. */
+	if ((ret = g2c_close(g2cid)))
+	    return ret;
+
+        /* Reopen the data file, using the index we just generated. */
+	if ((ret = g2c_read_index(WAVE_FILE, TEST_INDEX_FILE, 0, &g2cid)))
+	    return ret;
 
         /* Output a degrib2 file. */
         if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE)))
