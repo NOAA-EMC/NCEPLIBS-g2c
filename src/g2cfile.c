@@ -994,17 +994,16 @@ g2c_open(const char *path, int mode, int *g2cid)
     MUTEX_LOCK(m);
 
     /* Open the file and add it to the list of open files. */
-    if ((ret = g2c_add_file(path, mode, g2cid)))
-        return ret;
+    ret = g2c_add_file(path, mode, g2cid);
     
     /* Read the metadata. */
-    if ((ret = read_metadata(*g2cid)))
-        return ret;
+    if (!ret)
+        ret = read_metadata(*g2cid);
 
     /* If using threading, unlock the mutex. */
     MUTEX_UNLOCK(m);
 
-    return G2C_NOERROR;
+    return ret;
 }
 
 #if 0
@@ -1034,9 +1033,6 @@ g2c_create(const char *path, int cmode, int *g2cid)
 
     LOG((1, "g2c_create path %s cmode %d", path, cmode));
 
-    /* If using threading, lock the mutex. */
-    MUTEX_LOCK(m);
-
     /* If NOCLOBBER, check if file exists. */
     if (cmode & G2C_NOCLOBBER)
     {
@@ -1048,24 +1044,30 @@ g2c_create(const char *path, int cmode, int *g2cid)
         }
     }
 
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
     /* Find a file ID. */
-    if ((ret = find_available_g2cid(&my_g2cid)))
-        return ret;
+    ret = find_available_g2cid(&my_g2cid);
 
     /* Create the file. */
-    if (!(g2c_file[my_g2cid].f = fopen(path, "bw+")))
-        return G2C_EFILE;
+    if (!ret)
+        if (!(g2c_file[my_g2cid].f = fopen(path, "bw+")))
+            ret = G2C_EFILE;
 
-    /* Read the metadata. */
+    if (!ret)
+    {
+        /* Read the metadata. */
 
-    /* Copy the path. */
-    strncpy(g2c_file[my_g2cid].path, path, G2C_MAX_NAME);
+        /* Copy the path. */
+        strncpy(g2c_file[my_g2cid].path, path, G2C_MAX_NAME);
 
-    /* Remember the id. */
-    g2c_file[my_g2cid].g2cid = my_g2cid;
+        /* Remember the id. */
+        g2c_file[my_g2cid].g2cid = my_g2cid;
 
-    /* Pass id back to user. */
-    *g2cid = my_g2cid;
+        /* Pass id back to user. */
+        *g2cid = my_g2cid;
+    }
 
     /* If using threading, unlock the mutex. */
     MUTEX_UNLOCK(m);
