@@ -45,6 +45,10 @@ jobs:
             name: "png_on jasper_off openjpeg_on",
             options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
           }
+        - {
+            name: "pthreads",
+            options: "-DPTHREADS=ON -DLOGGING=ON "
+          }
 
     steps:
     - name: install-dependencies
