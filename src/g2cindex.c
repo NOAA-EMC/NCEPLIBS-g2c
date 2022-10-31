@@ -208,6 +208,186 @@ g2c_get_prod_sections(G2C_MESSAGE_INFO_T *msg, int fieldnum, G2C_SECTION_INFO_T 
 }
 
 /**
+ * Read or write the start of an index record.
+ *
+ * @param f FILE * to open index file.
+ * @param rw_flag True if function should write, false if it should read.
+ * @param reclen Pointer to reclen.
+ * @param msg Pointer to msg.
+ * @param local Pointer to local.
+ * @param gds Pointer to gds.
+ * @param pds Pointer to pds.
+ * @param drs Pointer to drs.
+ * @param bms Pointer to bms.
+ * @param data Pointer to data.
+ * @param msglen Pointer to msglen.
+ * @param version Pointer to version.
+ * @param discipline Pointer to discipline.
+ * @param fieldnum Pointer to fieldnum, 0- based. (It is 1-based in
+ * the index file.)
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_EFILE File I/O error.
+ *
+ * @author Ed Hartnett 10/26/22
+ */
+int
+g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, int *gds,
+                       int *pds, int *drs, int *bms, int *data, size_t *msglen,
+                       unsigned char *version, unsigned char *discipline, short *fieldnum)
+{
+    int int_be;
+    short short_be;
+    size_t size_t_be;
+    short fieldnum1; /* This is for the 1-based fieldnum in the index file. */
+
+    /* All pointers must be provided. */
+    if (!f || !reclen || !msg || !local || !gds || !pds || !drs || !bms || !data
+        || !msglen || !version || !discipline || !fieldnum)
+        return G2C_EINVAL;
+
+    /* When writing, set the fieldnum1 to be a 1-based index, just
+     * like in Fortran. */
+    if (rw_flag)
+        fieldnum1 = *fieldnum + 1;
+
+    /* Read or write the values at the beginning of each index
+     * record. */
+    FILE_BE_INT4P(f, rw_flag, reclen);
+    FILE_BE_INT4P(f, rw_flag, msg);
+    FILE_BE_INT4P(f, rw_flag, local);
+    FILE_BE_INT4P(f, rw_flag, gds);
+    FILE_BE_INT4P(f, rw_flag, pds);
+    FILE_BE_INT4P(f, rw_flag, drs);
+    FILE_BE_INT4P(f, rw_flag, bms);
+    FILE_BE_INT4P(f, rw_flag, data);
+    FILE_BE_INT8P(f, rw_flag, msglen);
+    FILE_BE_INT1P(f, rw_flag, version);
+    FILE_BE_INT1P(f, rw_flag, discipline);
+    FILE_BE_INT2P(f, rw_flag, &fieldnum1);
+
+    /* When reading, translate the 1-based fieldnum1 into the 0-based
+     * fieldnum that C programmers will expect and love. */
+    if (!rw_flag)
+        *fieldnum = fieldnum1 - 1;
+
+    return G2C_NOERROR;
+}
+
+/**
+ * Given a pointer to a message, and a field number, return pointers
+ * to all relevent section structs for that product.
+ *
+ * Each product is defined in a section 4, and has an associated
+ * section 3, 5, 6, and 7.
+ *
+ * @param msg Pointer to a G2C_MESSAGE_INFO_T with information about
+ * the message.
+ * @param fieldnum The field number (first field in message is 0).
+ * @param sec3 Pointer that gets a pointer to the G2C_SECTION_INFO_T
+ * struct for the section 3 associated with this product.
+ * @param sec4 Pointer that gets a pointer to the G2C_SECTION_INFO_T
+ * struct for the section 4 associated with this product.
+ * @param sec5 Pointer that gets a pointer to the G2C_SECTION_INFO_T
+ * struct for the section 5 associated with this product.
+ * @param sec6 Pointer that gets a pointer to the G2C_SECTION_INFO_T
+ * struct for the section 6 associated with this product. NULL is
+ * returned if there is no section 6.
+ * @param sec7 Pointer that gets a pointer to the G2C_SECTION_INFO_T
+ * struct for the section 7 associated with this product.
+ *
+ * @note This is an internal function and should not be called by users.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_ENOSECTION Section not found.
+ *
+ * @author Ed Hartnett @date 10/27/22
+ */
+int
+g2c_get_prod_sections(G2C_MESSAGE_INFO_T *msg, int fieldnum, G2C_SECTION_INFO_T **sec3,
+                      G2C_SECTION_INFO_T **sec4, G2C_SECTION_INFO_T **sec5,
+                      G2C_SECTION_INFO_T **sec6, G2C_SECTION_INFO_T **sec7)
+{
+    G2C_SECTION_INFO_T *s3, *s4, *s5, *s6, *s7;
+    
+    /* Check inputs. */
+    if (!msg || fieldnum < 0)
+        return G2C_EINVAL;
+    if (!sec3 || !sec4)
+        return G2C_EINVAL;
+    if (!sec5)
+        return G2C_EINVAL;
+    if (!sec6)
+        return G2C_EINVAL;
+    if (!sec7)
+        return G2C_EINVAL;
+
+    /* Find the product with matching fieldnum. */
+    for (s4 = msg->sec; s4; s4 = s4->next)
+    {
+        G2C_SECTION4_INFO_T *s4info = s4->sec_info;
+        if (s4->sec_num != 4)
+            continue;
+        if (s4info->field_num == fieldnum)
+            break;
+    }
+    if (!s4)
+        return G2C_ENOSECTION;
+
+    /* Find the section 3, grid definition section, which is
+     * associated with this product. */
+    for (s3 = s4->prev; s3; s3 = s3->prev)
+        if (s3->sec_num == 3)
+            break;
+    if (!s3)
+        return G2C_ENOSECTION;
+
+    /* Find the section 5, data representation section, which
+     * is associated with this product. */
+    for (s5 = s4->next; s5; s5 = s5->next)
+        if (s5->sec_num == 5)
+            break;
+    if (!s5)
+        return G2C_ENOSECTION;
+
+    /* Find the section 6, the bit map section. There may not be
+     * one. */
+    for (s6 = s5->next; s6; s6 = s6->next)
+    {
+        if (s6->sec_num == 6)
+            break;
+        
+        /* If we hit section 7, there's no bitmap. */
+        if (s6->sec_num == 7)
+        {
+            s6 = NULL;
+            break;
+        }
+    }
+
+    /* Find the section 7, data section, which is associated with this
+     * product. */
+    for (s7 = s5->next; s7; s7 = s7->next)
+        if (s7->sec_num == 7)
+            break;
+    if (!s7)
+        return G2C_ENOSECTION;
+
+    /* Return results to caller. */
+    *sec3 = s3;
+    *sec4 = s4;
+    *sec5 = s5;
+    *sec6 = s6;
+    *sec7 = s7;
+    
+    return G2C_NOERROR;
+}
+
+/**
  * Create an index file from a GRIB2 file, just like those created by
  * the grb2index utility.
  *

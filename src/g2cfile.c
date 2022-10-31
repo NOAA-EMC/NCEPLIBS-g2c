@@ -338,7 +338,6 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     FILE_BE_INT1P(f, rw_flag, &sec3_info->num_opt);
     FILE_BE_INT1P(f, rw_flag, &sec3_info->interp_list);
     FILE_BE_INT2P(f, rw_flag, &sec3_info->grid_def);
-
     LOG((5, "rw_section3_metadata source_grid_def %d num_data_points %d num_opt %d interp_list %d grid_def %d",
          sec3_info->source_grid_def, sec3_info->num_data_points, sec3_info->num_opt, sec3_info->interp_list,
          sec3_info->grid_def));
