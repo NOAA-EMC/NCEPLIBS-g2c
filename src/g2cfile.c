@@ -21,6 +21,9 @@ int g2c_next_g2cid = 1;
 /** Number of bytes to discipline field in GRIB2 message. */
 #define BYTES_TO_DISCIPLINE 6
 
+/** Define mutex for thread-safety. */
+MUTEX(m);
+
 /** Search a file for the next GRIB1 or GRIB2 message.
  *
  * A grib message is identified by its indicator section,

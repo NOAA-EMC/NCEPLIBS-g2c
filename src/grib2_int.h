@@ -60,6 +60,16 @@
 #define FOUR_BYTES 4 /**< Four bytes. */
 #define EIGHT_BYTES 8 /**< Eight bytes. */
 
+/* For thread-safety, use these macros. */
+#ifdef PTHREADS
+#define MUTEX(m)                                                \
+    do {                                                        \
+        pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;          \
+    } while(0)                                                  \
+#else
+#define MUTEX(m)
+#endif
+
 /** Byte swap 64-bit ints. This converts big-endian 8-byte ints into
  * native endian 8-byte ints. */
 #define ntoh64(y) (((uint64_t)ntohl(y)) << WORD | ntohl(y >> WORD))
