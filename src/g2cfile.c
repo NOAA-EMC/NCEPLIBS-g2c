@@ -213,9 +213,6 @@ g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg
     if (!(*cbuf = malloc(*bytes_in_msg)))
         return G2C_ENOMEM;
 
-    /* /\* If using threading, lock the mutex. *\/ */
-    /* MUTEX_LOCK(m); */
-    
     /* Position file at start of GRIB message. */
     if (fseek(g2c_file[g2cid].f, (off_t)*bytes_to_msg, SEEK_SET))
     {
@@ -230,9 +227,6 @@ g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg
     if ((bytes_read = fread(*cbuf, 1, *bytes_in_msg, g2c_file[g2cid].f)) != *bytes_in_msg)
         return G2C_EFILE;
 
-    /* /\* If using threading, unlock the mutex. *\/ */
-    /* MUTEX_UNLOCK(m); */
-    
 #ifdef LOGGING
     {
         int i;
@@ -265,9 +259,6 @@ find_available_g2cid(int *g2cid)
     if (!g2cid)
         return G2C_EINVAL;
 
-    /* If using threading, lock the mutex. */
-    MUTEX_LOCK(m);
-    
     /* Find a new g2cid. */
     for (i = 0; i < G2C_MAX_FILES + 1; i++)
     {
@@ -288,9 +279,6 @@ find_available_g2cid(int *g2cid)
     if (i == G2C_MAX_FILES + 1)
         ret = G2C_ETOOMANYFILES;
 
-    /* If using threading, unlock the mutex. */
-    MUTEX_UNLOCK(m);
-    
     return ret;
 }
 
@@ -629,9 +617,6 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
     LOG((3, "add_section sec_id %d sec_len %d, bytes_to_sec %ld, sec_num %d",
          sec_id, sec_len, bytes_to_sec, sec_num));
     
-    /* If using threading, lock the mutex. */
-    MUTEX_LOCK(m);
-
     /* Allocate storage for a new section. */
     if (!(sec = calloc(sizeof(G2C_SECTION_INFO_T), 1)))
         return G2C_ENOMEM;
@@ -682,9 +667,6 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
     default:
         return G2C_EBADSECTION;
     }
-
-    /* If using threading, lock the mutex. */
-    MUTEX_UNLOCK(m);
 
     return G2C_NOERROR;
 }
@@ -1008,6 +990,9 @@ g2c_open(const char *path, int mode, int *g2cid)
 {
     int ret;
 
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
     /* Open the file and add it to the list of open files. */
     if ((ret = g2c_add_file(path, mode, g2cid)))
         return ret;
@@ -1015,6 +1000,9 @@ g2c_open(const char *path, int mode, int *g2cid)
     /* Read the metadata. */
     if ((ret = read_metadata(*g2cid)))
         return ret;
+
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
 
     return G2C_NOERROR;
 }
@@ -1046,6 +1034,9 @@ g2c_create(const char *path, int cmode, int *g2cid)
 
     LOG((1, "g2c_create path %s cmode %d", path, cmode));
 
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
     /* If NOCLOBBER, check if file exists. */
     if (cmode & G2C_NOCLOBBER)
     {
@@ -1075,6 +1066,9 @@ g2c_create(const char *path, int cmode, int *g2cid)
 
     /* Pass id back to user. */
     *g2cid = my_g2cid;
+
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
 
     return G2C_NOERROR;
 }
@@ -1147,6 +1141,9 @@ g2c_close(int g2cid)
 {
     int ret;
 
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
     /* Check input. */
     if (g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
@@ -1168,6 +1165,9 @@ g2c_close(int g2cid)
     g2c_file[g2cid].g2cid = 0;
     g2c_file[g2cid].num_messages = 0;
     g2c_file[g2cid].f = NULL;
+
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
 
     return G2C_NOERROR;
 }
