@@ -1,4 +1,4 @@
-name: PNG JPEG options
+name: build options
 on:
   push:
     branches:
