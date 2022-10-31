@@ -24,6 +24,9 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 /** Length of beginning of index record. */
 #define G2C_INDEX_FIXED_LEN 44
 
+/** Use externally-defined mutex for thread-safety. */
+EXTERN_MUTEX(m);
+
 /**
  * Read or write the start of an index record.
  *
@@ -284,6 +287,9 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     if (!(f = fopen(index_file, "wb+")))
         return G2C_EFILE;
 
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
     /* Create header 1. */
     sprintf(h1, "!GFHDR!  1   1   162 %4.4u-%2.2u-%2.2u %2.2u:%2.2u:%2.2u GB2IX1        hfe08           grb2index\n",
             (tm.tm_year + 1900), (tm.tm_mon + 1), tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
@@ -403,6 +409,9 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
         } /* next product */
     } /* next message */
 
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
+
     /* Close the index file. */
     if (fclose(f))
         return G2C_EFILE;
@@ -450,6 +459,9 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
     /* Open the index file. */
     if (!(f = fopen(index_file, "rb")))
 	return G2C_EFILE;
+
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
 
     /* Remember file metadata. */
     if ((ret = g2c_add_file(data_file, mode, g2cid)))
@@ -593,6 +605,9 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
 	    file_pos += reclen;
 	}
     }
+
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
 
     /* Close the index file. */
     fclose(f);
