@@ -196,9 +196,6 @@ g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg
         return G2C_EBADID;
 
     /* Find the start and length of the GRIB message. */
-    /* if ((ret = g2c_find_msg2(g2cid, skip_bytes, max_bytes, bytes_to_msg, */
-    /*                       bytes_in_msg))) */
-    /*  return ret; */
     {
         g2int bytes_to_msg_g, bytes_in_msg_g;
         seekgb(g2c_file[g2cid].f, (g2int)skip_bytes, (g2int)max_bytes, &bytes_to_msg_g,
@@ -216,6 +213,9 @@ g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg
     if (!(*cbuf = malloc(*bytes_in_msg)))
         return G2C_ENOMEM;
 
+    /* /\* If using threading, lock the mutex. *\/ */
+    /* MUTEX_LOCK(m); */
+    
     /* Position file at start of GRIB message. */
     if (fseek(g2c_file[g2cid].f, (off_t)*bytes_to_msg, SEEK_SET))
     {
@@ -230,6 +230,9 @@ g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg
     if ((bytes_read = fread(*cbuf, 1, *bytes_in_msg, g2c_file[g2cid].f)) != *bytes_in_msg)
         return G2C_EFILE;
 
+    /* /\* If using threading, unlock the mutex. *\/ */
+    /* MUTEX_UNLOCK(m); */
+    
 #ifdef LOGGING
     {
         int i;
@@ -256,11 +259,15 @@ static int
 find_available_g2cid(int *g2cid)
 {
     int i;
+    int ret;
 
     /* Check input. */
     if (!g2cid)
         return G2C_EINVAL;
 
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+    
     /* Find a new g2cid. */
     for (i = 0; i < G2C_MAX_FILES + 1; i++)
     {
@@ -271,12 +278,20 @@ find_available_g2cid(int *g2cid)
         {
             *g2cid = id;
             g2c_next_g2cid = id + 1;
-            return G2C_NOERROR;
+            ret = G2C_NOERROR;
+            break;
         }
     }
 
-    /* If we couldn't find one, they are all open. */
-    return G2C_ETOOMANYFILES;
+    /* If we couldn't find one, all available files are already
+     * open. */
+    if (i == G2C_MAX_FILES + 1)
+        ret = G2C_ETOOMANYFILES;
+
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
+    
+    return ret;
 }
 
 /**
@@ -335,6 +350,7 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     FILE_BE_INT1P(f, rw_flag, &sec3_info->num_opt);
     FILE_BE_INT1P(f, rw_flag, &sec3_info->interp_list);
     FILE_BE_INT2P(f, rw_flag, &sec3_info->grid_def);
+
     LOG((5, "rw_section3_metadata source_grid_def %d num_data_points %d num_opt %d interp_list %d grid_def %d",
          sec3_info->source_grid_def, sec3_info->num_data_points, sec3_info->num_opt, sec3_info->interp_list,
          sec3_info->grid_def));
@@ -613,6 +629,9 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
     LOG((3, "add_section sec_id %d sec_len %d, bytes_to_sec %ld, sec_num %d",
          sec_id, sec_len, bytes_to_sec, sec_num));
     
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
     /* Allocate storage for a new section. */
     if (!(sec = calloc(sizeof(G2C_SECTION_INFO_T), 1)))
         return G2C_ENOMEM;
@@ -663,6 +682,9 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
     default:
         return G2C_EBADSECTION;
     }
+
+    /* If using threading, lock the mutex. */
+    MUTEX_UNLOCK(m);
 
     return G2C_NOERROR;
 }

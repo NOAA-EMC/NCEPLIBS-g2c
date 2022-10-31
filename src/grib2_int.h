@@ -64,16 +64,10 @@
 #ifdef PTHREADS
 
 /** Define a mutex for thread-safety. */
-#define MUTEX(m)                                        \
-    do {                                                \
-        pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;  \
-    } while(0)
+#define MUTEX(m) pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;  
 
 /** Find an externally defined mutex for thread-safety. */
-#define EXTERN_MUTEX(m)                         \
-    do {                                        \
-        extern pthread_mutex_t m;               \
-    } while(0)
+#define EXTERN_MUTEX(m) extern pthread_mutex_t m; 
 
 /** Define a macro to start a critical section for thread safety. */
 #define MUTEX_LOCK(m)                           \
