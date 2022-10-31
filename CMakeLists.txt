@@ -160,7 +160,7 @@ endif()
 
 # Build with pthreads.
 if(PTHREADS)
-  target_link_libraries(${lib_name} PRIVATE pthreads)
+  target_link_libraries(${lib_name} PRIVATE pthread)
 endif()
 
 # Create this header file, which has the contents of the VERSION file
