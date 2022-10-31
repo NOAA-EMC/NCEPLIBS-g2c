@@ -26,6 +26,10 @@
 #include <arpa/inet.h> /* ntohl() function for Unix/Mac. */
 #endif
 
+#ifdef PTHREADS
+#include <pthread.h>
+#endif
+
 #include "grib2.h"
 
 #define ALOG2 (0.69314718) /**< ln(2.0) */

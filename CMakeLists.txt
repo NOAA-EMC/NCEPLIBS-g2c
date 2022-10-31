@@ -23,6 +23,7 @@ option(USE_OpenJPEG "Use OpenJPEG library" OFF)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(FTP_TEST_FILES "Fetch and test with files on FTP site." OFF)
 option(LOGGING "Turn on internal logging messages. Only useful to g2c developers." OFF)
+option(PTHREADS "Turn on thread-safty with pthreads." OFF)
 
 # Set this to better handle files > 2 GB.
 add_compile_definitions(_LARGEFILE64_SOURCE)
@@ -30,6 +31,11 @@ add_compile_definitions(_LARGEFILE64_SOURCE)
 # Set pre-processor symbol if logging is desired.
 if(LOGGING)
   add_definitions(-DLOGGING)
+endif()
+
+# Set pre-processor symbol if thread safety is desired.
+if(PTHREADS)
+  add_definitions(-DPTHREADS)
 endif()
 
 # The user must select either Jasper of OpenJPEG
@@ -150,6 +156,11 @@ if(OPENJPEG_FOUND)
   target_include_directories(${lib_name} PRIVATE "${OpenJPEG_INCLUDE_DIRS}")
   set(G2_JPEG2000_ENABLED ON)
   add_definitions(-DJPEG)
+endif()
+
+# Build with pthreads.
+if(PTHREADS)
+  target_link_libraries(${lib_name} PRIVATE pthreads)
 endif()
 
 # Create this header file, which has the contents of the VERSION file
