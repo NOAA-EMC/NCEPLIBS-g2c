@@ -47,7 +47,7 @@ jobs:
           }
         - {
             name: "pthreads",
-            options: "-DPTHREADS=ON -DLOGGING=ON "
+            options: "-DPTHREADS=ON -DLOGGING=ON -DJasper_ROOT=~/Jasper"
           }
 
     steps:
