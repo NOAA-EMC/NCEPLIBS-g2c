@@ -319,7 +319,7 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         return G2C_EINVAL;
     if (!rw_flag && sec->sec_num != 3)
         return G2C_EINVAL;
-    
+
     LOG((6, "g2c_rw_section3_metadata starting to %s section 3 at file position %ld",
          rw_flag ? "write" : "read", ftell(f)));
 
@@ -331,7 +331,7 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     }
     else
         sec3_info = sec->sec_info;
-            
+
     /* Read or write section 3. */
     FILE_BE_INT1P(f, rw_flag, &sec3_info->source_grid_def);
     FILE_BE_INT4P(f, rw_flag, &sec3_info->num_data_points);
@@ -472,13 +472,13 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         switch(abs(map[t]))
         {
         case ONE_BYTE:
-            FILE_BE_INT1P(f, rw_flag, &sec->template[t]);            
+            FILE_BE_INT1P(f, rw_flag, &sec->template[t]);
             break;
         case TWO_BYTES:
-            FILE_BE_INT2P(f, rw_flag, &sec->template[t]);            
+            FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            FILE_BE_INT4P(f, rw_flag, &sec->template[t]);            
+            FILE_BE_INT4P(f, rw_flag, &sec->template[t]);
             break;
         default:
             return G2C_EBADTEMPLATE;
@@ -529,7 +529,7 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     if (!f || !sec)
         return G2C_EINVAL;
     LOG((5, "g2c_rw_section5_metadata rw_flag %d at file position %ld", rw_flag,
-         ftell(f)));    
+         ftell(f)));
 
     /* When reading, allocate storage for a new section 5. When
      * writing, get a pointer to the exitsing sec5_info. */
@@ -615,7 +615,7 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
 
     LOG((3, "add_section sec_id %d sec_len %d, bytes_to_sec %ld, sec_num %d",
          sec_id, sec_len, bytes_to_sec, sec_num));
-    
+
     /* Allocate storage for a new section. */
     if (!(sec = calloc(sizeof(G2C_SECTION_INFO_T), 1)))
         return G2C_ENOMEM;
@@ -692,7 +692,7 @@ g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
     char sec_num = 1;
 
     LOG((2, "g2c_rw_section1_metadata rw_flag %d", rw_flag));
-        
+
     /* Read the section. */
     FILE_BE_INT4P(f, rw_flag, &msg->sec1_len);
     FILE_BE_INT1P(f, rw_flag, &sec_num);
@@ -820,7 +820,7 @@ add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in
 
     LOG((3, "add_msg msg_num %d bytes_to_msg %ld bytes_in_msg %ld read_file %d",
          msg_num, bytes_to_msg, bytes_in_msg, read_file));
-    
+
     /* Allocate storage for a new message. */
     if (!(my_msg = calloc(sizeof(G2C_MESSAGE_INFO_T), 1)))
         return G2C_ENOMEM;
@@ -941,8 +941,8 @@ int
 g2c_add_file(const char *path, int mode, int *g2cid)
 {
     int ret;
-    
-   /* Check inputs. */
+
+    /* Check inputs. */
     if (strlen(path) > G2C_MAX_NAME)
         return G2C_ENAMETOOLONG;
     if (!g2cid)
@@ -968,7 +968,7 @@ g2c_add_file(const char *path, int mode, int *g2cid)
     g2c_file[*g2cid].msg = NULL;
     g2c_file[*g2cid].num_messages = 0;
 
-     return G2C_NOERROR;
+    return G2C_NOERROR;
 }
 
 /** Open an existing GRIB2 file.
@@ -994,7 +994,7 @@ g2c_open(const char *path, int mode, int *g2cid)
 
     /* Open the file and add it to the list of open files. */
     ret = g2c_add_file(path, mode, g2cid);
-    
+
     /* Read the metadata. */
     if (!ret)
         ret = read_metadata(*g2cid);
