@@ -328,7 +328,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             } /* next product */
 
             /* If there was a problem, give up. */
-            if (!ret)
+            if (ret)
                 break;
         } /* next message */
     }
@@ -425,6 +425,10 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                         FILE_BE_INT1P(f, G2C_FILE_WRITE, &sample[b]);
                 }
             } /* next product */
+
+            /* If there was a problem, give up. */
+            if (ret)
+                break;
         } /* next message */
     }
 
