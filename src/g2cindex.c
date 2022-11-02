@@ -564,7 +564,7 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
 
                 /* Allocate storage for message. */
                 if ((ret = add_msg(&g2c_file[*g2cid], rec, msg, msglen, 0, &msgp)))
-                    return ret;
+                    break;
                 msgp->discipline = discipline;
                 msgp->bytes_to_local = local;
                 msgp->bytes_to_bms = bms;
@@ -573,9 +573,9 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
 
                 /* Read section 1. */
                 if ((ret = g2c_rw_section1_metadata(f, G2C_FILE_READ, msgp)))
-                    return ret;
+                    break;
                 if ((ret = g2c_log_section1(msgp)))
-                    return ret;
+                    break;
 
                 LOG((4, "reading section info at file position %ld", ftell(f)));
 
@@ -599,7 +599,10 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                          * open data file and get the length of this
                          * section. */
                         if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data, SEEK_SET))
-                            return G2C_EFILE;
+                        {
+                            ret = G2C_EFILE;
+                            break;
+                        }
                         FILE_BE_INT4P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_len);
                         FILE_BE_INT1P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_num);
                         LOG((4, "read section 7 info from data file. sec_len %d sec_num %d",
@@ -619,16 +622,22 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
 
                     /* Check some stuff. */
                     if (s < 6 && sec_num != s)
-                        return G2C_EBADSECTION;
+                    {
+                        ret = G2C_EBADSECTION;
+                        break;
+                    }
                     if (sec_num == 4)
                         if (fieldnum < 0) /* to silence warning */
-                            return G2C_EBADSECTION;
+                        {
+                            ret = G2C_EBADSECTION;
+                            break;
+                        }
 
                     /* Read the section info from the index file,
                      * using the same functions that read it from the
                      * GRIB2 data file. */
                     if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, s)))
-                        return ret;
+                        break;
                 } /* next section */
 
                 /* If anything went wrong, give up. */
