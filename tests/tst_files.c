@@ -13,9 +13,33 @@
 #define NUM_BUF_SIZE_TESTS 6
 #define EPSILON (.1)
 
+/* Test opening and closing the same file twice. */
+int
+tst_g2c_open_twice()
+{
+    int g2cid;
+    int ret;
+    
+    /* g2c_set_log_level(10); */
+    if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+        return ret;
+    if ((ret = g2c_close(g2cid)))
+        return ret;
+    
+    /* Try it again. */
+    if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+	    return ret;
+    if ((ret = g2c_close(g2cid)))
+        return ret;
+
+    return G2C_NOERROR;
+}
+
 int
 main()
 {
+    int ret;
+    
     printf("Testing g2c file functions.\n");
     /* printf("Testing g2c_create()/g2c_close() calls..."); */
     /* { */
@@ -120,22 +144,8 @@ main()
     }
     printf("ok!\n");
     printf("Testing g2c_open() on file %s (twice)...", WAVE_FILE);
-    {
-	int g2cid;
-	int ret;
-
-	/* g2c_set_log_level(10); */
-	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
-	    return ret;
-	if ((ret = g2c_close(g2cid)))
-	    return ret;
-
-        /* Try it again. */
-	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
-	    return ret;
-	if ((ret = g2c_close(g2cid)))
-	    return ret;
-    }
+    if ((ret = tst_g2c_open_twice()))
+        return ret;
     printf("ok!\n");
 #ifdef JPEG
     printf("Testing g2c_get_prod() on file %s...", WAVE_FILE);
