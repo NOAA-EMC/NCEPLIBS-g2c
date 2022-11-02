@@ -292,126 +292,138 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     MUTEX_LOCK(m);
 
     if (g2c_file[g2cid].g2cid != g2cid)
-        return G2C_EBADID;
+        ret = G2C_EBADID;
 
-    /* Create header 1. */
-    sprintf(h1, "!GFHDR!  1   1   162 %4.4u-%2.2u-%2.2u %2.2u:%2.2u:%2.2u GB2IX1        hfe08           grb2index\n",
-            (tm.tm_year + 1900), (tm.tm_mon + 1), tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    if (!ret)
+    {
+        /* Create header 1. */
+        sprintf(h1, "!GFHDR!  1   1   162 %4.4u-%2.2u-%2.2u %2.2u:%2.2u:%2.2u GB2IX1        hfe08           grb2index\n",
+                (tm.tm_year + 1900), (tm.tm_mon + 1), tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
-    /* Write header 1. */
-    if ((items_written = fwrite(h1, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
-        return G2C_EFILE;
+        /* Write header 1. */
+        if ((items_written = fwrite(h1, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
+            ret = G2C_EFILE;
+    }
 
     /* Find the total length of the index we are generating. */
-    for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+    if (!ret)
     {
-        short fieldnum;
-
-        /* Find information for each field in the message. */
-        for (fieldnum = 0; fieldnum < msg->num_fields; fieldnum++)
+        for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
         {
-            G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
-            int ret;
-
-            if ((ret = g2c_get_prod_sections(msg, fieldnum, &sec3, &sec4, &sec5, &sec6, &sec7)))
-                return ret;
-
-            /* What will be the length of this index record? */
-            reclen = G2C_INDEX_FIXED_LEN + msg->sec1_len + sec3->sec_len + sec4->sec_len +
-                sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
-            total_index_size += reclen;
-            LOG((4, "fieldnum %d reclen %d total_index_size %d", fieldnum, reclen, total_index_size));
-        } /* next product */
-    } /* next message */
+            short fieldnum;
+            
+            /* Find information for each field in the message. */
+            for (fieldnum = 0; fieldnum < msg->num_fields; fieldnum++)
+            {
+                G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
+                int ret;
+                
+                if ((ret = g2c_get_prod_sections(msg, fieldnum, &sec3, &sec4, &sec5, &sec6, &sec7)))
+                    return ret;
+                
+                /* What will be the length of this index record? */
+                reclen = G2C_INDEX_FIXED_LEN + msg->sec1_len + sec3->sec_len + sec4->sec_len +
+                    sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
+                total_index_size += reclen;
+                LOG((4, "fieldnum %d reclen %d total_index_size %d", fieldnum, reclen, total_index_size));
+            } /* next product */
+        } /* next message */
+    }
 
     /* Create header 2. */
-    strncpy(my_path, g2c_file[g2cid].path, G2C_INDEX_BASENAME_LEN);
-    sprintf(h2, "IX1FORM:       162    %6d    %6ld  %s    \n", total_index_size,
-            g2c_file[g2cid].num_messages, my_path);
-    LOG((5, "header 2: %s", h2));
-
-    /* Write header 2. */
-    if ((items_written = fwrite(h2, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
-        return G2C_EFILE;
+    if (!ret)
+    {
+        strncpy(my_path, g2c_file[g2cid].path, G2C_INDEX_BASENAME_LEN);
+        sprintf(h2, "IX1FORM:       162    %6d    %6ld  %s    \n", total_index_size,
+                g2c_file[g2cid].num_messages, my_path);
+        LOG((5, "header 2: %s", h2));
+        
+        /* Write header 2. */
+        if ((items_written = fwrite(h2, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
+            ret = G2C_EFILE;
+    }
 
     /* Write a record of index file for each message in the file. */
-    for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+    if (!ret)
     {
-        short fieldnum;
-
-        /* Find information for each field in the message. */
-        for (fieldnum = 0; fieldnum < msg->num_fields; fieldnum++)
+        for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
         {
-            G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
-            int bytes_to_msg = (int)msg->bytes_to_msg;
-            int bs3, bs4, bs5, bs6, bs7; /* bytes to each section, as ints. */
-            int sec_num;
-            int int_be;
-            int ret;
+            short fieldnum;
 
-            if ((ret = g2c_get_prod_sections(msg, fieldnum, &sec3, &sec4, &sec5, &sec6, &sec7)))
-                return ret;
-            bs3 = (int)sec3->bytes_to_sec;
-            bs4 = (int)sec4->bytes_to_sec;
-            bs5 = (int)sec5->bytes_to_sec;
-            bs6 = (int)sec6->bytes_to_sec;
-            bs7 = (int)sec7->bytes_to_sec;
-
-            /* What will be the length of this index record? */
-            reclen = G2C_INDEX_FIXED_LEN + msg->sec1_len + sec3->sec_len + sec4->sec_len +
-                sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
-            LOG((4, "fieldnum %d reclen %d", fieldnum, reclen));
-
-            /* Write the beginning of the index record. */
-            if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &msg->bytes_to_local,
-                                              &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
-                                              &msg->discipline, &fieldnum)))
-                return ret;
-
-            /* Write the section 1, identification section. */
-            if ((ret = g2c_rw_section1_metadata(f, G2C_FILE_WRITE, msg)))
-                return ret;
-
-            /* Write the section 3, grid definition section. */
-            sec_num = 3;
-            FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec3->sec_len);
-            FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
-            if ((ret = g2c_rw_section3_metadata(f, G2C_FILE_WRITE, sec3)))
-                return ret;
-
-            /* Write the section 4, product definition section. */
-            sec_num = 4;
-            FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec4->sec_len);
-            FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
-            if ((ret = g2c_rw_section4_metadata(f, G2C_FILE_WRITE, sec4)))
-                return ret;
-
-            /* Write the section 5, data representation section. */
-            sec_num = 5;
-            FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec5->sec_len);
-            FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
-            if ((ret = g2c_rw_section5_metadata(f, G2C_FILE_WRITE, sec5)))
-                return ret;
-
-            /* Write the first 6 bytes of the bitmap section, if there
-             * is one. */
-            if (sec6)
+            /* Find information for each field in the message. */
+            for (fieldnum = 0; fieldnum < msg->num_fields; fieldnum++)
             {
-                unsigned char sample[G2C_INDEX_BITMAP_BYTES];
-                int b;
+                G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
+                int bytes_to_msg = (int)msg->bytes_to_msg;
+                int bs3, bs4, bs5, bs6, bs7; /* bytes to each section, as ints. */
+                int sec_num;
+                int int_be;
+                int ret;
 
-                /* Read the first 6 bytes of the bitmap section. */
-                if (fseek(msg->file->f, msg->bytes_to_msg + sec6->bytes_to_sec, SEEK_SET))
-                    return G2C_EFILE;
-                if ((fread(sample, ONE_BYTE, G2C_INDEX_BITMAP_BYTES, msg->file->f)) != G2C_INDEX_BITMAP_BYTES)
-                    return G2C_EFILE;
+                if ((ret = g2c_get_prod_sections(msg, fieldnum, &sec3, &sec4, &sec5, &sec6, &sec7)))
+                    return ret;
+                bs3 = (int)sec3->bytes_to_sec;
+                bs4 = (int)sec4->bytes_to_sec;
+                bs5 = (int)sec5->bytes_to_sec;
+                bs6 = (int)sec6->bytes_to_sec;
+                bs7 = (int)sec7->bytes_to_sec;
 
-                /* Now write these bytes to the end of the index record. */
-                for (b = 0; b < G2C_INDEX_BITMAP_BYTES; b++)
-                    FILE_BE_INT1P(f, G2C_FILE_WRITE, &sample[b]);
-            }
-        } /* next product */
-    } /* next message */
+                /* What will be the length of this index record? */
+                reclen = G2C_INDEX_FIXED_LEN + msg->sec1_len + sec3->sec_len + sec4->sec_len +
+                    sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
+                LOG((4, "fieldnum %d reclen %d", fieldnum, reclen));
+
+                /* Write the beginning of the index record. */
+                if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &msg->bytes_to_local,
+                                                  &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
+                                                  &msg->discipline, &fieldnum)))
+                    return ret;
+
+                /* Write the section 1, identification section. */
+                if ((ret = g2c_rw_section1_metadata(f, G2C_FILE_WRITE, msg)))
+                    return ret;
+
+                /* Write the section 3, grid definition section. */
+                sec_num = 3;
+                FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec3->sec_len);
+                FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
+                if ((ret = g2c_rw_section3_metadata(f, G2C_FILE_WRITE, sec3)))
+                    return ret;
+
+                /* Write the section 4, product definition section. */
+                sec_num = 4;
+                FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec4->sec_len);
+                FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
+                if ((ret = g2c_rw_section4_metadata(f, G2C_FILE_WRITE, sec4)))
+                    return ret;
+
+                /* Write the section 5, data representation section. */
+                sec_num = 5;
+                FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec5->sec_len);
+                FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
+                if ((ret = g2c_rw_section5_metadata(f, G2C_FILE_WRITE, sec5)))
+                    return ret;
+
+                /* Write the first 6 bytes of the bitmap section, if there
+                 * is one. */
+                if (sec6)
+                {
+                    unsigned char sample[G2C_INDEX_BITMAP_BYTES];
+                    int b;
+
+                    /* Read the first 6 bytes of the bitmap section. */
+                    if (fseek(msg->file->f, msg->bytes_to_msg + sec6->bytes_to_sec, SEEK_SET))
+                        return G2C_EFILE;
+                    if ((fread(sample, ONE_BYTE, G2C_INDEX_BITMAP_BYTES, msg->file->f)) != G2C_INDEX_BITMAP_BYTES)
+                        return G2C_EFILE;
+
+                    /* Now write these bytes to the end of the index record. */
+                    for (b = 0; b < G2C_INDEX_BITMAP_BYTES; b++)
+                        FILE_BE_INT1P(f, G2C_FILE_WRITE, &sample[b]);
+                }
+            } /* next product */
+        } /* next message */
+    }
 
     /* If using threading, unlock the mutex. */
     MUTEX_UNLOCK(m);
