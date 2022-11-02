@@ -264,7 +264,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     int reclen;
 
     /* Is this an open GRIB2 file? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
     if (!index_file)
         return G2C_EINVAL;
@@ -289,6 +289,9 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 
     /* If using threading, lock the mutex. */
     MUTEX_LOCK(m);
+
+    if (g2c_file[g2cid].g2cid != g2cid)
+        return G2C_EBADID;
 
     /* Create header 1. */
     sprintf(h1, "!GFHDR!  1   1   162 %4.4u-%2.2u-%2.2u %2.2u:%2.2u:%2.2u GB2IX1        hfe08           grb2index\n",
