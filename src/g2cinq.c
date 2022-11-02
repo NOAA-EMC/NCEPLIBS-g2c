@@ -30,15 +30,28 @@ EXTERN_MUTEX(m);
 int
 g2c_inq(int g2cid, int *num_msg)
 {
+    int ret = G2C_NOERROR;
+    
     /* Is this an open GRIB2 file? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
+
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
+    if (g2c_file[g2cid].g2cid != g2cid)
+        ret = G2C_EBADID;
 
     /* If the caller wants to know the number of messages, tell
      * them. */
-    if (num_msg)
-        *num_msg = g2c_file[g2cid].num_messages;
-    return G2C_NOERROR;
+    if (!ret)
+        if (num_msg)
+            *num_msg = g2c_file[g2cid].num_messages;
+
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
+
+    return ret;
 }
 
 /**
