@@ -135,15 +135,7 @@ g2c_get_prod_sections(G2C_MESSAGE_INFO_T *msg, int fieldnum, G2C_SECTION_INFO_T 
     G2C_SECTION_INFO_T *s3, *s4, *s5, *s6, *s7;
 
     /* Check inputs. */
-    if (!msg || fieldnum < 0)
-        return G2C_EINVAL;
-    if (!sec3 || !sec4)
-        return G2C_EINVAL;
-    if (!sec5)
-        return G2C_EINVAL;
-    if (!sec6)
-        return G2C_EINVAL;
-    if (!sec7)
+    if (!msg || fieldnum < 0 ||!sec3 || !sec4 || !sec5 || !sec6 || !sec7)
         return G2C_EINVAL;
 
     /* Find the product with matching fieldnum. */
