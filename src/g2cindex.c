@@ -316,10 +316,9 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             for (fieldnum = 0; fieldnum < msg->num_fields; fieldnum++)
             {
                 G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
-                int ret;
                 
                 if ((ret = g2c_get_prod_sections(msg, fieldnum, &sec3, &sec4, &sec5, &sec6, &sec7)))
-                    return ret;
+                    break;
                 
                 /* What will be the length of this index record? */
                 reclen = G2C_INDEX_FIXED_LEN + msg->sec1_len + sec3->sec_len + sec4->sec_len +
@@ -327,6 +326,10 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 total_index_size += reclen;
                 LOG((4, "fieldnum %d reclen %d total_index_size %d", fieldnum, reclen, total_index_size));
             } /* next product */
+
+            /* If there was a problem, give up. */
+            if (!ret)
+                break;
         } /* next message */
     }
 
