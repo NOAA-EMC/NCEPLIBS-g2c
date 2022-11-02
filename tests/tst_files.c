@@ -15,10 +15,13 @@
 
 /* Test opening and closing the same file twice. */
 void *
-tst_g2c_open_twice()
+tst_g2c_open_twice(void *t)
 {
     int g2cid;
     int ret = G2C_NOERROR;
+
+    if (t)
+        printf("runnning thread %d\n", *(int *)t);
 
     /* g2c_set_log_level(10); */
     ret = g2c_open(WAVE_FILE, 0, &g2cid);
@@ -32,6 +35,7 @@ tst_g2c_open_twice()
         ret = g2c_close(g2cid);
 
     #ifdef PTHREADS
+    printf("ret %d\n", ret);
     pthread_exit(&ret);
     #endif
     
@@ -47,15 +51,14 @@ main()
 #ifdef PTHREADS
         /* If we built with pthreads, run this test as two threads. */
         pthread_t thread1, thread2;
+        int t0 = 0, t1 = 1;
         int ret;
         int *pret = &ret;
         
-        printf("testing with pthreads\n");
-
         /* Create independent threads each of which will execute function */
-        if (pthread_create(&thread1, NULL, tst_g2c_open_twice, NULL))
+        if (pthread_create(&thread1, NULL, tst_g2c_open_twice, (void *)&t0))
             return G2C_ERROR;
-        if (pthread_create(&thread2, NULL, tst_g2c_open_twice, NULL))
+        if (pthread_create(&thread2, NULL, tst_g2c_open_twice, (void *)&t1))
             return G2C_ERROR;
             
         /* Wait till threads are complete before main continues. Unless we  */
@@ -70,7 +73,7 @@ main()
             
 #else
         /* No threads, run the test once. */
-        if (tst_g2c_open_twice())
+        if (tst_g2c_open_twice(NULL))
             return G2C_ERROR;
 #endif
     }
