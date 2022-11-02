@@ -10,6 +10,10 @@
 /** Global file information. */
 extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 
+/** If pthreads are enabled, use externally-defined mutex for
+ * thread-safety. */
+EXTERN_MUTEX(m);
+
 /**
  * Learn about a GRIB2 file.
  *
@@ -194,61 +198,92 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
     G2C_MESSAGE_INFO_T *msg;
     G2C_SECTION_INFO_T *sec4, *sec3, *sec5;
     int t;
+    int ret = G2C_NOERROR;
 
     /* Is this an open GRIB2 file? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
+    if (g2c_file[g2cid].g2cid != g2cid)
+        ret = G2C_EBADID;
+
     /* Find the message. */
-    for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
-        if (msg->msg_num == msg_num)
-            break;
-    if (!msg)
-        return G2C_ENOMSG;
+    if (!ret)
+    {
+        for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+            if (msg->msg_num == msg_num)
+                break;
+        if (!msg)
+            ret = G2C_ENOMSG;
+    }
 
     /* Find the product. After this, sec4 will point to the
      * appropropriate section 4 G2C_SECTION_INFO_T. */
-    for (sec4 = msg->sec; sec4; sec4 = sec4->next)
-        if (sec4->sec_num == 4 && ((G2C_SECTION4_INFO_T *)sec4->sec_info)->field_num == prod_num)
-            break;
-    if (!sec4)
-        return G2C_ENOPRODUCT;
-    /* sec4_info = (G2C_SECTION4_INFO_T *)sec4->sec_info; */
+    if (!ret)
+    {
+        for (sec4 = msg->sec; sec4; sec4 = sec4->next)
+            if (sec4->sec_num == 4 && ((G2C_SECTION4_INFO_T *)sec4->sec_info)->field_num == prod_num)
+                break;
+        if (!sec4)
+            ret = G2C_ENOPRODUCT;
+        /* sec4_info = (G2C_SECTION4_INFO_T *)sec4->sec_info; */
+    }
 
     /* Return the info to the caller. */
-    if (pds_template_len)
-        *pds_template_len = sec4->template_len;
-    if (pds_template)
-        for (t = 0; t < sec4->template_len; t++)
-            pds_template[t] = sec4->template[t];
-
+    if (!ret)
+    {
+        if (pds_template_len)
+            *pds_template_len = sec4->template_len;
+        if (pds_template)
+            for (t = 0; t < sec4->template_len; t++)
+                pds_template[t] = sec4->template[t];
+    }
+    
     /* Find the GDS. */
-    for (sec3 = sec4->prev; sec3; sec3 = sec3->prev)
-        if (sec3->sec_num == 3)
-            break;
-    if (!sec3)
-        return G2C_ENOSECTION;
+    if (!ret)
+    {
+        for (sec3 = sec4->prev; sec3; sec3 = sec3->prev)
+            if (sec3->sec_num == 3)
+                break;
+        if (!sec3)
+            ret = G2C_ENOSECTION;
+    }
 
     /* Return the info to the caller. */
-    if (gds_template_len)
-        *gds_template_len = sec3->template_len;
-    if (gds_template)
-        for (t = 0; t < sec3->template_len; t++)
-            gds_template[t] = sec3->template[t];
-
+    if (!ret)
+    {
+        if (gds_template_len)
+            *gds_template_len = sec3->template_len;
+        if (gds_template)
+            for (t = 0; t < sec3->template_len; t++)
+                gds_template[t] = sec3->template[t];
+    }
+    
     /* Find the DRS. */
-    for (sec5 = sec4->next; sec5; sec5 = sec5->next)
-        if (sec5->sec_num == 5)
-            break;
-    if (!sec5)
-        return G2C_ENOSECTION;
+    if (!ret)
+    {
+        for (sec5 = sec4->next; sec5; sec5 = sec5->next)
+            if (sec5->sec_num == 5)
+                break;
+        if (!sec5)
+            ret = G2C_ENOSECTION;
+    }
 
     /* Return the info to the caller. */
-    if (drs_template_len)
-        *drs_template_len = sec5->template_len;
-    if (drs_template)
-        for (t = 0; t < sec5->template_len; t++)
-            drs_template[t] = sec5->template[t];
+    if (!ret)
+    {
+        if (drs_template_len)
+            *drs_template_len = sec5->template_len;
+        if (drs_template)
+            for (t = 0; t < sec5->template_len; t++)
+                drs_template[t] = sec5->template[t];
+    }
+    
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
 
-    return G2C_NOERROR;
+    return ret;
 }
