@@ -262,6 +262,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     G2C_MESSAGE_INFO_T *msg;
     int total_index_size = 0; /* Does not include size of header records. */
     int reclen;
+    int ret = G2C_NOERROR;
 
     /* Is this an open GRIB2 file? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES)
@@ -419,7 +420,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     if (fclose(f))
         return G2C_EFILE;
 
-    return G2C_NOERROR;
+    return ret;
 }
 
 /**
