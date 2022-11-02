@@ -380,36 +380,36 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &msg->bytes_to_local,
                                                   &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
                                                   &msg->discipline, &fieldnum)))
-                    return ret;
+                    break;
 
                 /* Write the section 1, identification section. */
                 if ((ret = g2c_rw_section1_metadata(f, G2C_FILE_WRITE, msg)))
-                    return ret;
+                    break;
 
                 /* Write the section 3, grid definition section. */
                 sec_num = 3;
                 FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec3->sec_len);
                 FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
                 if ((ret = g2c_rw_section3_metadata(f, G2C_FILE_WRITE, sec3)))
-                    return ret;
+                    break;
 
                 /* Write the section 4, product definition section. */
                 sec_num = 4;
                 FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec4->sec_len);
                 FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
                 if ((ret = g2c_rw_section4_metadata(f, G2C_FILE_WRITE, sec4)))
-                    return ret;
+                    break;
 
                 /* Write the section 5, data representation section. */
                 sec_num = 5;
                 FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec5->sec_len);
                 FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
                 if ((ret = g2c_rw_section5_metadata(f, G2C_FILE_WRITE, sec5)))
-                    return ret;
+                    break;
 
                 /* Write the first 6 bytes of the bitmap section, if there
                  * is one. */
-                if (sec6)
+                if (!ret && sec6)
                 {
                     unsigned char sample[G2C_INDEX_BITMAP_BYTES];
                     int b;
