@@ -35,7 +35,7 @@ tst_g2c_open_twice()
     pthread_exit(&ret);
     #endif
     
-    return ret ? &ret: NULL;
+    return ret ? (void *)1: NULL;
 }
 
 int
