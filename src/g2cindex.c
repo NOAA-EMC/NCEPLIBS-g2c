@@ -416,9 +416,15 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 
                     /* Read the first 6 bytes of the bitmap section. */
                     if (fseek(msg->file->f, msg->bytes_to_msg + sec6->bytes_to_sec, SEEK_SET))
-                        return G2C_EFILE;
+                    {
+                        ret = G2C_EFILE;
+                        break;
+                    }
                     if ((fread(sample, ONE_BYTE, G2C_INDEX_BITMAP_BYTES, msg->file->f)) != G2C_INDEX_BITMAP_BYTES)
-                        return G2C_EFILE;
+                    {
+                        ret = G2C_EFILE;
+                        break;
+                    }
 
                     /* Now write these bytes to the end of the index record. */
                     for (b = 0; b < G2C_INDEX_BITMAP_BYTES; b++)
@@ -436,8 +442,9 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     MUTEX_UNLOCK(m);
 
     /* Close the index file. */
-    if (fclose(f))
-        return G2C_EFILE;
+    if (!ret)
+        if (fclose(f))
+            return G2C_EFILE;
 
     return ret;
 }
