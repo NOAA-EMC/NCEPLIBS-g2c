@@ -1140,35 +1140,40 @@ free_metadata(int g2cid)
 int
 g2c_close(int g2cid)
 {
-    int ret;
-
-    /* If using threading, lock the mutex. */
-    MUTEX_LOCK(m);
+    int ret = G2C_NOERROR;
 
     /* Check input. */
     if (g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
+
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
     if (g2c_file[g2cid].g2cid != g2cid)
-        return G2C_EBADID;
+        ret = G2C_EBADID;
 
     LOG((1, "g2c_close %d", g2cid));
 
     /* Free resources. */
-    if ((ret = free_metadata(g2cid)))
-        return ret;
+    if (!ret)
+        ret = free_metadata(g2cid);
 
     /* Close the file. */
-    if (fclose(g2c_file[g2cid].f))
-        return G2C_EFILE;
-
+    if (!ret)
+        if (fclose(g2c_file[g2cid].f))
+            ret = G2C_EFILE;
+    
     /* Reset the file data. */
-    g2c_file[g2cid].path[0] = 0;
-    g2c_file[g2cid].g2cid = 0;
-    g2c_file[g2cid].num_messages = 0;
-    g2c_file[g2cid].f = NULL;
+    if (!ret)
+    {
+        g2c_file[g2cid].path[0] = 0;
+        g2c_file[g2cid].g2cid = 0;
+        g2c_file[g2cid].num_messages = 0;
+        g2c_file[g2cid].f = NULL;
+    }
 
     /* If using threading, unlock the mutex. */
     MUTEX_UNLOCK(m);
 
-    return G2C_NOERROR;
+    return ret;
 }
