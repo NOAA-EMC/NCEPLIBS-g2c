@@ -52,7 +52,7 @@ main()
         /* If we built with pthreads, run this test as two threads. */
         pthread_t thread1, thread2;
         int t0 = 0, t1 = 1;
-        int ret;
+        int ret = G2C_NOERROR;
         int *pret = &ret;
         
         /* Create independent threads each of which will execute function */
