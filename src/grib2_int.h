@@ -26,27 +26,31 @@
 #include <arpa/inet.h> /* ntohl() function for Unix/Mac. */
 #endif
 
+#ifdef PTHREADS
+#include <pthread.h>
+#endif
+
 #include "grib2.h"
 
 #define ALOG2 (0.69314718) /**< ln(2.0) */
 
 /** Name of JPEG codec in Jasper. */
-#define G2C_JASPER_JPEG_FORMAT_NAME "jpc" 
+#define G2C_JASPER_JPEG_FORMAT_NAME "jpc"
 
 /** Minimum acceptable value for max_bytes parameter of g2c_get_msg(). */
-#define G2C_MIN_MAX_BYTES 16 
+#define G2C_MIN_MAX_BYTES 16
 
 /** Returned for test errors. */
-#define G2C_ERROR 1 
+#define G2C_ERROR 1
 
 /** GRIB magic header string. */
-#define G2C_MAGIC_HEADER "GRIB" 
+#define G2C_MAGIC_HEADER "GRIB"
 
 /** Full length of magic header string (includes GRIB version byte). */
-#define G2C_MAGIC_HEADER_LEN 8 
+#define G2C_MAGIC_HEADER_LEN 8
 
 /** Maximum number of messages in a file. */
-#define G2C_MAX_MESSAGES 1024 
+#define G2C_MAX_MESSAGES 1024
 
 #define BYTE 8 /**< Number of bits in a byte. */
 #define WORD 32 /**< Number of bits in four bytes. */
@@ -55,6 +59,43 @@
 #define TWO_BYTES 2 /**< Two bytes. */
 #define FOUR_BYTES 4 /**< Four bytes. */
 #define EIGHT_BYTES 8 /**< Eight bytes. */
+
+/* For thread-safety, use these macros. */
+#ifdef PTHREADS
+
+/** Define a mutex for thread-safety. */
+#define MUTEX(m) pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
+
+/** Find an externally defined mutex for thread-safety. */
+#define EXTERN_MUTEX(m) extern pthread_mutex_t m;
+
+/** Define a macro to start a critical section for thread safety. */
+#define MUTEX_LOCK(m)                           \
+    do {                                        \
+        pthread_mutex_lock(&m);                 \
+    } while(0)
+
+/** Define a macro to end a critical section for thread safety. */
+#define MUTEX_UNLOCK(m)                         \
+    do {                                        \
+        pthread_mutex_unlock(&m);               \
+    } while(0)
+
+#else /* not PTHREADS */
+
+/** Pthreads not enabled, so do nothing. */
+#define MUTEX(m)
+
+/** Pthreads not enabled, so do nothing. */
+#define EXTERN_MUTEX(m)
+
+/** Pthreads not enabled, so do nothing. */
+#define MUTEX_LOCK(m)
+
+/** Pthreads not enabled, so do nothing. */
+#define MUTEX_UNLOCK(m)
+
+#endif /* PTHREADS */
 
 /** Byte swap 64-bit ints. This converts big-endian 8-byte ints into
  * native endian 8-byte ints. */
@@ -70,16 +111,16 @@
 /**
  * Read or write a big-endian 1-byte int to an open file.
  */
-#define FILE_BE_INT1P(f, write, var)             \
+#define FILE_BE_INT1P(f, write, var)            \
     do {                                        \
         if (write)                              \
         {                                       \
-            if ((fwrite(var, 1, 1, f)) != 1)   \
+            if ((fwrite(var, 1, 1, f)) != 1)    \
                 return G2C_EFILE;               \
         }                                       \
         else                                    \
         {                                       \
-            if ((fread(var, 1, 1, f)) != 1)    \
+            if ((fread(var, 1, 1, f)) != 1)     \
                 return G2C_EFILE;               \
         }                                       \
     } while(0)
@@ -88,11 +129,11 @@
  * Read or write a big-endian 2-byte int to an open file, with
  * conversion between native and big-endian format. The integer
  * short_be must be declared before this macro is used. */
-#define FILE_BE_INT2P(f, write, var)                             \
+#define FILE_BE_INT2P(f, write, var)                            \
     do {                                                        \
         if (write)                                              \
         {                                                       \
-            short_be = ntohs(*var);                              \
+            short_be = ntohs(*var);                             \
             if ((fwrite(&short_be, TWO_BYTES, 1, f)) != 1)      \
                 return G2C_EFILE;                               \
         }                                                       \
@@ -100,7 +141,7 @@
         {                                                       \
             if ((fread(&short_be, TWO_BYTES, 1, f)) != 1)       \
                 return G2C_EFILE;                               \
-            *var = htons(short_be);                              \
+            *var = htons(short_be);                             \
         }                                                       \
     } while(0)
 
@@ -108,40 +149,40 @@
  * Read or write a big-endian 4-byte int to an open file, with
  * conversion between native and big-endian format. The integer int_be
  * must be declared before this macro is used. */
-#define FILE_BE_INT4P(f, write, var)                     \
-    do {                                                \
-    if (write)                                          \
-    {                                                   \
-        int_be = ntohl(*var);                            \
-        if ((fwrite(&int_be, FOUR_BYTES, 1, f)) != 1)   \
-            return G2C_EFILE;                           \
-    }                                                   \
-    else                                                \
-    {                                                   \
-        if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)    \
-            return G2C_EFILE;                           \
-        *var = htonl(int_be);                            \
-    }                                                   \
+#define FILE_BE_INT4P(f, write, var)                            \
+    do {                                                        \
+        if (write)                                              \
+        {                                                       \
+            int_be = ntohl(*var);                               \
+            if ((fwrite(&int_be, FOUR_BYTES, 1, f)) != 1)       \
+                return G2C_EFILE;                               \
+        }                                                       \
+        else                                                    \
+        {                                                       \
+            if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)        \
+                return G2C_EFILE;                               \
+            *var = htonl(int_be);                               \
+        }                                                       \
     } while(0)
 
 /**
  * Read or write a big-endian 8-byte int to an open file, with
  * conversion between native and big-endian format. The integer
  * size_t_be must be declared before this macro is used. */
-#define FILE_BE_INT8P(f, write, var)                             \
+#define FILE_BE_INT8P(f, write, var)                            \
     do {                                                        \
-    if (write)                                                  \
-    {                                                           \
-        size_t_be = ntoh64(*var);                                \
-        if ((fwrite(&size_t_be, EIGHT_BYTES, 1, f)) != 1)       \
-            return G2C_EFILE;                                   \
-    }                                                           \
-    else                                                        \
-    {                                                           \
-        if ((fread(&size_t_be, EIGHT_BYTES, 1, f)) != 1)        \
-            return G2C_EFILE;                                   \
-        *var = hton64(size_t_be);                                \
-    }                                                            \
+        if (write)                                              \
+        {                                                       \
+            size_t_be = ntoh64(*var);                           \
+            if ((fwrite(&size_t_be, EIGHT_BYTES, 1, f)) != 1)   \
+                return G2C_EFILE;                               \
+        }                                                       \
+        else                                                    \
+        {                                                       \
+            if ((fread(&size_t_be, EIGHT_BYTES, 1, f)) != 1)    \
+                return G2C_EFILE;                               \
+            *var = hton64(size_t_be);                           \
+        }                                                       \
     } while(0)
 
 /** This is the information about each message. */

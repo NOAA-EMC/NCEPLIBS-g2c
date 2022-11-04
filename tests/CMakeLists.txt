@@ -46,12 +46,21 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
-# Run each test.
+# Run a test.
 function(g2c_test name)
   add_executable(${name} ${name}.c)
   add_dependencies(${name} g2c)
   target_link_libraries(${name} PRIVATE g2c)
   add_test(NAME ${name} COMMAND ${name})
+endfunction()
+
+# Run a test with pthreads, if configured.
+function(g2c_ptest name)
+  g2c_test(${name})
+  if(PTHREADS)
+    target_compile_definitions(${name} PRIVATE -DPTHREADS)    
+    target_link_libraries(${name} PRIVATE pthread)
+  endif()
 endfunction()
 
 # Does the user want to get extra test files from the FTP site, and
@@ -73,6 +82,7 @@ if(FTP_TEST_FILES)
 endif()
 
 # Always run these tests.
+g2c_ptest(tst_files)
 g2c_test(tst_g2_create)
 g2c_test(tst_g2_addgrid)
 g2c_test(tst_g2_addfield)
@@ -90,7 +100,6 @@ g2c_test(tst_spec)
 g2c_test(tst_com)
 g2c_test(tst_g2_addlocal)
 g2c_test(tst_seekgb)
-g2c_test(tst_files)
 g2c_test(tst_xml)
 g2c_test(tst_error)
 g2c_test(tst_params)

@@ -13,10 +13,71 @@
 #define NUM_BUF_SIZE_TESTS 6
 #define EPSILON (.1)
 
+/* Test opening and closing the same file twice. */
+void *
+tst_g2c_open_twice(void *t)
+{
+    int g2cid;
+    int ret = G2C_NOERROR;
+
+    if (t)
+        printf("runnning thread %d\n", *(int *)t);
+
+    /* g2c_set_log_level(10); */
+    ret = g2c_open(WAVE_FILE, 0, &g2cid);
+    if (!ret)
+        ret = g2c_close(g2cid);
+    
+    /* Try it again. */
+    if (!ret)
+        ret = g2c_open(WAVE_FILE, 0, &g2cid);
+    if (!ret)
+        ret = g2c_close(g2cid);
+
+    #ifdef PTHREADS
+    printf("ret %d\n", ret);
+    pthread_exit(&ret);
+    #endif
+    
+    return ret ? (void *)1: NULL;
+}
+
 int
 main()
 {
     printf("Testing g2c file functions.\n");
+    printf("Testing g2c_open() on file %s (twice)...\n", WAVE_FILE);
+    {
+#ifdef PTHREADS
+        /* If we built with pthreads, run this test as two threads. */
+        pthread_t thread1, thread2;
+        int t0 = 0, t1 = 1;
+        int ret = G2C_NOERROR;
+        int *pret = &ret;
+        
+        /* Create independent threads each of which will execute function */
+        if (pthread_create(&thread1, NULL, tst_g2c_open_twice, (void *)&t0))
+            return G2C_ERROR;
+        if (pthread_create(&thread2, NULL, tst_g2c_open_twice, (void *)&t1))
+            return G2C_ERROR;
+            
+        /* Wait till threads are complete before main continues. Unless we  */
+        /* wait we run the risk of executing an exit which will terminate   */
+        /* the process and all threads before the threads have completed.   */
+        if (pthread_join(thread1, (void **)&pret))
+            return G2C_ERROR;
+        if (pthread_join(thread2, (void **)&pret))
+            return G2C_ERROR;
+        if (ret)
+            return G2C_ERROR;
+            
+#else
+        /* No threads, run the test once. */
+        if (tst_g2c_open_twice(NULL))
+            return G2C_ERROR;
+#endif
+    }
+    printf("ok!\n");
     /* printf("Testing g2c_create()/g2c_close() calls..."); */
     /* { */
     /*     int g2cid; */
@@ -115,24 +176,6 @@ main()
 	    
 	    free(cbuf);
 	}
-	if ((ret = g2c_close(g2cid)))
-	    return ret;
-    }
-    printf("ok!\n");
-    printf("Testing g2c_open() on file %s (twice)...", WAVE_FILE);
-    {
-	int g2cid;
-	int ret;
-
-	/* g2c_set_log_level(10); */
-	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
-	    return ret;
-	if ((ret = g2c_close(g2cid)))
-	    return ret;
-
-        /* Try it again. */
-	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
-	    return ret;
 	if ((ret = g2c_close(g2cid)))
 	    return ret;
     }
