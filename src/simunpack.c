@@ -14,7 +14,7 @@
  * @param idrstmpl pointer to the array of values for Data
  * Representation Template 5.0.
  * @param ndpts The number of data values to unpack.
- * @param fld Contains the unpacked data values. fld must be
+ * @param fld A pointer that gets the unpacked data values. fld must be
 `* allocated with at least ndpts * sizeof(float) bytes before calling
  * this routine.
  *
@@ -23,12 +23,16 @@
  * @author Stephen Gilbert @date 2002-10-29
  */
 g2int
-simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts,
-          float *fld)
+simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, float *fld)
 {
     g2int *ifld;
     g2int j, nbits;
     float ref, bscale, dscale;
+
+    assert(cpack && idrstmpl && fld);
+    
+    LOG((3, "simunpack ndpts %ld idrstmpl: %ld %ld %ld %ld %ld", ndpts, idrstmpl[0],
+         idrstmpl[1], idrstmpl[2], idrstmpl[3], idrstmpl[4]));
 
     rdieee(idrstmpl, &ref, 1);
     bscale = int_power(2.0, idrstmpl[1]);

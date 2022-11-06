@@ -29,6 +29,16 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/gdaswave.t00z.wcoast.0p16.f000.grib2
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/gdaswave.t00z.wcoast.0p16.f000.grib2.idx
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_gdaswave.degrib2.txt
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_WW3_Regional_US_West_Coast_20220718_0000.txt
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_gdaswave.t00z.wcoast.0p16.f000.grb2index
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
 # These are the XML files from the WMO with GRIB2 code data.
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
@@ -36,12 +46,21 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
-# Run each test.
+# Run a test.
 function(g2c_test name)
   add_executable(${name} ${name}.c)
   add_dependencies(${name} g2c)
   target_link_libraries(${name} PRIVATE g2c)
   add_test(NAME ${name} COMMAND ${name})
+endfunction()
+
+# Run a test with pthreads, if configured.
+function(g2c_ptest name)
+  g2c_test(${name})
+  if(PTHREADS)
+    target_compile_definitions(${name} PRIVATE -DPTHREADS)    
+    target_link_libraries(${name} PRIVATE pthread)
+  endif()
 endfunction()
 
 # Does the user want to get extra test files from the FTP site, and
@@ -57,17 +76,20 @@ if(FTP_TEST_FILES)
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
 
-  # Add tests that use the data downloaded from FTP.
-  g2c_test(tst_ftp_files)  
+  # Add this preprocessor definition so test files can conditionally
+  # include testing based on FTP files.
+  add_definitions(-DFTP_TEST_FILES)
 endif()
 
 # Always run these tests.
+g2c_ptest(tst_files)
 g2c_test(tst_g2_create)
 g2c_test(tst_g2_addgrid)
 g2c_test(tst_g2_addfield)
 g2c_test(tst_decode)
 g2c_test(tst_gbits)
 g2c_test(tst_gridtemplates)
+g2c_test(tst_get_grid_template)
 g2c_test(tst_pdstemplates)
 g2c_test(tst_drstemplates)
 g2c_test(tst_unpack)
@@ -80,6 +102,12 @@ g2c_test(tst_g2_addlocal)
 g2c_test(tst_seekgb)
 g2c_test(tst_xml)
 g2c_test(tst_error)
+g2c_test(tst_params)
+g2c_test(tst_params2)
+g2c_test(tst_params3)
+g2c_test(tst_degrib2)
+g2c_test(tst_inq)
+g2c_test(tst_index)
 
 # Run these tests only if libpng is linked.
 if(USE_PNG)

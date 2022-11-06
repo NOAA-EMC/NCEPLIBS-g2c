@@ -1,5 +1,15 @@
-name: PNG JPEG options
-on: [push, pull_request]
+name: build options
+on:
+  push:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+  pull_request:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
 
 jobs:
   linux-build:
@@ -34,6 +44,10 @@ jobs:
         - {
             name: "png_on jasper_off openjpeg_on",
             options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "pthreads",
+            options: "-DPTHREADS=ON -DLOGGING=ON -DJasper_ROOT=~/Jasper"
           }
 
     steps:

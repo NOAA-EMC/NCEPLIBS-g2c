@@ -1,4 +1,4 @@
-/** 
+/**
  * @file
  * @brief Functions for GRIB2 Data Representation Templates (DRT) for
  * the Data Representation Setcion.
@@ -28,15 +28,11 @@
  * -----|------------|---------
  * 2001-06-28 | Gilbert | Initial
  * 2009-01-14 | Vuong | Changed structure name template to gtemplate
+ * 2022-10-18 | Hartnett | Added g2c_get_drs_template().
  *
  * @author Stephen Gilbert @date 2001-06-28
  */
-
-#include <stdlib.h>
 #include "grib2_int.h"
-
-#define MAXDRSTEMP 9 /**< maximum number of templates */
-#define MAXDRSMAPLEN 200 /**< maximum template map length */
 
 /**
  * Stuct for GRIB2 Data Representation Section (DRS) template.
@@ -46,34 +42,34 @@ struct drstemplate
     g2int template_num; /**< The number of entries in the template. */
     g2int mapdrslen; /**< Length of map of the template. */
     g2int needext; /**< Whether the Template needs to be extended. */
-    g2int mapdrs[MAXDRSMAPLEN]; /**< A map of the template. */
+    g2int mapdrs[G2C_MAX_DRS_TEMPLATE_MAPLEN]; /**< A map of the template. */
 };
 
 /**
  * Stuct holding data for GRIB2 Data Representation Section (DRS)
  * template.
  */
-static const struct drstemplate templatesdrs[MAXDRSTEMP] =
+static const struct drstemplate templatesdrs[G2C_MAX_DRS_TEMPLATE] =
 {
     /** [5.0: Grid point data - Simple
      * Packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-0.shtml) */
-    { 0, 5, 0, {4,-2,-2,1,1} },
+    {0, 5, 0, {4, -2, -2, 1, 1}},
 
     /** [5.2: Grid point data - Complex
      * Packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-2.shtml) */
-    { 2, 16, 0, {4,-2,-2,1,1,1,1,4,4,4,1,1,4,1,4,1} },
+    {2, 16, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1}},
 
     /** [5.3: Grid point data - Complex Packing and spatial
      * differencing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-3.shtml) */
-    { 3, 18, 0, {4,-2,-2,1,1,1,1,4,4,4,1,1,4,1,4,1,1,1} },
+    {3, 18, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1, 1, 1}},
 
     /** [5.50: Spectral Data - Simple
      * Packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-50.shtml) */
-    { 50, 5, 0, {4,-2,-2,1,4} },
+    {50, 5, 0, {4, -2, -2, 1, 4}},
 
     /** [5.51: Spherical Harmonics data - Complex
      * packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml) */
-    { 51, 10, 0, {4,-2,-2,1,-4,2,2,2,4,1} },
+    {51, 10, 0, {4, -2, -2, 1, -4, 2, 2, 2, 4, 1}},
 
     /* 5.1: Matrix values at gridpoint - Simple packing.
      * Comment from Stephen Gilbert in 2021:
@@ -95,27 +91,27 @@ static const struct drstemplate templatesdrs[MAXDRSTEMP] =
      * in the future.
      */
 
-    /* { 1, 15, 1, {4,-2,-2,1,1,1,4,2,2,1,1,1,1,1,1} }, */
+    /* {1, 15, 1, {4, -2, -2, 1, 1, 1, 4, 2, 2, 1, 1, 1, 1, 1, 1}}, */
 
     /** [5.40: Grid point data - JPEG2000
      * encoding](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml) */
-    { 40, 7, 0, {4,-2,-2,1,1,1,1} },
+    {40, 7, 0, {4, -2, -2, 1, 1, 1, 1}},
 
     /** [5.41: Grid point data - PNG
      * encoding](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml) */
-    { 41, 5, 0, {4,-2,-2,1,1} },
+    {41, 5, 0, {4, -2, -2, 1, 1}},
 
     /** 5.40000: Grid point data - JPEG2000 encoding
      *
      * This is a local template number, from a time before WMO standardized use of JPEG2000
      * with 5.40. This should not be used in new data files. Use 5.40 instead. */
-    { 40000, 7, 0, {4,-2,-2,1,1,1,1} },
+    {40000, 7, 0, {4, -2, -2, 1, 1, 1, 1}},
 
     /** 5.40010: Grid point data - PNG encoding
      *
      * This is a local template number, from a time before WMO standardized use of PNG
      * with 5.41. This should not be used in new data files. Use 5.41 instead. */
-    { 40010, 5, 0, {4,-2,-2,1,1} }
+    {40010, 5, 0, {4, -2, -2, 1, 1}}
 } ;
 
 /**
@@ -135,7 +131,7 @@ getdrsindex(g2int number)
 {
     g2int j, getdrsindex = -1;
 
-    for (j = 0; j < MAXDRSTEMP; j++)
+    for (j = 0; j < G2C_MAX_DRS_TEMPLATE; j++)
     {
         if (number == templatesdrs[j].template_num)
         {
@@ -232,6 +228,55 @@ extdrstemplate(g2int number, g2int *list)
     /*         new->ext[i] = 4; */
     /*     } */
     /* } */
-    
+
     return new;
 }
+
+/**
+ * Get DRS template information.
+ *
+ * The DRS template consists of a template map, and its length. There
+ * are no supported DRS templates with extensions.
+ *
+ * @param drs_template_num The DRS template number.
+ * @param maplen Pointer that gets the length of the map. Ignored if
+ * NULL.
+ * @param map Pointer that gets the map as an array of int. Memory
+ * must be allocated by caller. Ignored if NULL.
+ * @param needext Pointer that a non-zero value if an extension to
+ * this template is needed. Ignored if NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOTEMPLATE Template not found.
+ *
+ * @author Ed Hartnett @date 10/18/22
+ */
+int
+g2c_get_drs_template(int drs_template_num, int *maplen, int *map, int *needext)
+{
+    int j, m;
+
+    /* Look through the array of templates to find a matching one. */
+    for (j = 0; j < G2C_MAX_DRS_TEMPLATE; j++)
+    {
+        if (drs_template_num == templatesdrs[j].template_num)
+        {
+            /* Copy maplen and map if the caller wants them. */
+            if (maplen)
+                *maplen = templatesdrs[j].mapdrslen;
+            if (map)
+                for (m = 0; m < templatesdrs[j].mapdrslen; m++)
+                    map[m] = templatesdrs[j].mapdrs[m];
+            if (needext)
+                *needext = templatesdrs[j].needext;
+
+            /* Done. */
+            return G2C_NOERROR;
+        }
+    }
+
+    /* If we didn't find a template, return an error. */
+    return G2C_ENOTEMPLATE;
+}
+

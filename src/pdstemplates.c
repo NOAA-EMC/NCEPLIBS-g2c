@@ -34,15 +34,11 @@
  * 2012-03-29 | Vuong | Added Templates 4.44,4.45,4.46,4.47,4.48,4.50, 4.51,4.91,4.32 and 4.52
  * 2013-08-05 | Vuong | Corrected 4.91 and added Templates 4.33,4.34,4.53,4.54
  * 2015-10-07 | Vuong | Added Templates 4.57, 4.60, 4.61 and allow a forecast time to be negative
+ * 2022-10-18 | Hartnett | Added g2c_get_pds_template() and g2c_get_pds_template_extension().
  *
  * @author Stephen Gilbert @date 2001-06-28
  */
-
-#include <stdlib.h>
 #include "grib2_int.h"
-
-#define MAXPDSTEMP 47 /**< Maximum number of templates. */
-#define MAXPDSMAPLEN 200 /**< Maximum template map length. */
 
 /**
  * Struct for PDS template.
@@ -52,181 +48,181 @@ struct pdstemplate
     g2int template_num; /**< Template number. */
     g2int mappdslen; /**< The number of entries in the template. */
     g2int needext; /**< Does template need extension? */
-    g2int mappds[MAXPDSMAPLEN]; /**< Number of bytes for each template value. */
+    g2int mappds[G2C_MAX_PDS_TEMPLATE_MAPLEN]; /**< Number of bytes for each template value. */
 };
 
 /**
  * Data for struct for PDS template.
  */
-static const struct pdstemplate templatespds[MAXPDSTEMP] =
+static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
 {
     /** 4.0: Analysis or Forecast at Horizontal Level/Layer
         at a point in time. */
-    {0,15,0, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4} },
+    {0, 15, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
     /** 4.1: Individual Ensemble Forecast at Horizontal Level/Layer
         at a point in time. */
-    {1,18,0, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1} },
+    {1, 18, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
     /** 4.2: Derived Fcst based on whole Ensemble at Horiz Level/Layer
         at a point in time. */
-    {2,17,0, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1} },
+    {2, 17, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1}},
     /** 4.3: Derived Fcst based on Ensemble cluster over rectangular
         area at Horiz Level/Layer at a point in time. */
-    {3,31,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,1,1,1,1,-4,-4,4,4,1,-1,4,-1,4} },
+    {3, 31, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 1, 1, 1, 1, -4, -4, 4, 4, 1, -1, 4, -1, 4}},
     /** 4.4: Derived Fcst based on Ensemble cluster over circular
         area at Horiz Level/Layer at a point in time. */
-    {4,30,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,1,1,1,1,-4,4,4,1,-1,4,-1,4} },
+    {4, 30, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 1, 1, 1, 1, -4, 4, 4, 1, -1, 4, -1, 4}},
     /** 4.5: Probablility Forecast at Horiz Level/Layer
         at a point in time. */
-    {5,22,0, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,-1,-4,-1,-4} },
+    {5, 22, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, -1, -4, -1, -4}},
     /** 4.6: Percentile Forecast at Horiz Level/Layer
         at a point in time. */
-    {6,16,0, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1} },
+    {6, 16, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1}},
     /** 4.7: Analysis or Forecast Error at Horizontal Level/Layer
         at a point in time. */
-    {7,15,0, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4} },
+    {7, 15, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
     /** 4.8: Ave/Accum/etc... at Horiz Level/Layer
         in a time interval. */
-    {8,29,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {8, 29, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.9: Probablility Forecast at Horiz Level/Layer
         in a time interval. */
-    {9,36,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,-1,-4,-1,-4,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {9, 36, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, -1, -4, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.10: Percentile Forecast at Horiz Level/Layer
         in a time interval */
-    {10,30,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {10, 30, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.11: Individual Ensemble Forecast at Horizontal Level/Layer
         in a time interval */
-    {11,32,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {11, 32, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.12: Derived Fcst based on whole Ensemble at Horiz Level/Layer
         in a time interval */
-    {12,31,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {12, 31, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.13: Derived Fcst based on Ensemble cluster over rectangular
         area at Horiz Level/Layer in a time interval */
-    {13,45,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,1,1,1,1,-4,-4,4,4,1,-1,4,-1,4,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {13, 45, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 1, 1, 1, 1, -4, -4, 4, 4, 1, -1, 4, -1, 4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.14: Derived Fcst based on Ensemble cluster over circular
         area at Horiz Level/Layer in a time interval */
-    {14,44,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,1,1,1,1,-4,4,4,1,-1,4,-1,4,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {14, 44, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 1, 1, 1, 1, -4, 4, 4, 1, -1, 4, -1, 4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.15: Average, accumulation, extreme values or other statistically-processed values over a
         spatial area at a horizontal level or in a horizontal layer at a point in time */
-    {15,18,0, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1} },
+    {15, 18, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
     /** 4.20: Radar Product */
-    {20,19,0, {1,1,1,1,1,-4,4,2,4,2,1,1,1,1,1,2,1,3,2} },
+    {20, 19, 0, {1, 1, 1, 1, 1, -4, 4, 2, 4, 2, 1, 1, 1, 1, 1, 2, 1, 3, 2}},
     /** 4.30: Satellite Product */
-    {30,5,1, {1,1,1,1,1} },
+    {30, 5, 1, {1, 1, 1, 1, 1}},
     /** 4.31: Satellite Product */
-    {31,5,1, {1,1,1,1,1} },
+    {31, 5, 1, {1, 1, 1, 1, 1}},
     /** 4.40: Analysis or forecast at a horizontal level or in a horizontal layer
         at a point in time for atmospheric chemical constituents */
-    {40,16,0, {1,1,2,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4} },
+    {40, 16, 0, {1, 1, 2, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
     /** 4.41: Individual ensemble forecast, control and perturbed, at a horizontal level or
         in a horizontal layer at a point in time for atmospheric chemical constituents */
-    {41,19,0, {1,1,2,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1} },
+    {41, 19, 0, {1, 1, 2, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
     /** 4.42: Average, accumulation, and/or extreme values or other statistically-processed values
         at a horizontal level or in a horizontal layer in a continuous or non-continuous
         time interval for atmospheric chemical constituents */
-    {42,30,1, {1,1,2,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {42, 30, 1, {1, 1, 2, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.43: Individual ensemble forecast, control and perturbed, at a horizontal level
         or in a horizontal layer in a continuous or non-continuous
         time interval for atmospheric chemical constituents */
-    {43,33,1, {1,1,2,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {43,33, 1, {1, 1, 2, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.254: CCITT IA5 Character String */
-    {254,3,0, {1,1,4} },
+    {254, 3, 0, {1, 1, 4}},
     /** 4.1000: Cross section of analysis or forecast
         at a point in time */
-    {1000,9,0, {1,1,1,1,1,2,1,1,-4} },
+    {1000, 9, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4}},
     /** 4.1001: Cross section of Ave/Accum/etc... analysis or forecast
         in a time interval */
-    {1001,16,0, {1,1,1,1,1,2,1,1,4,4,1,1,1,4,1,4} },
+    {1001, 16, 0, {1, 1, 1, 1, 1, 2, 1, 1, 4, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.1001: Cross section of Ave/Accum/etc... analysis or forecast
         over latitude or longitude */
-    {1002,15,0, {1,1,1,1,1,2,1,1,-4,1,1,1,4,4,2} },
+    {1002, 15, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, 1, 1, 4, 4, 2}},
     /** 4.1100: Hovmoller-type grid w/ no averaging or other
         statistical processing */
-    {1100,15,0, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4} },
+    {1100, 15, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
     /** 4.1100: Hovmoller-type grid with averaging or other
         statistical processing */
-    {1101,22,0, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,4,1,1,1,4,1,4} },
+    {1101, 22, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.32:Simulate (synthetic) Satellite Product */
-    {32,10,1, {1,1,1,1,1,2,1,1,-2,1} },
+    {32, 10, 1, {1, 1, 1, 1, 1, 2, 1, 1, -2, 1}},
     /** 4.44: Analysis or forecast at a horizontal level or in a horizontal layer
         at a point in time for Aerosol */
-    {44,21,0, {1,1,2,1,-1,-4,-1,-4,1,1,1,2,1,1,-2,1,-1,-4,1,-1,-4} },
+    {44, 21, 0, {1, 1, 2, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -2, 1, -1, -4, 1, -1, -4}},
     /** 4.45: Individual ensemble forecast, control and
         perturbed,  at a horizontal level or in a horizontal layer
         at a point in time for Aerosol */
-    {45,24,0, {1,1,2,1,-1,-4,-1,-4,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1} },
+    {45, 24, 0, {1, 1, 2, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
     /** 4.46: Ave or Accum or Extreme value at level/layer
         at horizontal level or in a horizontal in a continuous or
         non-continuous time interval for Aerosol */
-    {46,35,1, {1,1,2,1,-1,-4,-1,-4,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {46, 35, 1, {1, 1, 2, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.47: Individual ensemble forecast, control and
         perturbed, at horizontal level or in a horizontal
         in a continuous or non-continuous time interval for Aerosol. */
-    {47,38,1, {1,1,1,2,1,-1,-4,-1,-4,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {47, 38, 1, {1, 1, 1, 2, 1, -1, -4, -1, -4, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
     /**             PDT 4.48
                     4.48: Analysis or forecast at a horizontal level or in a horizontal layer
                     at a point in time for Optical Properties of Aerosol */
-    {48,26,0, {1,1,2,1,-1,-4,-1,-4,1,-1,-4,-1,-4,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4} },
+    {48, 26, 0, {1, 1, 2, 1, -1, -4, -1, -4, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
 
     /**             VALIDATION --- PDT 4.50
                     4.50: Analysis or forecast of multi component parameter or
                     matrix element at a point in time. */
-    {50,21,0, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,4,4,4,4} },
+    {50, 21, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 4, 4, 4, 4}},
 
     /**             VALIDATION --- PDT 4.52
                     4.52: Analysis or forecast of Wave parameters
                     at the Sea surface at a point in time. */
-    {52,15,0, {1,1,1,1,1,1,1,1,2,1,1,-4,1,-1,-4} },
+    {52, 15, 0, {1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4}},
 
     /** 4.51: Categorical forecasts at a horizontal level or
         in a horizontal layer at a point in time. */
-    {51,16,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1} },
+    {51, 16, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1}},
 
     /** 4.91: Categorical forecasts at a horizontal level or
         in a horizontal layer at a point in time
         in a continuous or non-continuous time interval. */
-    {91,36,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,-1,-4,-1,-4,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {91, 36, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, -1, -4, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 /** PDT 4.33  (07/29/2013)
     4.33: Individual ensemble forecast, control, perturbed,
     at a horizontal level or in a  horizontal layer
     at a point in time for simulated (synthetic) Satellite data. */
-    {33,18,1, {1,1,1,1,1,2,1,1,-4,1,2,2,2,-1,-4,1,1,1} },
+    {33, 18, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, 2, 2, 2, -1, -4, 1, 1, 1}},
 /** PDT 4.34  (07/29/2013)
     4.34: Individual ensemble forecast, control, perturbed,
     at a horizontal level or in a  horizontal layer,in a continuous or
     non-continuous interval for simulated (synthetic) Satellite data. */
-    {34,32,1, {1,1,1,1,1,2,1,1,-4,1,2,2,2,-1,-4,1,1,1,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {34, 32, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, 2, 2, 2, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 /** PDT 4.53  (07/29/2013)
     4.53:  Partitioned parameters at
     horizontal level or horizontal layer
     at a point in time. */
-    {53,19,1, {1,1,1,1,4,2,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4} },
+    {53, 19, 1, {1, 1, 1, 1, 4, 2, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
 /** PDT 4.54  (07/29/2013)
     4.54: Individual ensemble forecast, control, perturbed,
     at a horizontal level or in a  horizontal layer
     at a point in time for partitioned parameters. */
-    {54,22,1, {1,1,1,1,4,2,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1} },
+    {54, 22, 1, {1, 1, 1, 1, 4, 2, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
 /** PDT 4.57  (10/07/2015)
     4.57: Analysis or Forecast at a horizontal or in a
     horizontal layer at a point in time for
     atmospheric chemical constituents based on
     a distribution function. */
-    {57,7,1, {1,1,2,2,2,2,1} },
+    {57, 7, 1, {1, 1, 2, 2, 2, 2, 1}},
 /** PDT 4.60  (10/07/2015)
     4.60: Individual ensemble reforecast, control and perturbed,
     at a horizontal level or in a horizontal layer
     at a point in time. */
-    {60,24,0, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,2,1,1,1,1,1} },
+    {60, 24, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1}},
 /** PDT 4.61  (10/07/2015)
     4.61: Individual ensemble reforecast, control and perturbed,
     at a horizontal level or in a  horizontal layer
     in a continuous or non-continuous time interval. */
-    {61,38,1, {1,1,1,1,1,2,1,1,-4,1,-1,-4,1,-1,-4,1,1,1,2,1,1,1,1,1,2,1,1,1,1,1,1,4,1,1,1,4,1,4} },
+    {61, 38, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 /**             VALIDATION --- PDT 4.35
                 PDT 4.35  (10/07/2015)
                 4.35: Individual ensemble reforecast, control and perturbed,
                 at a horizontal level or in a  horizontal layer
                 in a continuous or non-continuous time interval. */
-    {35,6,1, {1,1,1,1,1,1} }
+    {35, 6, 1, {1, 1, 1, 1, 1, 1}}
 
 } ;
 
@@ -247,7 +243,7 @@ getpdsindex(g2int number)
 {
     g2int j, getpdsindex = -1;
 
-    for (j = 0; j < MAXPDSTEMP; j++)
+    for (j = 0; j < G2C_MAX_PDS_TEMPLATE; j++)
     {
         if (number == templatespds[j].template_num)
         {
@@ -546,7 +542,7 @@ extpdstemplate(g2int number, g2int *list)
     }
     else if (number == 32)
     {
-        new->extlen = list[9] * 10;
+        new->extlen = list[9] * 5;
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < list[9]; i++)
         {
@@ -592,7 +588,7 @@ extpdstemplate(g2int number, g2int *list)
     }
     else if (number == 51)
     {
-        new->extlen = list[15]*11;
+        new->extlen = list[15] * 6;
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < list[15]; i++)
         {
@@ -723,3 +719,125 @@ extpdstemplate(g2int number, g2int *list)
 
     return new;
 }
+
+/**
+ * Get pds template extension information.
+ *
+ * @param pds_template_num The pds template number.
+ * @param template Pointer to array that contains the template values.
+ * @param extlen Pointer that gets the length of the extension. Ignored if NULL.
+ * @param ext Pointer that gets template extension array, if there is
+ * one. Memory must be allocated by the caller. Ignored if NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_ENOTEMPLATE Template not found.
+ * - ::G2C_ENOMEM Out of memory.
+ *
+ * @author Ed Hartnett @date 10/16/22
+ */
+int
+g2c_get_pds_template_extension(int pds_template_num, int *template,
+                                int *extlen, int *ext)
+{
+    int j, t;
+
+    /* Check input. */
+    if (!template)
+        return G2C_EINVAL;
+
+    /* Look through the array of templates to find a matching one. */
+    for (j = 0; j < G2C_MAX_PDS_TEMPLATE; j++)
+    {
+        if (pds_template_num == templatespds[j].template_num)
+        {
+            /* Is there an extension to this template? */
+            if (templatespds[j].needext)
+            {
+                gtemplate *gt;
+                g2int *template8;
+                int e;
+
+                /* Copy template to g2int for extpdstemplate() function. */
+                if (!(template8 = malloc(sizeof(g2int) * templatespds[j].mappdslen)))
+                    return G2C_ENOMEM;
+                for (t = 0; t < templatespds[j].mappdslen; t++)
+                    template8[t] = template[t];
+                if (!(gt = extpdstemplate(pds_template_num, template8)))
+                    return G2C_ENOTEMPLATE;
+                free(template8);
+                if (extlen)
+                    *extlen = gt->extlen;
+                if (ext)
+                    for (e = 0; e < gt->extlen; e++)
+                        ext[e] = gt->ext[e];
+                free(gt->ext);
+                free(gt);
+            }
+            else
+            {
+                if (extlen)
+                    *extlen = 0;
+            }
+
+            /* Done. */
+            return G2C_NOERROR;
+        }
+    }
+
+    /* If we didn't find a template, return an error. */
+    return G2C_ENOTEMPLATE;
+}
+
+/**
+ * Get PDS template information.
+ *
+ * The PDS template consists of a template map, its length, and, for
+ * some templates, an extra extension map, and its length. If an
+ * extension is needed, use g2c_get_pds_template_extension() to get
+ * it.
+ *
+ * @param pds_template_num The PDS template number.
+ * @param maplen Pointer that gets the length of the map. Ignored if
+ * NULL.
+ * @param map Pointer that gets the map as an array of int. Memory
+ * must be allocated by caller. Ignored if NULL.
+ * @param needext Pointer that a non-zero value if an extension to
+ * this template is needed. Ignored if NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOTEMPLATE Template not found.
+ *
+ * @author Ed Hartnett @date 10/18/22
+ */
+int
+g2c_get_pds_template(int pds_template_num, int *maplen, int *map, int *needext)
+{
+    int j, m;
+
+    /* Look through the array of templates to find a matching one. */
+    for (j = 0; j < G2C_MAX_PDS_TEMPLATE; j++)
+    {
+        if (pds_template_num == templatespds[j].template_num)
+        {
+            /* Copy maplen and map if the caller wants them. */
+            if (maplen)
+                *maplen = templatespds[j].mappdslen;
+            if (map)
+                for (m = 0; m < templatespds[j].mappdslen; m++)
+                    map[m] = templatespds[j].mappds[m];
+            if (needext)
+                *needext = templatespds[j].needext;
+
+            /* Done. */
+            return G2C_NOERROR;
+        }
+    }
+
+    /* If we didn't find a template, return an error. */
+    return G2C_ENOTEMPLATE;
+}
+
+

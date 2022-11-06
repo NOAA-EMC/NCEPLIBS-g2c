@@ -1,5 +1,15 @@
 name: Linux Build
-on: [push, pull_request]
+on:
+  push:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+  pull_request:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
 
 jobs:
   linux-build:
@@ -10,6 +20,7 @@ jobs:
     strategy:
       matrix:
         jasper-version: [2.0.33, 3.0.3]
+        ccompiler: [clang, gcc]
     
     steps:
     - name: install-dependencies
@@ -17,6 +28,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev
         python3 -m pip install gcovr
+        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
+          sudo apt-get install clang
+        fi
+        
 
     - name: checkout-jasper
       uses: actions/checkout@v2
@@ -35,6 +50,11 @@ jobs:
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
       run: |
+        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
+          export CC=clang
+        elif [[ ${{ matrix.ccompiler }} == "gcc" ]]; then
+          export CC=gcc
+        fi
         cd jasper
         mkdir cmake_build
         cd cmake_build
@@ -49,10 +69,16 @@ jobs:
 
     - name: build
       run: |
+        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
+          export CC=clang
+        elif [[ ${{ matrix.ccompiler }} == "gcc" ]]; then
+          export CC=gcc
+          export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address'
+        fi
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DENABLE_OpenJPEG=ON -DCMAKE_C_FLAGS="-g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address -Wall -Werror" ..
+        cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DENABLE_OpenJPEG=ON -DFTP_TEST_FILES=ON ..
         make -j2
 
     - name: test

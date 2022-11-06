@@ -23,6 +23,7 @@ option(USE_OpenJPEG "Use OpenJPEG library" OFF)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(FTP_TEST_FILES "Fetch and test with files on FTP site." OFF)
 option(LOGGING "Turn on internal logging messages. Only useful to g2c developers." OFF)
+option(PTHREADS "Turn on thread-safty with pthreads." OFF)
 
 # Set this to better handle files > 2 GB.
 add_compile_definitions(_LARGEFILE64_SOURCE)
@@ -30,6 +31,11 @@ add_compile_definitions(_LARGEFILE64_SOURCE)
 # Set pre-processor symbol if logging is desired.
 if(LOGGING)
   add_definitions(-DLOGGING)
+endif()
+
+# Set pre-processor symbol if thread safety is desired.
+if(PTHREADS)
+  add_definitions(-DPTHREADS)
 endif()
 
 # The user must select either Jasper of OpenJPEG
@@ -71,6 +77,7 @@ endif()
 
 set(lib_name ${PROJECT_NAME})
 
+# Specify the source code files for the library.
 add_library(${lib_name} src/grib2_int.h src/cmplxpack.c src/compack.c
 src/comunpack.c src/drstemplates.c src/g2_addfield.c src/g2_addgrid.c
 src/g2_addlocal.c src/g2_create.c src/g2_free.c src/g2_getfld.c
@@ -80,7 +87,8 @@ src/g2_unpack6.c src/g2_unpack7.c src/gbits.c src/getdim.c
 src/getpoly.c src/gridtemplates.c src/int_power.c src/misspack.c
 src/mkieee.c src/pack_gp.c src/pdstemplates.c src/rdieee.c
 src/reduce.c src/seekgb.c src/simpack.c src/simunpack.c src/specpack.c
-src/specunpack.c src/util.c src/g2cxml.c)
+src/specunpack.c src/util.c src/g2cxml.c src/g2cparams.c src/g2cfile.c
+src/g2cdegrib2.c src/g2cprod.c src/g2cinq.c src/g2cindex.c)
 
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
 
@@ -129,9 +137,10 @@ if(JASPER_FOUND)
   target_include_directories(${lib_name} PRIVATE "${JASPER_INCLUDE_DIR}")
   set(G2_JPEG2000_ENABLED ON)
   if(JASPER_VERSION_STRING VERSION_GREATER_EQUAL "3")
-    message(STATUS "      JASPER is version 3.0 or greater")    
+    message(STATUS "      JASPER is version 3.0 or greater")
     add_definitions(-DJASPER3)
   endif()
+  add_definitions(-DJPEG)
 endif()
 
 # Build with OpenJPEG.
@@ -146,6 +155,12 @@ if(OPENJPEG_FOUND)
   target_link_libraries(${lib_name} PRIVATE ${OpenJPEG_LIBRARIES})
   target_include_directories(${lib_name} PRIVATE "${OpenJPEG_INCLUDE_DIRS}")
   set(G2_JPEG2000_ENABLED ON)
+  add_definitions(-DJPEG)
+endif()
+
+# Build with pthreads.
+if(PTHREADS)
+  target_link_libraries(${lib_name} PRIVATE pthread)
 endif()
 
 # Create this header file, which has the contents of the VERSION file
@@ -162,8 +177,11 @@ target_include_directories(
 )
 
 target_link_libraries(${lib_name} INTERFACE m)
+if (WIN32)
+  target_link_libraries(${lib_name} INTERFACE ws2_32)
+endif()
 
-### Install g2c library
+# Install g2c library
 install(
   TARGETS ${lib_name}
   EXPORT ${PROJECT_NAME}Exports
@@ -172,7 +190,7 @@ install(
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-### Package config
+# Package config
 include(CMakePackageConfigHelpers)
 set(CONFIG_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
 
@@ -204,7 +222,7 @@ install(EXPORT ${PROJECT_NAME}Exports
 # XML data files.
 set(XML_FILES src/Template.xml src/CodeFlag.xml)
 install(FILES ${XML_FILES}
-  DESTINATION ${CMAKE_INSTALL_LIBDIR})  
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 # Determine whether or not to generate documentation.
 if(ENABLE_DOCS)

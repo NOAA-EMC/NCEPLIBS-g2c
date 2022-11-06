@@ -1,5 +1,15 @@
 name: macOS-build
-on: [push, pull_request]
+on:
+  push:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+  pull_request:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
 
 jobs:
   macOS-build:
@@ -12,24 +22,12 @@ jobs:
       matrix:
         config:
         - {
-            name: "png_off jasper_off openjpeg_off",
-            options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
-          }
-        - {
             name: "png_on jasper_off openjpeg_off",
             options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
           }
         - {
-            name: "png_off jasper_on openjpeg_off",
-            options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
-          }
-        - {
             name: "png_on jasper_on openjpeg_off",
             options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
-          }
-        - {
-            name: "png_off jasper_off openjpeg_on",
-            options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
           }
         - {
             name: "png_on jasper_off openjpeg_on",
@@ -104,4 +102,5 @@ jobs:
     - name: test
       run: |
         cd $GITHUB_WORKSPACE/g2c/build
-        ctest  --output-on-failure
+        ctest  --output-on-failure --rerun-failed
+

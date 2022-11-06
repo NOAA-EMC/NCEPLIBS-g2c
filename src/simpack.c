@@ -41,6 +41,8 @@ simpack(float *fld, g2int ndpts, g2int *idrstmpl,
     double maxnum;
     static float alog2 = ALOG2;       /*  ln(2.0) */
 
+    LOG((3, "simpack ndpts %ld", ndpts));
+
     bscale = int_power(2.0, -idrstmpl[1]);
     dscale = int_power(10.0, idrstmpl[2]);
     if (idrstmpl[3] <= 0 || idrstmpl[3] > 31)
