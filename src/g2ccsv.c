@@ -17,7 +17,7 @@
  * @author Ed Hartnett @date 11/6/22
  */
 int
-g2c_grib_csv()
+g2c_csv_init()
 {
     return G2C_NOERROR;
 }

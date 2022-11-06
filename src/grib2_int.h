@@ -421,6 +421,8 @@ int g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec);
 /* Logging output. */
 int g2c_log_section1(G2C_MESSAGE_INFO_T *msg);
 
+int g2c_csv_init();
+
 /* Handle logging. */
 #ifdef LOGGING
 
