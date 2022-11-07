@@ -103,9 +103,11 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
     iofst = iofst + 8;
     gbit(cgrib, &listsec0[1], iofst, 8);     /* GRIB edition number */
     iofst = iofst + 8;
-    iofst = iofst + 32;
-    gbit(cgrib, &lengrib, iofst, 32);        /* Length of GRIB message */
-    iofst = iofst + 32;
+    /* iofst = iofst + 32; */
+    /* gbit(cgrib, &lengrib, iofst, 32);        /\* Length of GRIB message *\/ */
+    gbit(cgrib, &lengrib, iofst, 64);        /* Length of GRIB message */
+    /* iofst = iofst + 32; */
+    iofst = iofst + 64;
     listsec0[2] = lengrib;
     lensec0 = 16;
     ipos = istart + lensec0;
