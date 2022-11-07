@@ -25,6 +25,10 @@ option(FTP_TEST_FILES "Fetch and test with files on FTP site." OFF)
 option(LOGGING "Turn on internal logging messages. Only useful to g2c developers." OFF)
 option(PTHREADS "Turn on thread-safty with pthreads." OFF)
 
+SET(TEST_FILE_DIR "." CACHE STRING "Check this directory for test files before using FTP.")
+
+message(STATUS "Finding data files in ${TEST_FILE_DIR}.")
+
 # Set this to better handle files > 2 GB.
 add_compile_definitions(_LARGEFILE64_SOURCE)
 
