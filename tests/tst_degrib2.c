@@ -62,6 +62,8 @@ degrib2_lines_not_equal(char *l1, char *l2)
         if (strncmp(cmax1, cmax2, NUM_MATCHING))
             return G2C_ERROR;
     }
+    else
+        return G2C_ERROR;
 
     return G2C_NOERROR;
 }
