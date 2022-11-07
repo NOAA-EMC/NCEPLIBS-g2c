@@ -68,6 +68,8 @@ degrib2_lines_not_equal(char *l1, char *l2)
         if (strncmp(cmax1, cmax2, NUM_MATCHING))
             return G2C_ERROR;
     }
+    else
+        return G2C_ERROR;
 
     return G2C_NOERROR;
 }
@@ -93,10 +95,12 @@ compare_files2(char *fname1, char *fname2)
    {
        if (!fgets(l2, MAX_LINE_LEN, fp2))
            return G2C_ERROR;
-       /* printf("l1: %s\n", l1); */
-       /* printf("l2: %s\n", l2); */
        if (degrib2_lines_not_equal(l1, l2))
+       {
+           printf("l1: %s\n", l1);
+           printf("l2: %s\n", l2);
            return G2C_ERROR;
+       }
     }
 
    /* Close files. */
