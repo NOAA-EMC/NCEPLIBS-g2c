@@ -19,6 +19,7 @@ main()
         int val = 42;
         int neg_val = -42;
         int val_in;
+        unsigned int uval = 42, uval_in;
         int ret;
 
         /* Open the test file. */
@@ -30,7 +31,7 @@ main()
             return ret;
         if ((ret = g2c_file_be_int4(f, G2C_FILE_WRITE, &neg_val)))
             return ret;
-        if ((ret = g2c_file_be_int4(f, G2C_FILE_WRITE, &val)))
+        if ((ret = g2c_file_be_uint4(f, G2C_FILE_WRITE, &uval)))
             return ret;
 
         /* Close file. */
@@ -53,9 +54,9 @@ main()
             return ret;
         if (val_in != neg_val)
             return G2C_ERROR;
-        if ((ret = g2c_file_be_int4(f, G2C_FILE_READ, &val_in)))
+        if ((ret = g2c_file_be_uint4(f, G2C_FILE_READ, &uval_in)))
             return ret;
-        if (val_in != val)
+        if (uval_in != uval)
             return G2C_ERROR;
 
         /* Close file. */
