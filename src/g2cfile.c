@@ -73,13 +73,13 @@ g2c_file_be_int4(FILE *f, int write, int neg, int *var)
         if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
             return G2C_EFILE;
 
-        /* Did we read a negative number? Check the sign bit... */
-        /* if (neg && (int_be & 1<<0)) */
-        /* { */
-        /*     int_be &= ~(1UL<<0); /\* Clear sign bit. *\/ */
-        /*     int_be *= -1; /\* Make rest of int_be negative. *\/ */
-        /* } */
         *var = htonl(int_be);
+        /* Did we read a negative number? Check the sign bit... */
+        if (neg && (*var & 1<<31))
+        {
+            *var &= ~(1UL<<31); /* Clear sign bit. */
+            *var *= -1; /* Make it negative. */
+        }
     }
 
     return G2C_NOERROR;
