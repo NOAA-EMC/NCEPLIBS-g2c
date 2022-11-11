@@ -352,7 +352,6 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 int bytes_to_msg = (int)msg->bytes_to_msg;
                 int bs3, bs4, bs5, bs6, bs7; /* bytes to each section, as ints. */
                 int sec_num;
-                int int_be;
                 int ret;
 
                 if ((ret = g2c_get_prod_sections(msg, fieldnum, &sec3, &sec4, &sec5, &sec6, &sec7)))
@@ -380,21 +379,24 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 
                 /* Write the section 3, grid definition section. */
                 sec_num = 3;
-                FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec3->sec_len);
+                if ((ret = g2c_file_be_uint4(f, G2C_FILE_WRITE, &sec3->sec_len)))
+                    return ret;
                 FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
                 if ((ret = g2c_rw_section3_metadata(f, G2C_FILE_WRITE, sec3)))
                     break;
 
                 /* Write the section 4, product definition section. */
                 sec_num = 4;
-                FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec4->sec_len);
+                if ((ret = g2c_file_be_uint4(f, G2C_FILE_WRITE, &sec4->sec_len)))
+                    return ret;
                 FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
                 if ((ret = g2c_rw_section4_metadata(f, G2C_FILE_WRITE, sec4)))
                     break;
 
                 /* Write the section 5, data representation section. */
                 sec_num = 5;
-                FILE_BE_INT4P(f, G2C_FILE_WRITE, &sec5->sec_len);
+                if ((ret = g2c_file_be_uint4(f, G2C_FILE_WRITE, &sec5->sec_len)))
+                    return ret;
                 FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
                 if ((ret = g2c_rw_section5_metadata(f, G2C_FILE_WRITE, sec5)))
                     break;
@@ -548,7 +550,7 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
             /* Read the metadata for sections 3, 4, and 5 from
              * the index record. */
             {
-                int sec_len;
+                unsigned int sec_len;
                 char sec_num;
                 int s;
                 G2C_MESSAGE_INFO_T *msgp;
@@ -580,7 +582,9 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                      * and number from the index record. */
                     if (s < 6)
                     {
-                        FILE_BE_INT4P(f, G2C_FILE_READ, &sec_len);
+                        if ((ret = g2c_file_be_uint4(f, G2C_FILE_READ, &sec_len)))
+                            return ret;
+                        /* FILE_BE_INT4P(f, G2C_FILE_READ, &sec_len); */
                         FILE_BE_INT1P(f, G2C_FILE_READ, &sec_num);
                     }
                     else
