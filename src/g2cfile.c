@@ -333,7 +333,7 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 
     /* Read or write section 3. */
     FILE_BE_INT1P(f, rw_flag, &sec3_info->source_grid_def);
-    if ((ret = g2c_file_be_int4(f, rw_flag, 0, (int *)&sec3_info->num_data_points)))
+    if ((ret = g2c_file_be_uint4(f, rw_flag, &sec3_info->num_data_points)))
         return ret;
     FILE_BE_INT1P(f, rw_flag, &sec3_info->num_opt);
     FILE_BE_INT1P(f, rw_flag, &sec3_info->interp_list);
@@ -370,7 +370,8 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
             FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            if ((ret = g2c_file_be_int4(f, rw_flag, (map[t] < 0 ? 1 : 0), &sec->template[t])))
+            if ((ret = g2c_file_template_int4(f, rw_flag, (map[t] < 0 ? 1 : 0),
+                                              &sec->template[t])))
                 return ret;
             break;
         default:
@@ -478,7 +479,8 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
             FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            if ((ret = g2c_file_be_int4(f, rw_flag, (map[t] < 0 ? 1 : 0), &sec->template[t])))
+            if ((ret = g2c_file_template_int4(f, rw_flag, (map[t] < 0 ? 1 : 0),
+                                              &sec->template[t])))
                 return ret;
             break;
         default:
@@ -543,7 +545,7 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         sec5_info = sec->sec_info;
 
     /* Read section 5. */
-    if ((ret = g2c_file_be_int4(f, rw_flag, 0, (int *)&sec5_info->num_data_points)))
+    if ((ret = g2c_file_be_uint4(f, rw_flag, &sec5_info->num_data_points)))
         return ret;
     FILE_BE_INT2P(f, rw_flag, &sec5_info->data_def);
     LOG((5, "g2c_rw_section5_metadata num_data_points %d data_def %d",
@@ -578,9 +580,9 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
             FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            if ((ret = g2c_file_be_int4(f, rw_flag, (map[t] < 0 ? 1 : 0), &sec->template[t])))
+            if ((ret = g2c_file_template_int4(f, rw_flag, (map[t] < 0 ? 1 : 0),
+                                              &sec->template[t])))
                 return ret;
-            /* FILE_BE_INT4P(f, rw_flag, &sec->template[t]); */
             break;
         default:
             return G2C_EBADTEMPLATE;

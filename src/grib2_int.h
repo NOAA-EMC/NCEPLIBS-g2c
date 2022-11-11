@@ -408,7 +408,9 @@ int pack_gp(g2int *kfildo, g2int *ic, g2int *nxy,
 int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
 
 /* Basic file I/O. */
-int g2c_file_be_int4(FILE *f, int write, int neg, int *var);
+int g2c_file_be_int4(FILE *f, int write, int *var);
+int g2c_file_be_uint4(FILE *f, int write, unsigned int *var);
+int g2c_file_template_int4(FILE *f, int rw_flag, int neg, int *template_value);
 
 /* Read and remember file, message, and section metadata. */
 int g2c_add_file(const char *path, int mode, int *g2cid);
