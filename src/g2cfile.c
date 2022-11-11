@@ -521,7 +521,6 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 int
 g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 {
-    /* int int_be; */
     short short_be;
     G2C_SECTION5_INFO_T *sec5_info;
     int maplen, needsext, map[G2C_MAX_PDS_TEMPLATE_MAPLEN];
@@ -693,14 +692,16 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
 int
 g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
 {
-    int int_be;
     short short_be;
     char sec_num = 1;
+    int ret;
 
     LOG((2, "g2c_rw_section1_metadata rw_flag %d", rw_flag));
 
     /* Read the section. */
-    FILE_BE_INT4P(f, rw_flag, &msg->sec1_len);
+    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)&msg->sec1_len)))
+        return ret;
+    
     FILE_BE_INT1P(f, rw_flag, &sec_num);
     if (!rw_flag && sec_num != 1) /* When reading sec num must be 1. */
         return G2C_ENOSECTION;
@@ -741,7 +742,6 @@ g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
 static int
 read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
 {
-    int int_be;
     int total_read = G2C_SECTION0_BYTES;
     int sec_id = 0;
     int ret;
@@ -766,13 +766,14 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
     /* Read the sections. */
     while (total_read < msg->bytes_in_msg - FOUR_BYTES)
     {
-        int sec_len;
+        unsigned int sec_len;
         unsigned char sec_num;
 
         LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));
 
         /* Read section length. */
-        FILE_BE_INT4P(msg->file->f, G2C_FILE_READ, &sec_len);
+        if ((ret = g2c_file_be_uint4(msg->file->f, G2C_FILE_READ, &sec_len)))
+            return ret;
 
         /* A section length of 926365495 indicates we've reached
          * section 8, the end of the message. */

@@ -77,7 +77,6 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
      * record. */
     if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)reclen)))
         return ret;
-    /* FILE_BE_INT4P(f, rw_flag, reclen); */
     if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)msg)))
         return ret;
     if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)local)))
@@ -92,13 +91,6 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
         return ret;
     if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)data)))
         return ret;
-    /* FILE_BE_INT4P(f, rw_flag, msg); */
-    /* FILE_BE_INT4P(f, rw_flag, local); */
-    /* FILE_BE_INT4P(f, rw_flag, gds); */
-    /* FILE_BE_INT4P(f, rw_flag, pds); */
-    /* FILE_BE_INT4P(f, rw_flag, drs); */
-    /* FILE_BE_INT4P(f, rw_flag, bms); */
-    /* FILE_BE_INT4P(f, rw_flag, data); */
     FILE_BE_INT8P(f, rw_flag, msglen);
     FILE_BE_INT1P(f, rw_flag, version);
     FILE_BE_INT1P(f, rw_flag, discipline);

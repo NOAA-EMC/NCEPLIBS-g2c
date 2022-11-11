@@ -149,21 +149,21 @@
  * Read or write a big-endian 4-byte int to an open file, with
  * conversion between native and big-endian format. The integer int_be
  * must be declared before this macro is used. */
-#define FILE_BE_INT4P(f, write, var)                            \
-    do {                                                        \
-        if (write)                                              \
-        {                                                       \
-            int_be = ntohl(*var);                               \
-            if ((fwrite(&int_be, FOUR_BYTES, 1, f)) != 1)       \
-                return G2C_EFILE;                               \
-        }                                                       \
-        else                                                    \
-        {                                                       \
-            if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)        \
-                return G2C_EFILE;                               \
-            *var = htonl(int_be);                               \
-        }                                                       \
-    } while(0)
+/* #define FILE_BE_INT4P(f, write, var)                            \ */
+/*     do {                                                        \ */
+/*         if (write)                                              \ */
+/*         {                                                       \ */
+/*             int_be = ntohl(*var);                               \ */
+/*             if ((fwrite(&int_be, FOUR_BYTES, 1, f)) != 1)       \ */
+/*                 return G2C_EFILE;                               \ */
+/*         }                                                       \ */
+/*         else                                                    \ */
+/*         {                                                       \ */
+/*             if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)        \ */
+/*                 return G2C_EFILE;                               \ */
+/*             *var = htonl(int_be);                               \ */
+/*         }                                                       \ */
+/*     } while(0) */
 
 /**
  * Read or write a big-endian 8-byte int to an open file, with
