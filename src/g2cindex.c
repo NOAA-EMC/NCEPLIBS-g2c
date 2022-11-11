@@ -58,10 +58,10 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
                        int *pds, int *drs, int *bms, int *data, size_t *msglen,
                        unsigned char *version, unsigned char *discipline, short *fieldnum)
 {
-    int int_be;
     short short_be;
     size_t size_t_be;
     short fieldnum1; /* This is for the 1-based fieldnum in the index file. */
+    int ret;
 
     /* All pointers must be provided. */
     if (!f || !reclen || !msg || !local || !gds || !pds || !drs || !bms || !data
@@ -75,14 +75,30 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
 
     /* Read or write the values at the beginning of each index
      * record. */
-    FILE_BE_INT4P(f, rw_flag, reclen);
-    FILE_BE_INT4P(f, rw_flag, msg);
-    FILE_BE_INT4P(f, rw_flag, local);
-    FILE_BE_INT4P(f, rw_flag, gds);
-    FILE_BE_INT4P(f, rw_flag, pds);
-    FILE_BE_INT4P(f, rw_flag, drs);
-    FILE_BE_INT4P(f, rw_flag, bms);
-    FILE_BE_INT4P(f, rw_flag, data);
+    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)reclen)))
+        return ret;
+    /* FILE_BE_INT4P(f, rw_flag, reclen); */
+    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)msg)))
+        return ret;
+    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)local)))
+        return ret;
+    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)gds)))
+        return ret;
+    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)pds)))
+        return ret;
+    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)drs)))
+        return ret;
+    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)bms)))
+        return ret;
+    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)data)))
+        return ret;
+    /* FILE_BE_INT4P(f, rw_flag, msg); */
+    /* FILE_BE_INT4P(f, rw_flag, local); */
+    /* FILE_BE_INT4P(f, rw_flag, gds); */
+    /* FILE_BE_INT4P(f, rw_flag, pds); */
+    /* FILE_BE_INT4P(f, rw_flag, drs); */
+    /* FILE_BE_INT4P(f, rw_flag, bms); */
+    /* FILE_BE_INT4P(f, rw_flag, data); */
     FILE_BE_INT8P(f, rw_flag, msglen);
     FILE_BE_INT1P(f, rw_flag, version);
     FILE_BE_INT1P(f, rw_flag, discipline);
@@ -519,7 +535,6 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
         /* Read each index record. */
         for (rec = 0; rec < num_rec; rec++)
         {
-            /* int int_be; */
             int reclen, msg, local, gds, pds, drs, bms, data;
             size_t msglen;
             unsigned char version, discipline;
@@ -600,7 +615,6 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                         }
                         if ((ret = g2c_file_be_uint4(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_len)))
                             return ret;
-                        /* FILE_BE_INT4P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_len); */
                         FILE_BE_INT1P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_num);
                         LOG((4, "read section 7 info from data file. sec_len %d sec_num %d",
                              sec_len, sec_num));
