@@ -24,67 +24,6 @@ int g2c_next_g2cid = 1;
 /** Define mutex for thread-safety. */
 MUTEX(m);
 
-/**
- * Read or write a big-endian 4-byte int to an open file, with
- * conversion between native and big-endian format.
- *
- * GRIB2 handles negative numbers in a special way. Instead of storing
- * two-compliments, like every other programmer and computing
- * organization in the world, GRIB2 flips the first bit, then stores
- * the rest of the int as an unsigned number in the remaining 31
- * bits. How exciting!
- *
- * This function takes the excitement out of GRIB2 negative numbers.
- *
- * @param f Pointer to the open FILE.
- * @param write Non-zero if function should write, otherwise function
- * will read.
- * @param neg Non-zero if the number may be negative.
- * @param var Pointer to the int to be written, or pointer to the
- * storage that gets the int read.
- *
- * @return
- * - :: G2C_NOERROR No error.
- *
- * @author Ed Hartnett 11/7/22
- */
-int
-g2c_file_be_int4(FILE *f, int write, int neg, int *var)
-{
-    unsigned int int_be, tmp_1;
-
-    if (write)
-    {
-        /* Are we writing a negative number? */
-        if (neg && *var < 0)
-        {
-            tmp_1 = -1 * *var; /* Store as positive. */
-            tmp_1 |= 1UL << 31; /* Set sign bit. */
-        }
-        else
-            tmp_1 = *var;
-        int_be = ntohl(tmp_1);
-        if ((fwrite(&int_be, FOUR_BYTES, 1, f)) != 1)
-            return G2C_EFILE;
-    }
-    else
-    {
-        /* Read from the file. */
-        if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
-            return G2C_EFILE;
-
-        *var = htonl(int_be);
-        /* Did we read a negative number? Check the sign bit... */
-        if (neg && (*var & 1<<31))
-        {
-            *var &= ~(1UL<<31); /* Clear sign bit. */
-            *var *= -1; /* Make it negative. */
-        }
-    }
-
-    return G2C_NOERROR;
-}
-
 /** Search a file for the next GRIB1 or GRIB2 message.
  *
  * A grib message is identified by its indicator section,
@@ -418,9 +357,6 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     /* Read or write the template info. */
     for (t = 0; t < maplen; t++)
     {
-        /* if (t == 14) */
-        /*     printf("here\n"); */
-        /* int int_be; */
         /* Take the absolute value of map[t] because some of the
          * numbers are negative - used to indicate that the
          * cooresponding fields can contain negative data (needed for
@@ -434,23 +370,6 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
             FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            LOG((6, "file position %ld", ftell(f)));
-
-            /* FILE_BE_INT4P(f, rw_flag, &sec->template[t]); */
-            /* if (rw_flag) */
-            /* { */
-            /*     int_be = ntohl(sec->template[t]); */
-            /*     if ((fwrite(&int_be, FOUR_BYTES, 1, f)) != 1) */
-            /*         return G2C_EFILE; */
-            /* } */
-            /* else */
-            /* { */
-            /*     if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1) */
-            /*         return G2C_EFILE; */
-            /*     if (t == 11) */
-            /*         printf("int_be 0x%8x\n", int_be); */
-            /*     sec->template[t] = htonl(int_be); */
-            /* } */
             if ((ret = g2c_file_be_int4(f, rw_flag, (map[t] < 0 ? 1 : 0), &sec->template[t])))
                 return ret;
             break;
@@ -545,7 +464,6 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     for (t = 0; t < maplen; t++)
     {
         short short_be;
-        int int_be;
 
         /* Take the absolute value of map[t] because some of the
          * numbers are negative - used to indicate that the
@@ -560,7 +478,8 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
             FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            FILE_BE_INT4P(f, rw_flag, &sec->template[t]);
+            if ((ret = g2c_file_be_int4(f, rw_flag, (map[t] < 0 ? 1 : 0), &sec->template[t])))
+                return ret;
             break;
         default:
             return G2C_EBADTEMPLATE;
@@ -600,7 +519,7 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 int
 g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 {
-    int int_be;
+    /* int int_be; */
     short short_be;
     G2C_SECTION5_INFO_T *sec5_info;
     int maplen, needsext, map[G2C_MAX_PDS_TEMPLATE_MAPLEN];
@@ -624,7 +543,8 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         sec5_info = sec->sec_info;
 
     /* Read section 5. */
-    FILE_BE_INT4P(f, rw_flag, &sec5_info->num_data_points);
+    if ((ret = g2c_file_be_int4(f, rw_flag, 0, (int *)&sec5_info->num_data_points)))
+        return ret;
     FILE_BE_INT2P(f, rw_flag, &sec5_info->data_def);
     LOG((5, "g2c_rw_section5_metadata num_data_points %d data_def %d",
          sec5_info->num_data_points, sec5_info->data_def));
@@ -658,7 +578,9 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
             FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            FILE_BE_INT4P(f, rw_flag, &sec->template[t]);
+            if ((ret = g2c_file_be_int4(f, rw_flag, (map[t] < 0 ? 1 : 0), &sec->template[t])))
+                return ret;
+            /* FILE_BE_INT4P(f, rw_flag, &sec->template[t]); */
             break;
         default:
             return G2C_EBADTEMPLATE;

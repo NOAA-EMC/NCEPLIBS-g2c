@@ -407,6 +407,9 @@ int pack_gp(g2int *kfildo, g2int *ic, g2int *nxy,
 /* Check the message header and check for message termination. */
 int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
 
+/* Basic file I/O. */
+int g2c_file_be_int4(FILE *f, int write, int neg, int *var);
+
 /* Read and remember file, message, and section metadata. */
 int g2c_add_file(const char *path, int mode, int *g2cid);
 int add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in_msg,
