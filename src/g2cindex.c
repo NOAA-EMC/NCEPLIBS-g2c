@@ -519,7 +519,7 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
         /* Read each index record. */
         for (rec = 0; rec < num_rec; rec++)
         {
-            int int_be;
+            /* int int_be; */
             int reclen, msg, local, gds, pds, drs, bms, data;
             size_t msglen;
             unsigned char version, discipline;
@@ -584,7 +584,6 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                     {
                         if ((ret = g2c_file_be_uint4(f, G2C_FILE_READ, &sec_len)))
                             return ret;
-                        /* FILE_BE_INT4P(f, G2C_FILE_READ, &sec_len); */
                         FILE_BE_INT1P(f, G2C_FILE_READ, &sec_num);
                     }
                     else
@@ -599,7 +598,9 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                             ret = G2C_EFILE;
                             break;
                         }
-                        FILE_BE_INT4P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_len);
+                        if ((ret = g2c_file_be_uint4(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_len)))
+                            return ret;
+                        /* FILE_BE_INT4P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_len); */
                         FILE_BE_INT1P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_num);
                         LOG((4, "read section 7 info from data file. sec_len %d sec_num %d",
                              sec_len, sec_num));
