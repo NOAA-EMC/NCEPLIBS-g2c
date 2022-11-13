@@ -503,5 +503,6 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_EBADTEMPLATE (-70) /**< Template problem. */
 #define G2C_ENOPARAM (-71) /**< Parameter not found. */
 #define G2C_ENOPRODUCT (-72) /**< Product not found. */
+#define G2C_EBADTYPE (-73) /**< Type not found. */
 
 #endif  /*  _grib2_H  */
