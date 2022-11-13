@@ -56,7 +56,15 @@ g2c_file_rw(FILE *f, int write, int g2ctype, void *var)
         bitshift = 31;
         if (write)
         {
+            /* Are we writing a negative number? */
             neg = *ivar < 0 ? 1 : 0;
+            if (neg)
+            {
+                tmp_1 = -1 * *ivar; /* Store as positive. */
+                tmp_1 |= 1UL << bitshift; /* Set sign bit. */
+            }
+            else
+                tmp_1 = *ivar;
         }
         break;
     default:
@@ -65,14 +73,6 @@ g2c_file_rw(FILE *f, int write, int g2ctype, void *var)
 
     if (write)
     {
-        /* Are we writing a negative number? */
-        if (neg)
-        {
-            tmp_1 = -1 * *ivar; /* Store as positive. */
-            tmp_1 |= 1UL << bitshift; /* Set sign bit. */
-        }
-        else
-            tmp_1 = *ivar;
         int_be = ntohl(tmp_1);
         if ((fwrite(&int_be, type_len, 1, f)) != 1)
             return G2C_EFILE;
@@ -88,16 +88,15 @@ g2c_file_rw(FILE *f, int write, int g2ctype, void *var)
         case G2C_INT:
         case G2C_UINT:
             *ivar = htonl(int_be);
+            /* Did we read a negative number? Check the sign bit... */
+            if (*ivar & 1 << bitshift)
+            {
+                *ivar &= ~(1UL << bitshift); /* Clear sign bit. */
+                *ivar *= -1; /* Make it negative. */
+            }
             break;
         default:
             return G2C_EBADTYPE;
-        }
-
-        /* Did we read a negative number? Check the sign bit... */
-        if (*ivar & 1 << bitshift)
-        {
-            *ivar &= ~(1UL << bitshift); /* Clear sign bit. */
-            *ivar *= -1; /* Make it negative. */
         }
     }
 
