@@ -27,11 +27,11 @@ main()
             return G2C_EFILE;
 
         /* Write 4 bytes, thrice. */
-        if ((ret = g2c_file_be_int(f, G2C_FILE_WRITE, &val)))
+        if ((ret = g2c_file_io_int(f, G2C_FILE_WRITE, &val)))
             return ret;
-        if ((ret = g2c_file_be_int(f, G2C_FILE_WRITE, &neg_val)))
+        if ((ret = g2c_file_io_int(f, G2C_FILE_WRITE, &neg_val)))
             return ret;
-        if ((ret = g2c_file_be_uint(f, G2C_FILE_WRITE, &uval)))
+        if ((ret = g2c_file_io_uint(f, G2C_FILE_WRITE, &uval)))
             return ret;
 
         /* Close file. */
@@ -42,15 +42,15 @@ main()
             return G2C_EFILE;
 
         /* Read three values. */
-        if ((ret = g2c_file_be_int(f, G2C_FILE_READ, &val_in)))
+        if ((ret = g2c_file_io_int(f, G2C_FILE_READ, &val_in)))
             return ret;
         if (val_in != val)
             return G2C_ERROR;
-        if ((ret = g2c_file_be_int(f, G2C_FILE_READ, &val_in)))
+        if ((ret = g2c_file_io_int(f, G2C_FILE_READ, &val_in)))
             return ret;
         if (val_in != neg_val)
             return G2C_ERROR;
-        if ((ret = g2c_file_be_uint(f, G2C_FILE_READ, &uval_in)))
+        if ((ret = g2c_file_io_uint(f, G2C_FILE_READ, &uval_in)))
             return ret;
         if (uval_in != uval)
             return G2C_ERROR;
