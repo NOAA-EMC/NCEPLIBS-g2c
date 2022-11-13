@@ -32,15 +32,14 @@
  *
  * @author Ed Hartnett 11/7/22
  */
+#define BITSHIFT_31 31
 int
 g2c_file_rw(FILE *f, int write, int g2ctype, void *var)
 {
     unsigned int int_be, tmp_1;
     void *void_be;
-    int neg;
     int *ivar;
     int type_len;
-    int bitshift;
 
     /* Check inputs. */
     if (!f || !var || g2ctype < G2C_BYTE || g2ctype > G2C_UINT64)
@@ -53,18 +52,19 @@ g2c_file_rw(FILE *f, int write, int g2ctype, void *var)
         type_len = FOUR_BYTES;
         ivar = var;
         void_be = &int_be;
-        bitshift = 31;
         if (write)
         {
             /* Are we writing a negative number? */
-            neg = *ivar < 0 ? 1 : 0;
-            if (neg)
+            if (g2ctype == G2C_INT && *ivar < 0)
             {
                 tmp_1 = -1 * *ivar; /* Store as positive. */
-                tmp_1 |= 1UL << bitshift; /* Set sign bit. */
+                tmp_1 |= 1UL << BITSHIFT_31; /* Set sign bit. */
             }
             else
                 tmp_1 = *ivar;
+
+            /* Convert result to big-endian. */
+            int_be = ntohl(tmp_1);
         }
         break;
     default:
@@ -73,8 +73,7 @@ g2c_file_rw(FILE *f, int write, int g2ctype, void *var)
 
     if (write)
     {
-        int_be = ntohl(tmp_1);
-        if ((fwrite(&int_be, type_len, 1, f)) != 1)
+        if ((fwrite(void_be, type_len, 1, f)) != 1)
             return G2C_EFILE;
     }
     else
@@ -87,11 +86,13 @@ g2c_file_rw(FILE *f, int write, int g2ctype, void *var)
         {
         case G2C_INT:
         case G2C_UINT:
+            /* Convert from big-endian. */
             *ivar = htonl(int_be);
+            
             /* Did we read a negative number? Check the sign bit... */
-            if (*ivar & 1 << bitshift)
+            if (g2ctype == G2C_INT && *ivar & 1 << BITSHIFT_31)
             {
-                *ivar &= ~(1UL << bitshift); /* Clear sign bit. */
+                *ivar &= ~(1UL << BITSHIFT_31); /* Clear sign bit. */
                 *ivar *= -1; /* Make it negative. */
             }
             break;
@@ -129,7 +130,7 @@ g2c_file_rw(FILE *f, int write, int g2ctype, void *var)
  * @author Ed Hartnett 11/7/22
  */
 int
-g2c_file_be_int4(FILE *f, int write, int *var)
+g2c_file_be_int(FILE *f, int write, int *var)
 {
     return g2c_file_rw(f, write, G2C_INT, var);
 }
@@ -152,29 +153,9 @@ g2c_file_be_int4(FILE *f, int write, int *var)
  * @author Ed Hartnett 11/11/22
  */
 int
-g2c_file_be_uint4(FILE *f, int write, unsigned int *var)
+g2c_file_be_uint(FILE *f, int write, unsigned int *var)
 {
-    unsigned int int_be;
-
-    /* Check inputs. */
-    if (!f || !var)
-        return G2C_EINVAL;
-
-    if (write)
-    {
-        int_be = ntohl(*var);
-        if ((fwrite(&int_be, FOUR_BYTES, 1, f)) != 1)
-            return G2C_EFILE;
-    }
-    else
-    {
-        /* Read from the file. */
-        if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)
-            return G2C_EFILE;
-        *var = htonl(int_be);
-    }
-
-    return G2C_NOERROR;
+    return g2c_file_rw(f, write, G2C_UINT, var);
 }
 
 /**
@@ -201,18 +182,18 @@ g2c_file_be_uint4(FILE *f, int write, unsigned int *var)
  * @author Ed Hartnett 11/7/22
  */
 int
-g2c_file_template_int4(FILE *f, int rw_flag, int neg, int *template_value)
+g2c_file_template_int(FILE *f, int rw_flag, int neg, int *template_value)
 {
     int ret;
     
     if (neg)
     {
-        if ((ret = g2c_file_be_int4(f, rw_flag, template_value)))
+        if ((ret = g2c_file_be_int(f, rw_flag, template_value)))
             return ret;
     }
     else
     {
-        if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)template_value)))
+        if ((ret = g2c_file_be_uint(f, rw_flag, (unsigned int *)template_value)))
             return ret;
     }
     

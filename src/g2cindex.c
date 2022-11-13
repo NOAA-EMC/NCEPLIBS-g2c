@@ -75,21 +75,21 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
 
     /* Read or write the values at the beginning of each index
      * record. */
-    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)reclen)))
+    if ((ret = g2c_file_be_uint(f, rw_flag, (unsigned int *)reclen)))
         return ret;
-    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)msg)))
+    if ((ret = g2c_file_be_uint(f, rw_flag, (unsigned int *)msg)))
         return ret;
-    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)local)))
+    if ((ret = g2c_file_be_uint(f, rw_flag, (unsigned int *)local)))
         return ret;
-    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)gds)))
+    if ((ret = g2c_file_be_uint(f, rw_flag, (unsigned int *)gds)))
         return ret;
-    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)pds)))
+    if ((ret = g2c_file_be_uint(f, rw_flag, (unsigned int *)pds)))
         return ret;
-    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)drs)))
+    if ((ret = g2c_file_be_uint(f, rw_flag, (unsigned int *)drs)))
         return ret;
-    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)bms)))
+    if ((ret = g2c_file_be_uint(f, rw_flag, (unsigned int *)bms)))
         return ret;
-    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)data)))
+    if ((ret = g2c_file_be_uint(f, rw_flag, (unsigned int *)data)))
         return ret;
     FILE_BE_INT8P(f, rw_flag, msglen);
     FILE_BE_INT1P(f, rw_flag, version);
@@ -387,7 +387,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 
                 /* Write the section 3, grid definition section. */
                 sec_num = 3;
-                if ((ret = g2c_file_be_uint4(f, G2C_FILE_WRITE, &sec3->sec_len)))
+                if ((ret = g2c_file_be_uint(f, G2C_FILE_WRITE, &sec3->sec_len)))
                     return ret;
                 FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
                 if ((ret = g2c_rw_section3_metadata(f, G2C_FILE_WRITE, sec3)))
@@ -395,7 +395,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 
                 /* Write the section 4, product definition section. */
                 sec_num = 4;
-                if ((ret = g2c_file_be_uint4(f, G2C_FILE_WRITE, &sec4->sec_len)))
+                if ((ret = g2c_file_be_uint(f, G2C_FILE_WRITE, &sec4->sec_len)))
                     return ret;
                 FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
                 if ((ret = g2c_rw_section4_metadata(f, G2C_FILE_WRITE, sec4)))
@@ -403,7 +403,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 
                 /* Write the section 5, data representation section. */
                 sec_num = 5;
-                if ((ret = g2c_file_be_uint4(f, G2C_FILE_WRITE, &sec5->sec_len)))
+                if ((ret = g2c_file_be_uint(f, G2C_FILE_WRITE, &sec5->sec_len)))
                     return ret;
                 FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
                 if ((ret = g2c_rw_section5_metadata(f, G2C_FILE_WRITE, sec5)))
@@ -589,7 +589,7 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                      * and number from the index record. */
                     if (s < 6)
                     {
-                        if ((ret = g2c_file_be_uint4(f, G2C_FILE_READ, &sec_len)))
+                        if ((ret = g2c_file_be_uint(f, G2C_FILE_READ, &sec_len)))
                             return ret;
                         FILE_BE_INT1P(f, G2C_FILE_READ, &sec_num);
                     }
@@ -605,7 +605,7 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                             ret = G2C_EFILE;
                             break;
                         }
-                        if ((ret = g2c_file_be_uint4(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_len)))
+                        if ((ret = g2c_file_be_uint(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_len)))
                             return ret;
                         FILE_BE_INT1P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_num);
                         LOG((4, "read section 7 info from data file. sec_len %d sec_num %d",

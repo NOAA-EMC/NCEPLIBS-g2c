@@ -333,7 +333,7 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 
     /* Read or write section 3. */
     FILE_BE_INT1P(f, rw_flag, &sec3_info->source_grid_def);
-    if ((ret = g2c_file_be_uint4(f, rw_flag, &sec3_info->num_data_points)))
+    if ((ret = g2c_file_be_uint(f, rw_flag, &sec3_info->num_data_points)))
         return ret;
     FILE_BE_INT1P(f, rw_flag, &sec3_info->num_opt);
     FILE_BE_INT1P(f, rw_flag, &sec3_info->interp_list);
@@ -370,7 +370,7 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
             FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            if ((ret = g2c_file_template_int4(f, rw_flag, (map[t] < 0 ? 1 : 0),
+            if ((ret = g2c_file_template_int(f, rw_flag, (map[t] < 0 ? 1 : 0),
                                               &sec->template[t])))
                 return ret;
             break;
@@ -479,7 +479,7 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
             FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            if ((ret = g2c_file_template_int4(f, rw_flag, (map[t] < 0 ? 1 : 0),
+            if ((ret = g2c_file_template_int(f, rw_flag, (map[t] < 0 ? 1 : 0),
                                               &sec->template[t])))
                 return ret;
             break;
@@ -544,7 +544,7 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         sec5_info = sec->sec_info;
 
     /* Read section 5. */
-    if ((ret = g2c_file_be_uint4(f, rw_flag, &sec5_info->num_data_points)))
+    if ((ret = g2c_file_be_uint(f, rw_flag, &sec5_info->num_data_points)))
         return ret;
     FILE_BE_INT2P(f, rw_flag, &sec5_info->data_def);
     LOG((5, "g2c_rw_section5_metadata num_data_points %d data_def %d",
@@ -579,7 +579,7 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
             FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
             break;
         case FOUR_BYTES:
-            if ((ret = g2c_file_template_int4(f, rw_flag, (map[t] < 0 ? 1 : 0),
+            if ((ret = g2c_file_template_int(f, rw_flag, (map[t] < 0 ? 1 : 0),
                                               &sec->template[t])))
                 return ret;
             break;
@@ -699,7 +699,7 @@ g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
     LOG((2, "g2c_rw_section1_metadata rw_flag %d", rw_flag));
 
     /* Read the section. */
-    if ((ret = g2c_file_be_uint4(f, rw_flag, (unsigned int *)&msg->sec1_len)))
+    if ((ret = g2c_file_be_uint(f, rw_flag, (unsigned int *)&msg->sec1_len)))
         return ret;
     
     FILE_BE_INT1P(f, rw_flag, &sec_num);
@@ -772,7 +772,7 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
         LOG((4, "reading new section at file position %ld", ftell(msg->file->f)));
 
         /* Read section length. */
-        if ((ret = g2c_file_be_uint4(msg->file->f, G2C_FILE_READ, &sec_len)))
+        if ((ret = g2c_file_be_uint(msg->file->f, G2C_FILE_READ, &sec_len)))
             return ret;
 
         /* A section length of 926365495 indicates we've reached
