@@ -337,7 +337,8 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         return ret;
     FILE_BE_INT1P(f, rw_flag, &sec3_info->num_opt);
     FILE_BE_INT1P(f, rw_flag, &sec3_info->interp_list);
-    FILE_BE_INT2P(f, rw_flag, &sec3_info->grid_def);
+    if ((ret = g2c_file_io_ushort(f, rw_flag, &sec3_info->grid_def)))
+        return ret;
     LOG((5, "rw_section3_metadata source_grid_def %d num_data_points %d num_opt %d interp_list %d grid_def %d",
          sec3_info->source_grid_def, sec3_info->num_data_points, sec3_info->num_opt, sec3_info->interp_list,
          sec3_info->grid_def));
@@ -413,7 +414,6 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 int
 g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 {
-    short short_be;
     G2C_SECTION4_INFO_T *sec4_info;
     int maplen, needsext, map[G2C_MAX_PDS_TEMPLATE_MAPLEN];
     int t;
@@ -444,8 +444,12 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     LOG((6, "reading section 4 starting at file position %ld", ftell(f)));
 
     /* Read section 4. */
-    FILE_BE_INT2P(f, rw_flag, &sec4_info->num_coord);
-    FILE_BE_INT2P(f, rw_flag, &sec4_info->prod_def);
+    if ((ret = g2c_file_io_ushort(f, rw_flag, &sec4_info->num_coord)))
+        return ret;
+    if ((ret = g2c_file_io_ushort(f, rw_flag, &sec4_info->prod_def)))
+        return ret;
+    /* FILE_BE_INT2P(f, rw_flag, &sec4_info->num_coord); */
+    /* FILE_BE_INT2P(f, rw_flag, &sec4_info->prod_def); */
     LOG((5, "read_section4_metadata num_coord %d prod_def %d", sec4_info->num_coord, sec4_info->prod_def));
 
     /* Look up the information about this grid. */
@@ -546,7 +550,9 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     /* Read section 5. */
     if ((ret = g2c_file_io_uint(f, rw_flag, &sec5_info->num_data_points)))
         return ret;
-    FILE_BE_INT2P(f, rw_flag, &sec5_info->data_def);
+    if ((ret = g2c_file_io_ushort(f, rw_flag, &sec5_info->data_def)))
+        return ret;
+    /* FILE_BE_INT2P(f, rw_flag, &sec5_info->data_def); */
     LOG((5, "g2c_rw_section5_metadata num_data_points %d data_def %d",
          sec5_info->num_data_points, sec5_info->data_def));
 
@@ -692,7 +698,6 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
 int
 g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
 {
-    short short_be;
     char sec_num = 1;
     int ret;
 
@@ -705,12 +710,18 @@ g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
     FILE_BE_INT1P(f, rw_flag, &sec_num);
     if (!rw_flag && sec_num != 1) /* When reading sec num must be 1. */
         return G2C_ENOSECTION;
-    FILE_BE_INT2P(f, rw_flag, &msg->center);
-    FILE_BE_INT2P(f, rw_flag, &msg->subcenter);
+    if ((ret = g2c_file_io_short(f, rw_flag, &msg->center)))
+        return ret;
+    if ((ret = g2c_file_io_short(f, rw_flag, &msg->subcenter)))
+        return ret;
+    /* FILE_BE_INT2P(f, rw_flag, &msg->center); */
+    /* FILE_BE_INT2P(f, rw_flag, &msg->subcenter); */
     FILE_BE_INT1P(f, rw_flag, &msg->master_version);
     FILE_BE_INT1P(f, rw_flag, &msg->local_version);
     FILE_BE_INT1P(f, rw_flag, &msg->sig_ref_time);
-    FILE_BE_INT2P(f, rw_flag, &msg->year);
+    /* FILE_BE_INT2P(f, rw_flag, &msg->year); */
+    if ((ret = g2c_file_io_short(f, rw_flag, &msg->year)))
+        return ret;
     FILE_BE_INT1P(f, rw_flag, &msg->month);
     FILE_BE_INT1P(f, rw_flag, &msg->day);
     FILE_BE_INT1P(f, rw_flag, &msg->hour);

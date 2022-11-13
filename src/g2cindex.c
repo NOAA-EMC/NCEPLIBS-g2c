@@ -58,7 +58,6 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
                        int *pds, int *drs, int *bms, int *data, size_t *msglen,
                        unsigned char *version, unsigned char *discipline, short *fieldnum)
 {
-    short short_be;
     size_t size_t_be;
     short fieldnum1; /* This is for the 1-based fieldnum in the index file. */
     int ret;
@@ -94,7 +93,9 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
     FILE_BE_INT8P(f, rw_flag, msglen);
     FILE_BE_INT1P(f, rw_flag, version);
     FILE_BE_INT1P(f, rw_flag, discipline);
-    FILE_BE_INT2P(f, rw_flag, &fieldnum1);
+    if ((ret = g2c_file_io_short(f, rw_flag, &fieldnum1)))
+        return ret;
+    /* FILE_BE_INT2P(f, rw_flag, &fieldnum1); */
 
     /* When reading, translate the 1-based fieldnum1 into the 0-based
      * fieldnum that C programmers will expect and love. */

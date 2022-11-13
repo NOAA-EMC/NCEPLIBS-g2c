@@ -388,6 +388,8 @@ int pack_gp(g2int *kfildo, g2int *ic, g2int *nxy,
 int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
 
 /* Basic file I/O. */
+int g2c_file_io_short(FILE *f, int write, short *var);
+int g2c_file_io_ushort(FILE *f, int write, unsigned short *var);
 int g2c_file_io_int(FILE *f, int write, int *var);
 int g2c_file_io_uint(FILE *f, int write, unsigned int *var);
 int g2c_file_template_int(FILE *f, int rw_flag, int neg, int *template_value);

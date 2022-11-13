@@ -216,6 +216,49 @@ g2c_file_io_uint(FILE *f, int write, unsigned int *var)
 }
 
 /**
+ * Read or write a big-endian 4-byte signed short to an open GRIB2 file,
+ * with conversion between native and big-endian format, and special
+ * GRIB2 handling of negative numbers.
+ *
+ * @param f Pointer to the open GRIB2 FILE.
+ * @param write Non-zero to write, zero to read.
+ * @param var Pointer to the short.
+ *
+ * @return
+ * - :: G2C_NOERROR No error.
+ * - :: G2C_EINVAL Invalid input.
+ * - :: G2C_EFILE Error reading/writing file.
+ *
+ * @author Ed Hartnett 11/13/22
+ */
+int
+g2c_file_io_short(FILE *f, int write, short *var)
+{
+    return g2c_file_io(f, write, G2C_SHORT, var);
+}
+
+/**
+ * Read or write a big-endian 4-byte unsigned short to an open GRIB2
+ * file, with conversion between native and big-endian format.
+ *
+ * @param f Pointer to the open GRIB2 FILE.
+ * @param write Non-zero to write, zero to read.
+ * @param var Pointer to the unsigned short.
+ *
+ * @return
+ * - :: G2C_NOERROR No error.
+ * - :: G2C_EINVAL Invalid input.
+ * - :: G2C_EFILE Error reading/writing file.
+ *
+ * @author Ed Hartnett 11/13/22
+ */
+int
+g2c_file_io_ushort(FILE *f, int write, unsigned short *var)
+{
+    return g2c_file_io(f, write, G2C_USHORT, var);
+}
+
+/**
  * Read or write a big-endian 4-byte int or unsigned int from or to an
  * open file, with conversion between native and big-endian format,
  * and handling of GRIB negative numbers. This is for template values.
