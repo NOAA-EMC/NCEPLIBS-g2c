@@ -40,9 +40,9 @@ int
 g2c_file_io(FILE *f, int write, int g2ctype, void *var)
 {
     void *void_be;
-    char *bvar;
-    short *svar;
-    int *ivar;
+    char *bvar = NULL;
+    short *svar = NULL;
+    int *ivar = NULL;
     unsigned int int_be, int_tmp;
     unsigned short short_be, short_tmp;
     unsigned char byte_be, byte_tmp;
