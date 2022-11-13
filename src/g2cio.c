@@ -120,6 +120,9 @@ g2c_file_be_uint4(FILE *f, int write, unsigned int *var)
  * open file, with conversion between native and big-endian format,
  * and handling of GRIB negative numbers. This is for template values.
  *
+ * With template values, if the map value is negative, then the
+ * template value may be negative.
+ *
  * @param f Pointer to the open FILE.
  * @param rw_flag Non-zero if function should write, otherwise function
  * will read.
