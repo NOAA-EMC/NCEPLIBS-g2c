@@ -58,7 +58,7 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
                        int *pds, int *drs, int *bms, int *data, size_t *msglen,
                        unsigned char *version, unsigned char *discipline, short *fieldnum)
 {
-    size_t size_t_be;
+    /* size_t size_t_be; */
     short fieldnum1; /* This is for the 1-based fieldnum in the index file. */
     int ret;
 
@@ -90,7 +90,9 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
         return ret;
     if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)data)))
         return ret;
-    FILE_BE_INT8P(f, rw_flag, msglen);
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)msglen)))
+        return ret;
+    /* FILE_BE_INT8P(f, rw_flag, msglen); */
     if ((ret = g2c_file_io_ubyte(f, rw_flag, version)))
         return ret;
     /* FILE_BE_INT1P(f, rw_flag, version); */
