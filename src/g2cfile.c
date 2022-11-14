@@ -307,7 +307,6 @@ find_available_g2cid(int *g2cid)
 int
 g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 {
-    short short_be;
     G2C_SECTION3_INFO_T *sec3_info = NULL;
     int maplen, needsext, map[G2C_MAX_GDS_TEMPLATE_MAPLEN];
     int t;
@@ -358,26 +357,8 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     /* Read or write the template info. */
     for (t = 0; t < maplen; t++)
     {
-        /* Take the absolute value of map[t] because some of the
-         * numbers are negative - used to indicate that the
-         * cooresponding fields can contain negative data (needed for
-         * unpacking). */
-        switch(abs(map[t]))
-        {
-        case ONE_BYTE:
-            FILE_BE_INT1P(f, rw_flag, &sec->template[t]);
-            break;
-        case TWO_BYTES:
-            FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
-            break;
-        case FOUR_BYTES:
-            if ((ret = g2c_file_template_int(f, rw_flag, (map[t] < 0 ? 1 : 0),
-                                              &sec->template[t])))
-                return ret;
-            break;
-        default:
-            return G2C_EBADTEMPLATE;
-        }
+        if ((ret = g2c_file_io_template(f, rw_flag, map[t], &sec->template[t])))
+            return ret;
         LOG((7, "template[%d] %d", t, sec->template[t]));
     }
 
@@ -468,28 +449,8 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     /* Read or write the template info. */
     for (t = 0; t < maplen; t++)
     {
-        short short_be;
-
-        /* Take the absolute value of map[t] because some of the
-         * numbers are negative - used to indicate that the
-         * cooresponding fields can contain negative data (needed for
-         * unpacking). */
-        switch(abs(map[t]))
-        {
-        case ONE_BYTE:
-            FILE_BE_INT1P(f, rw_flag, &sec->template[t]);
-            break;
-        case TWO_BYTES:
-            FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
-            break;
-        case FOUR_BYTES:
-            if ((ret = g2c_file_template_int(f, rw_flag, (map[t] < 0 ? 1 : 0),
-                                              &sec->template[t])))
-                return ret;
-            break;
-        default:
-            return G2C_EBADTEMPLATE;
-        }
+        if ((ret = g2c_file_io_template(f, rw_flag, map[t], &sec->template[t])))
+            return ret;
         LOG((7, "template[%d] %d", t, sec->template[t]));
     }
 
@@ -525,7 +486,6 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 int
 g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 {
-    short short_be;
     G2C_SECTION5_INFO_T *sec5_info;
     int maplen, needsext, map[G2C_MAX_PDS_TEMPLATE_MAPLEN];
     int t;
@@ -572,26 +532,8 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     /* Read or write the template info. */
     for (t = 0; t < maplen; t++)
     {
-        /* Take the absolute value of map[t] because some of the
-         * numbers are negative - used to indicate that the
-         * cooresponding fields can contain negative data (needed for
-         * unpacking). */
-        switch(abs(map[t]))
-        {
-        case ONE_BYTE:
-            FILE_BE_INT1P(f, rw_flag, &sec->template[t]);
-            break;
-        case TWO_BYTES:
-            FILE_BE_INT2P(f, rw_flag, &sec->template[t]);
-            break;
-        case FOUR_BYTES:
-            if ((ret = g2c_file_template_int(f, rw_flag, (map[t] < 0 ? 1 : 0),
-                                              &sec->template[t])))
-                return ret;
-            break;
-        default:
-            return G2C_EBADTEMPLATE;
-        }
+        if ((ret = g2c_file_io_template(f, rw_flag, map[t], &sec->template[t])))
+            return ret;
         LOG((7, "template[%d] %d", t, sec->template[t]));
     }
 

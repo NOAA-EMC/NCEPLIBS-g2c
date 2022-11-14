@@ -9,6 +9,7 @@
 #define BITSHIFT_7 7 /**< 7 bits. */
 #define BITSHIFT_15 15 /**< 15 bits. */
 #define BITSHIFT_31 31 /**< 31 bits. */
+#define BITSHIFT_63 63 /**< 63 bits. */
 
 /**
  * Read or write a big-endian 4-byte int to an open file, with
@@ -43,6 +44,8 @@ g2c_file_io(FILE *f, int write, int g2ctype, void *var)
     char *bvar = NULL;
     short *svar = NULL;
     int *ivar = NULL;
+    long long int *i64var = NULL;
+    unsigned long long int int64_be, int64_tmp;
     unsigned int int_be, int_tmp;
     unsigned short short_be, short_tmp;
     unsigned char byte_be, byte_tmp;
@@ -114,6 +117,26 @@ g2c_file_io(FILE *f, int write, int g2ctype, void *var)
             int_be = ntohl(int_tmp);
         }
         break;
+    case G2C_INT64:
+    case G2C_UINT64:
+        type_len = EIGHT_BYTES;
+        i64var = var;
+        void_be = &int64_be;
+        if (write)
+        {
+            /* Are we writing a negative number? */
+            if (g2ctype == G2C_INT64 && *i64var < 0)
+            {
+                int64_tmp = -1 * *i64var; /* Store as positive. */
+                int64_tmp |= 1UL << BITSHIFT_63; /* Set sign bit. */
+            }
+            else
+                int64_tmp = *i64var;
+
+            /* Convert result to big-endian. */
+            int64_be = ntoh64(int64_tmp);
+        }
+        break;
     default:
         return G2C_EBADTYPE;
     }
@@ -133,6 +156,9 @@ g2c_file_io(FILE *f, int write, int g2ctype, void *var)
         {
         case G2C_BYTE:
         case G2C_UBYTE:
+            /* No conversion needed for one-byte values. */
+            *bvar = byte_be;
+            
             /* Did we read a negative number? Check the sign bit... */
             if (g2ctype == G2C_BYTE && *bvar & 1 << BITSHIFT_7)
             {
@@ -162,6 +188,18 @@ g2c_file_io(FILE *f, int write, int g2ctype, void *var)
             {
                 *ivar &= ~(1UL << BITSHIFT_31); /* Clear sign bit. */
                 *ivar *= -1; /* Make it negative. */
+            }
+            break;
+        case G2C_INT64:
+        case G2C_UINT64:
+            /* Convert from big-endian. */
+            *i64var = hton64(int64_be);
+            
+            /* Did we read a negative number? Check the sign bit... */
+            if (g2ctype == G2C_INT64 && *i64var & 1ULL << BITSHIFT_63)
+            {
+                *i64var &= ~(1UL << BITSHIFT_63); /* Clear sign bit. */
+                *i64var *= -1; /* Make it negative. */
             }
             break;
         default:
@@ -216,9 +254,9 @@ g2c_file_io_uint(FILE *f, int write, unsigned int *var)
 }
 
 /**
- * Read or write a big-endian 4-byte signed short to an open GRIB2 file,
- * with conversion between native and big-endian format, and special
- * GRIB2 handling of negative numbers.
+ * Read or write a big-endian signed short to an open GRIB2 file, with
+ * conversion between native and big-endian format, and special GRIB2
+ * handling of negative numbers.
  *
  * @param f Pointer to the open GRIB2 FILE.
  * @param write Non-zero to write, zero to read.
@@ -238,8 +276,8 @@ g2c_file_io_short(FILE *f, int write, short *var)
 }
 
 /**
- * Read or write a big-endian 4-byte unsigned short to an open GRIB2
- * file, with conversion between native and big-endian format.
+ * Read or write a big-endian unsigned short to an open GRIB2 file,
+ * with conversion between native and big-endian format.
  *
  * @param f Pointer to the open GRIB2 FILE.
  * @param write Non-zero to write, zero to read.
@@ -256,6 +294,92 @@ int
 g2c_file_io_ushort(FILE *f, int write, unsigned short *var)
 {
     return g2c_file_io(f, write, G2C_USHORT, var);
+}
+
+/**
+ * Read or write a big-endian signed byte to an open GRIB2 file, with
+ * conversion between native and big-endian format, and special GRIB2
+ * handling of negative numbers.
+ *
+ * @param f Pointer to the open GRIB2 FILE.
+ * @param write Non-zero to write, zero to read.
+ * @param var Pointer to the byte.
+ *
+ * @return
+ * - :: G2C_NOERROR No error.
+ * - :: G2C_EINVAL Invalid input.
+ * - :: G2C_EFILE Error reading/writing file.
+ *
+ * @author Ed Hartnett 11/13/22
+ */
+int
+g2c_file_io_byte(FILE *f, int write, char *var)
+{
+    return g2c_file_io(f, write, G2C_BYTE, var);
+}
+
+/**
+ * Read or write a big-endian unsigned byte to an open GRIB2 file,
+ * with conversion between native and big-endian format.
+ *
+ * @param f Pointer to the open GRIB2 FILE.
+ * @param write Non-zero to write, zero to read.
+ * @param var Pointer to the unsigned byte.
+ *
+ * @return
+ * - :: G2C_NOERROR No error.
+ * - :: G2C_EINVAL Invalid input.
+ * - :: G2C_EFILE Error reading/writing file.
+ *
+ * @author Ed Hartnett 11/13/22
+ */
+int
+g2c_file_io_ubyte(FILE *f, int write, unsigned char *var)
+{
+    return g2c_file_io(f, write, G2C_UBYTE, var);
+}
+
+/**
+ * Read or write a big-endian signed long long to an open GRIB2 file, with
+ * conversion between native and big-endian format, and special GRIB2
+ * handling of negative numbers.
+ *
+ * @param f Pointer to the open GRIB2 FILE.
+ * @param write Non-zero to write, zero to read.
+ * @param var Pointer to the long long.
+ *
+ * @return
+ * - :: G2C_NOERROR No error.
+ * - :: G2C_EINVAL Invalid input.
+ * - :: G2C_EFILE Error reading/writing file.
+ *
+ * @author Ed Hartnett 11/13/22
+ */
+int
+g2c_file_io_longlong(FILE *f, int write, long long *var)
+{
+    return g2c_file_io(f, write, G2C_INT64, var);
+}
+
+/**
+ * Read or write a big-endian unsigned long long to an open GRIB2 file,
+ * with conversion between native and big-endian format.
+ *
+ * @param f Pointer to the open GRIB2 FILE.
+ * @param write Non-zero to write, zero to read.
+ * @param var Pointer to the unsigned long long.
+ *
+ * @return
+ * - :: G2C_NOERROR No error.
+ * - :: G2C_EINVAL Invalid input.
+ * - :: G2C_EFILE Error reading/writing file.
+ *
+ * @author Ed Hartnett 11/13/22
+ */
+int
+g2c_file_io_ulonglong(FILE *f, int write, unsigned long long *var)
+{
+    return g2c_file_io(f, write, G2C_UINT64, var);
 }
 
 /**
@@ -282,19 +406,86 @@ g2c_file_io_ushort(FILE *f, int write, unsigned short *var)
  * @author Ed Hartnett 11/7/22
  */
 int
-g2c_file_template_int(FILE *f, int rw_flag, int neg, int *template_value)
+g2c_file_io_template(FILE *f, int rw_flag, int map, int *template_value)
 {
     int ret;
-    
-    if (neg)
+
+    /* Take the absolute value of map[t] because some of the
+     * numbers are negative - used to indicate that the
+     * cooresponding fields can contain negative data (needed for
+     * unpacking). */
+    switch(abs(map))
     {
-        if ((ret = g2c_file_io_int(f, rw_flag, template_value)))
-            return ret;
-    }
-    else
-    {
-        if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)template_value)))
-            return ret;
+    case ONE_BYTE:
+        if (map < 0)
+        {
+            char my_byte;
+            if (rw_flag)
+                my_byte = *template_value;
+            if ((ret = g2c_file_io_byte(f, rw_flag, &my_byte)))
+                return ret;
+            if (!rw_flag)
+                *template_value = my_byte;
+        }
+        else
+        {
+            unsigned char my_ubyte;
+            if (rw_flag)
+                my_ubyte = *template_value;
+            if ((ret = g2c_file_io_ubyte(f, rw_flag, &my_ubyte)))
+                return ret;
+            if (!rw_flag)
+                *template_value = my_ubyte;
+        }
+        /* FILE_BE_INT1P(f, rw_flag, template_value); */
+        break;
+    case TWO_BYTES:
+        if (map < 0)
+        {
+            short my_short;
+            if (rw_flag)
+                my_short = *template_value;
+            if ((ret = g2c_file_io_short(f, rw_flag, &my_short)))
+                return ret;
+            if (!rw_flag)
+                *template_value = my_short;
+        }
+        else
+        {
+            unsigned short my_ushort;
+            if (rw_flag)
+                my_ushort = *template_value;
+            if ((ret = g2c_file_io_ushort(f, rw_flag, &my_ushort)))
+                return ret;
+            if (!rw_flag)
+                *template_value = my_ushort;
+        }
+        /* FILE_BE_INT2P(f, rw_flag, template_value); */
+        break;
+    case FOUR_BYTES:
+        if (map < 0)
+        {
+            int my_int;
+            if (rw_flag)
+                my_int = *template_value;
+            if ((ret = g2c_file_io_int(f, rw_flag, &my_int)))
+                return ret;
+            if (!rw_flag)
+                *template_value = my_int;
+        }
+        else
+        {
+            unsigned int my_uint;
+            if (rw_flag)
+                my_uint = *template_value;
+            if ((ret = g2c_file_io_uint(f, rw_flag, &my_uint)))
+                return ret;
+            if (!rw_flag)
+                *template_value = my_uint;
+        }
+        break;
+    default:
+        return G2C_EBADTEMPLATE;
     }
     
     return G2C_NOERROR;

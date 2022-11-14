@@ -60,15 +60,15 @@ main()
             return G2C_EFILE;
 
         /* Read as template values. */
-        if ((ret = g2c_file_template_int(f, G2C_FILE_READ, 0, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &val_in)))
             return ret;
         if (val_in != val)
             return G2C_ERROR;
-        if ((ret = g2c_file_template_int(f, G2C_FILE_READ, 1, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, -4, &val_in)))
             return ret;
         if (val_in != neg_val)
             return G2C_ERROR;
-        if ((ret = g2c_file_template_int(f, G2C_FILE_READ, 0, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &val_in)))
             return ret;
         if (val_in != val)
             return G2C_ERROR;
@@ -90,11 +90,11 @@ main()
             return G2C_EFILE;
 
         /* Write 4 bytes, thrice. */
-        if ((ret = g2c_file_template_int(f, G2C_FILE_WRITE, 0, &val)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_WRITE, 4, &val)))
             return ret;
-        if ((ret = g2c_file_template_int(f, G2C_FILE_WRITE, 1, &neg_val)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_WRITE, -4, &neg_val)))
             return ret;
-        if ((ret = g2c_file_template_int(f, G2C_FILE_WRITE, 0, &val)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_WRITE, 4, &val)))
             return ret;
 
         /* Close file. */
@@ -105,15 +105,15 @@ main()
             return G2C_EFILE;
 
         /* Read as template values. */
-        if ((ret = g2c_file_template_int(f, G2C_FILE_READ, 0, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &val_in)))
             return ret;
         if (val_in != val)
             return G2C_ERROR;
-        if ((ret = g2c_file_template_int(f, G2C_FILE_READ, 1, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, -4, &val_in)))
             return ret;
         if (val_in != neg_val)
             return G2C_ERROR;
-        if ((ret = g2c_file_template_int(f, G2C_FILE_READ, 0, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &val_in)))
             return ret;
         if (val_in != val)
             return G2C_ERROR;
