@@ -331,11 +331,17 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         sec3_info = sec->sec_info;
 
     /* Read or write section 3. */
-    FILE_BE_INT1P(f, rw_flag, &sec3_info->source_grid_def);
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &sec3_info->source_grid_def)))
+        return ret;
+    /* FILE_BE_INT1P(f, rw_flag, &sec3_info->source_grid_def); */
     if ((ret = g2c_file_io_uint(f, rw_flag, &sec3_info->num_data_points)))
         return ret;
-    FILE_BE_INT1P(f, rw_flag, &sec3_info->num_opt);
-    FILE_BE_INT1P(f, rw_flag, &sec3_info->interp_list);
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &sec3_info->num_opt)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &sec3_info->interp_list)))
+        return ret;
+    /* FILE_BE_INT1P(f, rw_flag, &sec3_info->num_opt); */
+    /* FILE_BE_INT1P(f, rw_flag, &sec3_info->interp_list); */
     if ((ret = g2c_file_io_ushort(f, rw_flag, &sec3_info->grid_def)))
         return ret;
     LOG((5, "rw_section3_metadata source_grid_def %d num_data_points %d num_opt %d interp_list %d grid_def %d",
@@ -640,7 +646,7 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
 int
 g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
 {
-    char sec_num = 1;
+    unsigned char sec_num = 1;
     int ret;
 
     LOG((2, "g2c_rw_section1_metadata rw_flag %d", rw_flag));
@@ -649,7 +655,9 @@ g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
     if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)&msg->sec1_len)))
         return ret;
     
-    FILE_BE_INT1P(f, rw_flag, &sec_num);
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &sec_num)))
+        return ret;
+    /* FILE_BE_INT1P(f, rw_flag, &sec_num); */
     if (!rw_flag && sec_num != 1) /* When reading sec num must be 1. */
         return G2C_ENOSECTION;
     if ((ret = g2c_file_io_short(f, rw_flag, &msg->center)))
@@ -658,19 +666,39 @@ g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
         return ret;
     /* FILE_BE_INT2P(f, rw_flag, &msg->center); */
     /* FILE_BE_INT2P(f, rw_flag, &msg->subcenter); */
-    FILE_BE_INT1P(f, rw_flag, &msg->master_version);
-    FILE_BE_INT1P(f, rw_flag, &msg->local_version);
-    FILE_BE_INT1P(f, rw_flag, &msg->sig_ref_time);
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->master_version)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->local_version)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->sig_ref_time)))
+        return ret;
+    /* FILE_BE_INT1P(f, rw_flag, &msg->master_version); */
+    /* FILE_BE_INT1P(f, rw_flag, &msg->local_version); */
+    /* FILE_BE_INT1P(f, rw_flag, &msg->sig_ref_time); */
     /* FILE_BE_INT2P(f, rw_flag, &msg->year); */
     if ((ret = g2c_file_io_short(f, rw_flag, &msg->year)))
         return ret;
-    FILE_BE_INT1P(f, rw_flag, &msg->month);
-    FILE_BE_INT1P(f, rw_flag, &msg->day);
-    FILE_BE_INT1P(f, rw_flag, &msg->hour);
-    FILE_BE_INT1P(f, rw_flag, &msg->minute);
-    FILE_BE_INT1P(f, rw_flag, &msg->second);
-    FILE_BE_INT1P(f, rw_flag, &msg->status);
-    FILE_BE_INT1P(f, rw_flag, &msg->type);
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->month)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->day)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->hour)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->minute)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->second)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->status)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->type)))
+        return ret;
+    /* FILE_BE_INT1P(f, rw_flag, &msg->month); */
+    /* FILE_BE_INT1P(f, rw_flag, &msg->day); */
+    /* FILE_BE_INT1P(f, rw_flag, &msg->hour); */
+    /* FILE_BE_INT1P(f, rw_flag, &msg->minute); */
+    /* FILE_BE_INT1P(f, rw_flag, &msg->second); */
+    /* FILE_BE_INT1P(f, rw_flag, &msg->status); */
+    /* FILE_BE_INT1P(f, rw_flag, &msg->type); */
 
     /* Section 1 may contain optional numbers at the end of the
      * section. The sec1_len tells us if there are extra values. If
@@ -733,7 +761,9 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
         if (sec_len != 926365495)
         {
             /* Read section number. */
-            FILE_BE_INT1P(msg->file->f, G2C_FILE_READ, &sec_num);
+            if ((ret = g2c_file_io_ubyte(msg->file->f, G2C_FILE_READ, &sec_num)))
+                return ret;
+            /* FILE_BE_INT1P(msg->file->f, G2C_FILE_READ, &sec_num); */
             LOG((4, "sec_len %d sec_num %d", sec_len, sec_num));
 
             /* Add a new section to our list of sections. */
