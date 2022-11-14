@@ -393,8 +393,7 @@ g2c_file_io_ulonglong(FILE *f, int write, unsigned long long *var)
  * @param f Pointer to the open FILE.
  * @param rw_flag Non-zero if function should write, otherwise function
  * will read.
- * @param neg Non-zero if this may be a negative number, zero for
- * unsigned ints.
+ * @param map The map value for this template item.
  * @param template_value Pointer to the template value to be written,
  * or pointer to the storage that gets the templage value read.
  *
