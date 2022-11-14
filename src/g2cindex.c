@@ -91,8 +91,12 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
     if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)data)))
         return ret;
     FILE_BE_INT8P(f, rw_flag, msglen);
-    FILE_BE_INT1P(f, rw_flag, version);
-    FILE_BE_INT1P(f, rw_flag, discipline);
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, version)))
+        return ret;
+    /* FILE_BE_INT1P(f, rw_flag, version); */
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, discipline)))
+        return ret;
+    /* FILE_BE_INT1P(f, rw_flag, discipline); */
     if ((ret = g2c_file_io_short(f, rw_flag, &fieldnum1)))
         return ret;
     /* FILE_BE_INT2P(f, rw_flag, &fieldnum1); */
@@ -360,7 +364,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
                 int bytes_to_msg = (int)msg->bytes_to_msg;
                 int bs3, bs4, bs5, bs6, bs7; /* bytes to each section, as ints. */
-                int sec_num;
+                unsigned char sec_num;
                 int ret;
 
                 if ((ret = g2c_get_prod_sections(msg, fieldnum, &sec3, &sec4, &sec5, &sec6, &sec7)))
@@ -390,7 +394,8 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 sec_num = 3;
                 if ((ret = g2c_file_io_uint(f, G2C_FILE_WRITE, &sec3->sec_len)))
                     return ret;
-                FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
+                if ((ret = g2c_file_io_ubyte(f, G2C_FILE_WRITE, &sec_num)))
+                    return ret;
                 if ((ret = g2c_rw_section3_metadata(f, G2C_FILE_WRITE, sec3)))
                     break;
 
@@ -398,7 +403,9 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 sec_num = 4;
                 if ((ret = g2c_file_io_uint(f, G2C_FILE_WRITE, &sec4->sec_len)))
                     return ret;
-                FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
+                if ((ret = g2c_file_io_ubyte(f, G2C_FILE_WRITE, &sec_num)))
+                    return ret;
+                /* FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num); */
                 if ((ret = g2c_rw_section4_metadata(f, G2C_FILE_WRITE, sec4)))
                     break;
 
@@ -406,7 +413,9 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 sec_num = 5;
                 if ((ret = g2c_file_io_uint(f, G2C_FILE_WRITE, &sec5->sec_len)))
                     return ret;
-                FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num);
+                if ((ret = g2c_file_io_ubyte(f, G2C_FILE_WRITE, &sec_num)))
+                    return ret;
+                /* FILE_BE_INT1P(f, G2C_FILE_WRITE, &sec_num); */
                 if ((ret = g2c_rw_section5_metadata(f, G2C_FILE_WRITE, sec5)))
                     break;
 
@@ -431,7 +440,9 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 
                     /* Now write these bytes to the end of the index record. */
                     for (b = 0; b < G2C_INDEX_BITMAP_BYTES; b++)
-                        FILE_BE_INT1P(f, G2C_FILE_WRITE, &sample[b]);
+                        if ((ret = g2c_file_io_ubyte(f, G2C_FILE_WRITE, &sample[b])))
+                            return ret;
+                        /* FILE_BE_INT1P(f, G2C_FILE_WRITE, &sample[b]); */
                 }
             } /* next product */
 
@@ -559,7 +570,7 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
              * the index record. */
             {
                 unsigned int sec_len;
-                char sec_num;
+                unsigned char sec_num;
                 int s;
                 G2C_MESSAGE_INFO_T *msgp;
                 int sec_id = 0;
@@ -592,7 +603,9 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                     {
                         if ((ret = g2c_file_io_uint(f, G2C_FILE_READ, &sec_len)))
                             return ret;
-                        FILE_BE_INT1P(f, G2C_FILE_READ, &sec_num);
+                        if ((ret = g2c_file_io_ubyte(f, G2C_FILE_READ, &sec_num)))
+                            return ret;
+                        /* FILE_BE_INT1P(f, G2C_FILE_READ, &sec_num); */
                     }
                     else
                     {
@@ -608,7 +621,9 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
                         }
                         if ((ret = g2c_file_io_uint(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_len)))
                             return ret;
-                        FILE_BE_INT1P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_num);
+                        if ((ret = g2c_file_io_ubyte(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_num)))
+                            return ret;
+                        /* FILE_BE_INT1P(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_num); */
                         LOG((4, "read section 7 info from data file. sec_len %d sec_num %d",
                              sec_len, sec_num));
                     }
