@@ -333,15 +333,12 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     /* Read or write section 3. */
     if ((ret = g2c_file_io_ubyte(f, rw_flag, &sec3_info->source_grid_def)))
         return ret;
-    /* FILE_BE_INT1P(f, rw_flag, &sec3_info->source_grid_def); */
     if ((ret = g2c_file_io_uint(f, rw_flag, &sec3_info->num_data_points)))
         return ret;
     if ((ret = g2c_file_io_ubyte(f, rw_flag, &sec3_info->num_opt)))
         return ret;
     if ((ret = g2c_file_io_ubyte(f, rw_flag, &sec3_info->interp_list)))
         return ret;
-    /* FILE_BE_INT1P(f, rw_flag, &sec3_info->num_opt); */
-    /* FILE_BE_INT1P(f, rw_flag, &sec3_info->interp_list); */
     if ((ret = g2c_file_io_ushort(f, rw_flag, &sec3_info->grid_def)))
         return ret;
     LOG((5, "rw_section3_metadata source_grid_def %d num_data_points %d num_opt %d interp_list %d grid_def %d",
@@ -435,8 +432,6 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         return ret;
     if ((ret = g2c_file_io_ushort(f, rw_flag, &sec4_info->prod_def)))
         return ret;
-    /* FILE_BE_INT2P(f, rw_flag, &sec4_info->num_coord); */
-    /* FILE_BE_INT2P(f, rw_flag, &sec4_info->prod_def); */
     LOG((5, "read_section4_metadata num_coord %d prod_def %d", sec4_info->num_coord, sec4_info->prod_def));
 
     /* Look up the information about this grid. */
@@ -518,7 +513,6 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         return ret;
     if ((ret = g2c_file_io_ushort(f, rw_flag, &sec5_info->data_def)))
         return ret;
-    /* FILE_BE_INT2P(f, rw_flag, &sec5_info->data_def); */
     LOG((5, "g2c_rw_section5_metadata num_data_points %d data_def %d",
          sec5_info->num_data_points, sec5_info->data_def));
 
@@ -657,25 +651,18 @@ g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
     
     if ((ret = g2c_file_io_ubyte(f, rw_flag, &sec_num)))
         return ret;
-    /* FILE_BE_INT1P(f, rw_flag, &sec_num); */
     if (!rw_flag && sec_num != 1) /* When reading sec num must be 1. */
         return G2C_ENOSECTION;
     if ((ret = g2c_file_io_short(f, rw_flag, &msg->center)))
         return ret;
     if ((ret = g2c_file_io_short(f, rw_flag, &msg->subcenter)))
         return ret;
-    /* FILE_BE_INT2P(f, rw_flag, &msg->center); */
-    /* FILE_BE_INT2P(f, rw_flag, &msg->subcenter); */
     if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->master_version)))
         return ret;
     if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->local_version)))
         return ret;
     if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->sig_ref_time)))
         return ret;
-    /* FILE_BE_INT1P(f, rw_flag, &msg->master_version); */
-    /* FILE_BE_INT1P(f, rw_flag, &msg->local_version); */
-    /* FILE_BE_INT1P(f, rw_flag, &msg->sig_ref_time); */
-    /* FILE_BE_INT2P(f, rw_flag, &msg->year); */
     if ((ret = g2c_file_io_short(f, rw_flag, &msg->year)))
         return ret;
     if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->month)))
@@ -692,13 +679,6 @@ g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
         return ret;
     if ((ret = g2c_file_io_ubyte(f, rw_flag, &msg->type)))
         return ret;
-    /* FILE_BE_INT1P(f, rw_flag, &msg->month); */
-    /* FILE_BE_INT1P(f, rw_flag, &msg->day); */
-    /* FILE_BE_INT1P(f, rw_flag, &msg->hour); */
-    /* FILE_BE_INT1P(f, rw_flag, &msg->minute); */
-    /* FILE_BE_INT1P(f, rw_flag, &msg->second); */
-    /* FILE_BE_INT1P(f, rw_flag, &msg->status); */
-    /* FILE_BE_INT1P(f, rw_flag, &msg->type); */
 
     /* Section 1 may contain optional numbers at the end of the
      * section. The sec1_len tells us if there are extra values. If
@@ -763,7 +743,6 @@ read_msg_metadata(G2C_MESSAGE_INFO_T *msg)
             /* Read section number. */
             if ((ret = g2c_file_io_ubyte(msg->file->f, G2C_FILE_READ, &sec_num)))
                 return ret;
-            /* FILE_BE_INT1P(msg->file->f, G2C_FILE_READ, &sec_num); */
             LOG((4, "sec_len %d sec_num %d", sec_len, sec_num));
 
             /* Add a new section to our list of sections. */
