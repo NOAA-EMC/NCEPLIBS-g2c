@@ -62,10 +62,15 @@ int main()
 	return G2C_ERROR;
     if (strncmp(g2c_strerror(-72), "Product not found", MAX_LEN))
 	return G2C_ERROR;
+    if (strncmp(g2c_strerror(-73), "Bad type", MAX_LEN))
+	return G2C_ERROR;
     if (strncmp(g2c_strerror(999), "Unknown Error", MAX_LEN))
 	return G2C_ERROR;
 
     printf("SUCCESS!\n");
     return 0;
 }
+
+
+
 

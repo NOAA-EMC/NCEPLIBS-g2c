@@ -1,4 +1,4 @@
-/* This is a test for the NCEPLIBS-g2c project. 
+/* This is a test for the NCEPLIBS-g2c project.
  *
  * This test is for the g2c_degrib2() function, which prints a summary
  * of the GRIB2 file.
@@ -23,8 +23,8 @@
 #define NUM_MATCHING 5
 #define FTP_NUM_MSG 688
 
-/* Return 0 if two lines of the DEGRIB2 output are euqal. 
- * 
+/* Return 0 if two lines of the DEGRIB2 output are euqal.
+ *
  * For most lines this means they must be exactly equal. Lines that
  * show the min, avg, and max values may be slightly different from
  * the reference file, because the intel compiler produces slight
@@ -39,7 +39,7 @@ degrib2_lines_not_equal(char *l1, char *l2)
     char abbrev2[G2C_MAX_NOAA_ABBREV_LEN + 1];
     char cmin1[MAX_VALUE_LEN + 1], cavg1[MAX_VALUE_LEN + 1], cmax1[MAX_VALUE_LEN + 1];
     char cmin2[MAX_VALUE_LEN + 1], cavg2[MAX_VALUE_LEN + 1], cmax2[MAX_VALUE_LEN + 1];
-    
+
     /* If the lines are the same, we're done. */
     if (!strcmp(l1, l2))
         return 0;
@@ -62,42 +62,48 @@ degrib2_lines_not_equal(char *l1, char *l2)
         if (strncmp(cmax1, cmax2, NUM_MATCHING))
             return G2C_ERROR;
     }
+    else
+    {
+        printf("\n%s\n", l1);
+        printf("%s\n", l2);
+        return G2C_ERROR;
+    }
 
     return G2C_NOERROR;
 }
 
-/* Return 0 if two files are the same. 
+/* Return 0 if two files are the same.
  *
  * Ed Hartnett 10/6/22
  */
 int
 compare_files2(char *fname1, char *fname2)
 {
-   FILE *fp1, *fp2;
-   char l1[MAX_LINE_LEN], l2[MAX_LINE_LEN];
+    FILE *fp1, *fp2;
+    char l1[MAX_LINE_LEN], l2[MAX_LINE_LEN];
 
-   /* Open the two files. */
-   if (!(fp1 = fopen(fname1, "r")))
-       return G2C_ERROR;
-   if (!(fp2 = fopen(fname2, "r")))
-       return G2C_ERROR;
+    /* Open the two files. */
+    if (!(fp1 = fopen(fname1, "r")))
+        return G2C_ERROR;
+    if (!(fp2 = fopen(fname2, "r")))
+        return G2C_ERROR;
 
-   /* Check each line in the file. */
-   while (fgets(l1, MAX_LINE_LEN, fp1))
-   {
-       if (!fgets(l2, MAX_LINE_LEN, fp2))
-           return G2C_ERROR;
-       /* printf("l1: %s\n", l1); */
-       /* printf("l2: %s\n", l2); */
-       if (degrib2_lines_not_equal(l1, l2))
-           return G2C_ERROR;
+    /* Check each line in the file. */
+    while (fgets(l1, MAX_LINE_LEN, fp1))
+    {
+        if (!fgets(l2, MAX_LINE_LEN, fp2))
+            return G2C_ERROR;
+        /* printf("l1: %s\n", l1); */
+        /* printf("l2: %s\n", l2); */
+        if (degrib2_lines_not_equal(l1, l2))
+            return G2C_ERROR;
     }
 
-   /* Close files. */
-   fclose(fp1);
-   fclose(fp2);
+    /* Close files. */
+    fclose(fp1);
+    fclose(fp2);
 
-   return G2C_NOERROR;
+    return G2C_NOERROR;
 }
 
 int
@@ -107,30 +113,30 @@ main()
 #ifdef JPEG
     printf("Testing g2c_degrib2() on file %s...", WAVE_FILE);
     {
-	int g2cid;
-	int ret;
+        int g2cid;
+        int ret;
 
-	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
-	    return ret;
+        if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+            return ret;
         if ((ret = g2c_degrib2(g2cid, FILE_NAME)))
             return ret;
-	if ((ret = g2c_close(g2cid)))
-	    return ret;
-        
+        if ((ret = g2c_close(g2cid)))
+            return ret;
+
         if ((ret = compare_files2(FILE_NAME, REF_FILE)))
             return ret;
     }
     printf("ok!\n");
     printf("Testing g2c_read_index() to make a degrib2 file...");
     {
-	int g2cid;
+        int g2cid;
         int num_msg;
-	int ret;
+        int ret;
 
-	/* g2c_set_log_level(10); */
-	/* Open the data file using the index file. */
-	if ((ret = g2c_read_index(WAVE_FILE, REF_INDEX_FILE, 0, &g2cid)))
-	    return ret;
+        /* g2c_set_log_level(10); */
+        /* Open the data file using the index file. */
+        if ((ret = g2c_read_index(WAVE_FILE, REF_INDEX_FILE, 0, &g2cid)))
+            return ret;
 
         /* Check some stuff. */
         if ((ret = g2c_inq(g2cid, &num_msg)))
@@ -143,8 +149,8 @@ main()
             return ret;
 
         /* Close the data file. */
-	if ((ret = g2c_close(g2cid)))
-	    return ret;
+        if ((ret = g2c_close(g2cid)))
+            return ret;
 
         /* Compare the degrib2 output to our reference file. */
         if ((ret = compare_files2(DEGRIB2_FILE, REF_FILE)))
@@ -153,14 +159,14 @@ main()
     printf("ok!\n");
     printf("Testing g2c_write_index() make an index and then to make a degrib2 file from it...");
     {
-	int g2cid;
+        int g2cid;
         int num_msg;
-	int ret;
+        int ret;
 
-	/* g2c_set_log_level(10); */
-	/* Open the data file using the index file. */
-	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
-	    return ret;
+        /* g2c_set_log_level(10); */
+        /* Open the data file using the index file. */
+        if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+            return ret;
 
         /* Check some stuff. */
         if ((ret = g2c_inq(g2cid, &num_msg)))
@@ -173,32 +179,31 @@ main()
             return ret;
 
         /* Close the data file. */
-	if ((ret = g2c_close(g2cid)))
-	    return ret;
+        if ((ret = g2c_close(g2cid)))
+            return ret;
 
         /* Reopen the data file, using the index we just generated. */
-	if ((ret = g2c_read_index(WAVE_FILE, TEST_INDEX_FILE, 0, &g2cid)))
-	    return ret;
+        if ((ret = g2c_read_index(WAVE_FILE, TEST_INDEX_FILE, 0, &g2cid)))
+            return ret;
 
         /* Output a degrib2 file. */
         if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE)))
             return ret;
 
         /* Close the data file. */
-	if ((ret = g2c_close(g2cid)))
-	    return ret;
+        if ((ret = g2c_close(g2cid)))
+            return ret;
 
         /* Compare the degrib2 output to our reference file. */
         if ((ret = compare_files2(DEGRIB2_FILE, REF_FILE)))
             return ret;
     }
     printf("ok!\n");
-#endif
 #ifdef FTP_TEST_FILES
 #define NUM_TESTS 2
     printf("Testing degrib2 on file %s downloaded via FTP...\n", FTP_FILE);
     {
-	int g2cid;
+        int g2cid;
         int num_msg;
         unsigned char sig_ref_time, month, day, hour, minute, second;
         short year;
@@ -247,7 +252,7 @@ main()
              10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 0, 10, 10,
              10, 0, 10, 10, 10, 0, 10, 10, 10, 0, 10, 10, 10, 10};
         int t, m;
-	int ret;
+        int ret;
 
         for (t = 0; t < NUM_TESTS; t++)
         {
@@ -265,7 +270,7 @@ main()
                 if ((ret = g2c_open(FTP_FILE, 0, &g2cid)))
                     return ret;
             }
-            
+
             /* Check some stuff. */
             if ((ret = g2c_inq(g2cid, &num_msg)))
                 return ret;
@@ -285,7 +290,7 @@ main()
                 if (discipline != expected_discipline[m])
                     return G2C_ERROR;
             }
-            
+
             /* Check some stuff about the last message. */
             if ((ret = g2c_inq_msg(g2cid, 687, &discipline, &num_fields, &num_local,
                                    &center, &subcenter, &master_version, &local_version)))
@@ -294,17 +299,17 @@ main()
                 return G2C_ERROR;
             if (num_local || num_fields != 1 || discipline != 10)
                 return G2C_ERROR;
-            
+
             /* Inquire about the date/time. */
             if ((ret = g2c_inq_msg_time(g2cid, 687, &sig_ref_time, &year, &month, &day, &hour,
                                         &minute, &second)))
                 return ret;
-            
+
             /* Check date/time. */
             if (sig_ref_time != 1 || year != 2022 || month != 7 || day != 18 ||
                 hour != 0 || minute != 0 || second != 0)
                 return G2C_ERROR;
-            
+
             /* Output a degrib2 file. */
             if ((ret = g2c_degrib2(g2cid, FTP_DEGRIB2_FILE)))
                 return ret;
@@ -316,13 +321,13 @@ main()
             /* Compare the degrib2 output to our reference file. */
             if ((ret = compare_files2(FTP_DEGRIB2_FILE, REF_FTP_DEGRIB2_FILE)))
                 return ret;
-            
+
             printf("\tok!\n");
         }
     }
     printf("ok!\n");
 #endif /* FTP_TEST_FILES */
+#endif /* JPEG */
     printf("SUCCESS!\n");
     return 0;
 }
-

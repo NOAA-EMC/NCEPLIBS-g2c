@@ -92,7 +92,6 @@ if(FTP_TEST_FILES)
 endif()
 
 # Always run these tests.
-g2c_ptest(tst_files)
 g2c_test(tst_g2_create)
 g2c_test(tst_g2_addgrid)
 g2c_test(tst_g2_addfield)
@@ -115,9 +114,11 @@ g2c_test(tst_error)
 g2c_test(tst_params)
 g2c_test(tst_params2)
 g2c_test(tst_params3)
-g2c_test(tst_degrib2)
+g2c_test(tst_io)
 g2c_test(tst_inq)
+g2c_test(tst_degrib2)
 g2c_test(tst_index)
+g2c_ptest(tst_files)
 
 # Run these tests only if libpng is linked.
 if(USE_PNG)

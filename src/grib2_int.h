@@ -108,83 +108,6 @@
 #define G2C_FILE_READ 0 /**< Read. */
 #define G2C_FILE_WRITE 1 /**< Write. */
 
-/**
- * Read or write a big-endian 1-byte int to an open file.
- */
-#define FILE_BE_INT1P(f, write, var)            \
-    do {                                        \
-        if (write)                              \
-        {                                       \
-            if ((fwrite(var, 1, 1, f)) != 1)    \
-                return G2C_EFILE;               \
-        }                                       \
-        else                                    \
-        {                                       \
-            if ((fread(var, 1, 1, f)) != 1)     \
-                return G2C_EFILE;               \
-        }                                       \
-    } while(0)
-
-/**
- * Read or write a big-endian 2-byte int to an open file, with
- * conversion between native and big-endian format. The integer
- * short_be must be declared before this macro is used. */
-#define FILE_BE_INT2P(f, write, var)                            \
-    do {                                                        \
-        if (write)                                              \
-        {                                                       \
-            short_be = ntohs(*var);                             \
-            if ((fwrite(&short_be, TWO_BYTES, 1, f)) != 1)      \
-                return G2C_EFILE;                               \
-        }                                                       \
-        else                                                    \
-        {                                                       \
-            if ((fread(&short_be, TWO_BYTES, 1, f)) != 1)       \
-                return G2C_EFILE;                               \
-            *var = htons(short_be);                             \
-        }                                                       \
-    } while(0)
-
-/**
- * Read or write a big-endian 4-byte int to an open file, with
- * conversion between native and big-endian format. The integer int_be
- * must be declared before this macro is used. */
-#define FILE_BE_INT4P(f, write, var)                            \
-    do {                                                        \
-        if (write)                                              \
-        {                                                       \
-            int_be = ntohl(*var);                               \
-            if ((fwrite(&int_be, FOUR_BYTES, 1, f)) != 1)       \
-                return G2C_EFILE;                               \
-        }                                                       \
-        else                                                    \
-        {                                                       \
-            if ((fread(&int_be, FOUR_BYTES, 1, f)) != 1)        \
-                return G2C_EFILE;                               \
-            *var = htonl(int_be);                               \
-        }                                                       \
-    } while(0)
-
-/**
- * Read or write a big-endian 8-byte int to an open file, with
- * conversion between native and big-endian format. The integer
- * size_t_be must be declared before this macro is used. */
-#define FILE_BE_INT8P(f, write, var)                            \
-    do {                                                        \
-        if (write)                                              \
-        {                                                       \
-            size_t_be = ntoh64(*var);                           \
-            if ((fwrite(&size_t_be, EIGHT_BYTES, 1, f)) != 1)   \
-                return G2C_EFILE;                               \
-        }                                                       \
-        else                                                    \
-        {                                                       \
-            if ((fread(&size_t_be, EIGHT_BYTES, 1, f)) != 1)    \
-                return G2C_EFILE;                               \
-            *var = hton64(size_t_be);                           \
-        }                                                       \
-    } while(0)
-
 /** This is the information about each message. */
 typedef struct g2c_message_info
 {
@@ -406,6 +329,18 @@ int pack_gp(g2int *kfildo, g2int *ic, g2int *nxy,
 
 /* Check the message header and check for message termination. */
 int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
+
+/* Basic file I/O. */
+int g2c_file_io(FILE *f, int write, int g2ctype, void *var);
+int g2c_file_io_byte(FILE *f, int write, char *var);
+int g2c_file_io_ubyte(FILE *f, int write, unsigned char *var);
+int g2c_file_io_short(FILE *f, int write, short *var);
+int g2c_file_io_ushort(FILE *f, int write, unsigned short *var);
+int g2c_file_io_int(FILE *f, int write, int *var);
+int g2c_file_io_uint(FILE *f, int write, unsigned int *var);
+int g2c_file_io_longlong(FILE *f, int write, long long *var);
+int g2c_file_io_ulonglong(FILE *f, int write, unsigned long long *var);
+int g2c_file_io_template(FILE *f, int rw_flag, int map, int *template_value);
 
 /* Read and remember file, message, and section metadata. */
 int g2c_add_file(const char *path, int mode, int *g2cid);

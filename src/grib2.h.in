@@ -266,6 +266,19 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 
 /* The new g2c API is being introduced in version 2.0 of the library. */
 
+/* Data types. */
+#define G2C_BYTE         1       /**< signed 1 byte integer */
+#define G2C_CHAR         2       /**< ISO/ASCII character */
+#define G2C_SHORT        3       /**< signed 2 byte integer */
+#define G2C_INT          4       /**< signed 4 byte integer */
+#define G2C_FLOAT        5       /**< single precision floating point number */
+#define G2C_DOUBLE       6       /**< double precision floating point number */
+#define G2C_UBYTE        7       /**< unsigned 1 byte int */
+#define G2C_USHORT       8       /**< unsigned 2-byte int */
+#define G2C_UINT         9       /**< unsigned 4-byte int */
+#define G2C_INT64        10      /**< signed 8-byte int */
+#define G2C_UINT64       11      /**< unsigned 8-byte int */
+
 /* Defines for file handling. */
 #define G2C_MAX_FILES 3 /**< Maximum number of open files. */
 #define G2C_MAX_NAME 1024 /**< Maximum length of a name. */
@@ -490,5 +503,6 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_EBADTEMPLATE (-70) /**< Template problem. */
 #define G2C_ENOPARAM (-71) /**< Parameter not found. */
 #define G2C_ENOPRODUCT (-72) /**< Product not found. */
+#define G2C_EBADTYPE (-73) /**< Type not found. */
 
 #endif  /*  _grib2_H  */

@@ -201,6 +201,8 @@ g2c_strerror(int g2cerr)
 	return "Parameter not found";
     case G2C_ENOPRODUCT:
 	return "Product not found";
+    case G2C_EBADTYPE:
+	return "Bad type";
 
     default:
 	 return "Unknown Error";	
