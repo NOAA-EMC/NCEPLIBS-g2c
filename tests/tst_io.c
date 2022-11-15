@@ -265,10 +265,10 @@ main()
         printf("val_in %lld\n", val_in);
         if (val_in != neg_val)
             return G2C_ERROR;
-        /* if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_READ, &uval_in))) */
-        /*     return ret; */
-        /* if (uval_in != val) */
-        /*     return G2C_ERROR; */
+        if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_READ, &uval_in)))
+            return ret;
+        if (uval_in != val)
+            return G2C_ERROR;
 
         /* Close file. */
         fclose(f);
