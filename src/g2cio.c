@@ -128,7 +128,7 @@ g2c_file_io(FILE *f, int write, int g2ctype, void *var)
             if (g2ctype == G2C_INT64 && *i64var < 0)
             {
                 int64_tmp = -1 * *i64var; /* Store as positive. */
-                int64_tmp |= 1UL << BITSHIFT_63; /* Set sign bit. */
+                int64_tmp |= 1ULL << BITSHIFT_63; /* Set sign bit. */
             }
             else
                 int64_tmp = *i64var;
