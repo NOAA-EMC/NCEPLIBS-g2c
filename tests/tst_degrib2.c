@@ -133,7 +133,7 @@ main()
         int num_msg;
         int ret;
 
-        g2c_set_log_level(10);
+        /* g2c_set_log_level(10); */
         /* Open the data file using the index file. */
         if ((ret = g2c_read_index(WAVE_FILE, REF_INDEX_FILE, 0, &g2cid)))
             return ret;
