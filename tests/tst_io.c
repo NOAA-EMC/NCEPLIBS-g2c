@@ -231,7 +231,7 @@ main()
         /* long long neg_val = -9223372036854775807LL; */
         unsigned long long val = 1844674407370955161ULL;
         long long neg_val = -922337203685477580LL;
-        /* long long val_in; */
+        long long val_in;
         unsigned long long uval_in;
         int ret;
 
@@ -260,10 +260,11 @@ main()
         printf("uval_in %llu\n", uval_in);
         if (uval_in != val)
             return G2C_ERROR;
-        /* if ((ret = g2c_file_io_longlong(f, G2C_FILE_READ, &val_in))) */
-        /*     return ret; */
-        /* if (val_in != neg_val) */
-        /*     return G2C_ERROR; */
+        if ((ret = g2c_file_io_longlong(f, G2C_FILE_READ, &val_in)))
+            return ret;
+        printf("val_in %lld\n", val_in);
+        if (val_in != neg_val)
+            return G2C_ERROR;
         /* if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_READ, &uval_in))) */
         /*     return ret; */
         /* if (uval_in != val) */
