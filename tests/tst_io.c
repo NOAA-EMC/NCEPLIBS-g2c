@@ -125,8 +125,8 @@ main()
     printf("Testing template calls with 1-byte ints...");
     {
         FILE *f;
-        unsigned char val = 42;
-        char neg_val = -42;
+        unsigned char val = 250;
+        char neg_val = -120;
         char val_in;
         unsigned char uval_in;
         int ret;
@@ -171,8 +171,8 @@ main()
     printf("Testing template calls with 2-byte ints...");
     {
         FILE *f;
-        unsigned short val = 42;
-        short neg_val = -42;
+        unsigned short val = 65530;
+        short neg_val = -32760;
         short val_in;
         unsigned short uval_in;
         int ret;
@@ -217,8 +217,8 @@ main()
     printf("Testing template calls with 8-byte ints...");
     {
         FILE *f;
-        unsigned long long val = 42;
-        long long neg_val = -42;
+        unsigned long long val = 18446744073709551615ULL;
+        long long neg_val = -9223372036854775807LL;
         long long val_in;
         unsigned long long uval_in;
         int ret;
