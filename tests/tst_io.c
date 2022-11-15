@@ -231,8 +231,8 @@ main()
         /* long long neg_val = -9223372036854775807LL; */
         unsigned long long val = 1844674407370955161ULL;
         long long neg_val = -922337203685477580LL;
-        long long val_in;
-        unsigned long long uval_in;
+        /* long long val_in; */
+        /* unsigned long long uval_in; */
         int ret;
 
         /* Open the test file. */
