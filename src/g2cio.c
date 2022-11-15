@@ -198,7 +198,7 @@ g2c_file_io(FILE *f, int write, int g2ctype, void *var)
             /* Did we read a negative number? Check the sign bit... */
             if (g2ctype == G2C_INT64 && *i64var & 1ULL << BITSHIFT_63)
             {
-                *i64var &= ~(1UL << BITSHIFT_63); /* Clear sign bit. */
+                *i64var &= ~(1ULL << BITSHIFT_63); /* Clear sign bit. */
                 *i64var *= -1; /* Make it negative. */
             }
             break;
