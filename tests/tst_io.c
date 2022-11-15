@@ -224,54 +224,54 @@ main()
         fclose(f);
     }
     printf("ok!\n");
-    /* printf("Testing template calls with 8-byte ints..."); */
-    /* { */
-    /*     FILE *f; */
-    /*     /\* unsigned long long val = 18446744073709551615ULL; *\/ */
-    /*     /\* long long neg_val = -9223372036854775807LL; *\/ */
-    /*     unsigned long long val = 1844674407370955161ULL; */
-    /*     long long neg_val = -922337203685477580LL; */
-    /*     long long val_in; */
-    /*     unsigned long long uval_in; */
-    /*     int ret; */
+    printf("Testing template calls with 8-byte ints...");
+    {
+        FILE *f;
+        /* unsigned long long val = 18446744073709551615ULL; */
+        /* long long neg_val = -9223372036854775807LL; */
+        unsigned long long val = 1844674407370955161ULL;
+        long long neg_val = -922337203685477580LL;
+        long long val_in;
+        unsigned long long uval_in;
+        int ret;
 
-    /*     /\* Open the test file. *\/ */
-    /*     if (!(f = fopen(TEST_FILE, "wb"))) */
-    /*         return G2C_EFILE; */
+        /* Open the test file. */
+        if (!(f = fopen(TEST_FILE, "wb")))
+            return G2C_EFILE;
 
-    /*     /\* Write 1-byte ints, thrice. *\/ */
-    /*     if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_WRITE, &val))) */
-    /*         return ret; */
-    /*     if ((ret = g2c_file_io_longlong(f, G2C_FILE_WRITE, &neg_val))) */
-    /*         return ret; */
-    /*     if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_WRITE, &val))) */
-    /*         return ret; */
+        /* Write 1-byte ints, thrice. */
+        if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_WRITE, &val)))
+            return ret;
+        if ((ret = g2c_file_io_longlong(f, G2C_FILE_WRITE, &neg_val)))
+            return ret;
+        if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_WRITE, &val)))
+            return ret;
 
-    /*     /\* Close file. *\/ */
-    /*     fclose(f); */
+        /* Close file. */
+        fclose(f);
 
-    /*     /\* Open the test file. *\/ */
-    /*     if (!(f = fopen(TEST_FILE, "rb"))) */
-    /*         return G2C_EFILE; */
+        /* /\* Open the test file. *\/ */
+        /* if (!(f = fopen(TEST_FILE, "rb"))) */
+        /*     return G2C_EFILE; */
 
-    /*     /\* Read three values. *\/ */
-    /*     if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_READ, &uval_in))) */
-    /*         return ret; */
-    /*     if (uval_in != val) */
-    /*         return G2C_ERROR; */
-    /*     if ((ret = g2c_file_io_longlong(f, G2C_FILE_READ, &val_in))) */
-    /*         return ret; */
-    /*     if (val_in != neg_val) */
-    /*         return G2C_ERROR; */
-    /*     if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_READ, &uval_in))) */
-    /*         return ret; */
-    /*     if (uval_in != val) */
-    /*         return G2C_ERROR; */
+        /* /\* Read three values. *\/ */
+        /* if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_READ, &uval_in))) */
+        /*     return ret; */
+        /* if (uval_in != val) */
+        /*     return G2C_ERROR; */
+        /* if ((ret = g2c_file_io_longlong(f, G2C_FILE_READ, &val_in))) */
+        /*     return ret; */
+        /* if (val_in != neg_val) */
+        /*     return G2C_ERROR; */
+        /* if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_READ, &uval_in))) */
+        /*     return ret; */
+        /* if (uval_in != val) */
+        /*     return G2C_ERROR; */
 
-    /*     /\* Close file. *\/ */
-    /*     fclose(f); */
-    /* } */
-    /* printf("ok!\n"); */
+        /* /\* Close file. *\/ */
+        /* fclose(f); */
+    }
+    printf("ok!\n");
     printf("SUCCESS!\n");
     return 0;
 }
