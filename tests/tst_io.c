@@ -122,6 +122,144 @@ main()
         fclose(f);
     }
     printf("ok!\n");
+    printf("Testing template calls with 1-byte ints...");
+    {
+        FILE *f;
+        unsigned char val = 42;
+        char neg_val = -42;
+        char val_in;
+        unsigned char uval_in;
+        int ret;
+
+        /* Open the test file. */
+        if (!(f = fopen(TEST_FILE, "wb")))
+            return G2C_EFILE;
+
+        /* Write 1-byte ints, thrice. */
+        if ((ret = g2c_file_io_ubyte(f, G2C_FILE_WRITE, &val)))
+            return ret;
+        if ((ret = g2c_file_io_byte(f, G2C_FILE_WRITE, &neg_val)))
+            return ret;
+        if ((ret = g2c_file_io_ubyte(f, G2C_FILE_WRITE, &val)))
+            return ret;
+
+        /* Close file. */
+        fclose(f);
+
+        /* Open the test file. */
+        if (!(f = fopen(TEST_FILE, "rb")))
+            return G2C_EFILE;
+
+        /* Read three values. */
+        if ((ret = g2c_file_io_ubyte(f, G2C_FILE_READ, &uval_in)))
+            return ret;
+        if (uval_in != val)
+            return G2C_ERROR;
+        if ((ret = g2c_file_io_byte(f, G2C_FILE_READ, &val_in)))
+            return ret;
+        if (val_in != neg_val)
+            return G2C_ERROR;
+        if ((ret = g2c_file_io_ubyte(f, G2C_FILE_READ, &uval_in)))
+            return ret;
+        if (uval_in != val)
+            return G2C_ERROR;
+
+        /* Close file. */
+        fclose(f);
+    }
+    printf("ok!\n");
+    printf("Testing template calls with 2-byte ints...");
+    {
+        FILE *f;
+        unsigned short val = 42;
+        short neg_val = -42;
+        short val_in;
+        unsigned short uval_in;
+        int ret;
+
+        /* Open the test file. */
+        if (!(f = fopen(TEST_FILE, "wb")))
+            return G2C_EFILE;
+
+        /* Write 1-byte ints, thrice. */
+        if ((ret = g2c_file_io_ushort(f, G2C_FILE_WRITE, &val)))
+            return ret;
+        if ((ret = g2c_file_io_short(f, G2C_FILE_WRITE, &neg_val)))
+            return ret;
+        if ((ret = g2c_file_io_ushort(f, G2C_FILE_WRITE, &val)))
+            return ret;
+
+        /* Close file. */
+        fclose(f);
+
+        /* Open the test file. */
+        if (!(f = fopen(TEST_FILE, "rb")))
+            return G2C_EFILE;
+
+        /* Read three values. */
+        if ((ret = g2c_file_io_ushort(f, G2C_FILE_READ, &uval_in)))
+            return ret;
+        if (uval_in != val)
+            return G2C_ERROR;
+        if ((ret = g2c_file_io_short(f, G2C_FILE_READ, &val_in)))
+            return ret;
+        if (val_in != neg_val)
+            return G2C_ERROR;
+        if ((ret = g2c_file_io_ushort(f, G2C_FILE_READ, &uval_in)))
+            return ret;
+        if (uval_in != val)
+            return G2C_ERROR;
+
+        /* Close file. */
+        fclose(f);
+    }
+    printf("ok!\n");
+    printf("Testing template calls with 8-byte ints...");
+    {
+        FILE *f;
+        unsigned long long val = 42;
+        long long neg_val = -42;
+        long long val_in;
+        unsigned long long uval_in;
+        int ret;
+
+        /* Open the test file. */
+        if (!(f = fopen(TEST_FILE, "wb")))
+            return G2C_EFILE;
+
+        /* Write 1-byte ints, thrice. */
+        if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_WRITE, &val)))
+            return ret;
+        if ((ret = g2c_file_io_longlong(f, G2C_FILE_WRITE, &neg_val)))
+            return ret;
+        if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_WRITE, &val)))
+            return ret;
+
+        /* Close file. */
+        fclose(f);
+
+        /* Open the test file. */
+        if (!(f = fopen(TEST_FILE, "rb")))
+            return G2C_EFILE;
+
+        /* Read three values. */
+        if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_READ, &uval_in)))
+            return ret;
+        if (uval_in != val)
+            return G2C_ERROR;
+        if ((ret = g2c_file_io_longlong(f, G2C_FILE_READ, &val_in)))
+            return ret;
+        if (val_in != neg_val)
+            return G2C_ERROR;
+        if ((ret = g2c_file_io_ulonglong(f, G2C_FILE_READ, &uval_in)))
+            return ret;
+        if (uval_in != val)
+            return G2C_ERROR;
+
+        /* Close file. */
+        fclose(f);
+    }
+    printf("ok!\n");
     printf("SUCCESS!\n");
     return 0;
 }
