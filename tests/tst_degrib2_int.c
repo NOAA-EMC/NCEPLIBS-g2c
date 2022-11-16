@@ -23,19 +23,20 @@
 #define NUM_MATCHING 5
 #define FTP_NUM_MSG 688
 
-#define NUM_PROD_TEST 1
+#define NUM_PROD_TEST 2
 int
 main()
 {
     printf("Testing g2c degrib2 internal functions.\n");
     printf("Testing g2c_get_level_desc()...");
     {
-        int prod_template_num[NUM_PROD_TEST] = {0};
+        int prod_template_num[NUM_PROD_TEST] = {0, 0};
         int prod_template_value[NUM_PROD_TEST][G2C_MAX_PDS_TEMPLATE_MAPLEN] = {
-            {2, 1, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0}
+            {2, 1, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
+            {2, 10, 0, 0, 81, 0, 0, 1, 0, 100, 0, 80000, 255, 0, 0}
         };
         char expected_level_desc[NUM_PROD_TEST][G2C_MAX_GRIB_LEVEL_DESC_LEN + 1] = {
-            "Surface"};
+            "Surface", "800 mb"};
         char level_desc[G2C_MAX_GRIB_LEVEL_DESC_LEN + 1];
         int t;
         int ret;
