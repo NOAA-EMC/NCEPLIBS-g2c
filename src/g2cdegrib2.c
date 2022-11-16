@@ -44,9 +44,9 @@ extern G2C_CODE_TABLE_T *g2c_table;
  *
  * @author Ed Hartnett @date Sep 28, 2022
  */
-static int
-get_datetime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char day,
-        unsigned char hour, unsigned char minute, unsigned char second, char *tabbrev)
+int
+g2c_get_datetime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char day,
+                 unsigned char hour, unsigned char minute, unsigned char second, char *tabbrev)
 {
     int iutpos, iutpos2, iunit, iunit2;
     char tunit[G2C_DATE_TIME_LEN], tunit2[G2C_DATE_TIME_LEN];
@@ -235,8 +235,8 @@ get_datetime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned 
  *
  * @author Ed Hartnett @date Sep 28, 2022
  */
-static int
-get_level_desc(int ipdtn, int *ipdtmpl, char *level_desc)
+int
+g2c_get_level_desc(int ipdtn, int *ipdtmpl, char *level_desc)
 {
     int ipos;
 
@@ -605,12 +605,12 @@ g2c_degrib2(int g2cid, const char *fileout)
 	    /* Using the product template number, and the template
 	     * values, we can figure out a description for the
 	     * horizontal level description. */
-            if ((ret = get_level_desc(sec4_info->prod_def, sec->template, level_desc)))
+            if ((ret = g2c_get_level_desc(sec4_info->prod_def, sec->template, level_desc)))
                 return ret;
 
 	    /* Put the date/time in a formatted string. */
-            if ((ret = get_datetime(sec4_info->prod_def, sec->template, msg->year, msg->month, msg->day,
-				    msg->hour, msg->minute, msg->second, date_time)))
+            if ((ret = g2c_get_datetime(sec4_info->prod_def, sec->template, msg->year, msg->month, msg->day,
+                                        msg->hour, msg->minute, msg->second, date_time)))
                 return ret;
             fprintf(f, "  FIELD: %-8s %s %s\n", abbrev, level_desc, date_time);
             if (!sec4_info->num_coord)
