@@ -10,6 +10,7 @@
 
 #define FILE_NAME "tst_files.grib2"
 #define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
+#define GDAS_FILE "gdas.t12z.pgrb2.1p00.anl.grib2"
 #define NUM_BUF_SIZE_TESTS 6
 #define EPSILON (.1)
 
@@ -20,8 +21,8 @@ tst_g2c_open_twice(void *t)
     int g2cid;
     int ret = G2C_NOERROR;
 
-    if (t)
-        printf("runnning thread %d\n", *(int *)t);
+    /* if (t) */
+    /*     printf("runnning thread %d\n", *(int *)t); */
 
     /* g2c_set_log_level(10); */
     ret = g2c_open(WAVE_FILE, 0, &g2cid);
@@ -35,7 +36,7 @@ tst_g2c_open_twice(void *t)
         ret = g2c_close(g2cid);
 
     #ifdef PTHREADS
-    printf("ret %d\n", ret);
+    /* printf("ret %d\n", ret); */
     pthread_exit(&ret);
     #endif
     
@@ -46,7 +47,7 @@ int
 main()
 {
     printf("Testing g2c file functions.\n");
-    printf("Testing g2c_open() on file %s (twice)...\n", WAVE_FILE);
+    printf("Testing g2c_open() on file %s (twice)...", WAVE_FILE);
     {
 #ifdef PTHREADS
         /* If we built with pthreads, run this test as two threads. */
@@ -230,7 +231,91 @@ main()
         free(data);
     }
     printf("ok!\n");
-#endif
+#ifdef FTP_TEST_FILES
+    printf("Testing g2c_open() on file %s...\n", GDAS_FILE);
+    {
+        int g2cid;
+        int num_msg;
+        int m;
+        int ret;
+
+        /* Open GRIB2 file. */
+        if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+            return ret;
+
+        if ((ret = g2c_inq(g2cid, &num_msg)))
+            return ret;
+        if (num_msg != 19)
+            return ret;
+
+        for (m = 0; m < num_msg; m++)
+        {
+            unsigned char discipline;
+            int num_fields, num_local;
+            short center, subcenter;
+            unsigned char master_version, local_version;
+            
+            if ((ret = g2c_inq_msg(g2cid, m, &discipline, &num_fields, &num_local, &center,
+                                   &subcenter, &master_version, &local_version)))
+                return ret;
+            if (discipline != (m < 4 ? 0 : 10) || num_fields != 1 || num_local != 0 ||
+                center != 7 || subcenter != 0 || master_version != 2 || local_version != 1)
+                return G2C_ERROR;
+            /* printf("discipline %d num_fields %d num_local %d center %d subcenter %d " */
+            /*        "master_version %d local_version %d\n", discipline, num_fields, num_local, */
+            /*        center, subcenter, master_version, local_version); */
+
+            {
+                unsigned char sig_ref_time;
+                short year;
+                unsigned char month, day, hour, minute, second;
+
+                if ((ret = g2c_inq_msg_time(g2cid, m, &sig_ref_time, &year,
+                                            &month, &day, &hour, &minute, &second)))
+                    return ret;
+                /* printf("sig_ref_time %d year %d month %d day %d hour %d minute %d second %d\n", */
+                /*        sig_ref_time, year, month, day, hour, minute, second); */
+                if (sig_ref_time != 1 || year != 2021 || month != 11 ||
+                    day != 30 || hour != 0 || minute != 0 || second != 0)
+                    return G2C_ERROR;
+            }
+
+            {
+                int pds_template_len, pds_template[G2C_MAX_PDS_TEMPLATE_MAPLEN];
+                int gds_template_len, gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN];
+                int drs_template_len, drs_template[G2C_MAX_DRS_TEMPLATE_MAPLEN];
+                int t;
+                
+                if ((ret = g2c_inq_prod(g2cid, m, 0, &pds_template_len,  pds_template,
+                                        &gds_template_len, gds_template, &drs_template_len,
+                                        drs_template)))
+                    return ret;
+                /* printf("pds_template_len %d gds_template_len %d drs_template_len %d\n", */
+                /*        pds_template_len, gds_template_len, drs_template_len); */
+                if (pds_template_len != 15 || gds_template_len != 19 || drs_template_len != 7)
+                    return G2C_ERROR;
+                printf("pds_template {");
+                for (t = 0; t < pds_template_len; t++)
+                    printf("%d, ", pds_template[t]);
+                printf("}\n");
+                printf("gds_template {");
+                for (t = 0; t < gds_template_len; t++)
+                    printf("%d, ", gds_template[t]);
+                printf("}\n");
+                printf("drs_template {");
+                for (t = 0; t < drs_template_len; t++)
+                    printf("%d, ", drs_template[t]);
+                printf("}\n");
+            }
+        }
+        
+        /* Close the file. */
+        if ((ret = g2c_close(g2cid)))
+            return ret;
+    }
+    printf("ok!\n");
+#endif /* FTP_TEST_FILES */
+#endif /* JPEG */
     printf("SUCCESS!\n");
     return 0;
 }
