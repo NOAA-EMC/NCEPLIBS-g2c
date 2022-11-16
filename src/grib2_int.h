@@ -275,6 +275,11 @@ gtemplate *extpdstemplate(g2int number, g2int *list);
 gtemplate *getgridtemplate(g2int number);
 gtemplate *extgridtemplate(g2int number, g2int *list);
 
+/* Level and date/time info. */
+int g2c_get_datetime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char day,
+                     unsigned char hour, unsigned char minute, unsigned char second, char *tabbrev);
+int g2c_get_level_desc(int ipdtn, int *ipdtmpl, char *level_desc);
+
 /* Packing and unpacking data. */
 void simpack(float *fld, g2int ndpts, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
