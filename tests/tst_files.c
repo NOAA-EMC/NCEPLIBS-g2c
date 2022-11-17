@@ -149,7 +149,6 @@ main()
         int num_msg;
 	int ret;
 
-	/* g2c_set_log_level(3); */
 	if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
 	    return ret;
         if ((ret = g2c_inq(g2cid, &num_msg)))
@@ -240,6 +239,7 @@ main()
         int ret;
 
         /* Open GRIB2 file. */
+	g2c_set_log_level(10);
         if ((ret = g2c_open(GDAS_FILE, 0, &g2cid)))
             return ret;
 
@@ -275,8 +275,8 @@ main()
                     return ret;
                 /* printf("sig_ref_time %d year %d month %d day %d hour %d minute %d second %d\n", */
                 /*        sig_ref_time, year, month, day, hour, minute, second); */
-                if (sig_ref_time != 1 || year != 2021 || month != 11 ||
-                    day != 30 || hour != 0 || minute != 0 || second != 0)
+                if (sig_ref_time != 0 || year != 2022 || month != 11 ||
+                    day != 6 || hour != 12 || minute != 0 || second != 0)
                     return G2C_ERROR;
             }
 
@@ -290,9 +290,9 @@ main()
                                         &gds_template_len, gds_template, &drs_template_len,
                                         drs_template)))
                     return ret;
-                /* printf("pds_template_len %d gds_template_len %d drs_template_len %d\n", */
-                /*        pds_template_len, gds_template_len, drs_template_len); */
-                if (pds_template_len != 15 || gds_template_len != 19 || drs_template_len != 7)
+                printf("pds_template_len %d gds_template_len %d drs_template_len %d\n",
+                       pds_template_len, gds_template_len, drs_template_len);
+                if (pds_template_len != 15 || gds_template_len != 19 || drs_template_len != 18)
                     return G2C_ERROR;
                 printf("pds_template {");
                 for (t = 0; t < pds_template_len; t++)

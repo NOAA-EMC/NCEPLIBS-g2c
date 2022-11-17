@@ -587,10 +587,11 @@ g2c_degrib2(int g2cid, const char *fileout)
         /* For each field, print info. */
         for (fld = 0; fld < msg->num_fields; fld++)
         {
-            G2C_SECTION_INFO_T *sec, *sec3, *sec5;
+            G2C_SECTION_INFO_T *sec, *sec3, *sec5, *sec6;
             G2C_SECTION3_INFO_T *sec3_info;
             G2C_SECTION4_INFO_T *sec4_info;
             G2C_SECTION5_INFO_T *sec5_info;
+            G2C_SECTION6_INFO_T *sec6_info;
             char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
             char level_desc[G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN + 1];
             char date_time[100 + 1];
@@ -667,9 +668,18 @@ g2c_degrib2(int g2cid, const char *fileout)
             if (!sec5)
                 return G2C_ENOSECTION;
 
-	    /* Section 5 info. */
+            /* Find the sec6 that applies to this field, if any. */
+            for (sec6 = sec; sec6; sec6 = sec6->next)
+                if (sec6->sec_num == 6)
+                    break;
+
+	    /* Section 5 and 6 info. */
 	    sec5_info = (G2C_SECTION5_INFO_T *)sec5->sec_info;
-	    fprintf(f, "  Num. of Data Points =  %d    with BIT-MAP  0\n", sec5_info->num_data_points);
+	    sec6_info = (G2C_SECTION6_INFO_T *)sec6->sec_info;
+            if (sec6_info->indicator != 255)
+                fprintf(f, "  Num. of Data Points =  %d    with BIT-MAP  0\n", sec5_info->num_data_points);
+            else
+                fprintf(f, "  Num. of Data Points =  %d     NO BIT-MAP \n", sec5_info->num_data_points);
 	    fprintf(f, "  DRS TEMPLATE 5. %d : ", sec5_info->data_def);
             for (t = 0; t < sec5->template_len; t++)
                 fprintf(f, " %d", sec5->template[t]);
