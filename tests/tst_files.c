@@ -240,12 +240,12 @@ main()
         int ret;
 
         /* Open GRIB2 file. */
-        if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
+        if ((ret = g2c_open(GDAS_FILE, 0, &g2cid)))
             return ret;
 
         if ((ret = g2c_inq(g2cid, &num_msg)))
             return ret;
-        if (num_msg != 19)
+        if (num_msg != 2)
             return ret;
 
         for (m = 0; m < num_msg; m++)
