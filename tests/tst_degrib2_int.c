@@ -17,7 +17,7 @@ main()
     {
 #define DATE_TIME_LEN 100
         int prod_template_num[NUM_PROD_TEST] = {0, 0};
-        int prod_template_value[NUM_PROD_TEST][G2C_MAX_PDS_TEMPLATE_MAPLEN] = {
+        long long int prod_template_value[NUM_PROD_TEST][G2C_MAX_PDS_TEMPLATE_MAPLEN] = {
             {2, 1, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
             {2, 10, 0, 0, 81, 0, 0, 1, 0, 100, 0, 80000, 255, 0, 0}
         };
