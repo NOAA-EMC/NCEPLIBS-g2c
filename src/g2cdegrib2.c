@@ -681,10 +681,12 @@ g2c_degrib2(int g2cid, const char *fileout)
             else
                 fprintf(f, "  Num. of Data Points =  %d     NO BIT-MAP \n", sec5_info->num_data_points);
 	    fprintf(f, "  DRS TEMPLATE 5. %d : ", sec5_info->data_def);
-            /* Cast to int here. That's because degrib2.F90 shows
-             * these as signed ints, even if they are unsigned. */
-            for (t = 0; t < sec5->template_len; t++)
-                fprintf(f, " %d", (int)sec5->template[t]);
+            /* Cast to int for the first template value. That's
+             * because degrib2.F90 shows these as signed ints, even if
+             * they are unsigned. */
+            fprintf(f, " %d", (int)sec5->template[0]);
+            for (t = 1; t < sec5->template_len; t++)
+                fprintf(f, " %lld", sec5->template[t]);
             fprintf(f, "\n");
 	    fprintf(f, "  Data Values:\n");
 	    fprintf(f, "  Num. of Data Points =  %d   Num. of Data Undefined = 0\n", sec5_info->num_data_points);
