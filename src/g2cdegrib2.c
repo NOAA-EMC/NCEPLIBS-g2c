@@ -7,6 +7,7 @@
  */
 #include "grib2_int.h"
 #include <stdarg.h>
+#include <math.h>
 
 /** Global file information. */
 extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
@@ -44,9 +45,9 @@ extern G2C_CODE_TABLE_T *g2c_table;
  *
  * @author Ed Hartnett @date Sep 28, 2022
  */
-static int
-get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char month, unsigned char day,
-        unsigned char hour, unsigned char minute, unsigned char second, char *tabbrev)
+int
+g2c_get_datetime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char day,
+                 unsigned char hour, unsigned char minute, unsigned char second, char *tabbrev)
 {
     int iutpos, iutpos2, iunit, iunit2;
     char tunit[G2C_DATE_TIME_LEN], tunit2[G2C_DATE_TIME_LEN];
@@ -212,6 +213,44 @@ get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char month,
 }
 
 /**
+ * Format the level string for degrib2 output.
+ *
+ * @param cbuf Character buffer of length 11 which will get the
+ * formatted level description.
+ * @param ival Integer value which may need scaling.
+ * @param scale Scaling factor information.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ *
+ * @author Ed Hartnett @date 11/16/22
+ */
+static int
+format_level(char *cbuf, int ival, int scale)
+{
+    assert(cbuf);
+
+    if (!scale)
+        sprintf(cbuf, "%d", ival);
+    else
+    {
+        float rval;
+
+        rval = (float)ival * pow(10, -1 * scale);
+        if (rval == (int)rval)
+            sprintf(cbuf, "%d", (int)rval);
+        else
+        {
+            char fmt[37];
+            sprintf(fmt, "%s%d%s", "%.", (int)abs(scale), "f");
+            sprintf(cbuf, fmt, rval);
+        }
+            
+    }
+    return G2C_NOERROR;
+}
+
+/**
  * Determine the string that describes the level information, given
  * the GRIB2 Product Definition Template information.
  *
@@ -235,10 +274,11 @@ get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char month,
  *
  * @author Ed Hartnett @date Sep 28, 2022
  */
-static int
-get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
+int
+g2c_get_level_desc(int ipdtn, int *ipdtmpl, char *level_desc)
 {
     int ipos;
+    int ret;
 
     /* Check inputs. */
     assert(ipdtn >= 0 && ipdtmpl && level_desc);
@@ -268,6 +308,10 @@ get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
   {
      /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1) + 2) */
      /* level_desc = trim(tmpval1)//" mb" */
+      char tmpval1[37];
+      if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1] + 2)))
+          return ret;
+      sprintf(level_desc, "%s %s", tmpval1, "mb");
   }
   /* Pressure Layer. */
   else if (ipdtmpl[ipos] == 100 && ipdtmpl[ipos + 3] == 100)
@@ -543,10 +587,11 @@ g2c_degrib2(int g2cid, const char *fileout)
         /* For each field, print info. */
         for (fld = 0; fld < msg->num_fields; fld++)
         {
-            G2C_SECTION_INFO_T *sec, *sec3, *sec5;
+            G2C_SECTION_INFO_T *sec, *sec3, *sec5, *sec6;
             G2C_SECTION3_INFO_T *sec3_info;
             G2C_SECTION4_INFO_T *sec4_info;
             G2C_SECTION5_INFO_T *sec5_info;
+            G2C_SECTION6_INFO_T *sec6_info;
             char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
             char level_desc[G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN + 1];
             char date_time[100 + 1];
@@ -605,12 +650,12 @@ g2c_degrib2(int g2cid, const char *fileout)
 	    /* Using the product template number, and the template
 	     * values, we can figure out a description for the
 	     * horizontal level description. */
-            if ((ret = get_level_desc(sec4_info->prod_def, sec->template, level_desc)))
+            if ((ret = g2c_get_level_desc(sec4_info->prod_def, sec->template, level_desc)))
                 return ret;
 
 	    /* Put the date/time in a formatted string. */
-            if ((ret = get_datetime(sec4_info->prod_def, sec->template, msg->year, msg->month, msg->day,
-				    msg->hour, msg->minute, msg->second, date_time)))
+            if ((ret = g2c_get_datetime(sec4_info->prod_def, sec->template, msg->year, msg->month, msg->day,
+                                        msg->hour, msg->minute, msg->second, date_time)))
                 return ret;
             fprintf(f, "  FIELD: %-8s %s %s\n", abbrev, level_desc, date_time);
             if (!sec4_info->num_coord)
@@ -623,9 +668,18 @@ g2c_degrib2(int g2cid, const char *fileout)
             if (!sec5)
                 return G2C_ENOSECTION;
 
-	    /* Section 5 info. */
+            /* Find the sec6 that applies to this field, if any. */
+            for (sec6 = sec; sec6; sec6 = sec6->next)
+                if (sec6->sec_num == 6)
+                    break;
+
+	    /* Section 5 and 6 info. */
 	    sec5_info = (G2C_SECTION5_INFO_T *)sec5->sec_info;
-	    fprintf(f, "  Num. of Data Points =  %d    with BIT-MAP  0\n", sec5_info->num_data_points);
+	    sec6_info = (G2C_SECTION6_INFO_T *)sec6->sec_info;
+            if (sec6_info->indicator != 255)
+                fprintf(f, "  Num. of Data Points =  %d    with BIT-MAP  0\n", sec5_info->num_data_points);
+            else
+                fprintf(f, "  Num. of Data Points =  %d     NO BIT-MAP \n", sec5_info->num_data_points);
 	    fprintf(f, "  DRS TEMPLATE 5. %d : ", sec5_info->data_def);
             for (t = 0; t < sec5->template_len; t++)
                 fprintf(f, " %lld", sec5->template[t]);

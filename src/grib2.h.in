@@ -297,11 +297,6 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 #define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
 #define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
 
-#define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
-#define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
-#define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
-#define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
-
 /* Constants to help with templates. */
 #define G2C_MAX_GDS_TEMPLATE 31 /**< Maximum number of grid templates. */
 #define G2C_MAX_GDS_TEMPLATE_MAPLEN 28 /**< Maximum grid template map length. */
@@ -417,6 +412,7 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 
 #define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
 #define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
+#define G2C_MAX_GRIB_LEVEL_DESC_LEN 40 /**< Maximum length of level description. */
 #define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
 #define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
 #define G2C_MAX_NUM_SECTIONS 1024 /**< Maximum number of sections that can be handled in one message. */
