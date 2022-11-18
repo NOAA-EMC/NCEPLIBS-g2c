@@ -353,7 +353,7 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     if (!rw_flag)
     {
         sec->template_len = maplen;
-        if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
+        if (!(sec->template = calloc(sizeof(long long int) * maplen, 1)))
             return G2C_ENOMEM;
     }
 
@@ -443,7 +443,7 @@ g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     if (!rw_flag)
     {
         sec->template_len = maplen;
-        if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
+        if (!(sec->template = calloc(sizeof(long long int) * maplen, 1)))
             return G2C_ENOMEM;
     }
 
@@ -525,7 +525,7 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     if (!rw_flag)
     {
         sec->template_len = maplen;
-        if (!(sec->template = calloc(sizeof(int) * maplen, 1)))
+        if (!(sec->template = calloc(sizeof(long long int) * maplen, 1)))
             return G2C_ENOMEM;
     }
 
