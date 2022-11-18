@@ -191,6 +191,15 @@ typedef struct g2c_section5_info
     unsigned short data_def; /**< Data representation template number (See Table 5.0). */
 } G2C_SECTION5_INFO_T;
 
+/** Information about [Section 6 BIT-MAP
+ * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect6.shtml). */
+typedef struct g2c_section6_info
+{
+    /** Bit map indicator. See [Table
+     * 6.0](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table6-0.shtml). */
+    unsigned char indicator;
+} G2C_SECTION6_INFO_T;
+
 /** This is the information about each open file. */
 typedef struct g2c_file_info
 {
@@ -357,6 +366,7 @@ int g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg);
 int g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec);
 int g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec);
 int g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec);
+int g2c_rw_section6_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec);
 
 /* Logging output. */
 int g2c_log_section1(G2C_MESSAGE_INFO_T *msg);

@@ -49,6 +49,8 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_WW3_Regional_US_West_Coast_20220718_00
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_gdas.t12z.pgrb2.1p00.anl.degrib2
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
 # These are the XML files from the WMO with GRIB2 code data.
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
@@ -80,9 +82,10 @@ if(FTP_TEST_FILES)
   set(G2_FTP_URL "https://ftp.emc.ncep.noaa.gov/static_files/public/NCEPLIBS-g2")
   set(WW3_WEST_FILE "WW3_Regional_US_West_Coast_20220718_0000.grib2")
   set(WW3_EAST_FILE "WW3_Regional_US_East_Coast_20220717_0600.grib2")
+  set(GDAS_FILE "gdas.t12z.pgrb2.1p00.anl.grib2")
+  
   # Not using the East Coast file yet.
-  # foreach(THE_FILE IN LISTS WW3_WEST_FILE WW3_EAST_FILE) 
-  foreach(THE_FILE IN LISTS WW3_WEST_FILE) 
+  foreach(THE_FILE IN LISTS WW3_WEST_FILE GDAS_FILE) 
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
 

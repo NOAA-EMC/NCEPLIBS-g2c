@@ -545,6 +545,62 @@ g2c_rw_section5_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
 }
 
 /**
+ * Read or write the metadata from section 6 (Data Representation
+ * Section) of a GRIB2 message.
+ *
+ * When this function is called, the file cursor is positioned just
+ * after the section number field in the section. The size of the
+ * section, and the section number, have already been read when this
+ * function is called.
+ *
+ * @param f FILE pointer to open GRIB2 file.
+ * @param rw_flag ::G2C_FILE_WRITE if function should write,
+ * ::G2C_FILE_READ if it should read.
+ * @param sec Pointer to the G2C_SECTION_INFO_T struct.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_ENOMEM Out of memory.
+ * - ::G2C_ENOTEMPLATE Can't find template.
+ *
+ * @author Ed Hartnett @date Sep 16, 2022
+ */
+int
+g2c_rw_section6_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
+{
+    G2C_SECTION6_INFO_T *sec6_info;
+    int ret;
+
+    /* Check input. */
+    if (!f || !sec)
+        return G2C_EINVAL;
+    LOG((6, "g2c_rw_section6_metadata rw_flag %d at file position %ld", rw_flag,
+         ftell(f)));
+
+    /* When reading, allocate storage for a new section 6. When
+     * writing, get a pointer to the exitsing sec6_info. */
+    if (!rw_flag)
+    {
+        if (!(sec6_info = calloc(sizeof(G2C_SECTION6_INFO_T), 1)))
+            return G2C_ENOMEM;
+    }
+    else
+        sec6_info = sec->sec_info;
+
+    /* Read section 6. */
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, &sec6_info->indicator)))
+        return ret;
+    LOG((5, "g2c_rw_section6_metadata indicator %d", sec6_info->indicator));
+
+    /* When reading, attach sec6_info to our section data. */
+    if (!rw_flag)
+        sec->sec_info = sec6_info;
+
+    return G2C_NOERROR;
+}
+
+/**
  * Add metadata about a new section 3, 4, 5, 6, or 7.
  *
  * @param f FILE pointer to open GRIB2 file.
@@ -613,6 +669,8 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
             return ret;
         break;
     case 6:
+        if ((ret = g2c_rw_section6_metadata(f, G2C_FILE_READ, sec)))
+            return ret;
         break;
     case 7:
         break;

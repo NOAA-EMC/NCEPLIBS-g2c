@@ -18,6 +18,12 @@
 #define FTP_DEGRIB2_FILE "WW3_Regional_US_West_Coast_20220718_0000.degrib2"
 #define REF_FTP_DEGRIB2_FILE "ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2"
 
+#define GDAS_FILE "gdas.t12z.pgrb2.1p00.anl.grib2"
+#define GDAS_DEGRIB2_FILE "gdas.t12z.pgrb2.1p00.anl.degrib2"
+#define REF_GDAS_DEGRIB2_FILE "ref_gdas.t12z.pgrb2.1p00.anl.degrib2"
+#define REF_GDAS_INDEX_FILE "gdas.t12z.pgrb2.1p00.anl.grb2index"
+#define GDAS_NUM_MSG 2
+
 #define MAX_LINE_LEN 256
 #define MAX_VALUE_LEN 25
 #define NUM_MATCHING 5
@@ -320,6 +326,53 @@ main()
 
             /* Compare the degrib2 output to our reference file. */
             if ((ret = compare_files2(FTP_DEGRIB2_FILE, REF_FTP_DEGRIB2_FILE)))
+                return ret;
+
+            printf("\tok!\n");
+        }
+    }
+    printf("ok!\n");
+    printf("Testing degrib2 on file %s downloaded via FTP...\n", GDAS_FILE);
+    {
+        int g2cid;
+        int num_msg;
+        int t;
+        int ret;
+
+        /* for (t = 0; t < NUM_TESTS; t++) */
+        for (t = 0; t < 1; t++)
+        {
+            g2c_set_log_level(11);
+            /* Open the data file with and without the index file. */
+            if (t)
+            {
+                printf("\ttesting degrib2 on file %s downloaded via FTP using index...", GDAS_FILE);
+                if ((ret = g2c_read_index(GDAS_FILE, REF_GDAS_INDEX_FILE, 0, &g2cid)))
+                    return ret;
+            }
+            else
+            {
+                printf("\ttesting degrib2 on file %s downloaded via FTP without using index...", GDAS_FILE);
+                if ((ret = g2c_open(GDAS_FILE, 0, &g2cid)))
+                    return ret;
+            }
+
+            /* Check some stuff. */
+            if ((ret = g2c_inq(g2cid, &num_msg)))
+                return ret;
+            if (num_msg != GDAS_NUM_MSG)
+                return G2C_ERROR;
+
+            /* Output a degrib2 file. */
+            if ((ret = g2c_degrib2(g2cid, GDAS_DEGRIB2_FILE)))
+                return ret;
+
+            /* Close the file. */
+            if ((ret = g2c_close(g2cid)))
+                return ret;
+
+            /* Compare the degrib2 output to our reference file. */
+            if ((ret = compare_files2(GDAS_DEGRIB2_FILE, REF_GDAS_DEGRIB2_FILE)))
                 return ret;
 
             printf("\tok!\n");
