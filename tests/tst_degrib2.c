@@ -16,7 +16,7 @@
 #define FTP_FILE "WW3_Regional_US_West_Coast_20220718_0000.grib2"
 #define REF_FTP_INDEX_FILE "ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index"
 #define FTP_DEGRIB2_FILE "WW3_Regional_US_West_Coast_20220718_0000.degrib2"
-#define REF_FTP_DEGRIB2_FILE "ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2"
+#define REF_FTP_DEGRIB2_FILE "data/ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2"
 
 #define GDAS_FILE "gdas.t12z.pgrb2.1p00.anl.grib2"
 #define GDAS_DEGRIB2_FILE "gdas.t12z.pgrb2.1p00.anl.degrib2"
