@@ -8,6 +8,7 @@
 #include "grib2_int.h"
 #include <time.h>
 #include <stdarg.h>
+#include <libgen.h>
 
 /** Global file information. */
 extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
@@ -339,7 +340,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     /* Create header 2. */
     if (!ret)
     {
-        strncpy(my_path, g2c_file[g2cid].path, G2C_INDEX_BASENAME_LEN);
+        strncpy(my_path, basename(g2c_file[g2cid].path), G2C_INDEX_BASENAME_LEN);
         sprintf(h2, "IX1FORM:       162    %6d    %6ld  %s    \n", total_index_size,
                 g2c_file[g2cid].num_messages, my_path);
         LOG((5, "header 2: %s", h2));
