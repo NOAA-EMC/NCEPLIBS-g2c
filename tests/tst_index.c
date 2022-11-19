@@ -10,12 +10,12 @@
 #include <sys/time.h>
 
 #define FILE_NAME "tst_index.txt"
-#define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
-#define REF_FILE "ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
+#define WAVE_FILE "data/gdaswave.t00z.wcoast.0p16.f000.grib2"
+#define REF_FILE "data/ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
 #define INDEX_FILE "gdaswave.t00z.wcoast.0p16.f000.grb2index"
 #define DEGRIB2_FILE "gdaswave.t00z.wcoast.0p16.f000.degrib2"
-#define FTP_FILE "WW3_Regional_US_West_Coast_20220718_0000.grib2"
-#define REF_FTP_FILE "ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index"
+#define FTP_FILE "data/WW3_Regional_US_West_Coast_20220718_0000.grib2"
+#define REF_FTP_FILE "data/ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index"
 #define MILLION 1000000
 
 /** Subtract the `struct timeval' values X and Y, storing the result in

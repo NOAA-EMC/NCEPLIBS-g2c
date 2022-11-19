@@ -9,8 +9,8 @@
 #include "grib2_int.h"
 
 #define FILE_NAME "tst_files.grib2"
-#define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
-#define GDAS_FILE "gdas.t12z.pgrb2.1p00.anl.grib2"
+#define WAVE_FILE "data/gdaswave.t00z.wcoast.0p16.f000.grib2"
+#define GDAS_FILE "data/gdas.t12z.pgrb2.1p00.anl.grib2"
 #define NUM_BUF_SIZE_TESTS 6
 #define EPSILON (.1)
 

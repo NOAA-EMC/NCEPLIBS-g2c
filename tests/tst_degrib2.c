@@ -8,19 +8,19 @@
 #include "grib2_int.h"
 
 #define FILE_NAME "tst_degrib2.txt"
-#define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
-#define REF_FILE "ref_gdaswave.degrib2.txt"
+#define WAVE_FILE "data/gdaswave.t00z.wcoast.0p16.f000.grib2"
+#define REF_FILE "data/ref_gdaswave.degrib2.txt"
 #define DEGRIB2_FILE "gdaswave.t00z.wcoast.0p16.f000.degrib2"
-#define REF_INDEX_FILE "ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
+#define REF_INDEX_FILE "data/ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
 #define TEST_INDEX_FILE "tst_gdaswave.t00z.wcoast.0p16.f000.grb2index"
-#define FTP_FILE "WW3_Regional_US_West_Coast_20220718_0000.grib2"
-#define REF_FTP_INDEX_FILE "ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index"
+#define FTP_FILE "data/WW3_Regional_US_West_Coast_20220718_0000.grib2"
+#define REF_FTP_INDEX_FILE "data/ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index"
 #define FTP_DEGRIB2_FILE "WW3_Regional_US_West_Coast_20220718_0000.degrib2"
 #define REF_FTP_DEGRIB2_FILE "data/ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2"
 
-#define GDAS_FILE "gdas.t12z.pgrb2.1p00.anl.grib2"
+#define GDAS_FILE "data/gdas.t12z.pgrb2.1p00.anl.grib2"
 #define GDAS_DEGRIB2_FILE "gdas.t12z.pgrb2.1p00.anl.degrib2"
-#define REF_GDAS_DEGRIB2_FILE "ref_gdas.t12z.pgrb2.1p00.anl.degrib2"
+#define REF_GDAS_DEGRIB2_FILE "data/ref_gdas.t12z.pgrb2.1p00.anl.degrib2"
 #define REF_GDAS_INDEX_FILE "gdas.t12z.pgrb2.1p00.anl.grb2index"
 #define GDAS_NUM_MSG 2
 
@@ -342,7 +342,6 @@ main()
         /* for (t = 0; t < NUM_TESTS; t++) */
         for (t = 0; t < 1; t++)
         {
-            g2c_set_log_level(11);
             /* Open the data file with and without the index file. */
             if (t)
             {
