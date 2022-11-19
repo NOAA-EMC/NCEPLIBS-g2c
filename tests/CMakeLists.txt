@@ -12,13 +12,14 @@ function(PULL_DATA THE_URL THE_FILE)
   # there before FTPing them. Developers can keep all test files on
   # their machines, and save the time of downloading them every time.
   if(NOT ${TEST_FILE_DIR} STREQUAL ".")
-    message(STATUS "Really finding data files in ${TEST_FILE_DIR}.")
     if (EXISTS ${TEST_FILE_DIR}/${THE_FILE})
+      message(STATUS "Copying file ${TEST_FILE_DIR}/${THE_FILE} to test data directory.")
       FILE(COPY ${TEST_FILE_DIR}/${THE_FILE}
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
     endif()
   endif()
-  if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${THE_FILE}")
+  if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/data/${THE_FILE}")
+    message(STATUS "Downloading file ${CMAKE_CURRENT_BINARY_DIR}/data/${THE_FILE}.")
     file(DOWNLOAD
       ${THE_URL}/${THE_FILE}
       ${CMAKE_CURRENT_BINARY_DIR}/data/${THE_FILE}
