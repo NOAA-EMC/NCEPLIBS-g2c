@@ -154,7 +154,7 @@ typedef struct g2c_section_info
     void *sec_info; /**< Pointer to struct specific for section 3, 4, 5, 6, or 7. */
     struct g2c_section_info *next; /**< Pointer to next in list. */
     struct g2c_section_info *prev; /**< Pointer to previous in list. */
-    int *template; /**< Grid, product, or data template. */
+    long long int *template; /**< Grid, product, or data template. */
     int template_len; /**< Number of entries in template. */
 } G2C_SECTION_INFO_T;
 
@@ -167,8 +167,8 @@ typedef struct g2c_section3_info
     unsigned char num_opt; /**< Number of octets for optional list of numbers defining number of points. */
     unsigned char interp_list; /**< Interpetation of list of numbers defining number of points (See Table 3.11). */
     unsigned short grid_def; /**< Grid definition template number (= N) (See Table 3.1). */
-    int *optional; /**< Optional list of numbers defining number of points. */}
-    G2C_SECTION3_INFO_T;
+    int *optional; /**< Optional list of numbers defining number of points. */
+} G2C_SECTION3_INFO_T;
 
 /** Information about [Section 4 PRODUCT DEFINITION
  * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml). */
@@ -285,9 +285,9 @@ gtemplate *getgridtemplate(g2int number);
 gtemplate *extgridtemplate(g2int number, g2int *list);
 
 /* Level and date/time info. */
-int g2c_get_datetime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char day,
+int g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char month, unsigned char day,
                      unsigned char hour, unsigned char minute, unsigned char second, char *tabbrev);
-int g2c_get_level_desc(int ipdtn, int *ipdtmpl, char *level_desc);
+int g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc);
 
 /* Packing and unpacking data. */
 void simpack(float *fld, g2int ndpts, g2int *idrstmpl,
@@ -354,7 +354,7 @@ int g2c_file_io_int(FILE *f, int write, int *var);
 int g2c_file_io_uint(FILE *f, int write, unsigned int *var);
 int g2c_file_io_longlong(FILE *f, int write, long long *var);
 int g2c_file_io_ulonglong(FILE *f, int write, unsigned long long *var);
-int g2c_file_io_template(FILE *f, int rw_flag, int map, int *template_value);
+int g2c_file_io_template(FILE *f, int rw_flag, int map, long long int *template_value);
 
 /* Read and remember file, message, and section metadata. */
 int g2c_add_file(const char *path, int mode, int *g2cid);

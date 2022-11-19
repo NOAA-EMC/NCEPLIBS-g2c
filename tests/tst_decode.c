@@ -76,9 +76,9 @@ int main()
     printf("Testing g2c_unpack7()...");
     {
         int igdsnum = 0;
-        int *igdstmpl = NULL;
+        long long int *igdstmpl = NULL;
         int idrsnum = 0;
-        int idrstmpl[5] = {0, 0, 0, 1, 0};
+        long long int idrstmpl[5] = {0, 0, 0, 1, 0};
         int ndpts = 121;
         float *fld;
 

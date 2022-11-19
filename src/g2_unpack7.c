@@ -249,8 +249,8 @@ g2_unpack7(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstmpl,
  * @author Stephen Gilbert @date 2002-10-31
  */
 int
-g2c_unpack7(unsigned char *cgrib, int igdsnum, int gds_tmpl_len, int *gdstmpl,
-            int idrsnum, int drs_tmpl_len, int *drstmpl, int ndpts, float *fld)
+g2c_unpack7(unsigned char *cgrib, int igdsnum, int gds_tmpl_len, long long int *gdstmpl,
+            int idrsnum, int drs_tmpl_len, long long int *drstmpl, int ndpts, float *fld)
 {
     g2int iofst = 0;
     g2int *igdstmpl = NULL, *idrstmpl;

@@ -405,7 +405,7 @@ g2c_file_io_ulonglong(FILE *f, int write, unsigned long long *var)
  * @author Ed Hartnett 11/7/22
  */
 int
-g2c_file_io_template(FILE *f, int rw_flag, int map, int *template_value)
+g2c_file_io_template(FILE *f, int rw_flag, int map, long long int *template_value)
 {
     int ret;
 

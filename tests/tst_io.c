@@ -19,6 +19,7 @@ main()
         int val = 42;
         int neg_val = -42;
         int val_in;
+        long long int llval_in;
         unsigned int uval = 42, uval_in;
         int ret;
 
@@ -70,17 +71,17 @@ main()
             return G2C_EFILE;
 
         /* Read as template values. */
-        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &llval_in)))
             return ret;
-        if (val_in != val)
+        if (llval_in != val)
             return G2C_ERROR;
-        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, -4, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, -4, &llval_in)))
             return ret;
-        if (val_in != neg_val)
+        if (llval_in != neg_val)
             return G2C_ERROR;
-        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &llval_in)))
             return ret;
-        if (val_in != val)
+        if (llval_in != val)
             return G2C_ERROR;
 
         /* Close file. */
@@ -90,9 +91,9 @@ main()
     printf("Testing template calls with 4-byte ints...");
     {
         FILE *f;
-        int val = 42;
-        int neg_val = -42;
-        int val_in;
+        long long int val = 42;
+        long long int neg_val = -42;
+        long long int llval_in;
         int ret;
 
         /* Open the test file. */
@@ -115,17 +116,17 @@ main()
             return G2C_EFILE;
 
         /* Read as template values. */
-        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &llval_in)))
             return ret;
-        if (val_in != val)
+        if (llval_in != val)
             return G2C_ERROR;
-        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, -4, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, -4, &llval_in)))
             return ret;
-        if (val_in != neg_val)
+        if (llval_in != neg_val)
             return G2C_ERROR;
-        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &val_in)))
+        if ((ret = g2c_file_io_template(f, G2C_FILE_READ, 4, &llval_in)))
             return ret;
-        if (val_in != val)
+        if (llval_in != val)
             return G2C_ERROR;
 
         /* Close file. */

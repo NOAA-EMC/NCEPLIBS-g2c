@@ -71,7 +71,7 @@ degrib2_lines_not_equal(char *l1, char *l2)
     else
     {
         printf("\n%s\n", l1);
-        printf("%s\n", l2);
+        printf("expected:\n%s\n", l2);
         return G2C_ERROR;
     }
 

@@ -46,7 +46,7 @@ extern G2C_CODE_TABLE_T *g2c_table;
  * @author Ed Hartnett @date Sep 28, 2022
  */
 int
-g2c_get_datetime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsigned char day,
+g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char month, unsigned char day,
                  unsigned char hour, unsigned char minute, unsigned char second, char *tabbrev)
 {
     int iutpos, iutpos2, iunit, iunit2;
@@ -179,7 +179,7 @@ g2c_get_datetime(int ipdtn, int *ipdtmpl, short year, unsigned char month, unsig
     
   /* write(tmpval, '(I0)') itemp */
 
-    sprintf(tabbrev, "valid at  %d", ipdtmpl[iutpos + 1]);
+    sprintf(tabbrev, "valid at  %lld", ipdtmpl[iutpos + 1]);
   /* write(tabbrev, fmt = '("valid at  ", i4)') ipdtmpl(iutpos + 1) */
 
   /* Determine Reference Time: Year, Month, Day, Hour, Minute, Second. */
@@ -275,7 +275,7 @@ format_level(char *cbuf, int ival, int scale)
  * @author Ed Hartnett @date Sep 28, 2022
  */
 int
-g2c_get_level_desc(int ipdtn, int *ipdtmpl, char *level_desc)
+g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
 {
     int ipos;
     int ret;
@@ -625,8 +625,9 @@ g2c_degrib2(int g2cid, const char *fileout)
             fprintf(f, "  SECTION 3:  %d %d %d %d %d\n", sec3_info->source_grid_def, sec3_info->num_data_points, sec3_info->num_opt,
                     sec3_info->interp_list, sec3_info->grid_def);
             fprintf(f, "  GRID TEMPLATE 3. %d : ", sec3_info->grid_def);
+            /* Cast to int to match behavior of  degrib2.F90. */            
             for (t = 0; t < sec3->template_len; t++)
-                fprintf(f, " %d", sec3->template[t]);
+                fprintf(f, " %d", (int)sec3->template[t]);
             fprintf(f, "\n");
             if (!sec3_info->optional)
                 fprintf(f, "  NO Optional List Defining Number of Data Points.\n");
@@ -641,10 +642,11 @@ g2c_degrib2(int g2cid, const char *fileout)
              * number. */
             if ((ret = g2c_param_abbrev(msg->discipline, sec->template[0], sec->template[1], abbrev)))
                 return ret;
-            fprintf(f, "( PARAMETER = %-8s %d %d %d ) ", abbrev, sec->msg->discipline, sec->template[0],
+            fprintf(f, "( PARAMETER = %-8s %d %lld %lld ) ", abbrev, sec->msg->discipline, sec->template[0],
 		    sec->template[1]);
+            /* Cast to int to match behavior of  degrib2.F90. */            
             for (t = 0; t < sec->template_len; t++)
-                fprintf(f, " %d", sec->template[t]);
+                fprintf(f, " %d", (int)sec->template[t]);
             fprintf(f, "\n");
 
 	    /* Using the product template number, and the template
@@ -681,8 +683,9 @@ g2c_degrib2(int g2cid, const char *fileout)
             else
                 fprintf(f, "  Num. of Data Points =  %d     NO BIT-MAP \n", sec5_info->num_data_points);
 	    fprintf(f, "  DRS TEMPLATE 5. %d : ", sec5_info->data_def);
+            /* Cast to int to match behavior of  degrib2.F90. */
             for (t = 0; t < sec5->template_len; t++)
-                fprintf(f, " %d", sec5->template[t]);
+                fprintf(f, " %d", (int)sec5->template[t]);
             fprintf(f, "\n");
 	    fprintf(f, "  Data Values:\n");
 	    fprintf(f, "  Num. of Data Points =  %d   Num. of Data Undefined = 0\n", sec5_info->num_data_points);
