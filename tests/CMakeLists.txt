@@ -84,15 +84,19 @@ if(FTP_TEST_FILES)
   set(WW3_WEST_FILE "WW3_Regional_US_West_Coast_20220718_0000.grib2")
   set(WW3_EAST_FILE "WW3_Regional_US_East_Coast_20220717_0600.grib2")
   set(GDAS_FILE "gdas.t12z.pgrb2.1p00.anl.grib2")
+  set(AQM_FILE "aqm.t12z.max_8hr_o3.227.grib2")
   
   # Not using the East Coast file yet.
-  foreach(THE_FILE IN LISTS WW3_WEST_FILE GDAS_FILE) 
+  foreach(THE_FILE IN LISTS WW3_WEST_FILE GDAS_FILE AQM_FILE) 
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
 
   # Add this preprocessor definition so test files can conditionally
   # include testing based on FTP files.
   add_definitions(-DFTP_TEST_FILES)
+
+  # Run this test only if FTP test files are used.
+  g2c_ptest(tst_aqm)
 endif()
 
 # Always run these tests.
