@@ -6,8 +6,8 @@
 
 #include "grib2_int.h"
 
-#define WAVE_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
-#define REF_FILE "ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
+#define WAVE_FILE "data/gdaswave.t00z.wcoast.0p16.f000.grib2"
+#define REF_FILE "data/ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
 #define NUM_MSG 19
 #define NUM_OPEN 2
 

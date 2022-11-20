@@ -12,22 +12,23 @@ function(PULL_DATA THE_URL THE_FILE)
   # there before FTPing them. Developers can keep all test files on
   # their machines, and save the time of downloading them every time.
   if(NOT ${TEST_FILE_DIR} STREQUAL ".")
-    message(STATUS "Really finding data files in ${TEST_FILE_DIR}.")
     if (EXISTS ${TEST_FILE_DIR}/${THE_FILE})
+      message(STATUS "Copying file ${TEST_FILE_DIR}/${THE_FILE} to test data directory.")
       FILE(COPY ${TEST_FILE_DIR}/${THE_FILE}
-        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
     endif()
   endif()
-  if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${THE_FILE}")
+  if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/data/${THE_FILE}")
+    message(STATUS "Downloading file ${CMAKE_CURRENT_BINARY_DIR}/data/${THE_FILE}.")
     file(DOWNLOAD
       ${THE_URL}/${THE_FILE}
-      ${CMAKE_CURRENT_BINARY_DIR}/${THE_FILE}
+      ${CMAKE_CURRENT_BINARY_DIR}/data/${THE_FILE}
       SHOW_PROGRESS
       STATUS status
       INACTIVITY_TIMEOUT 30
     )
     list(GET status 0 status_num)
-    if(NOT status_num EQUAL 0 OR NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${THE_FILE}")
+    if(NOT status_num EQUAL 0 OR NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/data/${THE_FILE}")
       message(FATAL_ERROR "Could not download ${THE_FILE}")
     endif()
   endif()
@@ -35,22 +36,22 @@ endfunction()
 
 # Some very small test files may be committed to the repo. This
 # function copies such a data file to the build directory.
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/gdaswave.t00z.wcoast.0p16.f000.grib2
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/gdaswave.t00z.wcoast.0p16.f000.grib2.idx
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_gdaswave.degrib2.txt
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_WW3_Regional_US_West_Coast_20220718_0000.txt
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_gdaswave.t00z.wcoast.0p16.f000.grb2index
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ref_gdas.t12z.pgrb2.1p00.anl.degrib2
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/gdaswave.t00z.wcoast.0p16.f000.grib2
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/gdaswave.t00z.wcoast.0p16.f000.grib2.idx
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_gdaswave.degrib2.txt
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_WW3_Regional_US_West_Coast_20220718_0000.txt
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_gdaswave.t00z.wcoast.0p16.f000.grb2index
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_gdas.t12z.pgrb2.1p00.anl.degrib2
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
 
 # These are the XML files from the WMO with GRIB2 code data.
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml

@@ -7,8 +7,8 @@
 #include <stdio.h>
 #include "grib2_int.h"
 
-#define GRIB2_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2"
-#define GRIB2_INDEX_FILE "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
+#define GRIB2_FILE "data/gdaswave.t00z.wcoast.0p16.f000.grib2"
+#define GRIB2_INDEX_FILE "data/gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
 
 int
 main()
