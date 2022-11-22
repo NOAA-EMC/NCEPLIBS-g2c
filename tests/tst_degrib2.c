@@ -133,7 +133,7 @@ main()
             return ret;
     }
     printf("ok!\n");
-    printf("Testing g2c_read_index() to make a degrib2 file...");
+    printf("Testing g2c_open_index() to make a degrib2 file...");
     {
         int g2cid;
         int num_msg;
@@ -141,7 +141,7 @@ main()
 
         /* g2c_set_log_level(10); */
         /* Open the data file using the index file. */
-        if ((ret = g2c_read_index(WAVE_FILE, REF_INDEX_FILE, 0, &g2cid)))
+        if ((ret = g2c_open_index(WAVE_FILE, REF_INDEX_FILE, 0, &g2cid)))
             return ret;
 
         /* Check some stuff. */
@@ -189,7 +189,7 @@ main()
             return ret;
 
         /* Reopen the data file, using the index we just generated. */
-        if ((ret = g2c_read_index(WAVE_FILE, TEST_INDEX_FILE, 0, &g2cid)))
+        if ((ret = g2c_open_index(WAVE_FILE, TEST_INDEX_FILE, 0, &g2cid)))
             return ret;
 
         /* Output a degrib2 file. */
@@ -267,7 +267,7 @@ main()
             if (t)
             {
                 printf("\ttesting degrib2 on file %s downloaded via FTP using index...", FTP_FILE);
-                if ((ret = g2c_read_index(FTP_FILE, REF_FTP_INDEX_FILE, 0, &g2cid)))
+                if ((ret = g2c_open_index(FTP_FILE, REF_FTP_INDEX_FILE, 0, &g2cid)))
                     return ret;
             }
             else
@@ -346,7 +346,7 @@ main()
             if (t)
             {
                 printf("\ttesting degrib2 on file %s downloaded via FTP using index...", GDAS_FILE);
-                if ((ret = g2c_read_index(GDAS_FILE, REF_GDAS_INDEX_FILE, 0, &g2cid)))
+                if ((ret = g2c_open_index(GDAS_FILE, REF_GDAS_INDEX_FILE, 0, &g2cid)))
                     return ret;
             }
             else

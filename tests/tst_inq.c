@@ -32,7 +32,7 @@ main()
             /* Open our test file, with or without an index file. */
             if (op)
             {
-                if ((ret = g2c_read_index(WAVE_FILE, REF_FILE, 0, &g2cid)))
+                if ((ret = g2c_open_index(WAVE_FILE, REF_FILE, 0, &g2cid)))
                     return ret;
             }
             else
