@@ -1,6 +1,6 @@
 /* This is a test for the NCEPLIBS-g2c project. 
  *
- * This test is for the g2c_write_index()/g2c_read_index() functions,
+ * This test is for the g2c_write_index()/g2c_open_index() functions,
  * which write and read and index file that contians the byte offsets
  * to various parts of a GRIB2 file.
  *
@@ -51,23 +51,23 @@ main()
 {
     printf("Testing g2c index functions.\n");
 #ifdef JPEG
-    printf("Testing g2c_read_index() on file %s...", WAVE_FILE);
+    printf("Testing g2c_open_index() on file %s...", WAVE_FILE);
     {
         int g2cid;
         int num_msg;
         int ret;
 
         /* Will not work. */
-        if (g2c_read_index(NULL, NULL, 0, &g2cid) != G2C_EINVAL)
+        if (g2c_open_index(NULL, NULL, 0, &g2cid) != G2C_EINVAL)
             return G2C_ERROR;
-        if (g2c_read_index("bad", NULL, 0, &g2cid) != G2C_EINVAL)
+        if (g2c_open_index("bad", NULL, 0, &g2cid) != G2C_EINVAL)
             return G2C_ERROR;
-        if (g2c_read_index("bad", "bad", 0, &g2cid) != G2C_EFILE)
+        if (g2c_open_index("bad", "bad", 0, &g2cid) != G2C_EFILE)
             return G2C_ERROR;
 
         /* Open the data file using the index file. */
         /* g2c_set_log_level(10); */
-        if ((ret = g2c_read_index(WAVE_FILE, REF_FILE, 0, &g2cid)))
+        if ((ret = g2c_open_index(WAVE_FILE, REF_FILE, 0, &g2cid)))
             return ret;
 
         /* Check some stuff. */
@@ -153,7 +153,7 @@ main()
 	    return ret;
 
         /* Now reopen the file using the index we just generated. */
-	if ((ret = g2c_read_index(WAVE_FILE, INDEX_FILE, 0, &g2cid)))
+	if ((ret = g2c_open_index(WAVE_FILE, INDEX_FILE, 0, &g2cid)))
 	    return ret;
 
         /* Check some stuff. */
@@ -168,7 +168,7 @@ main()
     }
     printf("ok!\n");
 #ifdef FTP_TEST_FILES
-    printf("Testing g2c_read_index() on file %s downloaded via FTP...", FTP_FILE);
+    printf("Testing g2c_open_index() on file %s downloaded via FTP...", FTP_FILE);
     {
 	int g2cid;
         int num_msg;
@@ -182,7 +182,7 @@ main()
 
 	/* g2c_set_log_level(11); */
 	/* Open the data file using the index file. */
-	if ((ret = g2c_read_index(FTP_FILE, REF_FTP_FILE, 0, &g2cid)))
+	if ((ret = g2c_open_index(FTP_FILE, REF_FTP_FILE, 0, &g2cid)))
 	    return ret;
 
         /* Check some stuff. */
@@ -215,7 +215,7 @@ main()
 	    return ret;
     }
     printf("ok!\n");
-    printf("Testing speed of g2c_read_index() on file %s downloaded via FTP...\n", FTP_FILE);
+    printf("Testing speed of g2c_open_index() on file %s downloaded via FTP...\n", FTP_FILE);
     {
 	int g2cid;
         int num_msg;
@@ -247,7 +247,7 @@ main()
 	/* Open the data file using the index file. */
         if (gettimeofday(&start_time, NULL))
             return G2C_ERROR;
-	if ((ret = g2c_read_index(FTP_FILE, REF_FTP_FILE, 0, &g2cid)))
+	if ((ret = g2c_open_index(FTP_FILE, REF_FTP_FILE, 0, &g2cid)))
 	    return ret;
         if (gettimeofday(&end_time, NULL)) 
             return G2C_ERROR;
