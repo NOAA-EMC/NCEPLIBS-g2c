@@ -36,7 +36,8 @@ endfunction()
 
 # Some very small test files may be committed to the repo. Copies
 # tests data files to the build directory.
-set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx" "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
+set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
+  "gdaswave.t00z.wcoast.0p16.f000.grib2"
   "ref_blend.t19z.core.f001.co.grib2.degrib2"
   "ref_blend.t19z.core.f001.co.grib2.grb2index"
   "ref_cmc_geavg.t12z.pgrb2a.0p50.f000.degrib2"
