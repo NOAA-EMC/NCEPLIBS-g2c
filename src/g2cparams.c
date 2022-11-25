@@ -1105,7 +1105,7 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
 
     /* Was the parameter missing? */
     if (p == G2C_MAX_NOAA_PARAMS)
-        strcpy(abbrev, " UNKNOWN ");
+        strcpy(abbrev, "UNKNOWN");
     else
         strncpy(abbrev, param[p].abbrev, G2C_MAX_NOAA_ABBREV_LEN + 1);
 

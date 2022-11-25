@@ -4090,10 +4090,10 @@ main()
             return G2C_ERROR;
         
         
-        /* This will return " UNKNOWN ". */
+        /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
-        if (strcmp(abbrev, " UNKNOWN "))
+        if (strcmp(abbrev, "UNKNOWN"))
             return G2C_ERROR;
     }
     printf("ok!\n");
