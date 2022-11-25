@@ -565,6 +565,8 @@ g2c_degrib2(int g2cid, const char *fileout)
 	return G2C_EBADID;
     if (!fileout)
         return G2C_EINVAL;
+
+    LOG((2, "g2c_degrib2 fileout %s", fileout));
     
     /* Open output file. */
     if (!(f = fopen(fileout, "w")))
@@ -583,6 +585,9 @@ g2c_degrib2(int g2cid, const char *fileout)
                 msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
                 msg->hour, msg->minute, msg->second, msg->status, msg->type);
         fprintf(f, "  Contains  %d  Local Sections  and  %d  data fields.\n", msg->num_local, msg->num_fields);
+        LOG((5, "  SECTION 1:  %d %d %d %d %d %d %d %d %d %d %d %d %d\n", msg->center, msg->subcenter,
+             msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
+             msg->hour, msg->minute, msg->second, msg->status, msg->type));
 
         /* For each field, print info. */
         for (fld = 0; fld < msg->num_fields; fld++)

@@ -6,6 +6,7 @@
  * Ed Hartnett 9/17/22
  */
 #include "grib2_int.h"
+#include <libgen.h>
 
 #define FILE_NAME "tst_degrib2.txt"
 #define WAVE_FILE "data/gdaswave.t00z.wcoast.0p16.f000.grib2"
@@ -28,6 +29,8 @@
 #define MAX_VALUE_LEN 25
 #define NUM_MATCHING 5
 #define FTP_NUM_MSG 688
+#define MAX_FILENAME_LEN 256
+#define NUM_TESTS 2
 
 /* Return 0 if two lines of the DEGRIB2 output are euqal.
  *
@@ -117,263 +120,318 @@ main()
 {
     printf("Testing g2c degrib2 function.\n");
 #ifdef JPEG
-    printf("Testing g2c_degrib2() on file %s...", WAVE_FILE);
-    {
-        int g2cid;
-        int ret;
+/*     printf("Testing g2c_degrib2() on file %s...", WAVE_FILE); */
+/*     { */
+/*         int g2cid; */
+/*         int ret; */
 
-        if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
-            return ret;
-        if ((ret = g2c_degrib2(g2cid, FILE_NAME)))
-            return ret;
-        if ((ret = g2c_close(g2cid)))
-            return ret;
+/*         if ((ret = g2c_open(WAVE_FILE, 0, &g2cid))) */
+/*             return ret; */
+/*         if ((ret = g2c_degrib2(g2cid, FILE_NAME))) */
+/*             return ret; */
+/*         if ((ret = g2c_close(g2cid))) */
+/*             return ret; */
 
-        if ((ret = compare_files2(FILE_NAME, REF_FILE)))
-            return ret;
-    }
-    printf("ok!\n");
-    printf("Testing g2c_open_index() to make a degrib2 file...");
-    {
-        int g2cid;
-        int num_msg;
-        int ret;
+/*         if ((ret = compare_files2(FILE_NAME, REF_FILE))) */
+/*             return ret; */
+/*     } */
+/*     printf("ok!\n"); */
+/*     printf("Testing g2c_open_index() to make a degrib2 file..."); */
+/*     { */
+/*         int g2cid; */
+/*         int num_msg; */
+/*         int ret; */
 
-        /* g2c_set_log_level(10); */
-        /* Open the data file using the index file. */
-        if ((ret = g2c_open_index(WAVE_FILE, REF_INDEX_FILE, 0, &g2cid)))
-            return ret;
+/*         /\* g2c_set_log_level(10); *\/ */
+/*         /\* Open the data file using the index file. *\/ */
+/*         if ((ret = g2c_open_index(WAVE_FILE, REF_INDEX_FILE, 0, &g2cid))) */
+/*             return ret; */
 
-        /* Check some stuff. */
-        if ((ret = g2c_inq(g2cid, &num_msg)))
-            return ret;
-        if (num_msg != 19)
-            return G2C_ERROR;
+/*         /\* Check some stuff. *\/ */
+/*         if ((ret = g2c_inq(g2cid, &num_msg))) */
+/*             return ret; */
+/*         if (num_msg != 19) */
+/*             return G2C_ERROR; */
 
-        /* Output a degrib2 file. */
-        if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE)))
-            return ret;
+/*         /\* Output a degrib2 file. *\/ */
+/*         if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE))) */
+/*             return ret; */
 
-        /* Close the data file. */
-        if ((ret = g2c_close(g2cid)))
-            return ret;
+/*         /\* Close the data file. *\/ */
+/*         if ((ret = g2c_close(g2cid))) */
+/*             return ret; */
 
-        /* Compare the degrib2 output to our reference file. */
-        if ((ret = compare_files2(DEGRIB2_FILE, REF_FILE)))
-            return ret;
-    }
-    printf("ok!\n");
-    printf("Testing g2c_write_index() make an index and then to make a degrib2 file from it...");
-    {
-        int g2cid;
-        int num_msg;
-        int ret;
+/*         /\* Compare the degrib2 output to our reference file. *\/ */
+/*         if ((ret = compare_files2(DEGRIB2_FILE, REF_FILE))) */
+/*             return ret; */
+/*     } */
+/*     printf("ok!\n"); */
+/*     printf("Testing g2c_write_index() make an index and then to make a degrib2 file from it..."); */
+/*     { */
+/*         int g2cid; */
+/*         int num_msg; */
+/*         int ret; */
 
-        /* g2c_set_log_level(10); */
-        /* Open the data file using the index file. */
-        if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
-            return ret;
+/*         /\* g2c_set_log_level(10); *\/ */
+/*         /\* Open the data file using the index file. *\/ */
+/*         if ((ret = g2c_open(WAVE_FILE, 0, &g2cid))) */
+/*             return ret; */
 
-        /* Check some stuff. */
-        if ((ret = g2c_inq(g2cid, &num_msg)))
-            return ret;
-        if (num_msg != 19)
-            return G2C_ERROR;
+/*         /\* Check some stuff. *\/ */
+/*         if ((ret = g2c_inq(g2cid, &num_msg))) */
+/*             return ret; */
+/*         if (num_msg != 19) */
+/*             return G2C_ERROR; */
 
-        /* Write an index file. */
-        if ((ret = g2c_write_index(g2cid, G2C_CLOBBER, TEST_INDEX_FILE)))
-            return ret;
+/*         /\* Write an index file. *\/ */
+/*         if ((ret = g2c_write_index(g2cid, G2C_CLOBBER, TEST_INDEX_FILE))) */
+/*             return ret; */
 
-        /* Close the data file. */
-        if ((ret = g2c_close(g2cid)))
-            return ret;
+/*         /\* Close the data file. *\/ */
+/*         if ((ret = g2c_close(g2cid))) */
+/*             return ret; */
 
-        /* Reopen the data file, using the index we just generated. */
-        if ((ret = g2c_open_index(WAVE_FILE, TEST_INDEX_FILE, 0, &g2cid)))
-            return ret;
+/*         /\* Reopen the data file, using the index we just generated. *\/ */
+/*         if ((ret = g2c_open_index(WAVE_FILE, TEST_INDEX_FILE, 0, &g2cid))) */
+/*             return ret; */
 
-        /* Output a degrib2 file. */
-        if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE)))
-            return ret;
+/*         /\* Output a degrib2 file. *\/ */
+/*         if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILE))) */
+/*             return ret; */
 
-        /* Close the data file. */
-        if ((ret = g2c_close(g2cid)))
-            return ret;
+/*         /\* Close the data file. *\/ */
+/*         if ((ret = g2c_close(g2cid))) */
+/*             return ret; */
 
-        /* Compare the degrib2 output to our reference file. */
-        if ((ret = compare_files2(DEGRIB2_FILE, REF_FILE)))
-            return ret;
-    }
-    printf("ok!\n");
+/*         /\* Compare the degrib2 output to our reference file. *\/ */
+/*         if ((ret = compare_files2(DEGRIB2_FILE, REF_FILE))) */
+/*             return ret; */
+/*     } */
+/*     printf("ok!\n"); */
 #ifdef FTP_TEST_FILES
-#define NUM_TESTS 2
-    printf("Testing degrib2 on file %s downloaded via FTP...\n", FTP_FILE);
+/*     printf("Testing degrib2 on file %s downloaded via FTP...\n", FTP_FILE); */
+/*     { */
+/*         int g2cid; */
+/*         int num_msg; */
+/*         unsigned char sig_ref_time, month, day, hour, minute, second; */
+/*         short year; */
+/*         short center, subcenter; */
+/*         unsigned char master_version, local_version; */
+/*         int num_fields, num_local; */
+/*         unsigned char discipline; */
+/*         unsigned char expected_discipline[FTP_NUM_MSG] = */
+/*             {10, 10, 10, 10, 0, 10, 10, 10, 0, 10, 10, 10, 10, 0, 10, 0, 10, 10, */
+/*              10, 0, 0, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 0, 0, 10, 10, 10, */
+/*              10, 10, 10, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 0, */
+/*              0, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 0, 0, 0, 0, 10, 10, */
+/*              10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 0, 10, 10, 10, */
+/*              10, 10, 0, 10, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 0, */
+/*              10, 10, 10, 10, 0, 0, 0, 10, 0, 10, 10, 10, 10, 0, 10, 0, 10, 10, */
+/*              10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 0, 10, 0, 10, 10, 10, */
+/*              0, 10, 10, 10, 0, 10, 0, 0, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, */
+/*              10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 0, 10, 10, 0, 0, 10, 0, */
+/*              10, 10, 10, 0, 10, 10, 10, 10, 0, 10, 0, 10, 10, 10, 10, 0, 0, 10, */
+/*              10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, */
+/*              0, 0, 10, 10, 10, 0, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, */
+/*              10, 10, 10, 10, 0, 0, 0, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 0, */
+/*              10, 10, 10, 0, 10, 10, 10, 0, 10, 10, 10, 0, 10, 10, 10, 0, 0, 0, */
+/*              10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 0, 0, 10, 10, 10, 10, */
+/*              10, 10, 10, 0, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 10, 0, 10, */
+/*              10, 10, 10, 0, 10, 0, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, */
+/*              10, 10, 0, 0, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 0, 10, 0, */
+/*              10, 10, 0, 10, 10, 0, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, */
+/*              10, 0, 10, 10, 0, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, */
+/*              10, 0, 10, 10, 10, 0, 10, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, */
+/*              10, 10, 10, 0, 10, 0, 10, 10, 10, 0, 10, 10, 0, 10, 10, 0, 10, 0, */
+/*              10, 0, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 0, 10, 10, */
+/*              0, 0, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 0, */
+/*              10, 10, 10, 0, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, */
+/*              10, 10, 0, 10, 10, 0, 10, 10, 10, 10, 10, 10, 0, 0, 0, 10, 10, 10, */
+/*              10, 10, 10, 0, 10, 0, 10, 10, 10, 0, 0, 10, 10, 10, 10, 0, 0, 10, */
+/*              10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 10, */
+/*              10, 10, 0, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, */
+/*              10, 10, 0, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, */
+/*              10, 10, 0, 0, 0, 10, 10, 0, 10, 0, 0, 10, 0, 10, 10, 10, 10, 0, 10, */
+/*              10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 0, 10, 10, 10, 0, */
+/*              10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, */
+/*              0, 10, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 0, 10, 10, 0, 0, 0, 10, */
+/*              10, 10, 10, 0, 10, 10, 10, 0, 10, 0, 0, 0, 10, 0, 10, 10, 10, 10, */
+/*              10, 10, 10, 10, 0, 10, 0, 10, 0, 10, 10, 10, 10, 10, 10, 0, 10, 0, */
+/*              10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 0, 10, 10, */
+/*              10, 0, 10, 10, 10, 0, 10, 10, 10, 0, 10, 10, 10, 10}; */
+/*         int t, m; */
+/*         int ret; */
+
+/*         for (t = 0; t < NUM_TESTS; t++) */
+/*         { */
+/*             /\* g2c_set_log_level(11); *\/ */
+/*             /\* Open the data file with and without the index file. *\/ */
+/*             if (t) */
+/*             { */
+/*                 printf("\ttesting degrib2 on file %s downloaded via FTP using index...", FTP_FILE); */
+/*                 if ((ret = g2c_open_index(FTP_FILE, REF_FTP_INDEX_FILE, 0, &g2cid))) */
+/*                     return ret; */
+/*             } */
+/*             else */
+/*             { */
+/*                 printf("\ttesting degrib2 on file %s downloaded via FTP without using index...", FTP_FILE); */
+/*                 if ((ret = g2c_open(FTP_FILE, 0, &g2cid))) */
+/*                     return ret; */
+/*             } */
+
+/*             /\* Check some stuff. *\/ */
+/*             if ((ret = g2c_inq(g2cid, &num_msg))) */
+/*                 return ret; */
+/*             if (num_msg != FTP_NUM_MSG) */
+/*                 return G2C_ERROR; */
+
+/*             /\* Check some stuff in all messages. *\/ */
+/*             for (m = 0; m < num_msg; m++) */
+/*             { */
+/*                 if ((ret = g2c_inq_msg(g2cid, m, &discipline, &num_fields, &num_local, */
+/*                                        &center, &subcenter, &master_version, &local_version))) */
+/*                     return ret; */
+/*                 if (center != 7 || subcenter != 0 || master_version != 2 || local_version != 1) */
+/*                     return G2C_ERROR; */
+/*                 if (num_fields != 1 || num_local) */
+/*                     return G2C_ERROR; */
+/*                 if (discipline != expected_discipline[m]) */
+/*                     return G2C_ERROR; */
+/*             } */
+
+/*             /\* Check some stuff about the last message. *\/ */
+/*             if ((ret = g2c_inq_msg(g2cid, 687, &discipline, &num_fields, &num_local, */
+/*                                    &center, &subcenter, &master_version, &local_version))) */
+/*                 return ret; */
+/*             if (center != 7 || subcenter != 0 || master_version != 2 || local_version != 1) */
+/*                 return G2C_ERROR; */
+/*             if (num_local || num_fields != 1 || discipline != 10) */
+/*                 return G2C_ERROR; */
+
+/*             /\* Inquire about the date/time. *\/ */
+/*             if ((ret = g2c_inq_msg_time(g2cid, 687, &sig_ref_time, &year, &month, &day, &hour, */
+/*                                         &minute, &second))) */
+/*                 return ret; */
+
+/*             /\* Check date/time. *\/ */
+/*             if (sig_ref_time != 1 || year != 2022 || month != 7 || day != 18 || */
+/*                 hour != 0 || minute != 0 || second != 0) */
+/*                 return G2C_ERROR; */
+
+/*             /\* Output a degrib2 file. *\/ */
+/*             if ((ret = g2c_degrib2(g2cid, FTP_DEGRIB2_FILE))) */
+/*                 return ret; */
+
+/*             /\* Close the file. *\/ */
+/*             if ((ret = g2c_close(g2cid))) */
+/*                 return ret; */
+
+/*             /\* Compare the degrib2 output to our reference file. *\/ */
+/*             if ((ret = compare_files2(FTP_DEGRIB2_FILE, REF_FTP_DEGRIB2_FILE))) */
+/*                 return ret; */
+
+/*             printf("\tok!\n"); */
+/*         } */
+/*     } */
+/*     printf("ok!\n"); */
+/*     printf("Testing degrib2 on file %s downloaded via FTP...\n", GDAS_FILE); */
+/*     { */
+/*         int g2cid; */
+/*         int num_msg; */
+/*         int t; */
+/*         int ret; */
+
+/*         /\* for (t = 0; t < NUM_TESTS; t++) *\/ */
+/*         for (t = 0; t < 1; t++) */
+/*         { */
+/*             /\* Open the data file with and without the index file. *\/ */
+/*             if (t) */
+/*             { */
+/*                 printf("\ttesting degrib2 on file %s downloaded via FTP using index...", GDAS_FILE); */
+/*                 if ((ret = g2c_open_index(GDAS_FILE, REF_GDAS_INDEX_FILE, 0, &g2cid))) */
+/*                     return ret; */
+/*             } */
+/*             else */
+/*             { */
+/*                 printf("\ttesting degrib2 on file %s downloaded via FTP without using index...", GDAS_FILE); */
+/*                 if ((ret = g2c_open(GDAS_FILE, 0, &g2cid))) */
+/*                     return ret; */
+/*             } */
+
+/*             /\* Check some stuff. *\/ */
+/*             if ((ret = g2c_inq(g2cid, &num_msg))) */
+/*                 return ret; */
+/*             if (num_msg != GDAS_NUM_MSG) */
+/*                 return G2C_ERROR; */
+
+/*             /\* Output a degrib2 file. *\/ */
+/*             if ((ret = g2c_degrib2(g2cid, GDAS_DEGRIB2_FILE))) */
+/*                 return ret; */
+
+/*             /\* Close the file. *\/ */
+/*             if ((ret = g2c_close(g2cid))) */
+/*                 return ret; */
+
+/*             /\* Compare the degrib2 output to our reference file. *\/ */
+/*             if ((ret = compare_files2(GDAS_DEGRIB2_FILE, REF_GDAS_DEGRIB2_FILE))) */
+/*                 return ret; */
+
+/*             printf("\tok!\n"); */
+/*         } */
+/*     } */
+/*     printf("ok!\n"); */
+    printf("Testing degrib2 on files downloaded via FTP...\n");
     {
+#define NUM_FILES 2
+        char file[NUM_FILES][MAX_FILENAME_LEN + 1] = {
+            "data/blend.t19z.core.f001.co.grib2", "data/cmc_geavg.t12z.pgrb2a.0p50.f000"};
         int g2cid;
         int num_msg;
-        unsigned char sig_ref_time, month, day, hour, minute, second;
-        short year;
-        short center, subcenter;
-        unsigned char master_version, local_version;
-        int num_fields, num_local;
-        unsigned char discipline;
-        unsigned char expected_discipline[FTP_NUM_MSG] =
-            {10, 10, 10, 10, 0, 10, 10, 10, 0, 10, 10, 10, 10, 0, 10, 0, 10, 10,
-             10, 0, 0, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 0, 0, 10, 10, 10,
-             10, 10, 10, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 0,
-             0, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 0, 0, 0, 0, 10, 10,
-             10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 0, 10, 10, 10,
-             10, 10, 0, 10, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 0,
-             10, 10, 10, 10, 0, 0, 0, 10, 0, 10, 10, 10, 10, 0, 10, 0, 10, 10,
-             10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 0, 10, 0, 10, 10, 10,
-             0, 10, 10, 10, 0, 10, 0, 0, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10,
-             10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 0, 10, 10, 0, 0, 10, 0,
-             10, 10, 10, 0, 10, 10, 10, 10, 0, 10, 0, 10, 10, 10, 10, 0, 0, 10,
-             10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10,
-             0, 0, 10, 10, 10, 0, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10,
-             10, 10, 10, 10, 0, 0, 0, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 0,
-             10, 10, 10, 0, 10, 10, 10, 0, 10, 10, 10, 0, 10, 10, 10, 0, 0, 0,
-             10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 0, 0, 10, 10, 10, 10,
-             10, 10, 10, 0, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 10, 0, 10,
-             10, 10, 10, 0, 10, 0, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10,
-             10, 10, 0, 0, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 0, 10, 0,
-             10, 10, 0, 10, 10, 0, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10,
-             10, 0, 10, 10, 0, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10,
-             10, 0, 10, 10, 10, 0, 10, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10,
-             10, 10, 10, 0, 10, 0, 10, 10, 10, 0, 10, 10, 0, 10, 10, 0, 10, 0,
-             10, 0, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 0, 10, 10,
-             0, 0, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 0,
-             10, 10, 10, 0, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10,
-             10, 10, 0, 10, 10, 0, 10, 10, 10, 10, 10, 10, 0, 0, 0, 10, 10, 10,
-             10, 10, 10, 0, 10, 0, 10, 10, 10, 0, 0, 10, 10, 10, 10, 0, 0, 10,
-             10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 10,
-             10, 10, 0, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10,
-             10, 10, 0, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-             10, 10, 0, 0, 0, 10, 10, 0, 10, 0, 0, 10, 0, 10, 10, 10, 10, 0, 10,
-             10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 0, 10, 10, 10, 0,
-             10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10,
-             0, 10, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 0, 10, 10, 0, 0, 0, 10,
-             10, 10, 10, 0, 10, 10, 10, 0, 10, 0, 0, 0, 10, 0, 10, 10, 10, 10,
-             10, 10, 10, 10, 0, 10, 0, 10, 0, 10, 10, 10, 10, 10, 10, 0, 10, 0,
-             10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 10, 10, 10, 10, 0, 10, 10,
-             10, 0, 10, 10, 10, 0, 10, 10, 10, 0, 10, 10, 10, 10};
-        int t, m;
-        int ret;
-
-        for (t = 0; t < NUM_TESTS; t++)
-        {
-            /* g2c_set_log_level(11); */
-            /* Open the data file with and without the index file. */
-            if (t)
-            {
-                printf("\ttesting degrib2 on file %s downloaded via FTP using index...", FTP_FILE);
-                if ((ret = g2c_open_index(FTP_FILE, REF_FTP_INDEX_FILE, 0, &g2cid)))
-                    return ret;
-            }
-            else
-            {
-                printf("\ttesting degrib2 on file %s downloaded via FTP without using index...", FTP_FILE);
-                if ((ret = g2c_open(FTP_FILE, 0, &g2cid)))
-                    return ret;
-            }
-
-            /* Check some stuff. */
-            if ((ret = g2c_inq(g2cid, &num_msg)))
-                return ret;
-            if (num_msg != FTP_NUM_MSG)
-                return G2C_ERROR;
-
-            /* Check some stuff in all messages. */
-            for (m = 0; m < num_msg; m++)
-            {
-                if ((ret = g2c_inq_msg(g2cid, m, &discipline, &num_fields, &num_local,
-                                       &center, &subcenter, &master_version, &local_version)))
-                    return ret;
-                if (center != 7 || subcenter != 0 || master_version != 2 || local_version != 1)
-                    return G2C_ERROR;
-                if (num_fields != 1 || num_local)
-                    return G2C_ERROR;
-                if (discipline != expected_discipline[m])
-                    return G2C_ERROR;
-            }
-
-            /* Check some stuff about the last message. */
-            if ((ret = g2c_inq_msg(g2cid, 687, &discipline, &num_fields, &num_local,
-                                   &center, &subcenter, &master_version, &local_version)))
-                return ret;
-            if (center != 7 || subcenter != 0 || master_version != 2 || local_version != 1)
-                return G2C_ERROR;
-            if (num_local || num_fields != 1 || discipline != 10)
-                return G2C_ERROR;
-
-            /* Inquire about the date/time. */
-            if ((ret = g2c_inq_msg_time(g2cid, 687, &sig_ref_time, &year, &month, &day, &hour,
-                                        &minute, &second)))
-                return ret;
-
-            /* Check date/time. */
-            if (sig_ref_time != 1 || year != 2022 || month != 7 || day != 18 ||
-                hour != 0 || minute != 0 || second != 0)
-                return G2C_ERROR;
-
-            /* Output a degrib2 file. */
-            if ((ret = g2c_degrib2(g2cid, FTP_DEGRIB2_FILE)))
-                return ret;
-
-            /* Close the file. */
-            if ((ret = g2c_close(g2cid)))
-                return ret;
-
-            /* Compare the degrib2 output to our reference file. */
-            if ((ret = compare_files2(FTP_DEGRIB2_FILE, REF_FTP_DEGRIB2_FILE)))
-                return ret;
-
-            printf("\tok!\n");
-        }
-    }
-    printf("ok!\n");
-    printf("Testing degrib2 on file %s downloaded via FTP...\n", GDAS_FILE);
-    {
-        int g2cid;
-        int num_msg;
+        int f;
         int t;
         int ret;
 
-        /* for (t = 0; t < NUM_TESTS; t++) */
-        for (t = 0; t < 1; t++)
+        for (f = 0; f < NUM_FILES; f++)
         {
-            /* Open the data file with and without the index file. */
-            if (t)
+            /* for (t = 0; t < NUM_FILES; t++) */
+            for (t = 0; t < 1; t++)
             {
-                printf("\ttesting degrib2 on file %s downloaded via FTP using index...", GDAS_FILE);
-                if ((ret = g2c_open_index(GDAS_FILE, REF_GDAS_INDEX_FILE, 0, &g2cid)))
+                char degrib2_file[MAX_FILENAME_LEN + 9];
+                /* Open the data file with and without the index file. */
+                if (t)
+                {
+                    printf("\ttesting degrib2 on file %s downloaded via FTP using index...", file[f]);
+                    if ((ret = g2c_open_index(file[f], REF_GDAS_INDEX_FILE, 0, &g2cid)))
+                        return ret;
+                }
+                else
+                {
+                    printf("\ttesting degrib2 on file %s downloaded via FTP without using index...", file[f]);
+                    if ((ret = g2c_open(file[f], 0, &g2cid)))
+                        return ret;
+                }
+                
+                /* Check some stuff. */
+                if ((ret = g2c_inq(g2cid, &num_msg)))
                     return ret;
-            }
-            else
-            {
-                printf("\ttesting degrib2 on file %s downloaded via FTP without using index...", GDAS_FILE);
-                if ((ret = g2c_open(GDAS_FILE, 0, &g2cid)))
+                printf("num_msg %d\n", num_msg);
+                /* if (num_msg != GDAS_NUM_MSG) */
+                /*     return G2C_ERROR; */
+                
+                /* Output a degrib2 file. */
+                g2c_set_log_level(15);
+                sprintf(degrib2_file, "%s.degrib2", basename(file[f]));
+                if ((ret = g2c_degrib2(g2cid, degrib2_file)))
                     return ret;
+                
+                /* Close the file. */
+                if ((ret = g2c_close(g2cid)))
+                    return ret;
+                
+                /* Compare the degrib2 output to our reference file. */
+                /* if ((ret = compare_files2(GDAS_DEGRIB2_FILE, REF_GDAS_DEGRIB2_FILE))) */
+                /*     return ret; */
             }
-
-            /* Check some stuff. */
-            if ((ret = g2c_inq(g2cid, &num_msg)))
-                return ret;
-            if (num_msg != GDAS_NUM_MSG)
-                return G2C_ERROR;
-
-            /* Output a degrib2 file. */
-            if ((ret = g2c_degrib2(g2cid, GDAS_DEGRIB2_FILE)))
-                return ret;
-
-            /* Close the file. */
-            if ((ret = g2c_close(g2cid)))
-                return ret;
-
-            /* Compare the degrib2 output to our reference file. */
-            if ((ret = compare_files2(GDAS_DEGRIB2_FILE, REF_GDAS_DEGRIB2_FILE)))
-                return ret;
-
             printf("\tok!\n");
         }
     }
