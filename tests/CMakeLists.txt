@@ -34,24 +34,39 @@ function(PULL_DATA THE_URL THE_FILE)
   endif()
 endfunction()
 
-# Some very small test files may be committed to the repo. This
-# function copies such a data file to the build directory.
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/gdaswave.t00z.wcoast.0p16.f000.grib2
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/gdaswave.t00z.wcoast.0p16.f000.grib2.idx
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_gdaswave.degrib2.txt
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_WW3_Regional_US_West_Coast_20220718_0000.txt
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_gdaswave.t00z.wcoast.0p16.f000.grb2index
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/ref_gdas.t12z.pgrb2.1p00.anl.degrib2
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
+# Some very small test files may be committed to the repo. Copies
+# tests data files to the build directory.
+set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
+  "ref_blend.t19z.core.f001.co.grib2.degrib2"
+  "ref_blend.t19z.core.f001.co.grib2.grb2index"
+  "ref_cmc_geavg.t12z.pgrb2a.0p50.f000.degrib2"
+  "ref_cmc_geavg.t12z.pgrb2a.0p50.f000.grb2index"
+  "ref_flxf2022111712.01.2022111712.grb2.degrib2"
+  "ref_flxf2022111712.01.2022111712.grb2.grb2index"
+  "ref_gdas.t12z.pgrb2.1p00.anl.degrib2"
+  "ref_gdas.t12z.pgrb2.1p00.anl.grib2.degrib2"
+  "ref_gdas.t12z.pgrb2.1p00.anl.grib2.grb2index"
+  "ref_gdaswave.degrib2.txt"
+  "ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
+  "ref_GLOBAL.grib2.2022103000.0000.degrib2"
+  "ref_GLOBAL.grib2.2022103000.0000.grb2index"
+  "ref_hiresw.t00z.arw_5km.f00.hi.grib2.degrib2"
+  "ref_hiresw.t00z.arw_5km.f00.hi.grib2.grb2index"
+  "ref_naefs_ge10pt.t12z.pgrb2a.0p50_bcf003.degrib2"
+  "ref_naefs_ge10pt.t12z.pgrb2a.0p50_bcf003.grb2index"
+  "ref_rap.t00z.awp130pgrbf00.grib2.degrib2"
+  "ref_rap.t00z.awp130pgrbf00.grib2.grb2index"
+  "ref_seaice.t00z.grb.grib2.degrib2"
+  "ref_seaice.t00z.grb.grib2.grb2index"
+  "ref_sgx_nwps_CG3_20221117_1200.grib2.degrib2"
+  "ref_sgx_nwps_CG3_20221117_1200.grib2.grb2index"
+  "ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2"
+  "ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index"
+  "ref_WW3_Regional_US_West_Coast_20220718_0000.txt")
+foreach(THE_FILE IN LISTS REF_FILES) 
+  FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/${THE_FILE}
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
+endforeach()
 
 # These are the XML files from the WMO with GRIB2 code data.
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
@@ -85,7 +100,7 @@ if(FTP_TEST_FILES)
     "WW3_Regional_US_East_Coast_20220717_0600.grib2"
     "gdas.t12z.pgrb2.1p00.anl.grib2" "blend.t19z.core.f001.co.grib2"
     "cmc_geavg.t12z.pgrb2a.0p50.f000"
-    "flxf2022111712.01.2022111712.grb2" "gdas.t12z.pgrb2.1p00.anl"
+    "flxf2022111712.01.2022111712.grb2" 
     "GLOBAL.grib2.2022103000.0000" "hiresw.t00z.arw_5km.f00.hi.grib2"
     "naefs_ge10pt.t12z.pgrb2a.0p50_bcf003"
     "rap.t00z.awp130pgrbf00.grib2" "seaice.t00z.grb.grib2"
