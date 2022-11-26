@@ -75,9 +75,17 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
+# Run a test with util code.
+# function(g2c_testu name)
+#   add_executable(${name} ${name}.c util.c)
+#   add_dependencies(${name} g2c)
+#   target_link_libraries(${name} PRIVATE g2c)
+#   add_test(NAME ${name} COMMAND ${name})
+# endfunction()
+
 # Run a test.
 function(g2c_test name)
-  add_executable(${name} ${name}.c)
+  add_executable(${name} ${name}.c util.c)
   add_dependencies(${name} g2c)
   target_link_libraries(${name} PRIVATE g2c)
   add_test(NAME ${name} COMMAND ${name})
@@ -141,7 +149,9 @@ g2c_test(tst_params3)
 g2c_test(tst_io)
 g2c_test(tst_inq)
 g2c_test(tst_degrib2_int)
+g2c_test(tst_degrib2_fast)
 g2c_test(tst_degrib2)
+g2c_test(tst_degrib2_ftp_all)
 g2c_test(tst_index)
 g2c_ptest(tst_files)
 
