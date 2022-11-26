@@ -6,10 +6,7 @@ cmake_minimum_required(VERSION 3.15)
 # Read the VERSION file.
 file(STRINGS "VERSION" pVersion)
 
-project(
-  g2c
-  VERSION ${pVersion}
-  LANGUAGES C)
+project(g2c VERSION ${pVersion} LANGUAGES C)
 
 include(GNUInstallDirs)
 
