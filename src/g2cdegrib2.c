@@ -278,6 +278,7 @@ int
 g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
 {
     int ipos;
+    char tmpval1[37];
     int ret;
 
     /* Check inputs. */
@@ -308,7 +309,6 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
   {
      /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1) + 2) */
      /* level_desc = trim(tmpval1)//" mb" */
-      char tmpval1[37];
       if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1] + 2)))
           return ret;
       sprintf(level_desc, "%s %s", tmpval1, "mb");
@@ -335,6 +335,9 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
   {
      /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
      /* level_desc = trim(tmpval1)//" m above ground" */
+      if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+          return ret;
+      sprintf(level_desc, "%s %s", tmpval1, "m above ground");
   }
   /* Height above Ground. */
   else if (ipdtmpl[ipos] == 103 && ipdtmpl[ipos + 3] == 103)
