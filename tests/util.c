@@ -10,6 +10,23 @@
 #define NUM_MATCHING 5
 #define MAX_LINE_LEN 256
 
+/* Compare two strings, ignoring leading spaces.
+ *
+ * Ed Hartnett 10/6/22
+ */
+static int
+cmpString(const void *p, const void *q)
+{    
+    const char *pp = (const char*)p;
+    const char *qq = (const char*)q;
+    int i, j;
+    for (i = 0; isblank(pp[i]); ++i)
+        ;
+    for (j = 0; isblank(qq[j]); ++j)
+        ;
+    return strcmp(pp + i, qq + j);
+}
+
 /* Return 0 if two lines of the DEGRIB2 output are euqal.
  *
  * For most lines this means they must be exactly equal. Lines that
@@ -28,7 +45,7 @@ degrib2_lines_not_equal(char *l1, char *l2)
     char cmin2[MAX_VALUE_LEN + 1], cavg2[MAX_VALUE_LEN + 1], cmax2[MAX_VALUE_LEN + 1];
 
     /* If the lines are the same, we're done. */
-    if (!strcmp(l1, l2))
+    if (!cmpString(l1, l2))
         return 0;
 
     /* If the lines are different, is it a line like this:
