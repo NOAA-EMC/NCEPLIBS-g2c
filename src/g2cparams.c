@@ -1103,12 +1103,11 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
         if (param[p].g2disc == g2disc && param[p].g2cat == g2cat && param[p].g2num == g2num)
             break;
 
-    /* Did we find the parameter? */
+    /* Was the parameter missing? */
     if (p == G2C_MAX_NOAA_PARAMS)
-        return G2C_ENOPARAM;
-
-    /* Return the abbreviation to the caller. */
-    strncpy(abbrev, param[p].abbrev, G2C_MAX_NOAA_ABBREV_LEN + 1);
+        strcpy(abbrev, "UNKNOWN");
+    else
+        strncpy(abbrev, param[p].abbrev, G2C_MAX_NOAA_ABBREV_LEN + 1);
 
     LOG((12, "abbrev %s", abbrev));
     

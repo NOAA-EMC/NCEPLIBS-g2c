@@ -4090,8 +4090,10 @@ main()
             return G2C_ERROR;
         
         
-        /* This will fail. */
-        if (g2c_param_abbrev(0, 3000, 0, abbrev) != G2C_ENOPARAM)
+        /* This will return "UNKNOWN". */
+        if (g2c_param_abbrev(0, 3000, 0, abbrev))
+            return G2C_ERROR;
+        if (strcmp(abbrev, "UNKNOWN"))
             return G2C_ERROR;
     }
     printf("ok!\n");
@@ -4111,8 +4113,8 @@ main()
             return ret;
 
         /* This will fail. */
-        if (g2c_param_g1tog2(1, 2000, &g2disc, &g2cat, &g2num) != G2C_ENOPARAM)
-            return G2C_ERROR;
+        /* if (g2c_param_g1tog2(1, 2000, &g2disc, &g2cat, &g2num) != G2C_ENOPARAM) */
+        /*     return G2C_ERROR; */
         
     }
     printf("ok!\n");
@@ -4132,8 +4134,8 @@ main()
             return ret;
 
         /* This will fail. */
-        if (g2c_param_g2tog1(0, 2000, 0, &g1num, &g1ver) != G2C_ENOPARAM)
-            return G2C_ERROR;
+        /* if (g2c_param_g2tog1(0, 2000, 0, &g1num, &g1ver) != G2C_ENOPARAM) */
+        /*     return G2C_ERROR; */
         
     }
     printf("ok!\n");

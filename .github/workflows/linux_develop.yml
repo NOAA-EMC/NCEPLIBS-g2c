@@ -1,4 +1,4 @@
-name: Linux Build
+name: developer_build
 on:
   push:
     branches:
@@ -17,10 +17,6 @@ jobs:
     env:
       CC: gcc
       CXX: g++
-    strategy:
-      matrix:
-        jasper-version: [2.0.33, 3.0.3]
-        ccompiler: [clang, gcc]
     
     steps:
     - name: install-dependencies
@@ -28,17 +24,13 @@ jobs:
         sudo apt-get update
         sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev
         python3 -m pip install gcovr
-        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
-          sudo apt-get install clang
-        fi
-        
 
     - name: checkout-jasper
       uses: actions/checkout@v2
       with:
         repository: jasper-software/jasper
         path: jasper
-        ref: version-${{ matrix.jasper-version }}
+        ref: version-3.0.3
 
     - name: cache-jasper
       id: cache-jasper
@@ -50,11 +42,7 @@ jobs:
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
       run: |
-        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
-          export CC=clang
-        elif [[ ${{ matrix.ccompiler }} == "gcc" ]]; then
-          export CC=gcc
-        fi
+        export CC=gcc
         cd jasper
         mkdir cmake_build
         cd cmake_build
@@ -67,18 +55,21 @@ jobs:
       with:
         path: g2c
 
+    - name: cache-data
+      id: cache-data
+      uses: actions/cache@v2
+      with:
+        path: ~/data
+        key: data-1
+
     - name: build
       run: |
-        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
-          export CC=clang
-        elif [[ ${{ matrix.ccompiler }} == "gcc" ]]; then
-          export CC=gcc
-          export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address'
-        fi
+        export CC=gcc
+        export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address'
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DENABLE_OpenJPEG=ON .. 
+        cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data ..
         make -j2
 
     - name: test
@@ -89,6 +80,12 @@ jobs:
         gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
         ls -l
           
+    - name: cache-data
+      if: steps.cache-data.outputs.cache-hit != 'true'
+      run: |
+        mkdir ~/data
+        cp $GITHUB_WORKSPACE/g2c/build/tests/data/* ~/data
+        
     - name: upload-test-coverage
       uses: actions/upload-artifact@v2
       with:
