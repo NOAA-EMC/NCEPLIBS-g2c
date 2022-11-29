@@ -16,7 +16,7 @@ main()
     printf("Testing g2c_get_level_desc()...");
     {
 #define DATE_TIME_LEN 100
-        int prod_template_num[NUM_PROD_TEST] = {0, 0, 0};
+        int prod_template_num[NUM_PROD_TEST] = {0, 0, 0, 8};
         long long int prod_template_value[NUM_PROD_TEST][G2C_MAX_PDS_TEMPLATE_MAPLEN] = {
             {2, 1, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
             {2, 10, 0, 0, 81, 0, 0, 1, 0, 100, 0, 80000, 255, 0, 0},
@@ -45,7 +45,7 @@ main()
         int ret;
 
         /* for (t = 0; t < NUM_PROD_TEST; t++) */
-        for (t = 0; t < 3; t++)
+        for (t = 0; t < NUM_PROD_TEST; t++)
         {
             char date_time[DATE_TIME_LEN + 1];
             
