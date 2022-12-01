@@ -1,4 +1,4 @@
-name: build options
+name: Linux_options
 on:
   push:
     branches:
@@ -12,7 +12,7 @@ on:
     - README.md
 
 jobs:
-  linux-build:
+  Linux_options:
     runs-on: ubuntu-latest
     env:
       CC: gcc
