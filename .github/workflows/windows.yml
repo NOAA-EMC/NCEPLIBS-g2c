@@ -1,4 +1,4 @@
-name: Windows Build
+name: Windows
 on:
   push:
     branches:
@@ -12,7 +12,7 @@ on:
     - README.md
 
 jobs:
-  windows-build:
+  Windows:
     runs-on: windows-latest
     strategy:
       matrix:

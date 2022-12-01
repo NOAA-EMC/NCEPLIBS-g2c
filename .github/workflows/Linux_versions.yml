@@ -1,4 +1,4 @@
-name: Linux Build
+name: Linux_versions
 on:
   push:
     branches:
@@ -12,7 +12,7 @@ on:
     - README.md
 
 jobs:
-  linux-build:
+  Linux_versions:
     runs-on: ubuntu-latest
     env:
       CC: gcc
