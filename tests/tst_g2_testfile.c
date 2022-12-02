@@ -30,11 +30,11 @@ main()
         int drs_template_len, drs_template[DRSLEN];
         int expected_pds[PDSLEN] = {0, 0, 0, 0, 0, 12, 59, 0, 0, 1, 1, 1, 2, 1, 1};
         int expected_gds[GDSLEN] = {0, 1, 1, 1, 1, 1, 1, 2, 2, 0, 0, 45, 91, 0, 55, 101, 5, 5, 0};
-        int expected_drs[DRSLEN] = {0, 1, 1, 8, 0};
+        int expected_drs[DRSLEN] = {1093664768, 1, 1, 8, 0};
         int i;
         int ret;
 
-        g2c_set_log_level(20);
+        /* g2c_set_log_level(20); */
         
         /* Open test file. */
         if ((ret = g2c_open(FILENAME, 0, &g2cid)))
@@ -74,11 +74,8 @@ main()
             if (gds_template[i] != expected_gds[i])
                 return G2C_ERROR;
         for (i = 0; i < DRSLEN; i++)
-        {
-            printf("%d %d\n", drs_template[i], expected_drs[i]);
-            /* if (drs_template[i] != expected_drs[i]) */
-            /*     return G2C_ERROR; */
-        }
+            if (drs_template[i] != expected_drs[i])
+                return G2C_ERROR;
 
         /* Close test file. */
         if ((ret = g2c_close(g2cid)))
