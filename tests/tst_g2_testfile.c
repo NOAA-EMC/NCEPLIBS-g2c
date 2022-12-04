@@ -4,9 +4,12 @@
  * Ed Hartnett 12/2/22
  */
 
+#include "g2ctest.h"
 #include "grib2_int.h"
 
 #define FILENAME "data/testgrib2.grb2"
+#define DEGRIB2_FILENAME "testgrib2.grb2.degrib2"
+#define REF_FILENAME "data/ref_testgrib2.grb2.degrib2"
 #define PDSLEN 15
 #define GDSLEN 19
 #define DRSLEN 5
@@ -77,6 +80,30 @@ main()
             if (drs_template[i] != expected_drs[i])
                 return G2C_ERROR;
 
+        /* Close test file. */
+        if ((ret = g2c_close(g2cid)))
+            return ret;
+    }
+    printf("ok!\n");
+    printf("testing opening of the file...");
+    {
+        int g2cid;
+        int ret;
+
+        /* g2c_set_log_level(20); */
+        
+        /* Open test file. */
+        if ((ret = g2c_open(FILENAME, 0, &g2cid)))
+            return ret;
+
+        /* Write degrib2 output. */
+        if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILENAME)))
+            return ret;
+
+        /* Check results. */
+        if ((ret = compare_degrib2_files2(DEGRIB2_FILENAME, REF_FILENAME)))
+            return ret;
+        
         /* Close test file. */
         if ((ret = g2c_close(g2cid)))
             return ret;

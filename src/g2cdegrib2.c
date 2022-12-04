@@ -603,7 +603,7 @@ g2c_degrib2(int g2cid, const char *fileout)
         /* For each field, print info. */
         for (fld = 0; fld < msg->num_fields; fld++)
         {
-            G2C_SECTION_INFO_T *sec, *sec3, *sec5, *sec6;
+            G2C_SECTION_INFO_T *sec, *sec2, *sec3, *sec5, *sec6;
             G2C_SECTION3_INFO_T *sec3_info;
             G2C_SECTION4_INFO_T *sec4_info;
             G2C_SECTION5_INFO_T *sec5_info;
@@ -628,6 +628,13 @@ g2c_degrib2(int g2cid, const char *fileout)
                     break;
             if (!sec)
                 return G2C_ENOSECTION;
+
+            /* Is there a local section? */
+            for (sec2 = sec; sec2; sec2 = sec2->prev)
+                if (sec2->sec_num == 2)
+                    break;
+            if (sec2)
+                fprintf(f, "  SECTION 2: %d bytes\n", sec2->sec_len - 5); /* Subtract 4 byte seclen and 1 byte secnum. */
 
             /* Find the sec3 that applies to this field. */
             for (sec3 = sec; sec3; sec3 = sec3->prev)
