@@ -77,7 +77,7 @@ jobs:
         mkdir build
         cd build
         cmake -DJasper_ROOT=~/jasper -DENABLE_OpenJPEG=ON .. 
-        make -j2
+        make -j2 VERBOSE=1
 
     - name: test
       run: |

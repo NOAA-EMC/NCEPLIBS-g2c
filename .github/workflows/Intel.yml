@@ -75,7 +75,7 @@ jobs:
         mkdir build
         cd build
         cmake -DJasper_ROOT=~/Jasper ..
-        make -j2
+        make -j2 VERBOSE=1
 
     - name: test
       run: |

@@ -77,7 +77,7 @@ jobs:
         mkdir cmake_build
         cd cmake_build
         cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
-        make -j2
+        make -j2 VERBOSE=1
         make install
 
     - name: checkout
