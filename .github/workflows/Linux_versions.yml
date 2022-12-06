@@ -73,26 +73,16 @@ jobs:
           export CC=clang
         elif [[ ${{ matrix.ccompiler }} == "gcc" ]]; then
           export CC=gcc
-          export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address'
         fi
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DENABLE_OpenJPEG=ON .. 
+        cmake -DJasper_ROOT=~/Jasper -DENABLE_OpenJPEG=ON .. 
         make -j2
 
     - name: test
       run: |
         set -e          
         cd $GITHUB_WORKSPACE/g2c/build
-        ctest --verbose 
-        gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
-        ls -l
-          
-    - name: upload-test-coverage
-      uses: actions/upload-artifact@v2
-      with:
-        name: g2c-test-coverage
-        path: |
-          g2c/build/*.html
-          g2c/build/*.css
+        ctest --verbose --output-on-failure --rerun-failed
+

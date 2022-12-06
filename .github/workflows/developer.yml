@@ -76,7 +76,7 @@ jobs:
       run: |
         set -e          
         cd $GITHUB_WORKSPACE/g2c/build
-        ctest --verbose 
+        ctest --verbose --output-on-failure --rerun-failed
         gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
         ls -l
           

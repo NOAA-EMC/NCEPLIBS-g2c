@@ -92,4 +92,4 @@ jobs:
         cd build
         cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" ..
         make -j2
-        ctest --output-on-failure
+        ctest --verbose --output-on-failure --rerun-failed
