@@ -26,26 +26,25 @@ jobs:
     - name: install-dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev
-        python3 -m pip install gcovr
+        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev
         if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
           sudo apt-get install clang
         fi
-        
-
-    - name: checkout-jasper
-      uses: actions/checkout@v2
-      with:
-        repository: jasper-software/jasper
-        path: jasper
-        ref: version-${{ matrix.jasper-version }}
 
     - name: cache-jasper
       id: cache-jasper
       uses: actions/cache@v2
       with:
-        path: ~/Jasper
-        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}
+        path: ~/jasper
+        key: jasper-${{ runner.os }}-${{ matrix.jasper-version }}
+
+    - name: checkout-jasper
+      if: steps.cache-jasper.outputs.cache-hit != 'true'
+      uses: actions/checkout@v2
+      with:
+        repository: jasper-software/jasper
+        path: jasper
+        ref: version-${{ matrix.jasper-version }}
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
@@ -58,7 +57,7 @@ jobs:
         cd jasper
         mkdir cmake_build
         cd cmake_build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/jasper
         make -j2
         make install
 
@@ -77,7 +76,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DENABLE_OpenJPEG=ON .. 
+        cmake -DJasper_ROOT=~/jasper -DENABLE_OpenJPEG=ON .. 
         make -j2
 
     - name: test

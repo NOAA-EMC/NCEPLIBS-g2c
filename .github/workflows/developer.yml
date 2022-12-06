@@ -69,8 +69,8 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data ..
-        make -j2
+        cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
+        make -j2 VERBOSE=1
 
     - name: test
       run: |
