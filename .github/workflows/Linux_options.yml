@@ -1,4 +1,4 @@
-name: build options
+name: Linux_options
 on:
   push:
     branches:
@@ -12,7 +12,7 @@ on:
     - README.md
 
 jobs:
-  linux-build:
+  Linux_options:
     runs-on: ubuntu-latest
     env:
       CC: gcc
@@ -77,7 +77,7 @@ jobs:
         mkdir cmake_build
         cd cmake_build
         cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
-        make -j2
+        make -j2 VERBOSE=1
         make install
 
     - name: checkout
@@ -92,4 +92,4 @@ jobs:
         cd build
         cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" ..
         make -j2
-        ctest --output-on-failure
+        ctest --verbose --output-on-failure --rerun-failed

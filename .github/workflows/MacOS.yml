@@ -1,4 +1,4 @@
-name: macOS-build
+name: MacOS
 on:
   push:
     branches:
@@ -12,7 +12,7 @@ on:
     - README.md
 
 jobs:
-  macOS-build:
+  MacOS:
     runs-on: macos-latest
     env:
       CC: clang
@@ -21,10 +21,6 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - {
-            name: "png_on jasper_off openjpeg_off",
-            options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
-          }
         - {
             name: "png_on jasper_on openjpeg_off",
             options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
@@ -97,10 +93,10 @@ jobs:
         mkdir build
         cd build
         cmake ${{ matrix.config.options }} ..
-        make -j2
+        make -j2 VERBOSE=1
 
     - name: test
       run: |
         cd $GITHUB_WORKSPACE/g2c/build
-        ctest  --output-on-failure --rerun-failed
+        ctest --verbose --output-on-failure --rerun-failed
 

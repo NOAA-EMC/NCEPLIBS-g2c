@@ -63,7 +63,10 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   "ref_sgx_nwps_CG3_20221117_1200.grib2.grb2index"
   "ref_WW3_Regional_US_West_Coast_20220718_0000.degrib2"
   "ref_WW3_Regional_US_West_Coast_20220718_0000.grb2index"
-  "ref_WW3_Regional_US_West_Coast_20220718_0000.txt")
+  "ref_WW3_Regional_US_West_Coast_20220718_0000.txt"
+  "testgrib2.grb2"
+  "ref_testgrib2.grb2.degrib2"
+)
 foreach(THE_FILE IN LISTS REF_FILES) 
   FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/${THE_FILE}
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
@@ -154,6 +157,7 @@ g2c_test(tst_degrib2)
 g2c_test(tst_degrib2_ftp_all)
 g2c_test(tst_index)
 g2c_ptest(tst_files)
+g2c_ptest(tst_g2_testfile)
 
 # Run these tests only if libpng is linked.
 if(USE_PNG)
