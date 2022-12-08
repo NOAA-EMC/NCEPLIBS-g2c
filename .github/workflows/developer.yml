@@ -65,7 +65,7 @@ jobs:
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
-        languages: c
+        languages: cpp
         queries: +security-and-quality
           
     - name: build
@@ -81,7 +81,7 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
-        category: "/language:c
+        category: "/language:cpp"
 
     - name: test
       run: |
