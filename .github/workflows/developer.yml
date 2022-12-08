@@ -71,7 +71,7 @@ jobs:
     - name: build
       run: |
         export CC=gcc
-        export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address'
+        export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0'
         cd g2c
         mkdir build
         cd build
