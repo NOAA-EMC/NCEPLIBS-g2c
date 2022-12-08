@@ -44,8 +44,7 @@ main()
         int t;
         int ret;
 
-        /* for (t = 0; t < NUM_PROD_TEST; t++) */
-        for (t = 0; t < 3; t++)
+        for (t = 0; t < NUM_PROD_TEST; t++)
         {
             char date_time[DATE_TIME_LEN + 1];
             
