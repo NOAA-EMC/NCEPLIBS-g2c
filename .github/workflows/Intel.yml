@@ -69,6 +69,12 @@ jobs:
       with:
         path: g2c
 
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: cpp
+        queries: +security-and-quality
+          
     - name: build
       run: |
         cd g2c
@@ -76,6 +82,11 @@ jobs:
         cd build
         cmake -DJasper_ROOT=~/Jasper ..
         make -j2 VERBOSE=1
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:cpp"
 
     - name: test
       run: |

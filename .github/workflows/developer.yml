@@ -62,26 +62,15 @@ jobs:
         path: ~/data
         key: data-1
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: cpp
-        queries: +security-and-quality
-          
     - name: build
       run: |
         export CC=gcc
-        export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0'
+        export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address'
         cd g2c
         mkdir build
         cd build
         cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
         make -j2 VERBOSE=1
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: "/language:cpp"
 
     - name: test
       run: |
