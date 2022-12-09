@@ -512,12 +512,11 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
     {
 #define DATE_STR_LEN 10
 #define TIME_STR_LEN 8
-#define BASENAME_LEN 40
         char line[G2C_INDEX_HEADER_LEN + 1];
         char str1[8], date_str[DATE_STR_LEN + 1], time_str[TIME_STR_LEN + 1];
         int i, j, k;
         int skip, total_len, num_rec;
-        char basename[BASENAME_LEN + 1];
+        char basename[G2C_INDEX_BASENAME_LEN + 1];
         size_t file_pos = G2C_INDEX_HEADER_LEN * 2;
         int rec;
 
@@ -545,8 +544,8 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
         {
             char long_basename[G2C_INDEX_HEADER_LEN + 1];
             sscanf(line, "IX1FORM: %d %d %d %s", &skip, &total_len, &num_rec, long_basename);
-            memcpy(basename, long_basename, BASENAME_LEN);
-            basename[BASENAME_LEN] = 0;
+            memcpy(basename, long_basename, G2C_INDEX_BASENAME_LEN);
+            basename[G2C_INDEX_BASENAME_LEN] = 0;
         }
         LOG((2, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
 
