@@ -55,7 +55,7 @@ degrib2_lines_not_equal(char *l1, char *l2)
     /* If the lines are different, is it a line like this:
        ( PARM= WIND ) :  MIN=               0.09999998 AVE=               5.64625024 MAX=              16.43000032
     */
-    len = strlen(li) < MAX_LINE_LEN ? strlen(li) : MAX_LINE_LEN;
+    len = strlen(l1) < MAX_LINE_LEN ? strlen(l1) : MAX_LINE_LEN;
     memcpy(my_l1, l1, len);
     my_l1[len] = 0;
     if (sscanf(l1, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) == 4)
