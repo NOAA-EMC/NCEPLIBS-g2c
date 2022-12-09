@@ -512,6 +512,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
     {
         char line[G2C_INDEX_HEADER_LEN + 1];
         char str1[8], date_str[11], time_str[9];
+        char long_date_str[G2C_INDEX_HEADER_LEN + 1], long_time_str[G2C_INDEX_HEADER_LEN + 1];
         int i, j, k;
         int skip, total_len, num_rec;
         char basename[41];
@@ -522,7 +523,9 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
         if ((bytes_read = fread(line, 1, 81, f)) != 81)
             return G2C_EFILE;
         line[G2C_INDEX_HEADER_LEN] = 0;
-        sscanf(line, "%s %d %d %d %s %s GB2IX1", str1, &i, &j, &k, date_str, time_str);
+        sscanf(line, "%s %d %d %d %s %s GB2IX1", str1, &i, &j, &k, long_date_str, long_time_str);
+        strncpy(date_str, long_date_str, 11)
+        strncpy(time_str, long_time_str, 9)
         LOG((2, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
              time_str));
 
