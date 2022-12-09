@@ -524,8 +524,8 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
             return G2C_EFILE;
         line[G2C_INDEX_HEADER_LEN] = 0;
         sscanf(line, "%s %d %d %d %s %s GB2IX1", str1, &i, &j, &k, long_date_str, long_time_str);
-        strncpy(date_str, long_date_str, 11)
-        strncpy(time_str, long_time_str, 9)
+        strncpy(date_str, long_date_str, 11);
+        strncpy(time_str, long_time_str, 9);
         LOG((2, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
              time_str));
 
