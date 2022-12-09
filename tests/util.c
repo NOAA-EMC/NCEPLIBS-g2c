@@ -66,7 +66,8 @@ degrib2_lines_not_equal(char *l1, char *l2)
     len = strlen(l1) < MAX_LINE_LEN ? strlen(l1) : MAX_LINE_LEN;
     memcpy(my_line, l1, len);
     my_line[len] = 0;
-    if (sscanf(my_line, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) == 4)
+    if (sscanf(my_line, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s",
+               long_abbrev, long_cmin, long_cavg, long_cmax) == 4)
     {
         memcpy(abbrev1, long_abbrev, G2C_MAX_NOAA_ABBREV_LEN);
         abbrev1[G2C_MAX_NOAA_ABBREV_LEN] = 0;
@@ -81,7 +82,8 @@ degrib2_lines_not_equal(char *l1, char *l2)
         len = strlen(l2) < MAX_LINE_LEN ? strlen(l2) : MAX_LINE_LEN;
         memcpy(my_line, l2, len);
         my_line[len] = 0;
-        if (sscanf(my_line, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) != 4)
+        if (sscanf(my_line, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s",
+                   long_abbrev, long_cmin, long_cavg, long_cmax) != 4)
             return G2C_ERROR;
         memcpy(abbrev2, long_abbrev, G2C_MAX_NOAA_ABBREV_LEN);
         abbrev2[G2C_MAX_NOAA_ABBREV_LEN] = 0;
