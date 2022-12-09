@@ -34,6 +34,10 @@ cmpString(const void *p, const void *q)
  * the reference file, because the intel compiler produces slight
  * different results.
  *
+ * All the sscanf calls cause the code scanner to complain about
+ * possible overflow. Hence all the memcpys to convince the scanner
+ * that we are not going to overwrite any memory.
+ *
  * Ed Hartnett 10/6/22
  */
 int
@@ -45,7 +49,7 @@ degrib2_lines_not_equal(char *l1, char *l2)
     char abbrev2[G2C_MAX_NOAA_ABBREV_LEN + 1];
     char cmin1[MAX_VALUE_LEN + 1], cavg1[MAX_VALUE_LEN + 1], cmax1[MAX_VALUE_LEN + 1];
     char cmin2[MAX_VALUE_LEN + 1], cavg2[MAX_VALUE_LEN + 1], cmax2[MAX_VALUE_LEN + 1];
-    char my_l1[MAX_LINE_LEN + 1];
+    char my_line[MAX_LINE_LEN + 1];
     int len;
 
     /* If the lines are the same, we're done. */
@@ -55,10 +59,14 @@ degrib2_lines_not_equal(char *l1, char *l2)
     /* If the lines are different, is it a line like this:
        ( PARM= WIND ) :  MIN=               0.09999998 AVE=               5.64625024 MAX=              16.43000032
     */
+
+    /* We have to go through some business to convince the code
+     * scanner we are not going to overwrite any memory in our sscanf
+     * calls. */
     len = strlen(l1) < MAX_LINE_LEN ? strlen(l1) : MAX_LINE_LEN;
-    memcpy(my_l1, l1, len);
-    my_l1[len] = 0;
-    if (sscanf(my_l1, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) == 4)
+    memcpy(my_line, l1, len);
+    my_line[len] = 0;
+    if (sscanf(my_line, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) == 4)
     {
         memcpy(abbrev1, long_abbrev, G2C_MAX_NOAA_ABBREV_LEN);
         abbrev1[G2C_MAX_NOAA_ABBREV_LEN] = 0;
@@ -68,7 +76,12 @@ degrib2_lines_not_equal(char *l1, char *l2)
         cavg1[MAX_VALUE_LEN] = 0;
         memcpy(cmax1, long_cmax, MAX_VALUE_LEN);
         cmax1[MAX_VALUE_LEN] = 0;
-        if (sscanf(l2, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) != 4)
+
+        /* Wow, that was annoying. And now we have to do it again! */
+        len = strlen(l2) < MAX_LINE_LEN ? strlen(l2) : MAX_LINE_LEN;
+        memcpy(my_line, l2, len);
+        my_line[len] = 0;
+        if (sscanf(my_line, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) != 4)
             return G2C_ERROR;
         memcpy(abbrev2, long_abbrev, G2C_MAX_NOAA_ABBREV_LEN);
         abbrev2[G2C_MAX_NOAA_ABBREV_LEN] = 0;
@@ -78,8 +91,12 @@ degrib2_lines_not_equal(char *l1, char *l2)
         cavg2[MAX_VALUE_LEN] = 0;
         memcpy(cmax2, long_cmax, MAX_VALUE_LEN);
         cmax2[MAX_VALUE_LEN] = 0;
+
+        /* Print results. */
         printf("\nabbrev1 %s min1 %s avg1 %s max1 %s\n", abbrev1, cmin1, cavg1, cmax1);
         printf("abbrev2 %s min2 %s avg2 %s max2 %s\n", abbrev2, cmin2, cavg2, cmax2);
+
+        /* Check that results match. */
         if (strcmp(abbrev1, abbrev2))
             return G2C_ERROR;
         if (strncmp(cmin1, cmin2, NUM_MATCHING))
