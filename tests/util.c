@@ -41,7 +41,7 @@ cmpString(const void *p, const void *q)
  * Ed Hartnett 10/6/22
  */
 int
-degrib2_lines_not_equal(char *l1, char *l2)
+degrib2_lines_not_equal(char *line1, char *l2)
 {
     char long_abbrev[MAX_LINE_LEN + 1], long_cmin[MAX_LINE_LEN + 1];
     char long_cavg[MAX_LINE_LEN + 1], long_cmax[MAX_LINE_LEN + 1];
@@ -53,7 +53,7 @@ degrib2_lines_not_equal(char *l1, char *l2)
     int len;
 
     /* If the lines are the same, we're done. */
-    if (!cmpString(l1, l2))
+    if (!cmpString(line1, l2))
         return 0;
 
     /* If the lines are different, is it a line like this:
@@ -68,8 +68,8 @@ degrib2_lines_not_equal(char *l1, char *l2)
     /* We have to go through some business to convince the code
      * scanner we are not going to overwrite any memory in our sscanf
      * calls. */
-    len = strlen(l1) < MAX_LINE_LEN ? strlen(l1) : MAX_LINE_LEN;
-    memcpy(my_line, l1, len);
+    len = strlen(line1) < MAX_LINE_LEN ? strlen(line1) : MAX_LINE_LEN;
+    memcpy(my_line, line1, len);
     my_line[len] = 0;
     if (sscanf(my_line, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s",
                long_abbrev, long_cmin, long_cavg, long_cmax) == 4)
@@ -115,7 +115,7 @@ degrib2_lines_not_equal(char *l1, char *l2)
     }
     else
     {
-        printf("\n%s\n", l1);
+        printf("\n%s\n", line1);
         printf("expected:\n%s\n", l2);
         return G2C_ERROR;
     }
