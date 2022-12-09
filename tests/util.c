@@ -39,6 +39,8 @@ cmpString(const void *p, const void *q)
 int
 degrib2_lines_not_equal(char *l1, char *l2)
 {
+    char long_abbrev[MAX_LINE_LEN + 1], long_cmin[MAX_LINE_LEN + 1];
+    char long_cavg[MAX_LINE_LEN + 1], long_cmax[MAX_LINE_LEN + 1];
     char abbrev1[G2C_MAX_NOAA_ABBREV_LEN + 1];
     char abbrev2[G2C_MAX_NOAA_ABBREV_LEN + 1];
     char cmin1[MAX_VALUE_LEN + 1], cavg1[MAX_VALUE_LEN + 1], cmax1[MAX_VALUE_LEN + 1];
@@ -51,10 +53,26 @@ degrib2_lines_not_equal(char *l1, char *l2)
     /* If the lines are different, is it a line like this:
        ( PARM= WIND ) :  MIN=               0.09999998 AVE=               5.64625024 MAX=              16.43000032
     */
-    if (sscanf(l1, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", abbrev1, cmin1, cavg1, cmax1) == 4)
+    if (sscanf(l1, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) == 4)
     {
-        if (sscanf(l2, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", abbrev2, cmin2, cavg2, cmax2) != 4)
+        memcpy(abbrev1, long_abbrev, G2C_MAX_NOAA_ABBREV_LEN);
+        abbrev1[G2C_MAX_NOAA_ABBREV_LEN] = 0;
+        memcpy(cmin1, long_cmin, MAX_VALUE_LEN);
+        cmin1[MAX_VALUE_LEN] = 0;
+        memcpy(cavg1, long_cavg, MAX_VALUE_LEN);
+        cavg1[MAX_VALUE_LEN] = 0;
+        memcpy(cmax1, long_cmax, MAX_VALUE_LEN);
+        cmax1[MAX_VALUE_LEN] = 0;
+        if (sscanf(l2, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) != 4)
             return G2C_ERROR;
+        memcpy(abbrev2, long_abbrev, G2C_MAX_NOAA_ABBREV_LEN);
+        abbrev2[G2C_MAX_NOAA_ABBREV_LEN] = 0;
+        memcpy(cmin2, long_cmin, MAX_VALUE_LEN);
+        cmin2[MAX_VALUE_LEN] = 0;
+        memcpy(cavg2, long_cavg, MAX_VALUE_LEN);
+        cavg2[MAX_VALUE_LEN] = 0;
+        memcpy(cmax2, long_cmax, MAX_VALUE_LEN);
+        cmax2[MAX_VALUE_LEN] = 0;
         printf("\nabbrev1 %s min1 %s avg1 %s max1 %s\n", abbrev1, cmin1, cavg1, cmax1);
         printf("abbrev2 %s min2 %s avg2 %s max2 %s\n", abbrev2, cmin2, cavg2, cmax2);
         if (strcmp(abbrev1, abbrev2))
@@ -84,7 +102,7 @@ int
 compare_degrib2_files2(char *fname1, char *fname2)
 {
     FILE *fp1, *fp2;
-    char l1[MAX_LINE_LEN], l2[MAX_LINE_LEN];
+    char l1[MAX_LINE_LEN + 1], l2[MAX_LINE_LEN + 1];
 
     /* Open the two files. */
     if (!(fp1 = fopen(fname1, "r")))
