@@ -510,32 +510,44 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
     /* Read the header. */
     if (!ret)
     {
+#define DATE_STR_LEN 10
+#define TIME_STR_LEN 8
+#define BASENAME_LEN 40
         char line[G2C_INDEX_HEADER_LEN + 1];
-        char str1[8], date_str[11], time_str[9];
-        char long_date_str[G2C_INDEX_HEADER_LEN + 1], long_time_str[G2C_INDEX_HEADER_LEN + 1];
+        char str1[8], date_str[DATE_STR_LEN + 1], time_str[TIME_STR_LEN + 1];
         int i, j, k;
         int skip, total_len, num_rec;
-        char basename[41];
+        char basename[BASENAME_LEN + 1];
         size_t file_pos = G2C_INDEX_HEADER_LEN * 2;
         int rec;
 
         /* Read the first line of header. */
-        if ((bytes_read = fread(line, 1, 81, f)) != 81)
+        if ((bytes_read = fread(line, 1, G2C_INDEX_HEADER_LEN, f)) != G2C_INDEX_HEADER_LEN)
             return G2C_EFILE;
         line[G2C_INDEX_HEADER_LEN] = 0;
-        sscanf(line, "%s %d %d %d %s %s GB2IX1", str1, &i, &j, &k, long_date_str, long_time_str);
-        memcpy(date_str, long_date_str, 11);
-        date_str[10] = 0;
-        memcpy(time_str, long_time_str, 9);
-        time_str[8] = 0;
+        /* Scan the line. */
+        {
+            char long_date_str[G2C_INDEX_HEADER_LEN + 1], long_time_str[G2C_INDEX_HEADER_LEN + 1];
+            sscanf(line, "%s %d %d %d %s %s GB2IX1", str1, &i, &j, &k, long_date_str, long_time_str);
+            memcpy(date_str, long_date_str, DATE_STR_LEN);
+            date_str[DATE_STR_LEN] = 0;
+            memcpy(time_str, long_time_str, TIME_STR_LEN);
+            time_str[TIME_STR_LEN] = 0;
+        }
         LOG((2, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
              time_str));
 
         /* Read the second line of header. */
-        if ((bytes_read = fread(line, 1, 81, f)) != 81)
+        if ((bytes_read = fread(line, 1, G2C_INDEX_HEADER_LEN, f)) != G2C_INDEX_HEADER_LEN)
             return G2C_EFILE;
         line[G2C_INDEX_HEADER_LEN] = 0;
-        sscanf(line, "IX1FORM: %d %d %d %s", &skip, &total_len, &num_rec, basename);
+        /* Scan the line. */
+        {
+            char long_basename[G2C_INDEX_HEADER_LEN + 1];
+            sscanf(line, "IX1FORM: %d %d %d %s", &skip, &total_len, &num_rec, long_basename);
+            memcpy(basename, long_basename, BASENAME_LEN);
+            basename[BASENAME_LEN] = 0;
+        }
         LOG((2, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
 
         /* Read each index record. */
