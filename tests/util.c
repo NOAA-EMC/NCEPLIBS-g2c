@@ -58,7 +58,7 @@ degrib2_lines_not_equal(char *l1, char *l2)
     len = strlen(l1) < MAX_LINE_LEN ? strlen(l1) : MAX_LINE_LEN;
     memcpy(my_l1, l1, len);
     my_l1[len] = 0;
-    if (sscanf(l1, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) == 4)
+    if (sscanf(my_l1, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) == 4)
     {
         memcpy(abbrev1, long_abbrev, G2C_MAX_NOAA_ABBREV_LEN);
         abbrev1[G2C_MAX_NOAA_ABBREV_LEN] = 0;
