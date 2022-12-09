@@ -31,6 +31,9 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 /** Length of time string in index record. */
 #define G2C_INDEX_TIME_STR_LEN 8
 
+/** Length of str1 string in index record. */
+#define G2C_INDEX_STR1_LEN 7
+
 /** Use externally-defined mutex for thread-safety. */
 EXTERN_MUTEX(m);
 
@@ -517,7 +520,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
     if (!ret)
     {
         char line[G2C_INDEX_HEADER_LEN + 1];
-        char str1[8], date_str[G2C_INDEX_DATE_STR_LEN + 1], time_str[G2C_INDEX_TIME_STR_LEN + 1];
+        char str1[G2C_INDEX_STR1_LEN + 1], date_str[G2C_INDEX_DATE_STR_LEN + 1], time_str[G2C_INDEX_TIME_STR_LEN + 1];
         int i, j, k;
         int skip, total_len, num_rec;
         char basename[G2C_INDEX_BASENAME_LEN + 1];
@@ -531,7 +534,11 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
         /* Scan the line. */
         {
             char long_date_str[G2C_INDEX_HEADER_LEN + 1], long_time_str[G2C_INDEX_HEADER_LEN + 1];
-            sscanf(line, "%s %d %d %d %s %s GB2IX1", str1, &i, &j, &k, long_date_str, long_time_str);
+            char long_str1[G2C_INDEX_HEADER_LEN + 1];
+            
+            sscanf(line, "%s %d %d %d %s %s GB2IX1", long_str1, &i, &j, &k, long_date_str, long_time_str);
+            memcpy(str1, long_str1, G2C_INDEX_STR1_LEN);
+            date_str[G2C_INDEX_STR1_LEN] = 0;
             memcpy(date_str, long_date_str, G2C_INDEX_DATE_STR_LEN);
             date_str[G2C_INDEX_DATE_STR_LEN] = 0;
             memcpy(time_str, long_time_str, G2C_INDEX_TIME_STR_LEN);
