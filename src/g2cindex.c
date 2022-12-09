@@ -301,8 +301,9 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     if (!ret)
     {
         /* Create header 1. */
-        sprintf(h1, "!GFHDR!  1   1   162 %4.4u-%2.2u-%2.2u %2.2u:%2.2u:%2.2u GB2IX1        hfe08           grb2index\n",
-                (tm.tm_year + 1900), (tm.tm_mon + 1), tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+        snprintf(h1, G2C_INDEX_HEADER_LEN + 1,
+                 "!GFHDR!  1   1   162 %4.4u-%2.2u-%2.2u %2.2u:%2.2u:%2.2u GB2IX1        hfe08           grb2index\n",
+                 (tm.tm_year + 1900), (tm.tm_mon + 1), tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 
         /* Write header 1. */
         if ((items_written = fwrite(h1, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
