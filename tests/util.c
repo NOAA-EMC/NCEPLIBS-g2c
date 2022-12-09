@@ -45,6 +45,8 @@ degrib2_lines_not_equal(char *l1, char *l2)
     char abbrev2[G2C_MAX_NOAA_ABBREV_LEN + 1];
     char cmin1[MAX_VALUE_LEN + 1], cavg1[MAX_VALUE_LEN + 1], cmax1[MAX_VALUE_LEN + 1];
     char cmin2[MAX_VALUE_LEN + 1], cavg2[MAX_VALUE_LEN + 1], cmax2[MAX_VALUE_LEN + 1];
+    char my_l1[MAX_LINE_LEN + 1];
+    int len;
 
     /* If the lines are the same, we're done. */
     if (!cmpString(l1, l2))
@@ -53,6 +55,9 @@ degrib2_lines_not_equal(char *l1, char *l2)
     /* If the lines are different, is it a line like this:
        ( PARM= WIND ) :  MIN=               0.09999998 AVE=               5.64625024 MAX=              16.43000032
     */
+    len = strlen(li) < MAX_LINE_LEN ? strlen(li) : MAX_LINE_LEN;
+    memcpy(my_l1, l1, len);
+    my_l1[len] = 0;
     if (sscanf(l1, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", long_abbrev, long_cmin, long_cavg, long_cmax) == 4)
     {
         memcpy(abbrev1, long_abbrev, G2C_MAX_NOAA_ABBREV_LEN);
