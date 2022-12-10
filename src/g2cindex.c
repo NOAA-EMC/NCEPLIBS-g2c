@@ -551,7 +551,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
         if ((bytes_read = fread(line, 1, G2C_INDEX_HEADER_LEN, f)) != G2C_INDEX_HEADER_LEN)
             return G2C_EFILE;
         line[G2C_INDEX_HEADER_LEN] = 0;
-        /* Scan the line. */
+        /* Scan the line. Hard! */
         {
             char long_basename[G2C_INDEX_HEADER_LEN + 1];
             sscanf(line, "IX1FORM: %d %d %d %s", &skip, &total_len, &num_rec, long_basename);
