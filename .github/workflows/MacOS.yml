@@ -44,14 +44,14 @@ jobs:
       with:
         repository: jasper-software/jasper
         path: jasper
-        ref: version-2.0.25
+        ref: version-3.0.5
 
     - name: cache-jasper
       id: cache-jasper
       uses: actions/cache@v2
       with:
         path: ~/Jasper
-        key: jasper-${{ runner.os }}-2.0.25-macOS
+        key: jasper-${{ runner.os }}-3.0.5-macOS
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
