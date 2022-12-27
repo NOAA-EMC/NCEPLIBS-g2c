@@ -66,6 +66,7 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   "ref_WW3_Regional_US_West_Coast_20220718_0000.txt"
   "testgrib2.grb2"
   "ref_testgrib2.grb2.degrib2"
+  "ref_fv3lam.t00z.namerica.f00.grib2.degrib2"
 )
 foreach(THE_FILE IN LISTS REF_FILES) 
   FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/${THE_FILE}
@@ -120,6 +121,14 @@ if(FTP_TEST_FILES)
   foreach(THE_FILE IN LISTS FTP_FILES) 
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
+
+  set(LARGE_FTP_FILES "fv3lam.t00z.namerica.f00.grib2")
+  if(LARGE_FTP_TESTS)
+    foreach(THE_FILE IN LISTS LARGE_FTP_FILES) 
+      PULL_DATA(${G2_FTP_URL} ${THE_FILE})
+    endforeach()
+    add_definitions(-DLARGE_FTP_TESTS)
+  endif()
 
   # Add this preprocessor definition so test files can conditionally
   # include testing based on FTP files.
