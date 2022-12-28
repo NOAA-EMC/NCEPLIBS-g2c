@@ -121,13 +121,17 @@ int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
     k = 0;
     if (out_is_g2int)
     {
+        LOG((3, "pcmpt->height_ %d pcmpt->width_ %d", pcmpt->height_, pcmpt->width_));
         for (i = 0; i < pcmpt->height_; i++)
+        {
+            LOG((15, "i %d", i));
             for (j = 0; j < pcmpt->width_; j++)
             {
                 LOG((15, "i %d j %d", i, j));
                 LOG((15, "data->rows_[i][j] %lld", data->rows_[i][j]));
                 ((g2int *)outfld)[k++] = data->rows_[i][j];
             }
+        }
     }
     else
     {
