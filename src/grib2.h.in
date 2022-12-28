@@ -394,7 +394,7 @@ int g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
 int g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld);
 
 /* Testing. */
-int g2c_metadata_cmp(int g2cid1, int g2cid2);
+int g2c_compare(int g2cid1, int g2cid2);
     
 /* Output. */
 int g2c_degrib2(int g2cid, const char *fileout);

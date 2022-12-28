@@ -25,7 +25,7 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
  * @author Ed Hartnett @date Dec 28, 2022
  */
 int
-g2c_metadata_cmp(int g2cid1, int g2cid2)
+g2c_compare(int g2cid1, int g2cid2)
 {
     G2C_MESSAGE_INFO_T *msg1, *msg2;
     int m;

@@ -26,7 +26,7 @@ main()
     {
         if (g2c_open(WAVE_FILE, 0, &g2cid2))
             return G2C_ERROR;
-        if (g2c_metadata_cmp(g2cid1, g2cid2))
+        if (g2c_compare(g2cid1, g2cid2))
             return G2C_ERROR;
         if (g2c_close(g2cid2))
             return G2C_ERROR;
@@ -37,7 +37,7 @@ main()
     {
         if (g2c_open(GDAS_FILE, 0, &g2cid2))
             return G2C_ERROR;
-        if (!g2c_metadata_cmp(g2cid1, g2cid2))
+        if (!g2c_compare(g2cid1, g2cid2))
             return G2C_ERROR;
         if (g2c_close(g2cid2))
             return G2C_ERROR;
