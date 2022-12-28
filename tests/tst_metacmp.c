@@ -14,21 +14,40 @@
 int
 main()
 {
+    int g2cid1, g2cid2;
+    
     printf("Testing g2c_metacmp\n");
-    printf("testing g2c_metacmp on file %s...", WAVE_FILE);
+
+    /* Open test file. */
+    if (g2c_open(WAVE_FILE, 0, &g2cid1))
+        return G2C_ERROR;
+    
+    printf("comparing file %s to itself...", WAVE_FILE);
     {
-        int g2cid1, g2cid2;
-        
-        if (g2c_open(WAVE_FILE, 0, &g2cid1))
-            return G2C_ERROR;
         if (g2c_open(WAVE_FILE, 0, &g2cid2))
             return G2C_ERROR;
-        if (g2c_close(g2cid1))
+        if (g2c_metadata_cmp(g2cid1, g2cid2))
             return G2C_ERROR;
         if (g2c_close(g2cid2))
             return G2C_ERROR;
     }
     printf("ok!\n");
+#ifdef FTP_TEST_FILES    
+    printf("comparing file %s to file %s...", WAVE_FILE, GDAS_FILE);
+    {
+        if (g2c_open(GDAS_FILE, 0, &g2cid2))
+            return G2C_ERROR;
+        if (!g2c_metadata_cmp(g2cid1, g2cid2))
+            return G2C_ERROR;
+        if (g2c_close(g2cid2))
+            return G2C_ERROR;
+    }
+    printf("ok!\n");
+#endif /* FTP_TEST_FILES */
+    
+    if (g2c_close(g2cid1))
+        return G2C_ERROR;
+    
     printf("SUCCESS!\n");
     return 0;
 }
