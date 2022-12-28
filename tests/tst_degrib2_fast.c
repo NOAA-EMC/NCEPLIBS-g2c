@@ -28,8 +28,10 @@ main()
 
         if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
             return ret;
+        g2c_set_log_level(10);
         if ((ret = g2c_degrib2(g2cid, FILE_NAME)))
             return ret;
+        g2c_set_log_level(0);
         if ((ret = g2c_close(g2cid)))
             return ret;
 

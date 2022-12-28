@@ -93,7 +93,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-fsanitize=address" -DCMAKE_BUILD_TYPE=Debug ..
+        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-fsanitize=address" -DCMAKE_BUILD_TYPE=Debug -DLOGGING=ON ..
         make -j2 VERBOSE=1
 
     - name: test
