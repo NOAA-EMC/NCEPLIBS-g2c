@@ -44,14 +44,14 @@ jobs:
       with:
         repository: jasper-software/jasper
         path: jasper
-        ref: version-3.0.5
+        ref: version-4.0.0
 
     - name: cache-jasper
       id: cache-jasper
       uses: actions/cache@v2
       with:
         path: ~/jasper
-        key: jasper-${{ runner.os }}-3.0.5-macOS
+        key: jasper-${{ runner.os }}-4.0.0-macOS
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
@@ -59,7 +59,7 @@ jobs:
         cd jasper
         mkdir cmake_build
         cd cmake_build
-        cmake -DCMAKE_INSTALL_PREFIX=~/jasper -DJAS_ENABLE_LIBJPEG=OFF ..
+        cmake -DCMAKE_INSTALL_PREFIX=~/jasper
         make -j2
         make install
 
