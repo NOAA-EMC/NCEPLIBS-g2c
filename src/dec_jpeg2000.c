@@ -49,7 +49,6 @@ int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
     char *opts = NULL;
     jas_matrix_t *data;
     int fmt;
-    int ret;
 
     LOG((3, "int_dec_jpeg2000 bufsize %ld out_is_g2int %d", bufsize, out_is_g2int));
 
@@ -112,11 +111,11 @@ int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
     /* Create a data matrix of grayscale image values decoded from the
      * jpeg2000 codestream. */
     data = jas_matrix_create(jas_image_height(image), jas_image_width(image));
-    ret = jas_image_readcmpt(image, 0, 0, 0, jas_image_width(image),
-                             jas_image_height(image), data);
+    jas_image_readcmpt(image, 0, 0, 0, jas_image_width(image),
+                       jas_image_height(image), data);
 
 
-    LOG((3, "ret %d pcmpt->height_ %d pcmpt->width_ %d", ret, pcmpt->height_, pcmpt->width_));
+    LOG((3, "pcmpt->height_ %d pcmpt->width_ %d", ret, pcmpt->height_, pcmpt->width_));
     
     /* Copy data matrix to output integer array. */
     k = 0;
