@@ -39,29 +39,32 @@ jobs:
         brew update
         brew install openjpeg jpeg-turbo
 
-    - name: checkout-jasper
-      uses: actions/checkout@v2
-      with:
-        repository: jasper-software/jasper
-        path: jasper
-        ref: version-3.0.5
-
     - name: cache-jasper
       id: cache-jasper
       uses: actions/cache@v2
       with:
         path: ~/jasper
-        key: jasper-${{ runner.os }}-3.0.5-macOS-1
+        key: jasper-${{ runner.os }}-4.0.0-macOS-2
+
+    - name: checkout-jasper
+      if: steps.cache-jasper.outputs.cache-hit != 'true'
+      uses: actions/checkout@v2
+      with:
+        repository: jasper-software/jasper
+        path: jasper
+        ref: version-4.0.0
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
       run: |
+        set -e
+        pwd
+        ls -l
         cd jasper
         mkdir cmake_build
         cd cmake_build
-        cmake -DCMAKE_INSTALL_PREFIX=~/jasper -DJAS_ENABLE_LIBJPEG=OFF ..
+        cmake -DCMAKE_INSTALL_PREFIX=~/jasper ..
         make -j2
-        make test
         make install
 
     - name: cache-png
@@ -93,14 +96,11 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-fsanitize=address" -DCMAKE_BUILD_TYPE=Debug -DLOGGING=ON ..
+        cmake ${{ matrix.config.options }} ..
         make -j2 VERBOSE=1
 
     - name: test
       run: |
         cd $GITHUB_WORKSPACE/g2c/build
-        cd tests
-        ./tst_degrib2_fast
-        cd ..
         ctest --verbose --output-on-failure --rerun-failed
 
