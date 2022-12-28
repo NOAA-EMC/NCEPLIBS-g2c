@@ -1,4 +1,4 @@
-name: MacOS
+[name: MacOS
 on:
   push:
     branches:
@@ -23,7 +23,7 @@ jobs:
         config:
         - {
             name: "png_on jasper_on openjpeg_off",
-            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/jasper"
           }
         - {
             name: "png_on jasper_off openjpeg_on",
@@ -44,14 +44,14 @@ jobs:
       with:
         repository: jasper-software/jasper
         path: jasper
-        ref: version-2.0.25
+        ref: version-3.0.5
 
     - name: cache-jasper
       id: cache-jasper
       uses: actions/cache@v2
       with:
-        path: ~/Jasper
-        key: jasper-${{ runner.os }}-2.0.25-macOS
+        path: ~/jasper
+        key: jasper-${{ runner.os }}-3.0.5-macOS
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
@@ -59,7 +59,7 @@ jobs:
         cd jasper
         mkdir cmake_build
         cd cmake_build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper -DJAS_ENABLE_LIBJPEG=OFF
+        cmake -DCMAKE_INSTALL_PREFIX=~/jasper -DJAS_ENABLE_LIBJPEG=OFF ..
         make -j2
         make install
 
