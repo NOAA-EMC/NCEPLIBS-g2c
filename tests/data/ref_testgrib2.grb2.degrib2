@@ -1,0 +1,24 @@
+
+ GRIB MESSAGE  1  starts at 1
+
+  SECTION 0:  0 2 191
+  SECTION 1:  7 4 2 24 0 2021 11 13 15 59 59 1 0
+  Contains  1  Local Sections  and  1  data fields.
+
+  FIELD  1
+  SECTION 0:  0 2
+  SECTION 1:  7 4 2 24 0 2021 11 13 15 59 59 1 0
+  SECTION 2: 3 bytes
+  SECTION 3:  0 4 0 0 0
+  GRID TEMPLATE 3. 0 :  0 1 1 1 1 1 1 2 2 0 0 45 91 0 55 101 5 5 0
+  NO Optional List Defining Number of Data Points.
+  PRODUCT TEMPLATE 4. 0: ( PARAMETER = TMP      0 0 0 )  0 0 0 0 0 12 59 0 0 1 1 1 2 1 1
+  FIELD: TMP      Surface valid  0 minute after 2021111315:59:59
+  NO Optional Vertical Coordinate List.
+  Num. of Data Points =  4     NO BIT-MAP 
+  DRS TEMPLATE 5. 0 :  1093664768 1 1 8 0
+  Data Values:
+  Num. of Data Points =  4   Num. of Data Undefined = 0
+( PARM= TMP ) :  MIN=               1.10000002 AVE=               1.25000012 MAX=               1.30000007
+  
+  Total Number of Fields Found =  1

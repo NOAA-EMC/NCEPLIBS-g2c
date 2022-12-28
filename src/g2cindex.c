@@ -481,7 +481,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
  * @author Ed Hartnett @date 10/12/22
  */
 int
-g2c_read_index(const char *data_file, const char *index_file, int mode,
+g2c_open_index(const char *data_file, const char *index_file, int mode,
                int *g2cid)
 {
     FILE *f;
@@ -494,7 +494,7 @@ g2c_read_index(const char *data_file, const char *index_file, int mode,
     if (strlen(data_file) > G2C_MAX_NAME)
         return G2C_ENAMETOOLONG;
 
-    LOG((1, "g2c_read_index index_file %s", index_file));
+    LOG((1, "g2c_open_index index_file %s", index_file));
 
     /* Open the index file. */
     if (!(f = fopen(index_file, "rb")))

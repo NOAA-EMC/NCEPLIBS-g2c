@@ -1,4 +1,4 @@
-/** 
+/**
  * @file
  * @brief Write summary output to a file, as is done by utility
  * grb2index.
@@ -53,14 +53,14 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
     char tunit[G2C_DATE_TIME_LEN], tunit2[G2C_DATE_TIME_LEN];
     char reftime[G2C_DATE_TIME_LEN], endtime[G2C_DATE_TIME_LEN], tmpval2[G2C_DATE_TIME_LEN];
     int itemp, itemp2, is;
-  /* character(len = 16) :: reftime, endtime */
-  /* character(len = 10) :: tmpval, tmpval2 */
-  /* character(len = 10) :: tunit, tunit2 */
-  /* integer, dimension(200) :: ipos, ipos2 */
-  /* integer :: is, itemp, itemp2, iunit, iuni2t2, iunit2, iutpos, iutpos2, j */
-  
-  /* data ipos  /7*0, 16, 23, 17, 19, 18, 32, 31, 27*0, 17, 20, 0, 0, 22,  & */
-  /*      25, 43*0, 23, 109*0/ */
+    /* character(len = 16) :: reftime, endtime */
+    /* character(len = 10) :: tmpval, tmpval2 */
+    /* character(len = 10) :: tunit, tunit2 */
+    /* integer, dimension(200) :: ipos, ipos2 */
+    /* integer :: is, itemp, itemp2, iunit, iuni2t2, iunit2, iutpos, iutpos2, j */
+
+    /* data ipos  /7*0, 16, 23, 17, 19, 18, 32, 31, 27*0, 17, 20, 0, 0, 22,  & */
+    /*      25, 43*0, 23, 109*0/ */
 
     int ipos[200] = {
         0, 0, 0, 0, 0, 0, 0, 16, 23, 17, 19, 18, 32, 31, 0, 0, 0, 0, 0, 0,
@@ -74,10 +74,10 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
-  /* data ipos2 /7*0, 26, 33, 27, 29, 28, 42, 41, 27*0, 22, 30, 0, 0, 32,  & */
-  /*      35, 43*0, 33, 109*0/ */
+    /* data ipos2 /7*0, 26, 33, 27, 29, 28, 42, 41, 27*0, 22, 30, 0, 0, 32,  & */
+    /*      35, 43*0, 33, 109*0/ */
 
-  /* tabbrev(1:100) = " " */
+    /* tabbrev(1:100) = " " */
 
     /* Check inputs. */
     assert(ipdtn >= 0 && ipdtmpl && tabbrev);
@@ -176,14 +176,14 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
     sprintf(reftime, "%4.4d%2.2d%2.2d%2.2d:%2.2d:%2.2d", year, month, day, hour, minute, second);
 
     itemp = abs(ipdtmpl[iutpos + 1]) * iunit;
-    
-  /* write(tmpval, '(I0)') itemp */
+
+    /* write(tmpval, '(I0)') itemp */
 
     sprintf(tabbrev, "valid at  %lld", ipdtmpl[iutpos + 1]);
-  /* write(tabbrev, fmt = '("valid at  ", i4)') ipdtmpl(iutpos + 1) */
+    /* write(tabbrev, fmt = '("valid at  ", i4)') ipdtmpl(iutpos + 1) */
 
-  /* Determine Reference Time: Year, Month, Day, Hour, Minute, Second. */
-    
+    /* Determine Reference Time: Year, Month, Day, Hour, Minute, Second. */
+
     if ((ipdtn >= 0 && ipdtn <= 7) || ipdtn == 15 || ipdtn == 20 || (ipdtn >= 30 && ipdtn <= 32) || ipdtn == 40 ||
         ipdtn == 41 || ipdtn == 44 || ipdtn == 45 || ipdtn == 48 || (ipdtn >= 50 && ipdtn <= 52)) /*  Point in time. */
     {
@@ -194,10 +194,10 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
         is = ipos[ipdtn]; /* Continuous time interval. */
         printf("%d", is);
         sprintf(endtime, "%d%d%d%d:%d:%d", year, month, day, hour, minute, second);
-  /*    write(endtime, fmt = '(i4,3i2.2,":",i2.2,":",i2.2)') (ipdtmpl(j), j = is, is + 5) */
+        /*    write(endtime, fmt = '(i4,3i2.2,":",i2.2,":",i2.2)') (ipdtmpl(j), j = is, is + 5) */
         if (ipdtn == 8 && ipdtmpl[9] < 0)
         {
-  /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // ") valid  " // trim(tmpval) // " " // trim(tunit) // " before " // reftime // " to " //endtime */
+            /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // ") valid  " // trim(tmpval) // " " // trim(tunit) // " before " // reftime // " to " //endtime */
         }
         else if ((ipdtn >= 8 && ipdtn <= 14) || (ipdtn >= 42 && ipdtn <= 47) || ipdtn == 91) /* Continuous time interval */
         {
@@ -205,7 +205,7 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
             itemp2 = itemp + itemp2;
             sprintf(tmpval2, "%d", itemp2);
             /*       write(tmpval2, '(I0)') itemp2 */
-  /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // " hr) valid  " // trim(tmpval) // " " // trim(tunit) // " after " // reftime // " to " // endtime */
+            /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // " hr) valid  " // trim(tmpval) // " " // trim(tunit) // " after " // reftime // " to " // endtime */
         }
     }
 
@@ -238,14 +238,18 @@ format_level(char *cbuf, int ival, int scale)
 
         rval = (float)ival * pow(10, -1 * scale);
         if (rval == (int)rval)
-            sprintf(cbuf, "%d", (int)rval);
+        {
+            /* This adds a space in front of the number, to match
+             * behavor of the Fortran degrib2 utility. */
+            sprintf(cbuf, " %d", (int)rval);
+        }
         else
         {
             char fmt[37];
             sprintf(fmt, "%s%d%s", "%.", (int)abs(scale), "f");
             sprintf(cbuf, fmt, rval);
         }
-            
+
     }
     return G2C_NOERROR;
 }
@@ -278,6 +282,8 @@ int
 g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
 {
     int ipos;
+    char tmpval1[37];
+    char tmpval2[37];
     int ret;
 
     /* Check inputs. */
@@ -304,236 +310,241 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
         ipos = 9;
 
     /* Pressure Level. */
-  if (ipdtmpl[ipos] == 100 && ipdtmpl[ipos + 3] == 255)
-  {
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1) + 2) */
-     /* level_desc = trim(tmpval1)//" mb" */
-      char tmpval1[37];
-      if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1] + 2)))
-          return ret;
-      sprintf(level_desc, "%s %s", tmpval1, "mb");
-  }
-  /* Pressure Layer. */
-  else if (ipdtmpl[ipos] == 100 && ipdtmpl[ipos + 3] == 100)
-  {
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1) + 2) */
-     /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4) + 2) */
-     /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" mb" */
-  }
-  else if (ipdtmpl[ipos] == 101)
-  {
-      strcpy(level_desc, " Mean Sea Level ");
-  }
-  /* Altitude above MSL. */
-  else if (ipdtmpl[ipos] == 102 && ipdtmpl[ipos + 3] == 255)
-  {
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
-     /* level_desc = trim(tmpval1)//" m above MSL" */
-  }
-  /* Height above Ground. */
-  else if (ipdtmpl[ipos] == 103 && ipdtmpl[ipos + 3] == 255)
-  {
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
-     /* level_desc = trim(tmpval1)//" m above ground" */
-  }
-  /* Height above Ground. */
-  else if (ipdtmpl[ipos] == 103 && ipdtmpl[ipos + 3] == 103)
-  {
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
-     /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
-     /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" m AGL" */
-  }
-  /* Sigma Level. */
-  else if (ipdtmpl[ipos] == 104 && ipdtmpl[ipos + 3] == 255)
-  {
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
-     /* level_desc = trim(tmpval1)//" sigma" */
-  }
-  /* Sigma Layer. */
-  else if (ipdtmpl[ipos] == 104 && ipdtmpl[ipos + 3] == 104)
-  {
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
-     /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
-     /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" sigma" */
-  }
-  /* Hybrid Level. */
-  else if (ipdtmpl[ipos] == 105 && ipdtmpl[ipos + 3] == 255)
-  {
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
-     /* level_desc = trim(tmpval1)//" hybrid lvl" */
-  }
-  /* Hybrid Level. */
-  else if (ipdtmpl[ipos] == 105 && ipdtmpl[ipos + 3] == 105)
-  {
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
-     /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
-     /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" hybrid lvl" */
-  }
-  /* Depth Below Land Sfc. */
-  else if (ipdtmpl[ipos] == 106 && ipdtmpl[ipos + 3] == 255)
-  {
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
-     /* level_desc = trim(tmpval1)//" m below land" */
-  }
-  /* Depth Below Land Sfc Layer. */
-  else if (ipdtmpl[ipos] == 106 && ipdtmpl[ipos + 3] == 106)
-  {
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
-     /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
-     /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" m DBLY" */
-  }
-  else if (ipdtmpl[ipos] == 107)
-  {
-      strcpy(level_desc, "Isentropic level");
-  }
-  /* Press Diff from Ground Layer. */
-  else if (ipdtmpl[ipos] == 108 && ipdtmpl[ipos + 3] == 108)
-  {
-      /* write(tmpval1, *) ipdtmpl(ipos + 2)/100. */
-      /* write(tmpval2, *) ipdtmpl(ipos + 5)/100. */
-     /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1) + 2) */
-     /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4) + 2) */
-     /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" mb SPDY" */
-  }
-  else if (ipdtmpl[ipos] == 110)
-  {
-      strcpy(level_desc, "Layer bet 2-hyb lvl");
-  }
-  /* Potential Vorticity Sfc. */
-  else if (ipdtmpl[ipos] == 109 && ipdtmpl[ipos + 3] == 255)
-  {
-      /* write(tmpval1, *) ipdtmpl(ipos + 2). */
-      /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)-6) */
-      /*     level_desc = trim(tmpval1)//" pv surface" */
-  }
-  else if (ipdtmpl[ipos] == 111)
-      strcpy(level_desc, "Eta level");
-  else if (ipdtmpl[ipos] == 114)
-      strcpy(level_desc, "Layer bet. 2-isent.");
-  else if (ipdtmpl[ipos] == 117)
-      strcpy(level_desc, "Mixed layer depth");
-  else if (ipdtmpl[ipos] == 120)
-      strcpy(level_desc, "Layer bet. 2-Eta lvl");
-  else if (ipdtmpl[ipos] == 121)
-      strcpy(level_desc, "Layer bet. 2-isob.");
-  else if (ipdtmpl[ipos] == 125)
-      strcpy(level_desc, "Specified height lvl");
-  else if (ipdtmpl[ipos] == 126)
-      strcpy(level_desc, "Isobaric level");
-  else if (ipdtmpl[ipos] == 160)
-      strcpy(level_desc, "Depth below sea lvl");
-  else if (ipdtmpl[ipos] == 170)
-      strcpy(level_desc, "Ionospheric D-region lvl");
-  else if (ipdtmpl[ipos] == 1)
-      strcpy(level_desc, "Surface");
-  else if (ipdtmpl[ipos] == 2)
-      strcpy(level_desc, "Cloud base lvl");
-  else if (ipdtmpl[ipos] == 3)
-      strcpy(level_desc, "Cloud top lvl");
-  else if (ipdtmpl[ipos] == 4)
-      strcpy(level_desc, "0 Deg Isotherm");
-  else if (ipdtmpl[ipos] == 5)       /* from the surface. */
-      strcpy(level_desc, "Level of adiabatic"     );
-  else if (ipdtmpl[ipos] == 6)
-      strcpy(level_desc, "Max wind lvl");
-  else if (ipdtmpl[ipos] == 7)
-      strcpy(level_desc, "Tropopause");
-  else if (ipdtmpl[ipos] == 8)
-      strcpy(level_desc, "Nom. top");
-  else if (ipdtmpl[ipos] == 9)
-      strcpy(level_desc, "Sea Bottom");
-  else if (ipdtmpl[ipos] == 10)
-      strcpy(level_desc, "Entire Atmosphere");
-  else if (ipdtmpl[ipos] == 11)
-      strcpy(level_desc, "Cumulonimbus Base");
-  else if (ipdtmpl[ipos] == 12)
-      strcpy(level_desc, "Cumulonimbus Top");
-  else if (ipdtmpl[ipos] == 20)
-      strcpy(level_desc, "Isothermal level");
-  else if (ipdtmpl[ipos] == 200)
-      strcpy(level_desc, "Entire Atmosphere");
-  else if (ipdtmpl[ipos] == 201)
-      strcpy(level_desc, "Entire ocean");
-  else if (ipdtmpl[ipos] == 204)
-      strcpy(level_desc, "Highest Frz. lvl");
-  else if (ipdtmpl[ipos] == 206)
-      strcpy(level_desc, "Grid scale cloud bl");
-  else if (ipdtmpl[ipos] == 207)
-      strcpy(level_desc, "Grid scale cloud tl");
-  else if (ipdtmpl[ipos] == 209)
-      strcpy(level_desc, "Boundary layer cbl");
-  else if (ipdtmpl[ipos] == 210)
-      strcpy(level_desc, "Boundary layer ctl");
-  else if (ipdtmpl[ipos] == 211)
-      strcpy(level_desc, "Boundary layer cl");
-  else if (ipdtmpl[ipos] == 212)
-      strcpy(level_desc, "Low cloud bot. lvl");
-  else if (ipdtmpl[ipos] == 213)
-      strcpy(level_desc, "Low cloud top lvl");
-  else if (ipdtmpl[ipos] == 214)
-      strcpy(level_desc, "Low cloud layer");
-  else if (ipdtmpl[ipos] == 215)
-      strcpy(level_desc, "Cloud ceiling");
-  else if (ipdtmpl[ipos] == 220)
-      strcpy(level_desc, "Planetary boundary");
-  else if (ipdtmpl[ipos] == 221)
-      strcpy(level_desc, "Layer 2 Hybrid lvl");
-  else if (ipdtmpl[ipos] == 222)
-      strcpy(level_desc, "Mid. cloud bot. lvl");
-  else if (ipdtmpl[ipos] == 223)
-      strcpy(level_desc, "Mid. cloud top lvl");
-  else if (ipdtmpl[ipos] == 224)
-      strcpy(level_desc, "Middle cloud layer");
-  else if (ipdtmpl[ipos] == 232)
-      strcpy(level_desc, "High cloud bot. lvl");
-  else if (ipdtmpl[ipos] == 233)
-      strcpy(level_desc, "High cloud top lvl");
-  else if (ipdtmpl[ipos] == 234)
-      strcpy(level_desc, "High cloud layer");
-  else if (ipdtmpl[ipos] == 235)
-      strcpy(level_desc, "Ocean Isotherm lvl");
-  else if (ipdtmpl[ipos] == 236)
-      strcpy(level_desc, "Layer 2-depth below");
-  else if (ipdtmpl[ipos] == 237)
-      strcpy(level_desc, "Bot. Ocean mix. lyr");
-  else if (ipdtmpl[ipos] == 238)
-      strcpy(level_desc, "Bot. Ocean iso. lyr");
-  else if (ipdtmpl[ipos] == 239)       /* isothermal level (S26CY). */
-      strcpy(level_desc, "layer ocean sfc 26C"    );
-  else if (ipdtmpl[ipos] == 240)
-      strcpy(level_desc, "Ocean Mixed Layer");
-  else if (ipdtmpl[ipos] == 241)
-      strcpy(level_desc, "Order Seq. Of Data");
-  else if (ipdtmpl[ipos] == 242)
-      strcpy(level_desc, "Con. cloud bot. lvl");
-  else if (ipdtmpl[ipos] == 243)
-      strcpy(level_desc, "Con. cloud top lvl");
-  else if (ipdtmpl[ipos] == 244)
-      strcpy(level_desc, "Conv. cloud layer");
-  else if (ipdtmpl[ipos] == 245)
-      strcpy(level_desc, "Lowest lvl wet bulb");
-  else if (ipdtmpl[ipos] == 246)
-      strcpy(level_desc, "Max. equi. potential");
-  else if (ipdtmpl[ipos] == 247)
-      strcpy(level_desc, "Equilibrium level");
-  else if (ipdtmpl[ipos] == 248)
-      strcpy(level_desc, "Shallow con. cld bl");
-  else if (ipdtmpl[ipos] == 249)
-      strcpy(level_desc, "Shallow con. cld tl");
-  else if (ipdtmpl[ipos] == 251)
-      strcpy(level_desc, "Deep conv. cld bl");
-  else if (ipdtmpl[ipos] == 252)
-      strcpy(level_desc, "Deep conv. cld tl");
-  else if (ipdtmpl[ipos] == 253)       /* liquid water layer (LBLSW). */
-      strcpy(level_desc, "Lowest bot. lvl sup"    );
-  else if (ipdtmpl[ipos] == 254)       /* liquid water layer (HBLSW). */
-      strcpy(level_desc, "highest top lvl sup"    );
-  else
-  {
-     /* write(level_desc, fmt = '(1x,I4," (Unknown Lvl)")') ipdtmpl[ipos] */
-  }
+    if (ipdtmpl[ipos] == 100 && ipdtmpl[ipos + 3] == 255)
+    {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1] + 2)))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "mb");
+    }
+    /* Pressure Layer. */
+    else if (ipdtmpl[ipos] == 100 && ipdtmpl[ipos + 3] == 100)
+    {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1] + 2)))
+            return ret;
+        if ((ret = format_level(tmpval2, ipdtmpl[ipos + 5], ipdtmpl[ipos + 4] + 2)))
+            return ret;
+        sprintf(level_desc, "%s - %s mb", tmpval1, tmpval2);
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1) + 2) */
+        /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4) + 2) */
+        /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" mb" */
+    }
+    else if (ipdtmpl[ipos] == 101)
+    {
+        strcpy(level_desc, "Mean Sea Level ");
+    }
+    /* Altitude above MSL. */
+    else if (ipdtmpl[ipos] == 102 && ipdtmpl[ipos + 3] == 255)
+    {
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
+        /* level_desc = trim(tmpval1)//" m above MSL" */
+    }
+    /* Height above Ground. */
+    else if (ipdtmpl[ipos] == 103 && ipdtmpl[ipos + 3] == 255)
+    {
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
+        /* level_desc = trim(tmpval1)//" m above ground" */
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "m above ground");
+    }
+    /* Height above Ground. */
+    else if (ipdtmpl[ipos] == 103 && ipdtmpl[ipos + 3] == 103)
+    {
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
+        /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
+        /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" m AGL" */
+    }
+    /* Sigma Level. */
+    else if (ipdtmpl[ipos] == 104 && ipdtmpl[ipos + 3] == 255)
+    {
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
+        /* level_desc = trim(tmpval1)//" sigma" */
+    }
+    /* Sigma Layer. */
+    else if (ipdtmpl[ipos] == 104 && ipdtmpl[ipos + 3] == 104)
+    {
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
+        /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
+        /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" sigma" */
+    }
+    /* Hybrid Level. */
+    else if (ipdtmpl[ipos] == 105 && ipdtmpl[ipos + 3] == 255)
+    {
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
+        /* level_desc = trim(tmpval1)//" hybrid lvl" */
+    }
+    /* Hybrid Level. */
+    else if (ipdtmpl[ipos] == 105 && ipdtmpl[ipos + 3] == 105)
+    {
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
+        /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
+        /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" hybrid lvl" */
+    }
+    /* Depth Below Land Sfc. */
+    else if (ipdtmpl[ipos] == 106 && ipdtmpl[ipos + 3] == 255)
+    {
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
+        /* level_desc = trim(tmpval1)//" m below land" */
+    }
+    /* Depth Below Land Sfc Layer. */
+    else if (ipdtmpl[ipos] == 106 && ipdtmpl[ipos + 3] == 106)
+    {
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
+        /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
+        /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" m DBLY" */
+    }
+    else if (ipdtmpl[ipos] == 107)
+    {
+        strcpy(level_desc, " Isentropic level");
+    }
+    /* Press Diff from Ground Layer. */
+    else if (ipdtmpl[ipos] == 108 && ipdtmpl[ipos + 3] == 108)
+    {
+        /* write(tmpval1, *) ipdtmpl(ipos + 2)/100. */
+        /* write(tmpval2, *) ipdtmpl(ipos + 5)/100. */
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1) + 2) */
+        /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4) + 2) */
+        /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" mb SPDY" */
+    }
+    else if (ipdtmpl[ipos] == 110)
+    {
+        strcpy(level_desc, " Layer bet 2-hyb lvl");
+    }
+    /* Potential Vorticity Sfc. */
+    else if (ipdtmpl[ipos] == 109 && ipdtmpl[ipos + 3] == 255)
+    {
+        /* write(tmpval1, *) ipdtmpl(ipos + 2). */
+        /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)-6) */
+        /*     level_desc = trim(tmpval1)//" pv surface" */
+    }
+    else if (ipdtmpl[ipos] == 111)
+        strcpy(level_desc, " Eta level");
+    else if (ipdtmpl[ipos] == 114)
+        strcpy(level_desc, " Layer bet. 2-isent.");
+    else if (ipdtmpl[ipos] == 117)
+        strcpy(level_desc, " Mixed layer depth");
+    else if (ipdtmpl[ipos] == 120)
+        strcpy(level_desc, " Layer bet. 2-Eta lvl");
+    else if (ipdtmpl[ipos] == 121)
+        strcpy(level_desc, " Layer bet. 2-isob.");
+    else if (ipdtmpl[ipos] == 125)
+        strcpy(level_desc, " Specified height lvl");
+    else if (ipdtmpl[ipos] == 126)
+        strcpy(level_desc, " Isobaric level");
+    else if (ipdtmpl[ipos] == 160)
+        strcpy(level_desc, " Depth below sea lvl");
+    else if (ipdtmpl[ipos] == 170)
+        strcpy(level_desc, " Ionospheric D-region lvl");
+    else if (ipdtmpl[ipos] == 1)
+        strcpy(level_desc, " Surface");
+    else if (ipdtmpl[ipos] == 2)
+        strcpy(level_desc, " Cloud base lvl");
+    else if (ipdtmpl[ipos] == 3)
+        strcpy(level_desc, " Cloud top lvl");
+    else if (ipdtmpl[ipos] == 4)
+        strcpy(level_desc, " 0 Deg Isotherm");
+    else if (ipdtmpl[ipos] == 5)       /* from the surface. */
+        strcpy(level_desc, " Level of adiabatic"     );
+    else if (ipdtmpl[ipos] == 6)
+        strcpy(level_desc, " Max wind lvl");
+    else if (ipdtmpl[ipos] == 7)
+        strcpy(level_desc, " Tropopause");
+    else if (ipdtmpl[ipos] == 8)
+        strcpy(level_desc, " Nom. top");
+    else if (ipdtmpl[ipos] == 9)
+        strcpy(level_desc, " Sea Bottom");
+    else if (ipdtmpl[ipos] == 10)
+        strcpy(level_desc, " Entire Atmosphere");
+    else if (ipdtmpl[ipos] == 11)
+        strcpy(level_desc, " Cumulonimbus Base");
+    else if (ipdtmpl[ipos] == 12)
+        strcpy(level_desc, " Cumulonimbus Top");
+    else if (ipdtmpl[ipos] == 20)
+        strcpy(level_desc, " Isothermal level");
+    else if (ipdtmpl[ipos] == 200)
+        strcpy(level_desc, " Entire Atmosphere");
+    else if (ipdtmpl[ipos] == 201)
+        strcpy(level_desc, " Entire ocean");
+    else if (ipdtmpl[ipos] == 204)
+        strcpy(level_desc, " Highest Frz. lvl");
+    else if (ipdtmpl[ipos] == 206)
+        strcpy(level_desc, " Grid scale cloud bl");
+    else if (ipdtmpl[ipos] == 207)
+        strcpy(level_desc, " Grid scale cloud tl");
+    else if (ipdtmpl[ipos] == 209)
+        strcpy(level_desc, " Boundary layer cbl");
+    else if (ipdtmpl[ipos] == 210)
+        strcpy(level_desc, " Boundary layer ctl");
+    else if (ipdtmpl[ipos] == 211)
+        strcpy(level_desc, " Boundary layer cl");
+    else if (ipdtmpl[ipos] == 212)
+        strcpy(level_desc, " Low cloud bot. lvl");
+    else if (ipdtmpl[ipos] == 213)
+        strcpy(level_desc, " Low cloud top lvl");
+    else if (ipdtmpl[ipos] == 214)
+        strcpy(level_desc, " Low cloud layer");
+    else if (ipdtmpl[ipos] == 215)
+        strcpy(level_desc, " Cloud ceiling");
+    else if (ipdtmpl[ipos] == 220)
+        strcpy(level_desc, " Planetary boundary");
+    else if (ipdtmpl[ipos] == 221)
+        strcpy(level_desc, " Layer 2 Hybrid lvl");
+    else if (ipdtmpl[ipos] == 222)
+        strcpy(level_desc, " Mid. cloud bot. lvl");
+    else if (ipdtmpl[ipos] == 223)
+        strcpy(level_desc, " Mid. cloud top lvl");
+    else if (ipdtmpl[ipos] == 224)
+        strcpy(level_desc, " Middle cloud layer");
+    else if (ipdtmpl[ipos] == 232)
+        strcpy(level_desc, " High cloud bot. lvl");
+    else if (ipdtmpl[ipos] == 233)
+        strcpy(level_desc, " High cloud top lvl");
+    else if (ipdtmpl[ipos] == 234)
+        strcpy(level_desc, " High cloud layer");
+    else if (ipdtmpl[ipos] == 235)
+        strcpy(level_desc, " Ocean Isotherm lvl");
+    else if (ipdtmpl[ipos] == 236)
+        strcpy(level_desc, " Layer 2-depth below");
+    else if (ipdtmpl[ipos] == 237)
+        strcpy(level_desc, " Bot. Ocean mix. lyr");
+    else if (ipdtmpl[ipos] == 238)
+        strcpy(level_desc, " Bot. Ocean iso. lyr");
+    else if (ipdtmpl[ipos] == 239)       /* isothermal level (S26CY). */
+        strcpy(level_desc, " layer ocean sfc 26C"    );
+    else if (ipdtmpl[ipos] == 240)
+        strcpy(level_desc, " Ocean Mixed Layer");
+    else if (ipdtmpl[ipos] == 241)
+        strcpy(level_desc, " Order Seq. Of Data");
+    else if (ipdtmpl[ipos] == 242)
+        strcpy(level_desc, " Con. cloud bot. lvl");
+    else if (ipdtmpl[ipos] == 243)
+        strcpy(level_desc, " Con. cloud top lvl");
+    else if (ipdtmpl[ipos] == 244)
+        strcpy(level_desc, " Conv. cloud layer");
+    else if (ipdtmpl[ipos] == 245)
+        strcpy(level_desc, " Lowest lvl wet bulb");
+    else if (ipdtmpl[ipos] == 246)
+        strcpy(level_desc, " Max. equi. potential");
+    else if (ipdtmpl[ipos] == 247)
+        strcpy(level_desc, " Equilibrium level");
+    else if (ipdtmpl[ipos] == 248)
+        strcpy(level_desc, " Shallow con. cld bl");
+    else if (ipdtmpl[ipos] == 249)
+        strcpy(level_desc, " Shallow con. cld tl");
+    else if (ipdtmpl[ipos] == 251)
+        strcpy(level_desc, " Deep conv. cld bl");
+    else if (ipdtmpl[ipos] == 252)
+        strcpy(level_desc, " Deep conv. cld tl");
+    else if (ipdtmpl[ipos] == 253)       /* liquid water layer (LBLSW). */
+        strcpy(level_desc, " Lowest bot. lvl sup"    );
+    else if (ipdtmpl[ipos] == 254)       /* liquid water layer (HBLSW). */
+        strcpy(level_desc, " highest top lvl sup"    );
+    else
+    {
+        /* write(level_desc, fmt = '(1x,I4," (Unknown Lvl)")') ipdtmpl[ipos] */
+    }
 
-  return G2C_NOERROR;
+    return G2C_NOERROR;
 }
 
 /**
@@ -562,10 +573,12 @@ g2c_degrib2(int g2cid, const char *fileout)
 
     /* Check inputs. */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
-	return G2C_EBADID;
+        return G2C_EBADID;
     if (!fileout)
         return G2C_EINVAL;
-    
+
+    LOG((2, "g2c_degrib2 fileout %s", fileout));
+
     /* Open output file. */
     if (!(f = fopen(fileout, "w")))
         return G2C_EFILE;
@@ -574,7 +587,7 @@ g2c_degrib2(int g2cid, const char *fileout)
     for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
     {
         int fld;
-        
+
         fprintf(f, "\n");
         fprintf(f, " GRIB MESSAGE  %ld  starts at %ld\n", msg->msg_num + 1, msg->bytes_to_msg + 1);
         fprintf(f, "\n");
@@ -583,11 +596,14 @@ g2c_degrib2(int g2cid, const char *fileout)
                 msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
                 msg->hour, msg->minute, msg->second, msg->status, msg->type);
         fprintf(f, "  Contains  %d  Local Sections  and  %d  data fields.\n", msg->num_local, msg->num_fields);
+        LOG((5, "  SECTION 1:  %d %d %d %d %d %d %d %d %d %d %d %d %d\n", msg->center, msg->subcenter,
+             msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
+             msg->hour, msg->minute, msg->second, msg->status, msg->type));
 
         /* For each field, print info. */
         for (fld = 0; fld < msg->num_fields; fld++)
         {
-            G2C_SECTION_INFO_T *sec, *sec3, *sec5, *sec6;
+            G2C_SECTION_INFO_T *sec, *sec2, *sec3, *sec5, *sec6;
             G2C_SECTION3_INFO_T *sec3_info;
             G2C_SECTION4_INFO_T *sec4_info;
             G2C_SECTION5_INFO_T *sec5_info;
@@ -598,13 +614,13 @@ g2c_degrib2(int g2cid, const char *fileout)
             float *data;
             float total, max, min;
             int t;
-            
+
             fprintf(f, "\n");
             fprintf(f, "  FIELD  %d\n", fld + 1);
             fprintf(f, "  SECTION 0:  %d 2\n", msg->discipline);
             fprintf(f, "  SECTION 1:  %d %d %d %d %d %d %d %d %d %d %d %d %d\n", msg->center, msg->subcenter,
-                msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
-                msg->hour, msg->minute, msg->second, msg->status, msg->type);
+                    msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
+                    msg->hour, msg->minute, msg->second, msg->status, msg->type);
 
             /* Find this field (a.k.a. product, a.k.a. section 4). */
             for (sec = msg->sec; sec; sec = sec->next)
@@ -612,6 +628,13 @@ g2c_degrib2(int g2cid, const char *fileout)
                     break;
             if (!sec)
                 return G2C_ENOSECTION;
+
+            /* Is there a local section? */
+            for (sec2 = sec; sec2; sec2 = sec2->prev)
+                if (sec2->sec_num == 2)
+                    break;
+            if (sec2)
+                fprintf(f, "  SECTION 2: %d bytes\n", sec2->sec_len - 5); /* Subtract 4 byte seclen and 1 byte secnum. */
 
             /* Find the sec3 that applies to this field. */
             for (sec3 = sec; sec3; sec3 = sec3->prev)
@@ -625,7 +648,7 @@ g2c_degrib2(int g2cid, const char *fileout)
             fprintf(f, "  SECTION 3:  %d %d %d %d %d\n", sec3_info->source_grid_def, sec3_info->num_data_points, sec3_info->num_opt,
                     sec3_info->interp_list, sec3_info->grid_def);
             fprintf(f, "  GRID TEMPLATE 3. %d : ", sec3_info->grid_def);
-            /* Cast to int to match behavior of  degrib2.F90. */            
+            /* Cast to int to match behavior of  degrib2.F90. */
             for (t = 0; t < sec3->template_len; t++)
                 fprintf(f, " %d", (int)sec3->template[t]);
             fprintf(f, "\n");
@@ -643,23 +666,34 @@ g2c_degrib2(int g2cid, const char *fileout)
             if ((ret = g2c_param_abbrev(msg->discipline, sec->template[0], sec->template[1], abbrev)))
                 return ret;
             fprintf(f, "( PARAMETER = %-8s %d %lld %lld ) ", abbrev, sec->msg->discipline, sec->template[0],
-		    sec->template[1]);
-            /* Cast to int to match behavior of  degrib2.F90. */            
+                    sec->template[1]);
+            /* Cast to int to match behavior of  degrib2.F90. */
             for (t = 0; t < sec->template_len; t++)
                 fprintf(f, " %d", (int)sec->template[t]);
             fprintf(f, "\n");
 
-	    /* Using the product template number, and the template
-	     * values, we can figure out a description for the
-	     * horizontal level description. */
+            /* Using the product template number, and the template
+             * values, we can figure out a description for the
+             * horizontal level description. */
             if ((ret = g2c_get_level_desc(sec4_info->prod_def, sec->template, level_desc)))
                 return ret;
 
-	    /* Put the date/time in a formatted string. */
+            /* The Fortran code for level descriptions puts a space in
+             * front of level descriptions that don't start with a
+             * number. It's annoying, but do it here to match the
+             * behavior of Fortran degrib2. */
+            /* if (!isdigit(level_desc[0])) */
+            /* { */
+            /*     char tmp_level_desc[G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN + 2]; */
+            /*     sprintf(tmp_level_desc, " %s", level_desc); */
+            /*     strcpy(level_desc, tmp_level_desc); */
+            /* } */
+
+            /* Put the date/time in a formatted string. */
             if ((ret = g2c_get_datetime(sec4_info->prod_def, sec->template, msg->year, msg->month, msg->day,
                                         msg->hour, msg->minute, msg->second, date_time)))
                 return ret;
-            fprintf(f, "  FIELD: %-8s %s %s\n", abbrev, level_desc, date_time);
+            fprintf(f, "  FIELD: %-8s%s %s\n", abbrev, level_desc, date_time);
             if (!sec4_info->num_coord)
                 fprintf(f, "  NO Optional Vertical Coordinate List.\n");
 
@@ -675,27 +709,27 @@ g2c_degrib2(int g2cid, const char *fileout)
                 if (sec6->sec_num == 6)
                     break;
 
-	    /* Section 5 and 6 info. */
-	    sec5_info = (G2C_SECTION5_INFO_T *)sec5->sec_info;
-	    sec6_info = (G2C_SECTION6_INFO_T *)sec6->sec_info;
+            /* Section 5 and 6 info. */
+            sec5_info = (G2C_SECTION5_INFO_T *)sec5->sec_info;
+            sec6_info = (G2C_SECTION6_INFO_T *)sec6->sec_info;
             if (sec6_info->indicator != 255)
                 fprintf(f, "  Num. of Data Points =  %d    with BIT-MAP  0\n", sec5_info->num_data_points);
             else
                 fprintf(f, "  Num. of Data Points =  %d     NO BIT-MAP \n", sec5_info->num_data_points);
-	    fprintf(f, "  DRS TEMPLATE 5. %d : ", sec5_info->data_def);
+            fprintf(f, "  DRS TEMPLATE 5. %d : ", sec5_info->data_def);
             /* Cast to int to match behavior of  degrib2.F90. */
             for (t = 0; t < sec5->template_len; t++)
                 fprintf(f, " %d", (int)sec5->template[t]);
             fprintf(f, "\n");
-	    fprintf(f, "  Data Values:\n");
-	    fprintf(f, "  Num. of Data Points =  %d   Num. of Data Undefined = 0\n", sec5_info->num_data_points);
+            fprintf(f, "  Data Values:\n");
+            fprintf(f, "  Num. of Data Points =  %d   Num. of Data Undefined = 0\n", sec5_info->num_data_points);
 
             /* Now read the data and find the min, max, and average values. */
 
             /* Allocate storage for the data. */
             if (!(data = malloc(sec5_info->num_data_points * sizeof(float))))
                 return G2C_ERROR;
-            
+
             /* Get the data from message 0, product 0. */
             if ((ret = g2c_get_prod(g2cid, msg->msg_num, fld, NULL, data)))
                 return ret;
@@ -712,21 +746,21 @@ g2c_degrib2(int g2cid, const char *fileout)
                 if (data[i] < min)
                     min = data[i];
             }
-	    fprintf(f, "( PARM= %s ) :  MIN=%25.8f AVE=%25.8f MAX=%25.8f\n",
+            fprintf(f, "( PARM= %s ) :  MIN=%25.8f AVE=%25.8f MAX=%25.8f\n",
                     abbrev, min, total/sec5_info->num_data_points, max);
 
             /* Free the data. */
             free(data);
 
-	    total_fields++;
+            total_fields++;
         }
     }
 
     fprintf(f, "  \n  Total Number of Fields Found =  %d\n", total_fields);
-    
+
     /* Close output file. */
     if (fclose(f))
         return G2C_EFILE;
-    
+
     return G2C_NOERROR;
 }

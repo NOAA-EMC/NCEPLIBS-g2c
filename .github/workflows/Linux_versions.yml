@@ -1,4 +1,4 @@
-name: Linux Build
+name: Linux_versions
 on:
   push:
     branches:
@@ -12,7 +12,7 @@ on:
     - README.md
 
 jobs:
-  linux-build:
+  Linux_versions:
     runs-on: ubuntu-latest
     env:
       CC: gcc
@@ -26,26 +26,25 @@ jobs:
     - name: install-dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev
-        python3 -m pip install gcovr
+        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev
         if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
           sudo apt-get install clang
         fi
-        
-
-    - name: checkout-jasper
-      uses: actions/checkout@v2
-      with:
-        repository: jasper-software/jasper
-        path: jasper
-        ref: version-${{ matrix.jasper-version }}
 
     - name: cache-jasper
       id: cache-jasper
       uses: actions/cache@v2
       with:
-        path: ~/Jasper
-        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}
+        path: ~/jasper
+        key: jasper-${{ runner.os }}-${{ matrix.jasper-version }}
+
+    - name: checkout-jasper
+      if: steps.cache-jasper.outputs.cache-hit != 'true'
+      uses: actions/checkout@v2
+      with:
+        repository: jasper-software/jasper
+        path: jasper
+        ref: version-${{ matrix.jasper-version }}
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
@@ -58,7 +57,7 @@ jobs:
         cd jasper
         mkdir cmake_build
         cd cmake_build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/jasper
         make -j2
         make install
 
@@ -73,26 +72,16 @@ jobs:
           export CC=clang
         elif [[ ${{ matrix.ccompiler }} == "gcc" ]]; then
           export CC=gcc
-          export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address'
         fi
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DENABLE_OpenJPEG=ON -DFTP_TEST_FILES=ON ..
-        make -j2
+        cmake -DJasper_ROOT=~/jasper -DENABLE_OpenJPEG=ON .. 
+        make -j2 VERBOSE=1
 
     - name: test
       run: |
         set -e          
         cd $GITHUB_WORKSPACE/g2c/build
-        ctest --verbose 
-        gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
-        ls -l
-          
-    - name: upload-test-coverage
-      uses: actions/upload-artifact@v2
-      with:
-        name: g2c-test-coverage
-        path: |
-          g2c/build/*.html
-          g2c/build/*.css
+        ctest --verbose --output-on-failure --rerun-failed
+

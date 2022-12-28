@@ -1,0 +1,96 @@
+name: developer
+on:
+  push:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+  pull_request:
+    branches:
+    - develop
+    paths-ignore:
+    - README.md
+
+jobs:
+  developer:
+    runs-on: ubuntu-latest
+    env:
+      CC: gcc
+      CXX: g++
+    
+    steps:
+    - name: install-dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev
+        python3 -m pip install gcovr
+
+    - name: cache-jasper
+      id: cache-jasper
+      uses: actions/cache@v2
+      with:
+        path: ~/jasper
+        key: jasper-${{ runner.os }}-4.0.0
+
+    - name: checkout-jasper
+      if: steps.cache-jasper.outputs.cache-hit != 'true'
+      uses: actions/checkout@v2
+      with:
+        repository: jasper-software/jasper
+        path: jasper
+        ref: version-4.0.0
+
+    - name: build-jasper
+      if: steps.cache-jasper.outputs.cache-hit != 'true'
+      run: |
+        export CC=gcc
+        cd jasper
+        mkdir cmake_build
+        cd cmake_build
+        cmake -DCMAKE_INSTALL_PREFIX=~/jasper ..
+        make -j2
+        make install
+
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        path: g2c
+
+    - name: cache-data
+      id: cache-data
+      uses: actions/cache@v2
+      with:
+        path: ~/data
+        key: data-1
+
+    - name: build
+      run: |
+        export CC=gcc
+        export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address'
+        cd g2c
+        mkdir build
+        cd build
+        cmake -DJasper_ROOT=~/jasper -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
+        make -j2 VERBOSE=1
+
+    - name: test
+      run: |
+        set -e          
+        cd $GITHUB_WORKSPACE/g2c/build
+        ctest --verbose --output-on-failure --rerun-failed
+        gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
+        ls -l
+          
+    - name: cache-data
+      if: steps.cache-data.outputs.cache-hit != 'true'
+      run: |
+        mkdir ~/data
+        cp $GITHUB_WORKSPACE/g2c/build/tests/data/* ~/data
+        
+    - name: upload-test-coverage
+      uses: actions/upload-artifact@v2
+      with:
+        name: g2c-test-coverage
+        path: |
+          g2c/build/*.html
+          g2c/build/*.css
