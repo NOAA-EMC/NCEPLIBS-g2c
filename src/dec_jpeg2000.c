@@ -115,7 +115,7 @@ int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
                        jas_image_height(image), data);
 
 
-    LOG((3, "pcmpt->height_ %d pcmpt->width_ %d", ret, pcmpt->height_, pcmpt->width_));
+    LOG((3, "pcmpt->height_ %d pcmpt->width_ %d", pcmpt->height_, pcmpt->width_));
     
     /* Copy data matrix to output integer array. */
     k = 0;
