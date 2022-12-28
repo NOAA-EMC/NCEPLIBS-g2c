@@ -57,12 +57,13 @@ jobs:
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
       run: |
+        set -e
         pwd
         ls -l
         cd jasper
         mkdir cmake_build
         cd cmake_build
-        cmake -DCMAKE_INSTALL_PREFIX=~/jasper
+        cmake -DCMAKE_INSTALL_PREFIX=~/jasper ..
         make -j2
         make install
 
