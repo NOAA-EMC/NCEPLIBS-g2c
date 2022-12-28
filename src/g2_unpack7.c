@@ -257,6 +257,9 @@ g2c_unpack7(unsigned char *cgrib, int igdsnum, int gds_tmpl_len, long long int *
     int i;
     int ret;
 
+    LOG((1, "g2c_unpack7 igdsnum %d gds_tmpl_len %d idrsnum %d drs_tmpl_len %d ndpts %d",
+         igdsnum, gds_tmpl_len, idrsnum, drs_tmpl_len, ndpts));
+
     /* Check inputs. */
     assert(cgrib && drstmpl && fld);
     if (gds_tmpl_len && !gdstmpl)
