@@ -25,19 +25,20 @@ jobs:
         sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev
         python3 -m pip install gcovr
 
-    - name: checkout-jasper
-      uses: actions/checkout@v2
-      with:
-        repository: jasper-software/jasper
-        path: jasper
-        ref: version-3.0.3
-
     - name: cache-jasper
       id: cache-jasper
       uses: actions/cache@v2
       with:
-        path: ~/Jasper
-        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}
+        path: ~/jasper
+        key: jasper-${{ runner.os }}-4.0.0
+
+    - name: checkout-jasper
+      if: steps.cache-jasper.outputs.cache-hit != 'true'
+      uses: actions/checkout@v2
+      with:
+        repository: jasper-software/jasper
+        path: jasper
+        ref: version-4.0.0
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
@@ -46,7 +47,7 @@ jobs:
         cd jasper
         mkdir cmake_build
         cd cmake_build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
+        cmake -DCMAKE_INSTALL_PREFIX=~/jasper ..
         make -j2
         make install
 
@@ -69,7 +70,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/Jasper -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
+        cmake -DJasper_ROOT=~/jasper -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
         make -j2 VERBOSE=1
 
     - name: test
