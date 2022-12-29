@@ -478,30 +478,31 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2_JASPER_DECODE_COLOR -5 /**< In dec_jpeg2000() decoded image had multiple color components. */
 
 /* These are the new error codes. */
-#define G2C_NOERROR 0       /**< No error. */
-#define G2C_ENOTGRIB (-50)     /**< GRIB header not found. */
-#define G2C_EMSGCOMPLETE (-51) /**< GRIB message already complete. */
-#define G2C_ENAMETOOLONG (-52) /**< Name too long. */
-#define G2C_EINVAL (-53) /**< Invalid input. */
-#define G2C_EFILE (-54) /**< File I/O error. */
-#define G2C_EBADID (-55) /**< Bad ID. */
+#define G2C_NOERROR 0           /**< No error. */
+#define G2C_ERROR 1             /**< General error code, returned for some test errors. */
+#define G2C_ENOTGRIB (-50)      /**< GRIB header not found. */
+#define G2C_EMSGCOMPLETE (-51)  /**< GRIB message already complete. */
+#define G2C_ENAMETOOLONG (-52)  /**< Name too long. */
+#define G2C_EINVAL (-53)        /**< Invalid input. */
+#define G2C_EFILE (-54)         /**< File I/O error. */
+#define G2C_EBADID (-55)        /**< Bad ID. */
 #define G2C_ETOOMANYFILES (-56) /**< Trying to open too many files. */
-#define G2C_ENOMEM (-57) /**< Out of memory. */
-#define G2C_EMSG (-58) /**< Error decoding GRIB message. */
-#define G2C_ENOMSG (-59) /**< No GRIB message found. */
-#define G2C_EXML (-60) /**< XML error. */
-#define G2C_ENOTFOUND (-61) /**< Table or entry not found. */
-#define G2C_ENOTGRIB2 (-62) /**< Not GRIB 2. */
-#define G2C_ENOSECTION (-63) /**< Cannot find section. */
-#define G2C_ENOEND (-64) /**< Cannot find end of GRIB message. */
-#define G2C_EBADEND (-65) /**< End of message in wrong place. */
-#define G2C_EBADSECTION (-66) /**< Invalid section number. */
-#define G2C_EJPEG (-67) /**< Error encoding/decoding JPEG data. */
-#define G2C_EPNG (-68) /**< Error encoding/decoding PNG data. */
-#define G2C_ENOTEMPLATE (-69) /**< Template not found. */
-#define G2C_EBADTEMPLATE (-70) /**< Template problem. */
-#define G2C_ENOPARAM (-71) /**< Parameter not found. */
-#define G2C_ENOPRODUCT (-72) /**< Product not found. */
-#define G2C_EBADTYPE (-73) /**< Type not found. */
+#define G2C_ENOMEM (-57)        /**< Out of memory. */
+#define G2C_EMSG (-58)          /**< Error decoding GRIB message. */
+#define G2C_ENOMSG (-59)        /**< No GRIB message found. */
+#define G2C_EXML (-60)          /**< XML error. */
+#define G2C_ENOTFOUND (-61)     /**< Table or entry not found. */
+#define G2C_ENOTGRIB2 (-62)     /**< Not GRIB 2. */
+#define G2C_ENOSECTION (-63)    /**< Cannot find section. */
+#define G2C_ENOEND (-64)        /**< Cannot find end of GRIB message. */
+#define G2C_EBADEND (-65)       /**< End of message in wrong place. */
+#define G2C_EBADSECTION (-66)   /**< Invalid section number. */
+#define G2C_EJPEG (-67)         /**< Error encoding/decoding JPEG data. */
+#define G2C_EPNG (-68)          /**< Error encoding/decoding PNG data. */
+#define G2C_ENOTEMPLATE (-69)   /**< Template not found. */
+#define G2C_EBADTEMPLATE (-70)  /**< Template problem. */
+#define G2C_ENOPARAM (-71)      /**< Parameter not found. */
+#define G2C_ENOPRODUCT (-72)    /**< Product not found. */
+#define G2C_EBADTYPE (-73)      /**< Type not found. */
 
 #endif  /*  _grib2_H  */

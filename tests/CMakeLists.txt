@@ -79,15 +79,7 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
-# Run a test with util code.
-# function(g2c_testu name)
-#   add_executable(${name} ${name}.c util.c)
-#   add_dependencies(${name} g2c)
-#   target_link_libraries(${name} PRIVATE g2c)
-#   add_test(NAME ${name} COMMAND ${name})
-# endfunction()
-
-# Run a test.
+# Run a C program test.
 function(g2c_test name)
   add_executable(${name} ${name}.c util.c)
   add_dependencies(${name} g2c)
@@ -102,6 +94,16 @@ function(g2c_ptest name)
     target_compile_definitions(${name} PRIVATE -DPTHREADS)    
     target_link_libraries(${name} PRIVATE pthread)
   endif()
+endfunction()
+
+# Run each shell test.
+function(gu_test name)
+  # Copy the test script.
+  file(COPY "${CMAKE_SOURCE_DIR}/tests/${name}.sh"
+    DESTINATION ${CMAKE_BINARY_DIR}/tests
+    FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+  # Add the shell script as a test.
+  add_test(NAME ${name}.sh COMMAND bash ${name}.sh)
 endfunction()
 
 # Does the user want to get extra test files from the FTP site, and
@@ -181,3 +183,10 @@ if(USE_Jasper OR USE_OpenJPEG)
   g2c_test(tst_addfield3)
   g2c_test(tst_addfield4)
 endif()
+
+# Run these shell tests.
+if(UTILS)
+  gu_test(run_compare_tests)
+  gu_test(run_degrib2_tests)
+endif()
+

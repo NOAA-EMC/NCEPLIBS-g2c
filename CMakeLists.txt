@@ -22,6 +22,7 @@ option(FTP_TEST_FILES "Fetch and test with files on FTP site." OFF)
 option(LARGE_FTP_TESTS "When testing with FTP files, include very large (> 2GB) test files - this is slow!" OFF)
 option(LOGGING "Turn on internal logging messages. Only useful to g2c developers." OFF)
 option(PTHREADS "Turn on thread-safty with pthreads." OFF)
+option(UTILS "Build and install some utility programs." ON)
 SET(TEST_FILE_DIR "." CACHE STRING "Check this directory for test files before using FTP.")
 
 message(STATUS "Finding data files in ${TEST_FILE_DIR}.")
@@ -80,6 +81,11 @@ set(lib_name ${PROJECT_NAME})
 
 # Build the code in the source directory.
 add_subdirectory(src)
+
+# Build the code in the utils directory.
+if(UTILS)
+  add_subdirectory(utils)
+endif()
 
 # Find libxml2.
 find_package(LibXml2 2.9.0 REQUIRED)
