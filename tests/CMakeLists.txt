@@ -83,7 +83,7 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
 function(g2c_test name)
   add_executable(${name} ${name}.c util.c)
   add_dependencies(${name} g2c)
-  target_link_libraries(${name} PRIVATE g2c)
+  target_link_libraries(${name} PRIVATE g2c ${LIBXML2_LIBRARIES})
   add_test(NAME ${name} COMMAND ${name})
 endfunction()
 

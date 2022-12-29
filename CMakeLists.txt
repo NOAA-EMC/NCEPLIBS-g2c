@@ -1,21 +1,24 @@
 # This is the main CMake file for NCEPLIBS-g2c.
 #
-# Mark Potts, Kyle Gerheiser
+# Mark Potts, Kyle Gerheiser, Ed Hartnett
 cmake_minimum_required(VERSION 3.15)
 
 # Read the VERSION file.
 file(STRINGS "VERSION" pVersion)
 
+# Set up the project.
 project(g2c VERSION ${pVersion} LANGUAGES C)
 
+# Provide install directories according to GNU standards.
 include(GNUInstallDirs)
 
+# Find CMake code we need.
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
 # Handle user options.
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
-option(USE_PNG      "Use PNG library"      ON)
-option(USE_Jasper   "Use Jasper library"   ON)
+option(USE_PNG "Use PNG library"      ON)
+option(USE_Jasper "Use Jasper library"   ON)
 option(USE_OpenJPEG "Use OpenJPEG library" OFF)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(FTP_TEST_FILES "Fetch and test with files on FTP site." OFF)
@@ -23,9 +26,12 @@ option(LARGE_FTP_TESTS "When testing with FTP files, include very large (> 2GB) 
 option(LOGGING "Turn on internal logging messages. Only useful to g2c developers." OFF)
 option(PTHREADS "Turn on thread-safty with pthreads." OFF)
 option(UTILS "Build and install some utility programs." ON)
-SET(TEST_FILE_DIR "." CACHE STRING "Check this directory for test files before using FTP.")
 
-message(STATUS "Finding data files in ${TEST_FILE_DIR}.")
+# Developers can use this option to specify a local directory which
+# holds the test files. They will be copied instead of fetching the
+# files via FTP.
+SET(TEST_FILE_DIR "." CACHE STRING "Check this directory for test files before using FTP.")
+message(STATUS "Finding test data files in directory ${TEST_FILE_DIR}.")
 
 # Set this to better handle files > 2 GB.
 add_compile_definitions(_LARGEFILE64_SOURCE)
@@ -45,6 +51,7 @@ if(USE_Jasper AND USE_OpenJPEG)
   message(FATAL_ERROR "Either Jasper or OpenJPEG should be used, not both.")
 endif()
 
+# Check the build type.
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel)$")
   message(STATUS "Setting build type to 'Release' as none was specified.")
   set(CMAKE_BUILD_TYPE
@@ -89,8 +96,6 @@ endif()
 
 # Find libxml2.
 find_package(LibXml2 2.9.0 REQUIRED)
-target_link_libraries(${lib_name} PRIVATE ${LIBXML2_LIBRARIES})
-target_include_directories(${lib_name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
 
 # Set the compiler flags.
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
