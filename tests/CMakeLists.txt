@@ -84,6 +84,7 @@ function(g2c_test name)
   add_executable(${name} ${name}.c util.c)
   add_dependencies(${name} g2c)
   target_link_libraries(${name} PRIVATE g2c ${LIBXML2_LIBRARIES})
+  target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
   add_test(NAME ${name} COMMAND ${name})
 endfunction()
 

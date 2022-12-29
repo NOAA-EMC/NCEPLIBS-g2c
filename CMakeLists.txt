@@ -84,16 +84,6 @@ else()
   message(STATUS "Will not build OpenJPEG support")
 endif()
 
-set(lib_name ${PROJECT_NAME})
-
-# Build the code in the source directory.
-add_subdirectory(src)
-
-# Build the code in the utils directory.
-if(UTILS)
-  add_subdirectory(utils)
-endif()
-
 # Find libxml2.
 find_package(LibXml2 2.9.0 REQUIRED)
 
@@ -106,6 +96,16 @@ elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
   set(CMAKE_C_FLAGS "-g ${CMAKE_C_FLAGS}")
   set(CMAKE_C_FLAGS_RELEASE "-O3")
   set(CMAKE_C_FLAGS_DEBUG "-O0 -ggdb -Wall")
+endif()
+
+set(lib_name ${PROJECT_NAME})
+
+# Build the code in the source directory.
+add_subdirectory(src)
+
+# Build the code in the utils directory.
+if(UTILS)
+  add_subdirectory(utils)
 endif()
 
 # Determine whether or not to generate documentation.

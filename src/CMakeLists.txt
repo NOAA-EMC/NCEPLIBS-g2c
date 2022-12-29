@@ -46,6 +46,7 @@ g2cdegrib2.c g2cprod.c g2cinq.c g2cindex.c g2cio.c g2ccompare.c)
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
 
 # Link to libxml2.
+message(STATUS "libxml2 include directories ${LIBXML2_INCLUDE_DIR}")
 target_link_libraries(${lib_name} PRIVATE ${LIBXML2_LIBRARIES})
 target_include_directories(${lib_name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
 
