@@ -22,7 +22,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#define G2_VERSION "@pVersion@" /**< Current version of NCEPLIBS-g2c library. */
+#define G2C_VERSION "@pVersion@" /**< Current version of NCEPLIBS-g2c library. */
 
 #cmakedefine G2_PNG_ENABLED 1 /**< Decoding/encoding PNG is enabled */
 #cmakedefine G2_JPEG2000_ENABLED 1 /**< Decoding/encoding JPEG2000 is enabled */
