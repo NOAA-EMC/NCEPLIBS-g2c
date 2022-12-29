@@ -8,6 +8,18 @@
 #include <unistd.h>
 #include <grib2.h>
 
+/**
+ * Compare two GRIB2 files.
+ *
+ * @param argc Number of arguments.
+ * @param argv Pointer to array of arguments.
+ *
+ * @return
+ * - 0 if files are identical
+ * - 1 otherwise
+ *
+ * @author Ed Hartnett @date 12/29/22
+ */
 int
 main(int argc, char **argv)
 {
