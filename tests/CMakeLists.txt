@@ -185,9 +185,11 @@ if(USE_Jasper OR USE_OpenJPEG)
   g2c_test(tst_addfield4)
 endif()
 
-# Run these shell tests.
-if(UTILS)
-  gu_test(run_compare_tests)
-  gu_test(run_degrib2_tests)
+# Run these shell tests, which require Jasper.
+if(USE_Jasper)
+  if(UTILS)
+    gu_test(run_compare_tests)
+    gu_test(run_degrib2_tests)
+  endif()
 endif()
 
