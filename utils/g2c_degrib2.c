@@ -26,6 +26,7 @@ main(int argc, char **argv)
     char *path[2];
     int verbose = 0;
     int index;
+    int g2cid;
     int c;
     int p = 0;
     int ret;
@@ -64,6 +65,22 @@ main(int argc, char **argv)
     /* Yammer on and on. */
     if (verbose)
         printf("g2c_degrib2 %s summarizing %s into %s.\n", G2C_VERSION, path[0], path[1]);
+
+    /* Open the GRIB2 file. */
+    if ((ret = g2c_open(path[0], G2C_NOWRITE, &g2cid)))
+        return ret;
+
+    /* Write the degrib2 summary. */
+    if ((ret = g2c_degrib2(g2cid, path[1])))
+        return ret;
+
+    /* Close the file. */
+    if ((ret = g2c_close(g2cid)))
+        return ret;
+
+    /* Free memory. */
+    free(path[0]);
+    free(path[1]);
 
     return 0;
 }
