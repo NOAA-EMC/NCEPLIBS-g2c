@@ -45,27 +45,15 @@ g2cdegrib2.c g2cprod.c g2cinq.c g2cindex.c g2cio.c g2ccompare.c)
 
 set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
 
-# Find libxml2.
-find_package(LibXml2 2.9.0 REQUIRED)
+# Link to libxml2.
+message(STATUS "libxml2 include directories ${LIBXML2_INCLUDE_DIR}")
 target_link_libraries(${lib_name} PRIVATE ${LIBXML2_LIBRARIES})
 target_include_directories(${lib_name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
 
-# Set the compiler flags.
-if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
-  set(CMAKE_C_FLAGS "-g -traceback ${CMAKE_C_FLAGS}")
-  set(CMAKE_C_FLAGS_RELEASE "-O3")
-  set(CMAKE_C_FLAGS_DEBUG "-O0")
-elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
-  set(CMAKE_C_FLAGS "-g ${CMAKE_C_FLAGS}")
-  set(CMAKE_C_FLAGS_RELEASE "-O3")
-  set(CMAKE_C_FLAGS_DEBUG "-O0 -ggdb -Wall")
-endif()
-
 # Build with PNG.
 if(PNG_FOUND)
-  message(STATUS "Found PNG:")
-  message(STATUS "      PNG include directories ${PNG_INCLUDE_DIR}")
-  message(STATUS "      PNG libraries ${PNG_LIBRARIES}")
+  message(STATUS "PNG include directories ${PNG_INCLUDE_DIR}")
+  message(STATUS "PNG libraries ${PNG_LIBRARIES}")
   target_sources(${lib_name} PRIVATE dec_png.c
                                      enc_png.c
                                      pngpack.c
@@ -78,9 +66,8 @@ endif()
 
 # Build with Jasper.
 if(JASPER_FOUND)
-  message(STATUS "Found JASPER:")
-  message(STATUS "      JASPER include directories ${JASPER_INCLUDE_DIR}")
-  message(STATUS "      JASPER libraries ${JASPER_LIBRARIES} version ${JASPER_VERSION}")
+  message(STATUS "JASPER include directories ${JASPER_INCLUDE_DIR}")
+  message(STATUS "JASPER libraries ${JASPER_LIBRARIES} version ${JASPER_VERSION}")
   target_sources(${lib_name} PRIVATE dec_jpeg2000.c
                                      enc_jpeg2000.c
                                      jpcpack.c
@@ -98,9 +85,8 @@ endif()
 
 # Build with OpenJPEG.
 if(OPENJPEG_FOUND)
-  message(STATUS "Found OpenJPEG:")
-  message(STATUS "      OpenJPEG include directories ${OpenJPEG_INCLUDE_DIRS}")
-  message(STATUS "      OpenJPEG libraries ${OpenJPEG_LIBRARIES}")
+  message(STATUS "OpenJPEG include directories ${OpenJPEG_INCLUDE_DIRS}")
+  message(STATUS "OpenJPEG libraries ${OpenJPEG_LIBRARIES}")
   target_sources(${lib_name} PRIVATE decenc_openjpeg.c
                                      jpcpack.c
                                      jpcunpack.c)
