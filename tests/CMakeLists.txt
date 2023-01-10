@@ -3,6 +3,7 @@
 #
 # Ed Hartnett, 7/11/21
 # Dusan Jovic
+# Eric Engle 1/10/23
 
 # Some test files are large and are kept on the NOAA EMC FTP
 # site. This function is used to download such test data. It takes two
@@ -82,8 +83,8 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
 # Run a C program test.
 function(g2c_test name)
   add_executable(${name} ${name}.c util.c)
-  add_dependencies(${name} g2c)
-  target_link_libraries(${name} PRIVATE g2c ${LIBXML2_LIBRARIES})
+  target_link_libraries(${name} PUBLIC g2c::g2c)
+  target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
   target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
   add_test(NAME ${name} COMMAND ${name})
 endfunction()

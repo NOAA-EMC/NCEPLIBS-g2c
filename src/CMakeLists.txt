@@ -1,6 +1,7 @@
 # This is the main CMake file for the src directory of NCEPLIBS-g2c.
 #
 # Ed Hartnett 12/29/22
+# Eric Engle 1/10/23
 
 # Set this to better handle files > 2 GB.
 add_compile_definitions(_LARGEFILE64_SOURCE)
@@ -31,7 +32,7 @@ endif()
 set(lib_name ${PROJECT_NAME})
 
 # Specify the source code files for the library.
-add_library(${lib_name} grib2_int.h cmplxpack.c compack.c
+set(src_files grib2_int.h cmplxpack.c compack.c
 comunpack.c drstemplates.c g2_addfield.c g2_addgrid.c
 g2_addlocal.c g2_create.c g2_free.c g2_getfld.c
 g2_gribend.c g2_info.c g2_miss.c g2_unpack1.c
@@ -43,63 +44,126 @@ reduce.c seekgb.c simpack.c simunpack.c specpack.c
 specunpack.c util.c g2cxml.c g2cparams.c g2cfile.c
 g2cdegrib2.c g2cprod.c g2cinq.c g2cindex.c g2cio.c g2ccompare.c)
 
-set_property(TARGET ${lib_name} PROPERTY C_STANDARD 11)
+# Create object library.  The object library will be used to create
+# static and shared libraries.
+add_library(${lib_name}_objlib OBJECT ${src_files})
+set_property(TARGET ${lib_name}_objlib PROPERTY C_STANDARD 11)
+if(BUILD_SHARED_LIBS)
+  set_property(TARGET ${lib_name}_objlib PROPERTY POSITION_INDEPENDENT_CODE 1)
+endif()
+add_library(${PROJECT_NAME}::${lib_name} ALIAS ${lib_name}_objlib)
+
+# Create static object library from object library.
+if(BUILD_STATIC_LIBS)
+  add_library(${lib_name}_static STATIC $<TARGET_OBJECTS:${lib_name}_objlib>)
+  set_target_properties(${lib_name}_static PROPERTIES OUTPUT_NAME ${lib_name})
+  set_target_properties(${lib_name}_static PROPERTIES EXPORT_NAME ${lib_name})
+  set_target_properties(${lib_name}_static PROPERTIES EXPORT_NAME ${lib_name}_static)
+  list(APPEND LIB_TARGETS ${lib_name}_static)
+endif()
+
+# Create shared object library from object library.
+if(BUILD_SHARED_LIBS)
+  add_library(${lib_name}_shared SHARED $<TARGET_OBJECTS:${lib_name}_objlib>)
+  set_target_properties(${lib_name}_shared PROPERTIES OUTPUT_NAME ${lib_name})
+  set_target_properties(${lib_name}_shared PROPERTIES EXPORT_NAME ${lib_name})
+  set_target_properties(${lib_name}_shared PROPERTIES SOVERSION 0)
+  list(APPEND LIB_TARGETS ${lib_name}_shared)
+endif()
 
 # Link to libxml2.
 message(STATUS "libxml2 include directories ${LIBXML2_INCLUDE_DIR}")
-target_link_libraries(${lib_name} PRIVATE ${LIBXML2_LIBRARIES})
-target_include_directories(${lib_name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
+target_link_libraries(${lib_name}_objlib PRIVATE ${LIBXML2_LIBRARIES})
+target_include_directories(${lib_name}_objlib PRIVATE "${LIBXML2_INCLUDE_DIR}")
+if(BUILD_SHARED_LIBS)
+  target_link_libraries(${lib_name}_shared PRIVATE ${LIBXML2_LIBRARIES})
+  target_include_directories(${lib_name}_shared PRIVATE "${LIBXML2_INCLUDE_DIR}")
+endif()
+if(BUILD_STATIC_LIBS)
+  target_link_libraries(${lib_name}_static PRIVATE ${LIBXML2_LIBRARIES})
+  target_include_directories(${lib_name}_static PRIVATE "${LIBXML2_INCLUDE_DIR}")
+endif()
 
 # Build with PNG.
 if(PNG_FOUND)
   message(STATUS "PNG include directories ${PNG_INCLUDE_DIR}")
   message(STATUS "PNG libraries ${PNG_LIBRARIES}")
-  target_sources(${lib_name} PRIVATE dec_png.c
+  target_sources(${lib_name}_objlib PRIVATE dec_png.c
                                      enc_png.c
                                      pngpack.c
                                      pngunpack.c)
-  target_compile_definitions(${lib_name} PRIVATE USE_PNG)
-  target_link_libraries(${lib_name} PRIVATE ${PNG_LIBRARIES})
-  target_include_directories(${lib_name} PRIVATE "${PNG_INCLUDE_DIRS}")
+  target_compile_definitions(${lib_name}_objlib PRIVATE USE_PNG)
+  target_link_libraries(${lib_name}_objlib PRIVATE ${PNG_LIBRARIES})
+  target_include_directories(${lib_name}_objlib PRIVATE "${PNG_INCLUDE_DIRS}")
   set(G2_PNG_ENABLED ON)
+  if(BUILD_SHARED_LIBS)
+    target_link_libraries(${lib_name}_shared PRIVATE ${PNG_LIBRARIES})
+    target_include_directories(${lib_name}_shared PRIVATE "${PNG_INCLUDE_DIRS}")
+  endif()
+  if(BUILD_STATIC_LIBS)
+    target_link_libraries(${lib_name}_static PRIVATE ${PNG_LIBRARIES})
+    target_include_directories(${lib_name}_static PRIVATE "${PNG_INCLUDE_DIRS}")
+  endif()
 endif()
 
 # Build with Jasper.
 if(JASPER_FOUND)
   message(STATUS "JASPER include directories ${JASPER_INCLUDE_DIR}")
   message(STATUS "JASPER libraries ${JASPER_LIBRARIES} version ${JASPER_VERSION}")
-  target_sources(${lib_name} PRIVATE dec_jpeg2000.c
+  target_sources(${lib_name}_objlib PRIVATE dec_jpeg2000.c
                                      enc_jpeg2000.c
                                      jpcpack.c
                                      jpcunpack.c)
-  target_compile_definitions(${lib_name} PRIVATE USE_JPEG2000)
-  target_link_libraries(${lib_name} PRIVATE ${JASPER_LIBRARIES})
-  target_include_directories(${lib_name} PRIVATE "${JASPER_INCLUDE_DIR}")
+  target_compile_definitions(${lib_name}_objlib PRIVATE USE_JPEG2000)
+  target_link_libraries(${lib_name}_objlib PRIVATE ${JASPER_LIBRARIES})
+  target_include_directories(${lib_name}_objlib PRIVATE "${JASPER_INCLUDE_DIR}")
   set(G2_JPEG2000_ENABLED ON)
   if(JASPER_VERSION_STRING VERSION_GREATER_EQUAL "3")
     message(STATUS "      JASPER is version 3.0 or greater")
     add_definitions(-DJASPER3)
   endif()
   add_definitions(-DJPEG)
+  if(BUILD_SHARED_LIBS)
+    target_link_libraries(${lib_name}_shared PRIVATE ${JASPER_LIBRARIES})
+    target_include_directories(${lib_name}_shared PRIVATE "${JASPER_INCLUDE_DIRS}")
+  endif()
+  if(BUILD_STATIC_LIBS)
+    target_link_libraries(${lib_name}_static PRIVATE ${JASPER_LIBRARIES})
+    target_include_directories(${lib_name}_static PRIVATE "${JASPER_INCLUDE_DIRS}")
+  endif()
 endif()
 
 # Build with OpenJPEG.
 if(OPENJPEG_FOUND)
   message(STATUS "OpenJPEG include directories ${OpenJPEG_INCLUDE_DIRS}")
   message(STATUS "OpenJPEG libraries ${OpenJPEG_LIBRARIES}")
-  target_sources(${lib_name} PRIVATE decenc_openjpeg.c
+  target_sources(${lib_name}_objlib PRIVATE decenc_openjpeg.c
                                      jpcpack.c
                                      jpcunpack.c)
-  target_compile_definitions(${lib_name} PRIVATE USE_OPENJPEG)
-  target_link_libraries(${lib_name} PRIVATE ${OpenJPEG_LIBRARIES})
-  target_include_directories(${lib_name} PRIVATE "${OpenJPEG_INCLUDE_DIRS}")
+  target_compile_definitions(${lib_name}_objlib PRIVATE USE_OPENJPEG)
+  target_link_libraries(${lib_name}_objlib PRIVATE ${OpenJPEG_LIBRARIES})
+  target_include_directories(${lib_name}_objlib PRIVATE "${OpenJPEG_INCLUDE_DIRS}")
   set(G2_JPEG2000_ENABLED ON)
   add_definitions(-DJPEG)
+  if(BUILD_SHARED_LIBS)
+    target_link_libraries(${lib_name}_shared PRIVATE ${OpenJPEG_LIBRARIES})
+    target_include_directories(${lib_name}_shared PRIVATE "${OpenJPEG_INCLUDE_DIRS}")
+  endif()
+  if(BUILD_STATIC_LIBS)
+    target_link_libraries(${lib_name}_static PRIVATE ${OpenJPEG_LIBRARIES})
+    target_include_directories(${lib_name}_static PRIVATE "${OpenJPEG_INCLUDE_DIRS}")
+  endif()
 endif()
 
 # Build with pthreads.
 if(PTHREADS)
-  target_link_libraries(${lib_name} PRIVATE pthread)
+  target_link_libraries(${lib_name}_objlib PRIVATE pthread)
+  if(BUILD_SHARED_LIBS)
+    target_link_libraries(${lib_name}_shared PRIVATE pthread)
+  endif()
+  if(BUILD_STATIC_LIBS)
+    target_link_libraries(${lib_name}_static PRIVATE pthread)
+  endif()
 endif()
 
 # Create this header file, which has the contents of the VERSION file
@@ -107,27 +171,30 @@ endif()
 CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/grib2.h.in" "${CMAKE_CURRENT_BINARY_DIR}/grib2.h"
   @ONLY)
 
-set_target_properties(${lib_name} PROPERTIES PUBLIC_HEADER "${CMAKE_CURRENT_BINARY_DIR}/grib2.h")
+target_include_directories(${lib_name}_objlib PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}>"
+                                                     $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
 
-target_include_directories(
-  ${lib_name}
-  PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}>"
-         $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
-)
-
-target_link_libraries(${lib_name} INTERFACE m)
+target_link_libraries(${lib_name}_objlib INTERFACE m)
+if(BUILD_SHARED_LIBS)
+  target_link_libraries(${lib_name}_shared INTERFACE m)
+endif()
+if(BUILD_STATIC_LIBS)
+  target_link_libraries(${lib_name}_static INTERFACE m)
+endif()
 if (WIN32)
-  target_link_libraries(${lib_name} INTERFACE ws2_32)
+  target_link_libraries(${lib_name}_objlib INTERFACE ws2_32)
 endif()
 
 # Install g2c library
 install(
-  TARGETS ${lib_name}
+  TARGETS ${LIB_TARGETS}
   EXPORT ${PROJECT_NAME}Exports
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+# Install generated grib2.h header
+install(FILES ${CMAKE_BINARY_DIR}/src/grib2.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
 
 # Package config
 include(CMakePackageConfigHelpers)
