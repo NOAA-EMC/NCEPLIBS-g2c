@@ -11,6 +11,7 @@
 #define DATA_LEN 4
 #define PACKED_LEN 200
 #define EPSILON .001
+#define EPSILON_BIG .1
 
 int
 main()
@@ -209,6 +210,28 @@ main()
             for (i = 0; i < DATA_LEN; i++)
                 if (abs(fld[i] - fld_in[i]) > EPSILON)
                     return G2C_ERROR;
+        }
+        printf("ok!\n");
+        printf("Testing jpcpack()/jpcunpack() call with drstmpl values as in NCEPLIBS-g2 test_jpcpack...");
+        {
+            float fld[DATA_LEN] = {1.1, 2.2, 3.3, 4.4};
+            float fld_in[DATA_LEN];
+            g2int lcpack = PACKED_LEN;
+            g2int idrstmpl[7] = {0, 1, 1, 32, 0, 0, 1};
+
+            /* Pack the data. */
+            jpcpack(fld, width, height, idrstmpl, cpack, &lcpack);
+
+            /* Unpack the data. */
+            if (jpcunpack(cpack, len, idrstmpl, ndpts, fld_in))
+                return G2C_ERROR;
+
+            for (i = 0; i < DATA_LEN; i++)
+            {
+                /* printf("%d %g %g\n", i, fld[i], fld_in[i]); */
+                if (abs(fld[i] - fld_in[i]) > EPSILON_BIG)
+                    return G2C_ERROR;
+            }
         }
         printf("ok!\n");
         printf("Testing jpcpack()/jpcunpack() call with constant data field...");
