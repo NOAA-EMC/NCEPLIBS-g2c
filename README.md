@@ -33,7 +33,7 @@ Repository | Notes
 
 Stephen Gilbert, Wesley Ebisuzaki, Boi Vuong, Edward Hartnett
 
-Code Manager: [Hang Lei](mailto:hang.lei@noaa.gov), [Edward Hartnett](mailto:edward.hartnett@noaa.gov)
+Code Manager: [Hang Lei](mailto:hang.lei@noaa.gov), [Ed Hartnett](mailto:edward.hartnett@noaa.gov)
 
 ## Prerequisites
 
