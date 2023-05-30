@@ -23,14 +23,14 @@ jobs:
 
     - name: cache-jasper
       id: cache-jasper
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/jasper
         key: jasper-${{ runner.os }}-4.0.0
 
     - name: checkout-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: jasper-software/jasper
         path: jasper
@@ -48,13 +48,13 @@ jobs:
         make install
 
     - name: checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: g2c
 
     - name: cache-data
       id: cache-data
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/data
         key: data-1
@@ -84,7 +84,7 @@ jobs:
         cp $GITHUB_WORKSPACE/g2c/build/tests/data/* ~/data
         
     - name: upload-test-coverage
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: g2c-test-coverage
         path: |

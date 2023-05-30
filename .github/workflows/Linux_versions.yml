@@ -30,14 +30,14 @@ jobs:
 
     - name: cache-jasper
       id: cache-jasper
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/jasper
         key: jasper-${{ runner.os }}-${{ matrix.jasper-version }}
 
     - name: checkout-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: jasper-software/jasper
         path: jasper
@@ -59,7 +59,7 @@ jobs:
         make install
 
     - name: checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: g2c
 
