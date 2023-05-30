@@ -14,8 +14,9 @@ jobs:
       CC: gcc
       CXX: g++
     strategy:
+      fail-fast: true
       matrix:
-        jasper-version: [2.0.33, 3.0.3]
+        jasper-version: [2.0.33, 3.0.3, 4.0.0]
         ccompiler: [clang, gcc]
     
     steps:
