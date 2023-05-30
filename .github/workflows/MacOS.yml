@@ -3,13 +3,9 @@ on:
   push:
     branches:
     - develop
-    paths-ignore:
-    - README.md
   pull_request:
     branches:
     - develop
-    paths-ignore:
-    - README.md
 
 jobs:
   MacOS:
@@ -23,7 +19,7 @@ jobs:
         config:
         - {
             name: "png_on jasper_on openjpeg_off",
-            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/jasper"
           }
         - {
             name: "png_on jasper_off openjpeg_on",
@@ -39,27 +35,31 @@ jobs:
         brew update
         brew install openjpeg jpeg-turbo
 
-    - name: checkout-jasper
-      uses: actions/checkout@v2
-      with:
-        repository: jasper-software/jasper
-        path: jasper
-        ref: version-2.0.25
-
     - name: cache-jasper
       id: cache-jasper
       uses: actions/cache@v2
       with:
-        path: ~/Jasper
-        key: jasper-${{ runner.os }}-2.0.25-macOS
+        path: ~/jasper
+        key: jasper-${{ runner.os }}-4.0.0-macOS-2
+
+    - name: checkout-jasper
+      if: steps.cache-jasper.outputs.cache-hit != 'true'
+      uses: actions/checkout@v2
+      with:
+        repository: jasper-software/jasper
+        path: jasper
+        ref: version-4.0.0
 
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
       run: |
+        set -e
+        pwd
+        ls -l
         cd jasper
         mkdir cmake_build
         cd cmake_build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper -DJAS_ENABLE_LIBJPEG=OFF
+        cmake -DCMAKE_INSTALL_PREFIX=~/jasper ..
         make -j2
         make install
 

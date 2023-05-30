@@ -40,9 +40,6 @@
 /** Minimum acceptable value for max_bytes parameter of g2c_get_msg(). */
 #define G2C_MIN_MAX_BYTES 16
 
-/** Returned for test errors. */
-#define G2C_ERROR 1
-
 /** GRIB magic header string. */
 #define G2C_MAGIC_HEADER "GRIB"
 
