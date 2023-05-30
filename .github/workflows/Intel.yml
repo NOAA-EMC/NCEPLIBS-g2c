@@ -37,7 +37,7 @@ jobs:
         echo "source /opt/intel/oneapi/setvars.sh" >> ~/.bash_profile
 
     - name: checkout-jasper
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: jasper-software/jasper
         path: jasper
@@ -45,7 +45,7 @@ jobs:
 
     - name: cache-jasper
       id: cache-jasper
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/Jasper
         key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}-intel
@@ -61,12 +61,12 @@ jobs:
         make install
 
     - name: checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: g2c
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         languages: cpp
         queries: +security-and-quality
@@ -80,7 +80,7 @@ jobs:
         make -j2 VERBOSE=1
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
       with:
         category: "/language:cpp"
 
