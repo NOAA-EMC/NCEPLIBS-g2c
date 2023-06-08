@@ -59,7 +59,7 @@ int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
     /* static jas_std_allocator_t allocator; */
     /* jas_std_allocator_init(&allocator); */
     /* jas_conf_set_allocator(JAS_CAST(jas_std_allocator_t *, &allocator)); */
-    jas_conf_set_max_mem_usage(268435456); // 256MB
+    jas_conf_set_max_mem_usage(G2C_JASPER_MAX_MEM);
     jas_conf_set_multithread(true);
     if (jas_init_library())
         return G2_JASPER_INIT;

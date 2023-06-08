@@ -424,6 +424,8 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_MAX_NOAA_ABBREV_LEN 8 /**< Maximum length of a NOAA abbreviation of a parameter. */
 #define G2C_MAX_NOAA_PARAM_LINE_LEN 120 /**< Maximum length of a line in the NOAA abbreviation CSV file. */
 
+#define G2C_JASPER_MAX_MEM @JASPER_MAX_MEM@ /**< Maximum size for the Jasper memory buffer. */
+
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
 #define G2_CREATE_GRIB_VERSION -1 /**< Wrong GRIB version for g2_create(), must be 2. */
