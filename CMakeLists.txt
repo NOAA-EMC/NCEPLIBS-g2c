@@ -99,6 +99,9 @@ elseif(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
   set(CMAKE_C_FLAGS_DEBUG "-O0 -ggdb -Wall")
 endif()
 
+# Set this to better handle files > 2 GB.
+add_compile_definitions(_LARGEFILE64_SOURCE)
+
 set(lib_name ${PROJECT_NAME})
 
 # Build the code in the source directory.
