@@ -3,20 +3,6 @@
 # Ed Hartnett 12/29/22
 # Eric Engle 1/10/23
 
-# Find Jasper if it is desired.
-if(USE_Jasper)
-  find_package(Jasper 2.0.25 REQUIRED)
-else()
-  message(STATUS "Will not build Jasper support")
-endif()
-
-# Find OpenJpeg if it is desired.
-if(USE_OpenJPEG)
-  find_package(OpenJPEG REQUIRED)
-else()
-  message(STATUS "Will not build OpenJPEG support")
-endif()
-
 set(lib_name ${PROJECT_NAME})
 
 # Specify the source code files for the library.
