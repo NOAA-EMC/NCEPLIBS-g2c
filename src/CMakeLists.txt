@@ -3,18 +3,6 @@
 # Ed Hartnett 12/29/22
 # Eric Engle 1/10/23
 
-# Set this to better handle files > 2 GB.
-add_compile_definitions(_LARGEFILE64_SOURCE)
-
-# Find required packages to use PNG.
-if(USE_PNG)
-  find_package(ZLIB REQUIRED)
-  find_package(PkgConfig REQUIRED)
-  find_package(PNG REQUIRED)
-else()
-  message(STATUS "Will not build PNG support")
-endif()
-
 # Find Jasper if it is desired.
 if(USE_Jasper)
   find_package(Jasper 2.0.25 REQUIRED)
