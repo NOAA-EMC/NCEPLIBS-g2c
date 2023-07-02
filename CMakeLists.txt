@@ -85,6 +85,11 @@ else()
   message(STATUS "Will not build OpenJPEG support")
 endif()
 
+# Turn on this pre-processor symbol to get JPEG code and testing.
+if(USE_Jasper OR USE_OpenJPEG)
+  add_definitions(-DJPEG)
+endif()
+
 # Find libxml2.
 find_package(LibXml2 2.9.0 REQUIRED)
 

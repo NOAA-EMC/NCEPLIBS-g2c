@@ -139,11 +139,6 @@ if(FTP_TEST_FILES)
   add_definitions(-DFTP_TEST_FILES)
 endif()
 
-# Turn on this pre-processor symbol for JPEG testing.
-if(USE_Jasper OR USE_OpenJPEG)
-  add_definitions(-DJPEG)
-endif()
-
   # Always run these tests.
 g2c_test(tst_g2_create)
 g2c_test(tst_g2_addgrid)
