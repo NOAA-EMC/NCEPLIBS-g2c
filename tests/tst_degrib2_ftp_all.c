@@ -19,13 +19,13 @@ main()
 #ifdef FTP_TEST_FILES
     printf("Testing degrib2 on files downloaded via FTP...\n");
     {
-#define NUM_FILES 9
+#define NUM_FILES 10
         char file[NUM_FILES][MAX_FILENAME_LEN + 1] = {
             "data/blend.t19z.core.f001.co.grib2", "data/cmc_geavg.t12z.pgrb2a.0p50.f000",
             "data/flxf2022111712.01.2022111712.grb2", "data/GLOBAL.grib2.2022103000.0000",
             "data/hiresw.t00z.arw_5km.f00.hi.grib2", "data/naefs_ge10pt.t12z.pgrb2a.0p50_bcf003",
             "data/rap.t00z.awp130pgrbf00.grib2", "data/seaice.t00z.grb.grib2",
-            "data/sgx_nwps_CG3_20221117_1200.grib2"
+            "data/sgx_nwps_CG3_20221117_1200.grib2", "data/MRMS_MultiSensor_QPE_24H_Pass2_00.00_20230621-110000.grib2"
         };
         int g2cid;
         int num_msg;
