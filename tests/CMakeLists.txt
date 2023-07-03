@@ -139,7 +139,7 @@ if(FTP_TEST_FILES)
   add_definitions(-DFTP_TEST_FILES)
 endif()
 
-  # Always run these tests.
+# Always run these tests.
 g2c_test(tst_g2_create)
 g2c_test(tst_g2_addgrid)
 g2c_test(tst_g2_addfield)
