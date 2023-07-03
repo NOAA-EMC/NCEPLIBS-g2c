@@ -1,0 +1,8 @@
+build/
+install/
+.vscode/
+
+*.[ao]
+*.mod
+*.so
+*.swp

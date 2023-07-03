@@ -19,6 +19,13 @@ The NCEPLIBS-g2c library is used by the
 (MET)](https://metplus.readthedocs.io/en/latest/) projects, among
 others.
 
+To submit bug reports, feature requests, or other code-related issues
+including installation and usage questions, please create a [GitHub
+issue](https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues). For general
+NCEPLIBS inquiries, contact [Ed
+Hartnett](mailto:edward.hartnett@noaa.gov) (secondary point of contact
+[Alex Richert](mailto:alexander.richert@noaa.gov)).
+
 ## Related NCEPLIBS Projects
 
 Repository | Notes
@@ -31,7 +38,7 @@ Repository | Notes
 
 Stephen Gilbert, Wesley Ebisuzaki, Boi Vuong, Edward Hartnett
 
-Code Manager: Hang Lei, Edward Hartnett
+Code Manager: [Hang Lei](mailto:hang.lei@noaa.gov), [Ed Hartnett](mailto:edward.hartnett@noaa.gov)
 
 ## Prerequisites
 

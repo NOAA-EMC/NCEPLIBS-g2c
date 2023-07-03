@@ -3,13 +3,9 @@ on:
   push:
     branches:
     - develop
-    paths-ignore:
-    - README.md
   pull_request:
     branches:
     - develop
-    paths-ignore:
-    - README.md
 
 jobs:
   Linux_versions:
@@ -18,8 +14,9 @@ jobs:
       CC: gcc
       CXX: g++
     strategy:
+      fail-fast: true
       matrix:
-        jasper-version: [2.0.33, 3.0.3]
+        jasper-version: [2.0.33, 3.0.3, 4.0.0]
         ccompiler: [clang, gcc]
     
     steps:
@@ -33,14 +30,14 @@ jobs:
 
     - name: cache-jasper
       id: cache-jasper
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/jasper
         key: jasper-${{ runner.os }}-${{ matrix.jasper-version }}
 
     - name: checkout-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: jasper-software/jasper
         path: jasper
@@ -62,7 +59,7 @@ jobs:
         make install
 
     - name: checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: g2c
 
