@@ -74,6 +74,8 @@ endif()
 # Find Jasper if it is desired.
 if(USE_Jasper)
   find_package(Jasper 2.0.25 REQUIRED)
+  set(JASPER_MAX_MEM 268435456 CACHE STRING "Default size of Jasper memory buffer.")
+  message(STATUS "\tWill build with Jasper memory buffer size = ${JASPER_MAX_MEM}")
 else()
   message(STATUS "Will not build Jasper support")
 endif()
