@@ -155,6 +155,16 @@ typedef struct g2c_section_info
     int template_len; /**< Number of entries in template. */
 } G2C_SECTION_INFO_T;
 
+/** Keep information about dimensions defined in section 3. */
+typedef struct g2c_dim_info
+{
+    int dimid; /**< Dimension ID. */
+    size_t len; /**< Length of dimension. */
+    char name[G2C_MAX_NAME + 1]; /**< Name of dimension. */
+    float *value; /**< Array of dimension values. */
+    struct g2c_dim_info *next; /**< The next dimension in the list. */    
+} G2C_DIM_INFO_T;
+
 /** Information about [Section 3 GRID DEFINITION
  * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml). */
 typedef struct g2c_section3_info
@@ -165,6 +175,7 @@ typedef struct g2c_section3_info
     unsigned char interp_list; /**< Interpetation of list of numbers defining number of points (See Table 3.11). */
     unsigned short grid_def; /**< Grid definition template number (= N) (See Table 3.1). */
     int *optional; /**< Optional list of numbers defining number of points. */
+    struct g2c_dim_info *dim; /**< Linked list of dimension information. */    
 } G2C_SECTION3_INFO_T;
 
 /** Information about [Section 4 PRODUCT DEFINITION
