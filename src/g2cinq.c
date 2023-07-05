@@ -329,8 +329,8 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
                 char *name, float *val)
 {
     G2C_MESSAGE_INFO_T *msg;
-    G2C_SECTION_INFO_T *sec4, *sec3, *sec5;
-    int t;
+    G2C_SECTION_INFO_T *sec4, *sec3;
+    G2C_DIM_INFO_T *dim;
     int ret = G2C_NOERROR;
 
     /* Is this an open GRIB2 file? */
@@ -365,6 +365,13 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
             break;
     if (!sec3)
         return G2C_ENOSECTION;
+    dim = &((G2C_SECTION3_INFO_T *)sec3->sec_info)->dim[dim_num];
+
+    /* Give the caller the info they want. */
+    if (len)
+        *len = dim->len;
+    if (name)
+        strncpy(name, dim->name, G2C_MAX_NAME);
 
     return ret;
 }

@@ -20,18 +20,25 @@ main()
     {
         int g2cid;
         int num_msg;
-        int m;
-        int ret;
+        size_t len0;
+        char dimname0[G2C_MAX_NAME + 1];
 
         /* Open GRIB2 file. */
 	g2c_set_log_level(10);
-        if ((ret = g2c_open(GDAS_FILE, 0, &g2cid)))
-            return ret;
+        if (g2c_open(GDAS_FILE, 0, &g2cid))
+            return G2C_ERROR;
 
-        if ((ret = g2c_inq(g2cid, &num_msg)))
-            return ret;
-        if (num_msg != 1)
-            return ret;
+        /* Find the number of messages. */
+        if (g2c_inq(g2cid, &num_msg))
+            return G2C_ERROR;
+        printf("Number of messages: %d\n", num_msg);
+        if (num_msg != 19)
+            return G2C_ERROR;
+
+        /* Find the dimensions of the product in the first message. */
+        if (g2c_inq_dim(g2cid, 0, 0, 0, &len0, dimname0, NULL))
+            return G2C_ERROR;
+        printf("len0 %ld dimname0 %s\n", len0, dimname0);
 
     }
     printf("ok!\n");

@@ -282,6 +282,52 @@ find_available_g2cid(int *g2cid)
     return ret;
 }
 
+
+/**
+ * Determine the dimension information from the section 3 metadata.
+ *
+ * See (GRIB2 - SECTION 3 GRID DEFINITION
+ * SECTION)[https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml].
+ *
+ * For a list of grid definitions see [GRIB2 - TABLE 3.1 Grid
+ * Definition Template
+ * Number](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-1.shtml).
+ *
+ * @param sec3_info G2C_SECTION3_INFO_T struct.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_ENOMEM Out of memory.
+ *
+ * @author Ed Hartnett @date Sep 15, 2022
+ */
+static int
+determine_dims(G2C_SECTION_INFO_T *sec)
+{
+    G2C_DIM_INFO_T *d0, *d1;
+    G2C_SECTION3_INFO_T *sec3_info;
+
+    sec3_info = (G2C_SECTION3_INFO_T *)(sec->sec_info);
+    d0 = &(sec3_info->dim[0]);
+    d1 = &(sec3_info->dim[1]);
+
+    /* Based on the grid definition template number. */
+    switch (sec3_info->grid_def)
+    {
+    case 0:
+        d0->len = sec->template[7];
+        strncpy(d0->name, LATITUDE, G2C_MAX_NAME);
+        d1->len = sec->template[8];
+        strncpy(d1->name, LONGITUDE, G2C_MAX_NAME);
+        break;
+    default:
+        break;
+    }
+    
+    return G2C_NOERROR;
+}
+
 /**
  * Read the metadata from section 3 (Grid Definition Section) of a
  * GRIB2 message.
@@ -368,6 +414,10 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     /* Attach sec3_info to our section data. */
     if (!rw_flag)
         sec->sec_info = sec3_info;
+
+    /* Figure out the dimensions, if we can. */
+    if ((ret = determine_dims(sec)))
+        return ret;
 
     LOG((6, "finished reading or writing section 3 at file position %ld", ftell(f)));
     return G2C_NOERROR;
@@ -1139,6 +1189,16 @@ free_metadata(int g2cid)
             stmp = sec->next;
             if (sec->template)
                 free(sec->template);
+            /* Free dim info in section 3. */
+            if (sec->sec_num == 3)
+            {
+                float *v0 = ((G2C_SECTION3_INFO_T *)(sec->sec_info))->dim[0].value;
+                float *v1 = ((G2C_SECTION3_INFO_T *)(sec->sec_info))->dim[1].value;
+                if (v0)
+                    free(v0);
+                if (v1)
+                    free(v1);
+            }
             if (sec->sec_info)
                 free(sec->sec_info);
             free(sec);
