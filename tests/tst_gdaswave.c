@@ -11,6 +11,8 @@
 #include "grib2_int.h"
 
 #define GDAS_FILE "data/gdaswave.t00z.wcoast.0p16.f000.grib2"
+#define LAT_LEN 241
+#define LON_LEN 151
 
 int
 main()
@@ -22,6 +24,8 @@ main()
         int num_msg;
         size_t len0;
         char dimname0[G2C_MAX_NAME + 1];
+        float lat[LAT_LEN], lon[LON_LEN];
+        int d;
 
         /* Open GRIB2 file. */
 	g2c_set_log_level(10);
@@ -36,9 +40,11 @@ main()
             return G2C_ERROR;
 
         /* Find the dimensions of the product in the first message. */
-        if (g2c_inq_dim(g2cid, 0, 0, 0, &len0, dimname0, NULL))
+        if (g2c_inq_dim(g2cid, 0, 0, 0, &len0, dimname0, lat))
             return G2C_ERROR;
         printf("len0 %ld dimname0 %s\n", len0, dimname0);
+        for (d = 0; d < len0; d++)
+            printf("lat[%d] = %f\n", d, lat[d]);
 
     }
     printf("ok!\n");

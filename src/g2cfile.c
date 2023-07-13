@@ -307,19 +307,33 @@ determine_dims(G2C_SECTION_INFO_T *sec)
 {
     G2C_DIM_INFO_T *d0, *d1;
     G2C_SECTION3_INFO_T *sec3_info;
+    int d;
 
     sec3_info = (G2C_SECTION3_INFO_T *)(sec->sec_info);
     d0 = &(sec3_info->dim[0]);
     d1 = &(sec3_info->dim[1]);
 
-    /* Based on the grid definition template number. */
+    /* Based on the grid definition template number, and the contents
+     * of the template, decide the len, name, and values of the two
+     * dimensions. */
     switch (sec3_info->grid_def)
     {
     case 0:
         d0->len = sec->template[7];
         strncpy(d0->name, LATITUDE, G2C_MAX_NAME);
+        if (!(d0->value = malloc(d0->len * sizeof(float))))
+            return G2C_ENOMEM;
+        d0->value[0] = sec->template[11];
+        for (d = 1; d < d0->len; d++)
+            d0->value[d] = d0->value[d - 1] - sec->template[16];
+        
         d1->len = sec->template[8];
         strncpy(d1->name, LONGITUDE, G2C_MAX_NAME);
+        if (!(d1->value = malloc(d1->len * sizeof(float))))
+            return G2C_ENOMEM;
+        d1->value[0] = sec->template[12];
+        for (d = 1; d < d1->len; d++)
+            d1->value[d] = d1->value[d - 1] - sec->template[17];
         break;
     default:
         break;

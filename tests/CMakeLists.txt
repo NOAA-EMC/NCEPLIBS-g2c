@@ -171,6 +171,7 @@ g2c_test(tst_degrib2)
 g2c_test(tst_degrib2_ftp_all)
 g2c_test(tst_index)
 g2c_test(tst_gdaswave)
+g2c_test(tst_mrms)
 g2c_ptest(tst_files)
 g2c_ptest(tst_g2_testfile)
 
