@@ -200,3 +200,11 @@ if(USE_Jasper)
   endif()
 endif()
 
+# Run these extra tests if you have the data files to do so.
+if(FTP_EXTRA_TEST_FILES)
+  g2c_test(tst_mrms)
+endif()
+
+
+
+
