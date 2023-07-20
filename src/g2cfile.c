@@ -319,6 +319,7 @@ determine_dims(G2C_SECTION_INFO_T *sec)
     switch (sec3_info->grid_def)
     {
     case 0:
+        LOG((5, "determine_dim allocating storage for lat/lon values"));
         d0->len = sec->template[8];
         strncpy(d0->name, LATITUDE, G2C_MAX_NAME);
         if (!(d0->value = malloc(d0->len * sizeof(float))))
@@ -353,7 +354,7 @@ determine_dims(G2C_SECTION_INFO_T *sec)
  *
  * @param f FILE pointer to open GRIB2 file.
  * @param rw_flag ::G2C_FILE_WRITE if function should write,
- * ::G2C_FILE_READ if it should read.
+ * ::G2C_FILE_READ (0) if it should read. 
  * @param sec Pointer to the G2C_SECTION_INFO_T struct.
  *
  * @return
@@ -430,8 +431,9 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
         sec->sec_info = sec3_info;
 
     /* Figure out the dimensions, if we can. */
-    if ((ret = determine_dims(sec)))
-        return ret;
+    if (!rw_flag)
+        if ((ret = determine_dims(sec)))
+            return ret;
 
     LOG((6, "finished reading or writing section 3 at file position %ld", ftell(f)));
     return G2C_NOERROR;
@@ -1206,6 +1208,7 @@ free_metadata(int g2cid)
             /* Free dim info in section 3. */
             if (sec->sec_num == 3)
             {
+                LOG((5, "free_metadata freeing storage for lat/lon values"));
                 float *v0 = ((G2C_SECTION3_INFO_T *)(sec->sec_info))->dim[0].value;
                 float *v1 = ((G2C_SECTION3_INFO_T *)(sec->sec_info))->dim[1].value;
                 if (v0)
