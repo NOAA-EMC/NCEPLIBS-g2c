@@ -319,7 +319,7 @@ determine_dims(G2C_SECTION_INFO_T *sec)
     switch (sec3_info->grid_def)
     {
     case 0:
-        d0->len = sec->template[7];
+        d0->len = sec->template[8];
         strncpy(d0->name, LATITUDE, G2C_MAX_NAME);
         if (!(d0->value = malloc(d0->len * sizeof(float))))
             return G2C_ENOMEM;
@@ -327,7 +327,7 @@ determine_dims(G2C_SECTION_INFO_T *sec)
         for (d = 1; d < d0->len; d++)
             d0->value[d] = d0->value[d - 1] - sec->template[16];
         
-        d1->len = sec->template[8];
+        d1->len = sec->template[7];
         strncpy(d1->name, LONGITUDE, G2C_MAX_NAME);
         if (!(d1->value = malloc(d1->len * sizeof(float))))
             return G2C_ENOMEM;
