@@ -293,7 +293,7 @@ find_available_g2cid(int *g2cid)
  * Definition Template
  * Number](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-1.shtml).
  *
- * @param sec3_info G2C_SECTION3_INFO_T struct.
+ * @param sec G2C_SECTION3_INFO_T struct.
  *
  * @return
  * - ::G2C_NOERROR No error.
