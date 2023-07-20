@@ -24,7 +24,8 @@ main()
         int num_msg;
         size_t len0;
         char dimname0[G2C_MAX_NAME + 1];
-        float lat[LAT_LEN], lon[LON_LEN];
+        float lat[LAT_LEN];
+        /* float lon[LON_LEN]; */
         int d;
 
         /* Open GRIB2 file. */
