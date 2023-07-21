@@ -11,8 +11,8 @@
 #include "grib2_int.h"
 
 #define MRMS_FILE "data/MRMS_MultiSensor_QPE_24H_Pass2_00.00_20230621-110000.grib2"
-#define LAT_LEN 7000
-#define LON_LEN 3500
+#define LAT_LEN 3500
+#define LON_LEN 7000
 
 int
 main()
@@ -24,9 +24,11 @@ main()
         int num_msg;
         size_t len0;
         char dimname0[G2C_MAX_NAME + 1];
+        size_t len1;
+        char dimname1[G2C_MAX_NAME + 1];
         float lat[LAT_LEN];
-        /* float lon[LON_LEN]; */
-        int d;
+        float lon[LON_LEN];
+        /* int d; */
 
         /* Open GRIB2 file. */
 	g2c_set_log_level(10);
@@ -37,16 +39,23 @@ main()
         if (g2c_inq(g2cid, &num_msg))
             return G2C_ERROR;
         printf("Number of messages: %d\n", num_msg);
-        /* if (num_msg != 19) */
-        /*     return G2C_ERROR; */
+        if (num_msg != 1)
+            return G2C_ERROR;
 
         /* Find the dimensions of the product in the first message. */
         if (g2c_inq_dim(g2cid, 0, 0, 0, &len0, dimname0, lat))
             return G2C_ERROR;
         printf("len0 %ld dimname0 %s\n", len0, dimname0);
-        for (d = 0; d < len0; d++)
-            printf("lat[%d] = %f\n", d, lat[d]);
+        printf("lat[0] = %f lat[%ld] = %f\n", lat[0], len0 - 1, lat[len0 - 1]);
+        /* for (d = 0; d < len0; d++) */
+        /*     printf("lat[%d] = %f\n", d, lat[d]); */
 
+        if (g2c_inq_dim(g2cid, 0, 0, 1, &len1, dimname1, NULL))
+            return G2C_ERROR;
+        if (g2c_inq_dim(g2cid, 0, 0, 1, &len1, dimname1, lon))
+            return G2C_ERROR;
+        printf("len1 %ld dimname1 %s\n", len1, dimname1);
+        printf("lon[0] = %f lon[%ld] = %f\n", lon[0], len1 - 1, lon[len1 - 1]);
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
