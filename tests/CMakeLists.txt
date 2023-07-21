@@ -13,6 +13,7 @@ function(PULL_DATA THE_URL THE_FILE)
   # there before FTPing them. Developers can keep all test files on
   # their machines, and save the time of downloading them every time.
   if(NOT ${TEST_FILE_DIR} STREQUAL ".")
+    #message(STATUS "Checking for ${TEST_FILE_DIR}/${THE_FILE}.")
     if (EXISTS ${TEST_FILE_DIR}/${THE_FILE})
       message(STATUS "Copying file ${TEST_FILE_DIR}/${THE_FILE} to test data directory.")
       FILE(COPY ${TEST_FILE_DIR}/${THE_FILE}
@@ -67,8 +68,15 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   "ref_WW3_Regional_US_West_Coast_20220718_0000.txt"
   "testgrib2.grb2"
   "ref_testgrib2.grb2.degrib2"
-  "ref_fv3lam.t00z.namerica.f00.grib2.degrib2"
-)
+  )
+
+# Copy extra files if needed.
+if(FTP_EXTRA_TEST_FILES)
+  if(FTP_LARGE_TEST_FILES)
+    set(REF_FILES ${REF_FILES} "ref_fv3lam.t00z.prslev.f000.grib2.degrib2")
+  endif()
+endif()
+
 foreach(THE_FILE IN LISTS REF_FILES) 
   FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/${THE_FILE}
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
@@ -126,14 +134,15 @@ if(FTP_TEST_FILES)
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
 
-  if(FTP_LARGE_TEST_FILES)
-    set(LARGE_FTP_FILES "fv3lam.t00z.namerica.f00.grib2")
-    foreach(THE_FILE IN LISTS LARGE_FTP_FILES) 
-      PULL_DATA(${G2_FTP_URL} ${THE_FILE})
-    endforeach()
-    add_definitions(-DLARGE_FTP_TESTS)
-  endif()
   if(FTP_EXTRA_TEST_FILES)
+    if(FTP_LARGE_TEST_FILES)
+      set(LARGE_FTP_FILES "fv3lam.t00z.prslev.f000.grib2")
+      foreach(THE_FILE IN LISTS LARGE_FTP_FILES) 
+        PULL_DATA(${G2_FTP_URL} ${THE_FILE})
+      endforeach()
+      add_definitions(-DLARGE_FTP_TESTS)
+    endif()
+
     set(EXTRA_FTP_FILES "MRMS_MultiSensor_QPE_24H_Pass2_00.00_20230621-110000.grib2")
     foreach(THE_FILE IN LISTS EXTRA_FTP_FILES) 
       PULL_DATA(${G2_FTP_URL} ${THE_FILE})
