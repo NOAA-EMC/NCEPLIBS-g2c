@@ -94,6 +94,7 @@ main()
         int t;
         int ret;
 
+        /* g2c_set_log_level(10); */
         for (f = 0; f < NUM_LARGE_FILES; f++)
         {
             /* for (t = 0; t < 2; t++) */
