@@ -611,7 +611,7 @@ g2c_degrib2(int g2cid, const char *fileout)
             char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
             char level_desc[G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN + 1];
             char date_time[100 + 1];
-            float *data;
+            float *data = NULL;
             float total = 0.0, max = 0.0, min = 0.0;
             int t;
 
