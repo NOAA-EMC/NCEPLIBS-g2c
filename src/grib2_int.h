@@ -2,11 +2,6 @@
  * @brief Header file with internal function prototypes NCEPLIBS-g2c
  * library.
  *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2021-11-08 | Ed Hartnett | Initial
- *
  * @author Ed Hartnett @date 2021-11-08
  */
 
@@ -56,6 +51,12 @@
 #define TWO_BYTES 2 /**< Two bytes. */
 #define FOUR_BYTES 4 /**< Four bytes. */
 #define EIGHT_BYTES 8 /**< Eight bytes. */
+
+/** Latitude */
+#define LATITUDE "Latitude"
+
+/** Longitude */
+#define LONGITUDE "Longitude"
 
 /* For thread-safety, use these macros. */
 #ifdef PTHREADS
@@ -155,6 +156,15 @@ typedef struct g2c_section_info
     int template_len; /**< Number of entries in template. */
 } G2C_SECTION_INFO_T;
 
+/** Keep information about dimensions defined in section 3. */
+typedef struct g2c_dim_info
+{
+    int dimid; /**< Dimension ID. */
+    size_t len; /**< Length of dimension. */
+    char name[G2C_MAX_NAME + 1]; /**< Name of dimension. */
+    float *value; /**< Array of dimension values. */
+} G2C_DIM_INFO_T;
+
 /** Information about [Section 3 GRID DEFINITION
  * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml). */
 typedef struct g2c_section3_info
@@ -165,6 +175,7 @@ typedef struct g2c_section3_info
     unsigned char interp_list; /**< Interpetation of list of numbers defining number of points (See Table 3.11). */
     unsigned short grid_def; /**< Grid definition template number (= N) (See Table 3.1). */
     int *optional; /**< Optional list of numbers defining number of points. */
+    G2C_DIM_INFO_T dim[2]; /**< Dimension information. */    
 } G2C_SECTION3_INFO_T;
 
 /** Information about [Section 4 PRODUCT DEFINITION

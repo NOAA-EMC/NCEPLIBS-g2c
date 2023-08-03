@@ -1,0 +1,182 @@
+
+ GRIB MESSAGE  1  starts at 1
+
+  SECTION 0:  0 2 13342681
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  Contains  0  Local Sections  and  1  data fields.
+
+  FIELD  1
+  SECTION 0:  0 2
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  SECTION 3:  0 14452641 0 0 1
+  GRID TEMPLATE 3. 1 :  6 0 0 0 0 0 0 4881 2961 0 0 -37000000 299000000 48 37000000 61000000 25000 25000 64 -35000000 247000000 0
+  NO Optional List Defining Number of Data Points.
+  PRODUCT TEMPLATE 4. 0: ( PARAMETER = PRMSL    0 3 1 )  3 1 2 0 134 0 0 1 0 101 0 0 255 0 0
+  FIELD: PRMSL   Mean Sea Level  valid  0 hour after 2022062100:00:00
+  NO Optional Vertical Coordinate List.
+  Num. of Data Points =  12272728    with BIT-MAP  0
+  DRS TEMPLATE 5. 3 :  1259828660 3 2 16 0 1 0 0 0 871108 0 5 1 1 12 5 2 2
+  Data Values:
+  Num. of Data Points =  12272728   Num. of Data Undefined = 0
+( PARM= PRMSL ) :  MIN=           99260.67968750 AVE=          116390.88281250 MAX=          104243.15625000
+
+ GRIB MESSAGE  2  starts at 13342682
+
+  SECTION 0:  0 2 10886183
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  Contains  0  Local Sections  and  1  data fields.
+
+  FIELD  1
+  SECTION 0:  0 2
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  SECTION 3:  0 14452641 0 0 1
+  GRID TEMPLATE 3. 1 :  6 0 0 0 0 0 0 4881 2961 0 0 -37000000 299000000 48 37000000 61000000 25000 25000 64 -35000000 247000000 0
+  NO Optional List Defining Number of Data Points.
+  PRODUCT TEMPLATE 4. 0: ( PARAMETER = PRES     0 3 0 )  3 0 2 0 134 0 0 1 0 105 0 1 255 0 0
+  FIELD: PRES    Mean Sea Level  valid  0 hour after 2022062100:00:00
+  NO Optional Vertical Coordinate List.
+  Num. of Data Points =  12272728    with BIT-MAP  0
+  DRS TEMPLATE 5. 3 :  1225150805 3 1 16 0 1 0 0 0 706754 0 5 1 1 10 6 2 3
+  Data Values:
+  Num. of Data Points =  12272728   Num. of Data Undefined = 0
+( PARM= PRES ) :  MIN=           55016.53125000 AVE=          110768.10937500 MAX=          103871.73437500
+
+ GRIB MESSAGE  3  starts at 24228865
+
+  SECTION 0:  0 2 2729609
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  Contains  0  Local Sections  and  1  data fields.
+
+  FIELD  1
+  SECTION 0:  0 2
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  SECTION 3:  0 14452641 0 0 1
+  GRID TEMPLATE 3. 1 :  6 0 0 0 0 0 0 4881 2961 0 0 -37000000 299000000 48 37000000 61000000 25000 25000 64 -35000000 247000000 0
+  NO Optional List Defining Number of Data Points.
+  PRODUCT TEMPLATE 4. 0: ( PARAMETER = CLWMR    0 1 22 )  1 22 2 0 134 0 0 1 0 105 0 1 255 0 0
+  FIELD: CLWMR   Mean Sea Level  valid  0 hour after 2022062100:00:00
+  NO Optional Vertical Coordinate List.
+  Num. of Data Points =  12272728    with BIT-MAP  0
+  DRS TEMPLATE 5. 3 :  0 0 5 9 0 1 0 0 0 138003 0 4 1 1 1024 10 2 2
+  Data Values:
+  Num. of Data Points =  12272728   Num. of Data Undefined = 0
+( PARM= CLWMR ) :  MIN=               0.00000000 AVE=               0.00002456 MAX=               0.00183000
+
+ GRIB MESSAGE  4  starts at 26958474
+
+  SECTION 0:  0 2 1985412
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  Contains  0  Local Sections  and  1  data fields.
+
+  FIELD  1
+  SECTION 0:  0 2
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  SECTION 3:  0 14452641 0 0 1
+  GRID TEMPLATE 3. 1 :  6 0 0 0 0 0 0 4881 2961 0 0 -37000000 299000000 48 37000000 61000000 25000 25000 64 -35000000 247000000 0
+  NO Optional List Defining Number of Data Points.
+  PRODUCT TEMPLATE 4. 0: ( PARAMETER = ICMR     0 1 23 )  1 23 2 0 134 0 0 1 0 105 0 1 255 0 0
+  FIELD: ICMR    Mean Sea Level  valid  0 hour after 2022062100:00:00
+  NO Optional Vertical Coordinate List.
+  Num. of Data Points =  12272728    with BIT-MAP  0
+  DRS TEMPLATE 5. 3 :  0 2 10 16 0 1 0 0 0 15466 0 5 1 1 511 14 2 3
+  Data Values:
+  Num. of Data Points =  12272728   Num. of Data Undefined = 0
+( PARM= ICMR ) :  MIN=               0.00000000 AVE=               0.00000000 MAX=               0.00002068
+
+ GRIB MESSAGE  5  starts at 28943886
+
+  SECTION 0:  0 2 4547624
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  Contains  0  Local Sections  and  1  data fields.
+
+  FIELD  1
+  SECTION 0:  0 2
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  SECTION 3:  0 14452641 0 0 1
+  GRID TEMPLATE 3. 1 :  6 0 0 0 0 0 0 4881 2961 0 0 -37000000 299000000 48 37000000 61000000 25000 25000 64 -35000000 247000000 0
+  NO Optional List Defining Number of Data Points.
+  PRODUCT TEMPLATE 4. 0: ( PARAMETER = RWMR     0 1 24 )  1 24 2 0 134 0 0 1 0 105 0 1 255 0 0
+  FIELD: RWMR    Mean Sea Level  valid  0 hour after 2022062100:00:00
+  NO Optional Vertical Coordinate List.
+  Num. of Data Points =  12272728    with BIT-MAP  0
+  DRS TEMPLATE 5. 3 :  0 1 7 16 0 1 0 0 0 320272 0 5 1 1 141 9 2 3
+  Data Values:
+  Num. of Data Points =  12272728   Num. of Data Undefined = 0
+( PARM= RWMR ) :  MIN=               0.00000000 AVE=               0.00000511 MAX=               0.01282600
+
+ GRIB MESSAGE  6  starts at 33491510
+
+  SECTION 0:  0 2 2171412
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  Contains  0  Local Sections  and  1  data fields.
+
+  FIELD  1
+  SECTION 0:  0 2
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  SECTION 3:  0 14452641 0 0 1
+  GRID TEMPLATE 3. 1 :  6 0 0 0 0 0 0 4881 2961 0 0 -37000000 299000000 48 37000000 61000000 25000 25000 64 -35000000 247000000 0
+  NO Optional List Defining Number of Data Points.
+  PRODUCT TEMPLATE 4. 0: ( PARAMETER = SNMR     0 1 25 )  1 25 2 0 134 0 0 1 0 105 0 1 255 0 0
+  FIELD: SNMR    Mean Sea Level  valid  0 hour after 2022062100:00:00
+  NO Optional Vertical Coordinate List.
+  Num. of Data Points =  12272728    with BIT-MAP  0
+  DRS TEMPLATE 5. 3 :  0 3 8 15 0 1 0 0 0 33062 0 5 1 1 458 13 2 2
+  Data Values:
+  Num. of Data Points =  12272728   Num. of Data Undefined = 0
+( PARM= SNMR ) :  MIN=               0.00000000 AVE=               0.00000131 MAX=               0.00363072
+
+ GRIB MESSAGE  7  starts at 35662922
+
+  SECTION 0:  0 2 1850730
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  Contains  0  Local Sections  and  1  data fields.
+
+  FIELD  1
+  SECTION 0:  0 2
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  SECTION 3:  0 14452641 0 0 1
+  GRID TEMPLATE 3. 1 :  6 0 0 0 0 0 0 4881 2961 0 0 -37000000 299000000 48 37000000 61000000 25000 25000 64 -35000000 247000000 0
+  NO Optional List Defining Number of Data Points.
+  PRODUCT TEMPLATE 4. 0: ( PARAMETER = GRMR     0 1 32 )  1 32 2 0 134 0 0 1 0 105 0 1 255 0 0
+  FIELD: GRMR    Mean Sea Level  valid  0 hour after 2022062100:00:00
+  NO Optional Vertical Coordinate List.
+  Num. of Data Points =  12272728    with BIT-MAP  0
+  DRS TEMPLATE 5. 3 :  0 0 5 8 0 1 0 0 0 10020 0 4 1 1 8192 13 2 2
+  Data Values:
+  Num. of Data Points =  12272728   Num. of Data Undefined = 0
+( PARM= GRMR ) :  MIN=               0.00000000 AVE=               0.00000006 MAX=               0.00170000
+
+ GRIB MESSAGE  8  starts at 37513652
+
+  SECTION 0:  0 2 3953198
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  Contains  0  Local Sections  and  1  data fields.
+
+  FIELD  1
+  SECTION 0:  0 2
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  SECTION 3:  0 14452641 0 0 1
+  GRID TEMPLATE 3. 1 :  6 0 0 0 0 0 0 4881 2961 0 0 -37000000 299000000 48 37000000 61000000 25000 25000 64 -35000000 247000000 0
+  NO Optional List Defining Number of Data Points.
+  PRODUCT TEMPLATE 4. 0: ( PARAMETER = TCDC     0 6 1 )  6 1 2 0 134 0 0 1 0 105 0 1 255 0 0
+  FIELD: TCDC    Mean Sea Level  valid  0 hour after 2022062100:00:00
+  NO Optional Vertical Coordinate List.
+  Num. of Data Points =  12272728    with BIT-MAP  0
+  DRS TEMPLATE 5. 3 :  0 0 0 9 0 1 0 0 0 315285 0 4 1 1 71 8 2 2
+  Data Values:
+  Num. of Data Points =  12272728   Num. of Data Undefined = 0
+( PARM= TCDC ) :  MIN=               0.00000000 AVE=              14.06626606 MAX=             100.00000000
+
+ GRIB MESSAGE  9  starts at 41466850
+
+  SECTION 0:  0 2 8329533
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  Contains  0  Local Sections  and  1  data fields.
+
+  FIELD  1
+  SECTION 0:  0 2
+  SECTION 1:  7 0 2 1 1 2022 6 21 0 0 0 0 1
+  SECTION 3:  0 14452641 0 0 1
+  GRID TEMPLATE 3. 1 :  6 0 0 0 0 0 0 4881 2961 0 0 -37000000 299000000 48 37000000 61000000 25000 25000 64 -35000000 247000000 0
+  NO Optional List Defining Number of Data Points.
+  PRODUCT TEMPLATE 4. 0: ( PARAMETER = REFD     0 16 195 )  16 195 2 0 134

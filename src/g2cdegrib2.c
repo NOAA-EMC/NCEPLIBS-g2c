@@ -611,8 +611,8 @@ g2c_degrib2(int g2cid, const char *fileout)
             char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
             char level_desc[G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN + 1];
             char date_time[100 + 1];
-            float *data;
-            float total, max, min;
+            float *data = NULL;
+            float total = 0.0, max = 0.0, min = 0.0;
             int t;
 
             fprintf(f, "\n");
@@ -726,31 +726,39 @@ g2c_degrib2(int g2cid, const char *fileout)
 
             /* Now read the data and find the min, max, and average values. */
 
-            /* Allocate storage for the data. */
-            if (!(data = malloc(sec5_info->num_data_points * sizeof(float))))
-                return G2C_ERROR;
-
+            LOG((5, "sec5_info->num_data_points %ld", sec5_info->num_data_points));
+            if (sec5_info->num_data_points)
+            {
+                /* Allocate storage for the data. */
+                if (!(data = malloc(sec5_info->num_data_points * sizeof(float))))
+                    return G2C_ERROR;
+            }
+            
             /* Get the data from message 0, product 0. */
             if ((ret = g2c_get_prod(g2cid, msg->msg_num, fld, NULL, data)))
                 return ret;
 
             /* Find min/max/avg. */
-            max = data[0];
-            min = data[0];
-            total = data[0];
-            for (i = 1; i < sec5_info->num_data_points; i++)
+            if (sec5_info->num_data_points)
             {
-                total += data[i];
-                if (data[i] > max)
-                    max = data[i];
-                if (data[i] < min)
-                    min = data[i];
+                max = data[0];
+                min = data[0];
+                total = data[0];
+                for (i = 1; i < sec5_info->num_data_points; i++)
+                {
+                    total += data[i];
+                    if (data[i] > max)
+                        max = data[i];
+                    if (data[i] < min)
+                        min = data[i];
+                }
             }
             fprintf(f, "( PARM= %s ) :  MIN=%25.8f AVE=%25.8f MAX=%25.8f\n",
                     abbrev, min, total/sec5_info->num_data_points, max);
 
             /* Free the data. */
-            free(data);
+            if (sec5_info->num_data_points)
+                free(data);
 
             total_fields++;
         }
