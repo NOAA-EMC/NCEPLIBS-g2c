@@ -7,7 +7,7 @@ This library contains C decoder/encoder routines for GRIB edition 2.
 GRIdded Binary or General Regularly-distributed Information in Binary
 form (GRIB) is a data format for meteorological and forecast data,
 standardized by the World Meteorological Organization (WMO). GRIB
-edition 2 (GRIB2) was approved by the WMO is 2003.
+edition 2 (GRIB2) was approved by the WMO is 2003. 
 
 This library is part of the
 [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
