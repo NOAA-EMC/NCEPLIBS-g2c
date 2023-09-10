@@ -1,5 +1,7 @@
 /** @file
- * @brief This is a utility to print a summary of a GRIB2 file.
+ *
+ * @brief Print a summary of a GRIB1 or GRIB2 index file.
+ *
  * @author Ed Hartnett @date 12/29/22
  */
 #include <ctype.h>
@@ -9,16 +11,16 @@
 #include <grib2.h>
 
 /**
- * Compare two GRIB2 files.
+ * Print a summary of a GRIB1 or GRIB2 index file.
  *
  * @param argc Number of arguments.
  * @param argv Pointer to array of arguments.
  *
  * @return
- * - 0 if files are identical
+ * - 0 success
  * - 1 otherwise
  *
- * @author Ed Hartnett @date 12/29/22
+ * @author Ed Hartnett @date 9/10/23
  */
 int
 main(int argc, char **argv)
@@ -26,9 +28,9 @@ main(int argc, char **argv)
   char *path[2] = {NULL, NULL};
     int verbose = 0;
     int index;
-    /* int g2cid; */
     int c;
     int p = 0;
+    /* int g2cid; */
     /* int ret; */
 
     opterr = 0;
