@@ -23,7 +23,7 @@
 int
 main(int argc, char **argv)
 {
-    char *path[2];
+  char *path[2] = {NULL, NULL};
     int verbose = 0;
     int index;
     /* int g2cid; */
@@ -79,8 +79,12 @@ main(int argc, char **argv)
     /*     return ret; */
 
     /* Free memory. */
-    free(path[0]);
-    free(path[1]);
+    if (path[0])
+      free(path[0]);
+    if (path[1])
+      free(path[1]);
+
+    printf("returning 0\n");
 
     return 0;
 }
