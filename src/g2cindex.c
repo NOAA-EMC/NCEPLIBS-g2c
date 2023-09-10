@@ -551,7 +551,6 @@ g2c_open_index1(const char *index_file)
     int i, j, k;
     char date_str[G2C_INDEX_DATE_STR_LEN + 1];
     char time_str[G2C_INDEX_TIME_STR_LEN + 1];
-    char str1[G2C_INDEX_STR1_LEN + 1];
     int ret = G2C_NOERROR;
 
     /* Check inputs. */
@@ -567,8 +566,7 @@ g2c_open_index1(const char *index_file)
     /* Read header record apparently named after Steve Lord. */
     if ((ret = read_hdr_rec1(f, &i, &j, &k, date_str, time_str)))
 	return ret;
-    LOG((2, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
-	 time_str));
+    LOG((2, "i %d j %d k %d date_str %s time_str %s", i, j, k, date_str, time_str));
 
     /* If using threading, lock the mutex. */
     MUTEX_LOCK(m);
