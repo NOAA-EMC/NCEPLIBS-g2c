@@ -526,9 +526,9 @@ read_hdr_rec1(FILE *f, int *ip, int *jp, int *kp, char *date_str, char *time_str
     if (kp)
 	*kp = k;
     if (date_str)
-	strncpy(date_str, my_date_str, strlen(my_date_str));	
+	strncpy(date_str, my_date_str, G2C_INDEX_DATE_STR_LEN + 1);	
     if (time_str)
-	strncpy(time_str, my_time_str, strlen(my_time_str));	
+	strncpy(time_str, my_time_str, G2C_INDEX_TIME_STR_LEN + 1);	
     
     return G2C_NOERROR;
 }
