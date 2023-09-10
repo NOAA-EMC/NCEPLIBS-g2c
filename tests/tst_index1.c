@@ -7,11 +7,11 @@
 #include "grib2_int.h"
 
 GRIB1_INDEX_FILE "data/ref_gdaswave_2.grib1.idx"
+
 int
 main()
 {
     printf("Testing g2c GRIB1 index functions.\n");
-#ifdef JPEG
     printf("Testing g2c_open_index1() on file %s...", GRIB1_INDEX_FILE);
     {
         /* /\* Will not work. *\/ */
