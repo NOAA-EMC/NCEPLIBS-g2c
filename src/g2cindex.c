@@ -484,6 +484,7 @@ int
 g2c_open_index1(const char *index_file)
 {
     FILE *f;
+    int ret = G2C_NOERROR;
 
     /* Check inputs. */
     if (!index_file)

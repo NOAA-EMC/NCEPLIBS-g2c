@@ -1,4 +1,4 @@
-/* This is a test for the NCEPLIBS-g2c project. 
+/* This is a test for the NCEPLIBS-g2c project.
  *
  * This test is for the GRIB1 index functionality.
  *
@@ -6,7 +6,7 @@
  */
 #include "grib2_int.h"
 
-GRIB1_INDEX_FILE "data/ref_gdaswave_2.grib1.idx"
+#define GRIB1_INDEX_FILE "data/ref_gdaswave_2.grib1.idx"
 
 int
 main()
@@ -14,18 +14,16 @@ main()
     printf("Testing g2c GRIB1 index functions.\n");
     printf("Testing g2c_open_index1() on file %s...", GRIB1_INDEX_FILE);
     {
-        /* /\* Will not work. *\/ */
-        /* if (g2c_open_index(NULL, NULL, 0, &g2cid) != G2C_EINVAL) */
-        /*     return G2C_ERROR; */
-        /* if (g2c_open_index("bad", NULL, 0, &g2cid) != G2C_EINVAL) */
-        /*     return G2C_ERROR; */
-        /* if (g2c_open_index("bad", "bad", 0, &g2cid) != G2C_EFILE) */
-        /*     return G2C_ERROR; */
+        int ret;
 
-        /* /\* Open the data file using the index file. *\/ */
-        /* /\* g2c_set_log_level(10); *\/ */
-        /* if ((ret = g2c_open_index(WAVE_FILE, REF_FILE, 0, &g2cid))) */
-        /*     return ret; */
+        /* Will not work. */
+        if (g2c_open_index1(NULL) != G2C_EINVAL)
+            return G2C_ERROR;
+
+        /* Open the index file. */
+        g2c_set_log_level(10);
+        if ((ret = g2c_open_index1(GRIB1_INDEX_FILE)))
+            return ret;
 
         /* /\* Check some stuff. *\/ */
         /* if ((ret = g2c_inq(g2cid, &num_msg))) */
@@ -48,4 +46,3 @@ main()
     printf("SUCCESS!\n");
     return 0;
 }
-
