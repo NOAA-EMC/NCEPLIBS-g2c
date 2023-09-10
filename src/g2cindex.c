@@ -470,6 +470,70 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 }
 
 /**
+ * Read header record apparently named after Steve Lord. 
+ *
+ * @param f Pointer to open FILE.
+ * @param ip Pointer that gets i value. Ignored if NULL.
+ * @param jp Pointer that gets j value. Ignored if NULL.
+ * @param kp Pointer that gets k value. Ignored if NULL.
+ * @param date_str Pointer to char array of size
+ * ::G2C_INDEX_DATE_STR_LEN + 1 which will get the date string from the
+ * header. Ignored if NULL.
+ * @param time_str Pointer to char array of size
+ * ::G2C_INDEX_TIME_STR_LEN + 1 which will get the time string from the
+ * header. Ignored if NULL.
+ *
+ * @returns 0 for success, error code otherwise.
+ *
+ * @author Edward Hartnett @date 9/10/23
+*/
+static int
+read_hdr_rec1(FILE *f, int *ip, int *jp, int *kp, char *date_str, char *time_str)
+{
+    size_t bytes_read;
+    char line[G2C_INDEX_HEADER_LEN + 1];
+    char str1[G2C_INDEX_STR1_LEN + 1];
+    char my_date_str[G2C_INDEX_DATE_STR_LEN + 1];
+    char my_time_str[G2C_INDEX_TIME_STR_LEN + 1];
+    int i, j, k;
+    
+    /* Read the first line of header. */
+    if ((bytes_read = fread(line, 1, G2C_INDEX_HEADER_LEN, f)) != G2C_INDEX_HEADER_LEN)
+	return G2C_EFILE;
+    line[G2C_INDEX_HEADER_LEN] = 0;
+    
+    /* Scan the line. */
+    {
+	char long_date_str[G2C_INDEX_HEADER_LEN + 1], long_time_str[G2C_INDEX_HEADER_LEN + 1];
+	char long_str1[G2C_INDEX_HEADER_LEN + 1];
+        
+	sscanf(line, "%s %d %d %d %s %s GB2IX1", long_str1, &i, &j, &k, long_date_str, long_time_str);
+	memcpy(str1, long_str1, G2C_INDEX_STR1_LEN);
+	date_str[G2C_INDEX_STR1_LEN] = 0;
+	memcpy(date_str, long_date_str, G2C_INDEX_DATE_STR_LEN);
+	date_str[G2C_INDEX_DATE_STR_LEN] = 0;
+	memcpy(time_str, long_time_str, G2C_INDEX_TIME_STR_LEN);
+	time_str[G2C_INDEX_TIME_STR_LEN] = 0;
+    }
+    LOG((2, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
+	 time_str));
+
+    /* Return info to caller where desired. */
+    if (ip)
+	*ip = i;
+    if (jp)
+	*jp = j;
+    if (kp)
+	*kp = k;
+    if (date_str)
+	strncpy(date_str, my_date_str, strlen(my_date_str));	
+    if (time_str)
+	strncpy(time_str, my_time_str, strlen(my_time_str));	
+    
+    return G2C_NOERROR;
+}
+
+/**
  * Open a GRIB1 index file and read the contents.
  *
  * @param index_file The name that will be given to the index file. An
@@ -484,6 +548,10 @@ int
 g2c_open_index1(const char *index_file)
 {
     FILE *f;
+    int i, j, k;
+    char date_str[G2C_INDEX_DATE_STR_LEN + 1];
+    char time_str[G2C_INDEX_TIME_STR_LEN + 1];
+    char str1[G2C_INDEX_STR1_LEN + 1];
     int ret = G2C_NOERROR;
 
     /* Check inputs. */
@@ -495,6 +563,12 @@ g2c_open_index1(const char *index_file)
     /* Open the index file. */
     if (!(f = fopen(index_file, "rb")))
         return G2C_EFILE;
+
+    /* Read header record apparently named after Steve Lord. */
+    if ((ret = read_hdr_rec1(f, &i, &j, &k, date_str, time_str)))
+	return ret;
+    LOG((2, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
+	 time_str));
 
     /* If using threading, lock the mutex. */
     MUTEX_LOCK(m);
