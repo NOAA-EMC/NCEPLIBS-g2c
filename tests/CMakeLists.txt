@@ -206,6 +206,7 @@ if(USE_Jasper)
   if(UTILS)
     gu_test(run_compare_tests)
     gu_test(run_degrib2_tests)
+    gu_test(run_index_tests)
   endif()
 endif()
 
