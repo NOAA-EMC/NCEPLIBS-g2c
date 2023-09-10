@@ -127,6 +127,28 @@ if(OPENJPEG_FOUND)
   endif()
 endif()
 
+# Build with AEC.
+if(LIBAEC_FOUND)
+  set(AEC_LIBRARIES ${libaec_LIBRARY})
+  set(AEC_INCLUDE_DIR ${libaec_INCLUDE_DIR})
+  message(STATUS "AEC include directories ${AEC_INCLUDE_DIR}")
+  message(STATUS "AEC libraries ${AEC_LIBRARIES}")
+  target_sources(${lib_name}_objlib PRIVATE decenc_aec.c
+                                     aecpack.c)
+  target_compile_definitions(${lib_name}_objlib PRIVATE USE_AEC)
+  target_link_libraries(${lib_name}_objlib PRIVATE ${AEC_LIBRARIES})
+  target_include_directories(${lib_name}_objlib PRIVATE "${AEC_INCLUDE_DIRS}")
+  set(G2_AEC_ENABLED ON)
+  if(BUILD_SHARED_LIBS)
+    target_link_libraries(${lib_name}_shared PRIVATE ${AEC_LIBRARIES})
+    target_include_directories(${lib_name}_shared PRIVATE "${AEC_INCLUDE_DIRS}")
+  endif()
+  if(BUILD_STATIC_LIBS)
+    target_link_libraries(${lib_name}_static PRIVATE ${AEC_LIBRARIES})
+    target_include_directories(${lib_name}_static PRIVATE "${AEC_INCLUDE_DIRS}")
+  endif()
+endif()
+
 # Build with pthreads.
 if(PTHREADS)
   target_link_libraries(${lib_name}_objlib PRIVATE pthread)
