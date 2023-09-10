@@ -26,10 +26,10 @@ main(int argc, char **argv)
     char *path[2];
     int verbose = 0;
     int index;
-    int g2cid;
+    /* int g2cid; */
     int c;
     int p = 0;
-    int ret;
+    /* int ret; */
 
     opterr = 0;
 
