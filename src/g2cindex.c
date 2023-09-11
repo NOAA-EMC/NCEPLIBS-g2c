@@ -151,9 +151,9 @@ g2c_start_index1_record(FILE *f, int rw_flag, int *reclen, int *msg, int *gds,
     int ret;
 
     /* All pointers must be provided. */
-    /* if (!f || !reclen || !msg || !local || !gds || !pds || !drs || !bms || !data */
-    /*     || !msglen || !version || !discipline || !fieldnum) */
-    /*     return G2C_EINVAL; */
+    if (!f || !reclen || !msg || !gds || !pds || !bms || !bds || !data
+        || !msglen || !version || !fieldnum)
+        return G2C_EINVAL;
 
     /* When writing, set the fieldnum1 to be a 1-based index, just
      * like in Fortran. */
@@ -719,11 +719,10 @@ g2c_open_index1(const char *index_file)
        the original GRIB1 file. */
     for (rec = 0; rec < num_rec; rec++)
     {
-	int reclen = 0;
-	/* int reclen, msg, local, gds, pds, drs, bms, data; */
-	/* size_t msglen; */
-	/* unsigned char version, discipline; */
-	/* short fieldnum; */
+	int reclen, msg, gds, pds, bms, bds, data;
+	size_t msglen;
+	unsigned char version;
+	short fieldnum;
 
 	/* Move to beginning of index record. */
 	if (fseek(f, file_pos, SEEK_SET))
@@ -734,14 +733,14 @@ g2c_open_index1(const char *index_file)
 
 	/* Read the index1 record. */
 	LOG((4, "reading index1 record at file position %ld", ftell(f)));
-	/* if ((ret = g2c_start_index1_record(f, G2C_FILE_READ, &reclen, &msg, &local, &gds, &pds, */
-	/* 				   &drs, &bms, &data, &msglen, &version, &discipline, &fieldnum))) */
-	/*     break; */
+	if ((ret = g2c_start_index1_record(f, G2C_FILE_READ, &reclen, &msg, &gds, &pds,
+					   &bms, &bds, &data, &msglen, &version, &fieldnum)))
+	    break;
 
-	/* LOG((3, "reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d " */
-	/*      "msglen %ld version %d discipline %d fieldnum %d", */
-	/*      reclen, msg, local, gds, pds, drs, bms, data, msglen, */
-	/*      version, discipline, fieldnum)); */
+	LOG((3, "reclen %d msg %d gds %d pds %d bms %d bds %d data %d "
+	     "msglen %ld version %d fieldnum %d",
+	     reclen, msg, gds, pds, bms, bds, data, msglen,
+	     version, fieldnum));
 
 	/* /\* Read the metadata for sections 3, 4, and 5 from */
 	/*  * the index record. *\/ */
