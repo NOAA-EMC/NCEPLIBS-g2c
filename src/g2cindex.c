@@ -128,7 +128,6 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
  * @param pds Pointer to pds.
  * @param bms Pointer to bms.
  * @param bds Pointer to bds.
- * @param data Pointer to data.
  * @param msglen Pointer to msglen.
  * @param version Pointer to version.
  * @param fieldnum Pointer to fieldnum, 0- based. (It is 1-based in
@@ -143,54 +142,33 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
  */
 int
 g2c_start_index1_record(FILE *f, int rw_flag, int *reclen, int *msg, int *gds,
-			int *pds, int *bms, int *bds, int *data, size_t *msglen,
+			int *pds, int *bms, int *bds, size_t *msglen,
 			unsigned char *version, short *fieldnum)
 {
     /* size_t size_t_be; */
-    /* short fieldnum1; /\* This is for the 1-based fieldnum in the index file. *\/ */
     int ret;
 
     /* All pointers must be provided. */
-    if (!f || !reclen || !msg || !gds || !pds || !bms || !bds || !data
-        || !msglen || !version || !fieldnum)
+    if (!f || !reclen || !msg || !gds || !pds || !bms || !bds ||
+	!msglen || !version || !fieldnum)
         return G2C_EINVAL;
-
-    /* When writing, set the fieldnum1 to be a 1-based index, just
-     * like in Fortran. */
-    /* if (rw_flag) */
-    /*     fieldnum1 = *fieldnum + 1; */
 
     /* Read or write the values at the beginning of each index
      * record. */
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)reclen)))
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)msg)))
         return ret;
-    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)msg))) */
-    /*     return ret; */
-    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)local))) */
-    /*     return ret; */
-    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)gds))) */
-    /*     return ret; */
-    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)pds))) */
-    /*     return ret; */
-    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)drs))) */
-    /*     return ret; */
-    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)bms))) */
-    /*     return ret; */
-    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)data))) */
-    /*     return ret; */
-    /* if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)msglen))) */
-    /*     return ret; */
-    /* if ((ret = g2c_file_io_ubyte(f, rw_flag, version))) */
-    /*     return ret; */
-    /* if ((ret = g2c_file_io_ubyte(f, rw_flag, discipline))) */
-    /*     return ret; */
-    /* if ((ret = g2c_file_io_short(f, rw_flag, &fieldnum1))) */
-    /*     return ret; */
-
-    /* When reading, translate the 1-based fieldnum1 into the 0-based
-     * fieldnum that C programmers will expect and love. */
-    /* if (!rw_flag) */
-    /*     *fieldnum = fieldnum1 - 1; */
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)pds)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)gds)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)bms)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)bds)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)msglen)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, version)))
+        return ret;
 
     return G2C_NOERROR;
 }
@@ -719,7 +697,7 @@ g2c_open_index1(const char *index_file)
        the original GRIB1 file. */
     for (rec = 0; rec < num_rec; rec++)
     {
-	int reclen, msg, gds, pds, bms, bds, data;
+	int reclen, msg, gds, pds, bms, bds;
 	size_t msglen;
 	unsigned char version;
 	short fieldnum;
@@ -734,12 +712,12 @@ g2c_open_index1(const char *index_file)
 	/* Read the index1 record. */
 	LOG((4, "reading index1 record at file position %ld", ftell(f)));
 	if ((ret = g2c_start_index1_record(f, G2C_FILE_READ, &reclen, &msg, &gds, &pds,
-					   &bms, &bds, &data, &msglen, &version, &fieldnum)))
+					   &bms, &bds, &msglen, &version, &fieldnum)))
 	    break;
 
-	LOG((3, "reclen %d msg %d gds %d pds %d bms %d bds %d data %d "
+	LOG((3, "reclen %d msg %d gds %d pds %d bms %d bds %d "
 	     "msglen %ld version %d fieldnum %d",
-	     reclen, msg, gds, pds, bms, bds, data, msglen,
+	     reclen, msg, gds, pds, bms, bds, msglen,
 	     version, fieldnum));
 
 	/* /\* Read the metadata for sections 3, 4, and 5 from */
