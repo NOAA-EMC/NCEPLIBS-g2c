@@ -610,6 +610,8 @@ g2c_open_index1(const char *index_file)
     char time_str[G2C_INDEX_TIME_STR_LEN + 1];
     int skip, total_len, num_rec;    
     char basename[G2C_INDEX_BASENAME_LEN + 1];
+    size_t file_pos = G2C_INDEX_HEADER_LEN * 2;
+    int rec;
     int ret = G2C_NOERROR;
 
     /* Check inputs. */
@@ -617,6 +619,9 @@ g2c_open_index1(const char *index_file)
         return G2C_EINVAL;
 
     LOG((1, "g2c_open_index1 index_file %s", index_file));
+
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
 
     /* Open the index file. */
     if (!(f = fopen(index_file, "rb")))
@@ -632,8 +637,133 @@ g2c_open_index1(const char *index_file)
 	return ret;
     LOG((2, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
 
-    /* If using threading, lock the mutex. */
-    MUTEX_LOCK(m);
+    /* Read each index record. These is one record for each message in
+       the original GRIB1 file. */
+    for (rec = 0; rec < num_rec; rec++)
+    {
+	int reclen = 0;
+	/* int reclen, msg, local, gds, pds, drs, bms, data; */
+	/* size_t msglen; */
+	/* unsigned char version, discipline; */
+	/* short fieldnum; */
+
+	/* Move to beginning of index record. */
+	if (fseek(f, file_pos, SEEK_SET))
+	{
+	    ret = G2C_EFILE;
+	    break;
+	}
+
+	/* Read the index1 record. */
+	LOG((4, "reading index1 record at file position %ld", ftell(f)));
+	/* if ((ret = g2c_start_index1_record(f, G2C_FILE_READ, &reclen, &msg, &local, &gds, &pds, */
+	/* 				   &drs, &bms, &data, &msglen, &version, &discipline, &fieldnum))) */
+	/*     break; */
+
+	/* LOG((3, "reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d " */
+	/*      "msglen %ld version %d discipline %d fieldnum %d", */
+	/*      reclen, msg, local, gds, pds, drs, bms, data, msglen, */
+	/*      version, discipline, fieldnum)); */
+
+	/* /\* Read the metadata for sections 3, 4, and 5 from */
+	/*  * the index record. *\/ */
+	/* { */
+	/*     unsigned int sec_len; */
+	/*     unsigned char sec_num; */
+	/*     int s; */
+	/*     G2C_MESSAGE_INFO_T *msgp; */
+	/*     int sec_id = 0; */
+
+	/*     /\* Allocate storage for message. *\/ */
+	/*     if ((ret = add_msg(&g2c_file[*g2cid], rec, msg, msglen, 0, &msgp))) */
+	/* 	break; */
+	/*     msgp->discipline = discipline; */
+	/*     msgp->bytes_to_local = local; */
+	/*     msgp->bytes_to_bms = bms; */
+	/*     msgp->bytes_to_data = data; */
+	/*     msgp->master_version = version; */
+
+	/*     /\* Read section 1. *\/ */
+	/*     if ((ret = g2c_rw_section1_metadata(f, G2C_FILE_READ, msgp))) */
+	/* 	break; */
+	/*     if ((ret = g2c_log_section1(msgp))) */
+	/* 	break; */
+
+	/*     LOG((4, "reading section info at file position %ld", ftell(f))); */
+
+	/*     /\* Add a new section to our list of sections. *\/ */
+	/*     for (s = 3; s < 8; s++) */
+	/*     { */
+	/* 	size_t bytes_to_sec = gds; /\* Correct value for section 3. *\/ */
+
+	/* 	/\* For sections 3, 4, 5, read the section length */
+	/* 	 * and number from the index record. *\/ */
+	/* 	if (s < 6) */
+	/* 	{ */
+	/* 	    if ((ret = g2c_file_io_uint(f, G2C_FILE_READ, &sec_len))) */
+	/* 		return ret; */
+	/* 	    if ((ret = g2c_file_io_ubyte(f, G2C_FILE_READ, &sec_num))) */
+	/* 		return ret; */
+	/* 	} */
+	/* 	else */
+	/* 	{ */
+	/* 	    /\* For section 7, the length of the section is */
+	/* 	     * not in the index file, but is needed for */
+	/* 	     * data read operations. So we will use the */
+	/* 	     * open data file and get the length of this */
+	/* 	     * section. *\/ */
+	/* 	    if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data, SEEK_SET)) */
+	/* 	    { */
+	/* 		ret = G2C_EFILE; */
+	/* 		break; */
+	/* 	    } */
+	/* 	    if ((ret = g2c_file_io_uint(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_len))) */
+	/* 		return ret; */
+	/* 	    if ((ret = g2c_file_io_ubyte(g2c_file[*g2cid].f, G2C_FILE_READ, &sec_num))) */
+	/* 		return ret; */
+	/* 	    LOG((4, "read section 7 info from data file. sec_len %d sec_num %d", */
+	/* 		 sec_len, sec_num)); */
+	/* 	} */
+
+	/* 	/\* Select the value from the index record which is */
+	/* 	 * the number of bytes to section s. *\/ */
+	/* 	if (s == 4) */
+	/* 	    bytes_to_sec = pds; */
+	/* 	else if (s == 5) */
+	/* 	    bytes_to_sec = drs; */
+	/* 	else if (s == 6) */
+	/* 	    bytes_to_sec = bms; */
+	/* 	else if (s == 7) */
+	/* 	    bytes_to_sec = data; */
+
+	/* 	/\* Check some stuff. *\/ */
+	/* 	if (s < 6 && sec_num != s) */
+	/* 	{ */
+	/* 	    ret = G2C_EBADSECTION; */
+	/* 	    break; */
+	/* 	} */
+	/* 	if (sec_num == 4) */
+	/* 	    if (fieldnum < 0) /\* to silence warning *\/ */
+	/* 	    { */
+	/* 		ret = G2C_EBADSECTION; */
+	/* 		break; */
+	/* 	    } */
+
+	/* 	/\* Read the section info from the index file, */
+	/* 	 * using the same functions that read it from the */
+	/* 	 * GRIB2 data file. *\/ */
+	/* 	if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, s))) */
+	/* 	    break; */
+	/*     } /\* next section *\/ */
+
+	/*     /\* If anything went wrong, give up. *\/ */
+	/*     if (ret) */
+	/* 	break; */
+	/* } */
+
+	/* Move the file position to the start of the next index record. */
+	file_pos += reclen;
+    } /* next rec */
 
     /* If using threading, unlock the mutex. */
     MUTEX_UNLOCK(m);
