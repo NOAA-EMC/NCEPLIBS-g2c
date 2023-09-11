@@ -470,7 +470,10 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 }
 
 /**
- * Read header record apparently named after Steve Lord. 
+ * Read the header record apparently named after Steve Lord. 
+ *
+ * This function reads the first of two 81-byte header records of an
+ * index file.
  *
  * @param f Pointer to open FILE.
  * @param ip Pointer that gets i value. Ignored if NULL.
@@ -526,9 +529,61 @@ read_hdr_rec1(FILE *f, int *ip, int *jp, int *kp, char *date_str, char *time_str
     if (kp)
 	*kp = k;
     if (date_str)
-	strncpy(date_str, my_date_str, G2C_INDEX_DATE_STR_LEN + 1);	
+	strncpy(date_str, my_date_str, G2C_INDEX_DATE_STR_LEN);	
     if (time_str)
-	strncpy(time_str, my_time_str, G2C_INDEX_TIME_STR_LEN + 1);	
+	strncpy(time_str, my_time_str, G2C_INDEX_TIME_STR_LEN);	
+    
+    return G2C_NOERROR;
+}
+
+/**
+ * Read the second header record of an index file
+ *
+ * This function reads the second of two 81-byte header records of an
+ * index file.
+ *
+ * @param f Pointer to open FILE.
+ * @param basename Pointer to char array of size
+ * ::G2C_INDEX_BASENAME_LEN + 1 which will get the basename string from the
+ * second header record. Ignored if NULL.
+ *
+ * @returns 0 for success, error code otherwise.
+ *
+ * @author Edward Hartnett @date 9/10/23
+*/
+static int
+read_hdr_rec2(FILE *f, int *skipp, int *total_lenp, int *num_recp, char *basename)
+{
+    size_t bytes_read;
+    char line[G2C_INDEX_HEADER_LEN + 1];
+    char str1[G2C_INDEX_STR1_LEN + 1];
+    char my_date_str[G2C_INDEX_DATE_STR_LEN + 1];
+    char my_time_str[G2C_INDEX_TIME_STR_LEN + 1];
+    int skip, total_len, num_rec;    
+    char my_basename[G2C_INDEX_BASENAME_LEN + 1];
+    int i, j, k;
+    
+    /* Read the second line of header. */
+    if ((bytes_read = fread(line, 1, G2C_INDEX_HEADER_LEN, f)) != G2C_INDEX_HEADER_LEN)
+	return G2C_EFILE;
+    line[G2C_INDEX_HEADER_LEN] = 0;
+    /* Scan the line. Hard! */
+    {
+	char long_basename[G2C_INDEX_HEADER_LEN + 1];
+	sscanf(line, "IX1FORM: %d %d %d %s", &skip, &total_len, &num_rec, long_basename);
+	memcpy(basename, long_basename, G2C_INDEX_BASENAME_LEN);
+	basename[G2C_INDEX_BASENAME_LEN] = 0;
+    }
+
+    /* Return info to caller where desired. */
+    if (skipp)
+	*skipp = skip;
+    if (total_lenp)
+	*total_lenp = total_len;
+    if (num_recp)
+	*num_recp = num_rec;
+    if (basename)
+	strncpy(basename, my_basename, G2C_INDEX_BASENAME_LEN);	
     
     return G2C_NOERROR;
 }
@@ -551,6 +606,7 @@ g2c_open_index1(const char *index_file)
     int i, j, k;
     char date_str[G2C_INDEX_DATE_STR_LEN + 1];
     char time_str[G2C_INDEX_TIME_STR_LEN + 1];
+    int skip, total_len, num_rec;    
     int ret = G2C_NOERROR;
 
     /* Check inputs. */
@@ -567,6 +623,11 @@ g2c_open_index1(const char *index_file)
     if ((ret = read_hdr_rec1(f, &i, &j, &k, date_str, time_str)))
 	return ret;
     LOG((2, "i %d j %d k %d date_str %s time_str %s", i, j, k, date_str, time_str));
+
+    /* Read second header record. */
+    if ((ret = read_hdr_rec2(f, basename)))
+	return ret;
+    LOG((2, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
 
     /* If using threading, lock the mutex. */
     MUTEX_LOCK(m);
