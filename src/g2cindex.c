@@ -147,7 +147,7 @@ g2c_start_index1_record(FILE *f, int rw_flag, int *reclen, int *msg, int *gds,
 			unsigned char *version, short *fieldnum)
 {
     /* size_t size_t_be; */
-    short fieldnum1; /* This is for the 1-based fieldnum in the index file. */
+    /* short fieldnum1; /\* This is for the 1-based fieldnum in the index file. *\/ */
     int ret;
 
     /* All pointers must be provided. */
@@ -157,8 +157,8 @@ g2c_start_index1_record(FILE *f, int rw_flag, int *reclen, int *msg, int *gds,
 
     /* When writing, set the fieldnum1 to be a 1-based index, just
      * like in Fortran. */
-    if (rw_flag)
-        fieldnum1 = *fieldnum + 1;
+    /* if (rw_flag) */
+    /*     fieldnum1 = *fieldnum + 1; */
 
     /* Read or write the values at the beginning of each index
      * record. */
@@ -189,8 +189,8 @@ g2c_start_index1_record(FILE *f, int rw_flag, int *reclen, int *msg, int *gds,
 
     /* When reading, translate the 1-based fieldnum1 into the 0-based
      * fieldnum that C programmers will expect and love. */
-    if (!rw_flag)
-        *fieldnum = fieldnum1 - 1;
+    /* if (!rw_flag) */
+    /*     *fieldnum = fieldnum1 - 1; */
 
     return G2C_NOERROR;
 }
