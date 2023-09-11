@@ -38,7 +38,7 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 EXTERN_MUTEX(m);
 
 /**
- * Read or write the start of an index record.
+ * Read or write the start of a version 2 index record.
  *
  * @param f FILE * to open index file.
  * @param rw_flag True if function should write, false if it should read.
@@ -108,6 +108,84 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
         return ret;
     if ((ret = g2c_file_io_short(f, rw_flag, &fieldnum1)))
         return ret;
+
+    /* When reading, translate the 1-based fieldnum1 into the 0-based
+     * fieldnum that C programmers will expect and love. */
+    if (!rw_flag)
+        *fieldnum = fieldnum1 - 1;
+
+    return G2C_NOERROR;
+}
+
+/**
+ * Read or write the start of a version 1 index record.
+ *
+ * @param f FILE * to open index file.
+ * @param rw_flag True if function should write, false if it should read.
+ * @param reclen Pointer to reclen.
+ * @param msg Pointer to msg.
+ * @param gds Pointer to gds.
+ * @param pds Pointer to pds.
+ * @param bms Pointer to bms.
+ * @param bds Pointer to bds.
+ * @param data Pointer to data.
+ * @param msglen Pointer to msglen.
+ * @param version Pointer to version.
+ * @param fieldnum Pointer to fieldnum, 0- based. (It is 1-based in
+ * the index file.)
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_EFILE File I/O error.
+ *
+ * @author Ed Hartnett 9/11/23
+ */
+int
+g2c_start_index1_record(FILE *f, int rw_flag, int *reclen, int *msg, int *gds,
+			int *pds, int *bms, int *bds, int *data, size_t *msglen,
+			unsigned char *version, short *fieldnum)
+{
+    /* size_t size_t_be; */
+    short fieldnum1; /* This is for the 1-based fieldnum in the index file. */
+    int ret;
+
+    /* All pointers must be provided. */
+    /* if (!f || !reclen || !msg || !local || !gds || !pds || !drs || !bms || !data */
+    /*     || !msglen || !version || !discipline || !fieldnum) */
+    /*     return G2C_EINVAL; */
+
+    /* When writing, set the fieldnum1 to be a 1-based index, just
+     * like in Fortran. */
+    if (rw_flag)
+        fieldnum1 = *fieldnum + 1;
+
+    /* Read or write the values at the beginning of each index
+     * record. */
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)reclen)))
+        return ret;
+    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)msg))) */
+    /*     return ret; */
+    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)local))) */
+    /*     return ret; */
+    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)gds))) */
+    /*     return ret; */
+    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)pds))) */
+    /*     return ret; */
+    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)drs))) */
+    /*     return ret; */
+    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)bms))) */
+    /*     return ret; */
+    /* if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)data))) */
+    /*     return ret; */
+    /* if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)msglen))) */
+    /*     return ret; */
+    /* if ((ret = g2c_file_io_ubyte(f, rw_flag, version))) */
+    /*     return ret; */
+    /* if ((ret = g2c_file_io_ubyte(f, rw_flag, discipline))) */
+    /*     return ret; */
+    /* if ((ret = g2c_file_io_short(f, rw_flag, &fieldnum1))) */
+    /*     return ret; */
 
     /* When reading, translate the 1-based fieldnum1 into the 0-based
      * fieldnum that C programmers will expect and love. */
@@ -891,10 +969,6 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                  "msglen %ld version %d discipline %d fieldnum %d",
                  reclen, msg, local, gds, pds, drs, bms, data, msglen,
                  version, discipline, fieldnum));
-            /* printf("reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d " */
-            /*      "msglen %ld version %d discipline %d fieldnum %d", */
-            /*      reclen, msg, local, gds, pds, drs, bms, data, msglen, */
-            /*      version, discipline, fieldnum); */
 
             /* Read the metadata for sections 3, 4, and 5 from
              * the index record. */
