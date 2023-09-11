@@ -585,7 +585,7 @@ read_hdr_rec2(FILE *f, int *skipp, int *total_lenp, int *num_recp, char *basenam
     if (num_recp)
 	*num_recp = num_rec;
     if (basename)
-	strncpy(basename, my_basename, G2C_INDEX_BASENAME_LEN);	
+	strncpy(basename, my_basename, G2C_INDEX_BASENAME_LEN + 1);	
     
     return G2C_NOERROR;
 }
