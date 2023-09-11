@@ -543,6 +543,12 @@ read_hdr_rec1(FILE *f, int *ip, int *jp, int *kp, char *date_str, char *time_str
  * index file.
  *
  * @param f Pointer to open FILE.
+ * @param skipp Pointer that gets number of bytes to skip before index
+ * records. Ignored if NULL.
+ * @param total_lenp Pointer that gets number of bytes in each index
+ * record. Ignored if NULL.
+ * @param num_recp Pointer that gets number of index records in the
+ * file. Ignored if NULL.
  * @param basename Pointer to char array of size
  * ::G2C_INDEX_BASENAME_LEN + 1 which will get the basename string from the
  * second header record. Ignored if NULL.
@@ -556,12 +562,8 @@ read_hdr_rec2(FILE *f, int *skipp, int *total_lenp, int *num_recp, char *basenam
 {
     size_t bytes_read;
     char line[G2C_INDEX_HEADER_LEN + 1];
-    char str1[G2C_INDEX_STR1_LEN + 1];
-    char my_date_str[G2C_INDEX_DATE_STR_LEN + 1];
-    char my_time_str[G2C_INDEX_TIME_STR_LEN + 1];
     int skip, total_len, num_rec;    
     char my_basename[G2C_INDEX_BASENAME_LEN + 1];
-    int i, j, k;
     
     /* Read the second line of header. */
     if ((bytes_read = fread(line, 1, G2C_INDEX_HEADER_LEN, f)) != G2C_INDEX_HEADER_LEN)
@@ -571,8 +573,8 @@ read_hdr_rec2(FILE *f, int *skipp, int *total_lenp, int *num_recp, char *basenam
     {
 	char long_basename[G2C_INDEX_HEADER_LEN + 1];
 	sscanf(line, "IX1FORM: %d %d %d %s", &skip, &total_len, &num_rec, long_basename);
-	memcpy(basename, long_basename, G2C_INDEX_BASENAME_LEN);
-	basename[G2C_INDEX_BASENAME_LEN] = 0;
+	memcpy(my_basename, long_basename, G2C_INDEX_BASENAME_LEN);
+	my_basename[G2C_INDEX_BASENAME_LEN] = 0;
     }
 
     /* Return info to caller where desired. */
@@ -607,6 +609,7 @@ g2c_open_index1(const char *index_file)
     char date_str[G2C_INDEX_DATE_STR_LEN + 1];
     char time_str[G2C_INDEX_TIME_STR_LEN + 1];
     int skip, total_len, num_rec;    
+    char basename[G2C_INDEX_BASENAME_LEN + 1];
     int ret = G2C_NOERROR;
 
     /* Check inputs. */
@@ -625,7 +628,7 @@ g2c_open_index1(const char *index_file)
     LOG((2, "i %d j %d k %d date_str %s time_str %s", i, j, k, date_str, time_str));
 
     /* Read second header record. */
-    if ((ret = read_hdr_rec2(f, basename)))
+    if ((ret = read_hdr_rec2(f, &skip, &total_len, &num_rec, basename)))
 	return ret;
     LOG((2, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
 
