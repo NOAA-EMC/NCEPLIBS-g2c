@@ -129,7 +129,6 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
  * @param bds Pointer that gets bytes to skip in message before bds.
  * @param msglen Pointer that gets bytes total in the message.
  * @param version Pointer that gets grib version number (always 1 for this function).
- * @param reclen Pointer that gets the length of this index record (computed within this function).
  *
  * @return
  * - ::G2C_NOERROR No error.
@@ -141,7 +140,7 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
 int
 g2c_start_index1_record(FILE *f, int rw_flag, unsigned int *msg, unsigned int *pds,
 			unsigned int *gds, unsigned int *bms, unsigned int *bds,
-			unsigned int *msglen, unsigned char *version, unsigned int *reclen)
+			unsigned int *msglen, unsigned char *version)
 {
     /* size_t size_t_be; */
     int ret;
@@ -167,7 +166,6 @@ g2c_start_index1_record(FILE *f, int rw_flag, unsigned int *msg, unsigned int *p
         return ret;
     if ((ret = g2c_file_io_ubyte(f, rw_flag, version)))
         return ret;
-    *reclen = 100;
 
     return G2C_NOERROR;
 }
@@ -696,7 +694,7 @@ g2c_open_index1(const char *index_file)
        the original GRIB1 file. */
     for (rec = 0; rec < num_rec; rec++)
     {
-	unsigned int reclen, msg, gds, pds, bms, bds, msglen;
+	unsigned int msg, gds, pds, bms, bds, msglen;
 	unsigned char version;
 
 	/* Move to beginning of index record. */
@@ -709,7 +707,7 @@ g2c_open_index1(const char *index_file)
 	/* Read the index1 record. */
 	LOG((4, "reading index1 record at file position %ld", ftell(f)));
 	if ((ret = g2c_start_index1_record(f, G2C_FILE_READ, &msg, &pds, &gds,
-					   &bms, &bds, &msglen, &version, &reclen)))
+					   &bms, &bds, &msglen, &version)))
 	    break;
 
 	LOG((3, "msg %d pds %d gds %d bms %d bds %d msglen %d version %d",
@@ -812,7 +810,7 @@ g2c_open_index1(const char *index_file)
 	/* } */
 
 	/* Move the file position to the start of the next index record. */
-	file_pos += reclen;
+	file_pos += total_len;
     } /* next rec */
 
     /* If using threading, unlock the mutex. */
