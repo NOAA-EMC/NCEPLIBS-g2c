@@ -12,7 +12,7 @@
 #define BITSHIFT_63 63 /**< 63 bits. */
 
 /**
- * Read or write a big-endian 4-byte int to an open file, with
+ * Read or write a big-endian integer type to an open file, with
  * conversion between native and big-endian format.
  *
  * GRIB2 handles negative numbers in a special way. Instead of storing

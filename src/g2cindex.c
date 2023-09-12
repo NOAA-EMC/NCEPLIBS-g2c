@@ -120,6 +120,11 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
 /**
  * Read or write the start of a version 1 index record.
  *
+ * For more detail on version 1 of the index format, see the
+ * [grbindex](https://noaa-emc.github.io/NCEPLIBS-grib_util/grbindex/grbindex_8f.html)
+ * documentation in the
+ * [NCEPLIBS-grib_util](https://github.com/NOAA-EMC/NCEPLIBS-grib_util).
+ *
  * @param f FILE * to open index file.
  * @param rw_flag True if function should write, false if it should read.
  * @param b2_msg Pointer that gets the bytes to skip in file before msg.
@@ -129,6 +134,13 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
  * @param b2_bds Pointer that gets bytes to skip in message before bds.
  * @param msglen Pointer that gets bytes total in the message.
  * @param version Pointer that gets grib version number (always 1 for this function).
+ * @param pds_val Pointer that gets an arry of 27 bytes of the product definition section (pds).
+ * @param gds_val Pointer that gets an arry of 41 bytes of the gds.
+ * @param bms_val Pointer that gets an arry of 5 bytes of the bms. 
+ * @param bds_val Pointer that gets an arry of 10 bytes, bytes 41-100 of the bds.
+ * @param pds_val2 Pointer that gets an arry of 59 bytes 41-100 of the pds. Ignored if null.
+ * @param pds_val3 Pointer that gets an arry of 11 bytes 29-40 of the pds. Ignored if null.
+ * @param gds_val2 Pointer that gets an arry of 135 bytes 43-178 of the gds. Ignored if null.
  *
  * @return
  * - ::G2C_NOERROR No error.
@@ -140,9 +152,11 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
 int
 g2c_start_index1_record(FILE *f, int rw_flag, unsigned int *b2_msg, unsigned int *b2_pds,
 			unsigned int *b2_gds, unsigned int *b2_bms, unsigned int *b2_bds,
-			unsigned int *msglen, unsigned char *version)
+			unsigned int *msglen, unsigned char *version, unsigned char *pds_val,
+			unsigned char *gds_val, unsigned char *bms_val, unsigned char *bds_val,
+			unsigned char *pds_val2, unsigned char *pds_val3, unsigned char *gds_val2)
 {
-    /* size_t size_t_be; */
+    size_t bytes_read;    
     int ret;
 
     /* All pointers must be provided. */
@@ -166,6 +180,19 @@ g2c_start_index1_record(FILE *f, int rw_flag, unsigned int *b2_msg, unsigned int
         return ret;
     if ((ret = g2c_file_io_ubyte(f, rw_flag, version)))
         return ret;
+
+    /* The index record contains some metadata copied directly from
+     * the file. These are arrays of unsigned char, of known
+     * length. For more detail see
+     * https://noaa-emc.github.io/NCEPLIBS-grib_util/grbindex/grbindex_8f.html. */
+    if ((bytes_read = fread(pds_val, 1, G2C_INDEX1_PDS_VAL_LEN, f)) != G2C_INDEX1_PDS_VAL_LEN)
+	return G2C_EFILE;
+    if ((bytes_read = fread(gds_val, 1, G2C_INDEX1_GDS_VAL_LEN, f)) != G2C_INDEX1_GDS_VAL_LEN)
+	return G2C_EFILE;
+    if ((bytes_read = fread(bms_val, 1, G2C_INDEX1_BMS_VAL_LEN, f)) != G2C_INDEX1_BMS_VAL_LEN)
+	return G2C_EFILE;
+    if ((bytes_read = fread(bds_val, 1, G2C_INDEX1_BDS_VAL_LEN, f)) != G2C_INDEX1_BDS_VAL_LEN)
+	return G2C_EFILE;
 
     return G2C_NOERROR;
 }
@@ -664,6 +691,10 @@ g2c_open_index1(const char *index_file)
     int skip, total_len, num_rec;    
     char basename[G2C_INDEX_BASENAME_LEN + 1];
     size_t file_pos = G2C_INDEX_HEADER_LEN * 2;
+    unsigned char pds_val[G2C_INDEX1_PDS_VAL_LEN];
+    unsigned char gds_val[G2C_INDEX1_GDS_VAL_LEN];
+    unsigned char bms_val[G2C_INDEX1_BMS_VAL_LEN];
+    unsigned char bds_val[G2C_INDEX1_BDS_VAL_LEN];
     int rec;
     int ret = G2C_NOERROR;
 
@@ -707,11 +738,14 @@ g2c_open_index1(const char *index_file)
 	/* Read the index1 record. */
 	LOG((4, "reading index1 record at file position %ld", ftell(f)));
 	if ((ret = g2c_start_index1_record(f, G2C_FILE_READ, &b2_msg, &b2_pds, &b2_gds,
-					   &b2_bms, &b2_bds, &msglen, &version)))
+					   &b2_bms, &b2_bds, &msglen, &version, pds_val,
+					   gds_val, bms_val, bds_val, NULL, NULL, NULL)))
 	    break;
 
 	LOG((3, "b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d",
 	     b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version));
+	printf("b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d\n",
+	       b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version);
 
 	/* Move the file position to the start of the next index record. */
 	file_pos += total_len;

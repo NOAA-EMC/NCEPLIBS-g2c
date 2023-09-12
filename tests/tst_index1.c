@@ -21,7 +21,7 @@ main()
             return G2C_ERROR;
 
         /* Open the index file. */
-        g2c_set_log_level(10);
+        /* g2c_set_log_level(10); */
         if ((ret = g2c_open_index1(GRIB1_INDEX_FILE)))
             return ret;
 
