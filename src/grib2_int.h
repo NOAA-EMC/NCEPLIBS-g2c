@@ -58,6 +58,29 @@
 /** Longitude */
 #define LONGITUDE "Longitude"
 
+/* For GRIB1. */
+
+/** Length of the product definition section (pds) in index file. */
+#define G2C_INDEX1_PDS_VAL_LEN 27
+
+/** Length of the grid definition section (gds) in index file. */
+#define G2C_INDEX1_GDS_VAL_LEN 41
+
+/** Length of the bitmap section (bms) in index file. */
+#define G2C_INDEX1_BMS_VAL_LEN 5
+
+/** Length of the binary data section (bds) in index file. */
+#define G2C_INDEX1_BDS_VAL_LEN 10
+
+/** Length of the pds 2 section in the index file. */
+#define G2C_INDEX1_PDS_VAL2_LEN 27
+
+/** Length of the pds 3 section in the index file. */
+#define G2C_INDEX1_PDS_VAL3_LEN 27
+
+/** Length of the gds in index file. */
+#define G2C_INDEX1_GDS_VAL2_LEN 27
+
 /* For thread-safety, use these macros. */
 #ifdef PTHREADS
 

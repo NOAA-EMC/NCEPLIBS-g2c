@@ -38,7 +38,7 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 EXTERN_MUTEX(m);
 
 /**
- * Read or write the start of an index record.
+ * Read or write the start of a version 2 index record.
  *
  * @param f FILE * to open index file.
  * @param rw_flag True if function should write, false if it should read.
@@ -113,6 +113,86 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
      * fieldnum that C programmers will expect and love. */
     if (!rw_flag)
         *fieldnum = fieldnum1 - 1;
+
+    return G2C_NOERROR;
+}
+
+/**
+ * Read or write the start of a version 1 index record.
+ *
+ * For more detail on version 1 of the index format, see the
+ * [grbindex](https://noaa-emc.github.io/NCEPLIBS-grib_util/grbindex/grbindex_8f.html)
+ * documentation in the
+ * [NCEPLIBS-grib_util](https://github.com/NOAA-EMC/NCEPLIBS-grib_util).
+ *
+ * @param f FILE * to open index file.
+ * @param rw_flag True if function should write, false if it should read.
+ * @param b2_msg Pointer that gets the bytes to skip in file before msg.
+ * @param b2_pds Pointer that gets bytes to skip in message before pds.
+ * @param b2_gds Pointer that gets bytes to skip in message before gds (0 if no gds).
+ * @param b2_bms Pointer that gets bytes to skip in message before bms (0 if no bms).
+ * @param b2_bds Pointer that gets bytes to skip in message before bds.
+ * @param msglen Pointer that gets bytes total in the message.
+ * @param version Pointer that gets grib version number (always 1 for this function).
+ * @param pds_val Pointer that gets an arry of 27 bytes of the product definition section (pds).
+ * @param gds_val Pointer that gets an arry of 41 bytes of the gds.
+ * @param bms_val Pointer that gets an arry of 5 bytes of the bms. 
+ * @param bds_val Pointer that gets an arry of 10 bytes, bytes 41-100 of the bds.
+ * @param pds_val2 Pointer that gets an arry of 59 bytes 41-100 of the pds. Ignored if null.
+ * @param pds_val3 Pointer that gets an arry of 11 bytes 29-40 of the pds. Ignored if null.
+ * @param gds_val2 Pointer that gets an arry of 135 bytes 43-178 of the gds. Ignored if null.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_EFILE File I/O error.
+ *
+ * @author Ed Hartnett 9/11/23
+ */
+int
+g2c_start_index1_record(FILE *f, int rw_flag, unsigned int *b2_msg, unsigned int *b2_pds,
+			unsigned int *b2_gds, unsigned int *b2_bms, unsigned int *b2_bds,
+			unsigned int *msglen, unsigned char *version, unsigned char *pds_val,
+			unsigned char *gds_val, unsigned char *bms_val, unsigned char *bds_val,
+			unsigned char *pds_val2, unsigned char *pds_val3, unsigned char *gds_val2)
+{
+    size_t bytes_read;    
+    int ret;
+
+    /* All pointers must be provided. */
+    if (!f || !b2_msg || !b2_pds || !b2_gds || !b2_bms || !b2_bds ||
+	!msglen || !version)
+        return G2C_EINVAL;
+
+    /* Read or write the values at the beginning of each index
+     * record. */
+    if ((ret = g2c_file_io_uint(f, rw_flag, b2_msg)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, b2_pds)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, b2_gds)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, b2_bms)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, b2_bds)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, msglen)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, version)))
+        return ret;
+
+    /* The index record contains some metadata copied directly from
+     * the file. These are arrays of unsigned char, of known
+     * length. For more detail see
+     * https://noaa-emc.github.io/NCEPLIBS-grib_util/grbindex/grbindex_8f.html. */
+    if ((bytes_read = fread(pds_val, 1, G2C_INDEX1_PDS_VAL_LEN, f)) != G2C_INDEX1_PDS_VAL_LEN)
+	return G2C_EFILE;
+    if ((bytes_read = fread(gds_val, 1, G2C_INDEX1_GDS_VAL_LEN, f)) != G2C_INDEX1_GDS_VAL_LEN)
+	return G2C_EFILE;
+    if ((bytes_read = fread(bms_val, 1, G2C_INDEX1_BMS_VAL_LEN, f)) != G2C_INDEX1_BMS_VAL_LEN)
+	return G2C_EFILE;
+    if ((bytes_read = fread(bds_val, 1, G2C_INDEX1_BDS_VAL_LEN, f)) != G2C_INDEX1_BDS_VAL_LEN)
+	return G2C_EFILE;
 
     return G2C_NOERROR;
 }
@@ -470,6 +550,218 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 }
 
 /**
+ * Read the header record apparently named after Steve Lord. 
+ *
+ * This function reads the first of two 81-byte header records of an
+ * index file.
+ *
+ * @param f Pointer to open FILE.
+ * @param ip Pointer that gets i value. Ignored if NULL.
+ * @param jp Pointer that gets j value. Ignored if NULL.
+ * @param kp Pointer that gets k value. Ignored if NULL.
+ * @param date_str Pointer to char array of size
+ * ::G2C_INDEX_DATE_STR_LEN + 1 which will get the date string from the
+ * header. Ignored if NULL.
+ * @param time_str Pointer to char array of size
+ * ::G2C_INDEX_TIME_STR_LEN + 1 which will get the time string from the
+ * header. Ignored if NULL.
+ *
+ * @returns 0 for success, error code otherwise.
+ *
+ * @author Edward Hartnett @date 9/10/23
+*/
+static int
+read_hdr_rec1(FILE *f, int *ip, int *jp, int *kp, char *date_str, char *time_str)
+{
+    size_t bytes_read;
+    char line[G2C_INDEX_HEADER_LEN + 1];
+    char str1[G2C_INDEX_STR1_LEN + 1];
+    char my_date_str[G2C_INDEX_DATE_STR_LEN + 1];
+    char my_time_str[G2C_INDEX_TIME_STR_LEN + 1];
+    int i, j, k;
+    
+    /* Read the first line of header. */
+    if ((bytes_read = fread(line, 1, G2C_INDEX_HEADER_LEN, f)) != G2C_INDEX_HEADER_LEN)
+	return G2C_EFILE;
+    line[G2C_INDEX_HEADER_LEN] = 0;
+    
+    /* Scan the line. */
+    {
+	char long_date_str[G2C_INDEX_HEADER_LEN + 1], long_time_str[G2C_INDEX_HEADER_LEN + 1];
+	char long_str1[G2C_INDEX_HEADER_LEN + 1];
+        
+	sscanf(line, "%s %d %d %d %s %s GB2IX1", long_str1, &i, &j, &k, long_date_str, long_time_str);
+	memcpy(str1, long_str1, G2C_INDEX_STR1_LEN);
+	date_str[G2C_INDEX_STR1_LEN] = 0;
+	memcpy(date_str, long_date_str, G2C_INDEX_DATE_STR_LEN);
+	date_str[G2C_INDEX_DATE_STR_LEN] = 0;
+	memcpy(time_str, long_time_str, G2C_INDEX_TIME_STR_LEN);
+	time_str[G2C_INDEX_TIME_STR_LEN] = 0;
+    }
+    LOG((2, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
+	 time_str));
+
+    /* Return info to caller where desired. */
+    if (ip)
+	*ip = i;
+    if (jp)
+	*jp = j;
+    if (kp)
+	*kp = k;
+    if (date_str)
+	strncpy(date_str, my_date_str, G2C_INDEX_DATE_STR_LEN + 1);	
+    if (time_str)
+	strncpy(time_str, my_time_str, G2C_INDEX_TIME_STR_LEN + 1);	
+    
+    return G2C_NOERROR;
+}
+
+/**
+ * Read the second header record of an index file
+ *
+ * This function reads the second of two 81-byte header records of an
+ * index file.
+ *
+ * @param f Pointer to open FILE.
+ * @param skipp Pointer that gets number of bytes to skip before index
+ * records. Ignored if NULL.
+ * @param total_lenp Pointer that gets number of bytes in each index
+ * record. Ignored if NULL.
+ * @param num_recp Pointer that gets number of index records in the
+ * file. Ignored if NULL.
+ * @param basename Pointer to char array of size
+ * ::G2C_INDEX_BASENAME_LEN + 1 which will get the basename string from the
+ * second header record. Ignored if NULL.
+ *
+ * @returns 0 for success, error code otherwise.
+ *
+ * @author Edward Hartnett @date 9/10/23
+*/
+static int
+read_hdr_rec2(FILE *f, int *skipp, int *total_lenp, int *num_recp, char *basename)
+{
+    size_t bytes_read;
+    char line[G2C_INDEX_HEADER_LEN + 1];
+    int skip, total_len, num_rec;    
+    char my_basename[G2C_INDEX_BASENAME_LEN + 1];
+    
+    /* Read the second line of header. */
+    if ((bytes_read = fread(line, 1, G2C_INDEX_HEADER_LEN, f)) != G2C_INDEX_HEADER_LEN)
+	return G2C_EFILE;
+    line[G2C_INDEX_HEADER_LEN] = 0;
+    /* Scan the line. Hard! */
+    {
+	char long_basename[G2C_INDEX_HEADER_LEN + 1];
+	sscanf(line, "IX1FORM: %d %d %d %s", &skip, &total_len, &num_rec, long_basename);
+	memcpy(my_basename, long_basename, G2C_INDEX_BASENAME_LEN);
+	my_basename[G2C_INDEX_BASENAME_LEN] = 0;
+    }
+
+    /* Return info to caller where desired. */
+    if (skipp)
+	*skipp = skip;
+    if (total_lenp)
+	*total_lenp = total_len;
+    if (num_recp)
+	*num_recp = num_rec;
+    if (basename)
+	strncpy(basename, my_basename, G2C_INDEX_BASENAME_LEN + 1);	
+    
+    return G2C_NOERROR;
+}
+
+/**
+ * Open a GRIB1 index file and read the contents.
+ *
+ * @param index_file The name that will be given to the index file. An
+ * existing file will be overwritten.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ *
+ * @author Ed Hartnett @date 10/12/22
+ */
+int
+g2c_open_index1(const char *index_file)
+{
+    FILE *f;
+    int i, j, k;
+    char date_str[G2C_INDEX_DATE_STR_LEN + 1];
+    char time_str[G2C_INDEX_TIME_STR_LEN + 1];
+    int skip, total_len, num_rec;    
+    char basename[G2C_INDEX_BASENAME_LEN + 1];
+    size_t file_pos = G2C_INDEX_HEADER_LEN * 2;
+    unsigned char pds_val[G2C_INDEX1_PDS_VAL_LEN];
+    unsigned char gds_val[G2C_INDEX1_GDS_VAL_LEN];
+    unsigned char bms_val[G2C_INDEX1_BMS_VAL_LEN];
+    unsigned char bds_val[G2C_INDEX1_BDS_VAL_LEN];
+    int rec;
+    int ret = G2C_NOERROR;
+
+    /* Check inputs. */
+    if (!index_file)
+        return G2C_EINVAL;
+
+    LOG((1, "g2c_open_index1 index_file %s", index_file));
+
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
+    /* Open the index file. */
+    if (!(f = fopen(index_file, "rb")))
+        return G2C_EFILE;
+
+    /* Read header record apparently named after Steve Lord. */
+    if ((ret = read_hdr_rec1(f, &i, &j, &k, date_str, time_str)))
+	return ret;
+    LOG((2, "i %d j %d k %d date_str %s time_str %s", i, j, k, date_str, time_str));
+
+    /* Read second header record. */
+    if ((ret = read_hdr_rec2(f, &skip, &total_len, &num_rec, basename)))
+	return ret;
+    LOG((2, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
+
+    /* Read each index record. These is one record for each message in
+       the original GRIB1 file. */
+    for (rec = 0; rec < num_rec; rec++)
+    {
+	unsigned int b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen;
+	unsigned char version;
+
+	/* Move to beginning of index record. */
+	if (fseek(f, file_pos, SEEK_SET))
+	{
+	    ret = G2C_EFILE;
+	    break;
+	}
+
+	/* Read the index1 record. */
+	LOG((4, "reading index1 record at file position %ld", ftell(f)));
+	if ((ret = g2c_start_index1_record(f, G2C_FILE_READ, &b2_msg, &b2_pds, &b2_gds,
+					   &b2_bms, &b2_bds, &msglen, &version, pds_val,
+					   gds_val, bms_val, bds_val, NULL, NULL, NULL)))
+	    break;
+
+	LOG((3, "b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d",
+	     b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version));
+	printf("b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d\n",
+	       b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version);
+
+	/* Move the file position to the start of the next index record. */
+	file_pos += total_len;
+    } /* next rec */
+
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
+
+    /* Close the index file. */
+    if (!ret)
+        fclose(f);
+
+    return ret;
+}
+
+/**
  * Open a GRIB2 file with the help of an index file.
  *
  * The index file, generated by the grb2index utility, of the
@@ -585,10 +877,6 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                  "msglen %ld version %d discipline %d fieldnum %d",
                  reclen, msg, local, gds, pds, drs, bms, data, msglen,
                  version, discipline, fieldnum));
-            /* printf("reclen %d msg %d local %d gds %d pds %d drs %d bms %d data %d " */
-            /*      "msglen %ld version %d discipline %d fieldnum %d", */
-            /*      reclen, msg, local, gds, pds, drs, bms, data, msglen, */
-            /*      version, discipline, fieldnum); */
 
             /* Read the metadata for sections 3, 4, and 5 from
              * the index record. */

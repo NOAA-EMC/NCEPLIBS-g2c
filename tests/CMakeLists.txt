@@ -68,6 +68,7 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   "ref_WW3_Regional_US_West_Coast_20220718_0000.txt"
   "testgrib2.grb2"
   "ref_testgrib2.grb2.degrib2"
+  "ref_gdaswave_2.grib1.idx"
   )
 
 # Copy extra files if needed.
@@ -155,6 +156,7 @@ if(FTP_TEST_FILES)
 endif()
 
 # Always run these tests.
+g2c_test(tst_index1)
 g2c_test(tst_g2_create)
 g2c_test(tst_g2_addgrid)
 g2c_test(tst_g2_addfield)
@@ -206,6 +208,7 @@ if(USE_Jasper)
   if(UTILS)
     gu_test(run_compare_tests)
     gu_test(run_degrib2_tests)
+    gu_test(run_index_tests)
   endif()
 endif()
 
