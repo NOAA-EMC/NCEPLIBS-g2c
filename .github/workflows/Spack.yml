@@ -1,0 +1,94 @@
+# This is a CI workflow for the NCEPLIBS-g2c project.
+#
+# This workflow builds g2c with Spack, including installing with the "--test
+# root" option to run the CTest suite. It also has a one-off job that validates
+# the recipe by ensuring that every CMake option that should be set in the
+# Spack recipe is so set.
+#
+# Alex Richert, Sep 2023
+name: Spack
+on:
+  push:
+    branches:
+    - develop
+  pull_request:
+    branches:
+    - develop
+
+jobs:
+  # This job builds with Spack using every combination of variants and runs the CTest suite each time
+  Spack:
+
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+        png: ["+png", "~png"]
+        jpeg: ["+jasper~openjpeg", "~jasper+openjpeg"]
+        pic: ["+pic", "~pic"]
+        libs: ["libs=shared", "libs=static"]
+        pthreads: ["+pthreads", "~pthreads"]
+        utils: ["+utils", "~utils"]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+
+    - name: checkout-g2c
+      uses: actions/checkout@v4
+      with:
+        path: g2c
+
+    - name: cache-spack
+      id: cache-spack
+      uses: actions/cache@v3
+      with:
+        path: ~/spack-build-cache
+        key: spack-build-cache-${{ matrix.os }}-1
+
+    - name: spack-build-and-test
+      run: |
+        git clone -c feature.manyFiles=true https://github.com/spack/spack
+        . spack/share/spack/setup-env.sh
+        spack env create g2c-env
+        spack env activate g2c-env
+        cp $GITHUB_WORKSPACE/g2c/spack/package.py $SPACK_ROOT/var/spack/repos/builtin/packages/g2c/package.py
+        mv $GITHUB_WORKSPACE/g2c $SPACK_ENV/g2c
+        spack develop --no-clone g2c@develop
+        spack add g2c@develop%gcc@11
+        spack external find cmake gmake
+        spack mirror add spack-build-cache ~/spack-build-cache
+        spack concretize
+        # Run installation and run CTest suite
+        spack install --fail-fast --no-check-signature --test root
+        # Print test results
+        cat $(spack location -i g2c)/.spack/install-time-test-log.txt
+        # Run 'spack load' to check for obvious errors in setup_run_environment
+        echo "Loading g2c through Spack..."
+        spack load g2c
+        spack buildcache push --only dependencies --unsigned ~/spack-build-cache g2c
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: ${{ failure() }}
+      with:
+        name: spackci-ctest-output-${{ matrix.os }}-${{ matrix.openmp }}
+        path: ${{ github.workspace }}/g2c/spack-build-*/Testing/Temporary/LastTest.log
+
+  # This job validates the Spack recipe by making sure each cmake build option is represented
+  recipe-check:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: checkout-g2c
+      uses: actions/checkout@v4
+      with:
+        path: g2c
+
+    - name: recipe-check
+      run: |
+        echo "If this jobs fails, look at the most recently output CMake option below and make sure that option appears in spack/package.py"
+        excl="ENABLE_DOCS|FTP_TEST_FILES|FTP_LARGE_TEST_FILES|FTP_EXTRA_TEST_FILES|LOGGING"
+        for opt in $(grep -ioP '^option\(\K(?!($excl))[^ ]+' $GITHUB_WORKSPACE/g2c/CMakeLists.txt) ; do
+          echo "Checking for presence of '$opt' CMake option in package.py"
+          grep -cP "define.+\b${opt}\b" $GITHUB_WORKSPACE/g2c/spack/package.py
+        done
