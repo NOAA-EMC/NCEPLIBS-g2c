@@ -52,7 +52,7 @@ jobs:
         spack env activate g2c-env
         cp $GITHUB_WORKSPACE/g2c/spack/package.py $SPACK_ROOT/var/spack/repos/builtin/packages/g2c/package.py
         spack develop --no-clone --path $GITHUB_WORKSPACE/g2c g2c@develop
-        spack add g2c@develop%gcc@11 libs=${{ matrix.libs }}
+        spack add g2c@develop%gcc@11 ${{ matrix.png }} ${{ matrix.jpeg }} ${{ matrix.pic}} libs=${{ matrix.libs }} ${{ matrix.pthreads }} ${{ matrix.utils }}
         spack external find cmake gmake
         spack mirror add spack-build-cache ~/spack-build-cache
         spack concretize
