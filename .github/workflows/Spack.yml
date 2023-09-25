@@ -64,7 +64,7 @@ jobs:
         echo 'Loading g2c through Spack and checking $G2C_LIB ...'
         spack load g2c
         if [ ${{ matrix.libs }} == "libs=shared" ]; then suffix="so" ; else suffix="a"; fi
-        ls ${G2C_LIB${{ matrix.precision }}} | grep -cE '/libg2c_${{ matrix.precision }}\.'$suffix'$'
+        ls ${G2C_LIB${{ matrix.precision }}} | grep -cE '/libg2c\.'$suffix'$'
         # Setup build cache (automatically skipped if it already exists)
         spack buildcache push --only dependencies --unsigned ~/spack-build-cache g2c
 
