@@ -42,7 +42,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/spack-build-cache
-        key: spack-build-cache-${{ matrix.os }}-${{ matrix.jpeg }}-${{ matrix.png }}-1
+        key: spack-build-cache-${{ matrix.os }}-${{ matrix.jpeg }}-${{ matrix.png }}-1 # Only include 'matrix' items that affect dependencies
 
     - name: spack-build-and-test
       run: |
@@ -78,7 +78,7 @@ jobs:
       uses: actions/upload-artifact@v3
       if: ${{ failure() }}
       with:
-        name: spackci-ctest-output-${{ matrix.os }}-${{ matrix.openmp }}
+        name: spackci-ctest-output-${{ matrix.os }}-${{ matrix.png }}-${{ matrix.jpeg }}-${{ matrix.pic}}-${{ matrix.libs }}-${{ matrix.pthreads }}-${{ matrix.utils }}
         path: ${{ github.workspace }}/g2c/spack-build-*/Testing/Temporary/LastTest.log
 
   # This job validates the Spack recipe by making sure each cmake build option is represented
