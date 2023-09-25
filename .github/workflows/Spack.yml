@@ -88,7 +88,7 @@ jobs:
       run: |
         echo "If this jobs fails, look at the most recently output CMake option below and make sure that option appears in spack/package.py"
         excl="ENABLE_DOCS|FTP_TEST_FILES|FTP_LARGE_TEST_FILES|FTP_EXTRA_TEST_FILES|LOGGING"
-        for opt in $(grep -ioP '^option\(\K(?!($excl))[^ ]+' $GITHUB_WORKSPACE/g2c/CMakeLists.txt) ; do
+        for opt in $(grep -ioP "^option\(\K(?!($excl))[^ ]+" $GITHUB_WORKSPACE/g2c/CMakeLists.txt) ; do
           echo "Checking for presence of '$opt' CMake option in package.py"
           grep -cP "define.+\b${opt}\b" $GITHUB_WORKSPACE/g2c/spack/package.py
         done
