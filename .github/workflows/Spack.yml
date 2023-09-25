@@ -68,6 +68,8 @@ jobs:
         if [[ ${{ matrix.png }} == '+png' && ${{ matrix.libs }} == 'shared' ]]; then ldd $G2C_LIB | grep -c libpng; fi
         if [ ${{ matrix.utils }} == '+utils' ]; then
           ls $(spack location -i g2c)/bin/{g2c_compare,g2c_degrib2,g2c_index}
+        else
+          if [ -d $(spack location -i g2c)/bin ]; then echo "utils were built but shouldn't have been!"; exit 1; fi
         fi
         # Setup build cache (automatically skipped if it already exists)
         spack buildcache push --only dependencies --unsigned ~/spack-build-cache g2c
