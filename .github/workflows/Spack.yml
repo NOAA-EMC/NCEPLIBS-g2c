@@ -58,7 +58,7 @@ jobs:
         # Run 'spack load' to check for obvious errors in setup_run_environment
         echo 'Loading g2c through Spack and checking $G2C_LIB ...'
         spack load g2c
-        if [[ "${{ matrix.variants }}" =~ (libs=shared[+~]?$) ]]; then suffix="so" ; else suffix="a"; fi
+        if [[ "${{ matrix.variants }}" =~ "libs=shared" ]]; then suffix="so" ; else suffix="a"; fi
         ls $G2C_LIB | grep -cE '/libg2c\.'$suffix'$'
         if [[ "${{ matrix.variants }}" =~ (+png[+~]?$) && "${{ matrix.variants }}" =~ (libs=shared[+~]?$) ]]; then ldd $G2C_LIB | grep -c libpng; fi
         if [[ "${{ matrix.variants }}" =~ (+utils[+~]?$) ]]; then
