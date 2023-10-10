@@ -85,6 +85,7 @@ jobs:
         set -x
         export CC=gcc
         export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address'
+        export LD_LIBRARY_PATH="/home/runner/jasper/lib:$LD_LIBRARY_PATH"
         cd g2c
         mkdir build
         cd build
