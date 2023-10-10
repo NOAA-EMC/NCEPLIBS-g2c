@@ -22,12 +22,7 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest"]
-        png: ["+png", "~png"]
-        jpeg: ["+jasper~openjpeg", "~jasper+openjpeg"]
-        pic: ["+pic", "~pic"]
-        libs: ["shared", "static"]
-        pthreads: ["+pthreads", "~pthreads"]
-        utils: ["+utils", "~utils"]
+        variants: ["libs=shared+png+jasper~openjpeg+pic+pthreads+utils", "libs=static~png~jasper+openjpeg~pic~pthreads~utils"]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -42,7 +37,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/spack-build-cache
-        key: spack-build-cache-${{ matrix.os }}-${{ matrix.jpeg }}-${{ matrix.png }}-1 # Only include 'matrix' items that affect dependencies
+        key: spack-build-cache-${{ matrix.os }}-${{ matrix.variants }}-1
 
     - name: spack-build-and-test
       run: |
@@ -52,7 +47,7 @@ jobs:
         spack env activate g2c-env
         cp $GITHUB_WORKSPACE/g2c/spack/package.py $SPACK_ROOT/var/spack/repos/builtin/packages/g2c/package.py
         spack develop --no-clone --path $GITHUB_WORKSPACE/g2c g2c@develop
-        spack add g2c@develop%gcc@11 ${{ matrix.png }} ${{ matrix.jpeg }} ${{ matrix.pic}} libs=${{ matrix.libs }} ${{ matrix.pthreads }} ${{ matrix.utils }}
+        spack add g2c@develop%gcc@11 ${{ matrix.variants }}
         spack external find cmake gmake
         spack mirror add spack-build-cache ~/spack-build-cache
         spack concretize
@@ -63,10 +58,10 @@ jobs:
         # Run 'spack load' to check for obvious errors in setup_run_environment
         echo 'Loading g2c through Spack and checking $G2C_LIB ...'
         spack load g2c
-        if [ ${{ matrix.libs }} == 'shared' ]; then suffix="so" ; else suffix="a"; fi
+        if [[ ${{ matrix.variants }} =~ (libs=shared[+~]?$) ]]; then suffix="so" ; else suffix="a"; fi
         ls $G2C_LIB | grep -cE '/libg2c\.'$suffix'$'
-        if [[ ${{ matrix.png }} == '+png' && ${{ matrix.libs }} == 'shared' ]]; then ldd $G2C_LIB | grep -c libpng; fi
-        if [ ${{ matrix.utils }} == '+utils' ]; then
+        if [[ ${{ matrix.variants }} =~ (+png[+~]?$) && ${{ matrix.variants }} =~ (libs=shared[+~]?$) ]]; then ldd $G2C_LIB | grep -c libpng; fi
+        if [ ${{ matrix.variants }} =~ (+utils[+~]?$) ' ]; then
           ls $(spack location -i g2c)/bin/{g2c_compare,g2c_degrib2,g2c_index}
         else
           if [ -f $(spack location -i g2c)/bin/g2c_compare ]; then echo "utils were built but shouldn't have been!"; exit 1; fi
@@ -78,7 +73,7 @@ jobs:
       uses: actions/upload-artifact@v3
       if: ${{ failure() }}
       with:
-        name: spackci-ctest-output-${{ matrix.os }}-${{ matrix.png }}-${{ matrix.jpeg }}-${{ matrix.pic}}-${{ matrix.libs }}-${{ matrix.pthreads }}-${{ matrix.utils }}
+        name: spackci-ctest-output-${{ matrix.os }}-${{ matrix.variants }}
         path: ${{ github.workspace }}/g2c/spack-build-*/Testing/Temporary/LastTest.log
 
   # This job validates the Spack recipe by making sure each cmake build option is represented
