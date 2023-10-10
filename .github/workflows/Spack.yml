@@ -61,7 +61,7 @@ jobs:
         if [[ "${{ matrix.variants }}" =~ (libs=shared[+~]?$) ]]; then suffix="so" ; else suffix="a"; fi
         ls $G2C_LIB | grep -cE '/libg2c\.'$suffix'$'
         if [[ "${{ matrix.variants }}" =~ (+png[+~]?$) && "${{ matrix.variants }}" =~ (libs=shared[+~]?$) ]]; then ldd $G2C_LIB | grep -c libpng; fi
-        if [ "${{ matrix.variants }}" =~ (+utils[+~]?$) ' ]; then
+        if [[ "${{ matrix.variants }}" =~ (+utils[+~]?$) ]]; then
           ls $(spack location -i g2c)/bin/{g2c_compare,g2c_degrib2,g2c_index}
         else
           if [ -f $(spack location -i g2c)/bin/g2c_compare ]; then echo "utils were built but shouldn't have been!"; exit 1; fi
