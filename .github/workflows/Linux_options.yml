@@ -90,7 +90,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=~/install -DCMAKE_PREFIX_PATH=~/Jasper ..
+        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=~/g2c/install -DCMAKE_PREFIX_PATH=~/Jasper ..
         make -j2
         ctest --verbose --output-on-failure --rerun-failed
         make install
