@@ -91,7 +91,8 @@ jobs:
         cd build
         cmake -DJasper_ROOT=~/jasper -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
         make -j2 VERBOSE=1
-        ctest -LE "^noMemcheck$" --verbose --output-on-failure --rerun-failed -T memcheck        
+        ctest --verbose --output-on-failure --rerun-failed
+#        ctest -LE "^noMemcheck$" --verbose --output-on-failure --rerun-failed -T memcheck        
         ls -l
         
     - name: cache-data
