@@ -115,6 +115,8 @@ function(gu_test name)
     FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
   # Add the shell script as a test.
   add_test(NAME ${name}.sh COMMAND bash ${name}.sh)
+  # Turn off memory checking in CI for this test.
+  set_tests_properties(${name}.sh PROPERTIES LABELS noMemcheck)
 endfunction()
 
 # Does the user want to get extra test files from the FTP site, and
