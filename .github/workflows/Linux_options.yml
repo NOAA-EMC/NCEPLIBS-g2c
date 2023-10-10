@@ -45,6 +45,10 @@ jobs:
             name: "pthreads",
             options: "-DPTHREADS=ON -DLOGGING=ON -DJasper_ROOT=~/Jasper"
           }
+        - {
+            name: "shared",
+            options: "-DBUILD_SHARED_LIBS=ON"
+          }
 
     steps:
     - name: install-dependencies
@@ -86,6 +90,12 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" ..
+        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=~/g2c/install -DCMAKE_PREFIX_PATH=~/Jasper ..
         make -j2
         ctest --verbose --output-on-failure --rerun-failed
+        make install
+        if [ "${{ matrix.config.options }}" = "-DBUILD_SHARED_LIBS=ON" ]; then
+           ls -l ~/g2c/install/lib/lib*.so || exit 1
+        else
+           ls -l ~/g2c/install/lib/lib*.a || exit 1
+        fi
