@@ -57,3 +57,78 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
     return G2C_NOERROR;
 }
 
+#ifdef LOGGING
+/* This is the severity level of messages which will be logged. Use
+   severity 0 for errors, 1 for important log messages, 2 for less
+   important, etc. */
+int g2_log_level = -1;
+
+/* This function prints out a message, if the severity of
+ * the message is lower than the global g2_log_level. To use it, do
+ * something like this:
+ *
+ * g2_log(0, "this computer will explode in %d seconds", i);
+ *
+ * After the first arg (the severity), use the rest like a normal
+ * printf statement. Output will appear on stderr.
+ *
+ * This function is not included in the build unless NCEPLIBS-g2c was
+ * built with -DLOGGING.
+ *
+ * Ed Hartnett
+ */
+void
+g2_log(int severity, const char *fmt, ...)
+{
+    va_list argp;
+    int t;
+    FILE *f = stderr;
+
+    /* If the severity is greater than the log level, we don't print
+     * this message. */
+    if (severity > g2_log_level)
+        return;
+
+    /* If the severity is zero, this is an error. Otherwise insert that
+       many tabs before the message. */
+    if (!severity)
+        fprintf(f, "ERROR: ");
+    for (t = 0; t < severity; t++)
+        fprintf(f, "\t");
+
+    /* Print out the variable list of args with vprintf. */
+    va_start(argp, fmt);
+    vfprintf(f, fmt, argp);
+    va_end(argp);
+
+    /* Put on a final linefeed. */
+    fprintf(f, "\n");
+    fflush(f);
+}
+#endif /* LOGGING */
+
+/**
+ * Use this to set the global log level. 
+ * 
+ * Set it to -1 to turn off all logging. Set it
+ * to 0 to show only errors, and to higher numbers to show more and
+ * more logging details. If logging is not enabled when building
+ * NCEPLIBS-g2c, this function will do nothing.
+ *
+ * @param new_level The new logging level.
+ *
+ * @return ::G2C_NOERROR No error.
+ * @author Ed Hartnett
+ */
+int
+g2c_set_log_level(int new_level)
+{
+#ifdef LOGGING
+    /* Remember the new level. */
+    g2_log_level = new_level;
+
+    LOG((1, "log_level changed to %d", g2_log_level));
+#endif
+    return G2C_NOERROR;
+}
+
