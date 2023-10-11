@@ -43,11 +43,11 @@ jobs:
           }
         - {
             name: "g2c",
-            options: "-DBUILD_G2C=ON -DPTHREADS=ON -DLOGGING=ON -DJasper_ROOT=~/Jasper"
+            options: "-DBUILD_G2C=ON -DPTHREADS=OFF -DLOGGING=ON -DJasper_ROOT=~/Jasper"
           }
         - {
-            name: "pthreads",
-            options: "-DPTHREADS=ON -DLOGGING=ON -DJasper_ROOT=~/Jasper"
+            name: "g2c_pthreads",
+            options: "-DBUILD_G2C=ON -DPTHREADS=ON -DLOGGING=ON -DJasper_ROOT=~/Jasper"
           }
         - {
             name: "shared",
