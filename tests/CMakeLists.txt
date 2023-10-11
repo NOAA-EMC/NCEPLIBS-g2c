@@ -210,13 +210,13 @@ if(USE_Jasper OR USE_OpenJPEG)
 endif()
 
 # Run these shell tests, which require Jasper.
-if(USE_Jasper)
-  if(UTILS)
-    gu_test(run_compare_tests)
-    if(BUILD_G2C)
+if(BUILD_G2C)
+  if(USE_Jasper)
+    if(UTILS)
+      gu_test(run_compare_tests)
       gu_test(run_degrib2_tests)
+      gu_test(run_index_tests)
     endif()
-    gu_test(run_index_tests)
   endif()
 endif()
 
