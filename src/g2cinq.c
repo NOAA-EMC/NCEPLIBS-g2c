@@ -300,3 +300,83 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
 
     return ret;
 }
+
+/**
+ * Learn about the one of the dimensions of a GRIB2 product.
+ *
+ * @param g2cid ID of the opened file, as from g2c_open().
+ * @param msg_num Number of the message in the file, starting with the
+ * first message as 0.
+ * @param prod_num Product number.
+ * @param dim_num Dimension number, with the first dimension as 0.
+ * @param len Pointer that gets the length of this dimension. Ignored if NULL.
+ * @param name Pointer that gets the name of this dimension. Must have
+ * memory of size G2C_MAX_NAME. Ignored if NULL.
+ * @param val Pointer that gets array of dimension values, of length
+ * len. Ignored if NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EBADID File ID not found.
+ * - ::G2C_ENOMSG Message not found.
+ * - ::G2C_ENOPRODUCT Product not found.
+ * - ::G2C_ENOSECTION GDS not found.
+ *
+ * @author Ed Hartnett @date 10/21/22
+ */
+int
+g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
+                char *name, float *val)
+{
+    G2C_MESSAGE_INFO_T *msg;
+    G2C_SECTION_INFO_T *sec4, *sec3;
+    G2C_DIM_INFO_T *dim;
+    int d;
+    int ret = G2C_NOERROR;
+
+    /* Is this an open GRIB2 file? */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+        return G2C_EBADID;
+
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
+    if (g2c_file[g2cid].g2cid != g2cid)
+        return G2C_EBADID;
+
+    /* Find the message. */
+    for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+        if (msg->msg_num == msg_num)
+            break;
+    if (!msg)
+        return G2C_ENOMSG;
+
+    /* Find the product. After this, sec4 will point to the
+     * appropropriate section 4 G2C_SECTION_INFO_T. */
+    for (sec4 = msg->sec; sec4; sec4 = sec4->next)
+        if (sec4->sec_num == 4 && ((G2C_SECTION4_INFO_T *)sec4->sec_info)->field_num == prod_num)
+            break;
+    if (!sec4)
+        return G2C_ENOPRODUCT;
+    /* sec4_info = (G2C_SECTION4_INFO_T *)sec4->sec_info; */
+
+    /* Find the GDS. */
+    for (sec3 = sec4->prev; sec3; sec3 = sec3->prev)
+        if (sec3->sec_num == 3)
+            break;
+    if (!sec3)
+        return G2C_ENOSECTION;
+    dim = &((G2C_SECTION3_INFO_T *)sec3->sec_info)->dim[dim_num];
+
+    /* Give the caller the info they want. */
+    if (len)
+        *len = dim->len;
+    if (name)
+        strncpy(name, dim->name, G2C_MAX_NAME);
+    if (val)
+        for (d = 0; d < dim->len; d++)
+            val[d] = dim->value[d];
+        
+
+    return ret;
+}

@@ -126,6 +126,8 @@ jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 {
     int ret;
     
+    LOG((2, "g2c_jpcunpack len %lld ndpts %lld", len, ndpts));
+
     if ((ret = jpcunpack_int(cpack, len, idrstmpl, ndpts, fld, 0, 1)) == G2_JPCUNPACK_MEM)
 	return G2_JPCUNPACK_MEM;
 
@@ -161,6 +163,8 @@ g2c_jpcunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
     g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
     int i;
+
+    LOG((2, "g2c_jpcunpackf len %d ndpts %lld", len, ndpts));
     
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
@@ -199,6 +203,8 @@ g2c_jpcunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
     g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
     int i;
+    
+    LOG((2, "g2c_jpcunpackd len %lld ndpts %lld", len, ndpts));
     
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];

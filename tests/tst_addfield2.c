@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "grib2.h"
 #include "grib2_int.h"
 
 #define SEC0_LEN 16
@@ -99,6 +100,14 @@ main()
                                idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != -3)
             return G2C_ERROR;
         cgrib[15] = old_val;
+
+        /* Mess up ipdsnum and try to add section 4, 5, 6. Won't work. */
+        old_val = ipdsnum;
+        ipdsnum = 9999;
+        if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
+                               idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap)) != G2_ADDFIELD_BAD_PDT)
+            return G2C_ERROR;
+        ipdsnum = old_val;
 
         /* Add sections 4, 5, 6, and 7. */
         if ((ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,

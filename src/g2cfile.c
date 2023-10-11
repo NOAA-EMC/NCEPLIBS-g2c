@@ -282,6 +282,67 @@ find_available_g2cid(int *g2cid)
     return ret;
 }
 
+
+/**
+ * Determine the dimension information from the section 3 metadata.
+ *
+ * See (GRIB2 - SECTION 3 GRID DEFINITION
+ * SECTION)[https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml].
+ *
+ * For a list of grid definitions see [GRIB2 - TABLE 3.1 Grid
+ * Definition Template
+ * Number](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_table3-1.shtml).
+ *
+ * @param sec G2C_SECTION3_INFO_T struct.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_ENOMEM Out of memory.
+ *
+ * @author Ed Hartnett @date Sep 15, 2022
+ */
+static int
+determine_dims(G2C_SECTION_INFO_T *sec)
+{
+    G2C_DIM_INFO_T *d0, *d1;
+    G2C_SECTION3_INFO_T *sec3_info;
+    int d;
+
+    sec3_info = (G2C_SECTION3_INFO_T *)(sec->sec_info);
+    d0 = &(sec3_info->dim[0]);
+    d1 = &(sec3_info->dim[1]);
+
+    /* Based on the grid definition template number, and the contents
+     * of the template, decide the len, name, and values of the two
+     * dimensions. */
+    switch (sec3_info->grid_def)
+    {
+    case 0:
+        LOG((5, "determine_dim allocating storage for lat/lon values"));
+        d0->len = sec->template[8];
+        strncpy(d0->name, LATITUDE, G2C_MAX_NAME);
+        if (!(d0->value = malloc(d0->len * sizeof(float))))
+            return G2C_ENOMEM;
+        d0->value[0] = sec->template[11];
+        for (d = 1; d < d0->len; d++)
+            d0->value[d] = d0->value[d - 1] - sec->template[16];
+        
+        d1->len = sec->template[7];
+        strncpy(d1->name, LONGITUDE, G2C_MAX_NAME);
+        if (!(d1->value = malloc(d1->len * sizeof(float))))
+            return G2C_ENOMEM;
+        d1->value[0] = sec->template[12];
+        for (d = 1; d < d1->len; d++)
+            d1->value[d] = d1->value[d - 1] - sec->template[17];
+        break;
+    default:
+        break;
+    }
+    
+    return G2C_NOERROR;
+}
+
 /**
  * Read the metadata from section 3 (Grid Definition Section) of a
  * GRIB2 message.
@@ -293,7 +354,7 @@ find_available_g2cid(int *g2cid)
  *
  * @param f FILE pointer to open GRIB2 file.
  * @param rw_flag ::G2C_FILE_WRITE if function should write,
- * ::G2C_FILE_READ if it should read.
+ * ::G2C_FILE_READ (0) if it should read. 
  * @param sec Pointer to the G2C_SECTION_INFO_T struct.
  *
  * @return
@@ -368,6 +429,11 @@ g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     /* Attach sec3_info to our section data. */
     if (!rw_flag)
         sec->sec_info = sec3_info;
+
+    /* Figure out the dimensions, if we can. */
+    if (!rw_flag)
+        if ((ret = determine_dims(sec)))
+            return ret;
 
     LOG((6, "finished reading or writing section 3 at file position %ld", ftell(f)));
     return G2C_NOERROR;
@@ -1139,6 +1205,17 @@ free_metadata(int g2cid)
             stmp = sec->next;
             if (sec->template)
                 free(sec->template);
+            /* Free dim info in section 3. */
+            if (sec->sec_num == 3)
+            {
+                LOG((5, "free_metadata freeing storage for lat/lon values"));
+                float *v0 = ((G2C_SECTION3_INFO_T *)(sec->sec_info))->dim[0].value;
+                float *v1 = ((G2C_SECTION3_INFO_T *)(sec->sec_info))->dim[1].value;
+                if (v0)
+                    free(v0);
+                if (v1)
+                    free(v1);
+            }
             if (sec->sec_info)
                 free(sec->sec_info);
             free(sec);

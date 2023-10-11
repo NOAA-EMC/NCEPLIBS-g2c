@@ -34,29 +34,76 @@ cmpString(const void *p, const void *q)
  * the reference file, because the intel compiler produces slight
  * different results.
  *
+ * All the sscanf calls cause the code scanner to complain about
+ * possible overflow. Hence all the memcpys to convince the scanner
+ * that we are not going to overwrite any memory.
+ *
  * Ed Hartnett 10/6/22
  */
 int
-degrib2_lines_not_equal(char *l1, char *l2)
+degrib2_lines_not_equal(char *line1, char *l2)
 {
+    char long_abbrev[MAX_LINE_LEN + 1], long_cmin[MAX_LINE_LEN + 1];
+    char long_cavg[MAX_LINE_LEN + 1], long_cmax[MAX_LINE_LEN + 1];
     char abbrev1[G2C_MAX_NOAA_ABBREV_LEN + 1];
     char abbrev2[G2C_MAX_NOAA_ABBREV_LEN + 1];
     char cmin1[MAX_VALUE_LEN + 1], cavg1[MAX_VALUE_LEN + 1], cmax1[MAX_VALUE_LEN + 1];
     char cmin2[MAX_VALUE_LEN + 1], cavg2[MAX_VALUE_LEN + 1], cmax2[MAX_VALUE_LEN + 1];
+    char my_line[MAX_LINE_LEN + 1];
+    int len;
 
     /* If the lines are the same, we're done. */
-    if (!cmpString(l1, l2))
+    if (!cmpString(line1, l2))
         return 0;
 
     /* If the lines are different, is it a line like this:
        ( PARM= WIND ) :  MIN=               0.09999998 AVE=               5.64625024 MAX=              16.43000032
     */
-    if (sscanf(l1, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", abbrev1, cmin1, cavg1, cmax1) == 4)
+
+
+
+
+
+
+    /* We have to go through some business to convince the code
+     * scanner we are not going to overwrite any memory in our sscanf
+     * calls. */
+    len = strlen(line1) < MAX_LINE_LEN ? strlen(line1) : MAX_LINE_LEN;
+    memcpy(my_line, line1, len);
+    my_line[len] = 0;
+    if (sscanf(my_line, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s",
+               long_abbrev, long_cmin, long_cavg, long_cmax) == 4)
     {
-        if (sscanf(l2, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s", abbrev2, cmin2, cavg2, cmax2) != 4)
+        memcpy(abbrev1, long_abbrev, G2C_MAX_NOAA_ABBREV_LEN);
+        abbrev1[G2C_MAX_NOAA_ABBREV_LEN] = 0;
+        memcpy(cmin1, long_cmin, MAX_VALUE_LEN);
+        cmin1[MAX_VALUE_LEN] = 0;
+        memcpy(cavg1, long_cavg, MAX_VALUE_LEN);
+        cavg1[MAX_VALUE_LEN] = 0;
+        memcpy(cmax1, long_cmax, MAX_VALUE_LEN);
+        cmax1[MAX_VALUE_LEN] = 0;
+
+        /* Wow, that was annoying. And now we have to do it again! */
+        len = strlen(l2) < MAX_LINE_LEN ? strlen(l2) : MAX_LINE_LEN;
+        memcpy(my_line, l2, len);
+        my_line[len] = 0;
+        if (sscanf(my_line, "( PARM= %s ) :  MIN=               %s AVE=               %s MAX=              %s",
+                   long_abbrev, long_cmin, long_cavg, long_cmax) != 4)
             return G2C_ERROR;
+        memcpy(abbrev2, long_abbrev, G2C_MAX_NOAA_ABBREV_LEN);
+        abbrev2[G2C_MAX_NOAA_ABBREV_LEN] = 0;
+        memcpy(cmin2, long_cmin, MAX_VALUE_LEN);
+        cmin2[MAX_VALUE_LEN] = 0;
+        memcpy(cavg2, long_cavg, MAX_VALUE_LEN);
+        cavg2[MAX_VALUE_LEN] = 0;
+        memcpy(cmax2, long_cmax, MAX_VALUE_LEN);
+        cmax2[MAX_VALUE_LEN] = 0;
+
+        /* Print results. */
         printf("\nabbrev1 %s min1 %s avg1 %s max1 %s\n", abbrev1, cmin1, cavg1, cmax1);
         printf("abbrev2 %s min2 %s avg2 %s max2 %s\n", abbrev2, cmin2, cavg2, cmax2);
+
+        /* Check that results match. */
         if (strcmp(abbrev1, abbrev2))
             return G2C_ERROR;
         if (strncmp(cmin1, cmin2, NUM_MATCHING))
@@ -68,7 +115,7 @@ degrib2_lines_not_equal(char *l1, char *l2)
     }
     else
     {
-        printf("\n%s\n", l1);
+        printf("\n%s\n", line1);
         printf("expected:\n%s\n", l2);
         return G2C_ERROR;
     }
@@ -84,7 +131,7 @@ int
 compare_degrib2_files2(char *fname1, char *fname2)
 {
     FILE *fp1, *fp2;
-    char l1[MAX_LINE_LEN], l2[MAX_LINE_LEN];
+    char l1[MAX_LINE_LEN + 1], l2[MAX_LINE_LEN + 1];
 
     /* Open the two files. */
     if (!(fp1 = fopen(fname1, "r")))

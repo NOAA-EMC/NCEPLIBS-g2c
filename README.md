@@ -1,9 +1,15 @@
+![Status](https://github.com/NOAA-EMC/NCEPLIBS-g2c/workflows/developer/badge.svg)
 
 # NCEPLIBS-g2c
 
 This library contains C decoder/encoder routines for GRIB edition 2.
 
-This is related to the
+GRIdded Binary or General Regularly-distributed Information in Binary
+form (GRIB) is a data format for meteorological and forecast data,
+standardized by the World Meteorological Organization (WMO). GRIB
+edition 2 (GRIB2) was approved by the WMO is 2003.
+
+This library is part of the
 [NCEPLIBS](https://github.com/NOAA-EMC/NCEPLIBS) project.
 
 For complete documentation see the latest [NCEPLIBS-g2c
@@ -19,19 +25,29 @@ The NCEPLIBS-g2c library is used by the
 (MET)](https://metplus.readthedocs.io/en/latest/) projects, among
 others.
 
+To submit bug reports, feature requests, or other code-related issues
+including installation and usage questions, please create a [GitHub
+issue](https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues). For general
+NCEPLIBS inquiries, contact [Ed
+Hartnett](mailto:edward.hartnett@noaa.gov) (secondary point of contact
+[Alex Richert](mailto:alexander.richert@noaa.gov)).
+
 ## Related NCEPLIBS Projects
 
 Repository | Notes
 -----------|------
+[NCEPLIBS-w3emc](https://github.com/NOAA-EMC/NCEPLIBS-w3emc) | Coders/decoders for GRIB1
 [NCEPLIBS-g2](https://github.com/NOAA-EMC/NCEPLIBS-g2) | Fortran implementation of the GRIB 2 functions
 [NCEPLIBS-grib_util](https://github.com/NOAA-EMC/NCEPLIBS-grib_util) | A collection of GRIB1 and GRIB2 utilities
 [NCEPLIBS-g2tmpl](https://github.com/NOAA-EMC/NCEPLIBS-g2tmpl) | Utilities for GRIB2 templates
 
 ## Authors
 
-Stephen Gilbert, Wesley Ebisuzaki, Boi Vuong, Edward Hartnett
+Wesley Ebisuzaki, Eric Engle, Stephen Gilbert, Harry Glahn, Edward
+Hartnett, Dusan Jovic, Boi Vuong, other NOAA scientists and engineers.
 
-Code Manager: Hang Lei, Edward Hartnett
+Code Manager: [Hang Lei](mailto:hang.lei@noaa.gov), [Ed
+Hartnett](mailto:edward.hartnett@noaa.gov)
 
 ## Prerequisites
 

@@ -12,7 +12,7 @@
 #define BITSHIFT_63 63 /**< 63 bits. */
 
 /**
- * Read or write a big-endian 4-byte int to an open file, with
+ * Read or write a big-endian integer type to an open file, with
  * conversion between native and big-endian format.
  *
  * GRIB2 handles negative numbers in a special way. Instead of storing
@@ -35,7 +35,7 @@
  * - :: G2C_EINVAL Invalid input.
  * - :: G2C_EFILE Error reading/writing file.
  *
- * @author Ed Hartnett 11/7/22
+ * @author Ed Hartnett @date 11/7/22
  */
 int
 g2c_file_io(FILE *f, int write, int g2ctype, void *var)

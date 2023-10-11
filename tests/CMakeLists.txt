@@ -3,6 +3,7 @@
 #
 # Ed Hartnett, 7/11/21
 # Dusan Jovic
+# Eric Engle 1/10/23
 
 # Some test files are large and are kept on the NOAA EMC FTP
 # site. This function is used to download such test data. It takes two
@@ -12,6 +13,7 @@ function(PULL_DATA THE_URL THE_FILE)
   # there before FTPing them. Developers can keep all test files on
   # their machines, and save the time of downloading them every time.
   if(NOT ${TEST_FILE_DIR} STREQUAL ".")
+    #message(STATUS "Checking for ${TEST_FILE_DIR}/${THE_FILE}.")
     if (EXISTS ${TEST_FILE_DIR}/${THE_FILE})
       message(STATUS "Copying file ${TEST_FILE_DIR}/${THE_FILE} to test data directory.")
       FILE(COPY ${TEST_FILE_DIR}/${THE_FILE}
@@ -66,7 +68,16 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   "ref_WW3_Regional_US_West_Coast_20220718_0000.txt"
   "testgrib2.grb2"
   "ref_testgrib2.grb2.degrib2"
-)
+  "ref_gdaswave_2.grib1.idx"
+  )
+
+# Copy extra files if needed.
+if(FTP_EXTRA_TEST_FILES)
+  if(FTP_LARGE_TEST_FILES)
+    set(REF_FILES ${REF_FILES} "ref_fv3lam.t00z.prslev.f000.grib2.degrib2")
+  endif()
+endif()
+
 foreach(THE_FILE IN LISTS REF_FILES) 
   FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/${THE_FILE}
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
@@ -78,19 +89,12 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
-# Run a test with util code.
-# function(g2c_testu name)
-#   add_executable(${name} ${name}.c util.c)
-#   add_dependencies(${name} g2c)
-#   target_link_libraries(${name} PRIVATE g2c)
-#   add_test(NAME ${name} COMMAND ${name})
-# endfunction()
-
-# Run a test.
+# Run a C program test.
 function(g2c_test name)
   add_executable(${name} ${name}.c util.c)
-  add_dependencies(${name} g2c)
-  target_link_libraries(${name} PRIVATE g2c)
+  target_link_libraries(${name} PUBLIC g2c::g2c)
+  target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
+  target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
   add_test(NAME ${name} COMMAND ${name})
 endfunction()
 
@@ -101,6 +105,18 @@ function(g2c_ptest name)
     target_compile_definitions(${name} PRIVATE -DPTHREADS)    
     target_link_libraries(${name} PRIVATE pthread)
   endif()
+endfunction()
+
+# Run each shell test.
+function(gu_test name)
+  # Copy the test script.
+  file(COPY "${CMAKE_SOURCE_DIR}/tests/${name}.sh"
+    DESTINATION ${CMAKE_BINARY_DIR}/tests
+    FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+  # Add the shell script as a test.
+  add_test(NAME ${name}.sh COMMAND bash ${name}.sh)
+  # Turn off memory checking in CI for this test.
+  set_tests_properties(${name}.sh PROPERTIES LABELS noMemcheck)
 endfunction()
 
 # Does the user want to get extra test files from the FTP site, and
@@ -121,12 +137,28 @@ if(FTP_TEST_FILES)
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
 
+  if(FTP_EXTRA_TEST_FILES)
+    if(FTP_LARGE_TEST_FILES)
+      set(LARGE_FTP_FILES "fv3lam.t00z.prslev.f000.grib2")
+      foreach(THE_FILE IN LISTS LARGE_FTP_FILES) 
+        PULL_DATA(${G2_FTP_URL} ${THE_FILE})
+      endforeach()
+      add_definitions(-DLARGE_FTP_TESTS)
+    endif()
+
+    set(EXTRA_FTP_FILES "MRMS_MultiSensor_QPE_24H_Pass2_00.00_20230621-110000.grib2")
+    foreach(THE_FILE IN LISTS EXTRA_FTP_FILES) 
+      PULL_DATA(${G2_FTP_URL} ${THE_FILE})
+    endforeach()
+  endif()
+
   # Add this preprocessor definition so test files can conditionally
   # include testing based on FTP files.
   add_definitions(-DFTP_TEST_FILES)
 endif()
 
 # Always run these tests.
+g2c_test(tst_index1)
 g2c_test(tst_g2_create)
 g2c_test(tst_g2_addgrid)
 g2c_test(tst_g2_addfield)
@@ -150,6 +182,7 @@ g2c_test(tst_params)
 g2c_test(tst_params2)
 g2c_test(tst_params3)
 g2c_test(tst_io)
+g2c_test(tst_metacmp)
 g2c_test(tst_inq)
 g2c_test(tst_degrib2_int)
 g2c_test(tst_degrib2_fast)
@@ -171,3 +204,21 @@ if(USE_Jasper OR USE_OpenJPEG)
   g2c_test(tst_addfield3)
   g2c_test(tst_addfield4)
 endif()
+
+# Run these shell tests, which require Jasper.
+if(USE_Jasper)
+  if(UTILS)
+    gu_test(run_compare_tests)
+    gu_test(run_degrib2_tests)
+    gu_test(run_index_tests)
+  endif()
+endif()
+
+# Run these extra tests if you have the data files to do so.
+if(FTP_EXTRA_TEST_FILES)
+  g2c_test(tst_mrms)
+endif()
+
+
+
+

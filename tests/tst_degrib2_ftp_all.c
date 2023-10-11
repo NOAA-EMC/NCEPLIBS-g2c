@@ -63,7 +63,7 @@ main()
                 /*     return G2C_ERROR; */
                 
                 /* Output a degrib2 file. */
-                g2c_set_log_level(15);
+                /* g2c_set_log_level(15); */
                 sprintf(degrib2_file, "%s.degrib2", basename(file[f]));
                 if ((ret = g2c_degrib2(g2cid, degrib2_file)))
                     return ret;
@@ -81,6 +81,69 @@ main()
         }
     }
     printf("ok!\n");
+#ifdef LARGE_FTP_TESTS
+    printf("Testing degrib2 on very large files downloaded via FTP...\n");
+    {
+#define NUM_LARGE_FILES 1
+        char file[NUM_LARGE_FILES][MAX_FILENAME_LEN + 1] = {
+            "data/fv3lam.t00z.prslev.f000.grib2"
+        };
+        int g2cid;
+        int num_msg;
+        int f;
+        int t;
+        int ret;
+
+        /* g2c_set_log_level(10); */
+        for (f = 0; f < NUM_LARGE_FILES; f++)
+        {
+            /* for (t = 0; t < 2; t++) */
+            for (t = 0; t < 1; t++)
+            {
+                char degrib2_file[MAX_FILENAME_LEN + 9];
+                char ref_degrib2_file[MAX_FILENAME_LEN + 20];
+                
+                /* Open the data file with and without the index file. */
+                if (t)
+                {
+                    printf("\ttesting degrib2 on file %s downloaded via FTP using index...", file[f]);
+                    /* if ((ret = g2c_open_index(file[f], REF_GDAS_INDEX_FILE, 0, &g2cid))) */
+                    /*     return ret; */
+                }
+                else
+                {
+                    printf("\ttesting degrib2 on file %s downloaded via FTP without using index...", file[f]);
+                    if ((ret = g2c_open(file[f], 0, &g2cid)))
+                        return ret;
+                }
+                
+                /* Check some stuff. */
+                if ((ret = g2c_inq(g2cid, &num_msg)))
+                    return ret;
+                printf("num_msg %d\n", num_msg);
+                /* if (num_msg != GDAS_NUM_MSG) */
+                /*     return G2C_ERROR; */
+                
+                /* Output a degrib2 file. */
+                /* g2c_set_log_level(15); */
+                sprintf(degrib2_file, "%s.degrib2", basename(file[f]));
+                if ((ret = g2c_degrib2(g2cid, degrib2_file)))
+                    return ret;
+                
+                /* Close the file. */
+                if ((ret = g2c_close(g2cid)))
+                    return ret;
+                
+                /* Compare the degrib2 output to our reference file. */
+                sprintf(ref_degrib2_file, "data/ref_%s.degrib2", basename(file[f]));
+                if ((ret = compare_degrib2_files2(degrib2_file, ref_degrib2_file)))
+                    return ret;
+            }
+            printf("\tok!\n");
+        }
+    }
+    printf("ok!\n");
+#endif /* LARGE_FTP_TESTS */
 #endif /* FTP_TEST_FILES */
 #endif /* JPEG */
     printf("SUCCESS!\n");
