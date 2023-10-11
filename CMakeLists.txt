@@ -106,7 +106,7 @@ endif()
 find_package(LibXml2 2.9.0 REQUIRED)
 
 # Set the compiler flags.
-if(CMAKE_C_COMPILER_ID MATCHES "^(Intel)$")
+if(CMAKE_C_COMPILER_ID MATCHES "^(Intel|IntelLLVM)$")
   set(CMAKE_C_FLAGS "-g -traceback ${CMAKE_C_FLAGS}")
   set(CMAKE_C_FLAGS_RELEASE "-O3")
   set(CMAKE_C_FLAGS_DEBUG "-O0")

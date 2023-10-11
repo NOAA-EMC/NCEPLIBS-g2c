@@ -68,6 +68,7 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   "ref_WW3_Regional_US_West_Coast_20220718_0000.txt"
   "testgrib2.grb2"
   "ref_testgrib2.grb2.degrib2"
+  "ref_gdaswave_2.grib1.idx"
   )
 
 # Copy extra files if needed.
@@ -114,6 +115,8 @@ function(gu_test name)
     FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
   # Add the shell script as a test.
   add_test(NAME ${name}.sh COMMAND bash ${name}.sh)
+  # Turn off memory checking in CI for this test.
+  set_tests_properties(${name}.sh PROPERTIES LABELS noMemcheck)
 endfunction()
 
 # Does the user want to get extra test files from the FTP site, and
@@ -129,7 +132,7 @@ if(FTP_TEST_FILES)
     "GLOBAL.grib2.2022103000.0000" "hiresw.t00z.arw_5km.f00.hi.grib2"
     "naefs_ge10pt.t12z.pgrb2a.0p50_bcf003"
     "rap.t00z.awp130pgrbf00.grib2" "seaice.t00z.grb.grib2"
-    "sgx_nwps_CG3_20221117_1200.grib2")
+    "sgx_nwps_CG3_20221117_1200.grib2" "aqm.t12z.max_8hr_o3.227.grib2")
   foreach(THE_FILE IN LISTS FTP_FILES) 
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
@@ -152,9 +155,13 @@ if(FTP_TEST_FILES)
   # Add this preprocessor definition so test files can conditionally
   # include testing based on FTP files.
   add_definitions(-DFTP_TEST_FILES)
+
+  # Run this test only if FTP test files are used.
+  g2c_ptest(tst_aqm)
 endif()
 
 # Always run these tests.
+g2c_test(tst_index1)
 g2c_test(tst_g2_create)
 g2c_test(tst_g2_addgrid)
 g2c_test(tst_g2_addfield)
@@ -206,6 +213,7 @@ if(USE_Jasper)
   if(UTILS)
     gu_test(run_compare_tests)
     gu_test(run_degrib2_tests)
+    gu_test(run_index_tests)
   endif()
 endif()
 
