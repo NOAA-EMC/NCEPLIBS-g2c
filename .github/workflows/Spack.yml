@@ -41,6 +41,7 @@ jobs:
 
     - name: spack-build-and-test
       run: |
+        set -x
         git clone -c feature.manyFiles=true https://github.com/spack/spack
         . spack/share/spack/setup-env.sh
         spack env create g2c-env
