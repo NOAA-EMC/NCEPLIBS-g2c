@@ -2,11 +2,6 @@
  * @brief Header file with internal function prototypes NCEPLIBS-g2c
  * library.
  *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2021-11-08 | Ed Hartnett | Initial
- *
  * @author Ed Hartnett @date 2021-11-08
  */
 
@@ -56,6 +51,35 @@
 #define TWO_BYTES 2 /**< Two bytes. */
 #define FOUR_BYTES 4 /**< Four bytes. */
 #define EIGHT_BYTES 8 /**< Eight bytes. */
+
+/** Latitude */
+#define LATITUDE "Latitude"
+
+/** Longitude */
+#define LONGITUDE "Longitude"
+
+/* For GRIB1. */
+
+/** Length of the product definition section (pds) in index file. */
+#define G2C_INDEX1_PDS_VAL_LEN 27
+
+/** Length of the grid definition section (gds) in index file. */
+#define G2C_INDEX1_GDS_VAL_LEN 41
+
+/** Length of the bitmap section (bms) in index file. */
+#define G2C_INDEX1_BMS_VAL_LEN 5
+
+/** Length of the binary data section (bds) in index file. */
+#define G2C_INDEX1_BDS_VAL_LEN 10
+
+/** Length of the pds 2 section in the index file. */
+#define G2C_INDEX1_PDS_VAL2_LEN 27
+
+/** Length of the pds 3 section in the index file. */
+#define G2C_INDEX1_PDS_VAL3_LEN 27
+
+/** Length of the gds in index file. */
+#define G2C_INDEX1_GDS_VAL2_LEN 27
 
 /* For thread-safety, use these macros. */
 #ifdef PTHREADS
@@ -155,6 +179,15 @@ typedef struct g2c_section_info
     int template_len; /**< Number of entries in template. */
 } G2C_SECTION_INFO_T;
 
+/** Keep information about dimensions defined in section 3. */
+typedef struct g2c_dim_info
+{
+    int dimid; /**< Dimension ID. */
+    size_t len; /**< Length of dimension. */
+    char name[G2C_MAX_NAME + 1]; /**< Name of dimension. */
+    float *value; /**< Array of dimension values. */
+} G2C_DIM_INFO_T;
+
 /** Information about [Section 3 GRID DEFINITION
  * SECTION](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml). */
 typedef struct g2c_section3_info
@@ -165,6 +198,7 @@ typedef struct g2c_section3_info
     unsigned char interp_list; /**< Interpetation of list of numbers defining number of points (See Table 3.11). */
     unsigned short grid_def; /**< Grid definition template number (= N) (See Table 3.1). */
     int *optional; /**< Optional list of numbers defining number of points. */
+    G2C_DIM_INFO_T dim[2]; /**< Dimension information. */    
 } G2C_SECTION3_INFO_T;
 
 /** Information about [Section 4 PRODUCT DEFINITION

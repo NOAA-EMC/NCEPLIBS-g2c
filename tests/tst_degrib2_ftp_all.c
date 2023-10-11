@@ -86,7 +86,7 @@ main()
     {
 #define NUM_LARGE_FILES 1
         char file[NUM_LARGE_FILES][MAX_FILENAME_LEN + 1] = {
-            "data/fv3lam.t00z.namerica.f00.grib2"
+            "data/fv3lam.t00z.prslev.f000.grib2"
         };
         int g2cid;
         int num_msg;
@@ -94,6 +94,7 @@ main()
         int t;
         int ret;
 
+        /* g2c_set_log_level(10); */
         for (f = 0; f < NUM_LARGE_FILES; f++)
         {
             /* for (t = 0; t < 2; t++) */

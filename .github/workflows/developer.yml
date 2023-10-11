@@ -14,11 +14,16 @@ jobs:
       CC: gcc
       CXX: g++
     
+    strategy:
+      fail-fast: true
+      matrix:
+        config: ["asan/code coverage", "memcheck"]
+
     steps:
     - name: install-dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev
+        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev valgrind
         python3 -m pip install gcovr
 
     - name: cache-jasper
@@ -57,10 +62,12 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/data
-        key: data-1
+        key: data-2
 
-    - name: build
+    - name: asan
+      if: matrix.config == 'asan/code coverage'
       run: |
+        set -x
         export CC=gcc
         export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address'
         cd g2c
@@ -68,15 +75,23 @@ jobs:
         cd build
         cmake -DJasper_ROOT=~/jasper -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
         make -j2 VERBOSE=1
-
-    - name: test
-      run: |
-        set -e          
-        cd $GITHUB_WORKSPACE/g2c/build
         ctest --verbose --output-on-failure --rerun-failed
         gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
         ls -l
-          
+        
+    - name: memcheck
+      if: matrix.config == 'memcheck'
+      run: |
+        set -x
+        export LD_LIBRARY_PATH="/home/runner/jasper/lib:$LD_LIBRARY_PATH"
+        cd g2c
+        mkdir build
+        cd build
+        cmake -DJasper_ROOT=~/jasper -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
+        make -j2 VERBOSE=1
+        ctest
+        ls -l
+        
     - name: cache-data
       if: steps.cache-data.outputs.cache-hit != 'true'
       run: |
