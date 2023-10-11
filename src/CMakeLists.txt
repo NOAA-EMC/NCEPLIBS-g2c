@@ -18,7 +18,7 @@ reduce.c seekgb.c simpack.c simunpack.c specpack.c
 specunpack.c util.c)
 
 if(BUILD_G2C)
-  set(src_files ${src_files}  g2cxml.c g2cparams.c g2cfile.c
+  set(src_files ${src_files}  g2cutil.c g2cxml.c g2cparams.c g2cfile.c
     g2cdegrib2.c g2cprod.c g2cinq.c g2cindex.c g2cio.c g2ccompare.c)
 endif()
 
