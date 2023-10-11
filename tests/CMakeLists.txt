@@ -132,7 +132,7 @@ if(FTP_TEST_FILES)
     "GLOBAL.grib2.2022103000.0000" "hiresw.t00z.arw_5km.f00.hi.grib2"
     "naefs_ge10pt.t12z.pgrb2a.0p50_bcf003"
     "rap.t00z.awp130pgrbf00.grib2" "seaice.t00z.grb.grib2"
-    "sgx_nwps_CG3_20221117_1200.grib2")
+    "sgx_nwps_CG3_20221117_1200.grib2" "aqm.t12z.max_8hr_o3.227.grib2")
   foreach(THE_FILE IN LISTS FTP_FILES) 
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
@@ -155,6 +155,9 @@ if(FTP_TEST_FILES)
   # Add this preprocessor definition so test files can conditionally
   # include testing based on FTP files.
   add_definitions(-DFTP_TEST_FILES)
+
+  # Run this test only if FTP test files are used.
+  g2c_ptest(tst_aqm)
 endif()
 
 # Always run these tests.
