@@ -13,26 +13,26 @@ int enc_aec(unsigned char *data, int ctemplen, g2int nbits, g2int flags,
 
     /* Define bits per sample */
     strm.bits_per_sample = nbits;
-    printf("enc_aec: strm.bits_per_sample = %d\n",strm.bits_per_sample);
+    LOG((3, "enc_aec: bits_per_sample = %d",strm.bits_per_sample));
 
     /* Define a block size */
-    printf("enc_aec: block_size = %d\n",block_size);
+    LOG((3, "enc_aec: block_size = %d",block_size));
     strm.block_size = block_size;
 
     /* Define the reference sample interval */
-    printf("enc_aec: rsi = %d\n",rsi);
+    LOG((3, "enc_aec: rsi = %d",rsi));
     strm.rsi = rsi;
 
     /* Define the AEC compression flags. */
     strm.flags = flags;
-    printf("enc_aec: strm.flags = %d\n",strm.flags);
+    LOG((3, "enc_aec: flags = %d",strm.flags));
 
     /* Pointer to input */
     strm.next_in = data;
 
     /* Length of input in bytes */
     strm.avail_in = ctemplen;
-    printf("enc_aec: strm.avail_in = %d\n",strm.avail_in);
+    LOG((3, "enc_aec: avail_in = %d",strm.avail_in));
 
     /* Pointer to output buffer */
     strm.next_out = aecbuf;
@@ -42,7 +42,7 @@ int enc_aec(unsigned char *data, int ctemplen, g2int nbits, g2int flags,
 
     /* Encode into AEC. */
     iret = aec_buffer_encode(&strm);
-    printf("enc_aec: return from aec_buffer_encode = %d\n", iret);
+    LOG((3, "enc_aec: return from aec_buffer_encode = %d", iret));
     if (iret == AEC_OK) iret = strm.total_out;
 
     return iret;
