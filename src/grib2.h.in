@@ -306,7 +306,7 @@ void aecpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
 #define G2C_MAX_GDS_TEMPLATE_MAPLEN 28 /**< Maximum grid template map length. */
 #define G2C_MAX_PDS_TEMPLATE 47 /**< Maximum number of PDS templates. */
 #define G2C_MAX_PDS_TEMPLATE_MAPLEN 45 /**< Maximum template map length. */
-#define G2C_MAX_DRS_TEMPLATE 9 /**< Maximum number of DRS templates. */
+#define G2C_MAX_DRS_TEMPLATE 10 /**< Maximum number of DRS templates. */
 #define G2C_MAX_DRS_TEMPLATE_MAPLEN 18 /**< Maximum DRS template map length. */
 
 /* File handling functions. */
@@ -409,6 +409,7 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 
 #define G2C_JPEG_DRS_TEMPLATE_LEN 7 /**< Length of the idrstmpl array for JPEG packing. */
 #define G2C_PNG_DRS_TEMPLATE_LEN 5 /**< Length of the idrstmpl array for PNG packing. */
+#define G2C_AEC_DRS_TEMPLATE_LEN 8 /**< Length of the idrstmpl array for AEC packing. */
 
 #define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
 #define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
@@ -503,5 +504,6 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_ENOPARAM (-71)      /**< Parameter not found. */
 #define G2C_ENOPRODUCT (-72)    /**< Product not found. */
 #define G2C_EBADTYPE (-73)      /**< Type not found. */
+#define G2C_EAEC (-74)         /**< Error encoding/decoding AEC data. */
 
 #endif  /*  _grib2_H  */
