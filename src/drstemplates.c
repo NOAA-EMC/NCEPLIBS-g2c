@@ -29,6 +29,7 @@
  * 2001-06-28 | Gilbert | Initial
  * 2009-01-14 | Vuong | Changed structure name template to gtemplate
  * 2022-10-18 | Hartnett | Added g2c_get_drs_template().
+ * 2023-09-08 | Engle | Added template 5.42.
  *
  * @author Stephen Gilbert @date 2001-06-28
  */
@@ -101,6 +102,10 @@ static const struct drstemplate templatesdrs[G2C_MAX_DRS_TEMPLATE] =
      * encoding](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml) */
     {41, 5, 0, {4, -2, -2, 1, 1}},
 
+    /** [5.42: Grid point data - CCSDS recommended lossless compress (libaec)
+     * encoding](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-42.shtml) */
+    {42, 8, 0, {4, -2, -2, 1, 1, 1, 1, 2}},
+
     /** 5.40000: Grid point data - JPEG2000 encoding
      *
      * This is a local template number, from a time before WMO standardized use of JPEG2000
@@ -111,7 +116,7 @@ static const struct drstemplate templatesdrs[G2C_MAX_DRS_TEMPLATE] =
      *
      * This is a local template number, from a time before WMO standardized use of PNG
      * with 5.41. This should not be used in new data files. Use 5.41 instead. */
-    {40010, 5, 0, {4, -2, -2, 1, 1}}
+    {40010, 5, 0, {4, -2, -2, 1, 1}},
 } ;
 
 /**

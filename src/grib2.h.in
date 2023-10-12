@@ -9,6 +9,7 @@
  * 2021-11-9 | Ed Hartnett | Moved many prototypes to new internal header grib2_int.h.
  * 2022-04-15 | Ed Hartnett | Added error codes related to JPEG.
  * 2022-08-15 | Ed Hartnett | Added compression functions for double.
+ * 2023-09-10 | Eric Engle | Added AEC compression.
  *
  * @author Stephen Gilbert @date 2002-10-25
  * @author Ed Hartnett
@@ -26,6 +27,7 @@
 
 #cmakedefine G2_PNG_ENABLED 1 /**< Decoding/encoding PNG is enabled */
 #cmakedefine G2_JPEG2000_ENABLED 1 /**< Decoding/encoding JPEG2000 is enabled */
+#cmakedefine G2_AEC_ENABLED 1 /**< Decoding/encoding AEC/CCSDS is enabled */
 
 /** Long integer type. */
 typedef int64_t g2int;
@@ -262,6 +264,8 @@ void jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 float *fld);
+void aecpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack);
 
 
 /* The new g2c API is being introduced in version 2.0 of the library. */

@@ -38,6 +38,7 @@
  * 2004-11-29 | Gilbert | JPEG2000 now can use WMO Template 5.40 PNG can use WMO Template 5.41. Added packing algorithm check.
  * 2005-05-10 | Gilbert | Imposed minimum size on cpack.
  * 2009-01-14 | Vuong | Changed structure name template to gtemplate
+ * 2023-09-08 | Engle | Added support for new template, 5.42, using CCSDS compression (libaec).
  *
  * @param cgrib Char array that contains the GRIB2 message to which
  * sections 4 through 7 should be added. Must be allocated large
@@ -110,7 +111,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     g2int *coordieee;
     float *pfld;
     gtemplate *mappds, *mapdrs;
-#if defined USE_PNG || defined USE_JPEG2000 || defined USE_OPENJPEG
+#if defined USE_PNG || defined USE_JPEG2000 || defined USE_OPENJPEG || defined USE_AEC
     unsigned int allones = 4294967295u;
     g2int width, height, iscan, itemp;
 #endif
@@ -378,6 +379,39 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         pngpack(pfld, width, height, idrstmpl, cpack, &lcpack);
     }
 #endif  /* USE_PNG */
+#ifdef USE_AEC
+    else if (idrsnum == 42)
+    {   /* AEC Encoding */
+        if (ibmap == 255)
+        {
+            getdim(cgrib + lpos3, &width, &height, &iscan);
+            if (width == 0 || height == 0)
+            {
+                width = ndpts;
+                height = 1;
+            }
+            else if (width == allones || height == allones)
+            {
+                width = ndpts;
+                height = 1;
+            }
+            else if ((iscan & 32) == 32)
+            {   /* Scanning mode: bit 3  */
+                itemp = width;
+                width = height;
+                height = itemp;
+            }
+        }
+        else
+        {
+            width = ndpts;
+            height = 1;
+        }
+	//printf("IN G2C, in g2_addfield, using AEC compression...\n");
+        lcpack = nsize;
+        aecpack(pfld, width, height, idrstmpl, cpack, &lcpack);
+    }
+#endif /* USE_AEC */
     else
     {
         printf("g2_addfield: Data Representation Template 5.%ld not yet implemented.\n", idrsnum);
