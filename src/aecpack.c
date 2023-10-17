@@ -50,7 +50,7 @@ static int
 aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl,
             unsigned char *cpack, g2int *lcpack, int verbose)
 {
-    int ctemplen;
+    g2int ctemplen;
     g2int *ifld = NULL;
     g2int j;
     g2int imin, imax, retry;
