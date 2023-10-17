@@ -134,7 +134,8 @@ if(LIBAEC_FOUND)
   message(STATUS "AEC include directories ${AEC_INCLUDE_DIR}")
   message(STATUS "AEC libraries ${AEC_LIBRARIES}")
   target_sources(${lib_name}_objlib PRIVATE decenc_aec.c
-                                     aecpack.c)
+                                            aecpack.c
+                                            aecunpack.c)
   target_compile_definitions(${lib_name}_objlib PRIVATE USE_AEC)
   target_link_libraries(${lib_name}_objlib PRIVATE ${AEC_LIBRARIES})
   target_include_directories(${lib_name}_objlib PRIVATE "${AEC_INCLUDE_DIRS}")
