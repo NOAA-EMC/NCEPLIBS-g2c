@@ -76,17 +76,12 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     ccsds_flags = 0;
     ccsds_block_size = 0;
     ccsds_rsi = 0;
+    nbits = 0;
 
     ndpts = width * height;
     bscale = int_power(2.0, -idrstmpl[1]);
     dscale = int_power(10.0, idrstmpl[2]);
     LOG((3, "ndpts %ld bscale %g dscale %g", ndpts, bscale, dscale));
-
-    /* Set nbits accordingly. */
-    if (idrstmpl[3] <= 0)
-        nbits = 0;
-    else
-        nbits = idrstmpl[3];
 
     /* Find max and min values in the data. */
     rmaxd = dfld[0];
@@ -196,9 +191,11 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         sbits(ctemp, ifld, 0, nbytes*8, 0, ndpts);
 
         /* Define AEC compression options */
-        nbits = pow(2, ceil(log(nbits)/log(2))); // Round to nearest base 2 int
-        if (nbits > 32)
-            nbits = 32;
+        if (idrstmpl[3] <= 0)
+            nbits = pow(2, ceil(log(nbits)/log(2))); // Round to nearest base 2 int
+        else
+            nbits = idrstmpl[3];
+            nbits = pow(2, ceil(log(nbits)/log(2))); // Round to nearest base 2 int
         if (idrstmpl[5] == 0)
             ccsds_flags = AEC_DATA_SIGNED | AEC_DATA_PREPROCESS | AEC_DATA_MSB;
         else
