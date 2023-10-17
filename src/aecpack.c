@@ -6,14 +6,17 @@
  * Date | Programmer | Comments
  * -----|------------|---------
  * 2023-09-10 | Engle | Initial; Adapted from aecpack.c.
+ * 2023-10-16 | Engle | Added include libaec to set default values
+ *                      for CCSDS parameters.
  */
 
 #include <stdint.h>
 #include <stdlib.h>
 #include <math.h>
+#include <libaec.h>
 #include "grib2_int.h"
 
-/** 
+/**
  * This internal function packs up a float or double array into a
  * AEC/CCSDS code stream.
  *
@@ -24,7 +27,7 @@
  * @param height The number of points in the y direction.
  * @param idrstmpl Contains the array of values for Data
  * Representation Template [Table
- * 5.42](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-42.shtml). 
+ * 5.42](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-42.shtml).
  * May be modified in this function.
  * @param cpack A pointer that will get the packed data field. Must be
  * allocated before this function is called. Pass the allocated size
@@ -44,7 +47,7 @@
  * - ::G2C_NOERROR No error.
  * - ::G2C_EAEC Error encoding/decoding AEC data.
  *
- * @author Eric Engle 
+ * @author Eric Engle
  */
 static int
 aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl,
@@ -80,7 +83,7 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     LOG((3, "ndpts %ld bscale %g dscale %g", ndpts, bscale, dscale));
 
     /* Set nbits accordingly. */
-    if (idrstmpl[3] <= 0 || idrstmpl[3] > 31)
+    if (idrstmpl[3] <= 0)
         nbits = 0;
     else
         nbits = idrstmpl[3];
@@ -140,49 +143,48 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
             temp = log((double)(maxdif + 1)) / alog2;
             nbits = (g2int)ceil(temp);
             /*   scale data */
-	    if (fld_is_double)
-	    {
-		rmind = (float)imin;
-		for(j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(dfld[j] * dscale) - imin;
-	    }
-	    else
-	    {
-		rmin = (float)imin;
-		for(j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(ffld[j] * dscale) - imin;
-	    }
+            if (fld_is_double)
+            {
+                rmind = (float)imin;
+                for(j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(dfld[j] * dscale) - imin;
+            }
+            else
+            {
+                rmin = (float)imin;
+                for(j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(ffld[j] * dscale) - imin;
+            }
         }
         else
         {
             /* Use binary scaling factor and calculate minumum number
              * of bits in which the data will fit. */
-	    if (fld_is_double)
-	    {
-		rmind = rmind * dscale;
-		rmaxd = rmaxd * dscale;
-		maxdif = (g2int)rint((rmaxd - rmind) * bscale);
-	    }
-	    else
-	    {
-		rmin = rmin * dscale;
-		rmax = rmax * dscale;
-		maxdif = (g2int)rint((rmax - rmin) * bscale);
-	    }
-		
+            if (fld_is_double)
+            {
+                rmind = rmind * dscale;
+                rmaxd = rmaxd * dscale;
+                maxdif = (g2int)rint((rmaxd - rmind) * bscale);
+            }
+            else
+            {
+                rmin = rmin * dscale;
+                rmax = rmax * dscale;
+                maxdif = (g2int)rint((rmax - rmin) * bscale);
+            }
             temp = log((double)(maxdif + 1)) / alog2;
             nbits = (g2int)ceil(temp);
             /*   scale data */
-	    if (fld_is_double)
-	    {
-		for (j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(((dfld[j] * dscale) - rmind) * bscale);
-	    }
-	    else
-	    {
-		for (j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(((ffld[j] * dscale) - rmin) * bscale);
-	    }		
+            if (fld_is_double)
+            {
+                for (j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(((dfld[j] * dscale) - rmind) * bscale);
+            }
+            else
+            {
+                for (j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(((ffld[j] * dscale) - rmin) * bscale);
+            }
         }
 
         /* Pack data into full octets, then do AEC encode and
@@ -190,13 +192,25 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         retry = 0;
         nbytes = (nbits + 7) / 8;
         ctemp = calloc(ndpts, nbytes);
-	ctemplen = ndpts*nbytes;
+        ctemplen = ndpts*nbytes;
         sbits(ctemp, ifld, 0, nbytes*8, 0, ndpts);
 
-        /* Pack */
-        ccsds_flags = idrstmpl[5];
-        ccsds_block_size = idrstmpl[6];
-        ccsds_rsi = idrstmpl[7];
+        /* Define AEC compression options */
+        nbits = pow(2, ceil(log(nbits)/log(2))); // Round to nearest base 2 int
+        if (nbits > 32)
+            nbits = 32;
+        if (idrstmpl[5] == 0)
+            ccsds_flags = AEC_DATA_SIGNED | AEC_DATA_PREPROCESS | AEC_DATA_MSB;
+        else
+            ccsds_flags = idrstmpl[5];
+        if (idrstmpl[6] == 0)
+            ccsds_block_size = 16;
+        else
+            ccsds_block_size = idrstmpl[6];
+        if (idrstmpl[7] == 0)
+            ccsds_rsi = 128;
+        else
+            ccsds_rsi = idrstmpl[7];
         ret = enc_aec(ctemp, ctemplen, nbits, ccsds_flags, ccsds_block_size, ccsds_rsi, cpack, lcpack);
         if (ret < 0)
         {
@@ -363,7 +377,7 @@ g2c_aecpackf(float *fld, size_t width, size_t height, int *idrstmpl,
  * - 5 CCSDS compression options mask.
  * - 6 Block size.
  * - 7 Reference sample interval.
- * May be modified in this function.   
+ * May be modified in this function.
  * @param cpack A pointer that will get the packed data field. Must be
  * allocated before this function is called. Pass the allocated size
  * in the lcpack parameter.
