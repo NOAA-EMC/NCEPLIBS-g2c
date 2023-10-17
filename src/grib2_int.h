@@ -359,8 +359,12 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 
 void aecpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
-int enc_aec(unsigned char *data, int ctemplen, g2int nbits, g2int flags,
+g2int aecunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                float *fld);
+int enc_aec(unsigned char *data, g2int ctemplen, g2int nbits, g2int flags,
             g2int block_size, g2int rsi, unsigned char *aecbuf, g2int *aecbuflen);
+int dec_aec(unsigned char *cpack, g2int len, g2int nbits, g2int flags,
+            g2int block_size, g2int rsi, unsigned char *cfld, g2int cfldlen);
 
 /* Packing and unpacking bits. */
 void gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbits);

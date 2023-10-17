@@ -266,6 +266,8 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 float *fld);
 void aecpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
+g2int aecunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                float *fld);
 
 
 /* The new g2c API is being introduced in version 2.0 of the library. */
@@ -389,6 +391,14 @@ int g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
                      int ltype, int ratio, int retry, char *outjpc,
                      size_t jpclen);
 int g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld);
+int g2c_aecpackf(float *fld, size_t width, size_t height, int *idrstmpl,
+                 unsigned char *cpack, size_t *lcpack);
+int g2c_aecpackd(double *fld, size_t width, size_t height, int *idrstmpl,
+                 unsigned char *cpack, size_t *lcpack);
+int g2c_aecunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
+                   float *fld);
+int g2c_aecunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
+                   double *fld);
 
 /* Testing. */
 int g2c_compare(int g2cid1, int g2cid2);
