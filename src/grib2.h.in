@@ -334,9 +334,9 @@ int g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points,
 
 /* Templates. */
 int g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *needext);
-int g2c_get_grid_template_extension(int grid_template_num, int *template,
+int g2c_get_grid_template_extension(int grid_template_num, int *g2c_template,
                                     int *extlen, int *ext);
-int g2c_get_pds_template_extension(int pds_template_num, int *template,
+int g2c_get_pds_template_extension(int pds_template_num, int *g2c_template,
                                    int *extlen, int *ext);
 int g2c_get_pds_template(int pds_template_num, int *maplen, int *map, int *needext);
 int g2c_get_drs_template(int drs_template_num, int *maplen, int *map, int *needext);
