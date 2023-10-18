@@ -61,10 +61,7 @@ jobs:
         spack load g2c
         if [[ "${{ matrix.variants }}" =~ "libs=shared" ]]; then suffix="so" ; else suffix="a"; fi
         ls $G2C_LIB | grep -cE '/libg2c\.'$suffix'$'
-        if [[ "${{ matrix.variants }}" =~ "+png"[+~]?$ && "${{ matrix.variants }}" =~ "libs=shared"[+~]?$ ]]; then
-          echo "png and shared"
-          ldd $G2C_LIB | grep -c libpng;
-        fi
+        if [[ "${{ matrix.variants }}" =~ "+png"[+~]?$ && "${{ matrix.variants }}" =~ "libs=shared"[+~]?$ ]]; then ldd $G2C_LIB | grep -c libpng; fi
         if [[ "${{ matrix.variants }}" =~ "+utils"[+~]?$ ]]; then
           if [[ "${{ matrix.variants }}" =~ "+build_g2c"[+~]?$ ]]; then
             echo "utils and build_g2c
