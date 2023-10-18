@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest"]
-        variants: ["libs=shared +png+jasper~openjpeg+pic+pthreads+utils+build_g2c", "libs=static ~png~jasper+openjpeg~pic~pthreads~utils~build_g2c"]
+        variants: ["libs=shared +png+jasper~openjpeg+pic+pthreads+utils", "libs=static ~png~jasper+openjpeg~pic~pthreads~utils"]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -61,16 +61,11 @@ jobs:
         spack load g2c
         if [[ "${{ matrix.variants }}" =~ "libs=shared" ]]; then suffix="so" ; else suffix="a"; fi
         ls $G2C_LIB | grep -cE '/libg2c\.'$suffix'$'
+        if [[ "${{ matrix.variants }}" =~ "+png"[+~]?$ && "${{ matrix.variants }}" =~ "libs=shared"[+~]?$ ]]; then ldd $G2C_LIB | grep -c libpng; fi
         if [[ "${{ matrix.variants }}" =~ "+utils"[+~]?$ ]]; then
-          if [[ "${{ matrix.variants }}" =~ "+build_g2c"[+~]?$ ]]; then
-            echo "utils and build_g2c
-            ls $(spack location -i g2c)/bin/{g2c_compare,g2c_degrib2,g2c_index}
-          else
-            if [ -f $(spack location -i g2c)/bin/g2c_compare ]; then echo "utils were built but should not have been!"; exit 1; fi
-          fi
-        fi
-        if [[ "${{ matrix.variants }}" =~ "+png"[+~]?$ ]]; then
-          if [[ "${{ matrix.variants }}" =~ "libs=shared"[+~]?$ ]]; then ldd $G2C_LIB | grep -c libpng; fi
+          ls $(spack location -i g2c)/bin/{g2c_compare,g2c_degrib2,g2c_index}
+        else
+          if [ -f $(spack location -i g2c)/bin/g2c_compare ]; then echo "utils were built but shouldn't have been!"; exit 1; fi
         fi
         # Setup build cache (automatically skipped if it already exists)
         spack buildcache push --only dependencies --unsigned ~/spack-build-cache g2c
