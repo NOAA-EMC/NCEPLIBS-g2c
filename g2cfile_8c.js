@@ -1,0 +1,28 @@
+var g2cfile_8c =
+[
+    [ "BYTES_TO_DISCIPLINE", "g2cfile_8c.html#aa13705298bc1de257ed922f999da7c1c", null ],
+    [ "G2C_SEEKMSG_BUFSIZE", "g2cfile_8c.html#afa9f4de2d5c14d0e8d26ae7f502b0267", null ],
+    [ "MIN", "g2cfile_8c.html#a3acffbd305ee72dcd4593c0d8af64a4f", null ],
+    [ "READ_BUF_SIZE", "g2cfile_8c.html#a4245ea3fba0358165b402a7a615419bb", null ],
+    [ "add_msg", "g2cfile_8c.html#a9474e2c676b3c163bcbd2b928fd509f3", null ],
+    [ "add_section", "g2cfile_8c.html#a9b77b4fddeb0b4e4d136bb7c2460b7cc", null ],
+    [ "determine_dims", "g2cfile_8c.html#a469752e68c9f6532ca2af09351146bf2", null ],
+    [ "find_available_g2cid", "g2cfile_8c.html#af251e6786990405633095ab288f06a06", null ],
+    [ "free_metadata", "g2cfile_8c.html#ab86d8501a831d9b263548f1664dc661c", null ],
+    [ "g2c_add_file", "g2cfile_8c.html#af12335d519df51c7331a8c4f343fb98a", null ],
+    [ "g2c_close", "g2cfile_8c.html#a7761e7401213d226560fd1b379d33ba8", null ],
+    [ "g2c_find_msg2", "g2cfile_8c.html#ab4cbbee608ee075df75f19c67188aa9c", null ],
+    [ "g2c_get_msg", "g2cfile_8c.html#a977358be2d226299f842cb298b779854", null ],
+    [ "g2c_open", "g2cfile_8c.html#a216f2c45794641932725b7a8b1800423", null ],
+    [ "g2c_rw_section1_metadata", "g2cfile_8c.html#ae7843e51976900337654503388d9a726", null ],
+    [ "g2c_rw_section3_metadata", "g2cfile_8c.html#af7f2e7b1cc0d81f73f972feaa4fc65c0", null ],
+    [ "g2c_rw_section4_metadata", "g2cfile_8c.html#af7fef1bd5fae59a765ccfa3493c20699", null ],
+    [ "g2c_rw_section5_metadata", "g2cfile_8c.html#abd2e0851785661aee3f32380c9d8fdf0", null ],
+    [ "g2c_rw_section6_metadata", "g2cfile_8c.html#a767dd5916869dc53f395903d613075cb", null ],
+    [ "g2c_seekmsg", "g2cfile_8c.html#af50a08963916901ddae4e32a81fec8f5", null ],
+    [ "MUTEX", "g2cfile_8c.html#a51cfcbcc556e03f4347510eb7613344d", null ],
+    [ "read_metadata", "g2cfile_8c.html#acce12ea485669fe8604956b37b2126fb", null ],
+    [ "read_msg_metadata", "g2cfile_8c.html#a666d5536f6359a1e357d5518413b6381", null ],
+    [ "g2c_file", "g2cfile_8c.html#a87fb1062e1c14b9b21b83b2d87f1656d", null ],
+    [ "g2c_next_g2cid", "g2cfile_8c.html#afd7e03b89e0711bca4a47eb59926a4c4", null ]
+];

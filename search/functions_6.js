@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['misspack_307',['misspack',['../grib2__int_8h.html#a33440a1e301c24cf2996122f63ee3cae',1,'misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack):&#160;misspack.c'],['../misspack_8c.html#a33440a1e301c24cf2996122f63ee3cae',1,'misspack(g2float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack):&#160;misspack.c']]],
-  ['mkieee_308',['mkieee',['../grib2__int_8h.html#ac81ff0ca19f32422c5667e1bca5aae27',1,'mkieee(g2float *a, g2int *rieee, g2int num):&#160;mkieee.c'],['../mkieee_8c.html#ac81ff0ca19f32422c5667e1bca5aae27',1,'mkieee(g2float *a, g2int *rieee, g2int num):&#160;mkieee.c']]]
+  ['int_5fdec_5fjpeg2000_703',['int_dec_jpeg2000',['../dec__jpeg2000_8c.html#ac822263ee9732d7603f242a848888ed9',1,'dec_jpeg2000.c']]],
+  ['int_5fpower_704',['int_power',['../grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8',1,'int_power(double x, g2int y):&#160;int_power.c'],['../int__power_8c.html#a6b284a64a4b42cd86db872ae7e1eeaa8',1,'int_power(double x, g2int y):&#160;int_power.c']]]
 ];

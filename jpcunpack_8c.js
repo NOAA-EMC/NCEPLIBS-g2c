@@ -1,6 +1,7 @@
 var jpcunpack_8c =
 [
+    [ "g2c_jpcunpackd", "jpcunpack_8c.html#a1a04c5d88c271b98a56edfd136b7db77", null ],
+    [ "g2c_jpcunpackf", "jpcunpack_8c.html#a2c7e2ed3363571d9f55162f38371187c", null ],
     [ "jpcunpack", "jpcunpack_8c.html#a067a3f608a80a9fdd89ed9f59ed7c7f6", null ],
-    [ "jpcunpack_int", "jpcunpack_8c.html#a4111b82028471a5c655190dcee21107c", null ],
-    [ "jpcunpackd", "jpcunpack_8c.html#ad6178825e48182a0c7e62951aae0b0d2", null ]
+    [ "jpcunpack_int", "jpcunpack_8c.html#abb65df72f7e882bcf138316552e2b89b", null ]
 ];

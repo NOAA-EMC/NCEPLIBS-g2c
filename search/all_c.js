@@ -1,11 +1,18 @@
 var searchData=
 [
-  ['pack_5fgp_182',['pack_gp',['../grib2__int_8h.html#ab5fbec07e58a9d872a0fa1c04d74a81b',1,'pack_gp(g2int *kfildo, g2int *ic, g2int *nxy, g2int *is523, g2int *minpk, g2int *inc, g2int *missp, g2int *misss, g2int *jmin, g2int *jmax, g2int *lbit, g2int *nov, g2int *ndg, g2int *lx, g2int *ibit, g2int *jbit, g2int *kbit, g2int *novref, g2int *lbitref, g2int *ier):&#160;pack_gp.c'],['../pack__gp_8c.html#ab5fbec07e58a9d872a0fa1c04d74a81b',1,'pack_gp(g2int *kfildo, g2int *ic, g2int *nxy, g2int *is523, g2int *minpk, g2int *inc, g2int *missp, g2int *misss, g2int *jmin, g2int *jmax, g2int *lbit, g2int *nov, g2int *ndg, g2int *lx, g2int *ibit, g2int *jbit, g2int *kbit, g2int *novref, g2int *lbitref, g2int *ier):&#160;pack_gp.c']]],
-  ['pack_5fgp_2ec_183',['pack_gp.c',['../pack__gp_8c.html',1,'']]],
-  ['pdstemplates_2ec_184',['pdstemplates.c',['../pdstemplates_8c.html',1,'']]],
-  ['png_5fstream_185',['png_stream',['../dec__png_8c.html#a51736c0c137626d13b71ea12021c10f3',1,'png_stream():&#160;dec_png.c'],['../enc__png_8c.html#a51736c0c137626d13b71ea12021c10f3',1,'png_stream():&#160;enc_png.c']]],
-  ['pngpack_186',['pngpack',['../g2__addfield_8c.html#aa19673a03d5b0df2730903c39b9e5002',1,'pngpack(g2float *, g2int, g2int, g2int *, unsigned char *, g2int *):&#160;pngpack.c'],['../grib2__int_8h.html#aead12707dbe31153a792ec922eb2fec7',1,'pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack):&#160;pngpack.c'],['../pngpack_8c.html#aead12707dbe31153a792ec922eb2fec7',1,'pngpack(g2float *fld, g2int width, g2int height, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack):&#160;pngpack.c']]],
-  ['pngpack_2ec_187',['pngpack.c',['../pngpack_8c.html',1,'']]],
-  ['pngunpack_188',['pngunpack',['../grib2__int_8h.html#acd726669156a52a640744423669e9397',1,'pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts, g2float *fld):&#160;pngunpack.c'],['../pngunpack_8c.html#acd726669156a52a640744423669e9397',1,'pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts, g2float *fld):&#160;pngunpack.c']]],
-  ['pngunpack_2ec_189',['pngunpack.c',['../pngunpack_8c.html',1,'']]]
+  ['name_430',['name',['../grib2__int_8h.html#a72cb1219a1d21a7261b3ff4f6e6ea1c1',1,'g2c_dim_info']]],
+  ['ndpts_431',['ndpts',['../grib2_8h.html#aa97ba6b54e9c91fb231708048d54156c',1,'gribfield']]],
+  ['needext_432',['needext',['../grib2__int_8h.html#a8e1ecd4e873a86a10a76d264c55ae7bf',1,'gtemplate']]],
+  ['next_433',['next',['../grib2__int_8h.html#af9828d4b2656003825bd4aa83dc14d26',1,'g2c_message_info::next()'],['../grib2__int_8h.html#a1c00621e95d7abedb7b7d929cfb2f34a',1,'g2c_section_info::next()']]],
+  ['ngrdpts_434',['ngrdpts',['../grib2_8h.html#a1fd25a21842b45215676696fcddb2a09',1,'gribfield']]],
+  ['ntoh64_435',['ntoh64',['../grib2__int_8h.html#a98771c5eaa5f71f696f580046347393a',1,'grib2_int.h']]],
+  ['num_436',['num',['../grib2__int_8h.html#a973b6764b40aed427d419046b63d75b3',1,'gtemplate']]],
+  ['num_5fcoord_437',['num_coord',['../grib2__int_8h.html#a5c5c17ef34f6f6401cf4ebd9a3fbf9b0',1,'g2c_section4_info::num_coord()'],['../grib2_8h.html#aded2ca1c14ca96b2bdc7138945a2f4ce',1,'gribfield::num_coord()']]],
+  ['num_5fdata_5fpoints_438',['num_data_points',['../grib2__int_8h.html#a5916fc7041e507c7cfc797ef73699471',1,'g2c_section3_info::num_data_points()'],['../grib2__int_8h.html#a901fe0745e77a8f83cc94e45343c2128',1,'g2c_section5_info::num_data_points()']]],
+  ['num_5ffields_439',['num_fields',['../grib2__int_8h.html#a85954382df1adfd1066de85f7d790ad7',1,'g2c_message_info']]],
+  ['num_5flocal_440',['num_local',['../grib2__int_8h.html#a6239752e3aa457d9dce277385ca3e75b',1,'g2c_message_info']]],
+  ['num_5fmessages_441',['num_messages',['../grib2__int_8h.html#a5bb4a632dcaa3398c4557cfe52a81e35',1,'g2c_file_info']]],
+  ['num_5fopt_442',['num_opt',['../grib2__int_8h.html#a646e4d619d5326e4168cfd9ea8890c01',1,'g2c_section3_info::num_opt()'],['../grib2_8h.html#ae6ac361f230f89a9461e260d72c1d60b',1,'gribfield::num_opt()']]],
+  ['num_5fsections_443',['num_sections',['../grib2__int_8h.html#a54bcbb8dd191ef325627323bff87ff42',1,'g2c_message_info']]],
+  ['numoct_5fopt_444',['numoct_opt',['../grib2_8h.html#a4f9284ebe7fabba1cc092fbea1a5b7e0',1,'gribfield']]]
 ];
