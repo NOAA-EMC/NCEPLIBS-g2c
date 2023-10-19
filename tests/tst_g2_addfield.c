@@ -62,6 +62,10 @@ main()
         int i;
         int ret;
 
+	/* Initialize empty message to quiet valgrind errors. */
+	for (i = 0; i < FULL_MSG_LEN; i++)
+	    cgrib[i] = 0;
+
         /* Try to use g2_info() to learn about our messaage - won't
          * work, we haven't created a message yet. */
         if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal)) != 1)
