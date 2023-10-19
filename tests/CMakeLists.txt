@@ -195,6 +195,11 @@ g2c_test(tst_index)
 g2c_ptest(tst_files)
 g2c_ptest(tst_g2_testfile)
 
+# Run these tests only if libaec is linked.
+if(USE_AEC)
+  g2c_test(tst_aec)
+endif()
+
 # Run these tests only if libpng is linked.
 if(USE_PNG)
   g2c_test(tst_png)
