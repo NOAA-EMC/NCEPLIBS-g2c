@@ -132,7 +132,7 @@ if(FTP_TEST_FILES)
     "GLOBAL.grib2.2022103000.0000" "hiresw.t00z.arw_5km.f00.hi.grib2"
     "naefs_ge10pt.t12z.pgrb2a.0p50_bcf003"
     "rap.t00z.awp130pgrbf00.grib2" "seaice.t00z.grb.grib2"
-    "sgx_nwps_CG3_20221117_1200.grib2")
+    "sgx_nwps_CG3_20221117_1200.grib2" "aqm.t12z.max_8hr_o3.227.grib2")
   foreach(THE_FILE IN LISTS FTP_FILES) 
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
@@ -155,10 +155,12 @@ if(FTP_TEST_FILES)
   # Add this preprocessor definition so test files can conditionally
   # include testing based on FTP files.
   add_definitions(-DFTP_TEST_FILES)
+
+  # Run this test only if FTP test files are used.
+  g2c_ptest(tst_aqm)
 endif()
 
 # Always run these tests.
-g2c_test(tst_index1)
 g2c_test(tst_g2_create)
 g2c_test(tst_g2_addgrid)
 g2c_test(tst_g2_addfield)
@@ -176,21 +178,26 @@ g2c_test(tst_spec)
 g2c_test(tst_com)
 g2c_test(tst_g2_addlocal)
 g2c_test(tst_seekgb)
-g2c_test(tst_xml)
-g2c_test(tst_error)
-g2c_test(tst_params)
-g2c_test(tst_params2)
-g2c_test(tst_params3)
-g2c_test(tst_io)
-g2c_test(tst_metacmp)
-g2c_test(tst_inq)
-g2c_test(tst_degrib2_int)
-g2c_test(tst_degrib2_fast)
-g2c_test(tst_degrib2)
-g2c_test(tst_degrib2_ftp_all)
-g2c_test(tst_index)
-g2c_ptest(tst_files)
-g2c_ptest(tst_g2_testfile)
+
+# Run these tests if the g2c API has been built.
+if(BUILD_G2C)
+  g2c_test(tst_index1)
+  g2c_test(tst_xml)
+  g2c_test(tst_error)
+  g2c_test(tst_params)
+  g2c_test(tst_params2)
+  g2c_test(tst_params3)
+  g2c_test(tst_io)
+  g2c_test(tst_metacmp)
+  g2c_test(tst_inq)
+  g2c_test(tst_degrib2_int)
+  g2c_test(tst_degrib2_fast)
+  g2c_test(tst_degrib2)
+  g2c_test(tst_degrib2_ftp_all)
+  g2c_test(tst_index)
+  g2c_ptest(tst_files)
+  g2c_ptest(tst_g2_testfile)
+endif()
 
 # Run these tests only if libpng is linked.
 if(USE_PNG)
@@ -206,11 +213,13 @@ if(USE_Jasper OR USE_OpenJPEG)
 endif()
 
 # Run these shell tests, which require Jasper.
-if(USE_Jasper)
-  if(UTILS)
-    gu_test(run_compare_tests)
-    gu_test(run_degrib2_tests)
-    gu_test(run_index_tests)
+if(BUILD_G2C)
+  if(USE_Jasper)
+    if(UTILS)
+      gu_test(run_compare_tests)
+      gu_test(run_degrib2_tests)
+      gu_test(run_index_tests)
+    endif()
   endif()
 endif()
 

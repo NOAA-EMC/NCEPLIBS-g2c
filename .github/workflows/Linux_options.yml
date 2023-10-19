@@ -42,8 +42,12 @@ jobs:
             options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
           }
         - {
-            name: "pthreads",
-            options: "-DPTHREADS=ON -DLOGGING=ON -DJasper_ROOT=~/Jasper"
+            name: "g2c",
+            options: "-DBUILD_G2C=ON -DPTHREADS=OFF -DLOGGING=ON -DJasper_ROOT=~/Jasper"
+          }
+        - {
+            name: "g2c_pthreads",
+            options: "-DBUILD_G2C=ON -DPTHREADS=ON -DLOGGING=ON -DJasper_ROOT=~/Jasper"
           }
         - {
             name: "shared",
