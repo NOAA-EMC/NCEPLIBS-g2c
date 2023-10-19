@@ -41,7 +41,7 @@
  */
 static int
 aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-	      void *fld, int fld_is_double, int verbose)
+          void *fld, int fld_is_double, int verbose)
 {
     g2int *ifld;
     g2int j, ctemplen, ifldlen, nbits;
@@ -72,8 +72,8 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
         ifldlen = (ndpts * sizeof(g2int));
         if (!(ifld = calloc(ndpts, sizeof(g2int))))
         {
-	    if (verbose)
-		fprintf(stderr, "Could not allocate space in aecunpack.\n  Data field NOT upacked.\n");
+            if (verbose)
+                fprintf(stderr, "Could not allocate space in aecunpack.\n  Data field NOT upacked.\n");
             return G2C_ENOMEM;
         }
 
@@ -84,33 +84,35 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 fprintf(stderr, "Allocation error", "");
             return G2C_ENOMEM;
         }
-        ret = dec_aec((char *)cpack, len, nbits, ccsds_flags, ccsds_block_size, ccsds_rsi, ctemp, ctemplen);
+        ret = dec_aec(cpack, len, nbits, ccsds_flags, ccsds_block_size, ccsds_rsi, ctemp, ctemplen);
+        if (ret < 0)
+            return ret;
         gbits(ctemp, ifld, 0, nbits, 0, ndpts);
-	if (fld_is_double)
-	{
-	    for (j = 0; j < ndpts; j++)
-		dfld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
-	}
-	else
-	{
-	    for (j = 0; j < ndpts; j++)
-		ffld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
-	}
+        if (fld_is_double)
+        {
+            for (j = 0; j < ndpts; j++)
+                 dfld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
+        }
+        else
+        {
+            for (j = 0; j < ndpts; j++)
+                ffld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
+        }
         free(ctemp);
         free(ifld);
     }
     else
     {
-	if (fld_is_double)
-	{
-	    for (j = 0; j < ndpts; j++)
-		dfld[j] = ref;
-	}
-	else
-	{
-	    for (j = 0; j < ndpts; j++)
-		ffld[j] = ref;
-	}
+        if (fld_is_double)
+        {
+            for (j = 0; j < ndpts; j++)
+                dfld[j] = ref;
+        }
+        else
+        {
+            for (j = 0; j < ndpts; j++)
+                ffld[j] = ref;
+        }
     }
 
     return G2C_NOERROR;
@@ -132,7 +134,6 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  *
  * @return
  * - ::G2C_NOERROR No error.
- * - ::G2_JPCUNPACK_MEM Out of memory.
  *
  * @author Eric Engle @date 2023-10-16
  */
@@ -144,8 +145,7 @@ aecunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
     
     LOG((2, "g2c_aecunpack len %lld ndpts %lld", len, ndpts));
 
-    if ((ret = aecunpack_int(cpack, len, idrstmpl, ndpts, fld, 0, 1)) == G2_JPCUNPACK_MEM)
-	return G2_JPCUNPACK_MEM;
+    ret = aecunpack_int(cpack, len, idrstmpl, ndpts, fld, 0, 1);
 
     return ret;
 }
