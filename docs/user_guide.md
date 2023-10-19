@@ -1,9 +1,5 @@
 @mainpage
 
-## Documentation for Previous Versions of NCEPLIBS-g2c
-
-* [NCEPLIBS-g2c Version 1.6.4](ver-1.6.4/index.html)
-
 ## Introduction
 
 This document briefly describes the routines available for
@@ -91,3 +87,9 @@ Regularly-distributed Information in Binary Form" contains
 descriptions of each template and code table information. This
 document can be found at https://codes.wmo.int/grib2/_codeflag (PDF
 and MSWord formats are available).
+
+## Documentation for Previous Versions of NCEPLIBS-g2c
+
+* [NCEPLIBS-g2c Version 1.7.0](ver-1.7.0/index.html)
+* [NCEPLIBS-g2c Version 1.6.4](ver-1.6.4/index.html)
+
