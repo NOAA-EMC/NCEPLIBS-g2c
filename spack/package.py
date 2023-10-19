@@ -46,6 +46,12 @@ class G2c(CMakePackage):
         description="Build and install some utility programs",
         when="@develop",
     )
+    variant(
+        "build_g2c",
+        default=False,
+        description="Build new g2c API, experimental until 2.0.0 release",
+        when="@develop",
+    )
 
     depends_on("libpng", when="+png")
     depends_on("jasper", when="+jasper")
@@ -64,6 +70,7 @@ class G2c(CMakePackage):
             self.define_from_variant("USE_OpenJPEG", "openjpeg"),
             self.define_from_variant("PTHREADS", "pthreads"),
             self.define_from_variant("UTILS", "utils"),
+            self.define_from_variant("BUILD_G2C", "build_g2c"),
             self.define("BUILD_TESTING", self.run_tests),
         ]
 

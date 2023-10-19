@@ -15,8 +15,12 @@ g2_unpack6.c g2_unpack7.c gbits.c getdim.c
 getpoly.c gridtemplates.c int_power.c misspack.c
 mkieee.c pack_gp.c pdstemplates.c rdieee.c
 reduce.c seekgb.c simpack.c simunpack.c specpack.c
-specunpack.c util.c g2cxml.c g2cparams.c g2cfile.c
-g2cdegrib2.c g2cprod.c g2cinq.c g2cindex.c g2cio.c g2ccompare.c)
+specunpack.c util.c)
+
+if(BUILD_G2C)
+  set(src_files ${src_files}  g2cutil.c g2cxml.c g2cparams.c g2cfile.c
+    g2cdegrib2.c g2cprod.c g2cinq.c g2cindex.c g2cio.c g2ccompare.c)
+endif()
 
 # Create object library.  The object library will be used to create
 # static and shared libraries.

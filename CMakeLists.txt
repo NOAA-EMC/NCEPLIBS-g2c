@@ -29,6 +29,7 @@ option(FTP_EXTRA_TEST_FILES "Test with files not yet available via FTP." OFF)
 option(LOGGING "Turn on internal logging messages. Only useful to g2c developers." OFF)
 option(PTHREADS "Turn on thread-safty with pthreads." OFF)
 option(UTILS "Build and install some utility programs." ON)
+option(BUILD_G2C "Build the new g2c API, experimental until 2.0.0 release." OFF)
 
 # Developers can use this option to specify a local directory which
 # holds the test files. They will be copied instead of fetching the
@@ -125,8 +126,10 @@ set(lib_name ${PROJECT_NAME})
 add_subdirectory(src)
 
 # Build the code in the utils directory.
-if(UTILS)
-  add_subdirectory(utils)
+if(BUILD_G2C)
+  if(UTILS)
+    add_subdirectory(utils)
+  endif()
 endif()
 
 # Determine whether or not to generate documentation.
