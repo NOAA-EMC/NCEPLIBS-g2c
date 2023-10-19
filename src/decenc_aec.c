@@ -38,7 +38,7 @@
  * - -4 AEC_MEM_ERROR
  * - -5 AEC_RSI_OFFSETS_ERROR
  *
- * @author Eric Engle @data 2023-10-16
+ * @author Eric Engle @date 2023-10-16
  */
 int dec_aec(unsigned char *cpack, g2int len, g2int nbits, g2int flags,
             g2int block_size, g2int rsi, unsigned char *cfld, g2int cfldlen)
@@ -106,7 +106,7 @@ int dec_aec(unsigned char *cpack, g2int len, g2int nbits, g2int flags,
  * - -4 AEC_MEM_ERROR
  * - -5 AEC_RSI_OFFSETS_ERROR
  *
- * @author Eric Engle @data 2023-10-16
+ * @author Eric Engle @date 2023-10-16
  */
 int enc_aec(unsigned char *data, g2int ctemplen, g2int nbits, g2int flags,
             g2int block_size, g2int rsi, unsigned char *aecbuf, g2int *aecbuflen)
