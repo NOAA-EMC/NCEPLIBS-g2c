@@ -182,20 +182,14 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
             }
         }
 
-        /* Pack data into full octets, then do AEC encode and
-         * calculate the length of the packed data in bytes. */
-        retry = 0;
-        nbytes = (nbits + 7) / 8;
-        ctemp = calloc(ndpts, nbytes);
-        ctemplen = ndpts*nbytes;
-        sbits(ctemp, ifld, 0, nbytes*8, 0, ndpts);
-
         /* Define AEC compression options */
         if (idrstmpl[3] <= 0)
             nbits = pow(2, ceil(log(nbits)/log(2))); // Round to nearest base 2 int
         else
             nbits = idrstmpl[3];
             nbits = pow(2, ceil(log(nbits)/log(2))); // Round to nearest base 2 int
+        nbits = nbits < 8 ? 8 : nbits;
+
         if (idrstmpl[5] == 0)
             ccsds_flags = AEC_DATA_SIGNED | AEC_DATA_PREPROCESS | AEC_DATA_MSB;
         else
@@ -208,6 +202,15 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
             ccsds_rsi = 128;
         else
             ccsds_rsi = idrstmpl[7];
+
+        /* Pack data into full octets, then do AEC encode and
+         * calculate the length of the packed data in bytes. */
+        retry = 0;
+        nbytes = (nbits + 7) / 8;
+        ctemp = calloc(ndpts, nbytes);
+        ctemplen = ndpts*nbytes;
+        sbits(ctemp, ifld, 0, nbytes*8, 0, ndpts);
+
         ret = enc_aec(ctemp, ctemplen, nbits, ccsds_flags, ccsds_block_size, ccsds_rsi, cpack, lcpack);
         if (ret < 0)
         {
