@@ -28,6 +28,7 @@ jobs:
           mingw-w64-x86_64-clang
           mingw-w64-x86_64-cmake
           mingw-w64-x86_64-ninja
+          mingw-w64-x86_64-libaec
           mingw-w64-x86_64-libpng
           mingw-w64-x86_64-openjpeg2
 

@@ -18,12 +18,20 @@ jobs:
       matrix:
         config:
         - {
-            name: "png_on jasper_on openjpeg_off",
-            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/jasper"
+            name: "aec_off png_on jasper_on openjpeg_off",
+            options: "-DUSE_AEC=OFF -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/jasper"
           }
         - {
-            name: "png_on jasper_off openjpeg_on",
-            options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+            name: "aec_on png_on jasper_on openjpeg_off",
+            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/jasper"
+          }
+        - {
+            name: "aec_off png_on jasper_off openjpeg_on",
+            options: "-DUSE_AEC=OFF -DUSE_PNG=OFF  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "aec_on png_on jasper_off openjpeg_on",
+            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
           }
 
     steps:
@@ -33,7 +41,7 @@ jobs:
         sudo rm -rf /Library/Frameworks/Mono.framework
 
         brew update
-        brew install openjpeg jpeg-turbo
+        brew install libaec openjpeg jpeg-turbo
 
     - name: cache-jasper
       id: cache-jasper
