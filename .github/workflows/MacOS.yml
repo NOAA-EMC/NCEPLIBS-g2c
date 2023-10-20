@@ -23,7 +23,7 @@ jobs:
           }
         - {
             name: "aec_on png_on jasper_on openjpeg_off",
-            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/jasper"
+            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/jasper -Dlibaec_ROOT=${HOMEBREW_AEC_ROOT}"
           }
         - {
             name: "aec_off png_on jasper_off openjpeg_on",
@@ -31,7 +31,7 @@ jobs:
           }
         - {
             name: "aec_on png_on jasper_off openjpeg_on",
-            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON -Dlibaec_ROOT=${HOMEBREW_AEC_ROOT}"
           }
 
     steps:
@@ -42,6 +42,7 @@ jobs:
 
         brew update
         brew install libaec openjpeg jpeg-turbo
+        echo "HOMEBREW_ARC_ROOT=$(brew --cellar libaec)/$(brew list --versions libaec | cut -d" " -f 2)" >> "$GITHUB_ENV"
 
     - name: cache-jasper
       id: cache-jasper
