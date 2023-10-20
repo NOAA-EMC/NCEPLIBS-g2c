@@ -1,4 +1,4 @@
-i** @file
+/** @file
  * @brief Unpack a data field that was packed with AEC compression.
  * stream
  * @author Eric Engle @date 2023-10-16
