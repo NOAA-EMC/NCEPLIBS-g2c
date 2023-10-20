@@ -6,12 +6,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <libaec.h>
 #include "grib2_int.h"
 
 #define DATA_LEN 4
 #define PACKED_LEN 80
 #define EPSILON .0001
+
+/* The following is determined from summing the libaec constants
+ *     AEC_DATA_SIGNED | AEC_DATA_PREPROCESS | AEC_DATA_MSB
+ * Here we use the value so we don't have to include libaec.h. */
+#define CCSDS_FLAGS 13
 
 int
 main()
@@ -39,7 +43,7 @@ main()
         aeclen = (g2int *) (sizeof(cout)/sizeof(cout[0]));
 
         /* Set AEC parameters. */
-        ccsds_flags = AEC_DATA_SIGNED | AEC_DATA_PREPROCESS | AEC_DATA_MSB;
+        ccsds_flags = CCSDS_FLAGS;
         ccsds_block_size = 16;
         ccsds_rsi = 128;
 
@@ -74,7 +78,7 @@ main()
         g2int idrstmpl[8] = {0, 1, 1, 0, 0, 0, 16, 128};
         int i, ret;
 
-        idrstmpl[5] = AEC_DATA_SIGNED | AEC_DATA_PREPROCESS | AEC_DATA_MSB;
+        idrstmpl[5] = CCSDS_FLAGS;
 
         /* Pack the data. */
         aecpack(fld, width, height, idrstmpl, cpack, &lcpack);
@@ -103,7 +107,7 @@ main()
     g2int idrstmpl[8] = {0, 1, 1, 0, 0, 0, 16, 128};
 	int i, ret;
 
-        idrstmpl[5] = AEC_DATA_SIGNED | AEC_DATA_PREPROCESS | AEC_DATA_MSB;
+        idrstmpl[5] = CCSDS_FLAGS;
 
 	/* Pack the data. */
 	g2c_aecpackd(fld, width, height, (int *)idrstmpl, cpack, &lcpack);
