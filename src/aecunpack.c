@@ -1,4 +1,4 @@
-/** @file
+i** @file
  * @brief Unpack a data field that was packed with AEC compression.
  * stream
  * @author Eric Engle @date 2023-10-16
@@ -81,7 +81,7 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
         if ((ctemp = (unsigned char *) malloc(ctemplen)) == NULL)
         {
             if (verbose)
-                fprintf(stderr, "Allocation error", "");
+                fprintf(stderr, "Allocation error.\n");
             return G2C_ENOMEM;
         }
         ret = dec_aec(cpack, len, nbits, ccsds_flags, ccsds_block_size, ccsds_rsi, ctemp, ctemplen);

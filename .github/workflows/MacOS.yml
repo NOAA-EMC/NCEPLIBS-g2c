@@ -18,16 +18,8 @@ jobs:
       matrix:
         config:
         - {
-            name: "aec_off png_on jasper_on openjpeg_off",
-            options: "-DUSE_AEC=OFF -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/jasper"
-          }
-        - {
             name: "aec_on png_on jasper_on openjpeg_off",
             options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/jasper"
-          }
-        - {
-            name: "aec_off png_on jasper_off openjpeg_on",
-            options: "-DUSE_AEC=OFF -DUSE_PNG=OFF  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
           }
         - {
             name: "aec_on png_on jasper_off openjpeg_on",
@@ -42,7 +34,6 @@ jobs:
 
         brew update
         brew install libaec openjpeg jpeg-turbo
-        echo "libaec_DIR=$(brew --cellar libaec)/$(brew list --versions libaec | cut -d" " -f 2)" >> "$GITHUB_ENV"
 
     - name: cache-jasper
       id: cache-jasper
@@ -101,6 +92,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
+        export libaec_DIR=$(brew --cellar libaec)/$(brew list --versions libaec | cut -d" " -f 2)
         cmake ${{ matrix.config.options }} ..
         make -j2 VERBOSE=1
 
