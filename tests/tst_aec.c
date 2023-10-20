@@ -70,7 +70,7 @@ main()
         float fld[DATA_LEN] = {1.0, 2.0, 3.0, 4.0};
         float fld_in[DATA_LEN];
         unsigned char cpack[PACKED_LEN];
-        size_t lcpack;
+        g2int lcpack;
         g2int idrstmpl[8] = {0, 1, 1, 0, 0, 0, 16, 128};
         int i, ret;
 
@@ -99,8 +99,8 @@ main()
 	double fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
 	double fld_in[DATA_LEN];
 	unsigned char cpack[PACKED_LEN];
-	size_t lcpack;
-        g2int idrstmpl[8] = {0, 1, 1, 0, 0, 0, 16, 128};
+	g2int lcpack;
+    g2int idrstmpl[8] = {0, 1, 1, 0, 0, 0, 16, 128};
 	int i, ret;
 
         idrstmpl[5] = AEC_DATA_SIGNED | AEC_DATA_PREPROCESS | AEC_DATA_MSB;
