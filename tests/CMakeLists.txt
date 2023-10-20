@@ -201,8 +201,6 @@ endif()
 
 # Run these tests only if libaec is linked.
 if(USE_AEC)
-  set(AEC_LIBRARIES ${libaec_LIBRARY})
-  set(AEC_INCLUDE_DIR ${libaec_INCLUDE_DIR})
   g2c_test(tst_aec)
 endif()
 
