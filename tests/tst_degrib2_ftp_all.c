@@ -39,7 +39,7 @@ main()
             for (t = 0; t < 1; t++)
             {
                 char degrib2_file[MAX_FILENAME_LEN + 9];
-                char ref_degrib2_file[MAX_FILENAME_LEN + 20];
+                /* char ref_degrib2_file[MAX_FILENAME_LEN + 20]; */
                 
                 /* Open the data file with and without the index file. */
                 if (t)
