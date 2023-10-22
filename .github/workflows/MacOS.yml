@@ -92,7 +92,6 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        export libaec_DIR=$(brew --cellar libaec)/$(brew list --versions libaec | cut -d" " -f 2)
         cmake ${{ matrix.config.options }} ..
         make -j2 VERBOSE=1
 
