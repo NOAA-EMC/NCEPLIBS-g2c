@@ -56,8 +56,8 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     g2int ctemplen;
     g2int *ifld = NULL;
     g2int j;
-    g2int imin, imax, retry;
-    g2int maxdif, maxnum, nbits, ndpts, nbytes;
+    g2int imin, imax;
+    g2int maxdif, nbits, ndpts, nbytes;
     g2int ccsds_flags, ccsds_block_size, ccsds_rsi;
     float bscale, dscale, rmax, rmin, temp;
     double rmaxd, rmind;
@@ -184,28 +184,43 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 
         /* Define AEC compression options */
         if (idrstmpl[3] <= 0)
+        {
             nbits = pow(2, ceil(log(nbits)/log(2))); // Round to nearest base 2 int
+        }
         else
+        {
             nbits = idrstmpl[3];
             nbits = pow(2, ceil(log(nbits)/log(2))); // Round to nearest base 2 int
+        }
         nbits = nbits < 8 ? 8 : nbits;
 
         if (idrstmpl[5] == 0)
+        {
             ccsds_flags = AEC_DATA_SIGNED | AEC_DATA_PREPROCESS | AEC_DATA_MSB;
+        }
         else
+        {
             ccsds_flags = idrstmpl[5];
+        }
         if (idrstmpl[6] == 0)
+        {
             ccsds_block_size = 16;
+        }
         else
+        {
             ccsds_block_size = idrstmpl[6];
+        }
         if (idrstmpl[7] == 0)
+        {
             ccsds_rsi = 128;
+        }
         else
+        {
             ccsds_rsi = idrstmpl[7];
+        }
 
         /* Pack data into full octets, then do AEC encode and
          * calculate the length of the packed data in bytes. */
-        retry = 0;
         nbytes = (nbits + 7) / 8;
         ctemp = calloc(ndpts, nbytes);
         ctemplen = ndpts*nbytes;

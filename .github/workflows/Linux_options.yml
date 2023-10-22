@@ -42,12 +42,20 @@ jobs:
             options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
           }
         - {
-            name: "png_off jasper_off openjpeg_on",
-            options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+            name: "aec_off png_off jasper_off openjpeg_on",
+            options: "-DUSE_AEC=OFF -DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
           }
         - {
-            name: "png_on jasper_off openjpeg_on",
-            options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+            name: "aec_on png_off jasper_off openjpeg_on",
+            options: "-DUSE_AEC=ON -DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "aec_off png_on jasper_off openjpeg_on",
+            options: "-DUSE_AEC=OFF -DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "aec_on png_on jasper_off openjpeg_on",
+            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
           }
         - {
             name: "aec_off png_off jasper_off openjpeg_on",

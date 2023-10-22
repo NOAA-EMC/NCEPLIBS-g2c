@@ -44,7 +44,7 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
           void *fld, int fld_is_double, int verbose)
 {
     g2int *ifld;
-    g2int j, ctemplen, ifldlen, nbits;
+    g2int j, ctemplen, nbits;
     g2int ccsds_flags, ccsds_block_size, ccsds_rsi;
     int ret = 0;
     float ref, bscale, dscale;
@@ -52,7 +52,6 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
     double *dfld = fld;
     unsigned char *ctemp;
 
-    ifldlen = 0;
     ctemplen = 0;
 
     LOG((2, "aecunpack_int len %ld ndpts %ld fld_is_double %d", len, ndpts, fld_is_double));
@@ -69,7 +68,6 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
      * value is the data value at each gridpoint. */
     if (nbits != 0)
     {
-        ifldlen = (ndpts * sizeof(g2int));
         if (!(ifld = calloc(ndpts, sizeof(g2int))))
         {
             if (verbose)
