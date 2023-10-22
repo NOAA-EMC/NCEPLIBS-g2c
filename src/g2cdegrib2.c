@@ -157,7 +157,7 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
     }
 
     /* Determine second unit of time range. */
-    iutpos2 = ipos2[ipdtn];
+    iutpos2 = ipos2[ipdtn + 1];
     switch (ipdtmpl[iutpos2])
     {
     case 0:
@@ -212,21 +212,24 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
     }
     else
     {
-        is = ipos[ipdtn]; /* Continuous time interval. */
+        is = ipos[ipdtn - 1] - 1; /* Continuous time interval. */
         printf("%d", is);
-        sprintf(endtime, "%d%d%d%d:%d:%d", year, month, day, hour, minute, second);
+        sprintf(endtime, "%4.4d%2.2d%2.2d%2.2d:%2.2d:%2.2d", (int)ipdtmpl[is], (int)ipdtmpl[is + 1],
+		(int)ipdtmpl[is + 2], (int)ipdtmpl[is + 3], (int)ipdtmpl[is + 4], (int)ipdtmpl[is + 5]);
         /*    write(endtime, fmt = '(i4,3i2.2,":",i2.2,":",i2.2)') (ipdtmpl(j), j = is, is + 5) */
-        if (ipdtn == 8 && ipdtmpl[9] < 0)
+	itemp2 = abs(ipdtmpl[iutpos2]) * iunit2;
+	itemp2 = itemp + itemp2;
+	sprintf(tmpval2, "%d", itemp2);
+        if (ipdtn == 8 && ipdtmpl[8] < 0)
         {
             /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // ") valid  " // trim(tmpval) // " " // trim(tunit) // " before " // reftime // " to " //endtime */
         }
-        else if ((ipdtn >= 8 && ipdtn <= 14) || (ipdtn >= 42 && ipdtn <= 47) || ipdtn == 91) /* Continuous time interval */
+        else if ((ipdtn >= 8 && ipdtn <= 14) || (ipdtn >= 42 && ipdtn <= 47) ||
+		 ipdtn == 91) /* Continuous time interval */
         {
-            itemp2 = abs(ipdtmpl[iutpos2 + 1]) * iunit2;
-            itemp2 = itemp + itemp2;
-            sprintf(tmpval2, "%d", itemp2);
             /*       write(tmpval2, '(I0)') itemp2 */
             /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // " hr) valid  " // trim(tmpval) // " " // trim(tunit) // " after " // reftime // " to " // endtime */
+	    sprintf(tabbrev, "(%d -%d hr) valid  %d %s after %s to %s", itemp, itemp2, itemp, tunit, reftime, endtime);	    
         }
     }
 
