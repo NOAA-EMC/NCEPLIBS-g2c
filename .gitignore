@@ -6,3 +6,5 @@ install/
 *.mod
 *.so
 *.swp
+
+**.DS_Store
