@@ -133,8 +133,8 @@ endif()
 
 # Build with AEC.
 if(LIBAEC_FOUND)
-  set(AEC_LIBRARIES ${libaec_LIBRARY})
-  set(AEC_INCLUDE_DIR ${libaec_INCLUDE_DIR})
+  set(AEC_LIBRARIES ${LIBAEC_LIBRARIES})
+  set(AEC_INCLUDE_DIR ${LIBAEC_INCLUDE_DIRS})
   message(STATUS "AEC include directories ${AEC_INCLUDE_DIR}")
   message(STATUS "AEC libraries ${AEC_LIBRARIES}")
   target_sources(${lib_name}_objlib PRIVATE decenc_aec.c
@@ -228,4 +228,3 @@ install(EXPORT ${PROJECT_NAME}Exports
 set(XML_FILES Template.xml CodeFlag.xml)
 install(FILES ${XML_FILES}
   DESTINATION ${CMAKE_INSTALL_LIBDIR})
-

@@ -97,7 +97,7 @@ endif()
 
 # Find required packages to use AEC.
 if(USE_AEC)
-  find_package(libaec CONFIG)
+  find_package(libaec 1.0.6 REQUIRED)
   add_definitions(-DAEC)
 else()
   message(STATUS "Will not build AEC support")
