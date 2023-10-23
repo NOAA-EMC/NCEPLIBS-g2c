@@ -157,7 +157,7 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
     }
 
     /* Determine second unit of time range. */
-    iutpos2 = ipos2[ipdtn + 1];
+    iutpos2 = ipos2[ipdtn - 1];
     switch (ipdtmpl[iutpos2])
     {
     case 0:
@@ -361,6 +361,9 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Altitude above MSL. */
     else if (ipdtmpl[ipos] == 102 && ipdtmpl[ipos + 3] == 255)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "m above MSL");
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* level_desc = trim(tmpval1)//" m above MSL" */
     }
