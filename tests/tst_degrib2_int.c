@@ -7,26 +7,28 @@
  */
 #include "grib2_int.h"
 
-#define NUM_PROD_TEST 5
+#define NUM_PROD_TEST 7
 
 int
 main()
 {
     printf("Testing g2c degrib2 internal functions.\n");
-    printf("Testing g2c_get_level_desc()...");
+    printf("Testing g2c_get_level_desc()...\n");
     {
 #define DATE_TIME_LEN 100
-        int prod_template_num[NUM_PROD_TEST] = {0, 0, 0, 0, 8};
+        int prod_template_num[NUM_PROD_TEST] = {0, 0, 0, 0, 8, 2, 0};
         long long int prod_template_value[NUM_PROD_TEST][G2C_MAX_PDS_TEMPLATE_MAPLEN] = {
             {2, 1, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
             {2, 10, 0, 0, 81, 0, 0, 1, 0, 100, 0, 80000, 255, 0, 0},
             {0, 21, 2, 255, 104, 65535, 255, 1, 1, 103, 0, 2, 255, 0, 0},
             {19, 238, 2, 255, 104, 65535, 255, 1, 1, 100, 0, 40000, 100, 0, 30000},
-            {1, 228, 2, 255, 104, 65535, 255, 1, 0, 1, 0, 0, 255, 0, 0, 2022, 11, 17, 20, 0, 0, 1, 0, 1, 2, 1, 1, 1, 0}
+            {1, 228, 2, 255, 104, 65535, 255, 1, 0, 1, 0, 0, 255, 0, 0, 2022, 11, 17, 20, 0, 0, 1, 0, 1, 2, 1, 1, 1, 0},
+	    {0, 192, 4, 70, 70, 0, 0, 1, 0, 106, 0, 0, 106, 1, 1, 0, 20},
+	    {0, 192, 2, 0, 98, 0, 0, 1, 0, 106, 2, 0, 106, 2, 10}
         };
         char expected_level_desc[NUM_PROD_TEST][G2C_MAX_GRIB_LEVEL_DESC_LEN + 1] = {
             " Surface", " 800 mb", "2 m above ground", " 400 -  300 mb",
-            " Surface"};
+            " Surface", "0 - .1 m DBLY", " 0 - .10 m DBLY"};
         char level_desc[G2C_MAX_GRIB_LEVEL_DESC_LEN + 1];
         short year[NUM_PROD_TEST] = {2021, 2022, 2022, 2022, 2022};
         unsigned char month[NUM_PROD_TEST] = {11, 11, 11, 11, 11};
@@ -39,7 +41,9 @@ main()
             "valid  0 hour after 2022110612:00:00",
             "valid  1 hour after 2022110612:00:00",
             "valid  1 hour after 2022110612:00:00",
-            "(0 -1 hr) valid  0 hour after 2022111719:00:00 to 2022111720:00:00"
+            "(0 -1 hr) valid  0 hour after 2022111719:00:00 to 2022111720:00:00",
+	    "valid  0 hour after 2022111719:00:00",
+	    "valid  0 hour after 2022111719:00:00"
         };
         int t;
         int ret;
@@ -53,7 +57,7 @@ main()
                 return ret;
             if (strcmp(level_desc, expected_level_desc[t]))
             {
-                printf("level_desc %s expected %s\n", level_desc, expected_level_desc[t]);
+                printf("level_desc %s \nexpected %s\n", level_desc, expected_level_desc[t]);
                 return G2C_ERROR;
             }
 
@@ -63,7 +67,7 @@ main()
                 return ret;
             if (strcmp(date_time, expected_date_time[t]))
             {
-                printf("date_time %s expected %s\n", date_time, expected_date_time[t]);
+                printf("date_time %s \nexpected %s\n", date_time, expected_date_time[t]);
                 return G2C_ERROR;
             }
         }
