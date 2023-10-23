@@ -572,6 +572,7 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
         strcpy(level_desc, " highest top lvl sup"    );
     else
     {
+	sprintf(level_desc, "  %d (Unknown Lvl)", (int)ipdtmpl[ipos]);
         /* write(level_desc, fmt = '(1x,I4," (Unknown Lvl)")') ipdtmpl[ipos] */
     }
 
