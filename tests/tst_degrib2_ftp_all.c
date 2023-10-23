@@ -39,7 +39,7 @@ main()
             for (t = 0; t < 1; t++)
             {
                 char degrib2_file[MAX_FILENAME_LEN + 9];
-                /* char ref_degrib2_file[MAX_FILENAME_LEN + 20]; */
+                char ref_degrib2_file[MAX_FILENAME_LEN + 20];
                 
                 /* Open the data file with and without the index file. */
                 if (t)
@@ -73,9 +73,12 @@ main()
                     return ret;
                 
                 /* Compare the degrib2 output to our reference file. */
-                /* sprintf(ref_degrib2_file, "data/ref_%s.degrib2", basename(file[f])); */
-                /* if ((ret = compare_degrib2_files2(degrib2_file, ref_degrib2_file))) */
-                /*     return ret; */
+                sprintf(ref_degrib2_file, "data/ref_%s.degrib2", basename(file[f]));
+                if ((ret = compare_degrib2_files2(degrib2_file, ref_degrib2_file)))
+		{
+		    printf("compare failed!\n");
+		    return ret;
+		}
             }
             printf("\tok!\n");
         }

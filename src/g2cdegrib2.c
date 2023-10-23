@@ -157,7 +157,10 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
     }
 
     /* Determine second unit of time range. */
-    iutpos2 = ipos2[ipdtn + 1];
+    if (ipdtn > 0)
+	iutpos2 = ipos2[ipdtn - 1];
+    else
+	iutpos2 = 0;
     switch (ipdtmpl[iutpos2])
     {
     case 0:
@@ -213,7 +216,6 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
     else
     {
         is = ipos[ipdtn - 1] - 1; /* Continuous time interval. */
-        printf("%d", is);
         sprintf(endtime, "%4.4d%2.2d%2.2d%2.2d:%2.2d:%2.2d", (int)ipdtmpl[is], (int)ipdtmpl[is + 1],
 		(int)ipdtmpl[is + 2], (int)ipdtmpl[is + 3], (int)ipdtmpl[is + 4], (int)ipdtmpl[is + 5]);
         /*    write(endtime, fmt = '(i4,3i2.2,":",i2.2,":",i2.2)') (ipdtmpl(j), j = is, is + 5) */
@@ -252,6 +254,8 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
 static int
 format_level(char *cbuf, int ival, int scale)
 {
+    char tmpcbuf[37];
+    
     assert(cbuf);
 
     if (!scale)
@@ -271,7 +275,8 @@ format_level(char *cbuf, int ival, int scale)
         {
             char fmt[37];
             sprintf(fmt, "%s%d%s", "%.", (int)abs(scale), "f");
-            sprintf(cbuf, fmt, rval);
+            sprintf(tmpcbuf, fmt, rval);
+	    strcpy(cbuf, &tmpcbuf[1]);
         }
 
     }
@@ -354,11 +359,14 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     }
     else if (ipdtmpl[ipos] == 101)
     {
-        strcpy(level_desc, "Mean Sea Level ");
+        strcpy(level_desc, " Mean Sea Level");
     }
     /* Altitude above MSL. */
     else if (ipdtmpl[ipos] == 102 && ipdtmpl[ipos + 3] == 255)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "m above MSL");
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* level_desc = trim(tmpval1)//" m above MSL" */
     }
@@ -374,6 +382,11 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Height above Ground. */
     else if (ipdtmpl[ipos] == 103 && ipdtmpl[ipos + 3] == 103)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        if ((ret = format_level(tmpval2, ipdtmpl[ipos + 5], ipdtmpl[ipos + 4])))
+            return ret;
+        sprintf(level_desc, "%s - %s m AGL", tmpval1, tmpval2);
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
         /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" m AGL" */
@@ -381,12 +394,20 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Sigma Level. */
     else if (ipdtmpl[ipos] == 104 && ipdtmpl[ipos + 3] == 255)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "sigma");
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* level_desc = trim(tmpval1)//" sigma" */
     }
     /* Sigma Layer. */
     else if (ipdtmpl[ipos] == 104 && ipdtmpl[ipos + 3] == 104)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        if ((ret = format_level(tmpval2, ipdtmpl[ipos + 5], ipdtmpl[ipos + 4])))
+            return ret;
+        sprintf(level_desc, "%s - %s sigma", tmpval1, tmpval2);
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
         /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" sigma" */
@@ -394,12 +415,20 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Hybrid Level. */
     else if (ipdtmpl[ipos] == 105 && ipdtmpl[ipos + 3] == 255)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "hybrid lvl");
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* level_desc = trim(tmpval1)//" hybrid lvl" */
     }
     /* Hybrid Level. */
     else if (ipdtmpl[ipos] == 105 && ipdtmpl[ipos + 3] == 105)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        if ((ret = format_level(tmpval2, ipdtmpl[ipos + 5], ipdtmpl[ipos + 4])))
+            return ret;
+        sprintf(level_desc, "%s - %s hybrid lvl", tmpval1, tmpval2);
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
         /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" hybrid lvl" */
@@ -407,12 +436,20 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Depth Below Land Sfc. */
     else if (ipdtmpl[ipos] == 106 && ipdtmpl[ipos + 3] == 255)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "m below land");
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* level_desc = trim(tmpval1)//" m below land" */
     }
     /* Depth Below Land Sfc Layer. */
     else if (ipdtmpl[ipos] == 106 && ipdtmpl[ipos + 3] == 106)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        if ((ret = format_level(tmpval2, ipdtmpl[ipos + 5], ipdtmpl[ipos + 4])))
+            return ret;
+        sprintf(level_desc, "%s - %s m DBLY", tmpval1, tmpval2);
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
         /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" m DBLY" */
@@ -424,6 +461,11 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Press Diff from Ground Layer. */
     else if (ipdtmpl[ipos] == 108 && ipdtmpl[ipos + 3] == 108)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1] + 2)))
+            return ret;
+        if ((ret = format_level(tmpval2, ipdtmpl[ipos + 5], ipdtmpl[ipos + 4] + 2)))
+            return ret;
+        sprintf(level_desc, "%s - %s mb SPDY", tmpval1, tmpval2);
         /* write(tmpval1, *) ipdtmpl(ipos + 2)/100. */
         /* write(tmpval2, *) ipdtmpl(ipos + 5)/100. */
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1) + 2) */
@@ -437,6 +479,9 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Potential Vorticity Sfc. */
     else if (ipdtmpl[ipos] == 109 && ipdtmpl[ipos + 3] == 255)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "pv surface");
         /* write(tmpval1, *) ipdtmpl(ipos + 2). */
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)-6) */
         /*     level_desc = trim(tmpval1)//" pv surface" */
@@ -565,6 +610,7 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
         strcpy(level_desc, " highest top lvl sup"    );
     else
     {
+	sprintf(level_desc, " %4d (Unknown Lvl)", (int)ipdtmpl[ipos]);
         /* write(level_desc, fmt = '(1x,I4," (Unknown Lvl)")') ipdtmpl[ipos] */
     }
 
@@ -641,10 +687,14 @@ g2c_degrib2(int g2cid, const char *fileout)
 
             fprintf(f, "\n");
             fprintf(f, "  FIELD  %d\n", fld + 1);
-            fprintf(f, "  SECTION 0:  %d 2\n", msg->discipline);
-            fprintf(f, "  SECTION 1:  %d %d %d %d %d %d %d %d %d %d %d %d %d\n", msg->center, msg->subcenter,
-                    msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
-                    msg->hour, msg->minute, msg->second, msg->status, msg->type);
+	    /* Only print section 0 and 1 data for the first field. */
+	    if (fld == 0)
+	    {
+		fprintf(f, "  SECTION 0:  %d 2\n", msg->discipline);
+		fprintf(f, "  SECTION 1:  %d %d %d %d %d %d %d %d %d %d %d %d %d\n", msg->center, msg->subcenter,
+			msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
+			msg->hour, msg->minute, msg->second, msg->status, msg->type);
+	    }
 
             /* Find this field (a.k.a. product, a.k.a. section 4). */
             for (sec = msg->sec; sec; sec = sec->next)
