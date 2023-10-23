@@ -30,20 +30,20 @@ main()
             " Surface", " 800 mb", "2 m above ground", " 400 -  300 mb",
             " Surface", "0 - .1 m DBLY", " 0 - .10 m DBLY"};
         char level_desc[G2C_MAX_GRIB_LEVEL_DESC_LEN + 1];
-        short year[NUM_PROD_TEST] = {2021, 2022, 2022, 2022, 2022};
-        unsigned char month[NUM_PROD_TEST] = {11, 11, 11, 11, 11};
-        unsigned char day[NUM_PROD_TEST] = {30, 6, 6, 6, 17};
-        unsigned char hour[NUM_PROD_TEST] = {0, 12, 12, 12, 19};
-        unsigned char minute[NUM_PROD_TEST] = {0, 0, 0, 0, 0};
-        unsigned char second[NUM_PROD_TEST] = {0, 0, 0, 0, 0};
+        short year[NUM_PROD_TEST] = {2021, 2022, 2022, 2022, 2022, 2022, 2022};
+        unsigned char month[NUM_PROD_TEST] = {11, 11, 11, 11, 11, 11, 11};
+        unsigned char day[NUM_PROD_TEST] = {30, 6, 6, 6, 17, 17, 17};
+        unsigned char hour[NUM_PROD_TEST] = {0, 12, 12, 12, 19, 12, 12};
+        unsigned char minute[NUM_PROD_TEST] = {0, 0, 0, 0, 0, 0, 0};
+        unsigned char second[NUM_PROD_TEST] = {0, 0, 0, 0, 0, 0, 0};
         char expected_date_time[NUM_PROD_TEST][DATE_TIME_LEN + 1] = {
             "valid  0 hour after 2021113000:00:00",
             "valid  0 hour after 2022110612:00:00",
             "valid  1 hour after 2022110612:00:00",
             "valid  1 hour after 2022110612:00:00",
             "(0 -1 hr) valid  0 hour after 2022111719:00:00 to 2022111720:00:00",
-	    "valid  0 hour after 2022111719:00:00",
-	    "valid  0 hour after 2022111719:00:00"
+	    "valid  0 hour after 2022111712:00:00",
+	    "valid  0 hour after 2022111712:00:00"
         };
         int t;
         int ret;

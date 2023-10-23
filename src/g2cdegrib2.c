@@ -251,6 +251,8 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
 static int
 format_level(char *cbuf, int ival, int scale)
 {
+    char tmpcbuf[37];
+    
     assert(cbuf);
 
     if (!scale)
@@ -270,7 +272,8 @@ format_level(char *cbuf, int ival, int scale)
         {
             char fmt[37];
             sprintf(fmt, "%s%d%s", "%.", (int)abs(scale), "f");
-            sprintf(cbuf, fmt, rval);
+            sprintf(tmpcbuf, fmt, rval);
+	    strcpy(cbuf, &tmpcbuf[1]);
         }
 
     }
@@ -412,6 +415,11 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Depth Below Land Sfc Layer. */
     else if (ipdtmpl[ipos] == 106 && ipdtmpl[ipos + 3] == 106)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        if ((ret = format_level(tmpval2, ipdtmpl[ipos + 5], ipdtmpl[ipos + 4])))
+            return ret;
+        sprintf(level_desc, "%s - %s m DBLY", tmpval1, tmpval2);
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
         /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" m DBLY" */
