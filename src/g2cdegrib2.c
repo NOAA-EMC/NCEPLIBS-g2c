@@ -356,7 +356,7 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     }
     else if (ipdtmpl[ipos] == 101)
     {
-        strcpy(level_desc, "Mean Sea Level ");
+        strcpy(level_desc, " Mean Sea Level");
     }
     /* Altitude above MSL. */
     else if (ipdtmpl[ipos] == 102 && ipdtmpl[ipos + 3] == 255)
