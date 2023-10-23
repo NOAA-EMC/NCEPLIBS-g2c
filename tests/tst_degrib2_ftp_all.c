@@ -77,7 +77,7 @@ main()
                 if ((ret = compare_degrib2_files2(degrib2_file, ref_degrib2_file)))
 		{
 		    printf("compare failed!\n");
-		    /* return ret; */
+		    return ret;
 		}
             }
             printf("\tok!\n");

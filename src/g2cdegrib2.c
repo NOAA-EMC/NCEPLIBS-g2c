@@ -458,6 +458,11 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Press Diff from Ground Layer. */
     else if (ipdtmpl[ipos] == 108 && ipdtmpl[ipos + 3] == 108)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1] + 2)))
+            return ret;
+        if ((ret = format_level(tmpval2, ipdtmpl[ipos + 5], ipdtmpl[ipos + 4] + 2)))
+            return ret;
+        sprintf(level_desc, "%s - %s mb SPDY", tmpval1, tmpval2);
         /* write(tmpval1, *) ipdtmpl(ipos + 2)/100. */
         /* write(tmpval2, *) ipdtmpl(ipos + 5)/100. */
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1) + 2) */
@@ -602,7 +607,7 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
         strcpy(level_desc, " highest top lvl sup"    );
     else
     {
-	sprintf(level_desc, "  %d (Unknown Lvl)", (int)ipdtmpl[ipos]);
+	sprintf(level_desc, " %4d (Unknown Lvl)", (int)ipdtmpl[ipos]);
         /* write(level_desc, fmt = '(1x,I4," (Unknown Lvl)")') ipdtmpl[ipos] */
     }
 
@@ -679,10 +684,14 @@ g2c_degrib2(int g2cid, const char *fileout)
 
             fprintf(f, "\n");
             fprintf(f, "  FIELD  %d\n", fld + 1);
-            fprintf(f, "  SECTION 0:  %d 2\n", msg->discipline);
-            fprintf(f, "  SECTION 1:  %d %d %d %d %d %d %d %d %d %d %d %d %d\n", msg->center, msg->subcenter,
-                    msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
-                    msg->hour, msg->minute, msg->second, msg->status, msg->type);
+	    /* Only print section 0 and 1 data for the first field. */
+	    if (fld == 0)
+	    {
+		fprintf(f, "  SECTION 0:  %d 2\n", msg->discipline);
+		fprintf(f, "  SECTION 1:  %d %d %d %d %d %d %d %d %d %d %d %d %d\n", msg->center, msg->subcenter,
+			msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
+			msg->hour, msg->minute, msg->second, msg->status, msg->type);
+	    }
 
             /* Find this field (a.k.a. product, a.k.a. section 4). */
             for (sec = msg->sec; sec; sec = sec->next)
