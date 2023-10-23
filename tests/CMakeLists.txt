@@ -157,7 +157,9 @@ if(FTP_TEST_FILES)
   add_definitions(-DFTP_TEST_FILES)
 
   # Run this test only if FTP test files are used.
-  g2c_ptest(tst_aqm)
+  if(BUILD_G2C)  
+    g2c_ptest(tst_aqm)
+  endif()
 endif()
 
 # Always run these tests.
