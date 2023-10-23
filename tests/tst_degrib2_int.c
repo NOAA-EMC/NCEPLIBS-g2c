@@ -16,7 +16,7 @@ main()
     printf("Testing g2c_get_level_desc()...");
     {
 #define DATE_TIME_LEN 100
-        int prod_template_num[NUM_PROD_TEST] = {0, 0, 0};
+        int prod_template_num[NUM_PROD_TEST] = {0, 0, 0, 0, 8};
         long long int prod_template_value[NUM_PROD_TEST][G2C_MAX_PDS_TEMPLATE_MAPLEN] = {
             {2, 1, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
             {2, 10, 0, 0, 81, 0, 0, 1, 0, 100, 0, 80000, 255, 0, 0},
@@ -28,7 +28,7 @@ main()
             " Surface", " 800 mb", "2 m above ground", " 400 -  300 mb",
             " Surface"};
         char level_desc[G2C_MAX_GRIB_LEVEL_DESC_LEN + 1];
-        short year[NUM_PROD_TEST] = {2021, 2022, 2022, 2022};
+        short year[NUM_PROD_TEST] = {2021, 2022, 2022, 2022, 2022};
         unsigned char month[NUM_PROD_TEST] = {11, 11, 11, 11, 11};
         unsigned char day[NUM_PROD_TEST] = {30, 6, 6, 6, 17};
         unsigned char hour[NUM_PROD_TEST] = {0, 12, 12, 12, 19};
@@ -44,8 +44,7 @@ main()
         int t;
         int ret;
 
-        /* for (t = 0; t < NUM_PROD_TEST; t++) */
-        for (t = 0; t < 3; t++)
+        for (t = 0; t < NUM_PROD_TEST; t++)
         {
             char date_time[DATE_TIME_LEN + 1];
             
