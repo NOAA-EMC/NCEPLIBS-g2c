@@ -379,6 +379,11 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Height above Ground. */
     else if (ipdtmpl[ipos] == 103 && ipdtmpl[ipos + 3] == 103)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        if ((ret = format_level(tmpval2, ipdtmpl[ipos + 5], ipdtmpl[ipos + 4])))
+            return ret;
+        sprintf(level_desc, "%s - %s m AGL", tmpval1, tmpval2);
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
         /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" m AGL" */
@@ -386,12 +391,20 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Sigma Level. */
     else if (ipdtmpl[ipos] == 104 && ipdtmpl[ipos + 3] == 255)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "sigma");
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* level_desc = trim(tmpval1)//" sigma" */
     }
     /* Sigma Layer. */
     else if (ipdtmpl[ipos] == 104 && ipdtmpl[ipos + 3] == 104)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        if ((ret = format_level(tmpval2, ipdtmpl[ipos + 5], ipdtmpl[ipos + 4])))
+            return ret;
+        sprintf(level_desc, "%s - %s sigma", tmpval1, tmpval2);
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
         /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" sigma" */
@@ -399,12 +412,20 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Hybrid Level. */
     else if (ipdtmpl[ipos] == 105 && ipdtmpl[ipos + 3] == 255)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "hybrid lvl");
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* level_desc = trim(tmpval1)//" hybrid lvl" */
     }
     /* Hybrid Level. */
     else if (ipdtmpl[ipos] == 105 && ipdtmpl[ipos + 3] == 105)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        if ((ret = format_level(tmpval2, ipdtmpl[ipos + 5], ipdtmpl[ipos + 4])))
+            return ret;
+        sprintf(level_desc, "%s - %s hybrid lvl", tmpval1, tmpval2);
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* call frmt(tmpval2, ipdtmpl(ipos + 5), ipdtmpl(ipos + 4)) */
         /* level_desc = trim(tmpval1)//" - "//trim(tmpval2)//" hybrid lvl" */
@@ -412,6 +433,9 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Depth Below Land Sfc. */
     else if (ipdtmpl[ipos] == 106 && ipdtmpl[ipos + 3] == 255)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "m below land");
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)) */
         /* level_desc = trim(tmpval1)//" m below land" */
     }
@@ -447,6 +471,9 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
     /* Potential Vorticity Sfc. */
     else if (ipdtmpl[ipos] == 109 && ipdtmpl[ipos + 3] == 255)
     {
+        if ((ret = format_level(tmpval1, ipdtmpl[ipos + 2], ipdtmpl[ipos + 1])))
+            return ret;
+        sprintf(level_desc, "%s %s", tmpval1, "pv surface");
         /* write(tmpval1, *) ipdtmpl(ipos + 2). */
         /* call frmt(tmpval1, ipdtmpl(ipos + 2), ipdtmpl(ipos + 1)-6) */
         /*     level_desc = trim(tmpval1)//" pv surface" */
