@@ -157,7 +157,10 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
     }
 
     /* Determine second unit of time range. */
-    iutpos2 = ipos2[ipdtn - 1];
+    if (ipdtn > 0)
+	iutpos2 = ipos2[ipdtn - 1];
+    else
+	iutpos2 = 0;
     switch (ipdtmpl[iutpos2])
     {
     case 0:
