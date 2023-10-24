@@ -39,6 +39,7 @@ class G2c(CMakePackage):
         default=False,
         description="Turn on OpenMP threading",
         when="@develop",
+    )
     variant(
         "pthreads",
         default=False,
