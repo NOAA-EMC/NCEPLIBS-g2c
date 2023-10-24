@@ -18,28 +18,52 @@ jobs:
       matrix:
         config:
         - {
-            name: "png_off jasper_off openjpeg_off",
-            options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
+            name: "aec_off png_off jasper_off openjpeg_off",
+            options: "-DUSE_AEC=OFF -DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
           }
         - {
-            name: "png_on jasper_off openjpeg_off",
-            options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
+            name: "aec_on png_off jasper_off openjpeg_off",
+            options: "-DUSE_AEC=ON -DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
           }
         - {
-            name: "png_off jasper_on openjpeg_off",
-            options: "-DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+            name: "aec_off png_on jasper_off openjpeg_off",
+            options: "-DUSE_AEC=OFF -DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=OFF"
           }
         - {
-            name: "png_on jasper_on openjpeg_off",
-            options: "-DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+            name: "aec_off png_off jasper_on openjpeg_off",
+            options: "-DUSE_AEC=OFF -DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
           }
         - {
-            name: "png_off jasper_off openjpeg_on",
-            options: "-DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+            name: "aec_off png_on jasper_on openjpeg_off",
+            options: "-DUSE_AEC=OFF -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
           }
         - {
-            name: "png_on jasper_off openjpeg_on",
-            options: "-DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+            name: "aec_on png_on jasper_on openjpeg_off",
+            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+          }
+        - {
+            name: "aec_off png_off jasper_off openjpeg_on",
+            options: "-DUSE_AEC=OFF -DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "aec_on png_off jasper_off openjpeg_on",
+            options: "-DUSE_AEC=ON -DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "aec_off png_on jasper_off openjpeg_on",
+            options: "-DUSE_AEC=OFF -DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "aec_on png_on jasper_off openjpeg_on",
+            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "aec_off png_off jasper_off openjpeg_on",
+            options: "-DUSE_AEC=OFF -DUSE_PNG=OFF -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
+          }
+        - {
+            name: "aec_on png_on jasper_off openjpeg_on",
+            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=OFF -DUSE_OpenJPEG=ON "
           }
         - {
             name: "g2c",
@@ -58,7 +82,7 @@ jobs:
     - name: install-dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev
+        sudo apt-get install libaec-dev libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev
 
     - name: checkout-jasper
       uses: actions/checkout@v3

@@ -22,6 +22,7 @@ class G2c(CMakePackage):
     version("1.6.4", sha256="5129a772572a358296b05fbe846bd390c6a501254588c6a223623649aefacb9d")
     version("1.6.2", sha256="b5384b48e108293d7f764cdad458ac8ce436f26be330b02c69c2a75bb7eb9a2c")
 
+    variant("aec", default=True, description="Use AEC library")
     variant("png", default=True, description="Use PNG library")
     variant("jasper", default=True, description="Use Jasper library")
     variant("openjpeg", default=False, description="Use OpenJPEG library")
@@ -53,6 +54,7 @@ class G2c(CMakePackage):
         when="@develop",
     )
 
+    depends_on("libaec", when="+aec")
     depends_on("libpng", when="+png")
     depends_on("jasper", when="+jasper")
     depends_on("openjpeg", when="+openjpeg")
@@ -65,6 +67,7 @@ class G2c(CMakePackage):
             self.define_from_variant("CMAKE_POSITION_INDEPENDENT_CODE", "pic"),
             self.define("BUILD_SHARED_LIBS", self.spec.satisfies("libs=shared")),
             self.define("BUILD_STATIC_LIBS", self.spec.satisfies("libs=static")),
+            self.define_from_variant("USE_AEC", "aec"),
             self.define_from_variant("USE_PNG", "png"),
             self.define_from_variant("USE_Jasper", "jasper"),
             self.define_from_variant("USE_OpenJPEG", "openjpeg"),

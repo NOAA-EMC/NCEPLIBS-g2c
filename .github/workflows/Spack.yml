@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest"]
-        variants: ["libs=shared +png+jasper~openjpeg+pic+pthreads+utils+build_g2c", "libs=static ~png~jasper+openjpeg~pic~pthreads~utils~build_g2c"]
+        variants: ["libs=shared +aec+png+jasper~openjpeg+pic+pthreads+utils+build_g2c", "libs=static ~aec~png~jasper+openjpeg~pic~pthreads~utils~build_g2c"]
     runs-on: ${{ matrix.os }}
 
     steps:

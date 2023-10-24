@@ -12,6 +12,7 @@
  * 2004-12-16 | Taylor | Added check on comunpack return code.
  * 2008-12-23 | Wesley | Initialize Number of data points unpacked.
  * 2022-10-04 | Hartnett | Added g2c_unpack7().
+ * 2023-10-16 | Engle | Added support for DRT 5.42, AEC compression.
  *
  */
 #include <memory.h>
@@ -146,6 +147,12 @@ g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstm
         pngunpack(cgrib + ipos, lensec - 5, idrstmpl, ndpts, *fld);
     }
 #endif  /* USE_PNG */
+#ifdef USE_AEC
+    else if (idrsnum == 42)
+    {
+        aecunpack(cgrib + ipos, lensec - 5, idrstmpl, ndpts, *fld);
+    }
+#endif  /* USE_AEC */
     else
     {
         if (v1)

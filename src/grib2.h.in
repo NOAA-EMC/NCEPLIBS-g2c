@@ -9,6 +9,7 @@
  * 2021-11-9 | Ed Hartnett | Moved many prototypes to new internal header grib2_int.h.
  * 2022-04-15 | Ed Hartnett | Added error codes related to JPEG.
  * 2022-08-15 | Ed Hartnett | Added compression functions for double.
+ * 2023-09-10 | Eric Engle | Added AEC compression.
  *
  * @author Stephen Gilbert @date 2002-10-25
  * @author Ed Hartnett
@@ -26,6 +27,7 @@
 
 #cmakedefine G2_PNG_ENABLED 1 /**< Decoding/encoding PNG is enabled */
 #cmakedefine G2_JPEG2000_ENABLED 1 /**< Decoding/encoding JPEG2000 is enabled */
+#cmakedefine G2_AEC_ENABLED 1 /**< Decoding/encoding AEC/CCSDS is enabled */
 
 /** Long integer type. */
 typedef int64_t g2int;
@@ -262,6 +264,10 @@ void jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
              unsigned char *cpack, g2int *lcpack);
 g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 float *fld);
+void aecpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
+             unsigned char *cpack, g2int *lcpack);
+g2int aecunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
+                float *fld);
 
 
 /* The new g2c API is being introduced in version 2.0 of the library. */
@@ -302,7 +308,7 @@ g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 #define G2C_MAX_GDS_TEMPLATE_MAPLEN 28 /**< Maximum grid template map length. */
 #define G2C_MAX_PDS_TEMPLATE 47 /**< Maximum number of PDS templates. */
 #define G2C_MAX_PDS_TEMPLATE_MAPLEN 45 /**< Maximum template map length. */
-#define G2C_MAX_DRS_TEMPLATE 9 /**< Maximum number of DRS templates. */
+#define G2C_MAX_DRS_TEMPLATE 10 /**< Maximum number of DRS templates. */
 #define G2C_MAX_DRS_TEMPLATE_MAPLEN 18 /**< Maximum DRS template map length. */
 
 /* File handling functions. */
@@ -385,6 +391,14 @@ int g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
                      int ltype, int ratio, int retry, char *outjpc,
                      size_t jpclen);
 int g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld);
+int g2c_aecpackf(float *fld, size_t width, size_t height, int *idrstmpl,
+                 unsigned char *cpack, size_t *lcpack);
+int g2c_aecpackd(double *fld, size_t width, size_t height, int *idrstmpl,
+                 unsigned char *cpack, size_t *lcpack);
+int g2c_aecunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
+                   float *fld);
+int g2c_aecunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
+                   double *fld);
 
 /* Testing. */
 int g2c_compare(int g2cid1, int g2cid2);
@@ -405,6 +419,7 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 
 #define G2C_JPEG_DRS_TEMPLATE_LEN 7 /**< Length of the idrstmpl array for JPEG packing. */
 #define G2C_PNG_DRS_TEMPLATE_LEN 5 /**< Length of the idrstmpl array for PNG packing. */
+#define G2C_AEC_DRS_TEMPLATE_LEN 8 /**< Length of the idrstmpl array for AEC packing. */
 
 #define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
 #define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
@@ -499,5 +514,6 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_ENOPARAM (-71)      /**< Parameter not found. */
 #define G2C_ENOPRODUCT (-72)    /**< Product not found. */
 #define G2C_EBADTYPE (-73)      /**< Type not found. */
+#define G2C_EAEC (-74)         /**< Error encoding/decoding AEC data. */
 
 #endif  /*  _grib2_H  */

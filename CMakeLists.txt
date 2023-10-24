@@ -1,6 +1,6 @@
 # This is the main CMake file for NCEPLIBS-g2c.
 #
-# Mark Potts, Kyle Gerheiser, Ed Hartnett
+# Mark Potts, Kyle Gerheiser, Ed Hartnett, Eric Engle
 cmake_minimum_required(VERSION 3.15)
 
 # Read the VERSION file.
@@ -20,6 +20,7 @@ option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
 option(USE_PNG "Use PNG library"      ON)
 option(USE_Jasper "Use Jasper library"   ON)
 option(USE_OpenJPEG "Use OpenJPEG library" OFF)
+option(USE_AEC "Use LibAEC library" OFF)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(BUILD_STATIC_LIBS "Build static libraries" ON)
 option(FTP_TEST_FILES "Fetch and test with files on FTP site." OFF)
@@ -92,6 +93,14 @@ endif()
 # Turn on this pre-processor symbol to get JPEG code and testing.
 if(USE_Jasper OR USE_OpenJPEG)
   add_definitions(-DJPEG)
+endif()
+
+# Find required packages to use AEC.
+if(USE_AEC)
+  find_package(libaec 1.0.6 REQUIRED)
+  add_definitions(-DAEC)
+else()
+  message(STATUS "Will not build AEC support")
 endif()
 
 # Find libxml2.
