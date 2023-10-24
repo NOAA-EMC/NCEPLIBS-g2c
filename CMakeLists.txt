@@ -17,6 +17,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
 # Handle user options.
 option(ENABLE_DOCS "Enable generation of doxygen-based documentation." OFF)
+option(OPENMP "Use OpenMP threading." OFF)
 option(USE_PNG "Use PNG library"      ON)
 option(USE_Jasper "Use Jasper library"   ON)
 option(USE_OpenJPEG "Use OpenJPEG library" OFF)
@@ -96,6 +97,11 @@ endif()
 
 # Find libxml2.
 find_package(LibXml2 2.9.0 REQUIRED)
+
+# Handle OpenMP if desired
+if(OPENMP)
+  find_package(OpenMP REQUIRED COMPONENTS C)
+endif()
 
 # Set the compiler flags.
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel|IntelLLVM)$")
