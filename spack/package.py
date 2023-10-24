@@ -35,6 +35,12 @@ class G2c(CMakePackage):
         when="@1.7:",
     )
     variant(
+        "openmp",
+        default=False,
+        description="Turn on OpenMP threading",
+        when="@develop",
+    )
+    variant(
         "pthreads",
         default=False,
         description="Turn on thread-safety with pthreads",
@@ -69,6 +75,7 @@ class G2c(CMakePackage):
             self.define_from_variant("USE_Jasper", "jasper"),
             self.define_from_variant("USE_OpenJPEG", "openjpeg"),
             self.define_from_variant("PTHREADS", "pthreads"),
+            self.define_from_variant("OPENMP", "openmp"),
             self.define_from_variant("UTILS", "utils"),
             self.define_from_variant("BUILD_G2C", "build_g2c"),
             self.define("BUILD_TESTING", self.run_tests),

@@ -62,6 +62,17 @@ if(BUILD_STATIC_LIBS)
   target_include_directories(${lib_name}_static PRIVATE "${LIBXML2_INCLUDE_DIR}")
 endif()
 
+# Link to OpenMP.
+if(OPENMP)
+  target_link_libraries(${lib_name}_objlib PUBLIC OpenMP::OpenMP_C)
+  if(BUILD_SHARED_LIBS)
+    target_link_libraries(${lib_name}_shared PUBLIC OpenMP::OpenMP_C)
+  endif()
+  if(BUILD_STATIC_LIBS)
+    target_link_libraries(${lib_name}_static PUBLIC OpenMP::OpenMP_C)
+  endif()
+endif()
+
 # Build with PNG.
 if(PNG_FOUND)
   message(STATUS "PNG include directories ${PNG_INCLUDE_DIR}")
