@@ -225,6 +225,7 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
         if (ipdtn == 8 && ipdtmpl[8] < 0)
         {
             /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // ") valid  " // trim(tmpval) // " " // trim(tunit) // " before " // reftime // " to " //endtime */
+	    sprintf(tabbrev, "(%d -%d) valid  %d %s before %s to %s", itemp, itemp2, itemp, tunit, reftime, endtime);	    	    
         }
         else if ((ipdtn >= 8 && ipdtn <= 14) || (ipdtn >= 42 && ipdtn <= 47) ||
 		 ipdtn == 91) /* Continuous time interval */
