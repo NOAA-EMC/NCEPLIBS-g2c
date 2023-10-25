@@ -33,7 +33,8 @@ main()
         int t;
         int ret;
 
-        for (f = 0; f < NUM_FILES; f++)
+        /* for (f = 0; f < NUM_FILES; f++) */
+        for (f = 0; f < 9; f++)
         {
             for (t = 0; t < 1; t++)
             {
