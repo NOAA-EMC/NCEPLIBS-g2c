@@ -217,6 +217,7 @@ if(USE_Jasper OR USE_OpenJPEG)
   g2c_test(tst_jpeg)
   g2c_test(tst_addfield3)
   g2c_test(tst_addfield4)
+  g2c_test(tst_jasper_warning)
 endif()
 
 # Run these shell tests, which require Jasper.
@@ -234,6 +235,7 @@ endif()
 if(FTP_EXTRA_TEST_FILES)
   g2c_test(tst_mrms)
 endif()
+
 
 
 
