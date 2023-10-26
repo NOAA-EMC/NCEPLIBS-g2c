@@ -69,6 +69,7 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   "testgrib2.grb2"
   "ref_testgrib2.grb2.degrib2"
   "ref_gdaswave_2.grib1.idx"
+  "ref_tst_jasper_warning.txt"
   )
 
 # Copy extra files if needed.
@@ -89,12 +90,17 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 
-# Run a C program test.
-function(g2c_test name)
+# Build a C program test.
+function(g2c_build_test name)
   add_executable(${name} ${name}.c util.c)
   target_link_libraries(${name} PUBLIC g2c::g2c)
   target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
   target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
+endfunction()
+
+# Run a C program test.
+function(g2c_test name)
+  g2c_build_test(${name})
   add_test(NAME ${name} COMMAND ${name})
 endfunction()
 
@@ -217,7 +223,12 @@ if(USE_Jasper OR USE_OpenJPEG)
   g2c_test(tst_jpeg)
   g2c_test(tst_addfield3)
   g2c_test(tst_addfield4)
-  g2c_test(tst_jasper_warning)
+  g2c_build_test(tst_jasper_warning)
+endif()
+
+# Test for warnings from jasper.
+if(USE_Jasper)
+  gu_test(run_jasper_warning_test)
 endif()
 
 # Run these shell tests, which require Jasper.
