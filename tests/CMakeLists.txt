@@ -85,10 +85,22 @@ foreach(THE_FILE IN LISTS REF_FILES)
 endforeach()
 
 # These are the XML files from the WMO with GRIB2 code data.
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+if(BUILD_G2C)
+  FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+  FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+endif()
+
+# Build a C program test.
+function(g2c_build_test name)
+  add_executable(${name} ${name}.c util.c)
+  target_link_libraries(${name} PUBLIC g2c::g2c)
+  if(BUILD_G2C)
+    target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
+    target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
+  endif()
+endfunction()
 
 # Build a C program test.
 function(g2c_build_test name)
