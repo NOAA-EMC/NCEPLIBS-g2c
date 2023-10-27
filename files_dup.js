@@ -1,10 +1,13 @@
 var files_dup =
 [
+    [ "aecpack.c", "aecpack_8c.html", "aecpack_8c" ],
+    [ "aecunpack.c", "aecunpack_8c.html", "aecunpack_8c" ],
     [ "cmplxpack.c", "cmplxpack_8c.html", "cmplxpack_8c" ],
     [ "compack.c", "compack_8c.html", "compack_8c" ],
     [ "comunpack.c", "comunpack_8c.html", "comunpack_8c" ],
     [ "dec_jpeg2000.c", "dec__jpeg2000_8c.html", "dec__jpeg2000_8c" ],
     [ "dec_png.c", "dec__png_8c.html", "dec__png_8c" ],
+    [ "decenc_aec.c", "decenc__aec_8c.html", "decenc__aec_8c" ],
     [ "decenc_openjpeg.c", "decenc__openjpeg_8c.html", null ],
     [ "drstemplates.c", "drstemplates_8c.html", "drstemplates_8c" ],
     [ "enc_jpeg2000.c", "enc__jpeg2000_8c.html", "enc__jpeg2000_8c" ],

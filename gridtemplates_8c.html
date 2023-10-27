@@ -129,7 +129,7 @@ Variables</h2></td></tr>
 </ol>
 <p>In some cases the number of entries in a template can vary depending upon values specified in the "static" part of the template. (See Template 3.120 as an example).</p>
 <dl class="section note"><dt>Note</dt><dd>Array mapgrid contains the number of octets in which the corresponding template values will be stored. A negative value in mapgrid is used to indicate that the corresponding template entry can contain negative values. This information is used later when packing (or unpacking) the template data values. Negative data values in GRIB are stored with the left most bit set to one, and a negative number of octets value in mapgrid indicates that this possibility should be considered. The number of octets used to store the data value in this case would be the absolute value of the negative value in mapgrid.</dd></dl>
-<h3><a class="anchor" id="autotoc_md20"></a>
+<h3><a class="anchor" id="autotoc_md21"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -261,7 +261,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00376">376</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00497">G2C_ENOTEMPLATE</a>, <a class="el" href="grib2_8h_source.html#l00301">G2C_MAX_GDS_TEMPLATE</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, and <a class="el" href="gridtemplates_8c_source.html#l00057">templatesgrid</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00512">G2C_ENOTEMPLATE</a>, <a class="el" href="grib2_8h_source.html#l00307">G2C_MAX_GDS_TEMPLATE</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, and <a class="el" href="gridtemplates_8c_source.html#l00057">templatesgrid</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cfile_8c_source.html#l00481">g2c_rw_section3_metadata()</a>.</p>
 
@@ -327,7 +327,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00301">301</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00300">gtemplate::ext</a>, <a class="el" href="gridtemplates_8c_source.html#l00226">extgridtemplate()</a>, <a class="el" href="grib2__int_8h_source.html#l00296">gtemplate::extlen</a>, <a class="el" href="grib2_8h_source.html#l00481">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00485">G2C_ENOMEM</a>, <a class="el" href="grib2_8h_source.html#l00497">G2C_ENOTEMPLATE</a>, <a class="el" href="grib2_8h_source.html#l00301">G2C_MAX_GDS_TEMPLATE</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, and <a class="el" href="gridtemplates_8c_source.html#l00057">templatesgrid</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00300">gtemplate::ext</a>, <a class="el" href="gridtemplates_8c_source.html#l00226">extgridtemplate()</a>, <a class="el" href="grib2__int_8h_source.html#l00296">gtemplate::extlen</a>, <a class="el" href="grib2_8h_source.html#l00496">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOMEM</a>, <a class="el" href="grib2_8h_source.html#l00512">G2C_ENOTEMPLATE</a>, <a class="el" href="grib2_8h_source.html#l00307">G2C_MAX_GDS_TEMPLATE</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, and <a class="el" href="gridtemplates_8c_source.html#l00057">templatesgrid</a>.</p>
 
 </div>
 </div>
@@ -368,7 +368,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="gridtemplates_8c_source.html#l00140">140</a> of file <a class="el" href="gridtemplates_8c_source.html">gridtemplates.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00301">G2C_MAX_GDS_TEMPLATE</a>, and <a class="el" href="gridtemplates_8c_source.html#l00057">templatesgrid</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00307">G2C_MAX_GDS_TEMPLATE</a>, and <a class="el" href="gridtemplates_8c_source.html#l00057">templatesgrid</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="gridtemplates_8c_source.html#l00226">extgridtemplate()</a>, and <a class="el" href="gridtemplates_8c_source.html#l00178">getgridtemplate()</a>.</p>
 

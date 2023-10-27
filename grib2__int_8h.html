@@ -284,6 +284,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a9b77b4fddeb0b4e4d136bb7c2460b7cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2__int_8h.html#a9b77b4fddeb0b4e4d136bb7c2460b7cc">add_section</a> (FILE *f, <a class="el" href="grib2__int_8h.html#a99a45e03f1f4601ea7c5fcdeec5cb19b">G2C_MESSAGE_INFO_T</a> *msg, int sec_id, unsigned int sec_len, size_t bytes_to_sec, unsigned char sec_num)</td></tr>
 <tr class="memdesc:a9b77b4fddeb0b4e4d136bb7c2460b7cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add metadata about a new section 3, 4, 5, 6, or 7.  <a href="grib2__int_8h.html#a9b77b4fddeb0b4e4d136bb7c2460b7cc">More...</a><br /></td></tr>
 <tr class="separator:a9b77b4fddeb0b4e4d136bb7c2460b7cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb40b559127a62584c554aa169b5256d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2__int_8h.html#afb40b559127a62584c554aa169b5256d">aecpack</a> (float *fld, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> width, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> height, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, unsigned char *cpack, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *lcpack)</td></tr>
+<tr class="memdesc:afb40b559127a62584c554aa169b5256d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function packs up a float array into a AEC code stream.  <a href="grib2__int_8h.html#afb40b559127a62584c554aa169b5256d">More...</a><br /></td></tr>
+<tr class="separator:afb40b559127a62584c554aa169b5256d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a515b0d4e9e4dcd671b920b25e775d046"><td class="memItemLeft" align="right" valign="top"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2__int_8h.html#a515b0d4e9e4dcd671b920b25e775d046">aecunpack</a> (unsigned char *cpack, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> len, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts, float *fld)</td></tr>
+<tr class="memdesc:a515b0d4e9e4dcd671b920b25e775d046"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unpack AEC compressed data into an array of floats, using info from the GRIB2 Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-42.shtml">Template 5.42</a>.  <a href="grib2__int_8h.html#a515b0d4e9e4dcd671b920b25e775d046">More...</a><br /></td></tr>
+<tr class="separator:a515b0d4e9e4dcd671b920b25e775d046"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a099225c582defca6ab562d9aad5bc20b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2__int_8h.html#a099225c582defca6ab562d9aad5bc20b">cmplxpack</a> (float *fld, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> idrsnum, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, unsigned char *cpack, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *lcpack)</td></tr>
 <tr class="memdesc:a099225c582defca6ab562d9aad5bc20b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine packs up a data field using a complex packing algorithm as defined in the GRIB2 documention.  <a href="grib2__int_8h.html#a099225c582defca6ab562d9aad5bc20b">More...</a><br /></td></tr>
 <tr class="separator:a099225c582defca6ab562d9aad5bc20b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -293,12 +299,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ab6cce79f010456f1e882fa1c027062da"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2__int_8h.html#ab6cce79f010456f1e882fa1c027062da">comunpack</a> (unsigned char *cpack, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> lensec, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> idrsnum, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts, float *fld)</td></tr>
 <tr class="memdesc:ab6cce79f010456f1e882fa1c027062da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine unpacks a data field that was packed using a complex packing algorithm as defined in the GRIB2 documention, using info from the GRIB2 Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-2.shtml">Template 5.2</a> or <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-3.shtml">Template 5.3</a>.  <a href="grib2__int_8h.html#ab6cce79f010456f1e882fa1c027062da">More...</a><br /></td></tr>
 <tr class="separator:ab6cce79f010456f1e882fa1c027062da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad751480a6bc4bdd573acf3edad326837"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2__int_8h.html#ad751480a6bc4bdd573acf3edad326837">dec_aec</a> (unsigned char *cpack, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> len, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> nbits, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> flags, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> block_size, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> rsi, unsigned char *cfld, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> cfldlen)</td></tr>
+<tr class="memdesc:ad751480a6bc4bdd573acf3edad326837"><td class="mdescLeft">&#160;</td><td class="mdescRight">This Function decodes an AEC code stream specified in the <a href="https://public.ccsds.org/Pubs/121x0b3.pdf">CCSDS 121.0-B-3 Blue Book</a>.  <a href="grib2__int_8h.html#ad751480a6bc4bdd573acf3edad326837">More...</a><br /></td></tr>
+<tr class="separator:ad751480a6bc4bdd573acf3edad326837"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aecc47ef133bb090df718275d41098613"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2__int_8h.html#aecc47ef133bb090df718275d41098613">dec_jpeg2000</a> (char *injpc, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> bufsize, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *outfld)</td></tr>
 <tr class="memdesc:aecc47ef133bb090df718275d41098613"><td class="mdescLeft">&#160;</td><td class="mdescRight">This Function decodes a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using <a href="https://github.com/jasper-software/jasper">JasPer Software</a>.  <a href="grib2__int_8h.html#aecc47ef133bb090df718275d41098613">More...</a><br /></td></tr>
 <tr class="separator:aecc47ef133bb090df718275d41098613"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c7dfb37dbbca9143143db5aeb2f6005"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2__int_8h.html#a4c7dfb37dbbca9143143db5aeb2f6005">dec_png</a> (unsigned char *pngbuf, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *width, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *height, unsigned char *cout)</td></tr>
 <tr class="memdesc:a4c7dfb37dbbca9143143db5aeb2f6005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode PNG.  <a href="grib2__int_8h.html#a4c7dfb37dbbca9143143db5aeb2f6005">More...</a><br /></td></tr>
 <tr class="separator:a4c7dfb37dbbca9143143db5aeb2f6005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f6acf7278bfdd6e54a00749c694c531"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2__int_8h.html#a5f6acf7278bfdd6e54a00749c694c531">enc_aec</a> (unsigned char *data, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ctemplen, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> nbits, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> flags, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> block_size, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> rsi, unsigned char *aecbuf, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *aecbuflen)</td></tr>
+<tr class="memdesc:a5f6acf7278bfdd6e54a00749c694c531"><td class="mdescLeft">&#160;</td><td class="mdescRight">This Function encodes data into an AEC code stream specified in the <a href="https://public.ccsds.org/Pubs/121x0b3.pdf">CCSDS 121.0-B-3 Blue Book</a>.  <a href="grib2__int_8h.html#a5f6acf7278bfdd6e54a00749c694c531">More...</a><br /></td></tr>
+<tr class="separator:a5f6acf7278bfdd6e54a00749c694c531"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4af6d586d2f9ca5da713d025dccf781"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grib2__int_8h.html#af4af6d586d2f9ca5da713d025dccf781">enc_jpeg2000</a> (unsigned char *cin, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> width, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> height, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> nbits, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ltype, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ratio, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> retry, char *outjpc, <a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> jpclen)</td></tr>
 <tr class="memdesc:af4af6d586d2f9ca5da713d025dccf781"><td class="mdescLeft">&#160;</td><td class="mdescRight">This Function encodes a grayscale image into a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using <a href="https://github.com/jasper-software/jasper">JasPer Software</a>.  <a href="grib2__int_8h.html#af4af6d586d2f9ca5da713d025dccf781">More...</a><br /></td></tr>
 <tr class="separator:af4af6d586d2f9ca5da713d025dccf781"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1595,7 +1607,7 @@ The template type: 3 Grid Defintion Template. <p>4 Product Defintion Template. 5
 <p>Ignore logging to stdout. </p>
 <p>Library was not built with LOGGING=ON. </p>
 
-<p class="definition">Definition at line <a class="el" href="grib2__int_8h_source.html#l00417">417</a> of file <a class="el" href="grib2__int_8h_source.html">grib2_int.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="grib2__int_8h_source.html#l00426">426</a> of file <a class="el" href="grib2__int_8h_source.html">grib2_int.h</a>.</p>
 
 </div>
 </div>
@@ -2027,7 +2039,7 @@ The template type: 3 Grid Defintion Template. <p>4 Product Defintion Template. 5
 
 <p class="definition">Definition at line <a class="el" href="g2cfile_8c_source.html#l01020">1020</a> of file <a class="el" href="g2cfile_8c_source.html">g2cfile.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::bytes_in_msg</a>, <a class="el" href="grib2__int_8h_source.html#l00136">g2c_message_info::bytes_to_msg</a>, <a class="el" href="grib2__int_8h_source.html#l00163">g2c_message_info::file</a>, <a class="el" href="grib2_8h_source.html#l00485">G2C_ENOMEM</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00241">g2c_file_info::msg</a>, <a class="el" href="grib2__int_8h_source.html#l00135">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00164">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00240">g2c_file_info::num_messages</a>, and <a class="el" href="g2cfile_8c_source.html#l00940">read_msg_metadata()</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::bytes_in_msg</a>, <a class="el" href="grib2__int_8h_source.html#l00136">g2c_message_info::bytes_to_msg</a>, <a class="el" href="grib2__int_8h_source.html#l00163">g2c_message_info::file</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOMEM</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00241">g2c_file_info::msg</a>, <a class="el" href="grib2__int_8h_source.html#l00135">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00164">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00240">g2c_file_info::num_messages</a>, and <a class="el" href="g2cfile_8c_source.html#l00940">read_msg_metadata()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cindex_8c_source.html#l00786">g2c_open_index()</a>, and <a class="el" href="g2cfile_8c_source.html#l01082">read_metadata()</a>.</p>
 
@@ -2104,9 +2116,155 @@ The template type: 3 Grid Defintion Template. <p>4 Product Defintion Template. 5
 
 <p class="definition">Definition at line <a class="el" href="g2cfile_8c_source.html#l00797">797</a> of file <a class="el" href="g2cfile_8c_source.html">g2cfile.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00172">g2c_section_info::bytes_to_sec</a>, <a class="el" href="grib2_8h_source.html#l00494">G2C_EBADSECTION</a>, <a class="el" href="grib2_8h_source.html#l00485">G2C_ENOMEM</a>, <a class="el" href="grib2__int_8h_source.html#l00129">G2C_FILE_READ</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="g2cfile_8c_source.html#l00481">g2c_rw_section3_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00577">g2c_rw_section4_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00666">g2c_rw_section5_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00748">g2c_rw_section6_metadata()</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00174">g2c_section_info::msg</a>, <a class="el" href="grib2__int_8h_source.html#l00176">g2c_section_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00141">g2c_message_info::num_local</a>, <a class="el" href="grib2__int_8h_source.html#l00177">g2c_section_info::prev</a>, <a class="el" href="grib2__int_8h_source.html#l00162">g2c_message_info::sec</a>, <a class="el" href="grib2__int_8h_source.html#l00170">g2c_section_info::sec_id</a>, <a class="el" href="grib2__int_8h_source.html#l00171">g2c_section_info::sec_len</a>, and <a class="el" href="grib2__int_8h_source.html#l00173">g2c_section_info::sec_num</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00172">g2c_section_info::bytes_to_sec</a>, <a class="el" href="grib2_8h_source.html#l00509">G2C_EBADSECTION</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOMEM</a>, <a class="el" href="grib2__int_8h_source.html#l00129">G2C_FILE_READ</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, <a class="el" href="g2cfile_8c_source.html#l00481">g2c_rw_section3_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00577">g2c_rw_section4_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00666">g2c_rw_section5_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00748">g2c_rw_section6_metadata()</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00174">g2c_section_info::msg</a>, <a class="el" href="grib2__int_8h_source.html#l00176">g2c_section_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00141">g2c_message_info::num_local</a>, <a class="el" href="grib2__int_8h_source.html#l00177">g2c_section_info::prev</a>, <a class="el" href="grib2__int_8h_source.html#l00162">g2c_message_info::sec</a>, <a class="el" href="grib2__int_8h_source.html#l00170">g2c_section_info::sec_id</a>, <a class="el" href="grib2__int_8h_source.html#l00171">g2c_section_info::sec_len</a>, and <a class="el" href="grib2__int_8h_source.html#l00173">g2c_section_info::sec_num</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cindex_8c_source.html#l00786">g2c_open_index()</a>, and <a class="el" href="g2cfile_8c_source.html#l00940">read_msg_metadata()</a>.</p>
+
+</div>
+</div>
+<a id="afb40b559127a62584c554aa169b5256d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb40b559127a62584c554aa169b5256d">&#9670;&nbsp;</a></span>aecpack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void aecpack </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>fld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
+          <td class="paramname"><em>lcpack</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function packs up a float array into a AEC code stream. </p>
+<p>After the data are scaled, and the reference value is subtracted out, the data are passed to the AEC encoder.</p>
+<p>This function also fills in GRIB2 Data Representation Template 5.42 with the appropriate values.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fld</td><td>Pointer to the float data values to pack. </td></tr>
+    <tr><td class="paramname">width</td><td>The number of points in the x direction. </td></tr>
+    <tr><td class="paramname">height</td><td>The number of points in the y direction. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Contains the array of values for Data Representation Template <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-42.shtml">Table 5.42</a>.<ul>
+<li>0 Reference value - ignored on input, set by aecpack routine.</li>
+<li>1 Binary Scale Factor - used on input, unchanged by aecpack routine.</li>
+<li>2 Decimal Scale Factor - used on input, unchanged by aecpack routine.</li>
+<li>3 number of bits for each data value - ignored on input</li>
+<li>4 Original field type - currently ignored on input Data values assumed to be reals. Set to 0 on output.</li>
+<li>5 CCSDS compression options mask.</li>
+<li>6 Block size.</li>
+<li>7 Reference sample interval. May be modified in this function. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">cpack</td><td>A pointer that will get the packed data field. Must be allocated before this function is called. Pass the allocated size in the lcpack parameter. </td></tr>
+    <tr><td class="paramname">lcpack</td><td>Pointer that gets the length of packed field in cpack. This must be set by the calling function to the size available in cpack.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>Author</dt><dd>Eric Engle (adapted from jpcpack) </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="aecpack_8c_source.html#l00297">297</a> of file <a class="el" href="aecpack_8c_source.html">aecpack.c</a>.</p>
+
+</div>
+</div>
+<a id="a515b0d4e9e4dcd671b920b25e775d046"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a515b0d4e9e4dcd671b920b25e775d046">&#9670;&nbsp;</a></span>aecunpack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> aecunpack </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
+          <td class="paramname"><em>idrstmpl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>ndpts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>fld</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unpack AEC compressed data into an array of floats, using info from the GRIB2 Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-42.shtml">Template 5.42</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpack</td><td>The packed data. </td></tr>
+    <tr><td class="paramname">len</td><td>The length of the packed data. </td></tr>
+    <tr><td class="paramname">idrstmpl</td><td>Pointer to array of values for Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-42.shtml">Template 5.42</a>. </td></tr>
+    <tr><td class="paramname">ndpts</td><td>The number of data values to unpack. </td></tr>
+    <tr><td class="paramname">fld</td><td>A pointer that gets the unpacked data values as an array of float.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li><a class="el" href="grib2_8h.html#af837ca43cf1f95ac2d4096d3c3e35576" title="No error.">G2C_NOERROR</a> No error.</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Eric Engle </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2023-10-16 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="aecunpack_8c_source.html#l00139">139</a> of file <a class="el" href="aecunpack_8c_source.html">aecunpack.c</a>.</p>
 
 </div>
 </div>
@@ -2189,7 +2347,7 @@ The template type: 3 Grid Defintion Template. <p>4 Product Defintion Template. 5
 
 <p class="reference">References <a class="el" href="compack_8c_source.html#l00042">compack()</a>, and <a class="el" href="misspack_8c_source.html#l00042">misspack()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>.</p>
 
 </div>
 </div>
@@ -2328,7 +2486,7 @@ The template type: 3 Grid Defintion Template. <p>4 Product Defintion Template. 5
 
 <p>This subroutine unpacks a data field that was packed using a complex packing algorithm as defined in the GRIB2 documention, using info from the GRIB2 Data Representation <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-2.shtml">Template 5.2</a> or <a href="https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-3.shtml">Template 5.3</a>. </p>
 <p>Supports GRIB2 complex packing templates with or without spatial differences (i.e. DRTs 5.2 and 5.3).</p>
-<h3><a class="anchor" id="autotoc_md6"></a>
+<h3><a class="anchor" id="autotoc_md7"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2355,9 +2513,106 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="comunpack_8c_source.html#l00042">42</a> of file <a class="el" href="comunpack_8c_source.html">comunpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="gbits_8c_source.html#l00057">gbits()</a>, <a class="el" href="int__power_8c_source.html#l00018">int_power()</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, and <a class="el" href="rdieee_8c_source.html#l00021">rdieee()</a>.</p>
+<p class="reference">References <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="gbits_8c_source.html#l00057">gbits()</a>, <a class="el" href="int__power_8c_source.html#l00018">int_power()</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, and <a class="el" href="rdieee_8c_source.html#l00021">rdieee()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00067">g2c_unpack7_int()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00068">g2c_unpack7_int()</a>.</p>
+
+</div>
+</div>
+<a id="ad751480a6bc4bdd573acf3edad326837"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad751480a6bc4bdd573acf3edad326837">&#9670;&nbsp;</a></span>dec_aec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int dec_aec </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cpack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>nbits</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>flags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>block_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>rsi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>cfld</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>cfldlen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This Function decodes an AEC code stream specified in the <a href="https://public.ccsds.org/Pubs/121x0b3.pdf">CCSDS 121.0-B-3 Blue Book</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpack</td><td>Pointer to buffer that holds the input AEC code stream. </td></tr>
+    <tr><td class="paramname">len</td><td>Length (in bytes) of the buffer that holds the input AEC code stream. </td></tr>
+    <tr><td class="paramname">nbits</td><td>CCSDS bits per sample. </td></tr>
+    <tr><td class="paramname">flags</td><td>CCSDS compression options mask. </td></tr>
+    <tr><td class="paramname">block_size</td><td>CCSDS block size. </td></tr>
+    <tr><td class="paramname">rsi</td><td>CCSDS reference sample interval. </td></tr>
+    <tr><td class="paramname">cfld</td><td>Pointer to output buffer from the AEC decoder. </td></tr>
+    <tr><td class="paramname">cfldlen</td><td>length of output buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>&gt;0 Length of data from AEC decoder</li>
+<li>0 Successful decode (AEC_OK)</li>
+<li>-1 AEC_CONF_ERROR</li>
+<li>-2 AEC_STREAM_ERROR</li>
+<li>-3 AEC_DATA_ERROR</li>
+<li>-4 AEC_MEM_ERROR</li>
+<li>-5 AEC_RSI_OFFSETS_ERROR</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Eric Engle </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2023-10-16 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="decenc__aec_8c_source.html#l00043">43</a> of file <a class="el" href="decenc__aec_8c_source.html">decenc_aec.c</a>.</p>
+
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="aecunpack_8c_source.html#l00043">aecunpack_int()</a>.</p>
 
 </div>
 </div>
@@ -2478,6 +2733,103 @@ Program History Log</h3>
 
 </div>
 </div>
+<a id="a5f6acf7278bfdd6e54a00749c694c531"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f6acf7278bfdd6e54a00749c694c531">&#9670;&nbsp;</a></span>enc_aec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int enc_aec </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>ctemplen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>nbits</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>flags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>block_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>&#160;</td>
+          <td class="paramname"><em>rsi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>aecbuf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *&#160;</td>
+          <td class="paramname"><em>aecbuflen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This Function encodes data into an AEC code stream specified in the <a href="https://public.ccsds.org/Pubs/121x0b3.pdf">CCSDS 121.0-B-3 Blue Book</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Pointer to buffer that holds the input data. </td></tr>
+    <tr><td class="paramname">ctemplen</td><td>Length (in bytes) of the buffer that holds the input data.. </td></tr>
+    <tr><td class="paramname">nbits</td><td>CCSDS bits per sample. </td></tr>
+    <tr><td class="paramname">flags</td><td>CCSDS compression options mask. </td></tr>
+    <tr><td class="paramname">block_size</td><td>CCSDS block size. </td></tr>
+    <tr><td class="paramname">rsi</td><td>CCSDS reference sample interval. </td></tr>
+    <tr><td class="paramname">aecbuf</td><td>Pointer to buffer holding the AEC encoded stream. </td></tr>
+    <tr><td class="paramname">aecbuflen</td><td>Length of AEC code stream.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>&gt;0 Exact length of AEC encoded data.</li>
+<li>0 Successful decode (AEC_OK)</li>
+<li>-1 AEC_CONF_ERROR</li>
+<li>-2 AEC_STREAM_ERROR</li>
+<li>-3 AEC_DATA_ERROR</li>
+<li>-4 AEC_MEM_ERROR</li>
+<li>-5 AEC_RSI_OFFSETS_ERROR</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Eric Engle </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2023-10-16 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="decenc__aec_8c_source.html#l00111">111</a> of file <a class="el" href="decenc__aec_8c_source.html">decenc_aec.c</a>.</p>
+
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="aecpack_8c_source.html#l00053">aecpack_int()</a>.</p>
+
+</div>
+</div>
 <a id="af4af6d586d2f9ca5da713d025dccf781"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af4af6d586d2f9ca5da713d025dccf781">&#9670;&nbsp;</a></span>enc_jpeg2000()</h2>
 
@@ -2547,7 +2899,7 @@ Program History Log</h3>
 </div><div class="memdoc">
 
 <p>This Function encodes a grayscale image into a JPEG2000 code stream specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using <a href="https://github.com/jasper-software/jasper">JasPer Software</a>. </p>
-<h3><a class="anchor" id="autotoc_md10"></a>
+<h3><a class="anchor" id="autotoc_md11"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2590,7 +2942,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="enc__jpeg2000_8c_source.html#l00100">100</a> of file <a class="el" href="enc__jpeg2000_8c_source.html">enc_jpeg2000.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00471">G2_JASPER_ENCODE</a>, <a class="el" href="grib2_8h_source.html#l00470">G2_JASPER_INIT</a>, <a class="el" href="grib2__int_8h_source.html#l00033">G2C_JASPER_JPEG_FORMAT_NAME</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, and <a class="el" href="enc__jpeg2000_8c_source.html#l00011">MAXOPTSSIZE</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00486">G2_JASPER_ENCODE</a>, <a class="el" href="grib2_8h_source.html#l00485">G2_JASPER_INIT</a>, <a class="el" href="grib2__int_8h_source.html#l00033">G2C_JASPER_JPEG_FORMAT_NAME</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, and <a class="el" href="enc__jpeg2000_8c_source.html#l00011">MAXOPTSSIZE</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="enc__jpeg2000_8c_source.html#l00051">g2c_enc_jpeg2000()</a>, and <a class="el" href="jpcpack_8c_source.html#l00055">jpcpack_int()</a>.</p>
 
@@ -2701,9 +3053,9 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00208">208</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00213">213</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
 
-<p class="reference">References <a class="el" href="drstemplates_8c_source.html#l00130">getdrsindex()</a>, and <a class="el" href="drstemplates_8c_source.html#l00162">getdrstemplate()</a>.</p>
+<p class="reference">References <a class="el" href="drstemplates_8c_source.html#l00135">getdrsindex()</a>, and <a class="el" href="drstemplates_8c_source.html#l00167">getdrstemplate()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2__unpack5_8c_source.html#l00042">g2_unpack5()</a>.</p>
 
@@ -2801,7 +3153,7 @@ Program History Log</h3>
 
 <p class="reference">References <a class="el" href="pdstemplates_8c_source.html#l00242">getpdsindex()</a>, and <a class="el" href="pdstemplates_8c_source.html#l00277">getpdstemplate()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>, <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>, and <a class="el" href="pdstemplates_8c_source.html#l00741">g2c_get_pds_template_extension()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>, <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>, and <a class="el" href="pdstemplates_8c_source.html#l00741">g2c_get_pds_template_extension()</a>.</p>
 
 </div>
 </div>
@@ -2857,7 +3209,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cfile_8c_source.html#l01146">1146</a> of file <a class="el" href="g2cfile_8c_source.html">g2cfile.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cfile_8c_source.html#l00365">find_available_g2cid()</a>, <a class="el" href="grib2_8h_source.html#l00482">G2C_EFILE</a>, <a class="el" href="grib2_8h_source.html#l00481">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00480">G2C_ENAMETOOLONG</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00284">G2C_MAX_NAME</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2_8h_source.html#l00286">G2C_WRITE</a>, <a class="el" href="grib2__int_8h_source.html#l00237">g2c_file_info::g2cid</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00241">g2c_file_info::msg</a>, and <a class="el" href="grib2__int_8h_source.html#l00240">g2c_file_info::num_messages</a>.</p>
+<p class="reference">References <a class="el" href="g2cfile_8c_source.html#l00365">find_available_g2cid()</a>, <a class="el" href="grib2_8h_source.html#l00497">G2C_EFILE</a>, <a class="el" href="grib2_8h_source.html#l00496">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00495">G2C_ENAMETOOLONG</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00290">G2C_MAX_NAME</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, <a class="el" href="grib2_8h_source.html#l00292">G2C_WRITE</a>, <a class="el" href="grib2__int_8h_source.html#l00237">g2c_file_info::g2cid</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00241">g2c_file_info::msg</a>, and <a class="el" href="grib2__int_8h_source.html#l00240">g2c_file_info::num_messages</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cfile_8c_source.html#l01193">g2c_open()</a>, and <a class="el" href="g2cindex_8c_source.html#l00786">g2c_open_index()</a>.</p>
 
@@ -2915,9 +3267,9 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="util_8c_source.html#l00026">26</a> of file <a class="el" href="util_8c_source.html">util.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00479">G2C_EMSGCOMPLETE</a>, <a class="el" href="grib2_8h_source.html#l00478">G2C_ENOTGRIB</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, and <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00494">G2C_EMSGCOMPLETE</a>, <a class="el" href="grib2_8h_source.html#l00493">G2C_ENOTGRIB</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, and <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>, <a class="el" href="g2__addgrid_8c_source.html#l00070">g2_addgrid()</a>, <a class="el" href="g2__addlocal_8c_source.html#l00040">g2_addlocal()</a>, and <a class="el" href="g2__gribend_8c_source.html#l00037">g2_gribend()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>, <a class="el" href="g2__addgrid_8c_source.html#l00070">g2_addgrid()</a>, <a class="el" href="g2__addlocal_8c_source.html#l00040">g2_addlocal()</a>, and <a class="el" href="g2__gribend_8c_source.html#l00037">g2_gribend()</a>.</p>
 
 </div>
 </div>
@@ -2982,7 +3334,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cio_8c_source.html#l00041">41</a> of file <a class="el" href="g2cio_8c_source.html">g2cio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00010">BITSHIFT_15</a>, <a class="el" href="g2cio_8c_source.html#l00011">BITSHIFT_31</a>, <a class="el" href="g2cio_8c_source.html#l00012">BITSHIFT_63</a>, <a class="el" href="g2cio_8c_source.html#l00009">BITSHIFT_7</a>, <a class="el" href="grib2__int_8h_source.html#l00053">EIGHT_BYTES</a>, <a class="el" href="grib2__int_8h_source.html#l00052">FOUR_BYTES</a>, <a class="el" href="grib2_8h_source.html#l00270">G2C_BYTE</a>, <a class="el" href="grib2_8h_source.html#l00501">G2C_EBADTYPE</a>, <a class="el" href="grib2_8h_source.html#l00482">G2C_EFILE</a>, <a class="el" href="grib2_8h_source.html#l00481">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_INT</a>, <a class="el" href="grib2_8h_source.html#l00279">G2C_INT64</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2_8h_source.html#l00272">G2C_SHORT</a>, <a class="el" href="grib2_8h_source.html#l00276">G2C_UBYTE</a>, <a class="el" href="grib2_8h_source.html#l00278">G2C_UINT</a>, <a class="el" href="grib2_8h_source.html#l00280">G2C_UINT64</a>, <a class="el" href="grib2_8h_source.html#l00277">G2C_USHORT</a>, <a class="el" href="grib2__int_8h_source.html#l00127">hton64</a>, <a class="el" href="grib2__int_8h_source.html#l00123">ntoh64</a>, <a class="el" href="grib2__int_8h_source.html#l00050">ONE_BYTE</a>, and <a class="el" href="grib2__int_8h_source.html#l00051">TWO_BYTES</a>.</p>
+<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00010">BITSHIFT_15</a>, <a class="el" href="g2cio_8c_source.html#l00011">BITSHIFT_31</a>, <a class="el" href="g2cio_8c_source.html#l00012">BITSHIFT_63</a>, <a class="el" href="g2cio_8c_source.html#l00009">BITSHIFT_7</a>, <a class="el" href="grib2__int_8h_source.html#l00053">EIGHT_BYTES</a>, <a class="el" href="grib2__int_8h_source.html#l00052">FOUR_BYTES</a>, <a class="el" href="grib2_8h_source.html#l00276">G2C_BYTE</a>, <a class="el" href="grib2_8h_source.html#l00516">G2C_EBADTYPE</a>, <a class="el" href="grib2_8h_source.html#l00497">G2C_EFILE</a>, <a class="el" href="grib2_8h_source.html#l00496">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00279">G2C_INT</a>, <a class="el" href="grib2_8h_source.html#l00285">G2C_INT64</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, <a class="el" href="grib2_8h_source.html#l00278">G2C_SHORT</a>, <a class="el" href="grib2_8h_source.html#l00282">G2C_UBYTE</a>, <a class="el" href="grib2_8h_source.html#l00284">G2C_UINT</a>, <a class="el" href="grib2_8h_source.html#l00286">G2C_UINT64</a>, <a class="el" href="grib2_8h_source.html#l00283">G2C_USHORT</a>, <a class="el" href="grib2__int_8h_source.html#l00127">hton64</a>, <a class="el" href="grib2__int_8h_source.html#l00123">ntoh64</a>, <a class="el" href="grib2__int_8h_source.html#l00050">ONE_BYTE</a>, and <a class="el" href="grib2__int_8h_source.html#l00051">TWO_BYTES</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cio_8c_source.html#l00316">g2c_file_io_byte()</a>, <a class="el" href="g2cio_8c_source.html#l00230">g2c_file_io_int()</a>, <a class="el" href="g2cio_8c_source.html#l00359">g2c_file_io_longlong()</a>, <a class="el" href="g2cio_8c_source.html#l00273">g2c_file_io_short()</a>, <a class="el" href="g2cio_8c_source.html#l00337">g2c_file_io_ubyte()</a>, <a class="el" href="g2cio_8c_source.html#l00251">g2c_file_io_uint()</a>, <a class="el" href="g2cio_8c_source.html#l00380">g2c_file_io_ulonglong()</a>, and <a class="el" href="g2cio_8c_source.html#l00294">g2c_file_io_ushort()</a>.</p>
 
@@ -3039,7 +3391,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cio_8c_source.html#l00316">316</a> of file <a class="el" href="g2cio_8c_source.html">g2cio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00270">G2C_BYTE</a>, and <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00276">G2C_BYTE</a>, and <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>.</p>
 
@@ -3096,7 +3448,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cio_8c_source.html#l00230">230</a> of file <a class="el" href="g2cio_8c_source.html">g2cio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00273">G2C_INT</a>.</p>
+<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00279">G2C_INT</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>.</p>
 
@@ -3153,7 +3505,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cio_8c_source.html#l00359">359</a> of file <a class="el" href="g2cio_8c_source.html">g2cio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00279">G2C_INT64</a>.</p>
+<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00285">G2C_INT64</a>.</p>
 
 </div>
 </div>
@@ -3208,7 +3560,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cio_8c_source.html#l00273">273</a> of file <a class="el" href="g2cio_8c_source.html">g2cio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00272">G2C_SHORT</a>.</p>
+<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00278">G2C_SHORT</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>, <a class="el" href="g2cfile_8c_source.html#l00877">g2c_rw_section1_metadata()</a>, and <a class="el" href="g2cindex_8c_source.html#l00067">g2c_start_index_record()</a>.</p>
 
@@ -3274,7 +3626,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cio_8c_source.html#l00408">408</a> of file <a class="el" href="g2cio_8c_source.html">g2cio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00052">FOUR_BYTES</a>, <a class="el" href="grib2_8h_source.html#l00498">G2C_EBADTEMPLATE</a>, <a class="el" href="g2cio_8c_source.html#l00316">g2c_file_io_byte()</a>, <a class="el" href="g2cio_8c_source.html#l00230">g2c_file_io_int()</a>, <a class="el" href="g2cio_8c_source.html#l00273">g2c_file_io_short()</a>, <a class="el" href="g2cio_8c_source.html#l00337">g2c_file_io_ubyte()</a>, <a class="el" href="g2cio_8c_source.html#l00251">g2c_file_io_uint()</a>, <a class="el" href="g2cio_8c_source.html#l00294">g2c_file_io_ushort()</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00050">ONE_BYTE</a>, and <a class="el" href="grib2__int_8h_source.html#l00051">TWO_BYTES</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00052">FOUR_BYTES</a>, <a class="el" href="grib2_8h_source.html#l00513">G2C_EBADTEMPLATE</a>, <a class="el" href="g2cio_8c_source.html#l00316">g2c_file_io_byte()</a>, <a class="el" href="g2cio_8c_source.html#l00230">g2c_file_io_int()</a>, <a class="el" href="g2cio_8c_source.html#l00273">g2c_file_io_short()</a>, <a class="el" href="g2cio_8c_source.html#l00337">g2c_file_io_ubyte()</a>, <a class="el" href="g2cio_8c_source.html#l00251">g2c_file_io_uint()</a>, <a class="el" href="g2cio_8c_source.html#l00294">g2c_file_io_ushort()</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00050">ONE_BYTE</a>, and <a class="el" href="grib2__int_8h_source.html#l00051">TWO_BYTES</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cfile_8c_source.html#l00481">g2c_rw_section3_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00577">g2c_rw_section4_metadata()</a>, and <a class="el" href="g2cfile_8c_source.html#l00666">g2c_rw_section5_metadata()</a>.</p>
 
@@ -3331,7 +3683,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cio_8c_source.html#l00337">337</a> of file <a class="el" href="g2cio_8c_source.html">g2cio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00276">G2C_UBYTE</a>.</p>
+<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00282">G2C_UBYTE</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>, <a class="el" href="g2cindex_8c_source.html#l00786">g2c_open_index()</a>, <a class="el" href="g2cfile_8c_source.html#l00877">g2c_rw_section1_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00481">g2c_rw_section3_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00748">g2c_rw_section6_metadata()</a>, <a class="el" href="g2cindex_8c_source.html#l00153">g2c_start_index1_record()</a>, <a class="el" href="g2cindex_8c_source.html#l00067">g2c_start_index_record()</a>, <a class="el" href="g2cindex_8c_source.html#l00346">g2c_write_index()</a>, and <a class="el" href="g2cfile_8c_source.html#l00940">read_msg_metadata()</a>.</p>
 
@@ -3388,7 +3740,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cio_8c_source.html#l00251">251</a> of file <a class="el" href="g2cio_8c_source.html">g2cio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00278">G2C_UINT</a>.</p>
+<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00284">G2C_UINT</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>, <a class="el" href="g2cindex_8c_source.html#l00786">g2c_open_index()</a>, <a class="el" href="g2cfile_8c_source.html#l00877">g2c_rw_section1_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00481">g2c_rw_section3_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00666">g2c_rw_section5_metadata()</a>, <a class="el" href="g2cindex_8c_source.html#l00153">g2c_start_index1_record()</a>, <a class="el" href="g2cindex_8c_source.html#l00067">g2c_start_index_record()</a>, <a class="el" href="g2cindex_8c_source.html#l00346">g2c_write_index()</a>, and <a class="el" href="g2cfile_8c_source.html#l00940">read_msg_metadata()</a>.</p>
 
@@ -3445,7 +3797,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cio_8c_source.html#l00380">380</a> of file <a class="el" href="g2cio_8c_source.html">g2cio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00280">G2C_UINT64</a>.</p>
+<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00286">G2C_UINT64</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cindex_8c_source.html#l00067">g2c_start_index_record()</a>.</p>
 
@@ -3502,7 +3854,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cio_8c_source.html#l00294">294</a> of file <a class="el" href="g2cio_8c_source.html">g2cio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00277">G2C_USHORT</a>.</p>
+<p class="reference">References <a class="el" href="g2cio_8c_source.html#l00041">g2c_file_io()</a>, and <a class="el" href="grib2_8h_source.html#l00283">G2C_USHORT</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>, <a class="el" href="g2cfile_8c_source.html#l00481">g2c_rw_section3_metadata()</a>, <a class="el" href="g2cfile_8c_source.html#l00577">g2c_rw_section4_metadata()</a>, and <a class="el" href="g2cfile_8c_source.html#l00666">g2c_rw_section5_metadata()</a>.</p>
 
@@ -3601,9 +3953,9 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cdegrib2_8c_source.html#l00049">49</a> of file <a class="el" href="g2cdegrib2_8c_source.html">g2cdegrib2.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cdegrib2_8c_source.html#l00021">G2C_DATE_TIME_LEN</a>, and <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>.</p>
+<p class="reference">References <a class="el" href="g2cdegrib2_8c_source.html#l00021">G2C_DATE_TIME_LEN</a>, and <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2cdegrib2_8c_source.html#l00566">g2c_degrib2()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2cdegrib2_8c_source.html#l00637">g2c_degrib2()</a>.</p>
 
 </div>
 </div>
@@ -3656,11 +4008,11 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Ed Hartnett </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Sep 28, 2022 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2cdegrib2_8c_source.html#l00282">282</a> of file <a class="el" href="g2cdegrib2_8c_source.html">g2cdegrib2.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2cdegrib2_8c_source.html#l00312">312</a> of file <a class="el" href="g2cdegrib2_8c_source.html">g2cdegrib2.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cdegrib2_8c_source.html#l00229">format_level()</a>, and <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>.</p>
+<p class="reference">References <a class="el" href="g2cdegrib2_8c_source.html#l00256">format_level()</a>, and <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2cdegrib2_8c_source.html#l00566">g2c_degrib2()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2cdegrib2_8c_source.html#l00637">g2c_degrib2()</a>.</p>
 
 </div>
 </div>
@@ -3696,7 +4048,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cutil_8c_source.html#l00101">101</a> of file <a class="el" href="g2cutil_8c_source.html">g2cutil.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00149">g2c_message_info::center</a>, <a class="el" href="grib2__int_8h_source.html#l00156">g2c_message_info::day</a>, <a class="el" href="grib2__int_8h_source.html#l00138">g2c_message_info::discipline</a>, <a class="el" href="g2cxml_8c_source.html#l00132">g2c_find_desc()</a>, <a class="el" href="grib2_8h_source.html#l00409">G2C_MAX_GRIB_DESC_LEN</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="g2cxml_8c_source.html#l00190">g2c_xml_init()</a>, <a class="el" href="grib2__int_8h_source.html#l00157">g2c_message_info::hour</a>, <a class="el" href="grib2__int_8h_source.html#l00152">g2c_message_info::local_version</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00151">g2c_message_info::master_version</a>, <a class="el" href="grib2__int_8h_source.html#l00158">g2c_message_info::minute</a>, <a class="el" href="grib2__int_8h_source.html#l00155">g2c_message_info::month</a>, <a class="el" href="grib2__int_8h_source.html#l00159">g2c_message_info::second</a>, <a class="el" href="grib2__int_8h_source.html#l00153">g2c_message_info::sig_ref_time</a>, <a class="el" href="grib2__int_8h_source.html#l00160">g2c_message_info::status</a>, <a class="el" href="grib2__int_8h_source.html#l00150">g2c_message_info::subcenter</a>, <a class="el" href="grib2__int_8h_source.html#l00161">g2c_message_info::type</a>, and <a class="el" href="grib2__int_8h_source.html#l00154">g2c_message_info::year</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00149">g2c_message_info::center</a>, <a class="el" href="grib2__int_8h_source.html#l00156">g2c_message_info::day</a>, <a class="el" href="grib2__int_8h_source.html#l00138">g2c_message_info::discipline</a>, <a class="el" href="g2cxml_8c_source.html#l00132">g2c_find_desc()</a>, <a class="el" href="grib2_8h_source.html#l00424">G2C_MAX_GRIB_DESC_LEN</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, <a class="el" href="g2cxml_8c_source.html#l00190">g2c_xml_init()</a>, <a class="el" href="grib2__int_8h_source.html#l00157">g2c_message_info::hour</a>, <a class="el" href="grib2__int_8h_source.html#l00152">g2c_message_info::local_version</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00151">g2c_message_info::master_version</a>, <a class="el" href="grib2__int_8h_source.html#l00158">g2c_message_info::minute</a>, <a class="el" href="grib2__int_8h_source.html#l00155">g2c_message_info::month</a>, <a class="el" href="grib2__int_8h_source.html#l00159">g2c_message_info::second</a>, <a class="el" href="grib2__int_8h_source.html#l00153">g2c_message_info::sig_ref_time</a>, <a class="el" href="grib2__int_8h_source.html#l00160">g2c_message_info::status</a>, <a class="el" href="grib2__int_8h_source.html#l00150">g2c_message_info::subcenter</a>, <a class="el" href="grib2__int_8h_source.html#l00161">g2c_message_info::type</a>, and <a class="el" href="grib2__int_8h_source.html#l00154">g2c_message_info::year</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cutil_8c_source.html#l00188">g2c_log_file()</a>, and <a class="el" href="g2cindex_8c_source.html#l00786">g2c_open_index()</a>.</p>
 
@@ -3749,7 +4101,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cfile_8c_source.html#l00877">877</a> of file <a class="el" href="g2cfile_8c_source.html">g2cfile.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00149">g2c_message_info::center</a>, <a class="el" href="grib2__int_8h_source.html#l00156">g2c_message_info::day</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_ENOSECTION</a>, <a class="el" href="g2cio_8c_source.html#l00273">g2c_file_io_short()</a>, <a class="el" href="g2cio_8c_source.html#l00337">g2c_file_io_ubyte()</a>, <a class="el" href="g2cio_8c_source.html#l00251">g2c_file_io_uint()</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2_8h_source.html#l00295">G2C_SECTION1_BYTES</a>, <a class="el" href="grib2__int_8h_source.html#l00157">g2c_message_info::hour</a>, <a class="el" href="grib2__int_8h_source.html#l00152">g2c_message_info::local_version</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00151">g2c_message_info::master_version</a>, <a class="el" href="grib2__int_8h_source.html#l00158">g2c_message_info::minute</a>, <a class="el" href="grib2__int_8h_source.html#l00155">g2c_message_info::month</a>, <a class="el" href="grib2__int_8h_source.html#l00148">g2c_message_info::sec1_len</a>, <a class="el" href="grib2__int_8h_source.html#l00159">g2c_message_info::second</a>, <a class="el" href="grib2__int_8h_source.html#l00153">g2c_message_info::sig_ref_time</a>, <a class="el" href="grib2__int_8h_source.html#l00160">g2c_message_info::status</a>, <a class="el" href="grib2__int_8h_source.html#l00150">g2c_message_info::subcenter</a>, <a class="el" href="grib2__int_8h_source.html#l00161">g2c_message_info::type</a>, and <a class="el" href="grib2__int_8h_source.html#l00154">g2c_message_info::year</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00149">g2c_message_info::center</a>, <a class="el" href="grib2__int_8h_source.html#l00156">g2c_message_info::day</a>, <a class="el" href="grib2_8h_source.html#l00506">G2C_ENOSECTION</a>, <a class="el" href="g2cio_8c_source.html#l00273">g2c_file_io_short()</a>, <a class="el" href="g2cio_8c_source.html#l00337">g2c_file_io_ubyte()</a>, <a class="el" href="g2cio_8c_source.html#l00251">g2c_file_io_uint()</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, <a class="el" href="grib2_8h_source.html#l00301">G2C_SECTION1_BYTES</a>, <a class="el" href="grib2__int_8h_source.html#l00157">g2c_message_info::hour</a>, <a class="el" href="grib2__int_8h_source.html#l00152">g2c_message_info::local_version</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00151">g2c_message_info::master_version</a>, <a class="el" href="grib2__int_8h_source.html#l00158">g2c_message_info::minute</a>, <a class="el" href="grib2__int_8h_source.html#l00155">g2c_message_info::month</a>, <a class="el" href="grib2__int_8h_source.html#l00148">g2c_message_info::sec1_len</a>, <a class="el" href="grib2__int_8h_source.html#l00159">g2c_message_info::second</a>, <a class="el" href="grib2__int_8h_source.html#l00153">g2c_message_info::sig_ref_time</a>, <a class="el" href="grib2__int_8h_source.html#l00160">g2c_message_info::status</a>, <a class="el" href="grib2__int_8h_source.html#l00150">g2c_message_info::subcenter</a>, <a class="el" href="grib2__int_8h_source.html#l00161">g2c_message_info::type</a>, and <a class="el" href="grib2__int_8h_source.html#l00154">g2c_message_info::year</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cindex_8c_source.html#l00786">g2c_open_index()</a>, <a class="el" href="g2cindex_8c_source.html#l00346">g2c_write_index()</a>, and <a class="el" href="g2cfile_8c_source.html#l00940">read_msg_metadata()</a>.</p>
 
@@ -3809,7 +4161,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cfile_8c_source.html#l00481">481</a> of file <a class="el" href="g2cfile_8c_source.html">g2cfile.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2cfile_8c_source.html#l00418">determine_dims()</a>, <a class="el" href="grib2_8h_source.html#l00481">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00485">G2C_ENOMEM</a>, <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>, <a class="el" href="g2cio_8c_source.html#l00337">g2c_file_io_ubyte()</a>, <a class="el" href="g2cio_8c_source.html#l00251">g2c_file_io_uint()</a>, <a class="el" href="g2cio_8c_source.html#l00294">g2c_file_io_ushort()</a>, <a class="el" href="gridtemplates_8c_source.html#l00376">g2c_get_grid_template()</a>, <a class="el" href="grib2_8h_source.html#l00302">G2C_MAX_GDS_TEMPLATE_MAPLEN</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00199">g2c_section3_info::grid_def</a>, <a class="el" href="grib2__int_8h_source.html#l00198">g2c_section3_info::interp_list</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00196">g2c_section3_info::num_data_points</a>, <a class="el" href="grib2__int_8h_source.html#l00197">g2c_section3_info::num_opt</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00173">g2c_section_info::sec_num</a>, <a class="el" href="grib2__int_8h_source.html#l00195">g2c_section3_info::source_grid_def</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::template</a>, and <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::template_len</a>.</p>
+<p class="reference">References <a class="el" href="g2cfile_8c_source.html#l00418">determine_dims()</a>, <a class="el" href="grib2_8h_source.html#l00496">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOMEM</a>, <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>, <a class="el" href="g2cio_8c_source.html#l00337">g2c_file_io_ubyte()</a>, <a class="el" href="g2cio_8c_source.html#l00251">g2c_file_io_uint()</a>, <a class="el" href="g2cio_8c_source.html#l00294">g2c_file_io_ushort()</a>, <a class="el" href="gridtemplates_8c_source.html#l00376">g2c_get_grid_template()</a>, <a class="el" href="grib2_8h_source.html#l00308">G2C_MAX_GDS_TEMPLATE_MAPLEN</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00199">g2c_section3_info::grid_def</a>, <a class="el" href="grib2__int_8h_source.html#l00198">g2c_section3_info::interp_list</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00196">g2c_section3_info::num_data_points</a>, <a class="el" href="grib2__int_8h_source.html#l00197">g2c_section3_info::num_opt</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00173">g2c_section_info::sec_num</a>, <a class="el" href="grib2__int_8h_source.html#l00195">g2c_section3_info::source_grid_def</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::template</a>, and <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::template_len</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cfile_8c_source.html#l00797">add_section()</a>, and <a class="el" href="g2cindex_8c_source.html#l00346">g2c_write_index()</a>.</p>
 
@@ -3869,7 +4221,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cfile_8c_source.html#l00577">577</a> of file <a class="el" href="g2cfile_8c_source.html">g2cfile.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00481">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00485">G2C_ENOMEM</a>, <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>, <a class="el" href="g2cio_8c_source.html#l00294">g2c_file_io_ushort()</a>, <a class="el" href="pdstemplates_8c_source.html#l00816">g2c_get_pds_template()</a>, <a class="el" href="grib2_8h_source.html#l00304">G2C_MAX_PDS_TEMPLATE_MAPLEN</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00174">g2c_section_info::msg</a>, <a class="el" href="grib2__int_8h_source.html#l00209">g2c_section4_info::num_coord</a>, <a class="el" href="grib2__int_8h_source.html#l00140">g2c_message_info::num_fields</a>, <a class="el" href="grib2__int_8h_source.html#l00210">g2c_section4_info::prod_def</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00173">g2c_section_info::sec_num</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::template</a>, and <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::template_len</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00496">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOMEM</a>, <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>, <a class="el" href="g2cio_8c_source.html#l00294">g2c_file_io_ushort()</a>, <a class="el" href="pdstemplates_8c_source.html#l00816">g2c_get_pds_template()</a>, <a class="el" href="grib2_8h_source.html#l00310">G2C_MAX_PDS_TEMPLATE_MAPLEN</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00174">g2c_section_info::msg</a>, <a class="el" href="grib2__int_8h_source.html#l00209">g2c_section4_info::num_coord</a>, <a class="el" href="grib2__int_8h_source.html#l00140">g2c_message_info::num_fields</a>, <a class="el" href="grib2__int_8h_source.html#l00210">g2c_section4_info::prod_def</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00173">g2c_section_info::sec_num</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::template</a>, and <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::template_len</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cfile_8c_source.html#l00797">add_section()</a>, and <a class="el" href="g2cindex_8c_source.html#l00346">g2c_write_index()</a>.</p>
 
@@ -3929,7 +4281,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cfile_8c_source.html#l00666">666</a> of file <a class="el" href="g2cfile_8c_source.html">g2cfile.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00222">g2c_section5_info::data_def</a>, <a class="el" href="grib2_8h_source.html#l00481">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00485">G2C_ENOMEM</a>, <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>, <a class="el" href="g2cio_8c_source.html#l00251">g2c_file_io_uint()</a>, <a class="el" href="g2cio_8c_source.html#l00294">g2c_file_io_ushort()</a>, <a class="el" href="drstemplates_8c_source.html#l00256">g2c_get_drs_template()</a>, <a class="el" href="grib2_8h_source.html#l00304">G2C_MAX_PDS_TEMPLATE_MAPLEN</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00221">g2c_section5_info::num_data_points</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::template</a>, and <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::template_len</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00222">g2c_section5_info::data_def</a>, <a class="el" href="grib2_8h_source.html#l00496">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOMEM</a>, <a class="el" href="g2cio_8c_source.html#l00408">g2c_file_io_template()</a>, <a class="el" href="g2cio_8c_source.html#l00251">g2c_file_io_uint()</a>, <a class="el" href="g2cio_8c_source.html#l00294">g2c_file_io_ushort()</a>, <a class="el" href="drstemplates_8c_source.html#l00261">g2c_get_drs_template()</a>, <a class="el" href="grib2_8h_source.html#l00310">G2C_MAX_PDS_TEMPLATE_MAPLEN</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, <a class="el" href="grib2__int_8h_source.html#l00221">g2c_section5_info::num_data_points</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::template</a>, and <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::template_len</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cfile_8c_source.html#l00797">add_section()</a>, and <a class="el" href="g2cindex_8c_source.html#l00346">g2c_write_index()</a>.</p>
 
@@ -3989,7 +4341,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="g2cfile_8c_source.html#l00748">748</a> of file <a class="el" href="g2cfile_8c_source.html">g2cfile.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00481">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00485">G2C_ENOMEM</a>, <a class="el" href="g2cio_8c_source.html#l00337">g2c_file_io_ubyte()</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00231">g2c_section6_info::indicator</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, and <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_info</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00496">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOMEM</a>, <a class="el" href="g2cio_8c_source.html#l00337">g2c_file_io_ubyte()</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00231">g2c_section6_info::indicator</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, and <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_info</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cfile_8c_source.html#l00797">add_section()</a>.</p>
 
@@ -4049,7 +4401,7 @@ Program History Log</h3>
 
 <p class="reference">References <a class="el" href="gbits_8c_source.html#l00057">gbits()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="comunpack_8c_source.html#l00042">comunpack()</a>, <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>, <a class="el" href="g2__addgrid_8c_source.html#l00070">g2_addgrid()</a>, <a class="el" href="g2__addlocal_8c_source.html#l00040">g2_addlocal()</a>, <a class="el" href="g2__getfld_8c_source.html#l00091">g2_getfld()</a>, <a class="el" href="g2__gribend_8c_source.html#l00037">g2_gribend()</a>, <a class="el" href="g2__info_8c_source.html#l00068">g2_info()</a>, <a class="el" href="g2__unpack1_8c_source.html#l00055">g2_unpack1()</a>, <a class="el" href="g2__unpack2_8c_source.html#l00038">g2_unpack2()</a>, <a class="el" href="g2__unpack3_8c_source.html#l00062">g2_unpack3()</a>, <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>, <a class="el" href="g2__unpack5_8c_source.html#l00042">g2_unpack5()</a>, <a class="el" href="g2__unpack6_8c_source.html#l00033">g2_unpack6()</a>, <a class="el" href="util_8c_source.html#l00026">g2c_check_msg()</a>, <a class="el" href="g2__unpack7_8c_source.html#l00067">g2c_unpack7_int()</a>, and <a class="el" href="seekgb_8c_source.html#l00046">seekgb()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="comunpack_8c_source.html#l00042">comunpack()</a>, <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>, <a class="el" href="g2__addgrid_8c_source.html#l00070">g2_addgrid()</a>, <a class="el" href="g2__addlocal_8c_source.html#l00040">g2_addlocal()</a>, <a class="el" href="g2__getfld_8c_source.html#l00091">g2_getfld()</a>, <a class="el" href="g2__gribend_8c_source.html#l00037">g2_gribend()</a>, <a class="el" href="g2__info_8c_source.html#l00068">g2_info()</a>, <a class="el" href="g2__unpack1_8c_source.html#l00055">g2_unpack1()</a>, <a class="el" href="g2__unpack2_8c_source.html#l00038">g2_unpack2()</a>, <a class="el" href="g2__unpack3_8c_source.html#l00062">g2_unpack3()</a>, <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>, <a class="el" href="g2__unpack5_8c_source.html#l00042">g2_unpack5()</a>, <a class="el" href="g2__unpack6_8c_source.html#l00033">g2_unpack6()</a>, <a class="el" href="util_8c_source.html#l00026">g2c_check_msg()</a>, <a class="el" href="g2__unpack7_8c_source.html#l00068">g2c_unpack7_int()</a>, and <a class="el" href="seekgb_8c_source.html#l00046">seekgb()</a>.</p>
 
 </div>
 </div>
@@ -4119,7 +4471,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="gbits_8c_source.html#l00057">57</a> of file <a class="el" href="gbits_8c_source.html">gbits.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="comunpack_8c_source.html#l00042">comunpack()</a>, <a class="el" href="g2__unpack3_8c_source.html#l00062">g2_unpack3()</a>, <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>, <a class="el" href="g2__unpack6_8c_source.html#l00033">g2_unpack6()</a>, <a class="el" href="gbits_8c_source.html#l00139">g2c_gbits_int()</a>, <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="pngunpack_8c_source.html#l00041">pngunpack_int()</a>, <a class="el" href="simunpack_8c_source.html#l00026">simunpack()</a>, and <a class="el" href="specunpack_8c_source.html#l00035">specunpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="aecunpack_8c_source.html#l00043">aecunpack_int()</a>, <a class="el" href="comunpack_8c_source.html#l00042">comunpack()</a>, <a class="el" href="g2__unpack3_8c_source.html#l00062">g2_unpack3()</a>, <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>, <a class="el" href="g2__unpack6_8c_source.html#l00033">g2_unpack6()</a>, <a class="el" href="gbits_8c_source.html#l00139">g2c_gbits_int()</a>, <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="pngunpack_8c_source.html#l00041">pngunpack_int()</a>, <a class="el" href="simunpack_8c_source.html#l00026">simunpack()</a>, and <a class="el" href="specunpack_8c_source.html#l00035">specunpack()</a>.</p>
 
 </div>
 </div>
@@ -4179,7 +4531,7 @@ Program History Log</h3>
 
 <p class="reference">References <a class="el" href="g2__unpack3_8c_source.html#l00062">g2_unpack3()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>.</p>
 
 </div>
 </div>
@@ -4211,11 +4563,11 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2000-05-11 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00162">162</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="drstemplates_8c_source.html#l00167">167</a> of file <a class="el" href="drstemplates_8c_source.html">drstemplates.c</a>.</p>
 
-<p class="reference">References <a class="el" href="drstemplates_8c_source.html#l00130">getdrsindex()</a>, and <a class="el" href="drstemplates_8c_source.html#l00052">templatesdrs</a>.</p>
+<p class="reference">References <a class="el" href="drstemplates_8c_source.html#l00135">getdrsindex()</a>, and <a class="el" href="drstemplates_8c_source.html#l00053">templatesdrs</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="drstemplates_8c_source.html#l00208">extdrstemplate()</a>, <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>, and <a class="el" href="g2__unpack5_8c_source.html#l00042">g2_unpack5()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="drstemplates_8c_source.html#l00213">extdrstemplate()</a>, <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>, and <a class="el" href="g2__unpack5_8c_source.html#l00042">g2_unpack5()</a>.</p>
 
 </div>
 </div>
@@ -4289,7 +4641,7 @@ Program History Log</h3>
 
 <p class="reference">References <a class="el" href="pdstemplates_8c_source.html#l00242">getpdsindex()</a>, and <a class="el" href="pdstemplates_8c_source.html#l00057">templatespds</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdstemplates_8c_source.html#l00325">extpdstemplate()</a>, <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>, and <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdstemplates_8c_source.html#l00325">extpdstemplate()</a>, <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>, and <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>.</p>
 
 </div>
 </div>
@@ -4356,7 +4708,7 @@ Program History Log</h3>
 
 <p class="reference">References <a class="el" href="g2__unpack3_8c_source.html#l00062">g2_unpack3()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>.</p>
 
 </div>
 </div>
@@ -4399,7 +4751,7 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="int__power_8c_source.html#l00018">18</a> of file <a class="el" href="int__power_8c_source.html">int_power.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="compack_8c_source.html#l00042">compack()</a>, <a class="el" href="comunpack_8c_source.html#l00042">comunpack()</a>, <a class="el" href="jpcpack_8c_source.html#l00055">jpcpack_int()</a>, <a class="el" href="jpcunpack_8c_source.html#l00045">jpcunpack_int()</a>, <a class="el" href="misspack_8c_source.html#l00042">misspack()</a>, <a class="el" href="mkieee_8c_source.html#l00022">mkieee()</a>, <a class="el" href="pngpack_8c_source.html#l00053">pngpack_int()</a>, <a class="el" href="pngunpack_8c_source.html#l00041">pngunpack_int()</a>, <a class="el" href="rdieee_8c_source.html#l00021">rdieee()</a>, <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>, <a class="el" href="simunpack_8c_source.html#l00026">simunpack()</a>, and <a class="el" href="specunpack_8c_source.html#l00035">specunpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="aecpack_8c_source.html#l00053">aecpack_int()</a>, <a class="el" href="aecunpack_8c_source.html#l00043">aecunpack_int()</a>, <a class="el" href="compack_8c_source.html#l00042">compack()</a>, <a class="el" href="comunpack_8c_source.html#l00042">comunpack()</a>, <a class="el" href="jpcpack_8c_source.html#l00055">jpcpack_int()</a>, <a class="el" href="jpcunpack_8c_source.html#l00045">jpcunpack_int()</a>, <a class="el" href="misspack_8c_source.html#l00042">misspack()</a>, <a class="el" href="mkieee_8c_source.html#l00022">mkieee()</a>, <a class="el" href="pngpack_8c_source.html#l00053">pngpack_int()</a>, <a class="el" href="pngunpack_8c_source.html#l00041">pngunpack_int()</a>, <a class="el" href="rdieee_8c_source.html#l00021">rdieee()</a>, <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>, <a class="el" href="simunpack_8c_source.html#l00026">simunpack()</a>, and <a class="el" href="specunpack_8c_source.html#l00035">specunpack()</a>.</p>
 
 </div>
 </div>
@@ -4482,7 +4834,7 @@ Program History Log</h3>
 
 <p class="reference">References <a class="el" href="jpcpack_8c_source.html#l00055">jpcpack_int()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>.</p>
 
 </div>
 </div>
@@ -4551,9 +4903,9 @@ Program History Log</h3>
 
 <p class="definition">Definition at line <a class="el" href="jpcunpack_8c_source.html#l00124">124</a> of file <a class="el" href="jpcunpack_8c_source.html">jpcunpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00468">G2_JPCUNPACK_MEM</a>, <a class="el" href="jpcunpack_8c_source.html#l00045">jpcunpack_int()</a>, and <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00483">G2_JPCUNPACK_MEM</a>, <a class="el" href="jpcunpack_8c_source.html#l00045">jpcunpack_int()</a>, and <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00067">g2c_unpack7_int()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00068">g2c_unpack7_int()</a>.</p>
 
 </div>
 </div>
@@ -4689,7 +5041,7 @@ Program History Log</h3>
 
 <p class="reference">References <a class="el" href="int__power_8c_source.html#l00018">int_power()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="compack_8c_source.html#l00042">compack()</a>, <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>, <a class="el" href="jpcpack_8c_source.html#l00055">jpcpack_int()</a>, <a class="el" href="misspack_8c_source.html#l00042">misspack()</a>, <a class="el" href="pngpack_8c_source.html#l00053">pngpack_int()</a>, <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>, and <a class="el" href="specpack_8c_source.html#l00033">specpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="aecpack_8c_source.html#l00053">aecpack_int()</a>, <a class="el" href="compack_8c_source.html#l00042">compack()</a>, <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>, <a class="el" href="jpcpack_8c_source.html#l00055">jpcpack_int()</a>, <a class="el" href="misspack_8c_source.html#l00042">misspack()</a>, <a class="el" href="pngpack_8c_source.html#l00053">pngpack_int()</a>, <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>, and <a class="el" href="specpack_8c_source.html#l00033">specpack()</a>.</p>
 
 </div>
 </div>
@@ -5063,7 +5415,7 @@ loop," and a slightly larger value may give about as good results with slightly 
 
 <p class="reference">References <a class="el" href="pngpack_8c_source.html#l00053">pngpack_int()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>.</p>
 
 </div>
 </div>
@@ -5133,9 +5485,9 @@ loop," and a slightly larger value may give about as good results with slightly 
 
 <p class="definition">Definition at line <a class="el" href="pngunpack_8c_source.html#l00117">117</a> of file <a class="el" href="pngunpack_8c_source.html">pngunpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00468">G2_JPCUNPACK_MEM</a>, <a class="el" href="grib2_8h_source.html#l00485">G2C_ENOMEM</a>, and <a class="el" href="pngunpack_8c_source.html#l00041">pngunpack_int()</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00483">G2_JPCUNPACK_MEM</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOMEM</a>, and <a class="el" href="pngunpack_8c_source.html#l00041">pngunpack_int()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00067">g2c_unpack7_int()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00068">g2c_unpack7_int()</a>.</p>
 
 </div>
 </div>
@@ -5187,7 +5539,7 @@ loop," and a slightly larger value may give about as good results with slightly 
 
 <p class="reference">References <a class="el" href="int__power_8c_source.html#l00018">int_power()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="comunpack_8c_source.html#l00042">comunpack()</a>, <a class="el" href="g2__miss_8c_source.html#l00024">g2_miss()</a>, <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>, <a class="el" href="g2__unpack7_8c_source.html#l00067">g2c_unpack7_int()</a>, <a class="el" href="jpcunpack_8c_source.html#l00045">jpcunpack_int()</a>, <a class="el" href="misspack_8c_source.html#l00042">misspack()</a>, <a class="el" href="pngunpack_8c_source.html#l00041">pngunpack_int()</a>, <a class="el" href="simunpack_8c_source.html#l00026">simunpack()</a>, and <a class="el" href="specunpack_8c_source.html#l00035">specunpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="aecunpack_8c_source.html#l00043">aecunpack_int()</a>, <a class="el" href="comunpack_8c_source.html#l00042">comunpack()</a>, <a class="el" href="g2__miss_8c_source.html#l00024">g2_miss()</a>, <a class="el" href="g2__unpack4_8c_source.html#l00046">g2_unpack4()</a>, <a class="el" href="g2__unpack7_8c_source.html#l00068">g2c_unpack7_int()</a>, <a class="el" href="jpcunpack_8c_source.html#l00045">jpcunpack_int()</a>, <a class="el" href="misspack_8c_source.html#l00042">misspack()</a>, <a class="el" href="pngunpack_8c_source.html#l00041">pngunpack_int()</a>, <a class="el" href="simunpack_8c_source.html#l00026">simunpack()</a>, and <a class="el" href="specunpack_8c_source.html#l00035">specunpack()</a>.</p>
 
 </div>
 </div>
@@ -5245,7 +5597,7 @@ loop," and a slightly larger value may give about as good results with slightly 
 
 <p class="reference">References <a class="el" href="gbits_8c_source.html#l00180">sbits()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="compack_8c_source.html#l00042">compack()</a>, <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>, <a class="el" href="g2__addgrid_8c_source.html#l00070">g2_addgrid()</a>, <a class="el" href="g2__addlocal_8c_source.html#l00040">g2_addlocal()</a>, <a class="el" href="g2__create_8c_source.html#l00068">g2_create()</a>, <a class="el" href="g2__gribend_8c_source.html#l00037">g2_gribend()</a>, <a class="el" href="misspack_8c_source.html#l00042">misspack()</a>, and <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="compack_8c_source.html#l00042">compack()</a>, <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>, <a class="el" href="g2__addgrid_8c_source.html#l00070">g2_addgrid()</a>, <a class="el" href="g2__addlocal_8c_source.html#l00040">g2_addlocal()</a>, <a class="el" href="g2__create_8c_source.html#l00068">g2_create()</a>, <a class="el" href="g2__gribend_8c_source.html#l00037">g2_gribend()</a>, <a class="el" href="misspack_8c_source.html#l00042">misspack()</a>, and <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>.</p>
 
 </div>
 </div>
@@ -5315,7 +5667,7 @@ loop," and a slightly larger value may give about as good results with slightly 
 
 <p class="definition">Definition at line <a class="el" href="gbits_8c_source.html#l00180">180</a> of file <a class="el" href="gbits_8c_source.html">gbits.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="compack_8c_source.html#l00042">compack()</a>, <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>, <a class="el" href="g2__addgrid_8c_source.html#l00070">g2_addgrid()</a>, <a class="el" href="jpcpack_8c_source.html#l00055">jpcpack_int()</a>, <a class="el" href="misspack_8c_source.html#l00042">misspack()</a>, <a class="el" href="pngpack_8c_source.html#l00053">pngpack_int()</a>, <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>, and <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="aecpack_8c_source.html#l00053">aecpack_int()</a>, <a class="el" href="compack_8c_source.html#l00042">compack()</a>, <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>, <a class="el" href="g2__addgrid_8c_source.html#l00070">g2_addgrid()</a>, <a class="el" href="jpcpack_8c_source.html#l00055">jpcpack_int()</a>, <a class="el" href="misspack_8c_source.html#l00042">misspack()</a>, <a class="el" href="pngpack_8c_source.html#l00053">pngpack_int()</a>, <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>, and <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>.</p>
 
 </div>
 </div>
@@ -5387,9 +5739,9 @@ loop," and a slightly larger value may give about as good results with slightly 
 
 <p class="definition">Definition at line <a class="el" href="simpack_8c_source.html#l00034">34</a> of file <a class="el" href="simpack_8c_source.html">simpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00030">ALOG2</a>, <a class="el" href="int__power_8c_source.html#l00018">int_power()</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, <a class="el" href="mkieee_8c_source.html#l00022">mkieee()</a>, <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>, and <a class="el" href="gbits_8c_source.html#l00180">sbits()</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00030">ALOG2</a>, <a class="el" href="int__power_8c_source.html#l00018">int_power()</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, <a class="el" href="mkieee_8c_source.html#l00022">mkieee()</a>, <a class="el" href="gbits_8c_source.html#l00038">sbit()</a>, and <a class="el" href="gbits_8c_source.html#l00180">sbits()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>, and <a class="el" href="specpack_8c_source.html#l00033">specpack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>, and <a class="el" href="specpack_8c_source.html#l00033">specpack()</a>.</p>
 
 </div>
 </div>
@@ -5447,9 +5799,9 @@ loop," and a slightly larger value may give about as good results with slightly 
 
 <p class="definition">Definition at line <a class="el" href="simunpack_8c_source.html#l00026">26</a> of file <a class="el" href="simunpack_8c_source.html">simunpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00468">G2_JPCUNPACK_MEM</a>, <a class="el" href="grib2_8h_source.html#l00423">G2_NO_ERROR</a>, <a class="el" href="gbits_8c_source.html#l00057">gbits()</a>, <a class="el" href="int__power_8c_source.html#l00018">int_power()</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, and <a class="el" href="rdieee_8c_source.html#l00021">rdieee()</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00483">G2_JPCUNPACK_MEM</a>, <a class="el" href="grib2_8h_source.html#l00438">G2_NO_ERROR</a>, <a class="el" href="gbits_8c_source.html#l00057">gbits()</a>, <a class="el" href="int__power_8c_source.html#l00018">int_power()</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, and <a class="el" href="rdieee_8c_source.html#l00021">rdieee()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00067">g2c_unpack7_int()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00068">g2c_unpack7_int()</a>.</p>
 
 </div>
 </div>
@@ -5536,7 +5888,7 @@ loop," and a slightly larger value may give about as good results with slightly 
 
 <p class="reference">References <a class="el" href="mkieee_8c_source.html#l00022">mkieee()</a>, and <a class="el" href="simpack_8c_source.html#l00034">simpack()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00098">g2_addfield()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__addfield_8c_source.html#l00099">g2_addfield()</a>.</p>
 
 </div>
 </div>
@@ -5615,9 +5967,9 @@ loop," and a slightly larger value may give about as good results with slightly 
 
 <p class="definition">Definition at line <a class="el" href="specunpack_8c_source.html#l00035">35</a> of file <a class="el" href="specunpack_8c_source.html">specunpack.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00423">G2_NO_ERROR</a>, <a class="el" href="grib2_8h_source.html#l00469">G2_SPECUNPACK_TYPE</a>, <a class="el" href="gbits_8c_source.html#l00057">gbits()</a>, <a class="el" href="int__power_8c_source.html#l00018">int_power()</a>, and <a class="el" href="rdieee_8c_source.html#l00021">rdieee()</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00438">G2_NO_ERROR</a>, <a class="el" href="grib2_8h_source.html#l00484">G2_SPECUNPACK_TYPE</a>, <a class="el" href="gbits_8c_source.html#l00057">gbits()</a>, <a class="el" href="int__power_8c_source.html#l00018">int_power()</a>, and <a class="el" href="rdieee_8c_source.html#l00021">rdieee()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00067">g2c_unpack7_int()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00068">g2c_unpack7_int()</a>.</p>
 
 </div>
 </div>

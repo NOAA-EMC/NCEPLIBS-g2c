@@ -113,7 +113,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Unpack Section 7 (Data Section) as defined in GRIB Edition 2. </p>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-10-31</dd></dl>
-<h3><a class="anchor" id="autotoc_md19"></a>
+<h3><a class="anchor" id="autotoc_md20"></a>
 Program History Log</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -131,7 +131,9 @@ Program History Log</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">2008-12-23   </td><td class="markdownTableBodyNone">Wesley   </td><td class="markdownTableBodyNone">Initialize Number of data points unpacked.    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">2022-10-04   </td><td class="markdownTableBodyNone">Hartnett   </td><td class="markdownTableBodyNone">Added <a class="el" href="g2__unpack7_8c.html#ab880dad973bf979fc906b4d5c60ce3c7" title="This subroutine unpacks Section 7 (Data Section) of a GRIB2 message.">g2c_unpack7()</a>.   </td></tr>
+<td class="markdownTableBodyNone">2022-10-04   </td><td class="markdownTableBodyNone">Hartnett   </td><td class="markdownTableBodyNone">Added <a class="el" href="g2__unpack7_8c.html#ab880dad973bf979fc906b4d5c60ce3c7" title="This subroutine unpacks Section 7 (Data Section) of a GRIB2 message.">g2c_unpack7()</a>.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">2023-10-16   </td><td class="markdownTableBodyNone">Engle   </td><td class="markdownTableBodyNone">Added support for DRT 5.42, AEC compression.   </td></tr>
 </table>
 
 <p class="definition">Definition in file <a class="el" href="g2__unpack7_8c_source.html">g2_unpack7.c</a>.</p>
@@ -225,9 +227,9 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2__unpack7_8c_source.html#l00207">207</a> of file <a class="el" href="g2__unpack7_8c_source.html">g2_unpack7.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2__unpack7_8c_source.html#l00214">214</a> of file <a class="el" href="g2__unpack7_8c_source.html">g2_unpack7.c</a>.</p>
 
-<p class="reference">References <a class="el" href="g2__unpack7_8c_source.html#l00067">g2c_unpack7_int()</a>.</p>
+<p class="reference">References <a class="el" href="g2__unpack7_8c_source.html#l00068">g2c_unpack7_int()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2__getfld_8c_source.html#l00091">g2_getfld()</a>.</p>
 
@@ -329,9 +331,9 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2__unpack7_8c_source.html#l00252">252</a> of file <a class="el" href="g2__unpack7_8c_source.html">g2_unpack7.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2__unpack7_8c_source.html#l00259">259</a> of file <a class="el" href="g2__unpack7_8c_source.html">g2_unpack7.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00481">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00485">G2C_ENOMEM</a>, <a class="el" href="g2__unpack7_8c_source.html#l00067">g2c_unpack7_int()</a>, and <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00496">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOMEM</a>, <a class="el" href="g2__unpack7_8c_source.html#l00068">g2c_unpack7_int()</a>, and <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cprod_8c_source.html#l00028">g2c_get_prod()</a>.</p>
 
@@ -445,11 +447,11 @@ Program History Log</h3>
 <dl class="section author"><dt>Author</dt><dd>Stephen Gilbert </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2002-10-31 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2__unpack7_8c_source.html#l00067">67</a> of file <a class="el" href="g2__unpack7_8c_source.html">g2_unpack7.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2__unpack7_8c_source.html#l00068">68</a> of file <a class="el" href="g2__unpack7_8c_source.html">g2_unpack7.c</a>.</p>
 
-<p class="reference">References <a class="el" href="comunpack_8c_source.html#l00042">comunpack()</a>, <a class="el" href="grib2_8h_source.html#l00423">G2_NO_ERROR</a>, <a class="el" href="grib2_8h_source.html#l00457">G2_UNPACK7_BAD_DRT</a>, <a class="el" href="grib2_8h_source.html#l00455">G2_UNPACK7_CORRUPT_SEC</a>, <a class="el" href="grib2_8h_source.html#l00456">G2_UNPACK7_WRONG_GDT</a>, <a class="el" href="grib2_8h_source.html#l00449">G2_UNPACK_BAD_SEC</a>, <a class="el" href="grib2_8h_source.html#l00450">G2_UNPACK_NO_MEM</a>, <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="jpcunpack_8c_source.html#l00124">jpcunpack()</a>, <a class="el" href="grib2__int_8h_source.html#l00417">LOG</a>, <a class="el" href="pngunpack_8c_source.html#l00117">pngunpack()</a>, <a class="el" href="rdieee_8c_source.html#l00021">rdieee()</a>, <a class="el" href="simunpack_8c_source.html#l00026">simunpack()</a>, and <a class="el" href="specunpack_8c_source.html#l00035">specunpack()</a>.</p>
+<p class="reference">References <a class="el" href="aecunpack_8c_source.html#l00139">aecunpack()</a>, <a class="el" href="comunpack_8c_source.html#l00042">comunpack()</a>, <a class="el" href="grib2_8h_source.html#l00438">G2_NO_ERROR</a>, <a class="el" href="grib2_8h_source.html#l00472">G2_UNPACK7_BAD_DRT</a>, <a class="el" href="grib2_8h_source.html#l00470">G2_UNPACK7_CORRUPT_SEC</a>, <a class="el" href="grib2_8h_source.html#l00471">G2_UNPACK7_WRONG_GDT</a>, <a class="el" href="grib2_8h_source.html#l00464">G2_UNPACK_BAD_SEC</a>, <a class="el" href="grib2_8h_source.html#l00465">G2_UNPACK_NO_MEM</a>, <a class="el" href="gbits_8c_source.html#l00020">gbit()</a>, <a class="el" href="jpcunpack_8c_source.html#l00124">jpcunpack()</a>, <a class="el" href="grib2__int_8h_source.html#l00426">LOG</a>, <a class="el" href="pngunpack_8c_source.html#l00117">pngunpack()</a>, <a class="el" href="rdieee_8c_source.html#l00021">rdieee()</a>, <a class="el" href="simunpack_8c_source.html#l00026">simunpack()</a>, and <a class="el" href="specunpack_8c_source.html#l00035">specunpack()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00207">g2_unpack7()</a>, and <a class="el" href="g2__unpack7_8c_source.html#l00252">g2c_unpack7()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2__unpack7_8c_source.html#l00214">g2_unpack7()</a>, and <a class="el" href="g2__unpack7_8c_source.html#l00259">g2c_unpack7()</a>.</p>
 
 </div>
 </div>
