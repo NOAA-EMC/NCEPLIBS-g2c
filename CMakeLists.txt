@@ -104,7 +104,9 @@ else()
 endif()
 
 # Find libxml2.
-find_package(LibXml2 2.9.0 REQUIRED)
+if(BUILD_G2C)
+  find_package(LibXml2 2.9.0 REQUIRED)
+endif()
 
 # Set the compiler flags.
 if(CMAKE_C_COMPILER_ID MATCHES "^(Intel|IntelLLVM)$")

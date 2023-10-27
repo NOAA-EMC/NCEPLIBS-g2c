@@ -50,16 +50,18 @@ if(BUILD_SHARED_LIBS)
 endif()
 
 # Link to libxml2.
-message(STATUS "libxml2 include directories ${LIBXML2_INCLUDE_DIR}")
-target_link_libraries(${lib_name}_objlib PRIVATE ${LIBXML2_LIBRARIES})
-target_include_directories(${lib_name}_objlib PRIVATE "${LIBXML2_INCLUDE_DIR}")
-if(BUILD_SHARED_LIBS)
-  target_link_libraries(${lib_name}_shared PRIVATE ${LIBXML2_LIBRARIES})
-  target_include_directories(${lib_name}_shared PRIVATE "${LIBXML2_INCLUDE_DIR}")
-endif()
-if(BUILD_STATIC_LIBS)
-  target_link_libraries(${lib_name}_static PRIVATE ${LIBXML2_LIBRARIES})
-  target_include_directories(${lib_name}_static PRIVATE "${LIBXML2_INCLUDE_DIR}")
+if(BUILD_G2C)
+  message(STATUS "libxml2 include directories ${LIBXML2_INCLUDE_DIR}")
+  target_link_libraries(${lib_name}_objlib PRIVATE ${LIBXML2_LIBRARIES})
+  target_include_directories(${lib_name}_objlib PRIVATE "${LIBXML2_INCLUDE_DIR}")
+  if(BUILD_SHARED_LIBS)
+    target_link_libraries(${lib_name}_shared PRIVATE ${LIBXML2_LIBRARIES})
+    target_include_directories(${lib_name}_shared PRIVATE "${LIBXML2_INCLUDE_DIR}")
+  endif()
+  if(BUILD_STATIC_LIBS)
+    target_link_libraries(${lib_name}_static PRIVATE ${LIBXML2_LIBRARIES})
+    target_include_directories(${lib_name}_static PRIVATE "${LIBXML2_INCLUDE_DIR}")
+  endif()
 endif()
 
 # Build with PNG.
@@ -225,6 +227,8 @@ install(EXPORT ${PROJECT_NAME}Exports
   DESTINATION ${CONFIG_INSTALL_DESTINATION})
 
 # XML data files.
-set(XML_FILES Template.xml CodeFlag.xml)
-install(FILES ${XML_FILES}
-  DESTINATION ${CMAKE_INSTALL_LIBDIR})
+if(BUILD_G2C)
+  set(XML_FILES Template.xml CodeFlag.xml)
+  install(FILES ${XML_FILES}
+    DESTINATION ${CMAKE_INSTALL_LIBDIR})
+endif()
