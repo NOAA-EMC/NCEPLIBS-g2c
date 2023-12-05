@@ -44,8 +44,9 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
           void *fld, int fld_is_double, int verbose)
 {
     g2int *ifld;
-    g2int j, ctemplen = 0 , nbits, ifld1;
+    g2int j, ctemplen = 0 , nbits;
     g2int ccsds_flags, ccsds_block_size, ccsds_rsi;
+    //g2int ifld1 = 0;
     int ret = 0;
     float ref, bscale, dscale;
     float *ffld = fld;
