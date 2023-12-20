@@ -44,18 +44,19 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
           void *fld, int fld_is_double, int verbose)
 {
     g2int *ifld;
-    g2int j, ctemplen, nbits;
+    g2int j, ctemplen = 0 , nbits;
     g2int ccsds_flags, ccsds_block_size, ccsds_rsi;
+    //g2int ifld1 = 0;
     int ret = 0;
     float ref, bscale, dscale;
     float *ffld = fld;
     double *dfld = fld;
     unsigned char *ctemp;
-
-    ctemplen = 0;
+    size_t nbytes = 0;
 
     LOG((2, "aecunpack_int len %ld ndpts %ld fld_is_double %d", len, ndpts, fld_is_double));
 
+    /* Get compression parameters from data representation template array. */
     rdieee(idrstmpl, &ref, 1);
     bscale = int_power(2.0, idrstmpl[1]);
     dscale = int_power(10.0, -idrstmpl[2]);
@@ -75,17 +76,36 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
             return G2C_ENOMEM;
         }
 
-        ctemplen = ((nbits + 7)/8) * (size_t) ndpts;
+        /* Determine the number of bytes needed for each value, then allocate the
+         * buffer for the decoded AEC stream. */
+        nbytes = (nbits + 7)/8;
+        if (nbytes == 3)
+            nbytes = 4;
+        ctemplen = nbytes * ndpts;
         if ((ctemp = (unsigned char *) malloc(ctemplen)) == NULL)
         {
             if (verbose)
                 fprintf(stderr, "Allocation error.\n");
             return G2C_ENOMEM;
         }
+
+        /* Decode the AEC stream. */
         ret = dec_aec(cpack, len, nbits, ccsds_flags, ccsds_block_size, ccsds_rsi, ctemp, ctemplen);
         if (ret < 0)
             return ret;
-        gbits(ctemp, ifld, 0, nbits, 0, ndpts);
+
+        /* IMPORTANT: The decoded AEC stream is byte-aligned (not bit), so when extracting the data
+         * values from the buffer via gbits, we need to pass the byte size in bits, not nbits. */
+        gbits(ctemp, ifld, 0, nbytes*8, 0, ndpts);
+
+        /* Zero out all higher-order bits, preserving nbits. NOTE: This might be unecessary. */
+        //for (j = 0; j < ndpts; j++)
+        //    ifld1 = ifld[j];
+        //    ifld1 = ifld1 << (sizeof(ifld1)*8-nbits);
+        //    ifld1 = ifld1 >> (sizeof(ifld1)*8-nbits);
+        //    ifld[j] = ifld1;
+
+        /* Unscale data. */
         if (fld_is_double)
         {
             for (j = 0; j < ndpts; j++)
@@ -96,6 +116,8 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
             for (j = 0; j < ndpts; j++)
                 ffld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
         }
+
+        /* Clean up. */
         free(ctemp);
         free(ifld);
     }
