@@ -99,6 +99,7 @@ jobs:
         cp $GITHUB_WORKSPACE/g2c/build/tests/data/* ~/data
         
     - name: upload-test-coverage
+      if: matrix.config == 'asan/code coverage'      
       uses: actions/upload-artifact@v3
       with:
         name: g2c-test-coverage
