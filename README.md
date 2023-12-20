@@ -100,12 +100,10 @@ USE_OpenJPEG to use the OpenJPEG library instead.
 
 ## References
 
-wow
-
 Hartnett, E., Ator, J, Lei, H., Richert, A., Woollen, J., King, A.,
-Hartnett, A., (NCEPLIBS GRIB and BUFR Libraries: Maintaining and
+Hartnett, A., [NCEPLIBS GRIB and BUFR Libraries: Maintaining and
 Modernizing NOAA's Libraries for WMO Data
-Formats)[https://www.researchgate.net/publication/376390180_NCEPLIBS_GRIB_and_BUFR_Libraries_Maintaining_and_Modernizing_NOAA's_Libraries_for_WMO_Data_Formats],
+Formats](https://www.researchgate.net/publication/376390180_NCEPLIBS_GRIB_and_BUFR_Libraries_Maintaining_and_Modernizing_NOAA's_Libraries_for_WMO_Data_Formats),
 American Geophysical Union (AGU) 2023. (See also
 [poster[(https://www.researchgate.net/publication/376582005_Poster_-_IN51B-0416_NCEPLIBS_GRIB_and_BUFR_Libraries_Maintaining_and_Modernizing_NOAA's_Libraries_for_WMO_Data_Formats)).
 
