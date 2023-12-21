@@ -23,7 +23,7 @@ jobs:
     - name: install-dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libaec-dev libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev valgrind libaec-dev
+        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev valgrind libaec-dev
         python3 -m pip install gcovr
 
     - name: cache-jasper
