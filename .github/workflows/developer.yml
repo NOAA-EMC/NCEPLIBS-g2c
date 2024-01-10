@@ -23,7 +23,7 @@ jobs:
     - name: install-dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libaec-dev libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev valgrind
+        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev valgrind libaec-dev
         python3 -m pip install gcovr
 
     - name: cache-jasper
@@ -73,7 +73,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
+        cmake -DUSE_AEC=ON -DJasper_ROOT=~/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
         make -j2 VERBOSE=1
         ctest --verbose --output-on-failure --rerun-failed
         gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
@@ -87,7 +87,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
+        cmake -DUSE_AEC=ON -DJasper_ROOT=~/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
         make -j2 VERBOSE=1
         ctest
         ls -l
