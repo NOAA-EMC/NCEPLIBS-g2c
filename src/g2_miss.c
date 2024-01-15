@@ -12,7 +12,7 @@
  * missing value management is used, and return the missing value(s)
  * in the data field.
  *
- * @param gfld pointer to gribfield structure.
+ * @param gfld pointer to ::gribfield structure.
  * @param rmiss List of the missing values used.
  * @param nmiss NUmber of the missing values included in the
  * field. rmiss must be allocated in the calling program with enough

@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Free up memory that was allocated for struct gribfield.
+ * @brief Free up memory that was allocated for struct ::gribfield.
  * @author Stephen Gilbeert @date 2002-10-28
  */
 
@@ -8,9 +8,9 @@
 #include  "grib2_int.h"
 
 /**
- * Free memory that was allocated for struct gribfield.
+ * Free memory that was allocated for struct ::gribfield.
  *
- * @param gfld pointer to gribfield structure (defined in include file
+ * @param gfld pointer to ::gribfield structure (defined in include file
  * grib2.h) returned from routine g2_getfld().
  *
  * @note This routine must be called to free up memory used by the
