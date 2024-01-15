@@ -6,8 +6,7 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine reads a list of real values in 32-bit IEEE floating
- * point format.
+ * Read a list of real values in 32-bit IEEE floating point format.
  *
  * @param rieee g2int array of floating point values in 32-bit IEEE
  * format.

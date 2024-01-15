@@ -7,8 +7,10 @@
 #include "grib2_int.h"
 
 /**
- * This routine finalizes a GRIB2 message after all grids and fields
- * have been added. It adds the End Section ("7777") to the end of
+ * Finalize a GRIB2 message after all grids and fields
+ * have been added. 
+ *
+ * This function adds the End Section ("7777") to the end of
  * the GRIB message and calculates the length and stores it in the
  * appropriate place in Section 0. This routine is used with routines
  * g2_create(), g2_addlocal(), g2_addgrid(), and g2_addfield() to

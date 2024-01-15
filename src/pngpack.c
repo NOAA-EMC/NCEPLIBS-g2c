@@ -1,5 +1,5 @@
 /** @file
- * @brief Function to pack data with PNG compression.
+ * @brief Pack data with PNG compression.
  * @author Stephen Gilbert @date 2003-08-27
  */
 #include <stdlib.h>
@@ -7,7 +7,7 @@
 #include "grib2_int.h"
 
 /**
- * This internal function packs up float or double data into PNG image
+ * Packs float or double data into PNG image
  * format. This is called by pngpack() and pngpackd().
  *
  * After the data field is scaled, and the reference value is

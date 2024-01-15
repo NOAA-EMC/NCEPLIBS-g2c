@@ -1,4 +1,6 @@
 /** @file
+ * @brief Unpack a data field that was packed using a simple packing
+ * algorithm.
  * @author Stephen Gilbert @date 2002-10-29
  */
 #include <stdio.h>
@@ -6,9 +8,9 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine unpacks a data field that was packed using a simple
- * packing algorithm as defined in the GRIB2 documention, using info
- * from the GRIB2 Data Representation Template 5.0.
+ * Unpack a data field that was packed using a simple packing
+ * algorithm, using info from the GRIB2 Data Representation Template
+ * 5.0.
  *
  * @param cpack pointer to the packed data field.
  * @param idrstmpl pointer to the array of values for Data

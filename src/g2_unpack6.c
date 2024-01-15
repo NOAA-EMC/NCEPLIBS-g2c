@@ -1,5 +1,5 @@
 /** @file
- * @brief Unpack Section 6 (Bit-Map Section) as defined in GRIB Edition 2.
+ * @brief Unpack Section 6 (Bit-Map Section) of a GRIB2 message.
  * @author Stephen Gilbert @date 2002-10-31
  */
 #include <stdio.h>
@@ -7,8 +7,7 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine unpacks Section 6 (Bit-Map Section) as defined in
- * GRIB Edition 2.
+ * Unpack Section 6 (Bit-Map Section) of a GRIB2 message.
  *
  * @param cgrib char array containing Section 6 of the GRIB2 message.
  * @param iofst Bit offset of the beginning of Section 6 in cgrib.

@@ -1,7 +1,7 @@
 /**
  * @file
- * @brief Functions for GRIB2 Data Representation Templates (DRT) for
- * the Data Representation Setcion.
+ * @brief Functions, Structures, and Data for Data Representation
+ * Templates (DRT).
  *
  * Each Template has three parts:
  * 1. The number of entries in the template (mapdrslen).

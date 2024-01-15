@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Pack up a Grid Definition Section (Section 3) and adds it to
+ * @brief Pack a Grid Definition Section (Section 3) and adds it to
  * a GRIB2 message.
  * @author Stephen Gilbeert @date 2002-11-01
  */
@@ -10,18 +10,14 @@
 #include "grib2_int.h"
 
 /**
- * This routine packs up a [Grid Definition Section (Section
+ * Packs a [Grid Definition Section (Section
  * 3)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml)
- * and adds it to a GRIB2 message. It is used with routines
+ * and adds it to a GRIB2 message. 
+ *
+ * This function is used with routines
  * g2_create(), g2_addlocal(), g2_addfield(), and g2_gribend() to
  * create a complete GRIB2 message. g2_create() must be called first
  * to initialize a new GRIB2 message.
- *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2002-11-01 | Gilbert | Initial.
- * 2009-01-14 | Vuong | Changed structure name template to gtemplate
  *
  * @param cgrib Char array that contains the GRIB2 message to which
  * section should be added. Must be allocated large enough to store

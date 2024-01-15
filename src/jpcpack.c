@@ -16,8 +16,7 @@
 #include "grib2_int.h"
 
 /** 
- * This internal function packs up a float or double array into a
- * JPEG2000 code stream.
+ * Packs a float or double array into a JPEG2000 code stream.
  *
  * This function is used by jpcpack(), g2c_jpcpackf(), and
  * g2c_jpcpackd().

@@ -1,5 +1,5 @@
 /** @file
- * @brief Pack up a data field using a complex packing algorithm as
+ * @brief Pack a data field using a complex packing algorithm as
  * defined in the GRIB2 documention.
  * @author Stephen Gilbert @date 2000-06-21
  */
@@ -9,8 +9,9 @@
 #include "grib2_int.h"
 
 /**
- * This function packs up a data field using a complex packing
- * algorithm as defined in the GRIB2 documention. It supports GRIB2
+ * Pack a data field using a complex packing algorithm.
+ *
+ * This funciton supports GRIB2
  * complex packing templates with or without spatial differences
  * (See [Template
  * 5.2](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-2.shtml)

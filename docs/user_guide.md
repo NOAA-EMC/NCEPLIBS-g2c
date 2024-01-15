@@ -31,7 +31,7 @@ redefined.
 For detailed information on GRIB2 see the [NCEP WMO GRIB2
 Documentation](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/).
 
-# GRIB2 Encoding Routines
+## GRIB2 Encoding Routines
 
 Since a GRIB2 message can contain gridded fields for many parameters
 on a number of different grids, several routines are used to encode a
@@ -60,7 +60,7 @@ call to routine g2_gribend() is needed to add the final section 8 to the
 message and to update the length of the message. A call to g2_gribend()
 is required for each GRIB2 message.
 
-# GRIB2 Decoding Routines
+## GRIB2 Decoding Routines
 
 Function g2_info() can be used to find out how many Local Use
 sections and data fields are contained in a given GRIB2 message. In
@@ -72,12 +72,12 @@ data field in the message. An option exists that lets the user decide
 if the function should unpack the Bit-map (if applicable) and the
 data values or just return the field description information.
 
-# Extracting GRIB2 Fields from a GRIB2 file
+## Extracting GRIB2 Fields from a GRIB2 file
 
 Function g2_info() can be used to find out how many Local Use
 sections and data fields are contained in a given GRIB2 message.
 
-# GRIB2 Tables/Templates
+## GRIB2 Tables/Templates
 
 NCO Provides documentation on WMO GRIB2 at
 https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/

@@ -1,12 +1,6 @@
 /** @file
  * @brief Decodes JPEG2000 code stream.
  * @author Stephen Gilbert @date 2002-12-02
- *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2002-12-02 | Gilbert | Initial
- * 2022-04-15 | Hartnett | Converted to use jas_ instead of jpc_ functions.
  */
 
 #include <stdio.h>
@@ -16,7 +10,7 @@
 #include "jasper/jasper.h"
 
 /**
- * This Function decodes a JPEG2000 code stream specified in the
+ * Decode a JPEG2000 code stream specified in the
  * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using [JasPer
  * Software](https://github.com/jasper-software/jasper).
  *
@@ -150,7 +144,7 @@ int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
 }
 
 /**
- * This Function decodes a JPEG2000 code stream specified in the
+ * Decode a JPEG2000 code stream specified in the
  * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using [JasPer
  * Software](https://github.com/jasper-software/jasper).
  *
@@ -177,7 +171,7 @@ g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld)
 }
 
 /**
- * This Function decodes a JPEG2000 code stream specified in the
+ * Decode a JPEG2000 code stream specified in the
  * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using [JasPer
  * Software](https://github.com/jasper-software/jasper).
  *

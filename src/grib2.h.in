@@ -40,7 +40,7 @@ typedef uint64_t g2intu;
 typedef float g2float;
 
 /**
- * Struct for GRIB field.
+ * Struct for GRIB2 field.
  */
 struct gribfield
 {

@@ -1,5 +1,13 @@
 /** @file
  * @brief Encodes JPEG2000 code stream.
+ *
+ * ### Program History Log
+ * Date | Programmer | Comments
+ * -----|------------|---------
+ * 2002-12-02 | Gilbert | Initial
+ * 2004-12-16 | Gilbert | Added retry argument allowing increased guard bits.
+ * 2022-04-15 | Hartnett | Converted to use jas_ instead of jpc_ functions.
+ *
  * @author Stephen Gilbert @date 2002-12-02
  */
 
@@ -11,16 +19,9 @@
 #define MAXOPTSSIZE 1024 /**< Maximum size of options. */
 
 /**
- * This Function encodes a grayscale image into a JPEG2000 code stream
+ * Encode a grayscale image into a JPEG2000 code stream
  * specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1)
  * using [JasPer Software](https://github.com/jasper-software/jasper).
- *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2002-12-02 | Gilbert | Initial
- * 2004-12-16 | Gilbert | Added retry argument allowing increased guard bits.
- * 2022-04-15 | Hartnett | Converted to use jas_ instead of jpc_ functions.
  *
  * @param cin Packed matrix of Grayscale image values to encode.
  * @param width width of image.
@@ -60,16 +61,9 @@ g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
 }
 
 /**
- * This Function encodes a grayscale image into a JPEG2000 code stream
+ * Encode a grayscale image into a JPEG2000 code stream
  * specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1)
  * using [JasPer Software](https://github.com/jasper-software/jasper).
- *
- * ### Program History Log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2002-12-02 | Gilbert | Initial
- * 2004-12-16 | Gilbert | Added retry argument allowing increased guard bits.
- * 2022-04-15 | Hartnett | Converted to use jas_ instead of jpc_ functions.
  *
  * @param cin Packed matrix of Grayscale image values to encode.
  * @param width width of image.

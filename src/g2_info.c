@@ -12,10 +12,12 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine searches through a GRIB2 message and returns the
+ * Search through a GRIB2 message and return the
  * number of gridded fields found in the message and the number (and
- * maximum size) of Local Use Sections. Also various checks are
- * performed to see if the message is a valid GRIB2 message.
+ * maximum size) of Local Use Sections. 
+ *
+ * Other checks are performed to see if the message is a valid GRIB2
+ * message.
  *
  * @param cgrib Pointer to a buffer containing the GRIB2 message.
  * @param listsec0 Pointer to an array that gets the information

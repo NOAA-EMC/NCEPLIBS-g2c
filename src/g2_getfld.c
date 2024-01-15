@@ -8,11 +8,13 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine returns all the metadata, template values, bit-map
- * (if applicable), and the unpacked data for a given data field. All
- * of the information returned is stored in a gribfield structure,
- * which is defined in file grib2.h. Users of this routine will need
- * to include grib2.h in their source code that calls this routine.
+ * Return all the metadata, template values, bit-map
+ * (if applicable), and the unpacked data for a data field. 
+ *
+ * All of the information returned is stored in a ::gribfield
+ * structure, which is defined in file grib2.h. Users of this routine
+ * will need to include grib2.h in their source code that calls this
+ * routine.
  *
  * Since there can be multiple data fields packed into a GRIB2
  * message, the calling routine indicates which field is being
@@ -39,7 +41,7 @@
  * at gridpoints that are bitmapped out.  (SEE REMARKS2)
  * - 0 do not expand data field, leaving it an array of consecutive
  * data points for each "1" in the bitmap.
- * @param gfld pointer to structure gribfield containing all decoded
+ * @param gfld pointer to structure ::gribfield containing all decoded
  * data for the data field.
  *
  * @return
@@ -61,7 +63,7 @@
  * - ::G2_GETFLD_BAD_SEC7 Error unpacking Section 7.
  * - ::G2_GETFLD_NO_BITMAP Previous bitmap specified, yet none exists.
  *
- * @note Struct gribfield is allocated by this routine and it also
+ * @note Struct ::gribfield is allocated by this routine and it also
  * contains pointers to many arrays of data that were allocated during
  * decoding. Users are encouraged to free up this memory, when it is
  * no longer needed, by an explicit call to routine g2_free().

@@ -17,8 +17,7 @@
 #include "grib2_int.h"
 
 /**
- * This internal function packs up a float or double array into a
- * AEC/CCSDS code stream.
+ * Pack a float or double array into a AEC/CCSDS code stream.
  *
  * @param fld Pointer to the float or double data values to pack.
  * @param fld_is_double If non-zero, then fld points to array of

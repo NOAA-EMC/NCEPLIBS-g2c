@@ -1,5 +1,5 @@
 /** @file
- * @brief Pack up a data field using the simple packing algorithm.
+ * @brief Pack a data field using the simple packing algorithm.
  * @author Stephen Gilbert @date 2002-11-06
  */
 
@@ -8,9 +8,11 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine packs up a data field using the simple packing
- * algorithm as defined in the GRIB2 documention. It also fills in
- * GRIB2 Data Representation Template 5.0 with the appropriate values.
+ * Packs a data field using the simple packing
+ * algorithm. 
+ *
+ * This function also fills in GRIB2 Data Representation Template 5.0
+ * with the appropriate values.
  *
  * @param fld Contains the data values to pack.
  * @param ndpts The number of data values in array fld.

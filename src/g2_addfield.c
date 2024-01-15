@@ -1,5 +1,5 @@
 /** @file
- * @brief Pack up Sections 4 through 7 for a given field and adds them
+ * @brief Pack sections 4 through 7 and add them
  * to a GRIB2 message.
  * @author Stephen Gilbert @date 2002-11-05
  */
@@ -9,16 +9,17 @@
 #include "grib2_int.h"
 
 /**
- * This routine packs up Sections 4 through 7 for a given field and
- * adds them to a GRIB2 message. They are [Product Definition
- * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml),
- * [Data Representation
- * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect5.shtml),
- * [Bit-Map
+ * Pack sections 4 through 7 and adds them to a GRIB2 message.
+ *
+ * They are:
+ * 4. [Product Definition
+ * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml)
+ * 5. [Data Representation
+ * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect5.shtml)
+ * 6. [Bit-Map
  * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect6.shtml)
- * and [Data
- * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect7.shtml),
- * respectively.
+ * 7. [Data
+ * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect7.shtml)
  *
  * This routine is used with routines g2_create(), g2_addlocal(),
  * g2_addgrid(), and g2_gribend() to create a complete GRIB2

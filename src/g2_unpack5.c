@@ -1,6 +1,5 @@
 /** @file
- * @brief Unpack Section 5 (Data Representation Section) as defined in
- * GRIB Edition 2.
+ * @brief Unpack Section 5 (Data Representation Section) of a GRIB2 message.
  * @author Stephen Gilbert @date 2002-10-31
  */
 
@@ -9,8 +8,7 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine unpacks Section 5 (Data Representation Section) as
- * defined in GRIB Edition 2.
+ * Unpack Section 5 (Data Representation Section) of a GRIB2 message.
  *
  * ### Program History Log
  * Date | Programmer | Comments
