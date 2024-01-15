@@ -1,5 +1,5 @@
 /** @file
- * @brief Unpack Section 3 (Grid Definition Section) from a GRIB2
+ * @brief Unpack Section 3 (Grid Definition Section) of a GRIB2
  * message.
  * @author Stephen Gilbert @date 2002-10-31
  */
@@ -8,9 +8,9 @@
 #include "grib2_int.h"
 
 /**
- * This routine unpacks [Section 3 (Grid Definition
+ * Unpack [Section 3 (Grid Definition
  * Section)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml)
- * from a GRIB2 message.
+ * of a GRIB2 message.
  *
  * ### Program History Log
  * Date | Programmer | Comments

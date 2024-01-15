@@ -1,4 +1,5 @@
 /** @file
+ * @brief Store a list of real values in 32-bit IEEE floating point format.
  * @author Stephen Gilbert @date 2002-10-29
  */
 
@@ -7,8 +8,7 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine stores a list of real values in 32-bit IEEE
- * floating point format.
+ * Store a list of real values in 32-bit IEEE floating point format.
  *
  * @param a Input array of floating point values.
  * @param num Number of floating point values to convert.

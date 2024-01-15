@@ -8,9 +8,10 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine returns all the metadata, template values, bit-map
- * (if applicable), and the unpacked data for a given data field. All
- * of the information returned is stored in a gribfield structure,
+ * Return all the metadata, template values, bit-map
+ * (if applicable), and the unpacked data for a data field. 
+ *
+ * All of the information returned is stored in a gribfield structure,
  * which is defined in file grib2.h. Users of this routine will need
  * to include grib2.h in their source code that calls this routine.
  *

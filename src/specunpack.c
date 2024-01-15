@@ -9,10 +9,10 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine unpacks a spectral data field that was packed using
- * the complex packing algorithm for spherical harmonic data as
- * defined in the GRIB2 documention, using info from the GRIB2 Data
- * Representation [Template
+ * Unpack a spectral data field that was packed using the complex
+ * packing algorithm for spherical harmonic data as defined in the
+ * GRIB2 documention, using info from the GRIB2 Data Representation
+ * [Template
  * 5.51](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml).
  *
  * @param cpack pointer to the packed data field.

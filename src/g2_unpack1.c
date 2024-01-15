@@ -1,7 +1,7 @@
 /** @file
  *
- * @brief Unpack Section 1 (Identification Section) as defined in GRIB
- * Edition 2.
+ * @brief Unpack Section 1 (Identification Section) of a GRIB2
+ * message.
  *
  * @author Stephen Gilbert @date 2002-10-29
  */
@@ -11,9 +11,9 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine unpacks [Section 1 - Identification
+ * Unpacks [Section 1 - Identification
  * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect1.shtml)
- * as defined in GRIB Edition 2.
+ * of a GRIB2 message.
  *
  * @param cgrib char array containing Section 1 of the GRIB2 message.
  * @param iofst Bit offset for the beginning of Section 1 in cgrib.

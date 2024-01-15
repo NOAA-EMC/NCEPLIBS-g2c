@@ -8,8 +8,7 @@
 #include  "grib2_int.h"
 
 /**
- * This routine frees up memory that was allocated for struct
- * gribfield.
+ * Free memory that was allocated for struct gribfield.
  *
  * @param gfld pointer to gribfield structure (defined in include file
  * grib2.h) returned from routine g2_getfld().

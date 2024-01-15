@@ -1,6 +1,5 @@
 /** @file
- * @brief Return the dimensions and scanning mode of a grid definition
- * packed in GRIB2 Grid Definition Section 3 format.
+ * @brief Return the dimensions and scanning mode of a grid definition.
  * @author Stephen Gilbert @date 2002-12-11
  */
 
@@ -9,8 +8,7 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine returns the dimensions and scanning mode of a grid
- * definition packed in GRIB2 Grid Definition Section 3 format.
+ * Return the dimensions and scanning mode of a grid definition.
  *
  * @param csec3 Character array that contains the packed GRIB2 GDS.
  * @param width x (or i) dimension of the grid. 0 if grid is not

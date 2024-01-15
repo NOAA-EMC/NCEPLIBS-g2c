@@ -6,8 +6,8 @@
 #include "grib2_int.h"
 
 /**
- * Get bits - unpack bits: Extract arbitrary size values from a packed
- * bit string, right justifying each value in the unpacked iout array.
+ * Get arbitrary size values from a packed bit string, right
+ * justifying each value in the unpacked iout array.
  *
  * @param in pointer to character array input.
  * @param iout pointer that gets the unpacked array output.
@@ -23,7 +23,7 @@ gbit(unsigned char *in, g2int *iout, g2int iskip, g2int nbits)
 }
 
 /**
- * Store bits - put arbitrary size values into a packed bit string,
+ * Store arbitrary size values into a packed bit string,
  * taking the low order bits from each value in the unpacked array.
  *
  * @param out Pointer to packed array output. Must be allocated large
@@ -41,8 +41,8 @@ sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbits)
 }
 
 /**
- * Get bits - unpack bits: Extract arbitrary size values from a packed
- * bit string, right justifying each value in the unpacked iout array.
+ * Unpack arbitrary size values from a packed bit string, right
+ * justifying each value in the unpacked iout array.
  *
  * @param in Pointer to character array input.
  * @param iout Pointer that gets the unpacked array output.
@@ -98,10 +98,9 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits,
 }
 
 /**
- * Get bits - unpack bits: Extract arbitrary size values from a packed
- * bit string, right justifying each value in the unpacked iout
- * array. This is similar to gbit(), but with int types instead of
- * g2int.
+ * Extract arbitrary size values from a packed bit string, right
+ * justifying each value in the unpacked iout array. This is similar
+ * to gbit(), but with int types instead of g2int.
  *
  * @param in pointer to character array input.
  * @param iout pointer that gets the unpacked array output.
@@ -117,10 +116,9 @@ g2c_gbit_int(unsigned char *in, int *iout, int iskip, int nbits)
 }
 
 /**
- * Get bits - unpack bits: Extract arbitrary size values from a packed
- * bit string, right justifying each value in the unpacked iout
- * array. This is similar to gbits(), but with int types instead of
- * g2int.
+ * Extract arbitrary size values from a packed bit string, right
+ * justifying each value in the unpacked iout array. This is similar
+ * to gbits(), but with int types instead of g2int.
  *
  * @param in Pointer to character array input.
  * @param iout Pointer that gets the unpacked array output.
@@ -163,8 +161,8 @@ g2c_gbits_int(unsigned char *in, int *iout, int iskip, int nbits,
 }
 
 /**
- * Store bits - put arbitrary size values into a packed bit string,
- * taking the low order bits from each value in the unpacked array.
+ * Store arbitrary size values into a packed bit string, taking the
+ * low order bits from each value in the unpacked array.
  *
  * @param out Pointer to packed array output. Must be allocated large
  * enough to hold output.

@@ -1,5 +1,5 @@
 /** @file
- * @brief Initializes a new GRIB2 message and packs GRIB2 sections 0
+ * @brief Initialize a new GRIB2 message and pack GRIB2 sections 0
  * (Indicator Section) and 1 (Identification Section).
  * @author Stephen Gilbert @date 2002-10-31
  */
@@ -11,7 +11,7 @@
 #define LENSEC0 16 /**< Length of GRIB Section 0. */
 
 /**
- * This routine initializes a new GRIB2 message and packs GRIB2
+ * Initialize a new GRIB2 message and pack GRIB2
  * [Section 0 (Indicator
  * Section)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect0.shtml)
  * and [Section 1 (Identification

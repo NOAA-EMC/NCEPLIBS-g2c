@@ -1,5 +1,5 @@
 /** @file
- * @brief Unpack Section 7 (Data Section) as defined in GRIB Edition 2.
+ * @brief Unpack Section 7 (Data Section) of a GRIB2 message.
  * @author Stephen Gilbert @date 2002-10-31
  *
  * ### Program History Log
@@ -20,8 +20,7 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine unpacks Section 7 (Data Section) of a GRIB2
- * message.
+ * Unpacks Section 7 (Data Section) of a GRIB2 message.
  *
  * This function is the internal function called by both g2_unpack7()
  * and g2c_unpack7().

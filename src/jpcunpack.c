@@ -8,9 +8,8 @@
 #include "grib2_int.h"
 
 /**
- * This internal function will unpack JPEG2000 compressed data into an
- * array of floats or doubles, using info from the GRIB2 Data
- * Representation [Template
+ * Unpack JPEG2000 compressed data into an array of floats or doubles,
+ * using info from the GRIB2 Data Representation [Template
  * 5.40](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml)
  * or 5.40000.
  *

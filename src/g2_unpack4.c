@@ -1,6 +1,5 @@
 /** @file
- * @brief Unpack Section 4 (Product Definition Section) as defined in
- * GRIB Edition 2.
+ * @brief Unpack Section 4 (Product Definition Section) of a GRIB2 message.
  * @author Stephen Gilbert @date 2002-10-31
  */
 
@@ -9,9 +8,9 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine unpacks [Section 4 (Product Definition
+ * Unpack [Section 4 (Product Definition
  * Section)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml)
- * as defined in GRIB Edition 2.
+ * of a GRIB2 message.
  *
  * ### Program History Log
  * Date | Programmer | Comments

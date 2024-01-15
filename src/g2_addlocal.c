@@ -7,11 +7,12 @@
 #include "grib2_int.h"
 
 /**
- * This routine adds a [Local Use Section (Section
+ * Adds a [Local Use Section (Section
  * 2)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect2.shtml)
- * to a GRIB2 message. It is used with routines g2_create(),
- * g2_addgrid(), g2_addfield(), and g2_gribend() to create a complete
- * GRIB2 message.
+ * to a GRIB2 message. 
+ *
+ * This function is used with routines g2_create(), g2_addgrid(),
+ * g2_addfield(), and g2_gribend() to create a complete GRIB2 message.
  *
  * @param cgrib Char array that contains the GRIB2 message to which
  * section 2 should be added. Must be allocated large enough to store

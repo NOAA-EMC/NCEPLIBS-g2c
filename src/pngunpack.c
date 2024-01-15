@@ -1,6 +1,5 @@
 /** @file
- * @brief Contains a function to unpack data packed with PNG
- * compression.
+ * @brief Unpack data packed with PNG compression.
  * @author Stephen Gilbert @date 2003-08-27
  */
 
@@ -9,7 +8,7 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine unpacks a data field that was packed into a PNG
+ * Unpack a data field that was packed into a PNG
  * image format using info from the GRIB2 Data Representation Template
  * 5.41 or 5.40010.
  *
