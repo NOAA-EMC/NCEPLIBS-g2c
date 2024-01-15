@@ -1,7 +1,7 @@
 /**
  * @file
- * @brief Pack up a data field using a complex packing
- * algorithm as defined in the GRIB2 documention.
+ * @brief Pack a data field using a complex packing
+ * algorithm.
  * @author Stephen Gilbert @date 2002-11-07
  */
 
@@ -10,11 +10,11 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine packs up a data field using a complex packing
- * algorithm as defined in the GRIB2 documention. It supports GRIB2
- * complex packing templates with or without spatial differences
- * (i.e. DRTs 5.2 and 5.3). It also fills in GRIB2 Data Representation
- * [Template
+ * Pack a data field using a complex packing algorithm.
+ *
+ * This function supports GRIB2 complex packing templates with or
+ * without spatial differences (i.e. DRTs 5.2 and 5.3). It also fills
+ * in GRIB2 Data Representation [Template
  * 5.2](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-2.shtml)
  * or [Template
  * 5.3](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-3.shtml)

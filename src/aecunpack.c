@@ -8,7 +8,7 @@
 #include "grib2_int.h"
 
 /**
- * This internal function will unpack AEC compressed data into an
+ * Unpack AEC compressed data into an
  * array of floats or doubles, using info from the GRIB2 Data
  * Representation [Template
  * 5.42](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-42.shtml).

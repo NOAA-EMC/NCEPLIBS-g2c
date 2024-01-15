@@ -9,17 +9,17 @@
 #include "grib2_int.h"
 
 /**
- * Packs sections 4 through 7 and adds them to a GRIB2 message.
+ * Pack sections 4 through 7 and adds them to a GRIB2 message.
  *
- * They are [Product Definition
- * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml),
- * [Data Representation
- * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect5.shtml),
- * [Bit-Map
+ * They are:
+ * 4. [Product Definition
+ * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect4.shtml)
+ * 5. [Data Representation
+ * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect5.shtml)
+ * 6. [Bit-Map
  * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect6.shtml)
- * and [Data
- * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect7.shtml),
- * respectively.
+ * 7. [Data
+ * Section](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect7.shtml)
  *
  * This routine is used with routines g2_create(), g2_addlocal(),
  * g2_addgrid(), and g2_gribend() to create a complete GRIB2

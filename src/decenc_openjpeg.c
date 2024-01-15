@@ -1,8 +1,9 @@
 /**
  * @file
  * @brief JPEG functions, originally from ECMWF, modified for use in NCEPLIBS-g2c.
- *
- * Copyright 2005-2019 ECMWF.
+ * @author ECMWF programmer
+ */
+/* Copyright 2005-2019 ECMWF.
  *
  * This software is licensed under the terms of the Apache Licence
  * Version 2.0 which can be obtained at
@@ -12,8 +13,6 @@
  * immunities granted to it by virtue of its status as an
  * intergovernmental organisation nor does it submit to any
  * jurisdiction.
- *
- * @author ECMWF programmer
  */
 
 #if !defined USE_JPEG2000 && defined USE_OPENJPEG

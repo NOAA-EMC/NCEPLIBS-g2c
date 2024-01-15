@@ -8,9 +8,8 @@
 #include "grib2_int.h"
 
 /**
- * This subroutine unpacks a data field that was packed using a
- * complex packing algorithm as defined in the GRIB2 documention,
- * using info from the GRIB2 Data Representation [Template
+ * Unpack a data field that was packed using a complex packing
+ * algorithm, using info from the GRIB2 Data Representation [Template
  * 5.2](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-2.shtml)
  * or [Template
  * 5.3](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-3.shtml).

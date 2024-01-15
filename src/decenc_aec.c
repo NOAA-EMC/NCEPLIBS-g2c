@@ -1,12 +1,6 @@
 /** @file
- * @brief Decode and encode functions for AEC compression.
- * stream
+ * @brief Decode/encode an AEC code stream.
  * @author Eric Engle @date 2023-10-16
- *
- * Program History Log
- * Date | Programmer | Comments
- * -----|------------|---------
- * 2023-10-16 | Engle | Initial
  */
 
 #include <stdio.h>
@@ -15,8 +9,8 @@
 #include "grib2_int.h"
 
 /**
- * This Function decodes an AEC code stream specified in the
- * [CCSDS 121.0-B-3 Blue Book](https://public.ccsds.org/Pubs/121x0b3.pdf).
+ * Decode an AEC code stream specified in the [CCSDS 121.0-B-3 Blue
+ * Book](https://public.ccsds.org/Pubs/121x0b3.pdf).
  *
  * @param cpack Pointer to buffer that holds the input AEC code
  * stream.
@@ -84,7 +78,7 @@ int dec_aec(unsigned char *cpack, g2int len, g2int nbits, g2int flags,
 }
 
 /**
- * This Function encodes data into an AEC code stream specified in the
+ * Encode data into an AEC code stream specified in the
  * [CCSDS 121.0-B-3 Blue Book](https://public.ccsds.org/Pubs/121x0b3.pdf).
  *
  * @param data Pointer to buffer that holds the input data.
