@@ -79,7 +79,7 @@ main(int argc, char **argv)
 
     /* Write the index file. */
     if (large_file_index)
-	write_index_flag &= G2C_LARGE_FILE_INDEX;
+	      write_index_flag &= G2C_LARGE_FILE_INDEX;
     if ((ret = g2c_write_index(g2cid, write_index_flag, path[1])))
         return ret;
 
