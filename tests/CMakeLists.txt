@@ -79,6 +79,11 @@ if(FTP_EXTRA_TEST_FILES)
   endif()
 endif()
 
+# Get the very large file.
+if(FTP_LARGE_TEST_FILES)
+  set(REF_FILES ${REF_FILES} "fv3lam.t00z.prslev.f000.grib2")
+endif()
+
 foreach(THE_FILE IN LISTS REF_FILES) 
   FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/${THE_FILE}
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
@@ -250,6 +255,9 @@ if(BUILD_G2C)
       gu_test(run_compare_tests)
       gu_test(run_degrib2_tests)
       gu_test(run_index_tests)
+      if(FTP_LARGE_TEST_FILES)
+	gu_test(run_large_index_tests)
+      endif()
     endif()
   endif()
 endif()
