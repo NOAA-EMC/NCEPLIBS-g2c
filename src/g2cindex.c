@@ -354,6 +354,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     char my_path[G2C_INDEX_BASENAME_LEN + 1];
     G2C_MESSAGE_INFO_T *msg;
     int total_index_size = 0; /* Does not include size of header records. */
+    int large_file_index = 0; /* True if indexed file may be > 2 GB. */
     int reclen;
     int ret = G2C_NOERROR;
 
@@ -377,6 +378,10 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
         }
     }
 
+    /* If LARGE_INDEX_FILE, check if file exists. */
+    if (mode & G2C_LARGE_FILE_INDEX)
+	large_file_index++;
+    
     /* Create the index file. */
     if (!(f = fopen(index_file, "wb+")))
         return G2C_EFILE;
