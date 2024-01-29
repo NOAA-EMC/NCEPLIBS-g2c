@@ -291,6 +291,7 @@ g2int aecunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 #define G2C_WRITE         0x0001 /**< Set read-write access for g2c_open(). */
 #define G2C_CLOBBER       0x0000 /**< Destroy existing file. Mode flag for g2c_create(). */
 #define G2C_NOCLOBBER     0x0004 /**< Don't destroy existing file. Mode flag for g2c_create(). */
+#define G2C_LARGE_FILE_INDEX   0x0008 /**< Create a large file index. Mode flag for g2c_write_index(). */
 
 /* Useful constants. */
 #define G2C_SECTION0_BYTES 16 /**< Number of bytes in section 0. */

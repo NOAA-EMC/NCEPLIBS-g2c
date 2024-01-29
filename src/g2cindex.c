@@ -118,6 +118,87 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
 }
 
 /**
+ * Read or write the start of a version 2 index record for files > 2
+ * GB.
+ *
+ * @param f FILE * to open index file.
+ * @param rw_flag True if function should write, false if it should read.
+ * @param reclen Pointer to reclen.
+ * @param msg Pointer to msg.
+ * @param local Pointer to local.
+ * @param gds Pointer to gds.
+ * @param pds Pointer to pds.
+ * @param drs Pointer to drs.
+ * @param bms Pointer to bms.
+ * @param data Pointer to data.
+ * @param msglen Pointer to msglen.
+ * @param version Pointer to version.
+ * @param discipline Pointer to discipline.
+ * @param fieldnum Pointer to fieldnum, 0- based. (It is 1-based in
+ * the index file.)
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EINVAL Invalid input.
+ * - ::G2C_EFILE File I/O error.
+ *
+ * @author Ed Hartnett 10/26/22
+ */
+int
+g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, int *local, int *gds,
+			  int *pds, int *drs, int *bms, int *data, size_t *msglen,
+			  unsigned char *version, unsigned char *discipline, short *fieldnum)
+{
+    /* size_t size_t_be; */
+    short fieldnum1; /* This is for the 1-based fieldnum in the index file. */
+    int ret;
+
+    /* All pointers must be provided. */
+    if (!f || !reclen || !msg || !local || !gds || !pds || !drs || !bms || !data
+        || !msglen || !version || !discipline || !fieldnum)
+        return G2C_EINVAL;
+
+    /* When writing, set the fieldnum1 to be a 1-based index, just
+     * like in Fortran. */
+    if (rw_flag)
+        fieldnum1 = *fieldnum + 1;
+
+    /* Read or write the values at the beginning of each index
+     * record. */
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)reclen)))
+        return ret;
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)msg)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)local)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)gds)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)pds)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)drs)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)bms)))
+        return ret;
+    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)data)))
+        return ret;
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)msglen)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, version)))
+        return ret;
+    if ((ret = g2c_file_io_ubyte(f, rw_flag, discipline)))
+        return ret;
+    if ((ret = g2c_file_io_short(f, rw_flag, &fieldnum1)))
+        return ret;
+
+    /* When reading, translate the 1-based fieldnum1 into the 0-based
+     * fieldnum that C programmers will expect and love. */
+    if (!rw_flag)
+        *fieldnum = fieldnum1 - 1;
+
+    return G2C_NOERROR;
+}
+
+/**
  * Read or write the start of a version 1 index record.
  *
  * For more detail on version 1 of the index format, see the
@@ -354,6 +435,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     char my_path[G2C_INDEX_BASENAME_LEN + 1];
     G2C_MESSAGE_INFO_T *msg;
     int total_index_size = 0; /* Does not include size of header records. */
+    int large_file_index = 0; /* True if indexed file may be > 2 GB. */
     int reclen;
     int ret = G2C_NOERROR;
 
@@ -377,6 +459,10 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
         }
     }
 
+    /* If LARGE_INDEX_FILE, check if file exists. */
+    if (mode & G2C_LARGE_INDEX_FILE)
+	large_index_file++;
+    
     /* Create the index file. */
     if (!(f = fopen(index_file, "wb+")))
         return G2C_EFILE;
@@ -451,7 +537,6 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             for (fieldnum = 0; fieldnum < msg->num_fields; fieldnum++)
             {
                 G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
-                int bytes_to_msg = (int)msg->bytes_to_msg;
                 int bs3, bs4, bs5, bs6, bs7; /* bytes to each section, as ints. */
                 unsigned char sec_num;
                 int ret;
@@ -470,10 +555,21 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 LOG((4, "fieldnum %d reclen %d", fieldnum, reclen));
 
                 /* Write the beginning of the index record. */
-                if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &msg->bytes_to_local,
-                                                  &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
-                                                  &msg->discipline, &fieldnum)))
-                    break;
+		if (large_file_index)
+		{
+		    int bytes_to_msg = (int)msg->bytes_to_msg;
+		    if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &msg->bytes_to_local,
+						      &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
+						      &msg->discipline, &fieldnum)))
+			break;
+		}
+		else
+		{
+		    if ((ret = g2c_start_index_record_lf(f, G2C_FILE_WRITE, &reclen, &msg->bytes_to_msg, &msg->bytes_to_local,
+							 &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
+							 &msg->discipline, &fieldnum)))
+			break;
+		}
 
                 /* Write the section 1, identification section. */
                 if ((ret = g2c_rw_section1_metadata(f, G2C_FILE_WRITE, msg)))
