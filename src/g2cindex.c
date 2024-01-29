@@ -460,7 +460,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     }
 
     /* If LARGE_INDEX_FILE, check if file exists. */
-    if (mode & G2C_LARGE_INDEX_FILE)
+    if (mode & G2C_LARGE_FILE_INDEX)
 	large_index_file++;
     
     /* Create the index file. */
