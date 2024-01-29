@@ -1116,8 +1116,8 @@ read_metadata(int g2cid)
         LOG((6, "file_pos %ld", file_pos));
     }
 
-    /* If we run out of messages, that's success. */
-    if (ret == G2C_ENOMSG)
+    /* If we read some messages, then run out, that's success. */
+    if (ret == G2C_ENOMSG && msg_num)
         ret = G2C_NOERROR;
 
 #ifdef LOGGING

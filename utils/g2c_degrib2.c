@@ -62,6 +62,13 @@ main(int argc, char **argv)
             break;
     }
 
+    /* If we didn't get 2 files, error. */
+    if (p != 2)
+    {
+	printf("Two filenames must be provided, for input and output.\n");
+	return G2C_ERROR;
+    }
+
     /* Yammer on and on. */
     if (verbose)
         printf("g2c_degrib2 %s summarizing %s into %s.\n", G2C_VERSION, path[0], path[1]);
