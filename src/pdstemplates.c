@@ -142,7 +142,7 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         statistical processing */
     {1101, 22, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.32:Simulate (synthetic) Satellite Product */
-    {32, 10, 1, {1, 1, 1, 1, 1, 2, 1, 1, -2, 1}},
+    {32, 10, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1}},
     /** 4.44: Analysis or forecast at a horizontal level or in a horizontal layer
         at a point in time for Aerosol */
     {44, 21, 0, {1, 1, 2, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -2, 1, -1, -4, 1, -1, -4}},
