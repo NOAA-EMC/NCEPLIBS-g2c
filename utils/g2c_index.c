@@ -1,6 +1,6 @@
 /** @file
  *
- * @brief Print a summary of a GRIB1 or GRIB2 index file.
+ * @brief Write a GRIB2 index file.
  *
  * @author Ed Hartnett @date 12/29/22
  */
@@ -11,7 +11,7 @@
 #include <grib2.h>
 
 /**
- * Print a summary of a GRIB1 or GRIB2 index file.
+ * Write a GRIB2 index file.
  *
  * @param argc Number of arguments.
  * @param argv Pointer to array of arguments.
@@ -27,7 +27,9 @@ main(int argc, char **argv)
 {
   char *path[2] = {NULL, NULL};
     int verbose = 0;
+    int large_file_index = 0;
     int index;
+    int write_index_flag = G2C_CLOBBER;
     int c;
     int p = 0;
     int g2cid;
@@ -42,6 +44,9 @@ main(int argc, char **argv)
         {
         case 'v':
             verbose = 1;
+            break;
+        case 'l':
+            large_file_index = 1;
             break;
         case '?':
             if (isprint(optopt))
@@ -73,7 +78,9 @@ main(int argc, char **argv)
         return ret;
 
     /* Write the index file. */
-    if ((ret = g2c_write_index(g2cid, G2C_CLOBBER, path[1])))
+    if (large_file_index)
+	write_index_flag & G2C_LARGE_FILE_INDEX;
+    if ((ret = g2c_write_index(g2cid, write_index_flag, path[1])))
         return ret;
 
     /* Close the file. */
