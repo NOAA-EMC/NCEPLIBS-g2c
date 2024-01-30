@@ -7,6 +7,11 @@ on:
     branches:
     - develop
 
+# Cancel in-progress workflows when pushing to a branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   developer:
     runs-on: ubuntu-latest
@@ -73,7 +78,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DUSE_AEC=ON -DJasper_ROOT=~/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
+        cmake -DUSE_AEC=ON -DJasper_ROOT=~/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
         make -j2 VERBOSE=1
         ctest --verbose --output-on-failure --rerun-failed
         gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
@@ -87,7 +92,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DUSE_AEC=ON -DJasper_ROOT=~/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_LARGE_TEST_FILES=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
+        cmake -DUSE_AEC=ON -DJasper_ROOT=~/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
         make -j2 VERBOSE=1
         ctest
         ls -l
