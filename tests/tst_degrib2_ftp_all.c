@@ -126,7 +126,6 @@ main()
                 /*     return G2C_ERROR; */
                 
                 /* Output a degrib2 file. */
-                g2c_set_log_level(15);
                 sprintf(degrib2_file, "%s.degrib2", basename(file[f]));
                 if ((ret = g2c_degrib2(g2cid, degrib2_file)))
                     return ret;
@@ -137,6 +136,7 @@ main()
                 
                 /* Compare the degrib2 output to our reference file. */
                 sprintf(ref_degrib2_file, "data/ref_%s.degrib2", basename(file[f]));
+                printf("\tcomparing degrib2 output to reference file %s...\n", ref_degrib2_file);
                 if ((ret = compare_degrib2_files2(degrib2_file, ref_degrib2_file)))
                     return ret;
             }

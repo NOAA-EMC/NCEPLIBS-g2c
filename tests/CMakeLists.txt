@@ -75,10 +75,8 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   )
 
 # Copy extra files if needed.
-if(FTP_EXTRA_TEST_FILES)
-  if(FTP_LARGE_TEST_FILES)
-    set(REF_FILES ${REF_FILES} "ref_fv3lam.t00z.prslev.f000.grib2.degrib2")
-  endif()
+if(FTP_LARGE_TEST_FILES)
+  set(REF_FILES ${REF_FILES} "ref_fv3lam.t00z.prslev.f000.grib2.degrib2")
 endif()
 
 foreach(THE_FILE IN LISTS REF_FILES) 
