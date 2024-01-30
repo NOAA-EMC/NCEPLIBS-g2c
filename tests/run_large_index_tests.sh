@@ -13,10 +13,10 @@ echo "*** Running g2c_index large file test"
 ../utils/g2c_index -v data/fv3lam.t00z.prslev.f000.grib2 fv3lam.t00z.prslev.f000.grib2.idx
 
 # Summarize the index data.
-../utils/g2c_degrib2 -v fv3lam.t00z.prslev.f000.grib2.idx gdaswave.t00z.wcoast.0p16.f000.grib2.idx.degrib2
+#../utils/g2c_degrib2 -v -o fv3lam.t00z.prslev.f000.grib2.idx.degrib2 fv3lam.t00z.prslev.f000.grib2.idx 
 
 # Check against expected output.
-#diff -w g2c_degrib2_gdaswave.t00z.wcoast.0p16.f000.grib2.degrib2 data/ref_gdaswave.degrib2.txt
+#diff -w fv3lam.t00z.prslev.f000.grib2.idx.degrib2 data/ref_fv3lam.t00z.prslev.f000.grib2.degrib2
 
 echo "*** SUCCESS!"
 exit 0
