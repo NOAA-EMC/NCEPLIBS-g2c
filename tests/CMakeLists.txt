@@ -5,6 +5,8 @@
 # Dusan Jovic
 # Eric Engle 1/10/23
 
+message(STATUS "Building test directory...")
+
 # Some test files are large and are kept on the NOAA EMC FTP
 # site. This function is used to download such test data. It takes two
 # arguments, the URL and the file to be downloaded.
@@ -13,7 +15,7 @@ function(PULL_DATA THE_URL THE_FILE)
   # there before FTPing them. Developers can keep all test files on
   # their machines, and save the time of downloading them every time.
   if(NOT ${TEST_FILE_DIR} STREQUAL ".")
-    #message(STATUS "Checking for ${TEST_FILE_DIR}/${THE_FILE}.")
+    message(STATUS "Checking for ${TEST_FILE_DIR}/${THE_FILE}.")
     if (EXISTS ${TEST_FILE_DIR}/${THE_FILE})
       message(STATUS "Copying file ${TEST_FILE_DIR}/${THE_FILE} to test data directory.")
       FILE(COPY ${TEST_FILE_DIR}/${THE_FILE}
@@ -77,11 +79,6 @@ if(FTP_EXTRA_TEST_FILES)
   if(FTP_LARGE_TEST_FILES)
     set(REF_FILES ${REF_FILES} "ref_fv3lam.t00z.prslev.f000.grib2.degrib2")
   endif()
-endif()
-
-# Get the very large file.
-if(FTP_LARGE_TEST_FILES)
-  set(REF_FILES ${REF_FILES} "fv3lam.t00z.prslev.f000.grib2")
 endif()
 
 foreach(THE_FILE IN LISTS REF_FILES) 
@@ -160,15 +157,15 @@ if(FTP_TEST_FILES)
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
 
-  if(FTP_EXTRA_TEST_FILES)
-    if(FTP_LARGE_TEST_FILES)
-      set(LARGE_FTP_FILES "fv3lam.t00z.prslev.f000.grib2")
-      foreach(THE_FILE IN LISTS LARGE_FTP_FILES) 
-        PULL_DATA(${G2_FTP_URL} ${THE_FILE})
-      endforeach()
-      add_definitions(-DLARGE_FTP_TESTS)
-    endif()
+  if(FTP_LARGE_TEST_FILES)
+    set(LARGE_FTP_FILES "fv3lam.t00z.prslev.f000.grib2")
+    foreach(THE_FILE IN LISTS LARGE_FTP_FILES) 
+      PULL_DATA(${G2_FTP_URL} ${THE_FILE})
+    endforeach()
+    add_definitions(-DLARGE_FTP_TESTS)
+  endif()
 
+  if(FTP_EXTRA_TEST_FILES)
     set(EXTRA_FTP_FILES "MRMS_MultiSensor_QPE_24H_Pass2_00.00_20230621-110000.grib2")
     foreach(THE_FILE IN LISTS EXTRA_FTP_FILES) 
       PULL_DATA(${G2_FTP_URL} ${THE_FILE})

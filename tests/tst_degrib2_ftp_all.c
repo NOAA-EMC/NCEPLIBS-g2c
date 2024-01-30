@@ -126,7 +126,7 @@ main()
                 /*     return G2C_ERROR; */
                 
                 /* Output a degrib2 file. */
-                /* g2c_set_log_level(15); */
+                g2c_set_log_level(15);
                 sprintf(degrib2_file, "%s.degrib2", basename(file[f]));
                 if ((ret = g2c_degrib2(g2cid, degrib2_file)))
                     return ret;
