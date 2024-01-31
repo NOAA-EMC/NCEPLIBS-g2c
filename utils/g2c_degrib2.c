@@ -23,23 +23,30 @@
 int
 main(int argc, char **argv)
 {
-    char *path[2];
     int verbose = 0;
     int index;
     int g2cid;
     int c;
     int p = 0;
+    char *filein = NULL;
+    char *fileidx = NULL;
+    char *fileout = NULL;
     int ret;
 
     opterr = 0;
 
     /* Parse command line arguments. */
-    while ((c = getopt(argc, argv, "v")) != -1)
+    while ((c = getopt(argc, argv, "vo:")) != -1)
     {
         switch (c)
         {
         case 'v':
             verbose = 1;
+            break;
+        case 'o':
+	    if (!(fileout = malloc(sizeof(char) * strlen(optarg) + 1)))
+		return G2C_ENOMEM;
+            strcpy(fileout, optarg);
             break;
         case '?':
             if (isprint(optopt))
@@ -52,33 +59,54 @@ main(int argc, char **argv)
         }
     }
 
-    /* Get names of input and output files. */
+    /* Get names of input file(s). */
     for (index = optind; index < argc; index++)
     {
-        if (!(path[p] = malloc(sizeof(char) * strlen(argv[index]) + 1)))
-            return G2C_ENOMEM;
-        strcpy(path[p], argv[index]);
+	if (!p)
+	{
+	    if (!(filein = malloc(sizeof(char) * strlen(argv[index]) + 1)))
+		return G2C_ENOMEM;
+	    strcpy(filein, argv[index]);
+	}
+	else
+	{
+	    if (!(fileidx = malloc(sizeof(char) * strlen(argv[index]) + 1)))
+		return G2C_ENOMEM;
+	    strcpy(fileidx, argv[index]);
+	}
         if (++p == 2)
             break;
     }
 
-    /* If we didn't get 2 files, error. */
-    if (p != 2)
+    /* If we got one input file, open it. If we got two input files,
+     * the second is an index file for the first. */
+    if (p == 1)
     {
-	printf("Two filenames must be provided, for input and output.\n");
+	if (verbose)
+	    printf("g2c_degrib2 %s summarizing %s into %s.\n", G2C_VERSION, filein, fileout);
+
+	/* Open the GRIB2 file. */
+	if ((ret = g2c_open(filein, G2C_NOWRITE, &g2cid)))
+	    return ret;
+    }
+    else if (p == 2)
+    {
+	if (verbose)
+	    printf("g2c_degrib2 %s summarizing %s, with index %s into %s.\n", G2C_VERSION,
+		   filein, fileidx, fileout);
+
+	/* Open the GRIB2 file with index. */
+	if ((ret = g2c_open_index(filein, fileidx, G2C_NOWRITE, &g2cid)))
+	    return ret;
+    }
+    else
+    {
+	printf("One or two filenames must be provided, for input and (optionally) index.\n");
 	return G2C_ERROR;
     }
 
-    /* Yammer on and on. */
-    if (verbose)
-        printf("g2c_degrib2 %s summarizing %s into %s.\n", G2C_VERSION, path[0], path[1]);
-
-    /* Open the GRIB2 file. */
-    if ((ret = g2c_open(path[0], G2C_NOWRITE, &g2cid)))
-        return ret;
-
     /* Write the degrib2 summary. */
-    if ((ret = g2c_degrib2(g2cid, path[1])))
+    if ((ret = g2c_degrib2(g2cid, fileout)))
         return ret;
 
     /* Close the file. */
@@ -86,8 +114,12 @@ main(int argc, char **argv)
         return ret;
 
     /* Free memory. */
-    free(path[0]);
-    free(path[1]);
+    if (filein)
+	free(filein);
+    if (fileidx)
+	free(fileidx);
+    if (fileout)
+	free(fileout);
 
     return 0;
 }

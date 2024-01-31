@@ -60,11 +60,6 @@ degrib2_lines_not_equal(char *line1, char *l2)
        ( PARM= WIND ) :  MIN=               0.09999998 AVE=               5.64625024 MAX=              16.43000032
     */
 
-
-
-
-
-
     /* We have to go through some business to convince the code
      * scanner we are not going to overwrite any memory in our sscanf
      * calls. */
