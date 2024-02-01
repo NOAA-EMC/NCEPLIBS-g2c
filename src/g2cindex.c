@@ -114,6 +114,11 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
     if (!rw_flag)
         *fieldnum = fieldnum1 - 1;
 
+    LOG((2, "reclen %d msg %ld local %d gds %d pds %d drs %d bms %d data %d msglen %lld "
+	 "version %d discipline %d fieldnum1 %d\n",
+	 *reclen, *msg, *local, *gds, *pds, *drs, *bms, *data, *msglen,
+	 version, discipline, fieldnum1));
+
     return G2C_NOERROR;
 }
 
@@ -207,13 +212,14 @@ g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, int *l
  *
  * @param f FILE * to open index file.
  * @param rw_flag True if function should write, false if it should read.
+ * @param index_version 1 for legacy, 2 for indexes that can handle files > 2GB.
  * @param b2_msg Pointer that gets the bytes to skip in file before msg.
  * @param b2_pds Pointer that gets bytes to skip in message before pds.
  * @param b2_gds Pointer that gets bytes to skip in message before gds (0 if no gds).
  * @param b2_bms Pointer that gets bytes to skip in message before bms (0 if no bms).
  * @param b2_bds Pointer that gets bytes to skip in message before bds.
  * @param msglen Pointer that gets bytes total in the message.
- * @param version Pointer that gets grib version number (always 1 for this function).
+ * @param version Pointer that gets grib version number (always 2 for this function).
  * @param pds_val Pointer that gets an arry of 27 bytes of the product definition section (pds).
  * @param gds_val Pointer that gets an arry of 41 bytes of the gds.
  * @param bms_val Pointer that gets an arry of 5 bytes of the bms. 
@@ -230,8 +236,8 @@ g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, int *l
  * @author Ed Hartnett 9/11/23
  */
 int
-g2c_start_index1_record(FILE *f, int rw_flag, unsigned int *b2_msg, unsigned int *b2_pds,
-			unsigned int *b2_gds, unsigned int *b2_bms, unsigned int *b2_bds,
+g2c_start_index1_record(FILE *f, int rw_flag, int index_version, size_t *b2_msg,
+			unsigned int *b2_pds, unsigned int *b2_gds, unsigned int *b2_bms, unsigned int *b2_bds,
 			unsigned int *msglen, unsigned char *version, unsigned char *pds_val,
 			unsigned char *gds_val, unsigned char *bms_val, unsigned char *bds_val,
 			unsigned char *pds_val2, unsigned char *pds_val3, unsigned char *gds_val2)
@@ -239,15 +245,28 @@ g2c_start_index1_record(FILE *f, int rw_flag, unsigned int *b2_msg, unsigned int
     size_t bytes_read;    
     int ret;
 
-    /* All pointers must be provided. */
+    /* All pointers must be provided, index_version must be 1 or 2. */
     if (!f || !b2_msg || !b2_pds || !b2_gds || !b2_bms || !b2_bds ||
-	!msglen || !version)
+	!msglen || !version || (index_version != 1 && index_version != 2))
         return G2C_EINVAL;
 
     /* Read or write the values at the beginning of each index
      * record. */
-    if ((ret = g2c_file_io_uint(f, rw_flag, b2_msg)))
-        return ret;
+    if (index_version == 1)
+    {
+	unsigned int msgint;
+	if (rw_flag)
+	    msgint = (int)*b2_msg;
+	if ((ret = g2c_file_io_uint(f, rw_flag, &msgint)))
+	    return ret;
+	if (!rw_flag)
+	    *b2_msg = msgint;
+    }
+    else
+    {
+	if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)b2_msg)))
+	    return ret;
+    }
     if ((ret = g2c_file_io_uint(f, rw_flag, b2_pds)))
         return ret;
     if ((ret = g2c_file_io_uint(f, rw_flag, b2_gds)))
@@ -526,7 +545,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             ret = G2C_EFILE;
     }
 
-    /* Write a record of index file for each message in the file. */
+    /* Write a record for each message in the file. */
     if (!ret)
     {
         for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
@@ -774,8 +793,7 @@ read_hdr_rec2(FILE *f, int *skipp, int *total_lenp, int *num_recp,
 /**
  * Open a GRIB1 index file and read the contents.
  *
- * @param index_file The name that will be given to the index file. An
- * existing file will be overwritten.
+ * @param index_file The name of the index file.
  *
  * @return
  * - ::G2C_NOERROR No error.
@@ -821,13 +839,15 @@ g2c_open_index1(const char *index_file)
     /* Read second header record. */
     if ((ret = read_hdr_rec2(f, &skip, &total_len, &num_rec, basename, &index_version)))
 	return ret;
-    LOG((2, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
+    LOG((2, "skip %d total_len %d num_rec %d basename %s index_version %d",
+	 skip, total_len, num_rec, basename, index_version));
 
     /* Read each index record. These is one record for each message in
        the original GRIB1 file. */
     for (rec = 0; rec < num_rec; rec++)
     {
-	unsigned int b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen;
+	unsigned int b2_gds, b2_pds, b2_bms, b2_bds, msglen;
+	size_t b2_msg;
 	unsigned char version;
 
 	/* Move to beginning of index record. */
@@ -839,14 +859,14 @@ g2c_open_index1(const char *index_file)
 
 	/* Read the index1 record. */
 	LOG((4, "reading index1 record at file position %ld", ftell(f)));
-	if ((ret = g2c_start_index1_record(f, G2C_FILE_READ, &b2_msg, &b2_pds, &b2_gds,
+	if ((ret = g2c_start_index1_record(f, G2C_FILE_READ, index_version, &b2_msg, &b2_pds, &b2_gds,
 					   &b2_bms, &b2_bds, &msglen, &version, pds_val,
 					   gds_val, bms_val, bds_val, NULL, NULL, NULL)))
 	    break;
 
-	LOG((3, "b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d",
+	LOG((3, "b2_msg %ld b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d",
 	     b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version));
-	printf("b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d\n",
+	printf("b2_msg %ld b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d\n",
 	       b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version);
 
 	/* Move the file position to the start of the next index record. */

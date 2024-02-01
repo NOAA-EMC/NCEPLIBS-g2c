@@ -78,6 +78,10 @@ main(int argc, char **argv)
             break;
     }
 
+    /* If LOGGING is enabled in the build, this will cause more output. */
+    if (verbose)
+	g2c_set_log_level(5);
+
     /* If we got one input file, open it. If we got two input files,
      * the second is an index file for the first. */
     if (p == 1)
