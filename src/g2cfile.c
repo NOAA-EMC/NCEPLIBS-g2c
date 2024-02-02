@@ -315,7 +315,7 @@ g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg
         *bytes_to_msg = bytes_to_msg_g;
         *bytes_in_msg = bytes_in_msg_g;
     }
-    LOG((3, "*bytes_to_msg %ld *bytes_in_msg %ld", *bytes_to_msg, *bytes_in_msg));
+    LOG((4, "*bytes_to_msg %ld *bytes_in_msg %ld", *bytes_to_msg, *bytes_in_msg));
 
     /* If no message was found, return an error. */
     if (*bytes_in_msg == 0)
@@ -800,7 +800,7 @@ add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len,
     G2C_SECTION_INFO_T *sec;
     int ret;
 
-    LOG((3, "add_section sec_id %d sec_len %d, bytes_to_sec %ld, sec_num %d",
+    LOG((4, "add_section sec_id %d sec_len %d, bytes_to_sec %ld, sec_num %d",
          sec_id, sec_len, bytes_to_sec, sec_num));
 
     /* Allocate storage for a new section. */
@@ -879,7 +879,7 @@ g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
     unsigned char sec_num = 1;
     int ret;
 
-    LOG((2, "g2c_rw_section1_metadata rw_flag %d", rw_flag));
+    LOG((3, "g2c_rw_section1_metadata rw_flag %d", rw_flag));
 
     /* Read the section. */
     if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)&msg->sec1_len)))
@@ -1023,7 +1023,7 @@ add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in
     G2C_MESSAGE_INFO_T *my_msg;
     int ret;
 
-    LOG((3, "add_msg msg_num %d bytes_to_msg %ld bytes_in_msg %ld read_file %d",
+    LOG((4, "add_msg msg_num %d bytes_to_msg %ld bytes_in_msg %ld read_file %d",
          msg_num, bytes_to_msg, bytes_in_msg, read_file));
 
     /* Allocate storage for a new message. */
@@ -1090,7 +1090,7 @@ read_metadata(int g2cid)
     if (g2c_file[g2cid].g2cid != g2cid)
         return G2C_EBADID;
 
-    LOG((2, "read_metadata g2cid %d", g2cid));
+    LOG((4, "read_metadata g2cid %d", g2cid));
 
     /* Read each message in the file. */
     for (msg_num = 0; !ret; msg_num++)
@@ -1098,7 +1098,7 @@ read_metadata(int g2cid)
         /* Find the message. */
         if ((ret = g2c_seekmsg(g2cid, file_pos, &bytes_to_msg, &bytes_in_msg)))
             return ret;
-        LOG((3, "msg_num %d bytes_to_msg %ld bytes_in_msg %ld", msg_num, bytes_to_msg,
+        LOG((5, "msg_num %d bytes_to_msg %ld bytes_in_msg %ld", msg_num, bytes_to_msg,
              bytes_in_msg));
 
         /*  When there are 0 bytes_in_msg, we are done. */
@@ -1153,7 +1153,7 @@ g2c_add_file(const char *path, int mode, int *g2cid)
     if (!g2cid)
         return G2C_EINVAL;
 
-    LOG((1, "g2c_add_file path %s mode %d", path, mode));
+    LOG((3, "g2c_add_file path %s mode %d", path, mode));
 
     /* Find a file ID. */
     if ((ret = find_available_g2cid(g2cid)))
@@ -1235,7 +1235,7 @@ g2c_create(const char *path, int cmode, int *g2cid)
     if (!g2cid)
         return G2C_EINVAL;
 
-    LOG((1, "g2c_create path %s cmode %d", path, cmode));
+    LOG((2, "g2c_create path %s cmode %d", path, cmode));
 
     /* If NOCLOBBER, check if file exists. */
     if (cmode & G2C_NOCLOBBER)
@@ -1368,7 +1368,7 @@ g2c_close(int g2cid)
     if (g2c_file[g2cid].g2cid != g2cid)
         ret = G2C_EBADID;
 
-    LOG((1, "g2c_close %d", g2cid));
+    LOG((2, "g2c_close %d", g2cid));
 
     /* Free resources. */
     if (!ret)

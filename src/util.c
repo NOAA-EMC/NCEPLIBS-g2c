@@ -110,10 +110,15 @@ g2_log(int severity, const char *fmt, ...)
 /**
  * Use this to set the global log level. 
  * 
- * Set it to -1 to turn off all logging. Set it
- * to 0 to show only errors, and to higher numbers to show more and
- * more logging details. If logging is not enabled when building
- * NCEPLIBS-g2c, this function will do nothing.
+ * Settings:
+ * - -1 turn off all logging.
+ * - 0 show only errors.
+ * - 1 output useful as verbose to utilities.
+ * - 2 or 3 shows some/all calls to top-level functions.
+ * - 4+ ever greater levels of detail.
+ *
+ * If logging is not enabled when building NCEPLIBS-g2c, this function
+ * will do nothing.
  *
  * @param new_level The new logging level.
  *

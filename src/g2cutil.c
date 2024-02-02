@@ -111,28 +111,28 @@ g2c_log_section1(G2C_MESSAGE_INFO_T *msg)
     /* Section 0 discipline flag. */
     if ((ret = g2c_find_desc("Code table 0.0", msg->discipline, desc)))
 	return ret;
-    LOG((2, "Discipline: %s", desc));
+    LOG((4, "Discipline: %s", desc));
 
     /* Section 1 flags. */
-    LOG((2, "Identification of originating/generating center: %d", msg->center));
-    LOG((2, "Identification of originating/generating subcenter: %d", msg->subcenter));
+    LOG((4, "Identification of originating/generating center: %d", msg->center));
+    LOG((4, "Identification of originating/generating subcenter: %d", msg->subcenter));
     if ((ret = g2c_find_desc("Code table 1.0", msg->master_version, desc)))
 	return ret;
-    LOG((2, "GRIB master tables version number: %s", desc));	
+    LOG((4, "GRIB master tables version number: %s", desc));	
     if ((ret = g2c_find_desc("Code table 1.1", msg->local_version, desc)))
 	return ret;
-    LOG((2, "Version number of GRIB local tables used to augment Master Tables: %s", desc));
+    LOG((4, "Version number of GRIB local tables used to augment Master Tables: %s", desc));
     if ((ret = g2c_find_desc("Code table 1.2", msg->sig_ref_time, desc)))
 	return ret;
-    LOG((2, "Significance of reference time: %s", desc));
-    LOG((2, "Reference time: %d/%d/%d %d:%d:%d", msg->year, msg->month, msg->day,
+    LOG((4, "Significance of reference time: %s", desc));
+    LOG((4, "Reference time: %d/%d/%d %d:%d:%d", msg->year, msg->month, msg->day,
 	 msg->hour, msg->minute, msg->second));
     if ((ret = g2c_find_desc("Code table 1.3", msg->status, desc)))
 	return ret;
-    LOG((2, "Production Status of Processed data in the GRIB message: %s", desc));
+    LOG((4, "Production Status of Processed data in the GRIB message: %s", desc));
     if ((ret = g2c_find_desc("Code table 1.4", msg->type, desc)))
 	return ret;
-    LOG((2, "Type of processed data in this GRIB message: %s", desc));
+    LOG((4, "Type of processed data in this GRIB message: %s", desc));
     
 #endif
     return G2C_NOERROR;
@@ -207,9 +207,9 @@ g2c_log_file(int g2cid)
         
 	LOG((1, "message %ld bytes_to_msg %ld bytes_in_msg %ld num_fields %d num_local %d",
 	     msg->msg_num, msg->bytes_to_msg, msg->bytes_in_msg, msg->num_fields, msg->num_local));
-        LOG((2, "sec1_len %d center %d subcenter %d master_version %d local_version %d",
+        LOG((1, "sec1_len %d center %d subcenter %d master_version %d local_version %d",
              msg->sec1_len, msg->center, msg->subcenter, msg->master_version, msg->local_version));
-        LOG((2, "sig_ref_time %d %d %d %d %d:%d:%d status %d type %d", msg->sig_ref_time, msg->year,
+        LOG((1, "sig_ref_time %d %d %d %d %d:%d:%d status %d type %d", msg->sig_ref_time, msg->year,
              msg->month, msg->day, msg->hour, msg->minute, msg->second, msg->status, msg->type));
 
 	/* If we've loaded XML tables, decode some flags. */

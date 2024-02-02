@@ -444,7 +444,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     if (!index_file)
         return G2C_EINVAL;
 
-    LOG((1, "g2c_write_index g2cid %d mode %d index_file %s", g2cid, mode,
+    LOG((2, "g2c_write_index g2cid %d mode %d index_file %s", g2cid, mode,
          index_file));
 
     /* If NOCLOBBER, check if file exists. */
@@ -694,7 +694,7 @@ read_hdr_rec1(FILE *f, int *ip, int *jp, int *kp, char *date_str, char *time_str
 	memcpy(time_str, long_time_str, G2C_INDEX_TIME_STR_LEN);
 	time_str[G2C_INDEX_TIME_STR_LEN] = 0;
     }
-    LOG((2, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
+    LOG((4, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
 	 time_str));
 
     /* Return info to caller where desired. */
@@ -804,7 +804,7 @@ g2c_open_index1(const char *index_file)
     if (!index_file)
         return G2C_EINVAL;
 
-    LOG((1, "g2c_open_index1 index_file %s", index_file));
+    LOG((2, "g2c_open_index1 index_file %s", index_file));
 
     /* If using threading, lock the mutex. */
     MUTEX_LOCK(m);
@@ -816,12 +816,12 @@ g2c_open_index1(const char *index_file)
     /* Read header record apparently named after Steve Lord. */
     if ((ret = read_hdr_rec1(f, &i, &j, &k, date_str, time_str)))
 	return ret;
-    LOG((2, "i %d j %d k %d date_str %s time_str %s", i, j, k, date_str, time_str));
+    LOG((4, "i %d j %d k %d date_str %s time_str %s", i, j, k, date_str, time_str));
 
     /* Read second header record. */
     if ((ret = read_hdr_rec2(f, &skip, &total_len, &num_rec, basename, &index_version)))
 	return ret;
-    LOG((2, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
+    LOG((4, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
 
     /* Read each index record. These is one record for each message in
        the original GRIB1 file. */
@@ -844,7 +844,7 @@ g2c_open_index1(const char *index_file)
 					   gds_val, bms_val, bds_val, NULL, NULL, NULL)))
 	    break;
 
-	LOG((3, "b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d",
+	LOG((4, "b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d",
 	     b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version));
 	printf("b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d\n",
 	       b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version);
@@ -898,7 +898,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
     if (strlen(data_file) > G2C_MAX_NAME)
         return G2C_ENAMETOOLONG;
 
-    LOG((1, "g2c_open_index index_file %s", index_file));
+    LOG((2, "g2c_open_index index_file %s", index_file));
 
     /* Open the index file. */
     if (!(f = fopen(index_file, "rb")))
@@ -939,7 +939,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
             memcpy(time_str, long_time_str, G2C_INDEX_TIME_STR_LEN);
             time_str[G2C_INDEX_TIME_STR_LEN] = 0;
         }
-        LOG((2, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
+        LOG((1, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
              time_str));
 
         /* Read the second line of header. */
@@ -954,7 +954,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
             memcpy(basename, long_basename, G2C_INDEX_BASENAME_LEN);
             basename[G2C_INDEX_BASENAME_LEN] = 0;
         }
-        LOG((2, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
+        LOG((1, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
 
         /* Read each index record. */
         for (rec = 0; rec < num_rec; rec++)
@@ -987,7 +987,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
 		    break;
 	    }
 
-            LOG((3, "reclen %d msg %ld local %d gds %d pds %d drs %d bms %d data %d "
+            LOG((1, "reclen %d msg %ld local %d gds %d pds %d drs %d bms %d data %d "
                  "msglen %ld version %d discipline %d fieldnum %d",
                  reclen, msg, local, gds, pds, drs, bms, data, msglen,
                  version, discipline, fieldnum));
