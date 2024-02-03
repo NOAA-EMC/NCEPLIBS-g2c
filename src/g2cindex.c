@@ -77,6 +77,8 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
         || !msglen || !version || !discipline || !fieldnum)
         return G2C_EINVAL;
 
+    LOG((4, "g2c_start_index_record rw_flag %d", rw_flag));
+
     /* When writing, set the fieldnum1 to be a 1-based index, just
      * like in Fortran. */
     if (rw_flag)
@@ -151,6 +153,8 @@ g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, int *l
     /* size_t size_t_be; */
     short fieldnum1; /* This is for the 1-based fieldnum in the index file. */
     int ret;
+
+    LOG((4, "g2c_start_index_record_lf rw_flag %d", rw_flag));
 
     /* All pointers must be provided. */
     if (!f || !reclen || !msg || !local || !gds || !pds || !drs || !bms || !data

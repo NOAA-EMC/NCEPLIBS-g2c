@@ -10,7 +10,7 @@ echo ""
 echo "*** Running g2c_index large file test"
 
 # Create an index for a GRIB2 file.
-../utils/g2c_index -v data/fv3lam.t00z.prslev.f000.grib2 fv3lam.t00z.prslev.f000.grib2.idx
+../utils/g2c_index -o fv3lam.t00z.prslev.f000.grib2.idx -l -v data/fv3lam.t00z.prslev.f000.grib2 
 
 # Summarize the index data.
 ../utils/g2c_degrib2 -v -o fv3lam.t00z.prslev.f000.grib2.idx.degrib2 data/fv3lam.t00z.prslev.f000.grib2 fv3lam.t00z.prslev.f000.grib2.idx 

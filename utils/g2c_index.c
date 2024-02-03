@@ -25,7 +25,8 @@
 int
 main(int argc, char **argv)
 {
-  char *path[2] = {NULL, NULL};
+    char *filein = NULL;
+    char *fileout = NULL;
     int verbose = 0;
     int large_file_index = 0;
     int index;
@@ -38,7 +39,7 @@ main(int argc, char **argv)
     opterr = 0;
 
     /* Parse command line arguments. */
-    while ((c = getopt(argc, argv, "v")) != -1)
+    while ((c = getopt(argc, argv, "vlo:")) != -1)
     {
         switch (c)
         {
@@ -47,6 +48,11 @@ main(int argc, char **argv)
             break;
         case 'l':
             large_file_index = 1;
+            break;
+        case 'o':
+	    if (!(fileout = malloc(sizeof(char) * strlen(optarg) + 1)))
+		return G2C_ENOMEM;
+            strcpy(fileout, optarg);
             break;
         case '?':
             if (isprint(optopt))
@@ -59,28 +65,29 @@ main(int argc, char **argv)
         }
     }
 
-    /* Get names of input and output files. */
+    /* Get names of input file. */
     for (index = optind; index < argc; index++)
     {
-        if (!(path[p] = malloc(sizeof(char) * strlen(argv[index]) + 1)))
-            return G2C_ENOMEM;
-        strcpy(path[p], argv[index]);
-        if (++p == 2)
+	if (!(filein = malloc(sizeof(char) * strlen(argv[index]) + 1)))
+	    return G2C_ENOMEM;
+	strcpy(filein, argv[index]);
+        if (++p == 1)
             break;
     }
 
     /* Yammer on and on. */
     if (verbose)
-        printf("g2c_index %s reading index file %s summarizing into %s.\n", G2C_VERSION, path[0], path[1]);
+        printf("g2c_index %s reading index file %s summarizing into %s.\n",
+	       G2C_VERSION, filein, fileout);
 
     /* Open the GRIB2 file. */
-    if ((ret = g2c_open(path[0], G2C_NOWRITE, &g2cid)))
+    if ((ret = g2c_open(filein, G2C_NOWRITE, &g2cid)))
         return ret;
 
     /* Write the index file. */
     if (large_file_index)
 	      write_index_flag &= G2C_LARGE_FILE_INDEX;
-    if ((ret = g2c_write_index(g2cid, write_index_flag, path[1])))
+    if ((ret = g2c_write_index(g2cid, write_index_flag, fileout)))
         return ret;
 
     /* Close the file. */
@@ -88,12 +95,10 @@ main(int argc, char **argv)
         return ret;
 
     /* Free memory. */
-    if (path[0])
-      free(path[0]);
-    if (path[1])
-      free(path[1]);
-
-    printf("returning 0\n");
+    if (filein)
+	free(filein);
+    if (fileout)
+	free(fileout);
 
     return 0;
 }
