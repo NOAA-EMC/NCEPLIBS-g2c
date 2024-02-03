@@ -25,6 +25,9 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 /** Length of beginning of index record. */
 #define G2C_INDEX_FIXED_LEN 44
 
+/** Length of beginning of index record for large files. */
+#define G2C_INDEX_FIXED_LEN_2 48
+
 /** Length of date string in index record. */
 #define G2C_INDEX_DATE_STR_LEN 10
 
@@ -505,8 +508,8 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                     break;
                 
                 /* What will be the length of this index record? */
-                reclen = G2C_INDEX_FIXED_LEN + msg->sec1_len + sec3->sec_len + sec4->sec_len +
-                    sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
+                reclen = (index_version == 1 ? G2C_INDEX_FIXED_LEN : G2C_INDEX_FIXED_LEN_2) +
+		    msg->sec1_len + sec3->sec_len + sec4->sec_len + sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
                 total_index_size += reclen;
                 LOG((4, "fieldnum %d reclen %d total_index_size %d", fieldnum, reclen, total_index_size));
             } /* next product */
@@ -554,8 +557,8 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 bs7 = (int)sec7->bytes_to_sec;
 
                 /* What will be the length of this index record? */
-                reclen = G2C_INDEX_FIXED_LEN + msg->sec1_len + sec3->sec_len + sec4->sec_len +
-                    sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
+                reclen = (index_version == 1 ? G2C_INDEX_FIXED_LEN : G2C_INDEX_FIXED_LEN_2)
+		    + msg->sec1_len + sec3->sec_len + sec4->sec_len + sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
                 LOG((4, "fieldnum %d reclen %d", fieldnum, reclen));
 
                 /* Write the beginning of the index record. */
