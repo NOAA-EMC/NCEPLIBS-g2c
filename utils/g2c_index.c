@@ -77,8 +77,11 @@ main(int argc, char **argv)
 
     /* Yammer on and on. */
     if (verbose)
+    {
         printf("g2c_index %s reading index file %s summarizing into %s.\n",
 	       G2C_VERSION, filein, fileout);
+	g2c_set_log_level(1);
+    }
 
     /* Open the GRIB2 file. */
     if ((ret = g2c_open(filein, G2C_NOWRITE, &g2cid)))
@@ -86,7 +89,7 @@ main(int argc, char **argv)
 
     /* Write the index file. */
     if (large_file_index)
-	      write_index_flag &= G2C_LARGE_FILE_INDEX;
+	      write_index_flag |= G2C_LARGE_FILE_INDEX;
     if ((ret = g2c_write_index(g2cid, write_index_flag, fileout)))
         return ret;
 

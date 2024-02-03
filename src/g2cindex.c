@@ -976,7 +976,8 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
             }
 
             /* Read the index record. */
-            LOG((4, "reading index record at file position %ld", ftell(f)));
+            LOG((4, "reading index record at file position %ld, index_version %d",
+		 ftell(f), index_version));
 	    if (index_version == 1)
 	    {
 		if ((ret = g2c_start_index_record(f, G2C_FILE_READ, &reclen, &msgint, &local, &gds, &pds,
