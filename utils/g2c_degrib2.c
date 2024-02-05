@@ -78,6 +78,11 @@ main(int argc, char **argv)
             break;
     }
 
+    /* Turn on logging for verbose output. This only has effect if the
+     * library was built with LOGGING=ON. */
+    if (verbose)
+	g2c_set_log_level(1);
+
     /* If we got one input file, open it. If we got two input files,
      * the second is an index file for the first. */
     if (p == 1)
@@ -87,7 +92,10 @@ main(int argc, char **argv)
 
 	/* Open the GRIB2 file. */
 	if ((ret = g2c_open(filein, G2C_NOWRITE, &g2cid)))
+	{
+	    fprintf(stderr, "Could not read file %s.\n", filein);
 	    return ret;
+	}
     }
     else if (p == 2)
     {
@@ -97,7 +105,10 @@ main(int argc, char **argv)
 
 	/* Open the GRIB2 file with index. */
 	if ((ret = g2c_open_index(filein, fileidx, G2C_NOWRITE, &g2cid)))
+	{
+	    fprintf(stderr, "Could not read file %s with index %s.\n", filein, fileidx);
 	    return ret;
+	}
     }
     else
     {
@@ -107,11 +118,17 @@ main(int argc, char **argv)
 
     /* Write the degrib2 summary. */
     if ((ret = g2c_degrib2(g2cid, fileout)))
+    {
+	fprintf(stderr, "Could not write degrib2 summary to %s.\n", fileout);
         return ret;
+    }
 
     /* Close the file. */
     if ((ret = g2c_close(g2cid)))
+    {
+	fprintf(stderr, "Error closing the file.\n");
         return ret;
+    }
 
     /* Free memory. */
     if (filein)

@@ -10,7 +10,7 @@ echo ""
 echo "*** Running g2c_index test"
 
 # Create an index for a GRIB2 file.
-../utils/g2c_index -v data/gdaswave.t00z.wcoast.0p16.f000.grib2 gdaswave.t00z.wcoast.0p16.f000.grib2.idx
+../utils/g2c_index -v -o gdaswave.t00z.wcoast.0p16.f000.grib2.idx data/gdaswave.t00z.wcoast.0p16.f000.grib2 
 
 # Summarize the index data.
 ../utils/g2c_degrib2 -v -o gdaswave.t00z.wcoast.0p16.f000.grib2.idx.degrib2 data/gdaswave.t00z.wcoast.0p16.f000.grib2 gdaswave.t00z.wcoast.0p16.f000.grib2.idx 
