@@ -74,7 +74,7 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   "ref_tst_jasper_warning.txt"
   )
 
-# Copy extra files if needed.
+# Copy large files if needed.
 if(FTP_LARGE_TEST_FILES)
   set(REF_FILES ${REF_FILES} "ref_fv3lam.t00z.prslev.f000.grib2.degrib2")
 endif()
@@ -164,7 +164,8 @@ if(FTP_TEST_FILES)
   endif()
 
   if(FTP_EXTRA_TEST_FILES)
-    set(EXTRA_FTP_FILES "MRMS_MultiSensor_QPE_24H_Pass2_00.00_20230621-110000.grib2")
+    set(EXTRA_FTP_FILES MRMS_MultiSensor_QPE_24H_Pass2_00.00_20230621-110000.grib2
+      GFSPRS.GrbF06 rrfs.t18z.prslev.f000.grib2)
     foreach(THE_FILE IN LISTS EXTRA_FTP_FILES) 
       PULL_DATA(${G2_FTP_URL} ${THE_FILE})
     endforeach()
