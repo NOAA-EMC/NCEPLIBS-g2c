@@ -41,8 +41,9 @@ cmpString(const void *p, const void *q)
  * Ed Hartnett 10/6/22
  */
 int
-degrib2_lines_not_equal(char *line1, char *l2)
+degrib2_lines_not_equal(int cnt, char *line1, char *l2)
 {
+    int cnt;
     char long_abbrev[MAX_LINE_LEN + 1], long_cmin[MAX_LINE_LEN + 1];
     char long_cavg[MAX_LINE_LEN + 1], long_cmax[MAX_LINE_LEN + 1];
     char abbrev1[G2C_MAX_NOAA_ABBREV_LEN + 1];
@@ -110,6 +111,7 @@ degrib2_lines_not_equal(char *line1, char *l2)
     }
     else
     {
+        printf("\nline %d\n", cnt);
         printf("\n%s\n", line1);
         printf("expected:\n%s\n", l2);
         return G2C_ERROR;
@@ -123,10 +125,11 @@ degrib2_lines_not_equal(char *line1, char *l2)
  * Ed Hartnett 10/6/22
  */
 int
-compare_degrib2_files2(char *fname1, char *fname2)
+compare_degrib2_files2(int cnt, char *fname1, char *fname2)
 {
     FILE *fp1, *fp2;
     char l1[MAX_LINE_LEN + 1], l2[MAX_LINE_LEN + 1];
+    int cnt = 1;
 
     /* Open the two files. */
     if (!(fp1 = fopen(fname1, "r")))
@@ -141,7 +144,7 @@ compare_degrib2_files2(char *fname1, char *fname2)
             return G2C_ERROR;
         /* printf("l1: %s\n", l1); */
         /* printf("l2: %s\n", l2); */
-        if (degrib2_lines_not_equal(l1, l2))
+        if (degrib2_lines_not_equal(cnt++, l1, l2))
             return G2C_ERROR;
     }
 
