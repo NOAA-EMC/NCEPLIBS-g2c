@@ -13,7 +13,7 @@ echo "*** Running g2c_index large file test"
 ../utils/g2c_index -o fv3lam.t00z.prslev.f000.grib2.idx -l -v data/fv3lam.t00z.prslev.f000.grib2 
 
 # Summarize the index data.
-../utils/g2c_degrib2 -v -o fv3lam.t00z.prslev.f000.grib2.idx.degrib2 data/fv3lam.t00z.prslev.f000.grib2 fv3lam.t00z.prslev.f000.grib2.idx 
+../utils/g2c_degrib2 -o fv3lam.t00z.prslev.f000.grib2.idx.degrib2 data/fv3lam.t00z.prslev.f000.grib2 fv3lam.t00z.prslev.f000.grib2.idx 
 
 # Check against expected output.
 #diff -w fv3lam.t00z.prslev.f000.grib2.idx.degrib2 data/ref_fv3lam.t00z.prslev.f000.grib2.degrib2

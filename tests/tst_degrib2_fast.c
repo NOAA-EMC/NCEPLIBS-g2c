@@ -11,7 +11,7 @@
 
 #define FILE_NAME "tst_degrib2.txt"
 #define WAVE_FILE "data/gdaswave.t00z.wcoast.0p16.f000.grib2"
-#define REF_FILE "data/ref_gdaswave.degrib2.txt"
+#define REF_FILE "data/ref_gdaswave.t00z.wcoast.0p16.f000.grib2.degrib2"
 #define DEGRIB2_FILE "gdaswave.t00z.wcoast.0p16.f000.degrib2"
 #define REF_INDEX_FILE "data/ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
 #define TEST_INDEX_FILE "tst_gdaswave.t00z.wcoast.0p16.f000.grb2index"

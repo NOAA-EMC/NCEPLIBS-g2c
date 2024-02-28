@@ -1194,6 +1194,8 @@ g2c_open(const char *path, int mode, int *g2cid)
 {
     int ret;
 
+    LOG((2, "g2c_open path %s mode %d", path, mode));
+
     /* If using threading, lock the mutex. */
     MUTEX_LOCK(m);
 

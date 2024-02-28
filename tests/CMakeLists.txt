@@ -51,7 +51,7 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   "ref_gdas.t12z.pgrb2.1p00.anl.degrib2"
   "ref_gdas.t12z.pgrb2.1p00.anl.grib2.degrib2"
   "ref_gdas.t12z.pgrb2.1p00.anl.grib2.grb2index"
-  "ref_gdaswave.degrib2.txt"
+  "ref_gdaswave.t00z.wcoast.0p16.f000.grib2.degrib2"
   "ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
   "ref_GLOBAL.grib2.2022103000.0000.degrib2"
   "ref_GLOBAL.grib2.2022103000.0000.grb2index"
@@ -74,7 +74,7 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   "ref_tst_jasper_warning.txt"
   )
 
-# Copy extra files if needed.
+# Copy large files if needed.
 if(FTP_LARGE_TEST_FILES)
   set(REF_FILES ${REF_FILES} "ref_fv3lam.t00z.prslev.f000.grib2.degrib2")
 endif()
@@ -94,7 +94,7 @@ endif()
 
 # Build a C program test.
 function(g2c_build_test name)
-  add_executable(${name} ${name}.c util.c)
+  add_executable(${name} ${name}.c g2c_test_util.c)
   target_link_libraries(${name} PUBLIC g2c::g2c)
   if(BUILD_G2C)
     target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
@@ -104,7 +104,7 @@ endfunction()
 
 # Build a C program test.
 function(g2c_build_test name)
-  add_executable(${name} ${name}.c util.c)
+  add_executable(${name} ${name}.c g2c_test_util.c)
   target_link_libraries(${name} PUBLIC g2c::g2c)
   target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
   target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
@@ -164,7 +164,8 @@ if(FTP_TEST_FILES)
   endif()
 
   if(FTP_EXTRA_TEST_FILES)
-    set(EXTRA_FTP_FILES "MRMS_MultiSensor_QPE_24H_Pass2_00.00_20230621-110000.grib2")
+    set(EXTRA_FTP_FILES MRMS_MultiSensor_QPE_24H_Pass2_00.00_20230621-110000.grib2
+      GFSPRS.GrbF06 rrfs.t18z.prslev.f000.grib2)
     foreach(THE_FILE IN LISTS EXTRA_FTP_FILES) 
       PULL_DATA(${G2_FTP_URL} ${THE_FILE})
     endforeach()
@@ -252,6 +253,9 @@ if(BUILD_G2C)
       gu_test(run_index_tests)
       if(FTP_LARGE_TEST_FILES)
 	gu_test(run_large_index_tests)
+      endif()
+      if(FTP_EXTRA_TEST_FILES)
+	gu_test(run_extra_index_tests)
       endif()
     endif()
   endif()
