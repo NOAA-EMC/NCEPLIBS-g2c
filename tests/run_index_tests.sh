@@ -16,7 +16,7 @@ echo "*** Running g2c_index test"
 ../utils/g2c_degrib2 -v -o gdaswave.t00z.wcoast.0p16.f000.grib2.idx.degrib2 data/gdaswave.t00z.wcoast.0p16.f000.grib2 gdaswave.t00z.wcoast.0p16.f000.grib2.idx 
 
 # Check against expected output.
-diff -w gdaswave.t00z.wcoast.0p16.f000.grib2.idx.degrib2 data/ref_gdaswave.degrib2.txt
+diff -w gdaswave.t00z.wcoast.0p16.f000.grib2.idx.degrib2 data/ref_gdaswave.t00z.wcoast.0p16.f000.grib2.degrib2
 
 echo "*** SUCCESS!"
 exit 0
