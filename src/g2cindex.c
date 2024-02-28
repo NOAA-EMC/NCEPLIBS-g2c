@@ -465,7 +465,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
         }
     }
 
-    /* If LARGE_INDEX_FILE, check if file exists. */
+    /* If LARGE_INDEX_FILE, set index version. */
     if (mode & G2C_LARGE_FILE_INDEX)
 	index_version = 2;
     

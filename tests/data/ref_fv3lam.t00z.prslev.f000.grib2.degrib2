@@ -854,7 +854,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = VIL      0 15 3 )  15 3 2 0 134 0 0 1 0 200 0 0 255 0 0
   FIELD: VIL      Entire Atmosphere valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 1 12 0 1 0 0 0 141294 0 4 1 1 1023 10 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -980,7 +980,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = BMIXL    2 0 197 )  0 197 2 0 134 0 0 1 0 105 0 1 255 0 0
   FIELD: BMIXL   1 hybrid lvl valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 0 :  0 0 0 0 0
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -1064,7 +1064,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = VRATE    0 2 224 )  2 224 2 0 134 0 0 1 0 220 0 0 255 0 0
   FIELD: VRATE    Planetary boundary valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 -2 11 0 1 0 0 0 802393 0 4 1 1 63 6 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -16646,7 +16646,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = TMP      0 0 0 )  0 0 2 0 134 0 0 1 0 104 4 7000 255 0 0
   FIELD: TMP     .7000 sigma valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  1131240167 -4 0 11 0 1 0 0 0 580124 0 4 1 1 127 7 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -16667,7 +16667,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = TMP      0 0 0 )  0 0 2 0 134 0 0 1 0 104 4 7500 255 0 0
   FIELD: TMP     .7500 sigma valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  1131485991 -4 0 11 0 1 0 0 0 591899 0 4 1 1 127 7 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -16688,7 +16688,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = TMP      0 0 0 )  0 0 2 0 134 0 0 1 0 104 4 8000 255 0 0
   FIELD: TMP     .8000 sigma valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  1131709357 -4 0 11 0 1 0 0 0 597302 0 4 1 1 127 7 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -16709,7 +16709,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = TMP      0 0 0 )  0 0 2 0 134 0 0 1 0 104 4 8500 255 0 0
   FIELD: TMP     .8500 sigma valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  1131918914 -4 0 11 0 1 0 0 0 621687 0 4 1 1 127 7 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -16730,7 +16730,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = TMP      0 0 0 )  0 0 2 0 134 0 0 1 0 104 4 9000 255 0 0
   FIELD: TMP     .9000 sigma valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  1132109748 -4 0 11 0 1 0 0 0 652844 0 4 1 1 127 7 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -17444,7 +17444,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = MSTAV    2 0 194 )  0 194 2 0 134 0 0 1 0 106 2 0 106 2 100
   FIELD: MSTAV    0 -  1 m DBLY valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 0 :  0 0 0 0 0
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -17465,7 +17465,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = UNKNOWN  2 0 22 )  0 22 2 0 134 0 0 1 0 106 2 0 106 2 200
   FIELD: UNKNOWN  0 -  2 m DBLY valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  1084227584 0 -1 10 0 1 0 0 0 291018 0 4 1 1 512 9 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -17570,7 +17570,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = SMDRY    2 3 196 )  3 196 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: SMDRY    Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 3 10 0 1 0 0 0 211698 0 4 1 1 1024 10 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -17591,7 +17591,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = POROS    2 3 197 )  3 197 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: POROS    Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 3 11 0 1 0 0 0 214705 0 4 1 1 1024 10 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -17927,7 +17927,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = CPOFP    1 1 193 )  1 193 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: CPOFP    Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -1007026176 0 1 13 0 1 0 0 0 135201 0 4 1 1 1024 10 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18620,7 +18620,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = VGTYP    2 0 198 )  0 198 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: VGTYP    Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 1 10 0 1 0 0 0 250162 0 4 1 1 512 9 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18641,7 +18641,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = SOTYP    2 3 0 )  3 0 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: SOTYP    Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 1 10 0 1 0 0 0 209460 0 4 1 1 1024 10 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18662,7 +18662,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = CCOND    2 0 199 )  0 199 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: CCOND    Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 4 10 0 1 0 0 0 276162 0 4 1 1 512 9 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18683,7 +18683,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = RSMIN    2 0 200 )  0 200 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: RSMIN    Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 0 11 0 1 0 0 0 217544 0 4 1 1 1024 10 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18704,7 +18704,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = RLYRS    2 3 193 )  3 193 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: RLYRS    Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 2 11 0 1 0 0 0 186939 0 4 1 1 1024 10 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18725,7 +18725,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = WILT     2 0 201 )  0 201 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: WILT     Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 3 10 0 1 0 0 0 211698 0 4 1 1 1024 10 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18746,7 +18746,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = SMREF    2 3 195 )  3 195 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: SMREF    Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 3 11 0 1 0 0 0 213838 0 4 1 1 1024 10 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18767,7 +18767,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = RCS      2 0 202 )  0 202 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: RCS      Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 3 12 0 1 0 0 0 294815 0 4 1 1 512 9 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18788,7 +18788,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = RCT      2 0 203 )  0 203 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: RCT      Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 4 16 0 1 0 0 0 282652 0 5 1 1 1024 10 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18809,7 +18809,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = RCQ      2 0 204 )  0 204 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: RCQ      Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 2 9 0 1 0 0 0 266860 0 4 1 1 512 9 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18830,7 +18830,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = RCSOL    2 0 205 )  0 205 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: RCSOL    Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 2 9 0 1 0 0 0 290850 0 4 1 1 512 9 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18851,7 +18851,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = PRES     0 3 0 )  3 0 2 0 134 0 0 1 0 8 0 0 255 0 0
   FIELD: PRES     Nom. top valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 0 :  1129620242 0 0 0 0
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -18872,7 +18872,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = LFTX     0 7 192 )  7 192 2 0 134 0 0 1 0 100 0 50000 100 0 100000
   FIELD: LFTX     500 -  1000 mb valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  1159946240 0 1 9 0 1 0 0 0 607582 0 4 1 1 127 7 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19208,7 +19208,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = HGT      0 3 5 )  3 5 2 0 134 0 0 1 0 253 0 0 255 0 0
   FIELD: HGT      Lowest bot. lvl sup valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -951889920 2 1 17 0 1 0 0 0 257080 0 5 1 1 1024 10 2 3
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19229,7 +19229,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = HGT      0 3 5 )  3 5 2 0 134 0 0 1 0 254 0 0 255 0 0
   FIELD: HGT      highest top lvl sup valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -979615744 0 0 16 0 1 0 0 0 267417 0 5 1 1 512 9 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19460,7 +19460,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = PRES     0 3 0 )  3 0 2 0 134 0 0 1 0 3 0 0 255 0 0
   FIELD: PRES     Cloud top lvl valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -951889920 2 0 18 0 1 0 0 0 683027 0 5 1 1 127 7 2 3
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19481,7 +19481,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = HGT      0 3 5 )  3 5 2 0 134 0 0 1 0 3 0 0 255 0 0
   FIELD: HGT      Cloud top lvl valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -951889920 2 1 18 0 1 0 0 0 699109 0 5 1 1 127 7 2 3
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19502,7 +19502,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = TMP      0 0 0 )  0 0 2 0 134 0 0 1 0 3 0 0 255 0 0
   FIELD: TMP      Cloud top lvl valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -951889920 1 2 18 0 1 0 0 0 702507 0 5 1 1 127 7 2 3
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19817,7 +19817,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = HLCY     0 7 8 )  7 8 2 0 134 0 0 1 0 103 0 3000 103 0 0
   FIELD: HLCY    3000 - 0 m AGL valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -1009582080 0 0 10 0 1 0 0 0 738510 0 4 1 1 63 6 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19838,7 +19838,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = HLCY     0 7 8 )  7 8 2 0 134 0 0 1 0 103 0 1000 103 0 0
   FIELD: HLCY    1000 - 0 m AGL valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -986472448 0 1 13 0 1 0 0 0 895926 0 4 1 1 63 6 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19859,7 +19859,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = USTM     0 2 194 )  2 194 2 0 134 0 0 1 0 103 0 6000 103 0 0
   FIELD: USTM    6000 - 0 m AGL valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -989241344 0 2 13 0 1 0 0 0 875255 0 4 1 1 63 6 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19880,7 +19880,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = VSTM     0 2 195 )  2 195 2 0 134 0 0 1 0 103 0 6000 103 0 0
   FIELD: VSTM    6000 - 0 m AGL valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -987824128 0 2 13 0 1 0 0 0 875061 0 4 1 1 63 6 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19922,7 +19922,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = VUCSH    0 2 15 )  2 15 2 0 134 0 0 1 0 103 0 0 103 0 1000
   FIELD: VUCSH   0 - 1000 m AGL valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -1016332288 0 1 9 0 1 0 0 0 622495 0 4 1 1 127 7 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19943,7 +19943,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = VVCSH    0 2 16 )  2 16 2 0 134 0 0 1 0 103 0 0 103 0 1000
   FIELD: VVCSH   0 - 1000 m AGL valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -1019019264 0 1 8 0 1 0 0 0 623621 0 4 1 1 127 7 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19964,7 +19964,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = VUCSH    0 2 15 )  2 15 2 0 134 0 0 1 0 103 0 0 103 0 6000
   FIELD: VUCSH   0 - 6000 m AGL valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -1013448704 0 1 9 0 1 0 0 0 646482 0 4 1 1 127 7 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -19985,7 +19985,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = VVCSH    0 2 16 )  2 16 2 0 134 0 0 1 0 103 0 0 103 0 6000
   FIELD: VVCSH   0 - 6000 m AGL valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -1012432896 0 1 9 0 1 0 0 0 641439 0 4 1 1 127 7 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -21308,7 +21308,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = HGT      0 3 5 )  3 5 2 0 134 0 0 1 0 4 0 0 255 0 0
   FIELD: HGT      0 Deg Isotherm valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 4 1 17 0 1 0 0 0 757984 0 5 1 1 127 7 2 3
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -21329,7 +21329,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = RH       0 1 1 )  1 1 2 0 134 0 0 1 0 4 0 0 255 0 0
   FIELD: RH       0 Deg Isotherm valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  1065353216 0 0 9 0 1 0 0 0 606196 0 4 1 1 127 7 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -22526,7 +22526,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = LTNG     0 17 192 )  17 192 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: LTNG     Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 0 :  0 0 0 0 0
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -22547,7 +22547,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = NLAT     0 191 192 )  191 192 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: NLAT     Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  -1021247488 0 2 4 0 1 0 0 0 348896 0 2 1 1 17 8 2 1
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
@@ -22568,7 +22568,7 @@
   PRODUCT TEMPLATE 4. 0: ( PARAMETER = ELON     0 191 193 )  191 193 2 0 134 0 0 1 0 1 0 0 255 0 0
   FIELD: ELON     Surface valid  0 hour after 2022062100:00:00
   NO Optional Vertical Coordinate List.
-  Num. of Data Points =  14452641    with BIT-MAP  0
+  Num. of Data Points =  14452641     NO BIT-MAP 
   DRS TEMPLATE 5. 3 :  0 0 1 13 0 1 0 0 0 61087 0 4 1 1 7 13 2 2
   Data Values:
   Num. of Data Points =  14452641   Num. of Data Undefined = 0
