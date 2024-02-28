@@ -683,7 +683,7 @@ g2c_degrib2(int g2cid, const char *fileout)
             char level_desc[G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN + 1];
             char date_time[100 + 1];
             float *data = NULL;
-            float total = 0.0, max = 0.0, min = 0.0;
+            float total = 0.0, max = 0.0, min = 0.0, avg = 0;
             int t;
 
             fprintf(f, "\n");
@@ -827,9 +827,10 @@ g2c_degrib2(int g2cid, const char *fileout)
                     if (data[i] < min)
                         min = data[i];
                 }
+		avg = total/sec5_info->num_data_points;
             }
             fprintf(f, "( PARM= %s ) :  MIN=%25.8f AVE=%25.8f MAX=%25.8f\n",
-                    abbrev, min, total/sec5_info->num_data_points, max);
+                    abbrev, min, avg, max);
 
             /* Free the data. */
             if (sec5_info->num_data_points)
