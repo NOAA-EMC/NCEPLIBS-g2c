@@ -31,8 +31,6 @@ jobs:
       run: |
         find /Library/Frameworks/ -name "png*"
         sudo rm -rf /Library/Frameworks/Mono.framework
-
-        brew update
         brew install libaec openjpeg jpeg-turbo
 
     - name: cache-jasper
