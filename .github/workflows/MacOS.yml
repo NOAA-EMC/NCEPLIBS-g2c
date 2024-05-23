@@ -76,7 +76,7 @@ jobs:
         cd libpng-1.6.37
         mkdir build
         cd build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/png -DCMAKE_C_FLAGS="-Wno-error=implicit-function-declaration"
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/png -DCMAKE_C_FLAGS="-Wno-error=implicit-function-declaration -Wno-implicit-function-declaration"
         make -j2
         make install
 
