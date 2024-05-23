@@ -33,7 +33,7 @@ jobs:
           mingw-w64-x86_64-openjpeg2
 
     - name: checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: g2c
 
@@ -57,7 +57,7 @@ jobs:
         ctest  --output-on-failure --extra-verbose --output-log log.txt
         
     - name: upload-log
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: g2c-log
         path: |
