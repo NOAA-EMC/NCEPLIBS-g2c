@@ -76,7 +76,7 @@ jobs:
         cd libpng-1.6.37
         mkdir build
         cd build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/png -DCMAKE_C_FLAGS="-Wno-implicit-function-declaration" -DPNG_ARM_NEON=OFF
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/png -DCMAKE_C_FLAGS="-Wno-implicit-function-declaration" -DPNG_ARM_NEON=off
         make -j2
         make install
 
