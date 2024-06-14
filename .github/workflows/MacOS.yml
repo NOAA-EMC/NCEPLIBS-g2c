@@ -76,7 +76,7 @@ jobs:
         cd libpng-1.6.37
         mkdir build
         cd build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/png
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/png -DPNG_ARM_NEON=OFF
         make -j2
         make install
 
