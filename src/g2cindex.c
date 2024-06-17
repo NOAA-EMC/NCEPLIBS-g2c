@@ -149,8 +149,8 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
  * @author Ed Hartnett 10/26/22
  */
 int
-g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, int *local, int *gds,
-			  int *pds, int *drs, int *bms, int *data, size_t *msglen,
+g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, size_t *local, size_t *gds,
+			  size_t *pds, size_t *drs, size_t *bms, size_t *data, size_t *msglen,
 			  unsigned char *version, unsigned char *discipline, short *fieldnum)
 {
     /* size_t size_t_be; */
@@ -175,17 +175,17 @@ g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, int *l
         return ret;
     if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)msg)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)local)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)local)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)gds)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)gds)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)pds)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)pds)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)drs)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)drs)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)bms)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)bms)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)data)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)data)))
         return ret;
     if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)msglen)))
         return ret;
@@ -545,6 +545,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             {
                 G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
                 int bs3, bs4, bs5, bs6, bs7; /* bytes to each section, as ints. */
+                size_t bs3_8, bs4_8, bs5_8, bs6_8, bs7_8; /* bytes to each section, as size_t. */
                 unsigned char sec_num;
                 int ret;
 
@@ -556,6 +557,12 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 bs6 = (int)sec6->bytes_to_sec;
                 bs7 = (int)sec7->bytes_to_sec;
 
+                bs3_8 = sec3->bytes_to_sec;
+                bs4_8 = sec4->bytes_to_sec;
+                bs5_8 = sec5->bytes_to_sec;
+                bs6_8 = sec6->bytes_to_sec;
+                bs7_8 = sec7->bytes_to_sec;
+
                 /* What will be the length of this index record? */
                 reclen = (index_version == 1 ? G2C_INDEX_FIXED_LEN : G2C_INDEX_FIXED_LEN_2)
 		    + msg->sec1_len + sec3->sec_len + sec4->sec_len + sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
@@ -565,7 +572,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 		if (index_version == 2)
 		{
 		    if ((ret = g2c_start_index_record_lf(f, G2C_FILE_WRITE, &reclen, &msg->bytes_to_msg, &msg->bytes_to_local,
-							 &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
+							 &bs3_8, &bs4_8, &bs5_8, &bs6_8, &bs7_8, &msg->bytes_in_msg, &msg->master_version,
 							 &msg->discipline, &fieldnum)))
 			break;
 		}
