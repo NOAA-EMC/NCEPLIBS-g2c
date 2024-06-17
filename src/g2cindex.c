@@ -579,7 +579,10 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 		else
 		{
 		    int bytes_to_msg = (int)msg->bytes_to_msg;
-		    if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &msg->bytes_to_local,
+		    int b2l;
+
+		    b2l = (int)msg->bytes_to_local;
+		    if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &b2l,
 						      &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
 						      &msg->discipline, &fieldnum)))
 			break;
@@ -974,6 +977,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
         for (rec = 0; rec < num_rec; rec++)
         {
             int reclen, msgint, local, gds, pds, drs, bms, data;
+            size_t local8, gds8, pds8, drs8, bms8, data8;
             size_t msglen, msg;
             unsigned char version, discipline;
             short fieldnum;
@@ -994,17 +998,23 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
 						  &drs, &bms, &data, &msglen, &version, &discipline, &fieldnum)))
 		    break;
 		msg = msgint;
+		local8 = local;
+		gds8 = gds;
+		pds8 = pds;
+		drs8 = drs;
+		bms8 = bms;
+		data8 = data;
 	    }
 	    else
 	    {
-		if ((ret = g2c_start_index_record_lf(f, G2C_FILE_READ, &reclen, &msg, &local, &gds, &pds,
-						     &drs, &bms, &data, &msglen, &version, &discipline, &fieldnum)))
+		if ((ret = g2c_start_index_record_lf(f, G2C_FILE_READ, &reclen, &msg, &local8, &gds8, &pds8,
+						     &drs8, &bms8, &data8, &msglen, &version, &discipline, &fieldnum)))
 		    break;
 	    }
 
-            LOG((1, "reclen %d msg %ld local %d gds %d pds %d drs %d bms %d data %d "
+            LOG((1, "reclen %d msg %ld local8 %d gds8 %d pds8 %d drs8 %d bms8 %d data8 %d "
                  "msglen %ld version %d discipline %d fieldnum %d",
-                 reclen, msg, local, gds, pds, drs, bms, data, msglen,
+                 reclen, msg, local8, gds8, pds8, drs8, bms8, data8, msglen,
                  version, discipline, fieldnum));
 
             /* Read the metadata for sections 3, 4, and 5 from
@@ -1020,9 +1030,9 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                 if ((ret = add_msg(&g2c_file[*g2cid], rec, msg, msglen, 0, &msgp)))
                     break;
                 msgp->discipline = discipline;
-                msgp->bytes_to_local = local;
-                msgp->bytes_to_bms = bms;
-                msgp->bytes_to_data = data;
+                msgp->bytes_to_local = local8;
+                msgp->bytes_to_bms = bms8;
+                msgp->bytes_to_data = data8;
                 msgp->master_version = version;
 
                 /* Read section 1. */
@@ -1036,7 +1046,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                 /* Add a new section to our list of sections. */
                 for (s = 3; s < 8; s++)
                 {
-                    size_t bytes_to_sec = gds; /* Correct value for section 3. */
+                    size_t bytes_to_sec = gds8; /* Correct value for section 3. */
 
                     /* For sections 3, 4, 5, read the section length
                      * and number from the index record. */
@@ -1070,13 +1080,13 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                     /* Select the value from the index record which is
                      * the number of bytes to section s. */
                     if (s == 4)
-                        bytes_to_sec = pds;
+                        bytes_to_sec = pds8;
                     else if (s == 5)
-                        bytes_to_sec = drs;
+                        bytes_to_sec = drs8;
                     else if (s == 6)
-                        bytes_to_sec = bms;
+                        bytes_to_sec = bms8;
                     else if (s == 7)
-                        bytes_to_sec = data;
+                        bytes_to_sec = data8;
 
                     /* Check some stuff. */
                     if (s < 6 && sec_num != s)
