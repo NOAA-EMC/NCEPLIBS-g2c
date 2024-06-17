@@ -123,18 +123,18 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
 }
 
 /**
- * Read or write the start of a version 2 index record for large file.
+ * Read or write the start of a version 2 index record.
  *
- * @param f FILE * to open index file.
+ * @param f FILE pointer to open index file.
  * @param rw_flag True if function should write, false if it should read.
- * @param reclen Pointer to reclen.
- * @param msg Pointer to msg.
- * @param local Pointer to local.
- * @param gds Pointer to gds.
- * @param pds Pointer to pds.
- * @param drs Pointer to drs.
- * @param bms Pointer to bms.
- * @param data Pointer to data.
+ * @param reclen Pointer to reclen, the length of the index record in bytes.
+ * @param msg Pointer to bytes to skip in file to reach msg.
+ * @param local Pointer to bytes to skip in message to reach local.
+ * @param gds Pointer to bytes to skip in message to reach gds.
+ * @param pds Pointer to bytes to skip in message to reach pds.
+ * @param drs Pointer to bytes to skip in message to reach drs.
+ * @param bms Pointer to bytes to skip in message to reach bms.
+ * @param data Pointer to bytes to skip in message to reach data.
  * @param msglen Pointer to msglen.
  * @param version Pointer to version.
  * @param discipline Pointer to discipline.
