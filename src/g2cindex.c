@@ -1064,7 +1064,9 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                          * data read operations. So we will use the
                          * open data file and get the length of this
                          * section. */
-                        if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data, SEEK_SET))
+			LOG((4, "seeking to section 7 in data file, position msgp->bytes_to_msg %ld data %ld",
+			     msgp->bytes_to_msg, data8));			
+                        if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data8, SEEK_SET))
                         {
                             ret = G2C_EFILE;
                             break;
@@ -1104,6 +1106,8 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                     /* Read the section info from the index file,
                      * using the same functions that read it from the
                      * GRIB2 data file. */
+		    LOG((4, "about to add_section sec_id %d sec_len %d bytes_to_sec %ld, s %d",
+			 sec_id, sec_len, bytes_to_sec, s));
                     if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, s)))
                         break;
                 } /* next section */
