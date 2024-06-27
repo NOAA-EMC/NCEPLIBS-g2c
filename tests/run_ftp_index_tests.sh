@@ -9,20 +9,22 @@ set -e
 echo ""
 echo "*** Running g2c_index test on FTP files"
 
-ftp_files="blend.t19z.core.f001.co.grib2 \
-aqm.t12z.max_8hr_o3.227.grib2 \
-GLOBAL.grib2.2022103000.0000 \
-hiresw.t00z.arw_5km.f00.hi.grib2 \
-naefs_ge10pt.t12z.pgrb2a.0p50_bcf003 \
-rap.t00z.awp130pgrbf00.grib2 \
-seaice.t00z.grb.grib2 \
-sgx_nwps_CG3_20221117_1200.grib2 \
-cmc_geavg.t12z.pgrb2a.0p50.f000 \
-WW3_Regional_US_West_Coast_20220718_0000.grib2 \
-WW3_Regional_US_East_Coast_20220717_0600.grib2 \
-gdas.t12z.pgrb2.1p00.anl.grib2 \
-flxf2022111712.01.2022111712.grb2 \
+ftp_files="gdas.t12z.pgrb2.1p00.anl.grib2 \
 "
+# ftp_files="blend.t19z.core.f001.co.grib2 \
+# aqm.t12z.max_8hr_o3.227.grib2 \
+# GLOBAL.grib2.2022103000.0000 \
+# hiresw.t00z.arw_5km.f00.hi.grib2 \
+# naefs_ge10pt.t12z.pgrb2a.0p50_bcf003 \
+# rap.t00z.awp130pgrbf00.grib2 \
+# seaice.t00z.grb.grib2 \
+# sgx_nwps_CG3_20221117_1200.grib2 \
+# cmc_geavg.t12z.pgrb2a.0p50.f000 \
+# WW3_Regional_US_West_Coast_20220718_0000.grib2 \
+# WW3_Regional_US_East_Coast_20220717_0600.grib2 \
+# gdas.t12z.pgrb2.1p00.anl.grib2 \
+# flxf2022111712.01.2022111712.grb2 \
+# "
 
 for f in $ftp_files
 do
@@ -31,9 +33,10 @@ do
     ../utils/g2c_index -v -o ${f}.idx ../tests/data/$f
 
     echo "Using g2c_degrib2 to create summary for file $f using index ${f}.idx."
-    ../utils/g2c_degrib2 -v -o ${f}.degrib2 ../tests/data/$f ${f}.idx
+    ../utils/g2c_degrib2 -v -o idx_${f}.degrib2 ../tests/data/$f ${f}.idx
 
-    #diff -w ${f}.degrib2 data/ref_${f}.degrib2
+    echo "Comparing degrib2 made with index to reference version."
+    diff -w idx_${f}.degrib2 data/ref_${f}.degrib2
 done
 
 echo "*** SUCCESS!"

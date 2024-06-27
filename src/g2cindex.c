@@ -1047,10 +1047,11 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                 for (s = 3; s < 8; s++)
                 {
                     size_t bytes_to_sec = gds8; /* Correct value for section 3. */
+                    int my_s = s;
 
                     /* For sections 3, 4, 5, read the section length
                      * and number from the index record. */
-                    if (s < 6)
+                    if (my_s < 6)
                     {
                         if ((ret = g2c_file_io_uint(f, G2C_FILE_READ, &sec_len)))
                             return ret;
@@ -1081,17 +1082,17 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
 
                     /* Select the value from the index record which is
                      * the number of bytes to section s. */
-                    if (s == 4)
+                    if (my_s == 4)
                         bytes_to_sec = pds8;
-                    else if (s == 5)
+                    else if (my_s == 5)
                         bytes_to_sec = drs8;
-                    else if (s == 6)
+                    else if (my_s == 6)
                         bytes_to_sec = bms8;
-                    else if (s == 7)
+                    else if (my_s == 7)
                         bytes_to_sec = data8;
 
                     /* Check some stuff. */
-                    if (s < 6 && sec_num != s)
+                    if (my_s < 6 && sec_num != my_s)
                     {
                         ret = G2C_EBADSECTION;
                         break;
@@ -1106,9 +1107,9 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                     /* Read the section info from the index file,
                      * using the same functions that read it from the
                      * GRIB2 data file. */
-		    LOG((4, "about to add_section sec_id %d sec_len %d bytes_to_sec %ld, s %d",
-			 sec_id, sec_len, bytes_to_sec, s));
-                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, s)))
+		    LOG((4, "about to add_section sec_id %d sec_len %d bytes_to_sec %ld, s %d my_s %d",
+			 sec_id, sec_len, bytes_to_sec, s, my_s));
+                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, my_s)))
                         break;
                 } /* next section */
 

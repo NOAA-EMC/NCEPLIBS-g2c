@@ -753,7 +753,7 @@ g2c_rw_section6_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     /* Check input. */
     if (!f || !sec)
         return G2C_EINVAL;
-    LOG((6, "g2c_rw_section6_metadata rw_flag %d at file position %ld", rw_flag,
+    LOG((4, "g2c_rw_section6_metadata rw_flag %d at file position %ld", rw_flag,
          ftell(f)));
 
     /* When reading, allocate storage for a new section 6. When
@@ -766,10 +766,10 @@ g2c_rw_section6_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)
     else
         sec6_info = sec->sec_info;
 
-    /* Read section 6. */
+    /* Read or write section 6. */
     if ((ret = g2c_file_io_ubyte(f, rw_flag, &sec6_info->indicator)))
         return ret;
-    LOG((5, "g2c_rw_section6_metadata indicator %d", sec6_info->indicator));
+    LOG((4, "g2c_rw_section6_metadata indicator %d", sec6_info->indicator));
 
     /* When reading, attach sec6_info to our section data. */
     if (!rw_flag)
