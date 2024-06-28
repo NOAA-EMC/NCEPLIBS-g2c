@@ -1025,6 +1025,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                 int s;
                 G2C_MESSAGE_INFO_T *msgp;
                 int sec_id = 0;
+                int sec8_found = 0;
 
                 /* Allocate storage for message. */
                 if ((ret = add_msg(&g2c_file[*g2cid], rec, msg, msglen, 0, &msgp)))
@@ -1044,14 +1045,13 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                 LOG((4, "reading section info at file position %ld", ftell(f)));
 
                 /* Add a new section to our list of sections. */
-                for (s = 3; s < 8; s++)
+                for (s = 3; s < 8 && !sec8_found; s++)
                 {
                     size_t bytes_to_sec = gds8; /* Correct value for section 3. */
-                    int my_s = s;
 
                     /* For sections 3, 4, 5, read the section length
                      * and number from the index record. */
-                    if (my_s < 6)
+                    if (s < 7)
                     {
                         if ((ret = g2c_file_io_uint(f, G2C_FILE_READ, &sec_len)))
                             return ret;
@@ -1082,17 +1082,19 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
 
                     /* Select the value from the index record which is
                      * the number of bytes to section s. */
-                    if (my_s == 4)
+                    if (sec_num == 4)
                         bytes_to_sec = pds8;
-                    else if (my_s == 5)
+                    else if (sec_num == 5)
                         bytes_to_sec = drs8;
-                    else if (my_s == 6)
+                    else if (sec_num == 6)
                         bytes_to_sec = bms8;
-                    else if (my_s == 7)
+                    else if (sec_num == 7)
                         bytes_to_sec = data8;
+                    else if (sec_num == 8)
+                        sec8_found++;
 
                     /* Check some stuff. */
-                    if (my_s < 6 && sec_num != my_s)
+                    if (s < 6 && sec_num != s)
                     {
                         ret = G2C_EBADSECTION;
                         break;
@@ -1107,9 +1109,9 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                     /* Read the section info from the index file,
                      * using the same functions that read it from the
                      * GRIB2 data file. */
-		    LOG((4, "about to add_section sec_id %d sec_len %d bytes_to_sec %ld, s %d my_s %d",
-			 sec_id, sec_len, bytes_to_sec, s, my_s));
-                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, my_s)))
+		    LOG((4, "about to add_section sec_id %d sec_len %d bytes_to_sec %ld sec_num %d",
+			 sec_id, sec_len, bytes_to_sec, sec_num));
+                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, sec_num)))
                         break;
                 } /* next section */
 
