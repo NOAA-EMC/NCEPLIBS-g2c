@@ -16,6 +16,30 @@
 #define REF_INDEX_FILE "data/ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
 #define TEST_INDEX_FILE "tst_gdaswave.t00z.wcoast.0p16.f000.grb2index"
 
+/* The first message of the file has the following degrib2 output in the g2 project: 
+
+ GRIB MESSAGE  1  starts at 1
+
+  SECTION 0:  0 2 15254
+  SECTION 1:  7 0 2 1 1 2021 11 30 0 0 0 0 1
+  Contains  0  Local Sections  and  1  data fields.
+
+  FIELD  1
+  SECTION 0:  0 2
+  SECTION 1:  7 0 2 1 1 2021 11 30 0 0 0 0 1
+  SECTION 3:  0 36391 0 0 0
+  GRID TEMPLATE 3. 0 :  6 0 0 0 0 0 0 241 151 0 0 50000000 210000000 48 25000000 250000000 166667 166667 0
+  NO Optional List Defining Number of Data Points.
+  PRODUCT TEMPLATE 4. 0: ( PARAMETER = WIND     0 2 1 )  2 1 2 0 11 0 0 1 0 1 0 1 255 0 0
+  FIELD: WIND     Surface valid  0 hour after 2021113000:00:00
+  NO Optional Vertical Coordinate List.
+  Num. of Data Points =  11041    with BIT-MAP  0
+  DRS TEMPLATE 5. 40 :  1092616192 0 2 11 0 0 255
+  Data Values:
+  Num. of Data Points =  11041   Num. of Data Undefined = 0
+( PARM= WIND ) :  MIN=               0.09999999 AVE=               5.64625025 MAX=              16.43000031
+*/
+
 int
 main()
 {
@@ -43,7 +67,7 @@ main()
         int num_msg;
         int ret;
 
-        /* g2c_set_log_level(10); */
+        /* g2c_set_log_level(4); */
         /* Open the data file using the index file. */
         if ((ret = g2c_open_index(WAVE_FILE, REF_INDEX_FILE, 0, &g2cid)))
             return ret;

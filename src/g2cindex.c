@@ -123,18 +123,18 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
 }
 
 /**
- * Read or write the start of a version 2 index record for large file.
+ * Read or write the start of a version 2 index record.
  *
- * @param f FILE * to open index file.
+ * @param f FILE pointer to open index file.
  * @param rw_flag True if function should write, false if it should read.
- * @param reclen Pointer to reclen.
- * @param msg Pointer to msg.
- * @param local Pointer to local.
- * @param gds Pointer to gds.
- * @param pds Pointer to pds.
- * @param drs Pointer to drs.
- * @param bms Pointer to bms.
- * @param data Pointer to data.
+ * @param reclen Pointer to reclen, the length of the index record in bytes.
+ * @param msg Pointer to bytes to skip in file to reach msg.
+ * @param local Pointer to bytes to skip in message to reach local.
+ * @param gds Pointer to bytes to skip in message to reach gds.
+ * @param pds Pointer to bytes to skip in message to reach pds.
+ * @param drs Pointer to bytes to skip in message to reach drs.
+ * @param bms Pointer to bytes to skip in message to reach bms.
+ * @param data Pointer to bytes to skip in message to reach data.
  * @param msglen Pointer to msglen.
  * @param version Pointer to version.
  * @param discipline Pointer to discipline.
@@ -149,8 +149,8 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
  * @author Ed Hartnett 10/26/22
  */
 int
-g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, int *local, int *gds,
-			  int *pds, int *drs, int *bms, int *data, size_t *msglen,
+g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, size_t *local, size_t *gds,
+			  size_t *pds, size_t *drs, size_t *bms, size_t *data, size_t *msglen,
 			  unsigned char *version, unsigned char *discipline, short *fieldnum)
 {
     /* size_t size_t_be; */
@@ -175,17 +175,17 @@ g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, int *l
         return ret;
     if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)msg)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)local)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)local)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)gds)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)gds)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)pds)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)pds)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)drs)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)drs)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)bms)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)bms)))
         return ret;
-    if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)data)))
+    if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)data)))
         return ret;
     if ((ret = g2c_file_io_ulonglong(f, rw_flag, (unsigned long long *)msglen)))
         return ret;
@@ -545,6 +545,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             {
                 G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
                 int bs3, bs4, bs5, bs6, bs7; /* bytes to each section, as ints. */
+                size_t bs3_8, bs4_8, bs5_8, bs6_8, bs7_8; /* bytes to each section, as size_t. */
                 unsigned char sec_num;
                 int ret;
 
@@ -556,6 +557,12 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 bs6 = (int)sec6->bytes_to_sec;
                 bs7 = (int)sec7->bytes_to_sec;
 
+                bs3_8 = sec3->bytes_to_sec;
+                bs4_8 = sec4->bytes_to_sec;
+                bs5_8 = sec5->bytes_to_sec;
+                bs6_8 = sec6->bytes_to_sec;
+                bs7_8 = sec7->bytes_to_sec;
+
                 /* What will be the length of this index record? */
                 reclen = (index_version == 1 ? G2C_INDEX_FIXED_LEN : G2C_INDEX_FIXED_LEN_2)
 		    + msg->sec1_len + sec3->sec_len + sec4->sec_len + sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
@@ -565,14 +572,17 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 		if (index_version == 2)
 		{
 		    if ((ret = g2c_start_index_record_lf(f, G2C_FILE_WRITE, &reclen, &msg->bytes_to_msg, &msg->bytes_to_local,
-							 &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
+							 &bs3_8, &bs4_8, &bs5_8, &bs6_8, &bs7_8, &msg->bytes_in_msg, &msg->master_version,
 							 &msg->discipline, &fieldnum)))
 			break;
 		}
 		else
 		{
 		    int bytes_to_msg = (int)msg->bytes_to_msg;
-		    if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &msg->bytes_to_local,
+		    int b2l;
+
+		    b2l = (int)msg->bytes_to_local;
+		    if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &b2l,
 						      &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
 						      &msg->discipline, &fieldnum)))
 			break;
@@ -967,6 +977,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
         for (rec = 0; rec < num_rec; rec++)
         {
             int reclen, msgint, local, gds, pds, drs, bms, data;
+            size_t local8, gds8, pds8, drs8, bms8, data8;
             size_t msglen, msg;
             unsigned char version, discipline;
             short fieldnum;
@@ -987,17 +998,23 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
 						  &drs, &bms, &data, &msglen, &version, &discipline, &fieldnum)))
 		    break;
 		msg = msgint;
+		local8 = local;
+		gds8 = gds;
+		pds8 = pds;
+		drs8 = drs;
+		bms8 = bms;
+		data8 = data;
 	    }
 	    else
 	    {
-		if ((ret = g2c_start_index_record_lf(f, G2C_FILE_READ, &reclen, &msg, &local, &gds, &pds,
-						     &drs, &bms, &data, &msglen, &version, &discipline, &fieldnum)))
+		if ((ret = g2c_start_index_record_lf(f, G2C_FILE_READ, &reclen, &msg, &local8, &gds8, &pds8,
+						     &drs8, &bms8, &data8, &msglen, &version, &discipline, &fieldnum)))
 		    break;
 	    }
 
-            LOG((1, "reclen %d msg %ld local %d gds %d pds %d drs %d bms %d data %d "
+            LOG((1, "reclen %d msg %ld local8 %d gds8 %d pds8 %d drs8 %d bms8 %d data8 %d "
                  "msglen %ld version %d discipline %d fieldnum %d",
-                 reclen, msg, local, gds, pds, drs, bms, data, msglen,
+                 reclen, msg, local8, gds8, pds8, drs8, bms8, data8, msglen,
                  version, discipline, fieldnum));
 
             /* Read the metadata for sections 3, 4, and 5 from
@@ -1008,14 +1025,15 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                 int s;
                 G2C_MESSAGE_INFO_T *msgp;
                 int sec_id = 0;
+                int sec8_found = 0;
 
                 /* Allocate storage for message. */
                 if ((ret = add_msg(&g2c_file[*g2cid], rec, msg, msglen, 0, &msgp)))
                     break;
                 msgp->discipline = discipline;
-                msgp->bytes_to_local = local;
-                msgp->bytes_to_bms = bms;
-                msgp->bytes_to_data = data;
+                msgp->bytes_to_local = local8;
+                msgp->bytes_to_bms = bms8;
+                msgp->bytes_to_data = data8;
                 msgp->master_version = version;
 
                 /* Read section 1. */
@@ -1027,13 +1045,13 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                 LOG((4, "reading section info at file position %ld", ftell(f)));
 
                 /* Add a new section to our list of sections. */
-                for (s = 3; s < 8; s++)
+                for (s = 3; s < 8 && !sec8_found; s++)
                 {
-                    size_t bytes_to_sec = gds; /* Correct value for section 3. */
+                    size_t bytes_to_sec = gds8; /* Correct value for section 3. */
 
                     /* For sections 3, 4, 5, read the section length
                      * and number from the index record. */
-                    if (s < 6)
+                    if (s < 7)
                     {
                         if ((ret = g2c_file_io_uint(f, G2C_FILE_READ, &sec_len)))
                             return ret;
@@ -1047,7 +1065,9 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                          * data read operations. So we will use the
                          * open data file and get the length of this
                          * section. */
-                        if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data, SEEK_SET))
+			LOG((4, "seeking to section 7 in data file, position msgp->bytes_to_msg %ld data %ld",
+			     msgp->bytes_to_msg, data8));			
+                        if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data8, SEEK_SET))
                         {
                             ret = G2C_EFILE;
                             break;
@@ -1062,14 +1082,16 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
 
                     /* Select the value from the index record which is
                      * the number of bytes to section s. */
-                    if (s == 4)
-                        bytes_to_sec = pds;
-                    else if (s == 5)
-                        bytes_to_sec = drs;
-                    else if (s == 6)
-                        bytes_to_sec = bms;
-                    else if (s == 7)
-                        bytes_to_sec = data;
+                    if (sec_num == 4)
+                        bytes_to_sec = pds8;
+                    else if (sec_num == 5)
+                        bytes_to_sec = drs8;
+                    else if (sec_num == 6)
+                        bytes_to_sec = bms8;
+                    else if (sec_num == 7)
+                        bytes_to_sec = data8;
+                    else if (sec_num == 8)
+                        sec8_found++;
 
                     /* Check some stuff. */
                     if (s < 6 && sec_num != s)
@@ -1087,7 +1109,9 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                     /* Read the section info from the index file,
                      * using the same functions that read it from the
                      * GRIB2 data file. */
-                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, s)))
+		    LOG((4, "about to add_section sec_id %d sec_len %d bytes_to_sec %ld sec_num %d",
+			 sec_id, sec_len, bytes_to_sec, sec_num));
+                    if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, sec_num)))
                         break;
                 } /* next section */
 

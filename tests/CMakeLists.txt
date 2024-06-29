@@ -251,6 +251,9 @@ if(BUILD_G2C)
       gu_test(run_compare_tests)
       gu_test(run_degrib2_tests)
       gu_test(run_index_tests)
+      if(FTP_TEST_FILES)
+	gu_test(run_ftp_index_tests)
+      endif()
       if(FTP_LARGE_TEST_FILES)
 	gu_test(run_large_index_tests)
       endif()
@@ -262,8 +265,10 @@ if(BUILD_G2C)
 endif()
 
 # Run these extra tests if you have the data files to do so.
-if(FTP_EXTRA_TEST_FILES)
-  g2c_test(tst_mrms)
+if (BUILD_G2C)
+  if(FTP_EXTRA_TEST_FILES)
+    g2c_test(tst_mrms)
+  endif()
 endif()
 
 

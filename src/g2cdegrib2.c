@@ -786,8 +786,9 @@ g2c_degrib2(int g2cid, const char *fileout)
 
             /* Section 5 and 6 info. */
             sec5_info = (G2C_SECTION5_INFO_T *)sec5->sec_info;
-            sec6_info = (G2C_SECTION6_INFO_T *)sec6->sec_info;
-            if (sec6_info->indicator != 255)
+            if (sec6)
+                sec6_info = (G2C_SECTION6_INFO_T *)sec6->sec_info;
+            if (sec6 && sec6_info->indicator != 255)
                 fprintf(f, "  Num. of Data Points =  %d    with BIT-MAP  0\n", sec5_info->num_data_points);
             else
                 fprintf(f, "  Num. of Data Points =  %d     NO BIT-MAP \n", sec5_info->num_data_points);
