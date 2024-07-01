@@ -85,7 +85,7 @@ jobs:
         sudo apt-get install libaec-dev libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev
 
     - name: checkout-jasper
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: jasper-software/jasper
         path: jasper
@@ -93,7 +93,7 @@ jobs:
 
     - name: cache-jasper
       id: cache-jasper
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/Jasper
         key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}
@@ -109,7 +109,7 @@ jobs:
         make install
 
     - name: checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: g2c
 

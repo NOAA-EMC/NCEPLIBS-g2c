@@ -31,40 +31,19 @@ jobs:
         sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev valgrind libaec-dev
         python3 -m pip install gcovr
 
-    - name: cache-jasper
-      id: cache-jasper
-      uses: actions/cache@v3
+    - name: "Build dependencies"
+      uses: NOAA-EMC/ci-build-nceplibs@develop
       with:
-        path: ~/jasper
-        key: jasper-${{ runner.os }}-4.0.0
-
-    - name: checkout-jasper
-      if: steps.cache-jasper.outputs.cache-hit != 'true'
-      uses: actions/checkout@v3
-      with:
-        repository: jasper-software/jasper
-        path: jasper
-        ref: version-4.0.0
-
-    - name: build-jasper
-      if: steps.cache-jasper.outputs.cache-hit != 'true'
-      run: |
-        export CC=gcc
-        cd jasper
-        mkdir cmake_build
-        cd cmake_build
-        cmake -DCMAKE_INSTALL_PREFIX=~/jasper ..
-        make -j2
-        make install
+        jasper-version: version-4.0.0
 
     - name: checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: g2c
 
     - name: cache-data
       id: cache-data
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/data
         key: data-2
@@ -74,14 +53,10 @@ jobs:
       run: |
         set -x
         export CC=gcc
-        export CFLAGS='-Wall -Werror -g -fprofile-abs-path -fprofile-arcs -ftest-coverage -O0 -fsanitize=address'
-        cd g2c
-        mkdir build
-        cd build
-        cmake -DUSE_AEC=ON -DJasper_ROOT=~/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
-        make -j2 VERBOSE=1
-        ctest --verbose --output-on-failure --rerun-failed
-        gcovr --root .. -v  --html-details --exclude ../tests --exclude CMakeFiles --print-summary -o test-coverage.html
+        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug
+        cmake --build g2c/build --parallel 2 --verbose
+        ctest --test-dir g2c/build --verbose --output-on-failure --rerun-failed
+        gcovr --root g2c -v  --html-details --exclude g2c/tests --exclude g2c/build/CMakeFiles --print-summary -o test-coverage.html
         ls -l
         
     - name: memcheck
@@ -89,13 +64,10 @@ jobs:
       run: |
         set -x
         export LD_LIBRARY_PATH="/home/runner/jasper/lib:$LD_LIBRARY_PATH"
-        cd g2c
-        mkdir build
-        cd build
-        cmake -DUSE_AEC=ON -DJasper_ROOT=~/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug .. 
-        make -j2 VERBOSE=1
-        ctest
-        ls -l
+        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug
+        cmake --build g2c/build --parallel 2 --verbose
+        ctest --test-dir g2c/build
+        ls -l g2c/build
         
     - name: cache-data
       if: steps.cache-data.outputs.cache-hit != 'true'
@@ -105,9 +77,9 @@ jobs:
         
     - name: upload-test-coverage
       if: matrix.config == 'asan/code coverage'      
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: g2c-test-coverage
         path: |
-          g2c/build/*.html
-          g2c/build/*.css
+          *.html
+          *.css

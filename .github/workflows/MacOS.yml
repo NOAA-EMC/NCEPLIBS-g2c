@@ -35,14 +35,14 @@ jobs:
 
     - name: cache-jasper
       id: cache-jasper
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: ~/jasper
         key: jasper-${{ runner.os }}-4.0.0-macOS-2
 
     - name: checkout-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: jasper-software/jasper
         path: jasper
@@ -63,7 +63,7 @@ jobs:
 
     - name: cache-png
       id: cache-png
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: ~/png
         key: png-${{ runner.os }}-1.6.37-macOS
@@ -76,12 +76,12 @@ jobs:
         cd libpng-1.6.37
         mkdir build
         cd build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/png -DPNG_ARM_NEON=off
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/png -DCMAKE_C_FLAGS="-Wno-implicit-function-declaration" -DPNG_ARM_NEON=off
         make -j2
         make install
 
     - name: checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: g2c
 
