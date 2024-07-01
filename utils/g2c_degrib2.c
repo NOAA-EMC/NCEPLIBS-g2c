@@ -81,7 +81,7 @@ main(int argc, char **argv)
     /* Turn on logging for verbose output. This only has effect if the
      * library was built with LOGGING=ON. */
     if (verbose)
-	g2c_set_log_level(1);
+	g2c_set_log_level(4);
 
     /* If we got one input file, open it. If we got two input files,
      * the second is an index file for the first. */
