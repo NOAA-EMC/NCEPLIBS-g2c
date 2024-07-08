@@ -101,10 +101,10 @@ main()
                 int num_fields, num_local;
                 unsigned char discipline;
                 int pds_template_len, gds_template_len, drs_template_len;
-                int pds_template[G2C_MAX_PDS_TEMPLATE_MAPLEN];
-                int gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN];
-                int drs_template[G2C_MAX_DRS_TEMPLATE_MAPLEN];
-                int expected_pds_template[NUM_MSG][G2C_MAX_PDS_TEMPLATE_MAPLEN] = {
+                long long int pds_template[G2C_MAX_PDS_TEMPLATE_MAPLEN];
+                long long int gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN];
+                long long int drs_template[G2C_MAX_DRS_TEMPLATE_MAPLEN];
+                long long int expected_pds_template[NUM_MSG][G2C_MAX_PDS_TEMPLATE_MAPLEN] = {
                     {2, 1, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
                     {2, 0, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
                     {2, 2, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
@@ -125,9 +125,9 @@ main()
                     {0, 7, 2, 0, 11, 0, 0, 1, 0, 241, 0, 2, 255, 0, 0},
                     {0, 7, 2, 0, 11, 0, 0, 1, 0, 241, 0, 3, 255, 0, 0}
                 };
-                int expected_gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN] =
+                long long int expected_gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN] =
                     {6, 0, 0, 0, 0, 0, 0, 241, 151, 0, 0, 50000000, 210000000, 48, 25000000, 250000000, 166667, 166667, 0};
-                int expected_drs_template[NUM_MSG][G2C_MAX_DRS_TEMPLATE_MAPLEN] = {
+                long long int expected_drs_template[NUM_MSG][G2C_MAX_DRS_TEMPLATE_MAPLEN] = {
                     {1092616192, 0, 2, 11, 0, 0, 255},
                     {1065353216, 0, 2, 16, 0, 0, 255},
                     {-1006403584, 0, 2, 11, 0, 0, 255},
