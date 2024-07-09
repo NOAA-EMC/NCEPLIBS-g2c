@@ -188,11 +188,11 @@ g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *yea
  * @param msg_num Message number.
  * @param prod_num Product number.
  * @param pds_template_len PDS template length. Ignored if NULL.
- * @param pds_template The PDS template. Ignored if NULL.
+ * @param pds_template Pointer that gets the PDS template. Ignored if NULL.
  * @param gds_template_len GDS template length. Ignored if NULL.
- * @param gds_template The GDS template. Ignored if NULL.
+ * @param gds_template Pointer that gets the GDS template. Ignored if NULL.
  * @param drs_template_len The DRS template length. Ignored if NULL.
- * @param drs_template The DRS template. Ignored if NULL.
+ * @param drs_template Pointer that gets the DRS template. Ignored if NULL.
  *
  * @return
  * - ::G2C_NOERROR No error.
@@ -205,8 +205,8 @@ g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *yea
  */
 int
 g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
-             int *pds_template, int *gds_template_len, int *gds_template,
-             int *drs_template_len, int *drs_template)
+             long long int *pds_template, int *gds_template_len, long long int *gds_template,
+             int *drs_template_len, long long int *drs_template)
 {
     G2C_MESSAGE_INFO_T *msg;
     G2C_SECTION_INFO_T *sec4, *sec3, *sec5;

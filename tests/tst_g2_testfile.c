@@ -29,11 +29,11 @@ main()
         unsigned char sig_ref_time;
         short year;
         unsigned char month, day, hour, minute, second;
-        int pds_template_len, pds_template[PDSLEN], gds_template_len, gds_template[GDSLEN];
-        int drs_template_len, drs_template[DRSLEN];
-        int expected_pds[PDSLEN] = {0, 0, 0, 0, 0, 12, 59, 0, 0, 1, 1, 1, 2, 1, 1};
-        int expected_gds[GDSLEN] = {0, 1, 1, 1, 1, 1, 1, 2, 2, 0, 0, 45, 91, 0, 55, 101, 5, 5, 0};
-        int expected_drs[DRSLEN] = {1093664768, 1, 1, 8, 0};
+        int pds_template_len, gds_template_len, drs_template_len;
+        long long int pds_template[PDSLEN], gds_template[GDSLEN], drs_template[DRSLEN];
+        long long int expected_pds[PDSLEN] = {0, 0, 0, 0, 0, 12, 59, 0, 0, 1, 1, 1, 2, 1, 1};
+        long long int expected_gds[GDSLEN] = {0, 1, 1, 1, 1, 1, 1, 2, 2, 0, 0, 45, 91, 0, 55, 101, 5, 5, 0};
+        long long int expected_drs[DRSLEN] = {1093664768, 1, 1, 8, 0};
         int i;
         int ret;
 
@@ -77,8 +77,11 @@ main()
             if (gds_template[i] != expected_gds[i])
                 return G2C_ERROR;
         for (i = 0; i < DRSLEN; i++)
+	{
+	    printf("drs_template[%d] %lld\n", i, drs_template[i]);
             if (drs_template[i] != expected_drs[i])
                 return G2C_ERROR;
+	}
 
         /* Close test file. */
         if ((ret = g2c_close(g2cid)))
