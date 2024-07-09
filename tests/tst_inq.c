@@ -130,8 +130,8 @@ main()
                 long long int expected_drs_template[NUM_MSG][G2C_MAX_DRS_TEMPLATE_MAPLEN] = {
                     {1092616192, 0, 2, 11, 0, 0, 255},
                     {1065353216, 0, 2, 16, 0, 0, 255},
-                    {-1006403584, 0, 2, 11, 0, 0, 255},
-                    {-996777984, 0, 2, 12, 0, 0, 255},
+                    {3288563712, 0, 2, 11, 0, 0, 255},
+                    {3298189312, 0, 2, 12, 0, 0, 255},
                     {1102053376, 0, 2, 9, 0, 0, 255},
                     {1144815616, 0, 2, 10, 0, 0, 255},
                     {1185159680, 0, 2, 14, 0, 0, 255},
@@ -154,6 +154,8 @@ main()
                 unsigned char master_version, local_version;
                 int p;
 
+		printf("\t\tinquiring about message %d...\n", m);
+		
                 /* Inquire about this message. */
                 if ((ret = g2c_inq_msg(g2cid, m, &discipline, &num_fields, &num_local,
                                        &center, &subcenter, &master_version, &local_version)))
@@ -197,8 +199,11 @@ main()
                 if (drs_template_len != 7)
                     return G2C_ERROR;
                 for (p = 0; p < drs_template_len; p++)
+		{
+		    /* printf("drs_template[%d] %lld\n", p, drs_template[p]); */
                     if (drs_template[p] != expected_drs_template[m][p])
                         return G2C_ERROR;
+		}
             }
 
             /* Close the file. */
