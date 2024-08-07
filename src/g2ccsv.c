@@ -192,7 +192,7 @@ g2c_csv_init()
 {
     const int max_line_size = 500;
     const int num_columns = 9;
-    int i,j;
+    int i;
     char *buf, *tmp, *key;
     char line[max_line_size];
     G2C_CODE_TABLE_T *my_table = NULL;
@@ -209,8 +209,8 @@ g2c_csv_init()
 
 	/* Skip header line */
 	fgets(line,max_line_size,doc); 
-	j = 1;
-	while((fgets(line,max_line_size,doc)) != NULL && j < 2)
+
+	while((fgets(line,max_line_size,doc)) != NULL)
 	{
 	    buf = strdup(line);
 	    i = 0;
@@ -265,13 +265,51 @@ g2c_csv_init()
                 else
                 my_table->entry = new_entry;
             }
+            if (i==4)
+            {
+                if (strlen(key) > G2C_MAX_GRIB_DESC_LEN)
+                return G2C_ENAMETOOLONG;
+                if (!new_entry)
+                return G2C_ECSV;
+                strncpy(new_entry->desc,key,G2C_MAX_GRIB_LEVEL_DESC_LEN);
+            }
+            if (i==8)
+            {
+                if (strlen(key) > G2C_MAX_GRIB_STATUS_LEN)
+                return G2C_ENAMETOOLONG;
+                if (!new_entry)
+                return G2C_ECSV;
+                strncpy(new_entry->status,key,G2C_MAX_GRIB_STATUS_LEN);
+            }
+            }
+
+            /* Add this table to our list of GRIB tables. */
+            if (new_table)
+            {
+            if (!g2c_table)
+                g2c_table = new_table;
+            else 
+            { 
+                G2C_CODE_TABLE_T *g = g2c_table;
+
+                /* Go to end of list and add the table. */
+                if (g)
+                {
+                for (; g->next; g = g->next)
+                    ;
+                g->next = new_table;
+                }
+                else
+                {
+                g2c_table = new_table;
+                }
+            }
+            new_table = NULL;
             }
 
             free(key);
 			i++;
 		}
-
-		j++;
 	} 
 
 	fclose(doc);
