@@ -190,11 +190,11 @@ g2c_find_entry(char *desc, G2C_CODE_TABLE_T *table)
 int
 g2c_csv_init()
 {
-	size_t max_line_size = 500;
-	const int num_columns = 9;
-	int i,j;
-	char *buf, *tmp, *key;
-	char line[max_line_size];
+    const int max_line_size = 500;
+    const int num_columns = 9;
+    int i,j;
+    char *buf, *tmp, *key;
+    char line[max_line_size];
     G2C_CODE_TABLE_T *my_table = NULL;
     G2C_CODE_ENTRY_T *new_entry = NULL;
 
@@ -233,18 +233,41 @@ g2c_csv_init()
 
 			if (i==0)
 			{
-			if (strlen(key) > G2C_MAX_GRIB_TITLE_LEN)
-			    return G2C_ENAMETOOLONG;
-			if (!(my_table = g2c_find_table(key)))
-			{
-			    if (!(new_table = calloc(1,sizeof(G2C_CODE_TABLE_T))))
-				return G2C_ENOMEM;
-			    strncpy(new_table->title, key,G2C_MAX_GRIB_TITLE_LEN);
-			    my_table = new_table;
+            if (strlen(key) > G2C_MAX_GRIB_TITLE_LEN)
+                return G2C_ENAMETOOLONG;
+            if (!(my_table = g2c_find_table(key)))
+            {
+                if (!(new_table = calloc(1,sizeof(G2C_CODE_TABLE_T))))
+                    return G2C_ENOMEM;
+                strncpy(new_table->title, key,G2C_MAX_GRIB_TITLE_LEN);
+                my_table = new_table;
+            }
 			}
-			}
+			
+            if (my_table)
+            {
+            if (i==2)
+            {
+                G2C_CODE_ENTRY_T *e;
 
-			free(key);
+                if (!(new_entry = calloc(1,sizeof(G2C_CODE_ENTRY_T))))
+                    return G2C_ENOMEM;
+                if (strlen(key) > G2C_MAX_GRIB_CODE_LEN)
+                    return G2C_ENAMETOOLONG;
+                strncpy(new_entry->code,key,G2C_MAX_GRIB_CODE_LEN);
+                
+                /* Add entry at end of list. */
+                if (my_table->entry)
+                {
+                for (e = my_table->entry; e->next; e = e->next);
+                e->next = new_entry;
+                }
+                else
+                my_table->entry = new_entry;
+            }
+            }
+
+            free(key);
 			i++;
 		}
 
