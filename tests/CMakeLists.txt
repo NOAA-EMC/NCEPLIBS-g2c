@@ -84,11 +84,11 @@ foreach(THE_FILE IN LISTS REF_FILES)
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
 endforeach()
 
-# These are the XML files from the WMO with GRIB2 code data.
+# These are the CSV files from the WMO with GRIB2 code data.
 if(BUILD_G2C)
-  FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.xml
+  FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/CodeFlag.txt
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-  FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.xml
+  FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../src/Template.txt
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
 endif()
 
@@ -96,18 +96,18 @@ endif()
 function(g2c_build_test name)
   add_executable(${name} ${name}.c g2c_test_util.c)
   target_link_libraries(${name} PUBLIC g2c::g2c)
-  if(BUILD_G2C)
-    target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
-    target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
-  endif()
+  #if(BUILD_G2C)
+  #  target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
+  #  target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
+  #endif()
 endfunction()
 
 # Build a C program test.
 function(g2c_build_test name)
   add_executable(${name} ${name}.c g2c_test_util.c)
   target_link_libraries(${name} PUBLIC g2c::g2c)
-  target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
-  target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
+  #target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
+  #target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
 endfunction()
 
 # Run a C program test.
@@ -203,7 +203,7 @@ g2c_test(tst_seekgb)
 # Run these tests if the g2c API has been built.
 if(BUILD_G2C)
   g2c_test(tst_index1)
-  g2c_test(tst_xml)
+  g2c_test(tst_csv)
   g2c_test(tst_error)
   g2c_test(tst_params)
   g2c_test(tst_params2)
