@@ -104,8 +104,8 @@ g2c_log_section1(G2C_MESSAGE_INFO_T *msg)
     char desc[G2C_MAX_GRIB_DESC_LEN + 1];
     int ret;
 
-    /* Read in the XML GRIB2 code definitions. */
-    if ((ret = g2c_xml_init()))
+    /* Read in the CSV GRIB2 code definitions. */
+    if ((ret = g2c_csv_init()))
 	return ret;
 
     /* Section 0 discipline flag. */
@@ -191,8 +191,8 @@ g2c_log_file(int g2cid)
     G2C_MESSAGE_INFO_T *msg;
     int ret;
 
-    /* Read in the XML GRIB2 code definitions. */
-    if ((ret = g2c_xml_init()))
+    /* Read in the CSV GRIB2 code definitions. */
+    if ((ret = g2c_csv_init()))
 	return ret;
     
     /* Find the open file struct. */
@@ -212,7 +212,7 @@ g2c_log_file(int g2cid)
         LOG((1, "sig_ref_time %d %d %d %d %d:%d:%d status %d type %d", msg->sig_ref_time, msg->year,
              msg->month, msg->day, msg->hour, msg->minute, msg->second, msg->status, msg->type));
 
-	/* If we've loaded XML tables, decode some flags. */
+	/* If we've loaded CSV tables, decode some flags. */
 	if (g2c_table)
 	    if ((ret = g2c_log_section1(msg)))
 		return ret;
@@ -223,7 +223,7 @@ g2c_log_file(int g2cid)
                 return ret;
     }
 
-    /* Free XML code memory. */
+    /* Free CSV code memory. */
     g2c_free_tables();
 
 #endif /* LOGGING */
