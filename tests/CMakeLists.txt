@@ -96,18 +96,12 @@ endif()
 function(g2c_build_test name)
   add_executable(${name} ${name}.c g2c_test_util.c)
   target_link_libraries(${name} PUBLIC g2c::g2c)
-  #if(BUILD_G2C)
-  #  target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
-  #  target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
-  #endif()
 endfunction()
 
 # Build a C program test.
 function(g2c_build_test name)
   add_executable(${name} ${name}.c g2c_test_util.c)
   target_link_libraries(${name} PUBLIC g2c::g2c)
-  #target_link_libraries(${name} PRIVATE ${LIBXML2_LIBRARIES})
-  #target_include_directories(${name} PRIVATE "${LIBXML2_INCLUDE_DIR}")
 endfunction()
 
 # Run a C program test.

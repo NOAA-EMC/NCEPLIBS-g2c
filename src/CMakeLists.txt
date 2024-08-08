@@ -49,23 +49,6 @@ if(BUILD_SHARED_LIBS)
   list(APPEND LIB_TARGETS ${lib_name}_shared)
 endif()
 
-# Link to libxml2.
-#[===[
-if(BUILD_G2C)
-  message(STATUS "libxml2 include directories ${LIBXML2_INCLUDE_DIR}")
-  target_link_libraries(${lib_name}_objlib PRIVATE ${LIBXML2_LIBRARIES})
-  target_include_directories(${lib_name}_objlib PRIVATE "${LIBXML2_INCLUDE_DIR}")
-  if(BUILD_SHARED_LIBS)
-    target_link_libraries(${lib_name}_shared PRIVATE ${LIBXML2_LIBRARIES})
-    target_include_directories(${lib_name}_shared PRIVATE "${LIBXML2_INCLUDE_DIR}")
-  endif()
-  if(BUILD_STATIC_LIBS)
-    target_link_libraries(${lib_name}_static PRIVATE ${LIBXML2_LIBRARIES})
-    target_include_directories(${lib_name}_static PRIVATE "${LIBXML2_INCLUDE_DIR}")
-  endif()
-endif()
-]===]
-
 # Build with PNG.
 if(PNG_FOUND)
   message(STATUS "PNG include directories ${PNG_INCLUDE_DIR}")
