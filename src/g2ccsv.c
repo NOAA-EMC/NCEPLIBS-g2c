@@ -207,8 +207,8 @@ g2c_csv_init()
     if (!(doc = fopen("CodeFlag.txt", "r")))
 	return G2C_ECSV;
 
-	/* Skip header line */
-	buf = fgets(line,max_line_size,doc); 
+    /* Skip header line */
+    buf = fgets(line,max_line_size,doc); 
 
     /* Go through the document and save table data. 
      * Each line is a table of codes. */
