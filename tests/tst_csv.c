@@ -27,7 +27,7 @@ main()
 	return G2C_ERROR;
 
     /* Calling init again is harmless. */
-    if (g2c_xml_init())
+    if (g2c_csv_init())
 	return G2C_ERROR;
     
     g2c_free_tables();

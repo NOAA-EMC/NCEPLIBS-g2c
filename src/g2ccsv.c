@@ -208,13 +208,12 @@ g2c_csv_init()
 	return G2C_ECSV;
 
 	/* Skip header line */
-	fgets(line,max_line_size,doc); 
+	buf = fgets(line,max_line_size,doc); 
 
     /* Go through the document and save table data. 
      * Each line is a table of codes. */
-	while((fgets(line,max_line_size,doc)) != NULL)
+	while((buf = fgets(line,max_line_size,doc)) != NULL)
 	{
-	    buf = strdup(line);
 	    i = 0;
 	    while(buf != NULL && i < num_columns)
 		{
