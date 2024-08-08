@@ -180,7 +180,7 @@ g2c_find_entry(char *desc, G2C_CODE_TABLE_T *table)
 }
 
 /**
- * Init.
+ * Initialize tables from "CodeFlag.txt".
  *
  * @return
  * - ::G2C_NOERROR No error.
@@ -210,6 +210,8 @@ g2c_csv_init()
 	/* Skip header line */
 	fgets(line,max_line_size,doc); 
 
+    /* Go through the document and save table data. 
+     * Each line is a table of codes. */
 	while((fgets(line,max_line_size,doc)) != NULL)
 	{
 	    buf = strdup(line);
@@ -231,6 +233,7 @@ g2c_csv_init()
 			    key = strdup((const char*)tmp);
 			}
 
+            /* Title_en */
 			if (i==0)
 			{
             if (strlen(key) > G2C_MAX_GRIB_TITLE_LEN)
@@ -246,6 +249,7 @@ g2c_csv_init()
 			
             if (my_table)
             {
+            /* CodeFlag */
             if (i==2)
             {
                 G2C_CODE_ENTRY_T *e;
@@ -265,6 +269,7 @@ g2c_csv_init()
                 else
                 my_table->entry = new_entry;
             }
+            /* MeaningParameterDescription */
             if (i==4)
             {
                 if (strlen(key) > G2C_MAX_GRIB_DESC_LEN)
@@ -273,6 +278,7 @@ g2c_csv_init()
                 return G2C_ECSV;
                 strncpy(new_entry->desc,key,G2C_MAX_GRIB_LEVEL_DESC_LEN);
             }
+            /* Status */
             if (i==8)
             {
                 if (strlen(key) > G2C_MAX_GRIB_STATUS_LEN)
