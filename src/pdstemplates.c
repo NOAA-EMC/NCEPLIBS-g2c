@@ -131,7 +131,7 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
     {1000, 9, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4}},
     /** 4.1001: Cross section of Ave/Accum/etc... analysis or forecast
         in a time interval */
-    {1001, 16, 0, {1, 1, 1, 1, 1, 2, 1, 1, 4, 4, 1, 1, 1, 4, 1, 4}},
+    {1001, 16, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 4, 1, 1, 1, 4, 1, 4}},
     /** 4.1001: Cross section of Ave/Accum/etc... analysis or forecast
         over latitude or longitude */
     {1002, 15, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, 1, 1, 4, 4, 2}},
