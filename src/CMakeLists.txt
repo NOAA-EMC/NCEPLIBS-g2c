@@ -18,7 +18,7 @@ reduce.c seekgb.c simpack.c simunpack.c specpack.c
 specunpack.c util.c)
 
 if(BUILD_G2C)
-  set(src_files ${src_files}  g2cutil.c g2cxml.c g2cparams.c g2cfile.c
+  set(src_files ${src_files}  g2cutil.c g2ccsv.c g2cparams.c g2cfile.c
     g2cdegrib2.c g2cprod.c g2cinq.c g2cindex.c g2cio.c g2ccompare.c)
 endif()
 
@@ -47,21 +47,6 @@ if(BUILD_SHARED_LIBS)
   set_target_properties(${lib_name}_shared PROPERTIES EXPORT_NAME ${lib_name})
   set_target_properties(${lib_name}_shared PROPERTIES SOVERSION 0)
   list(APPEND LIB_TARGETS ${lib_name}_shared)
-endif()
-
-# Link to libxml2.
-if(BUILD_G2C)
-  message(STATUS "libxml2 include directories ${LIBXML2_INCLUDE_DIR}")
-  target_link_libraries(${lib_name}_objlib PRIVATE ${LIBXML2_LIBRARIES})
-  target_include_directories(${lib_name}_objlib PRIVATE "${LIBXML2_INCLUDE_DIR}")
-  if(BUILD_SHARED_LIBS)
-    target_link_libraries(${lib_name}_shared PRIVATE ${LIBXML2_LIBRARIES})
-    target_include_directories(${lib_name}_shared PRIVATE "${LIBXML2_INCLUDE_DIR}")
-  endif()
-  if(BUILD_STATIC_LIBS)
-    target_link_libraries(${lib_name}_static PRIVATE ${LIBXML2_LIBRARIES})
-    target_include_directories(${lib_name}_static PRIVATE "${LIBXML2_INCLUDE_DIR}")
-  endif()
 endif()
 
 # Build with PNG.
@@ -229,9 +214,9 @@ install(EXPORT ${PROJECT_NAME}Exports
   FILE ${PROJECT_NAME}-targets.cmake
   DESTINATION ${CONFIG_INSTALL_DESTINATION})
 
-# XML data files.
+# CSV data files.
 if(BUILD_G2C)
-  set(XML_FILES Template.xml CodeFlag.xml)
-  install(FILES ${XML_FILES}
+  set(CSV_FILES Template.txt CodeFlag.txt)
+  install(FILES ${CSV_FILES}
     DESTINATION ${CMAKE_INSTALL_LIBDIR})
 endif()

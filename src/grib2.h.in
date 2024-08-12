@@ -352,7 +352,7 @@ int g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to
                 size_t *bytes_in_msg, unsigned char **cbuf);
 int g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg,
                   size_t *bytes_in_msg);
-int g2c_xml_init();
+int g2c_csv_init();
 int g2c_find_desc_str(char *title, char *code, char *desc);
 int g2c_find_desc(char *title, int code, char *desc);
 void g2c_free_tables();
@@ -515,5 +515,6 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_ENOPRODUCT (-72)    /**< Product not found. */
 #define G2C_EBADTYPE (-73)      /**< Type not found. */
 #define G2C_EAEC (-74)         /**< Error encoding/decoding AEC data. */
+#define G2C_ECSV (-75)          /**< CSV error. */
 
 #endif  /*  _grib2_H  */
