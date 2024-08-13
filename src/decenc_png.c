@@ -1,5 +1,5 @@
 /** @file
- * @brief Decode/encode functions for PNG.
+ * @brief Decode/encode a PNG stream.
  * @author Alyson Stahl @date 2024-13-08
  */
 
