@@ -53,8 +53,7 @@ endif()
 if(PNG_FOUND)
   message(STATUS "PNG include directories ${PNG_INCLUDE_DIR}")
   message(STATUS "PNG libraries ${PNG_LIBRARIES}")
-  target_sources(${lib_name}_objlib PRIVATE dec_png.c
-                                     enc_png.c
+  target_sources(${lib_name}_objlib PRIVATE decenc_png.c
                                      pngpack.c
                                      pngunpack.c)
   target_compile_definitions(${lib_name}_objlib PRIVATE USE_PNG)
