@@ -74,8 +74,7 @@ endif()
 if(JASPER_FOUND)
   message(STATUS "JASPER include directories ${JASPER_INCLUDE_DIR}")
   message(STATUS "JASPER libraries ${JASPER_LIBRARIES} version ${JASPER_VERSION}")
-  target_sources(${lib_name}_objlib PRIVATE dec_jpeg2000.c
-                                     enc_jpeg2000.c
+  target_sources(${lib_name}_objlib PRIVATE decenc_jpeg2000.c
                                      jpcpack.c
                                      jpcunpack.c)
   target_compile_definitions(${lib_name}_objlib PRIVATE USE_JPEG2000)
