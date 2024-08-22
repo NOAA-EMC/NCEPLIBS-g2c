@@ -723,7 +723,7 @@ extpdstemplate(g2int number, g2int *list)
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i=0; i < list[5]; i++)
         {
-            l = i * 6;
+            l = i * 5;
             new->ext[l] = 2;
             new->ext[l+1] = 2;
             new->ext[l+2] = 2;
