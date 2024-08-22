@@ -467,7 +467,7 @@ main()
                 {
 #define NUM_EXT_TEST 25
                     int template[G2C_MAX_PDS_TEMPLATE_MAPLEN];
-                    int expected_extlen[NUM_EXT_TEST] = {2, 2, 6, 6, 6, 6, 6, 8, 8, 10, 10, 6, 6, 10, 6, 6, 12, 8, 2, 8, 2, 2, 30, 6, 5};
+                    int expected_extlen[NUM_EXT_TEST] = {2, 2, 6, 6, 6, 6, 6, 8, 8, 10, 10, 6, 6, 10, 6, 6, 12, 8, 2, 8, 2, 2, 30, 6, 10};
                     int expected_ext[NUM_EXT_TEST][48] = {
                         {1, 1}, /* 3 */
                         {1, 1}, /* 4 */
@@ -493,7 +493,7 @@ main()
                         {1, 1}, /* 54 */
                         {1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}, /* 57 */
                         {1, 1, 1, 4, 1, 4}, /* 61 */
-                        {2, 2, 2, 1, 4}, /* 35 */
+                        {2, 2, 2, 1, 4, 2, 2, 2, 1, 4}, /* 35 */
                     };
                     
                     if (needext)
@@ -581,6 +581,9 @@ main()
                             break;
                         case 61:
                             template[30] = 2;
+                            break;
+                        case 35:
+                            template[5] = 2;
                             break;
                         default:
                             return G2C_ERROR;
