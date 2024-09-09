@@ -716,7 +716,21 @@ extpdstemplate(g2int number, g2int *list)
             }
         }
     }
-
+    /* PDT 4.35  (10/07/2015) */
+    else if (number == 35)
+    { 
+        new->extlen = list[5] * 5;
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i=0; i < list[5]; i++)
+        {
+            l = i * 5;
+            new->ext[l] = 2;
+            new->ext[l+1] = 2;
+            new->ext[l+2] = 2;
+            new->ext[l+3] = 1;
+            new->ext[l+4] = 4;
+        }
+    }
     return new;
 }
 
