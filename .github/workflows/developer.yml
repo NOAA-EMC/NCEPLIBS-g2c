@@ -53,7 +53,7 @@ jobs:
       run: |
         set -x
         export CC=gcc
-        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug-DCMAKE_C_FLAGS="-Werror -g -O0 -fsanitize=address -fno-omit-frame-pointer" 
+        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug-DCMAKE_C_FLAGS="-Werror -g -O0 -fsanitize=address -fno-omit-frame-pointer" 
         cmake --build g2c/build --parallel 2 --verbose
         ctest --test-dir g2c/build --verbose --output-on-failure --rerun-failed
         
@@ -62,12 +62,12 @@ jobs:
       run: |
         set -x
         export CC=gcc
-        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug-DCMAKE_C_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0"
+        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug-DCMAKE_C_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0"
         pwd
         cd g2c/build
         make VERBOSE=1
         ctest --verbose --output-on-failure --rerun-failed
-        gcovr --root . -v  --html-details --exclude tests --exclude CMakeFiles --print-summary -o test-coverage.html
+        gcovr --root .. -v  --html-details --exclude tests --exclude CMakeFiles --print-summary -o test-coverage.html
         pwd
         ls -l
         ls -l src
@@ -77,7 +77,7 @@ jobs:
       run: |
         set -x
         export LD_LIBRARY_PATH="/home/runner/jasper/lib:$LD_LIBRARY_PATH"
-        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-g" 
+        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-g" 
         cmake --build g2c/build --parallel 2 --verbose
         ctest --test-dir g2c/build
         ls -l g2c/build
