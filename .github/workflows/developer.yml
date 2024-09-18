@@ -67,8 +67,10 @@ jobs:
         cd g2c/build
         make VERBOSE=1
         ctest --verbose --output-on-failure --rerun-failed
-        gcovr --root g2c -v  --html-details --exclude g2c/tests --exclude g2c/build/CMakeFiles --print-summary -o test-coverage.html
-        ls -l g2c/build/src
+        gcovr --root . -v  --html-details --exclude tests --exclude CMakeFiles --print-summary -o test-coverage.html
+        pwd
+        ls -l
+        ls -l src
         
     - name: memcheck
       if: matrix.config == 'memcheck'
