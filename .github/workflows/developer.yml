@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        config: ["asan/code coverage", "memcheck"]
+        config: ["asan", "code coverage", "memcheck"]
 
     steps:
     - name: install-dependencies
@@ -49,7 +49,16 @@ jobs:
         key: data-2
 
     - name: asan
-      if: matrix.config == 'asan/code coverage'
+      if: matrix.config == 'asan'
+      run: |
+        set -x
+        export CC=gcc
+        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DENABLE_DOCS=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug
+        cmake --build g2c/build --parallel 2 --verbose
+        ctest --test-dir g2c/build --verbose --output-on-failure --rerun-failed
+        
+    - name: code_coverage
+      if: matrix.config == 'code coverage'
       run: |
         set -x
         export CC=gcc
@@ -76,7 +85,7 @@ jobs:
         cp $GITHUB_WORKSPACE/g2c/build/tests/data/* ~/data
         
     - name: upload-test-coverage
-      if: matrix.config == 'asan/code coverage'      
+      if: matrix.config == 'code coverage'      
       uses: actions/upload-artifact@v4
       with:
         name: g2c-test-coverage
