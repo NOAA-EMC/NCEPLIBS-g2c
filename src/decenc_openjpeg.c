@@ -361,7 +361,9 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
 {
     (void) retry;
     int iret = 0;
+    int nbytes = 0;
     const int numcomps = 1;
+    g2int *ifld = NULL;
 
     opj_codec_t *codec = NULL;
     opj_image_t *image = NULL;
@@ -412,9 +414,14 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
 
     assert(cmptparm.prec <= sizeof(image->comps[0].data[0])*8 - 1); /* BR: -1 because I don't know what happens if the sign bit is set */
 
+    ifld = malloc(width * height * sizeof(g2int));
+    nbytes = (nbits + 7) / 8;
+    gbits(cin, ifld, 0, nbytes * 8, 0, width * height);
     /* Simple packing */
-    for (int i = 0; i < width * height; i++)
-        image->comps[0].data[i] = cin[i];
+    for (int i = 0; i < width * height; i++) {
+        image->comps[0].data[i] = ifld[i];
+    }
+    free(ifld);
 
     /* get a J2K compressor handle */
     codec = opj_create_compress(OPJ_CODEC_J2K);
