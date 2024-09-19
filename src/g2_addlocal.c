@@ -3,13 +3,13 @@
  * @author Stephen Gilbeert @date 2002-11-01
  */
 
-#include <stdio.h>
 #include "grib2_int.h"
+#include <stdio.h>
 
 /**
  * Adds a [Local Use Section (Section
  * 2)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect2.shtml)
- * to a GRIB2 message. 
+ * to a GRIB2 message.
  *
  * This function is used with routines g2_create(), g2_addgrid(),
  * g2_addfield(), and g2_gribend() to create a complete GRIB2 message.
@@ -57,7 +57,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
 
     /*  Loop through all current sections of the GRIB message to find
      *  the last section number. */
-    len = 16;    /* length of Section 0 */
+    len = 16; /* length of Section 0 */
     for (;;)
     {
         /* Get section number and length of next section. */
@@ -91,9 +91,9 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
     }
 
     /* Add Section 2  - Local Use Section. */
-    ibeg = lencurr * 8;        /*   Calculate offset for beginning of section 2 */
-    iofst = ibeg + 32;         /*   leave space for length of section */
-    sbit(cgrib, &two, iofst, 8);     /* Store section number (2) */
+    ibeg = lencurr * 8;          /*   Calculate offset for beginning of section 2 */
+    iofst = ibeg + 32;           /*   leave space for length of section */
+    sbit(cgrib, &two, iofst, 8); /* Store section number (2) */
     istart = lencurr + 5;
     k = 0;
     for (j = istart; j < istart + lcsec2; j++)
@@ -101,7 +101,7 @@ g2_addlocal(unsigned char *cgrib, unsigned char *csec2, g2int lcsec2)
 
     /* Calculate length of section 2 and store it in octets 1-4 of
      * section 2. */
-    lensec2 = lcsec2 + 5;      /* bytes */
+    lensec2 = lcsec2 + 5; /* bytes */
     sbit(cgrib, &lensec2, ibeg, 32);
 
     /* Update current byte total of message in Section 0. */

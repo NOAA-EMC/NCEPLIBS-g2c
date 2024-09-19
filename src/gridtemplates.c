@@ -45,9 +45,9 @@
  */
 struct gridtemplate
 {
-    g2int template_num; /**< Template number. */
-    g2int mapgridlen; /**< The number of entries in the template. */
-    g2int needext; /**< Does template need extension? */
+    g2int template_num;                         /**< Template number. */
+    g2int mapgridlen;                           /**< The number of entries in the template. */
+    g2int needext;                              /**< Does template need extension? */
     g2int mapgrid[G2C_MAX_GDS_TEMPLATE_MAPLEN]; /**< Number of bytes for each template value. */
 };
 
@@ -55,72 +55,71 @@ struct gridtemplate
  * Templates grid.
  */
 static const struct gridtemplate templatesgrid[G2C_MAX_GDS_TEMPLATE] =
-{
-    /* 3.0: Lat/Lon grid */
-    {0, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
-    /* 3.1: Rotated Lat/Lon grid */
-    {1, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4}},
-    /* 3.2: Stretched Lat/Lon grid */
-    {2, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4}},
-    /* 3.3: Stretched & Rotated Lat/Lon grid */
-    {3, 25, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, -4, 4, -4}},
-    /* Added GDT 3.4,3.5    (08/05/2013) */
-    /* 3.4: Variable resolution Latitude/Longitude */
-    {4, 13, 1, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, 1, 1}},
-    /* 3.5: Variable resolution rotate Latitude/Longitude */
-    {5, 16, 1, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, 1, 1, -4, 4, 4}},
-    /* 3.12: Transverse Mercator */
-    {12, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 1, 4, 4, -4, -4, -4, -4}},
-    /* 3.101: General unstructured grid */
-    {101, 4, 0, {1, 4, 1, -4}},
-    /* 3.140: Lambert Azimuthal Equal Area Projection */
-    {140, 17, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 4, 4, 1, 4, 4, 1}},
+    {
+        /* 3.0: Lat/Lon grid */
+        {0, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
+        /* 3.1: Rotated Lat/Lon grid */
+        {1, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4}},
+        /* 3.2: Stretched Lat/Lon grid */
+        {2, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4}},
+        /* 3.3: Stretched & Rotated Lat/Lon grid */
+        {3, 25, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, -4, 4, -4}},
+        /* Added GDT 3.4,3.5    (08/05/2013) */
+        /* 3.4: Variable resolution Latitude/Longitude */
+        {4, 13, 1, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, 1, 1}},
+        /* 3.5: Variable resolution rotate Latitude/Longitude */
+        {5, 16, 1, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, 1, 1, -4, 4, 4}},
+        /* 3.12: Transverse Mercator */
+        {12, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 1, 4, 4, -4, -4, -4, -4}},
+        /* 3.101: General unstructured grid */
+        {101, 4, 0, {1, 4, 1, -4}},
+        /* 3.140: Lambert Azimuthal Equal Area Projection */
+        {140, 17, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 4, 4, 1, 4, 4, 1}},
 
-    /* 3.10: Mercator */
-    {10, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, -4, 4, 1, 4, 4, 4}},
-    /* 3.20: Polar Stereographic Projection */
-    {20, 18, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1}},
-    /* 3.30: Lambert Conformal */
-    {30, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1, -4, -4, -4, 4}},
-    /* 3.31: Albers equal area */
-    {31, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1, -4, -4, -4, 4}},
-    /* 3.40: Guassian Lat/Lon */
-    {40, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
-    /* 3.41: Rotated Gaussian Lat/Lon */
-    {41, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4}},
-    /* 3.42: Stretched Gaussian Lat/Lon */
-    {42, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4}},
-    /* 3.43: Stretched and Rotated Gaussian Lat/Lon */
-    {43, 25, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, -4, 4, -4}},
-    /* 3.50: Spherical Harmonic Coefficients */
-    {50, 5, 0, {4, 4, 4, 1, 1}},
-    /* 3.51: Rotated Spherical Harmonic Coefficients */
-    {51, 8, 0, {4, 4, 4, 1, 1, -4, 4, 4}},
-    /* 3.52: Stretched Spherical Harmonic Coefficients */
-    {52, 8, 0, {4, 4, 4, 1, 1, -4, 4, -4}},
-    /* 3.53: Stretched and Rotated Spherical Harmonic Coefficients */
-    {53, 11, 0, {4, 4, 4, 1, 1, -4, 4, 4, -4, 4, -4}},
-    /* 3.90: Space View Perspective or orthographic */
-    {90, 21, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, 4, 4, 4, 4, 1, 4, 4, 4, 4}},
-    /* 3.100: Triangular grid based on an icosahedron */
-    {100, 11, 0, {1, 1, 2, 1, -4, 4, 4, 1, 1, 1, 4}},
-    /* 3.110: Equatorial Azimuthal equidistant */
-    {110, 16, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, 4, 4, 1, 1}},
-    /* 3.120: Azimuth-range projection */
-    {120, 7, 1, {4, 4, -4, 4, 4, 4, 1}},
-    /* 3.204: Curvilinear Orthogonal Grid */
-    {204, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
-    /* 3.32768: Rot Lat/Lon E-grid (Arakawa) */
-    {32768, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
-    /* 3.32769: Rot Lat/Lon Non-E Staggered grid (Arakawa) */
-    {32769, 21, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 4, 4}},
-    /* 3.1000: Cross Section Grid */
-    {1000, 20, 1, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, -4, 4, 1, 4, 4, 1, 2, 1, 1, 2}},
-    /* 3.1100: Hovmoller Diagram Grid */
-    {1100, 28, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, -4, 4, 1, -4, 4, 1, 4, 1, -4, 1, 1, -4, 2, 1, 1, 1, 1, 1}},
-    /* 3.1200: Time Section Grid */
-    {1200, 16, 1, {4, 1, -4, 1, 1, -4, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2}}
-} ;
+        /* 3.10: Mercator */
+        {10, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, -4, 4, 1, 4, 4, 4}},
+        /* 3.20: Polar Stereographic Projection */
+        {20, 18, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1}},
+        /* 3.30: Lambert Conformal */
+        {30, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1, -4, -4, -4, 4}},
+        /* 3.31: Albers equal area */
+        {31, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1, -4, -4, -4, 4}},
+        /* 3.40: Guassian Lat/Lon */
+        {40, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
+        /* 3.41: Rotated Gaussian Lat/Lon */
+        {41, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4}},
+        /* 3.42: Stretched Gaussian Lat/Lon */
+        {42, 22, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4}},
+        /* 3.43: Stretched and Rotated Gaussian Lat/Lon */
+        {43, 25, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4, -4, 4, -4}},
+        /* 3.50: Spherical Harmonic Coefficients */
+        {50, 5, 0, {4, 4, 4, 1, 1}},
+        /* 3.51: Rotated Spherical Harmonic Coefficients */
+        {51, 8, 0, {4, 4, 4, 1, 1, -4, 4, 4}},
+        /* 3.52: Stretched Spherical Harmonic Coefficients */
+        {52, 8, 0, {4, 4, 4, 1, 1, -4, 4, -4}},
+        /* 3.53: Stretched and Rotated Spherical Harmonic Coefficients */
+        {53, 11, 0, {4, 4, 4, 1, 1, -4, 4, 4, -4, 4, -4}},
+        /* 3.90: Space View Perspective or orthographic */
+        {90, 21, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, 4, 4, 4, 4, 1, 4, 4, 4, 4}},
+        /* 3.100: Triangular grid based on an icosahedron */
+        {100, 11, 0, {1, 1, 2, 1, -4, 4, 4, 1, 1, 1, 4}},
+        /* 3.110: Equatorial Azimuthal equidistant */
+        {110, 16, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, 4, 4, 1, 1}},
+        /* 3.120: Azimuth-range projection */
+        {120, 7, 1, {4, 4, -4, 4, 4, 4, 1}},
+        /* 3.204: Curvilinear Orthogonal Grid */
+        {204, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
+        /* 3.32768: Rot Lat/Lon E-grid (Arakawa) */
+        {32768, 19, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1}},
+        /* 3.32769: Rot Lat/Lon Non-E Staggered grid (Arakawa) */
+        {32769, 21, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 4, 4}},
+        /* 3.1000: Cross Section Grid */
+        {1000, 20, 1, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, -4, 4, 1, 4, 4, 1, 2, 1, 1, 2}},
+        /* 3.1100: Hovmoller Diagram Grid */
+        {1100, 28, 0, {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, -4, 4, 1, -4, 4, 1, 4, 1, -4, 1, 1, -4, 2, 1, 1, 1, 1, 1}},
+        /* 3.1200: Time Section Grid */
+        {1200, 16, 1, {4, 1, -4, 1, 1, -4, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2}}};
 
 /**
  * This function returns the index of specified Grid Definition
@@ -146,11 +145,11 @@ getgridindex(g2int number)
         if (number == templatesgrid[j].template_num)
         {
             getgridindex = j;
-            return(getgridindex);
+            return (getgridindex);
         }
     }
 
-    return(getgridindex);
+    return (getgridindex);
 }
 
 /**
@@ -192,15 +191,15 @@ getgridtemplate(g2int number)
         new->map = (g2int *)templatesgrid[index].mapgrid;
         new->extlen = 0;
         new->ext = NULL;
-        return(new);
+        return (new);
     }
     else
     {
         printf("getgridtemplate: GDT Template 3.%d not defined.\n", (int)number);
-        return(NULL);
+        return (NULL);
     }
 
-    return(NULL);
+    return (NULL);
 }
 
 /**
@@ -235,7 +234,7 @@ extgridtemplate(g2int number, g2int *template)
     new = getgridtemplate(number);
 
     if (!new->needext)
-        return(new);
+        return (new);
 
     if (number == 120)
     {
@@ -277,7 +276,7 @@ extgridtemplate(g2int number, g2int *template)
         }
     }
 
-    return(new);
+    return (new);
 }
 
 /**
@@ -399,4 +398,3 @@ g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *needext
     /* If we didn't find a template, return an error. */
     return G2C_ENOTEMPLATE;
 }
-

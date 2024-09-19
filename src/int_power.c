@@ -29,7 +29,7 @@ int_power(double x, g2int y)
     while (y)
     {
         if (y & 1)
-	{
+        {
             value *= x;
         }
         x = x * x;

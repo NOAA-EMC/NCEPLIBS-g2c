@@ -17,16 +17,16 @@
 
 #ifndef _grib2_H
 #define _grib2_H
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
 
 #define G2C_VERSION "@pVersion@" /**< Current version of NCEPLIBS-g2c library. */
 
-#cmakedefine G2_PNG_ENABLED 1 /**< Decoding/encoding PNG is enabled */
+#cmakedefine G2_PNG_ENABLED 1      /**< Decoding/encoding PNG is enabled */
 #cmakedefine G2_JPEG2000_ENABLED 1 /**< Decoding/encoding JPEG2000 is enabled */
-#cmakedefine G2_AEC_ENABLED 1 /**< Decoding/encoding AEC/CCSDS is enabled */
+#cmakedefine G2_AEC_ENABLED 1      /**< Decoding/encoding AEC/CCSDS is enabled */
 
 /** Long integer type. */
 typedef int64_t g2int;
@@ -268,30 +268,29 @@ void aecpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
 g2int aecunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
                 float *fld);
 
-
 /* The new g2c API is being introduced in version 2.0 of the library. */
 
 /* Data types. */
-#define G2C_BYTE         1       /**< signed 1 byte integer */
-#define G2C_CHAR         2       /**< ISO/ASCII character */
-#define G2C_SHORT        3       /**< signed 2 byte integer */
-#define G2C_INT          4       /**< signed 4 byte integer */
-#define G2C_FLOAT        5       /**< single precision floating point number */
-#define G2C_DOUBLE       6       /**< double precision floating point number */
-#define G2C_UBYTE        7       /**< unsigned 1 byte int */
-#define G2C_USHORT       8       /**< unsigned 2-byte int */
-#define G2C_UINT         9       /**< unsigned 4-byte int */
-#define G2C_INT64        10      /**< signed 8-byte int */
-#define G2C_UINT64       11      /**< unsigned 8-byte int */
+#define G2C_BYTE 1    /**< signed 1 byte integer */
+#define G2C_CHAR 2    /**< ISO/ASCII character */
+#define G2C_SHORT 3   /**< signed 2 byte integer */
+#define G2C_INT 4     /**< signed 4 byte integer */
+#define G2C_FLOAT 5   /**< single precision floating point number */
+#define G2C_DOUBLE 6  /**< double precision floating point number */
+#define G2C_UBYTE 7   /**< unsigned 1 byte int */
+#define G2C_USHORT 8  /**< unsigned 2-byte int */
+#define G2C_UINT 9    /**< unsigned 4-byte int */
+#define G2C_INT64 10  /**< signed 8-byte int */
+#define G2C_UINT64 11 /**< unsigned 8-byte int */
 
 /* Defines for file handling. */
-#define G2C_MAX_FILES 3 /**< Maximum number of open files. */
-#define G2C_MAX_NAME 1024 /**< Maximum length of a name. */
-#define G2C_NOWRITE       0x0000 /**< Set read-only access for g2c_open(). */
-#define G2C_WRITE         0x0001 /**< Set read-write access for g2c_open(). */
-#define G2C_CLOBBER       0x0000 /**< Destroy existing file. Mode flag for g2c_create(). */
-#define G2C_NOCLOBBER     0x0004 /**< Don't destroy existing file. Mode flag for g2c_create(). */
-#define G2C_LARGE_FILE_INDEX   0x0008 /**< Create a large file index. Mode flag for g2c_write_index(). */
+#define G2C_MAX_FILES 3             /**< Maximum number of open files. */
+#define G2C_MAX_NAME 1024           /**< Maximum length of a name. */
+#define G2C_NOWRITE 0x0000          /**< Set read-only access for g2c_open(). */
+#define G2C_WRITE 0x0001            /**< Set read-write access for g2c_open(). */
+#define G2C_CLOBBER 0x0000          /**< Destroy existing file. Mode flag for g2c_create(). */
+#define G2C_NOCLOBBER 0x0004        /**< Don't destroy existing file. Mode flag for g2c_create(). */
+#define G2C_LARGE_FILE_INDEX 0x0008 /**< Create a large file index. Mode flag for g2c_write_index(). */
 
 /* Useful constants. */
 #define G2C_SECTION0_BYTES 16 /**< Number of bytes in section 0. */
@@ -300,15 +299,15 @@ g2int aecunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  * data at the end of the section). */
 #define G2C_SECTION1_BYTES 21
 
-#define G2C_SECTION0_LEN 3 /**< Length of section 0 array. */
+#define G2C_SECTION0_LEN 3  /**< Length of section 0 array. */
 #define G2C_SECTION1_LEN 13 /**< Length of section 1 array. */
 
 /* Constants to help with templates. */
-#define G2C_MAX_GDS_TEMPLATE 31 /**< Maximum number of grid templates. */
+#define G2C_MAX_GDS_TEMPLATE 31        /**< Maximum number of grid templates. */
 #define G2C_MAX_GDS_TEMPLATE_MAPLEN 28 /**< Maximum grid template map length. */
-#define G2C_MAX_PDS_TEMPLATE 47 /**< Maximum number of PDS templates. */
+#define G2C_MAX_PDS_TEMPLATE 47        /**< Maximum number of PDS templates. */
 #define G2C_MAX_PDS_TEMPLATE_MAPLEN 45 /**< Maximum template map length. */
-#define G2C_MAX_DRS_TEMPLATE 10 /**< Maximum number of DRS templates. */
+#define G2C_MAX_DRS_TEMPLATE 10        /**< Maximum number of DRS templates. */
 #define G2C_MAX_DRS_TEMPLATE_MAPLEN 18 /**< Maximum DRS template map length. */
 
 /* File handling functions. */
@@ -402,7 +401,7 @@ int g2c_aecunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts
 
 /* Testing. */
 int g2c_compare(int g2cid1, int g2cid2);
-    
+
 /* Output. */
 int g2c_degrib2(int g2cid, const char *fileout);
 
@@ -414,25 +413,25 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
                   int *g2num, char *abbdrev);
 
 /* Useful constants. */
-#define G2C_SECTION0_ARRAY_LEN 3 /**< Length of section 0 array. */
+#define G2C_SECTION0_ARRAY_LEN 3  /**< Length of section 0 array. */
 #define G2C_SECTION1_ARRAY_LEN 13 /**< Length of section 1 array. */
 
 #define G2C_JPEG_DRS_TEMPLATE_LEN 7 /**< Length of the idrstmpl array for JPEG packing. */
-#define G2C_PNG_DRS_TEMPLATE_LEN 5 /**< Length of the idrstmpl array for PNG packing. */
-#define G2C_AEC_DRS_TEMPLATE_LEN 8 /**< Length of the idrstmpl array for AEC packing. */
+#define G2C_PNG_DRS_TEMPLATE_LEN 5  /**< Length of the idrstmpl array for PNG packing. */
+#define G2C_AEC_DRS_TEMPLATE_LEN 8  /**< Length of the idrstmpl array for AEC packing. */
 
-#define G2C_MAX_GRIB_DESC_LEN 512 /**< Maximum length of code description. */
-#define G2C_MAX_GRIB_STATUS_LEN 40 /**< Maximum length of code status. */
+#define G2C_MAX_GRIB_DESC_LEN 512      /**< Maximum length of code description. */
+#define G2C_MAX_GRIB_STATUS_LEN 40     /**< Maximum length of code status. */
 #define G2C_MAX_GRIB_LEVEL_DESC_LEN 40 /**< Maximum length of level description. */
-#define G2C_MAX_GRIB_CODE_LEN 20 /**< Maximum length of code. */
-#define G2C_MAX_GRIB_TITLE_LEN 200 /**< Maximum length of code table title. */
-#define G2C_MAX_NUM_SECTIONS 1024 /**< Maximum number of sections that can be handled in one message. */
+#define G2C_MAX_GRIB_CODE_LEN 20       /**< Maximum length of code. */
+#define G2C_MAX_GRIB_TITLE_LEN 200     /**< Maximum length of code table title. */
+#define G2C_MAX_NUM_SECTIONS 1024      /**< Maximum number of sections that can be handled in one message. */
 
-#define G2C_MAX_NOAA_PARAMS 2000 /**< Maximum number of known parameters with NOAA abbreviations. */
-#define G2C_MAX_NOAA_ABBREV_LEN 8 /**< Maximum length of a NOAA abbreviation of a parameter. */
+#define G2C_MAX_NOAA_PARAMS 2000        /**< Maximum number of known parameters with NOAA abbreviations. */
+#define G2C_MAX_NOAA_ABBREV_LEN 8       /**< Maximum length of a NOAA abbreviation of a parameter. */
 #define G2C_MAX_NOAA_PARAM_LINE_LEN 120 /**< Maximum length of a line in the NOAA abbreviation CSV file. */
 
-#define G2C_JASPER_MAX_MEM @JASPER_MAX_MEM@ /**< Maximum size for the Jasper memory buffer. */
+#define G2C_JASPER_MAX_MEM @JASPER_MAX_MEM @ /**< Maximum size for the Jasper memory buffer. */
 
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
@@ -514,7 +513,7 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_ENOPARAM (-71)      /**< Parameter not found. */
 #define G2C_ENOPRODUCT (-72)    /**< Product not found. */
 #define G2C_EBADTYPE (-73)      /**< Type not found. */
-#define G2C_EAEC (-74)         /**< Error encoding/decoding AEC data. */
+#define G2C_EAEC (-74)          /**< Error encoding/decoding AEC data. */
 #define G2C_ECSV (-75)          /**< CSV error. */
 
-#endif  /*  _grib2_H  */
+#endif /*  _grib2_H  */

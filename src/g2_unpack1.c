@@ -6,9 +6,9 @@
  * @author Stephen Gilbert @date 2002-10-29
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Unpacks [Section 1 - Identification
@@ -62,9 +62,9 @@ g2_unpack1(unsigned char *cgrib, g2int *iofst, g2int **ids, g2int *idslen)
 
     *idslen = 13;
 
-    gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
+    gbit(cgrib, &lensec, *iofst, 32); /* Get Length of Section */
     *iofst = *iofst + 32;
-    gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
+    gbit(cgrib, &isecnum, *iofst, 8); /* Get Section Number */
     *iofst = *iofst + 8;
 
     if (isecnum != 1)

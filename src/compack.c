@@ -5,9 +5,9 @@
  * @author Stephen Gilbert @date 2002-11-07
  */
 
-#include <stdlib.h>
-#include <math.h>
 #include "grib2_int.h"
+#include <math.h>
+#include <stdlib.h>
 
 /**
  * Pack a data field using a complex packing algorithm.
@@ -45,17 +45,17 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
 
     static g2int zero = 0;
     g2int *ifld, *gref, *glen, *gwidth;
-    g2int *jmin,  *jmax,  *lbit;
+    g2int *jmin, *jmax, *lbit;
     g2int i, j, n, imin, imax, left;
     g2int isd, itemp, ilmax, ngwidthref = 0, nbitsgwidth = 0;
     g2int nglenref = 0, nglenlast = 0, iofst, ival1, ival2;
     g2int minsd, nbitsd = 0, maxorig, nbitorig, ngroups;
     g2int lg, ng, igmax, iwmax, nbitsgref;
     g2int glength, grpwidth, nbitsglen = 0;
-    g2int kfildo,  minpk,  inc,  maxgrps,  ibit, jbit, kbit, novref, lbitref;
+    g2int kfildo, minpk, inc, maxgrps, ibit, jbit, kbit, novref, lbitref;
     g2int missopt, miss1, miss2, ier;
     float bscale, dscale, rmax, rmin, temp;
-    static float alog2 = ALOG2;       /*  ln(2.0) */
+    static float alog2 = ALOG2; /*  ln(2.0) */
     static g2int one = 1;
 
     bscale = int_power(2.0, -idrstmpl[1]);
@@ -66,8 +66,10 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     rmin = fld[0];
     for (j = 1; j < ndpts; j++)
     {
-        if (fld[j] > rmax) rmax = fld[j];
-        if (fld[j] < rmin) rmin = fld[j];
+        if (fld[j] > rmax)
+            rmax = fld[j];
+        if (fld[j] < rmin)
+            rmin = fld[j];
     }
 
     /* If max and min values are not equal, pack up field. If they are
@@ -83,15 +85,15 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
 
         /* Scale original data. */
         if (idrstmpl[1] == 0)
-        {        /* No binary scaling. */
-            imin = (g2int)rint(rmin*dscale);
+        { /* No binary scaling. */
+            imin = (g2int)rint(rmin * dscale);
             /*imax = (g2int)rint(rmax*dscale); */
             rmin = (float)imin;
             for (j = 0; j < ndpts; j++)
                 ifld[j] = (g2int)rint(fld[j] * dscale) - imin;
         }
         else
-        {                             /*  Use binary scaling factor */
+        { /*  Use binary scaling factor */
             rmin = rmin * dscale;
             /*rmax = rmax*dscale; */
             for (j = 0; j < ndpts; j++)
@@ -101,18 +103,18 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         /* Calculate Spatial differences, if using DRS Template
          * 5.3. */
         if (idrsnum == 3)
-        {        /* spatial differences */
-            if (idrstmpl[16] !=1 && idrstmpl[16] != 2)
+        { /* spatial differences */
+            if (idrstmpl[16] != 1 && idrstmpl[16] != 2)
                 idrstmpl[16] = 1;
             if (idrstmpl[16] == 1)
-            {      /* first order */
+            { /* first order */
                 ival1 = ifld[0];
-                for (j = ndpts-1; j > 0; j--)
+                for (j = ndpts - 1; j > 0; j--)
                     ifld[j] = ifld[j] - ifld[j - 1];
                 ifld[0] = 0;
             }
             else if (idrstmpl[16] == 2)
-            {      /* second order */
+            { /* second order */
                 ival1 = ifld[0];
                 ival2 = ifld[1];
                 for (j = ndpts - 1; j > 1; j--)
@@ -146,7 +148,7 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
 
             /* Increase number of bits to even multiple of 8 (octet). */
             if ((nbitsd % 8) != 0)
-                nbitsd = nbitsd+(8-(nbitsd%8));
+                nbitsd = nbitsd + (8 - (nbitsd % 8));
 
             /* Store extra spatial differencing info into the packed
              * data section. */
@@ -156,14 +158,14 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                 if (ival1 >= 0)
                 {
                     sbit(cpack, &ival1, iofst, nbitsd);
-                    iofst = iofst+nbitsd;
+                    iofst = iofst + nbitsd;
                 }
                 else
                 {
                     sbit(cpack, &one, iofst, 1);
                     iofst = iofst + 1;
                     itemp = abs(ival1);
-                    sbit(cpack, &itemp, iofst, nbitsd-1);
+                    sbit(cpack, &itemp, iofst, nbitsd - 1);
                     iofst = iofst + nbitsd - 1;
                 }
                 if (idrstmpl[16] == 2)
@@ -183,7 +185,7 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                         iofst = iofst + nbitsd - 1;
                     }
                 }
-                
+
                 /*  pack overall min of spatial differences */
                 if (minsd >= 0)
                 {
@@ -199,7 +201,7 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                     iofst = iofst + nbitsd - 1;
                 }
             }
-        }     /*  end of spatial diff section */
+        } /*  end of spatial diff section */
 
         /* Use Dr. Glahn's algorithm for determining grouping. */
         kfildo = 6;
@@ -210,10 +212,10 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         jmax = calloc(maxgrps, sizeof(g2int));
         lbit = calloc(maxgrps, sizeof(g2int));
         missopt = 0;
-        pack_gp(&kfildo, ifld, &ndpts, &missopt, &minpk, &inc, &miss1, &miss2, 
-                jmin, jmax, lbit, glen, &maxgrps, &ngroups, &ibit, &jbit, 
+        pack_gp(&kfildo, ifld, &ndpts, &missopt, &minpk, &inc, &miss1, &miss2,
+                jmin, jmax, lbit, glen, &maxgrps, &ngroups, &ibit, &jbit,
                 &kbit, &novref, &lbitref, &ier);
-        for (ng = 0; ng<ngroups; ng++)
+        for (ng = 0; ng < ngroups; ng++)
             glen[ng] = glen[ng] + novref;
         free(jmin);
         free(jmax);
@@ -236,11 +238,11 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                     imax = ifld[j];
                 j++;
             }
-            
+
             /* calc num of bits needed to hold data */
             if (gref[ng] != imax)
             {
-                temp = log((double)(imax - gref[ng] + 1))/alog2;
+                temp = log((double)(imax - gref[ng] + 1)) / alog2;
                 gwidth[ng] = (g2int)ceil(temp);
             }
             else
@@ -295,7 +297,7 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         }
         if (iwmax != ngwidthref)
         {
-            temp = log((double)(iwmax - ngwidthref +1)) / alog2;
+            temp = log((double)(iwmax - ngwidthref + 1)) / alog2;
             nbitsgwidth = (g2int)ceil(temp);
             for (i = 0; i < ngroups; i++)
                 gwidth[i] = gwidth[i] - ngwidthref;
@@ -395,25 +397,25 @@ compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     }
 
     /* Fill in ref value and number of bits in Template 5.2. */
-    
+
     /* Ensure reference value is IEEE format. */
-    mkieee(&rmin, idrstmpl, 1); 
+    mkieee(&rmin, idrstmpl, 1);
     idrstmpl[3] = nbitsgref;
-    idrstmpl[4] = 0; /* original data were reals */
-    idrstmpl[5] = 1; /* general group splitting */
-    idrstmpl[6] = 0; /* No internal missing values */
-    idrstmpl[7] = 0; /* Primary missing value */
-    idrstmpl[8] = 0; /* secondary missing value */
-    idrstmpl[9] = ngroups; /* Number of groups */
-    idrstmpl[10] = ngwidthref; /* reference for group widths */
+    idrstmpl[4] = 0;            /* original data were reals */
+    idrstmpl[5] = 1;            /* general group splitting */
+    idrstmpl[6] = 0;            /* No internal missing values */
+    idrstmpl[7] = 0;            /* Primary missing value */
+    idrstmpl[8] = 0;            /* secondary missing value */
+    idrstmpl[9] = ngroups;      /* Number of groups */
+    idrstmpl[10] = ngwidthref;  /* reference for group widths */
     idrstmpl[11] = nbitsgwidth; /* num bits used for group widths */
-    idrstmpl[12] = nglenref; /* Reference for group lengths */
-    idrstmpl[13] = 1; /* length increment for group lengths */
-    idrstmpl[14] = nglenlast; /* True length of last group */
-    idrstmpl[15] = nbitsglen; /* num bits used for group lengths */
+    idrstmpl[12] = nglenref;    /* Reference for group lengths */
+    idrstmpl[13] = 1;           /* length increment for group lengths */
+    idrstmpl[14] = nglenlast;   /* True length of last group */
+    idrstmpl[15] = nbitsglen;   /* num bits used for group lengths */
     if (idrsnum == 3)
     {
-        idrstmpl[17] = nbitsd / 8;      /* num bits used for extra spatial */
+        idrstmpl[17] = nbitsd / 8; /* num bits used for extra spatial */
         /* differencing values */
     }
 }

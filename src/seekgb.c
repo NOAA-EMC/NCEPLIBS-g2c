@@ -10,12 +10,12 @@
  * 2022-09-11 | Hartnett | Added g2c_seekgb() function.
  *
  */
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
- * Search a file for the next GRIB Message. 
+ * Search a file for the next GRIB Message.
  *
  * The search is done starting at byte offset iseek of the file
  * referenced by lugb for mseek bytes at a time. If found, the
@@ -49,9 +49,8 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
     int end;
     unsigned char *cbuf;
 
-
     LOG((3, "seekgb iseek %ld mseek %ld", iseek, mseek));
-    
+
     *lgrib = 0;
     cbuf = (unsigned char *)malloc(mseek);
     nread = mseek;
@@ -83,19 +82,19 @@ seekgb(FILE *lugb, g2int iseek, g2int mseek, g2int *lskip, g2int *lgrib)
                     gbit(cbuf, &lengrib, (k + 4) * BYTE, 3 * BYTE);
                 if (vers == 2)
                     gbit(cbuf, &lengrib, (k + 12) * BYTE, 4 * BYTE);
-		LOG((4, "lengrib %ld", lengrib));
+                LOG((4, "lengrib %ld", lengrib));
 
                 /* Read the last 4 bytesof the message. */
                 fseek(lugb, ipos + k + lengrib - 4, SEEK_SET);
                 k4 = fread(&end, 4, 1, lugb);
-                
+
                 /* Look for '7777' at end of grib message. */
                 if (k4 == 1 && end == 926365495)
                 {
                     /* GRIB message found. */
                     *lskip = ipos + k;
                     *lgrib = lengrib;
-		    LOG((4, "found end of message lengrib %ld", lengrib));
+                    LOG((4, "found end of message lengrib %ld", lengrib));
                     break;
                 }
             }
