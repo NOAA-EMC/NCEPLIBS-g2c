@@ -225,15 +225,15 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         ctemplen = ndpts*nbytes;
         sbits(ctemp, ifld, 0, nbytes*8, 0, ndpts);
 
-        ret = enc_aec(ctemp, ctemplen, nbits, ccsds_flags, ccsds_block_size, ccsds_rsi, cpack, lcpack);
-        if (ret < 0)
+        *lcpack = enc_aec(ctemp, ctemplen, nbits, ccsds_flags, ccsds_block_size, ccsds_rsi, cpack, lcpack);
+        if (*lcpack < 0)
         {
             if (verbose) printf("aecpack: ERROR Packing AEC = %d\n",ret);
             nbits = 0;
             *lcpack = 0;
+            ret = G2C_EAEC;
         }
 
-        *lcpack = ret;
         free(ctemp);
     }
     else
