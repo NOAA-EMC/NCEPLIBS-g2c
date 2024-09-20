@@ -4,9 +4,9 @@
  * Ed Hartnett 11/1/21
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 #define SEC0_LEN 16
 #define SEC1_LEN 21
@@ -84,7 +84,7 @@ main()
     /*         /\* g2int numfields, numlocal; *\/ */
     /*         /\* g2int ifldnum = 1, unpack = 1, expand = 0; *\/ */
     /*         /\* gribfield *gfld; *\/ */
-            
+
     /*         /\* /\\* Use g2_info() to learn about our messaage. *\\/ *\/ */
     /*         /\* if ((ret = g2_info(cgrib, listsec0_in, listsec1_in, &numfields, &numlocal))) *\/ */
     /*         /\*     return G2C_ERROR; *\/ */
