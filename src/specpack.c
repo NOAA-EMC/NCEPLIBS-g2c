@@ -4,10 +4,10 @@
  * @author Stephen Gilbert @date 2002-12-19
  */
 
+#include "grib2_int.h"
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include "grib2_int.h"
 
 /**
  * Pack a spectral data field using the complex packing algorithm for
@@ -30,7 +30,7 @@
  * @author Stephen Gilbert @date 2002-12-19
  */
 void
-specpack(float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM, 
+specpack(float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM,
          g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)
 {
 
@@ -62,23 +62,23 @@ specpack(float *fld, g2int ndpts, g2int JJ, g2int KK, g2int MM,
     incp = 0;
     for (m = 0; m <= MM; m++)
     {
-        Nm = JJ;      /* triangular or trapezoidal */
+        Nm = JJ; /* triangular or trapezoidal */
         if (KK == JJ + MM)
-            Nm = JJ + m;          /* rhombodial */
-        Ns = Js;      /* triangular or trapezoidal */
+            Nm = JJ + m; /* rhombodial */
+        Ns = Js;         /* triangular or trapezoidal */
         if (Ks == Js + Ms)
-            Ns = Js + m;          /* rhombodial */
+            Ns = Js + m; /* rhombodial */
         for (n = m; n <= Nm; n++)
         {
             if (n <= Ns && m <= Ms)
-            {       /* save unpacked value */
-                unpk[incu++] = fld[inc++];         /* real part */
-                unpk[incu++] = fld[inc++];     /* imaginary part */
+            {                              /* save unpacked value */
+                unpk[incu++] = fld[inc++]; /* real part */
+                unpk[incu++] = fld[inc++]; /* imaginary part */
             }
             else
-            { /* Save value to be packed and scale Laplacian scale factor. */
-                tfld[incp++] = fld[inc++] * pscale[n];      /* real part */
-                tfld[incp++] = fld[inc++] * pscale[n];      /* imaginary part */
+            {                                          /* Save value to be packed and scale Laplacian scale factor. */
+                tfld[incp++] = fld[inc++] * pscale[n]; /* real part */
+                tfld[incp++] = fld[inc++] * pscale[n]; /* imaginary part */
             }
         }
     }

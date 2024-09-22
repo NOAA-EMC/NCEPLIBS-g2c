@@ -3,11 +3,11 @@
  * @author Alyson Stahl @date 2024-13-08
  */
 
+#include "grib2_int.h"
+#include <png.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <png.h>
-#include "grib2_int.h"
 
 /**
  * Struct for PNG stream.
@@ -15,7 +15,7 @@
 struct png_stream
 {
     unsigned char *stream_ptr; /**< Location to write PNG stream. */
-    g2int stream_len; /**< Number of bytes written. */
+    g2int stream_len;          /**< Number of bytes written. */
 };
 
 typedef struct png_stream png_stream; /**< Typedef for PNG stream. */
@@ -79,7 +79,8 @@ user_write_data(png_structp png_ptr, png_bytep data, png_uint_32 length)
  *
  * @author Stephen Gilbert
  */
-void user_flush_data(png_structp png_ptr)
+void
+user_flush_data(png_structp png_ptr)
 {
 }
 
@@ -131,7 +132,7 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
     /* Set Error callback. */
     if (setjmp(png_jmpbuf(png_ptr)))
     {
-        png_destroy_read_struct(&png_ptr,  &info_ptr, &end_info);
+        png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
         return -3;
     }
 

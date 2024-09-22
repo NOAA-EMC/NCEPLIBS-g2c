@@ -8,7 +8,8 @@
  */
 #include "grib2_int.h"
 
-int main()
+int
+main()
 {
     /* This is the GRIB2 message. */
     unsigned char cgrib[] = {
@@ -28,22 +29,20 @@ int main()
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x06,
         0x06, 0xff, 0x00, 0x00, 0x00, 0x15, 0x07, 0xff, 0xef, 0xf7, 0xe0, 0x00,
         0x00, 0x00, 0x08, 0x00, 0x01, 0x83, 0x38, 0xee, 0x3f, 0xa7, 0x80, 0x37,
-        0x37, 0x37, 0x37
-    };
+        0x37, 0x37, 0x37};
     /* This is the data encoded in the GRIB2 message. */
-    float fld_ok[121] = {   /* 11x11 grid */
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1,
-        1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1,
-        0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1,
-        0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1,
-        1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1
-    };
+    float fld_ok[121] = {/* 11x11 grid */
+                         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                         0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1,
+                         1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                         0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                         0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1,
+                         0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1,
+                         0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1,
+                         1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1};
     int i;
     int ret;
 
@@ -89,7 +88,7 @@ int main()
             return G2C_ERROR;
 
         /* Call g2c_unpack7() on our message. */
-        if ((ret = g2c_unpack7(&cgrib[1360/8], igdsnum, 0, igdstmpl, idrsnum, 5, idrstmpl, ndpts, fld)))
+        if ((ret = g2c_unpack7(&cgrib[1360 / 8], igdsnum, 0, igdstmpl, idrsnum, 5, idrstmpl, ndpts, fld)))
             return ret;
 
         /* Check the data. */
@@ -108,7 +107,7 @@ int main()
         g2int listsec1_ok[13] = {7, 0, 2, 1, 1, 2021, 7, 14, 6, 0, 0, 0, 1};
         g2int numfields;
         g2int numlocal;
-        gribfield* gfld = NULL;
+        gribfield *gfld = NULL;
 
         /* Call g2_info() on our message. */
         /* g2c_set_log_level(10); */

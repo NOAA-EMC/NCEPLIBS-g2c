@@ -7,14 +7,14 @@
  * @author Stephen Gilbeert @date 2002-10-28
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Search through a GRIB2 message and return the
  * number of gridded fields found in the message and the number (and
- * maximum size) of Local Use Sections. 
+ * maximum size) of Local Use Sections.
  *
  * Other checks are performed to see if the message is a valid GRIB2
  * message.
@@ -101,13 +101,13 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
 
     /*  Unpack Section 0 - Indicator Section. */
     iofst = 8 * (istart + 6);
-    gbit(cgrib, listsec0, iofst, 8);     /* Discipline */
+    gbit(cgrib, listsec0, iofst, 8); /* Discipline */
     iofst = iofst + 8;
-    gbit(cgrib, &listsec0[1], iofst, 8);     /* GRIB edition number */
+    gbit(cgrib, &listsec0[1], iofst, 8); /* GRIB edition number */
     iofst = iofst + 8;
     /* iofst = iofst + 32; */
     /* gbit(cgrib, &lengrib, iofst, 32);        /\* Length of GRIB message *\/ */
-    gbit(cgrib, &lengrib, iofst, 64);        /* Length of GRIB message */
+    gbit(cgrib, &lengrib, iofst, 64); /* Length of GRIB message */
     /* iofst = iofst + 32; */
     iofst = iofst + 64;
     listsec0[2] = lengrib;
@@ -123,9 +123,9 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
     }
 
     /*  Unpack Section 1 - Identification Section */
-    gbit(cgrib, &lensec1, iofst, 32);        /* Length of Section 1 */
+    gbit(cgrib, &lensec1, iofst, 32); /* Length of Section 1 */
     iofst = iofst + 32;
-    gbit(cgrib, &isecnum, iofst, 8);         /* Section number (1) */
+    gbit(cgrib, &isecnum, iofst, 8); /* Section number (1) */
     iofst = iofst + 8;
     if (isecnum != 1)
     {
@@ -143,7 +143,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         iofst = iofst + nbits;
     }
     ipos = ipos + lensec1;
-    LOG((3, "unpacked section 1, now at byte %ld", ipos));    
+    LOG((3, "unpacked section 1, now at byte %ld", ipos));
 
     /*  Loop through the remaining sections to see if they are
      *  valid. Also count the number of times Section 2 and Section
@@ -153,7 +153,7 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         if (cgrib[ipos] == '7' && cgrib[ipos + 1] == '7' && cgrib[ipos + 2] == '7' &&
             cgrib[ipos + 3] == '7')
         {
-	    LOG((3, "found 7777 at byte %ld", ipos));
+            LOG((3, "found 7777 at byte %ld", ipos));
             ipos = ipos + 4;
             if (ipos != (istart + lengrib))
             {
@@ -164,12 +164,12 @@ g2_info(unsigned char *cgrib, g2int *listsec0, g2int *listsec1,
         }
 
         iofst = ipos * 8;
-        gbit(cgrib, &lensec, iofst, 32);        /* Get Length of Section */
+        gbit(cgrib, &lensec, iofst, 32); /* Get Length of Section */
         iofst = iofst + 32;
-        gbit(cgrib, &isecnum, iofst, 8);         /* Get Section number */
-	LOG((3, "found section number %ld of length %ld", isecnum, lensec));
+        gbit(cgrib, &isecnum, iofst, 8); /* Get Section number */
+        LOG((3, "found section number %ld of length %ld", isecnum, lensec));
         iofst = iofst + 8;
-        ipos = ipos + lensec;                 /* Update beginning of section pointer */
+        ipos = ipos + lensec; /* Update beginning of section pointer */
         if (ipos > (istart + lengrib))
         {
             printf("g2_info: '7777'  not found at end of GRIB message.\n");

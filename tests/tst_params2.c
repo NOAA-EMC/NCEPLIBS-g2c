@@ -4094,10 +4094,8 @@ main()
         /*     return ret; */
         /* if (g1num != 160 || g1ver != 130) */
         /*     return G2C_ERROR; */
-        
     }
     printf("ok!\n");
     printf("SUCCESS!!!\n");
     return G2C_NOERROR;
 }
-

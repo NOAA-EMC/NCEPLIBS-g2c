@@ -8,11 +8,11 @@
 #ifndef _grib2_int_H
 #define _grib2_int_H
 
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
 #include <assert.h>
 #include <ctype.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include <errno.h>
 #if defined(WIN32)
@@ -44,12 +44,12 @@
 /** Maximum number of messages in a file. */
 #define G2C_MAX_MESSAGES 1024
 
-#define BYTE 8 /**< Number of bits in a byte. */
+#define BYTE 8  /**< Number of bits in a byte. */
 #define WORD 32 /**< Number of bits in four bytes. */
 
-#define ONE_BYTE 1 /**< One byte. */
-#define TWO_BYTES 2 /**< Two bytes. */
-#define FOUR_BYTES 4 /**< Four bytes. */
+#define ONE_BYTE 1    /**< One byte. */
+#define TWO_BYTES 2   /**< Two bytes. */
+#define FOUR_BYTES 4  /**< Four bytes. */
 #define EIGHT_BYTES 8 /**< Eight bytes. */
 
 /** Latitude */
@@ -91,16 +91,18 @@
 #define EXTERN_MUTEX(m) extern pthread_mutex_t m;
 
 /** Define a macro to start a critical section for thread safety. */
-#define MUTEX_LOCK(m)                           \
-    do {                                        \
-        pthread_mutex_lock(&m);                 \
-    } while(0)
+#define MUTEX_LOCK(m)           \
+    do                          \
+    {                           \
+        pthread_mutex_lock(&m); \
+    } while (0)
 
 /** Define a macro to end a critical section for thread safety. */
-#define MUTEX_UNLOCK(m)                         \
-    do {                                        \
-        pthread_mutex_unlock(&m);               \
-    } while(0)
+#define MUTEX_UNLOCK(m)           \
+    do                            \
+    {                             \
+        pthread_mutex_unlock(&m); \
+    } while (0)
 
 #else /* not PTHREADS */
 
@@ -126,66 +128,66 @@
  * big-endian 8-byte ints. */
 #define hton64(y) (((uint64_t)htonl(y)) << WORD | htonl(y >> WORD))
 
-#define G2C_FILE_READ 0 /**< Read. */
+#define G2C_FILE_READ 0  /**< Read. */
 #define G2C_FILE_WRITE 1 /**< Write. */
 
 /** This is the information about each message. */
 typedef struct g2c_message_info
 {
-    size_t msg_num; /**< Number of message in file (0-based). */
-    size_t bytes_to_msg; /**< Number of bytes to skip in the file, to get to this message. */
-    size_t bytes_in_msg; /**< Number of bytes in this message. */
-    unsigned char discipline; /**< Discipline from section 0. */
+    size_t msg_num;                       /**< Number of message in file (0-based). */
+    size_t bytes_to_msg;                  /**< Number of bytes to skip in the file, to get to this message. */
+    size_t bytes_in_msg;                  /**< Number of bytes in this message. */
+    unsigned char discipline;             /**< Discipline from section 0. */
     int section1[G2C_SECTION1_ARRAY_LEN]; /**< Section 1 array. */
-    int num_fields; /**< Number of fields in the message. */
-    int num_local; /**< Number of local sections in the message. */
-    size_t bytes_to_local; /**< Number of bytes in the message before the (first) local section. */
-    size_t bytes_to_bms; /**< Number of bytes in the message to the bitmap section. */
-    size_t bytes_to_data; /**< Number of bytes in the message to the (first) data section. */
-    int num_sections; /**< Number of sections in the file. */
-    int *section_number; /**< Array (length num_sections) of section numbers. */
-    size_t *section_offset; /**< Array (length num_sections) of byte offsets from start of message to section. */
-    int sec1_len; /**< Length of section 1. */
-    short center; /**< Originating center. */
-    short subcenter; /**< Originating subcenter. */
-    unsigned char master_version; /**< GRIB master tables version number. */
-    unsigned char local_version; /**< Version number of GRIB local tables used to augment Master Tables. */
-    unsigned char sig_ref_time; /**< Significance of reference time. */
-    short year; /**< Year. */
-    unsigned char month; /**< Month. */
-    unsigned char day; /**< Day. */
-    unsigned char hour; /**< Hour. */
-    unsigned char minute; /**< Minute. */
-    unsigned char second; /**< Second. */
-    unsigned char status; /**< Production Status of Processed data in the GRIB message. */
-    unsigned char type; /**< Type of processed data in this GRIB message. */
-    struct g2c_section_info *sec; /**< List of section metadata. */
-    struct g2c_file_info *file; /**< Pointer to containing file. */
-    struct g2c_message_info *next; /**< Pointer to next in list. */
+    int num_fields;                       /**< Number of fields in the message. */
+    int num_local;                        /**< Number of local sections in the message. */
+    size_t bytes_to_local;                /**< Number of bytes in the message before the (first) local section. */
+    size_t bytes_to_bms;                  /**< Number of bytes in the message to the bitmap section. */
+    size_t bytes_to_data;                 /**< Number of bytes in the message to the (first) data section. */
+    int num_sections;                     /**< Number of sections in the file. */
+    int *section_number;                  /**< Array (length num_sections) of section numbers. */
+    size_t *section_offset;               /**< Array (length num_sections) of byte offsets from start of message to section. */
+    int sec1_len;                         /**< Length of section 1. */
+    short center;                         /**< Originating center. */
+    short subcenter;                      /**< Originating subcenter. */
+    unsigned char master_version;         /**< GRIB master tables version number. */
+    unsigned char local_version;          /**< Version number of GRIB local tables used to augment Master Tables. */
+    unsigned char sig_ref_time;           /**< Significance of reference time. */
+    short year;                           /**< Year. */
+    unsigned char month;                  /**< Month. */
+    unsigned char day;                    /**< Day. */
+    unsigned char hour;                   /**< Hour. */
+    unsigned char minute;                 /**< Minute. */
+    unsigned char second;                 /**< Second. */
+    unsigned char status;                 /**< Production Status of Processed data in the GRIB message. */
+    unsigned char type;                   /**< Type of processed data in this GRIB message. */
+    struct g2c_section_info *sec;         /**< List of section metadata. */
+    struct g2c_file_info *file;           /**< Pointer to containing file. */
+    struct g2c_message_info *next;        /**< Pointer to next in list. */
 } G2C_MESSAGE_INFO_T;
 
 /** Information about a section 3 through 7 in a GRIB2 message. */
 typedef struct g2c_section_info
 {
-    int sec_id; /**< ID of the section (0-based). */
-    unsigned int sec_len; /**< Length of the section (in bytes). */
-    size_t bytes_to_sec; /**< Number of bytes from start of message to this section. */
-    unsigned char sec_num; /**< Section number. */
-    G2C_MESSAGE_INFO_T *msg; /**< Pointer to contianing message. */
-    void *sec_info; /**< Pointer to struct specific for section 3, 4, 5, 6, or 7. */
+    int sec_id;                    /**< ID of the section (0-based). */
+    unsigned int sec_len;          /**< Length of the section (in bytes). */
+    size_t bytes_to_sec;           /**< Number of bytes from start of message to this section. */
+    unsigned char sec_num;         /**< Section number. */
+    G2C_MESSAGE_INFO_T *msg;       /**< Pointer to contianing message. */
+    void *sec_info;                /**< Pointer to struct specific for section 3, 4, 5, 6, or 7. */
     struct g2c_section_info *next; /**< Pointer to next in list. */
     struct g2c_section_info *prev; /**< Pointer to previous in list. */
-    long long int *template; /**< Grid, product, or data template. */
-    int template_len; /**< Number of entries in template. */
+    long long int *template;       /**< Grid, product, or data template. */
+    int template_len;              /**< Number of entries in template. */
 } G2C_SECTION_INFO_T;
 
 /** Keep information about dimensions defined in section 3. */
 typedef struct g2c_dim_info
 {
-    int dimid; /**< Dimension ID. */
-    size_t len; /**< Length of dimension. */
+    int dimid;                   /**< Dimension ID. */
+    size_t len;                  /**< Length of dimension. */
     char name[G2C_MAX_NAME + 1]; /**< Name of dimension. */
-    float *value; /**< Array of dimension values. */
+    float *value;                /**< Array of dimension values. */
 } G2C_DIM_INFO_T;
 
 /** Information about [Section 3 GRID DEFINITION
@@ -193,12 +195,12 @@ typedef struct g2c_dim_info
 typedef struct g2c_section3_info
 {
     unsigned char source_grid_def; /**< Source of grid definition (See Table 3.0). */
-    unsigned int num_data_points; /**< Number of data points. */
-    unsigned char num_opt; /**< Number of octets for optional list of numbers defining number of points. */
-    unsigned char interp_list; /**< Interpetation of list of numbers defining number of points (See Table 3.11). */
-    unsigned short grid_def; /**< Grid definition template number (= N) (See Table 3.1). */
-    int *optional; /**< Optional list of numbers defining number of points. */
-    G2C_DIM_INFO_T dim[2]; /**< Dimension information. */    
+    unsigned int num_data_points;  /**< Number of data points. */
+    unsigned char num_opt;         /**< Number of octets for optional list of numbers defining number of points. */
+    unsigned char interp_list;     /**< Interpetation of list of numbers defining number of points (See Table 3.11). */
+    unsigned short grid_def;       /**< Grid definition template number (= N) (See Table 3.1). */
+    int *optional;                 /**< Optional list of numbers defining number of points. */
+    G2C_DIM_INFO_T dim[2];         /**< Dimension information. */
 } G2C_SECTION3_INFO_T;
 
 /** Information about [Section 4 PRODUCT DEFINITION
@@ -207,8 +209,8 @@ typedef struct g2c_section4_info
 {
     int field_num;
     unsigned short num_coord; /**< Number of coordinate values after template. */
-    unsigned short prod_def; /**< Product definition template number (See Table 4.0). */
-    int *optional; /**< Optional list of numbers defining number of points. */
+    unsigned short prod_def;  /**< Product definition template number (See Table 4.0). */
+    int *optional;            /**< Optional list of numbers defining number of points. */
 } G2C_SECTION4_INFO_T;
 
 /** Information about [Section 5 DATA REPRESENTATION
@@ -234,11 +236,11 @@ typedef struct g2c_section6_info
 /** This is the information about each open file. */
 typedef struct g2c_file_info
 {
-    int g2cid; /**< ID of the file. */
+    int g2cid;                   /**< ID of the file. */
     char path[G2C_MAX_NAME + 1]; /**< Path of the file. */
-    FILE *f; /**< FILE pointer to open file. */
-    size_t num_messages; /**< Number of messages in the file. */
-    G2C_MESSAGE_INFO_T *msg; /**< Information about each message in the file. */
+    FILE *f;                     /**< FILE pointer to open file. */
+    size_t num_messages;         /**< Number of messages in the file. */
+    G2C_MESSAGE_INFO_T *msg;     /**< Information about each message in the file. */
 } G2C_FILE_INFO_T;
 
 /** An entry in a GRIB2 code table. */
@@ -261,11 +263,11 @@ typedef struct g2c_code_table
 /** An entry in the table of NOAA abbreviations for GRIB parameters. */
 typedef struct g2c_param
 {
-    int g1num; /**< GRIB1 parameter number. */
-    int g1ver; /**< GRIB1 table version. */
-    int g2disc; /**< GRIB2 discipline. */
-    int g2cat; /**< GRIB2 category number. */
-    int g2num; /**< GRIB2 parameter number. */
+    int g1num;                                /**< GRIB1 parameter number. */
+    int g1ver;                                /**< GRIB1 table version. */
+    int g2disc;                               /**< GRIB2 discipline. */
+    int g2cat;                                /**< GRIB2 category number. */
+    int g2num;                                /**< GRIB2 parameter number. */
     char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1]; /**< NOAA abbreviation for this parameter. */
 } G2C_PARAM_T;
 
@@ -427,4 +429,4 @@ void g2_log(int severity, const char *fmt, ...);
 
 #endif /* LOGGING */
 
-#endif  /*  _grib2_int_H  */
+#endif /*  _grib2_int_H  */

@@ -14,7 +14,7 @@ main()
     {
         int g2disc, g2cat, g2num;
         int ret;
-        
+
         /* This will work. */
         if ((ret = g2c_param_g1tog2(1, 2, &g2disc, &g2cat, &g2num)))
             return ret;
@@ -29,7 +29,6 @@ main()
             return ret;
         if (g2disc != 0 || g2cat != 3 || g2num != 0)
             return G2C_ERROR;
-
 
         if ((ret = g2c_param_g1tog2(2, 2, &g2disc, &g2cat, &g2num)))
             return ret;
@@ -3071,10 +3070,8 @@ main()
         /*     return ret; */
         /* if (g2disc != 2 || g2cat != 3 || g2num != 5) */
         /*     return G2C_ERROR; */
-
     }
     printf("ok!\n");
     printf("SUCCESS!!!\n");
     return G2C_NOERROR;
 }
-

@@ -3,9 +3,9 @@
  * stream
  * @author Stephem Gilbert @date 2003-08-27
  */
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Unpack JPEG2000 compressed data into an array of floats or doubles,
@@ -42,7 +42,7 @@
  */
 static int
 jpcunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-	      void *fld, int fld_is_double, int verbose)
+              void *fld, int fld_is_double, int verbose)
 {
     g2int *ifld;
     g2int j, nbits;
@@ -63,35 +63,35 @@ jpcunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
     {
         if (!(ifld = calloc(ndpts, sizeof(g2int))))
         {
-	    if (verbose)
-		fprintf(stderr, "Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
+            if (verbose)
+                fprintf(stderr, "Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
             return G2C_ENOMEM;
         }
         dec_jpeg2000((char *)cpack, len, ifld);
-	if (fld_is_double)
-	{
-	    for (j = 0; j < ndpts; j++)
-		dfld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
-	}
-	else
-	{
-	    for (j = 0; j < ndpts; j++)
-		ffld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
-	}
+        if (fld_is_double)
+        {
+            for (j = 0; j < ndpts; j++)
+                dfld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
+        }
+        else
+        {
+            for (j = 0; j < ndpts; j++)
+                ffld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
+        }
         free(ifld);
     }
     else
     {
-	if (fld_is_double)
-	{
-	    for (j = 0; j < ndpts; j++)
-		dfld[j] = ref;
-	}
-	else
-	{
-	    for (j = 0; j < ndpts; j++)
-		ffld[j] = ref;
-	}
+        if (fld_is_double)
+        {
+            for (j = 0; j < ndpts; j++)
+                dfld[j] = ref;
+        }
+        else
+        {
+            for (j = 0; j < ndpts; j++)
+                ffld[j] = ref;
+        }
     }
 
     return G2C_NOERROR;
@@ -124,11 +124,11 @@ jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
           float *fld)
 {
     int ret;
-    
+
     LOG((2, "g2c_jpcunpack len %lld ndpts %lld", len, ndpts));
 
     if ((ret = jpcunpack_int(cpack, len, idrstmpl, ndpts, fld, 0, 1)) == G2_JPCUNPACK_MEM)
-	return G2_JPCUNPACK_MEM;
+        return G2_JPCUNPACK_MEM;
 
     return ret;
 }
@@ -164,10 +164,10 @@ g2c_jpcunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
     int i;
 
     LOG((2, "g2c_jpcunpackf len %d ndpts %lld", len, ndpts));
-    
+
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
-    
+
     return jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 0, 0);
 }
 
@@ -202,11 +202,11 @@ g2c_jpcunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
     g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
     int i;
-    
+
     LOG((2, "g2c_jpcunpackd len %lld ndpts %lld", len, ndpts));
-    
+
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
-    
+
     return jpcunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 1, 0);
 }

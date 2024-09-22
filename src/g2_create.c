@@ -4,11 +4,11 @@
  * @author Stephen Gilbert @date 2002-10-31
  */
 
-#include <stdio.h>
 #include "grib2_int.h"
+#include <stdio.h>
 
 #define MAPSEC1LEN 13 /**< Length of Map Section 1. */
-#define LENSEC0 16 /**< Length of GRIB Section 0. */
+#define LENSEC0 16    /**< Length of GRIB Section 0. */
 
 /**
  * Initialize a new GRIB2 message and pack GRIB2
@@ -87,17 +87,17 @@ g2_create(unsigned char *cgrib, g2int *listsec0, g2int *listsec1)
 
     /* Pack Section 0 - Indicator Section (except for total length of
      * GRIB message). */
-    cgrib[0] = 0x47; /* 'G' */
-    cgrib[1] = 0x52; /* 'R' */
-    cgrib[2] = 0x49; /* 'I' */
-    cgrib[3] = 0x42; /* 'B' */
-    sbit(cgrib, &zero, 32, 16); /* reserved for future use */
+    cgrib[0] = 0x47;                  /* 'G' */
+    cgrib[1] = 0x52;                  /* 'R' */
+    cgrib[2] = 0x49;                  /* 'I' */
+    cgrib[3] = 0x42;                  /* 'B' */
+    sbit(cgrib, &zero, 32, 16);       /* reserved for future use */
     sbit(cgrib, listsec0 + 0, 48, 8); /* Discipline */
     sbit(cgrib, listsec0 + 1, 56, 8); /* GRIB edition number */
 
     /* Pack Section 1 - Identification Section. */
-    ibeg = LENSEC0 * 8; /* Calculate offset for beginning of section 1. */
-    iofst = ibeg + 32; /* Leave space for length of section. */
+    ibeg = LENSEC0 * 8;          /* Calculate offset for beginning of section 1. */
+    iofst = ibeg + 32;           /* Leave space for length of section. */
     sbit(cgrib, &one, iofst, 8); /* Store section number (1). */
     iofst = iofst + 8;
 

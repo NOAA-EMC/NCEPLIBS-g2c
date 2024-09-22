@@ -3,9 +3,9 @@
  * @author Stephen Gilbert @date 2003-08-27
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Unpack a data field that was packed into a PNG
@@ -38,7 +38,7 @@
  */
 static int
 pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-	      void *fld, int fld_is_double, int verbose)
+              void *fld, int fld_is_double, int verbose)
 {
     g2int *ifld;
     g2int j, nbits, width, height;
@@ -54,7 +54,7 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
     dscale = int_power(10.0, -idrstmpl[2]);
     nbits = idrstmpl[3];
     LOG((2, "bscale %g dscale %g nbits %ld", bscale, dscale, nbits));
-    
+
     /* If nbits equals 0, we have a constant field where the reference
      * value is the data value at each gridpoint. */
     if (nbits != 0)
@@ -63,31 +63,31 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
         ctemp = calloc(ndpts * 4, 1);
         if (!ifld || !ctemp)
         {
-	    if (verbose)
-		fprintf(stderr,"Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
+            if (verbose)
+                fprintf(stderr, "Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
             return G2C_ENOMEM;
         }
         dec_png(cpack, &width, &height, ctemp);
         gbits(ctemp, ifld, 0, nbits, 0, ndpts);
         for (j = 0; j < ndpts; j++)
-	{
-	    if (fld_is_double)
-		dfld[j] = (((double)ifld[j] * bscale) + ref) * dscale;
-	    else
-		ffld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
-	}
+        {
+            if (fld_is_double)
+                dfld[j] = (((double)ifld[j] * bscale) + ref) * dscale;
+            else
+                ffld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
+        }
         free(ctemp);
         free(ifld);
     }
     else
     {
         for (j = 0; j < ndpts; j++)
-	{
-	    if (fld_is_double)
-		dfld[j] = ref;
-	    else
-		ffld[j] = ref;
-	}
+        {
+            if (fld_is_double)
+                dfld[j] = ref;
+            else
+                ffld[j] = ref;
+        }
     }
 
     return 0;
@@ -117,9 +117,9 @@ pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
           float *fld)
 {
     int ret;
-    
+
     if ((ret = pngunpack_int(cpack, len, idrstmpl, ndpts, fld, 0, 1)) == G2C_ENOMEM)
-	return G2_JPCUNPACK_MEM;
+        return G2_JPCUNPACK_MEM;
 
     return ret;
 }
@@ -140,19 +140,19 @@ pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
  * - ::G2C_NOERROR No Error.
  * - ::G2C_ENOMEM Out of memory.
  *
- * @author Ed Hartnett @date Sep 8, 2022 
+ * @author Ed Hartnett @date Sep 8, 2022
 */
 int
 g2c_pngunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
-	       float *fld)
+               float *fld)
 {
     g2int idrstmpl8[G2C_PNG_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
     int i;
-    
+
     for (i = 0; i < G2C_PNG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
-    
+
     return pngunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 0, 0);
 }
 
@@ -176,14 +176,14 @@ g2c_pngunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
  */
 int
 g2c_pngunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
-	       double *fld)
+               double *fld)
 {
     g2int idrstmpl8[G2C_PNG_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
     int i;
-    
+
     for (i = 0; i < G2C_PNG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
-    
+
     return pngunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 1, 0);
 }
