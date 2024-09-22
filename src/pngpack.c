@@ -2,9 +2,9 @@
  * @brief Pack data with PNG compression.
  * @author Stephen Gilbert @date 2003-08-27
  */
-#include <stdlib.h>
-#include <math.h>
 #include "grib2_int.h"
+#include <math.h>
+#include <stdlib.h>
 
 /**
  * Packs float or double data into PNG image
@@ -50,11 +50,11 @@
  * @author Ed Hartnett @date Aug 8, 2022
  */
 static int
-pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl, 
-	    unsigned char *cpack, g2int *lcpack, int verbose)
+pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl,
+            unsigned char *cpack, g2int *lcpack, int verbose)
 {
     g2int *ifld = NULL;
-    static float alog2 = ALOG2;       /*  ln(2.0) */
+    static float alog2 = ALOG2; /*  ln(2.0) */
     g2int j, nbits, imin, imax, maxdif;
     g2int ndpts, nbytes;
     float bscale, dscale, rmax, rmin, temp;
@@ -65,7 +65,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     int ret = G2C_NOERROR;
 
     LOG((2, "pngpack_int fld_is_double %d width %ld height %ld idrstmpl[1] %d",
-	 fld_is_double, width, height, idrstmpl[1]));
+         fld_is_double, width, height, idrstmpl[1]));
 
     ndpts = width * height;
     bscale = int_power(2.0, -idrstmpl[1]);
@@ -81,28 +81,28 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     rmin = ffld[0];
     if (fld_is_double)
     {
-	for (j = 1; j < ndpts; j++)
-	{
-	    if (dfld[j] > rmaxd)
-		rmaxd = dfld[j];
-	    if (dfld[j] < rmind)
-		rmind = dfld[j];
-	}
-	maxdif = (g2int)rint((rmaxd - rmind) * dscale * bscale);
+        for (j = 1; j < ndpts; j++)
+        {
+            if (dfld[j] > rmaxd)
+                rmaxd = dfld[j];
+            if (dfld[j] < rmind)
+                rmind = dfld[j];
+        }
+        maxdif = (g2int)rint((rmaxd - rmind) * dscale * bscale);
     }
     else
     {
-	for (j = 1; j < ndpts; j++)
-	{
-	    if (ffld[j] > rmax)
-		rmax = ffld[j];
-	    if (ffld[j] < rmin)
-		rmin = ffld[j];
-	}
-	maxdif = (g2int)rint((rmax - rmin) * dscale * bscale);
+        for (j = 1; j < ndpts; j++)
+        {
+            if (ffld[j] > rmax)
+                rmax = ffld[j];
+            if (ffld[j] < rmin)
+                rmin = ffld[j];
+        }
+        maxdif = (g2int)rint((rmax - rmin) * dscale * bscale);
     }
     LOG((3, "rmax %g rmaxd %g rmin %g rmind %g", rmax, rmaxd, rmin, rmind));
-    
+
     /* If max and min values are not equal, pack up field. If they are
      * equal, we have a constant field, and the reference value (rmin)
      * is the value for each point in the field and set nbits to 0. */
@@ -122,59 +122,59 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
             temp = log((double)(maxdif + 1)) / alog2;
             nbits = (g2int)ceil(temp);
             /*   scale data */
-	    if (fld_is_double)
-	    {
-		rmind = (float)imin;
-		for(j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(dfld[j] * dscale) - imin;
-	    }
-	    else
-	    {
-		rmin = (float)imin;
-		for(j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(ffld[j] * dscale) - imin;
-	    }
+            if (fld_is_double)
+            {
+                rmind = (float)imin;
+                for (j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(dfld[j] * dscale) - imin;
+            }
+            else
+            {
+                rmin = (float)imin;
+                for (j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(ffld[j] * dscale) - imin;
+            }
         }
         else
         {
             /* Use binary scaling factor and calculate minumum number
              * of bits in which the data will fit. */
-	    if (fld_is_double)
-	    {
-		rmind = rmind * dscale;
-		rmaxd = rmaxd * dscale;
-		maxdif = (g2int)rint((rmaxd - rmind) * bscale);
-	    }
-	    else
-	    {
-		rmin = rmin * dscale;
-		rmax = rmax * dscale;
-		maxdif = (g2int)rint((rmax - rmin) * bscale);
-	    }
+            if (fld_is_double)
+            {
+                rmind = rmind * dscale;
+                rmaxd = rmaxd * dscale;
+                maxdif = (g2int)rint((rmaxd - rmind) * bscale);
+            }
+            else
+            {
+                rmin = rmin * dscale;
+                rmax = rmax * dscale;
+                maxdif = (g2int)rint((rmax - rmin) * bscale);
+            }
             temp = log((double)(maxdif + 1)) / alog2;
             nbits = (g2int)ceil(temp);
             /*   scale data */
-	    if (fld_is_double)
-	    {
-		for (j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(((dfld[j] * dscale) - rmind) * bscale);
-	    }
-	    else
-	    {
-		for (j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(((ffld[j] * dscale) - rmin) * bscale);
-	    }		
+            if (fld_is_double)
+            {
+                for (j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(((dfld[j] * dscale) - rmind) * bscale);
+            }
+            else
+            {
+                for (j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(((ffld[j] * dscale) - rmin) * bscale);
+            }
         }
 
         /* Pack data into full octets, then do PNG encode and
          * calculate the length of the packed data in bytes. */
-        if (nbits <= 8) 
+        if (nbits <= 8)
             nbits = 8;
-        else if (nbits <= 16) 
+        else if (nbits <= 16)
             nbits = 16;
-        else if (nbits <= 24) 
+        else if (nbits <= 24)
             nbits = 24;
-        else 
+        else
             nbits = 32;
 
         nbytes = (nbits / 8) * ndpts;
@@ -183,11 +183,11 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 
         /* Encode data into PNG Format. */
         if ((*lcpack = (g2int)enc_png(ctemp, width, height, nbits, cpack)) <= 0)
-	{
-	    if (verbose)
-		printf("pngpack: ERROR Packing PNG = %d\n", (int)*lcpack);
-	    ret = G2C_EPNG;
-	}
+        {
+            if (verbose)
+                printf("pngpack: ERROR Packing PNG = %d\n", (int)*lcpack);
+            ret = G2C_EPNG;
+        }
         free(ctemp);
     }
     else
@@ -198,11 +198,11 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 
     /* Fill in ref value and number of bits in Template 5.0. */
     if (fld_is_double)
-	rmin = (float)rmind;
-    mkieee(&rmin, idrstmpl, 1);   /* ensure reference value is IEEE format */
+        rmin = (float)rmind;
+    mkieee(&rmin, idrstmpl, 1); /* ensure reference value is IEEE format */
     idrstmpl[3] = nbits;
-    idrstmpl[4] = 0;         /* original data were reals */
-    
+    idrstmpl[4] = 0; /* original data were reals */
+
     if (ifld)
         free(ifld);
 
@@ -210,7 +210,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 }
 
 /**
- * This subroutine packs up a float data field into PNG image format. 
+ * This subroutine packs up a float data field into PNG image format.
  *
  * After the data field is scaled, and the reference value is
  * subtracted out, it is treated as a grayscale image and passed to a
@@ -239,7 +239,7 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
  * @author Ed Hartnett
  */
 void
-pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl, 
+pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
         unsigned char *cpack, g2int *lcpack)
 {
     /* Ignore the return value. */
@@ -247,7 +247,7 @@ pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
 }
 
 /**
- * This subroutine packs up a float data field into PNG image format. 
+ * This subroutine packs up a float data field into PNG image format.
  *
  * After the data field is scaled, and the reference value is
  * subtracted out, it is treated as a grayscale image and passed to a
@@ -279,13 +279,13 @@ pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
  * @author Ed Hartnett
  */
 int
-g2c_pngpackf(float *fld, size_t width, size_t height, int *idrstmpl, 
+g2c_pngpackf(float *fld, size_t width, size_t height, int *idrstmpl,
              unsigned char *cpack, int *lcpack)
 {
     g2int width8 = width, height8 = height, lcpack8 = *lcpack;
     g2int idrstmpl8[G2C_PNG_DRS_TEMPLATE_LEN];
     int i, ret;
-    
+
     for (i = 0; i < G2C_PNG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
 
@@ -301,7 +301,7 @@ g2c_pngpackf(float *fld, size_t width, size_t height, int *idrstmpl,
 }
 
 /**
- * This subroutine packs up a double data field into PNG image format. 
+ * This subroutine packs up a double data field into PNG image format.
  *
  * After the data field is scaled, and the reference value is
  * subtracted out, it is treated as a grayscale image and passed to a
@@ -333,13 +333,13 @@ g2c_pngpackf(float *fld, size_t width, size_t height, int *idrstmpl,
  * @author Ed Hartnett @date Aug 8, 2022
  */
 int
-g2c_pngpackd(double *fld, size_t width, size_t height, int *idrstmpl, 
+g2c_pngpackd(double *fld, size_t width, size_t height, int *idrstmpl,
              unsigned char *cpack, int *lcpack)
 {
     g2int width8 = width, height8 = height, lcpack8 = *lcpack;
     g2int idrstmpl8[G2C_PNG_DRS_TEMPLATE_LEN];
     int i, ret;
-    
+
     for (i = 0; i < G2C_PNG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
 
@@ -353,4 +353,3 @@ g2c_pngpackd(double *fld, size_t width, size_t height, int *idrstmpl,
     }
     return ret;
 }
-

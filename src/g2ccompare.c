@@ -5,8 +5,8 @@
  * @author Ed Hartnett @date Dec 28, 2022
  */
 #include "grib2_int.h"
-#include <stdarg.h>
 #include <math.h>
+#include <stdarg.h>
 
 /** Global file information. */
 extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
@@ -51,7 +51,7 @@ g2c_compare(int g2cid1, int g2cid2)
     for (m = 0; m < g2c_file[g2cid1].num_messages; m++)
     {
         int fld;
-        
+
         if (msg1->discipline != msg2->discipline)
             return G2C_ERROR;
         if (msg1->center != msg2->center || msg1->subcenter != msg2->subcenter ||
@@ -64,7 +64,7 @@ g2c_compare(int g2cid1, int g2cid2)
         if (msg1->num_local != msg2->num_local || msg1->num_fields != msg2->num_fields)
             return G2C_ERROR;
 
-            /* For each field, print info. */
+        /* For each field, print info. */
         for (fld = 0; fld < msg1->num_fields; fld++)
         {
             G2C_SECTION_INFO_T *sec_1, *sec_2;
@@ -99,7 +99,7 @@ g2c_compare(int g2cid1, int g2cid2)
                 return G2C_ERROR;
             for (t = 0; t < sec_1->template_len; t++)
                 if (sec_1->template[t] != sec_2->template[t])
-                    return G2C_ERROR;                    
+                    return G2C_ERROR;
 
             /* Find the sec3 that applies to this field. */
             for (sec3_1 = sec_1; sec3_1; sec3_1 = sec3_1->prev)
@@ -124,8 +124,8 @@ g2c_compare(int g2cid1, int g2cid2)
                 return G2C_ERROR;
             for (t = 0; t < sec3_1->template_len; t++)
                 if (sec3_1->template[t] != sec3_2->template[t])
-                    return G2C_ERROR;                    
-            
+                    return G2C_ERROR;
+
             /* Find the sec5 that applies to this field. */
             for (sec5_1 = sec_1; sec5_1; sec5_1 = sec5_1->next)
                 if (sec5_1->sec_num == 5)
@@ -146,8 +146,7 @@ g2c_compare(int g2cid1, int g2cid2)
                 return G2C_ERROR;
             for (t = 0; t < sec5_1->template_len; t++)
                 if (sec5_1->template[t] != sec5_2->template[t])
-                    return G2C_ERROR;                    
-
+                    return G2C_ERROR;
         }
         msg1 = msg1->next;
         msg2 = msg2->next;

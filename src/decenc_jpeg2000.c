@@ -3,11 +3,11 @@
  * @author Alyson Stahl @date 2024-14-08
  */
 
+#include "grib2_int.h"
+#include "jasper/jasper.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "grib2_int.h"
-#include "jasper/jasper.h"
 
 #define MAXOPTSSIZE 1024 /**< Maximum size of options. */
 
@@ -48,7 +48,7 @@ g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
 {
     g2int width8 = width, height8 = height, nbits8 = nbits, ltype8 = ltype;
     g2int ratio8 = ratio, retry8 = retry, jpclen8 = jpclen;
-    
+
     return enc_jpeg2000(cin, width8, height8, nbits8, ltype8, ratio8, retry8,
                         outjpc, jpclen8);
 }
@@ -64,7 +64,7 @@ g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
  * 2002-12-02 | Gilbert | Initial
  * 2004-12-16 | Gilbert | Added retry argument allowing increased guard bits.
  * 2022-04-15 | Hartnett | Converted to use jas_ instead of jpc_ functions.
- * 
+ *
  * @param cin Packed matrix of Grayscale image values to encode.
  * @param width width of image.
  * @param height height of image.
@@ -103,16 +103,16 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     int fmt;
 
     LOG((3, "enc_jpeg2000 width %ld height %ld nbits %ld ltype %ld ratio %ld retry %ld jpclen %d",
-	 width, height, nbits, ltype, ratio, retry, jpclen));
+         width, height, nbits, ltype, ratio, retry, jpclen));
 
     /* Set lossy compression options, if requested. */
     if (ltype != 1)
         opts[0] = (char)0;
     else
-        snprintf(opts,MAXOPTSSIZE,"mode=real\nrate=%f",1.0/(float)ratio);
+        snprintf(opts, MAXOPTSSIZE, "mode=real\nrate=%f", 1.0 / (float)ratio);
 
-    if (retry == 1)  /* option to increase number of guard bits */
-        strcat(opts,"\nnumgbits=4");
+    if (retry == 1) /* option to increase number of guard bits */
+        strcat(opts, "\nnumgbits=4");
 
     /* Initialize the JasPer image structure describing the grayscale
      * image to encode into the JPEG2000 code stream. */
@@ -122,7 +122,7 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     image.bry_ = (jas_image_coord_t)height;
     image.numcmpts_ = 1;
     image.maxcmpts_ = 1;
-    image.clrspc_ = JAS_CLRSPC_SGRAY;         /* grayscale Image */
+    image.clrspc_ = JAS_CLRSPC_SGRAY; /* grayscale Image */
     image.cmprof_ = 0;
 
     cmpt.tlx_ = 0;
@@ -291,9 +291,8 @@ int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
     jas_image_readcmpt(image, 0, 0, 0, jas_image_width(image),
                        jas_image_height(image), data);
 
-
     LOG((3, "pcmpt->height_ %d pcmpt->width_ %d", pcmpt->height_, pcmpt->width_));
-    
+
     /* Copy data matrix to output integer array. */
     k = 0;
     if (out_is_g2int)
@@ -371,7 +370,7 @@ g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld)
  *     components. Only grayscale is expected.
  * - ::G2_JASPER_INIT Error inializing Jasper library.
  *
- * @author Stephen Gilbert, Ed Hartnett 
+ * @author Stephen Gilbert, Ed Hartnett
  */
 int
 dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)

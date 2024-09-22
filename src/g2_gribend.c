@@ -3,12 +3,12 @@
  * been added.
  * @author Stephen Gilbert @date 2002-10-31
  */
-#include <stdio.h>
 #include "grib2_int.h"
+#include <stdio.h>
 
 /**
  * Finalize a GRIB2 message after all grids and fields
- * have been added. 
+ * have been added.
  *
  * This function adds the End Section ("7777") to the end of
  * the GRIB message and calculates the length and stores it in the
@@ -36,11 +36,12 @@
  *
  * @author Stephen Gilbert @date 2002-10-31
  */
-g2int g2_gribend(unsigned char *cgrib)
+g2int
+g2_gribend(unsigned char *cgrib)
 {
     g2int iofst, lencurr, len, ilen, isecnum;
     g2int lengrib;
-    unsigned char seven = 0x37;   /* '7' */
+    unsigned char seven = 0x37; /* '7' */
     int ret;
 
     /* Check for GRIB header and terminator. Translate the error codes
@@ -55,7 +56,7 @@ g2int g2_gribend(unsigned char *cgrib)
 
     /*  Loop through all current sections of the GRIB message to find
      *  the last section number. */
-    len = 16;    /* Length of Section 0. */
+    len = 16; /* Length of Section 0. */
     for (;;)
     {
         /*    Get number and length of next section. */
@@ -81,7 +82,7 @@ g2int g2_gribend(unsigned char *cgrib)
     }
 
     /* Can only add End Section (Section 8) after Section 7. */
-    if (isecnum != 7 )
+    if (isecnum != 7)
     {
         printf("g2_gribend: Section 8 can only be added after Section 7.\n");
         printf("g2_gribend: Section %ld was the last found in given GRIB message.\n", isecnum);

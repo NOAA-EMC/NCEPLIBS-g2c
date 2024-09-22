@@ -4,9 +4,9 @@
  * Ed Hartnett 11/1/21
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 #define DATA_LEN 4
 #define PACKED_LEN 200

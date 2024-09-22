@@ -6,9 +6,9 @@
  * @author Ed Hartnett @date 10/12/22
  */
 #include "grib2_int.h"
-#include <time.h>
-#include <stdarg.h>
 #include <libgen.h>
+#include <stdarg.h>
+#include <time.h>
 
 /** Global file information. */
 extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
@@ -76,8 +76,7 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
     int ret;
 
     /* All pointers must be provided. */
-    if (!f || !reclen || !msg || !local || !gds || !pds || !drs || !bms || !data
-        || !msglen || !version || !discipline || !fieldnum)
+    if (!f || !reclen || !msg || !local || !gds || !pds || !drs || !bms || !data || !msglen || !version || !discipline || !fieldnum)
         return G2C_EINVAL;
 
     LOG((4, "g2c_start_index_record rw_flag %d", rw_flag));
@@ -150,8 +149,8 @@ g2c_start_index_record(FILE *f, int rw_flag, int *reclen, int *msg, int *local, 
  */
 int
 g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, size_t *local, size_t *gds,
-			  size_t *pds, size_t *drs, size_t *bms, size_t *data, size_t *msglen,
-			  unsigned char *version, unsigned char *discipline, short *fieldnum)
+                          size_t *pds, size_t *drs, size_t *bms, size_t *data, size_t *msglen,
+                          unsigned char *version, unsigned char *discipline, short *fieldnum)
 {
     /* size_t size_t_be; */
     short fieldnum1; /* This is for the 1-based fieldnum in the index file. */
@@ -160,8 +159,7 @@ g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, size_t
     LOG((4, "g2c_start_index_record_lf rw_flag %d", rw_flag));
 
     /* All pointers must be provided. */
-    if (!f || !reclen || !msg || !local || !gds || !pds || !drs || !bms || !data
-        || !msglen || !version || !discipline || !fieldnum)
+    if (!f || !reclen || !msg || !local || !gds || !pds || !drs || !bms || !data || !msglen || !version || !discipline || !fieldnum)
         return G2C_EINVAL;
 
     /* When writing, set the fieldnum1 to be a 1-based index, just
@@ -223,7 +221,7 @@ g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, size_t
  * @param version Pointer that gets grib version number (always 1 for this function).
  * @param pds_val Pointer that gets an arry of 27 bytes of the product definition section (pds).
  * @param gds_val Pointer that gets an arry of 41 bytes of the gds.
- * @param bms_val Pointer that gets an arry of 5 bytes of the bms. 
+ * @param bms_val Pointer that gets an arry of 5 bytes of the bms.
  * @param bds_val Pointer that gets an arry of 10 bytes, bytes 41-100 of the bds.
  * @param pds_val2 Pointer that gets an arry of 59 bytes 41-100 of the pds. Ignored if null.
  * @param pds_val3 Pointer that gets an arry of 11 bytes 29-40 of the pds. Ignored if null.
@@ -238,17 +236,17 @@ g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, size_t
  */
 int
 g2c_start_index1_record(FILE *f, int rw_flag, unsigned int *b2_msg, unsigned int *b2_pds,
-			unsigned int *b2_gds, unsigned int *b2_bms, unsigned int *b2_bds,
-			unsigned int *msglen, unsigned char *version, unsigned char *pds_val,
-			unsigned char *gds_val, unsigned char *bms_val, unsigned char *bds_val,
-			unsigned char *pds_val2, unsigned char *pds_val3, unsigned char *gds_val2)
+                        unsigned int *b2_gds, unsigned int *b2_bms, unsigned int *b2_bds,
+                        unsigned int *msglen, unsigned char *version, unsigned char *pds_val,
+                        unsigned char *gds_val, unsigned char *bms_val, unsigned char *bds_val,
+                        unsigned char *pds_val2, unsigned char *pds_val3, unsigned char *gds_val2)
 {
-    size_t bytes_read;    
+    size_t bytes_read;
     int ret;
 
     /* All pointers must be provided. */
     if (!f || !b2_msg || !b2_pds || !b2_gds || !b2_bms || !b2_bds ||
-	!msglen || !version)
+        !msglen || !version)
         return G2C_EINVAL;
 
     /* Read or write the values at the beginning of each index
@@ -273,13 +271,13 @@ g2c_start_index1_record(FILE *f, int rw_flag, unsigned int *b2_msg, unsigned int
      * length. For more detail see
      * https://noaa-emc.github.io/NCEPLIBS-grib_util/grbindex/grbindex_8f.html. */
     if ((bytes_read = fread(pds_val, 1, G2C_INDEX1_PDS_VAL_LEN, f)) != G2C_INDEX1_PDS_VAL_LEN)
-	return G2C_EFILE;
+        return G2C_EFILE;
     if ((bytes_read = fread(gds_val, 1, G2C_INDEX1_GDS_VAL_LEN, f)) != G2C_INDEX1_GDS_VAL_LEN)
-	return G2C_EFILE;
+        return G2C_EFILE;
     if ((bytes_read = fread(bms_val, 1, G2C_INDEX1_BMS_VAL_LEN, f)) != G2C_INDEX1_BMS_VAL_LEN)
-	return G2C_EFILE;
+        return G2C_EFILE;
     if ((bytes_read = fread(bds_val, 1, G2C_INDEX1_BDS_VAL_LEN, f)) != G2C_INDEX1_BDS_VAL_LEN)
-	return G2C_EFILE;
+        return G2C_EFILE;
 
     return G2C_NOERROR;
 }
@@ -323,7 +321,7 @@ g2c_get_prod_sections(G2C_MESSAGE_INFO_T *msg, int fieldnum, G2C_SECTION_INFO_T 
     G2C_SECTION_INFO_T *s3, *s4, *s5, *s6, *s7;
 
     /* Check inputs. */
-    if (!msg || fieldnum < 0 ||!sec3 || !sec4 || !sec5 || !sec6 || !sec7)
+    if (!msg || fieldnum < 0 || !sec3 || !sec4 || !sec5 || !sec6 || !sec7)
         return G2C_EINVAL;
 
     /* Find the product with matching fieldnum. */
@@ -441,7 +439,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     char my_path[G2C_INDEX_BASENAME_LEN + 1];
     G2C_MESSAGE_INFO_T *msg;
     int total_index_size = 0; /* Does not include size of header records. */
-    int index_version = 1; /* 1 for legacy, 2 if indexed file may be > 2 GB. */
+    int index_version = 1;    /* 1 for legacy, 2 if indexed file may be > 2 GB. */
     int reclen;
     int ret = G2C_NOERROR;
 
@@ -467,8 +465,8 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 
     /* If LARGE_INDEX_FILE, set index version. */
     if (mode & G2C_LARGE_FILE_INDEX)
-	index_version = 2;
-    
+        index_version = 2;
+
     /* Create the index file. */
     if (!(f = fopen(index_file, "wb+")))
         return G2C_EFILE;
@@ -482,10 +480,10 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
     if (!ret)
     {
         /* Create header 1. */
-	snprintf(h1, G2C_INDEX_HEADER_LEN + 1,
-		 "!GFHDR!  1   1   162 %4.4u-%2.2u-%2.2u %2.2u:%2.2u:%2.2u %s        hfe08           grb2index\n",
-		 (tm.tm_year + 1900), (tm.tm_mon + 1), tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec,
-		 "GB2IX1");
+        snprintf(h1, G2C_INDEX_HEADER_LEN + 1,
+                 "!GFHDR!  1   1   162 %4.4u-%2.2u-%2.2u %2.2u:%2.2u:%2.2u %s        hfe08           grb2index\n",
+                 (tm.tm_year + 1900), (tm.tm_mon + 1), tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec,
+                 "GB2IX1");
 
         /* Write header 1. */
         if ((items_written = fwrite(h1, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
@@ -498,18 +496,18 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
         for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
         {
             short fieldnum;
-            
+
             /* Find information for each field in the message. */
             for (fieldnum = 0; fieldnum < msg->num_fields; fieldnum++)
             {
                 G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
-                
+
                 if ((ret = g2c_get_prod_sections(msg, fieldnum, &sec3, &sec4, &sec5, &sec6, &sec7)))
                     break;
-                
+
                 /* What will be the length of this index record? */
                 reclen = (index_version == 1 ? G2C_INDEX_FIXED_LEN : G2C_INDEX_FIXED_LEN_2) +
-		    msg->sec1_len + sec3->sec_len + sec4->sec_len + sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
+                         msg->sec1_len + sec3->sec_len + sec4->sec_len + sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
                 total_index_size += reclen;
                 LOG((4, "fieldnum %d reclen %d total_index_size %d", fieldnum, reclen, total_index_size));
             } /* next product */
@@ -527,7 +525,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
         sprintf(h2, "IX%dFORM:       162    %6d    %6ld  %s    \n", index_version, total_index_size,
                 g2c_file[g2cid].num_messages, my_path);
         LOG((5, "header 2: %s", h2));
-        
+
         /* Write header 2. */
         if ((items_written = fwrite(h2, G2C_INDEX_HEADER_LEN, 1, f)) != 1)
             ret = G2C_EFILE;
@@ -544,7 +542,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
             for (fieldnum = 0; fieldnum < msg->num_fields; fieldnum++)
             {
                 G2C_SECTION_INFO_T *sec3, *sec4, *sec5, *sec6, *sec7;
-                int bs3, bs4, bs5, bs6, bs7; /* bytes to each section, as ints. */
+                int bs3, bs4, bs5, bs6, bs7;              /* bytes to each section, as ints. */
                 size_t bs3_8, bs4_8, bs5_8, bs6_8, bs7_8; /* bytes to each section, as size_t. */
                 unsigned char sec_num;
                 int ret;
@@ -564,29 +562,28 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
                 bs7_8 = sec7->bytes_to_sec;
 
                 /* What will be the length of this index record? */
-                reclen = (index_version == 1 ? G2C_INDEX_FIXED_LEN : G2C_INDEX_FIXED_LEN_2)
-		    + msg->sec1_len + sec3->sec_len + sec4->sec_len + sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
+                reclen = (index_version == 1 ? G2C_INDEX_FIXED_LEN : G2C_INDEX_FIXED_LEN_2) + msg->sec1_len + sec3->sec_len + sec4->sec_len + sec5->sec_len + G2C_INDEX_BITMAP_BYTES;
                 LOG((4, "fieldnum %d reclen %d", fieldnum, reclen));
 
                 /* Write the beginning of the index record. */
-		if (index_version == 2)
-		{
-		    if ((ret = g2c_start_index_record_lf(f, G2C_FILE_WRITE, &reclen, &msg->bytes_to_msg, &msg->bytes_to_local,
-							 &bs3_8, &bs4_8, &bs5_8, &bs6_8, &bs7_8, &msg->bytes_in_msg, &msg->master_version,
-							 &msg->discipline, &fieldnum)))
-			break;
-		}
-		else
-		{
-		    int bytes_to_msg = (int)msg->bytes_to_msg;
-		    int b2l;
+                if (index_version == 2)
+                {
+                    if ((ret = g2c_start_index_record_lf(f, G2C_FILE_WRITE, &reclen, &msg->bytes_to_msg, &msg->bytes_to_local,
+                                                         &bs3_8, &bs4_8, &bs5_8, &bs6_8, &bs7_8, &msg->bytes_in_msg, &msg->master_version,
+                                                         &msg->discipline, &fieldnum)))
+                        break;
+                }
+                else
+                {
+                    int bytes_to_msg = (int)msg->bytes_to_msg;
+                    int b2l;
 
-		    b2l = (int)msg->bytes_to_local;
-		    if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &b2l,
-						      &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
-						      &msg->discipline, &fieldnum)))
-			break;
-		}
+                    b2l = (int)msg->bytes_to_local;
+                    if ((ret = g2c_start_index_record(f, G2C_FILE_WRITE, &reclen, &bytes_to_msg, &b2l,
+                                                      &bs3, &bs4, &bs5, &bs6, &bs7, &msg->bytes_in_msg, &msg->master_version,
+                                                      &msg->discipline, &fieldnum)))
+                        break;
+                }
 
                 /* Write the section 1, identification section. */
                 if ((ret = g2c_rw_section1_metadata(f, G2C_FILE_WRITE, msg)))
@@ -663,7 +660,7 @@ g2c_write_index(int g2cid, int mode, const char *index_file)
 }
 
 /**
- * Read the header record apparently named after Steve Lord. 
+ * Read the header record apparently named after Steve Lord.
  *
  * This function reads the first of two 81-byte header records of an
  * index file.
@@ -692,40 +689,40 @@ read_hdr_rec1(FILE *f, int *ip, int *jp, int *kp, char *date_str, char *time_str
     char my_date_str[G2C_INDEX_DATE_STR_LEN + 1];
     char my_time_str[G2C_INDEX_TIME_STR_LEN + 1];
     int i, j, k;
-    
+
     /* Read the first line of header. */
     if ((bytes_read = fread(line, 1, G2C_INDEX_HEADER_LEN, f)) != G2C_INDEX_HEADER_LEN)
-	return G2C_EFILE;
+        return G2C_EFILE;
     line[G2C_INDEX_HEADER_LEN] = 0;
-    
+
     /* Scan the line. */
     {
-	char long_date_str[G2C_INDEX_HEADER_LEN + 1], long_time_str[G2C_INDEX_HEADER_LEN + 1];
-	char long_str1[G2C_INDEX_HEADER_LEN + 1];
-        
-	sscanf(line, "%s %d %d %d %s %s GB2IX1", long_str1, &i, &j, &k, long_date_str, long_time_str);
-	memcpy(str1, long_str1, G2C_INDEX_STR1_LEN);
-	date_str[G2C_INDEX_STR1_LEN] = 0;
-	memcpy(date_str, long_date_str, G2C_INDEX_DATE_STR_LEN);
-	date_str[G2C_INDEX_DATE_STR_LEN] = 0;
-	memcpy(time_str, long_time_str, G2C_INDEX_TIME_STR_LEN);
-	time_str[G2C_INDEX_TIME_STR_LEN] = 0;
+        char long_date_str[G2C_INDEX_HEADER_LEN + 1], long_time_str[G2C_INDEX_HEADER_LEN + 1];
+        char long_str1[G2C_INDEX_HEADER_LEN + 1];
+
+        sscanf(line, "%s %d %d %d %s %s GB2IX1", long_str1, &i, &j, &k, long_date_str, long_time_str);
+        memcpy(str1, long_str1, G2C_INDEX_STR1_LEN);
+        date_str[G2C_INDEX_STR1_LEN] = 0;
+        memcpy(date_str, long_date_str, G2C_INDEX_DATE_STR_LEN);
+        date_str[G2C_INDEX_DATE_STR_LEN] = 0;
+        memcpy(time_str, long_time_str, G2C_INDEX_TIME_STR_LEN);
+        time_str[G2C_INDEX_TIME_STR_LEN] = 0;
     }
     LOG((4, "str1 %s i %d j %d k %d date_str %s time_str %s", str1, i, j, k, date_str,
-	 time_str));
+         time_str));
 
     /* Return info to caller where desired. */
     if (ip)
-	*ip = i;
+        *ip = i;
     if (jp)
-	*jp = j;
+        *jp = j;
     if (kp)
-	*kp = k;
+        *kp = k;
     if (date_str)
-	strncpy(date_str, my_date_str, G2C_INDEX_DATE_STR_LEN + 1);	
+        strncpy(date_str, my_date_str, G2C_INDEX_DATE_STR_LEN + 1);
     if (time_str)
-	strncpy(time_str, my_time_str, G2C_INDEX_TIME_STR_LEN + 1);	
-    
+        strncpy(time_str, my_time_str, G2C_INDEX_TIME_STR_LEN + 1);
+
     return G2C_NOERROR;
 }
 
@@ -754,37 +751,37 @@ read_hdr_rec1(FILE *f, int *ip, int *jp, int *kp, char *date_str, char *time_str
 */
 static int
 read_hdr_rec2(FILE *f, int *skipp, int *total_lenp, int *num_recp,
-	      char *basename, int *index_version)
+              char *basename, int *index_version)
 {
     size_t bytes_read;
     char line[G2C_INDEX_HEADER_LEN + 1];
     int skip;
-    int total_len, num_rec;    
+    int total_len, num_rec;
     char my_basename[G2C_INDEX_BASENAME_LEN + 1];
-    
+
     /* Read the second line of header. */
     if ((bytes_read = fread(line, 1, G2C_INDEX_HEADER_LEN, f)) != G2C_INDEX_HEADER_LEN)
-	return G2C_EFILE;
+        return G2C_EFILE;
     line[G2C_INDEX_HEADER_LEN] = 0;
     /* Scan the line. Hard! */
     {
-	char long_basename[G2C_INDEX_HEADER_LEN + 1];
-	sscanf(line, "IX%dFORM: %d %d %d %s", index_version, &skip, &total_len,
-	       &num_rec, long_basename);
-	memcpy(my_basename, long_basename, G2C_INDEX_BASENAME_LEN);
-	my_basename[G2C_INDEX_BASENAME_LEN] = 0;
+        char long_basename[G2C_INDEX_HEADER_LEN + 1];
+        sscanf(line, "IX%dFORM: %d %d %d %s", index_version, &skip, &total_len,
+               &num_rec, long_basename);
+        memcpy(my_basename, long_basename, G2C_INDEX_BASENAME_LEN);
+        my_basename[G2C_INDEX_BASENAME_LEN] = 0;
     }
 
     /* Return info to caller where desired. */
     if (skipp)
-	*skipp = skip;
+        *skipp = skip;
     if (total_lenp)
-	*total_lenp = total_len;
+        *total_lenp = total_len;
     if (num_recp)
-	*num_recp = num_rec;
+        *num_recp = num_rec;
     if (basename)
-	strncpy(basename, my_basename, G2C_INDEX_BASENAME_LEN + 1);	
-    
+        strncpy(basename, my_basename, G2C_INDEX_BASENAME_LEN + 1);
+
     return G2C_NOERROR;
 }
 
@@ -806,7 +803,7 @@ g2c_open_index1(const char *index_file)
     int i, j, k;
     char date_str[G2C_INDEX_DATE_STR_LEN + 1];
     char time_str[G2C_INDEX_TIME_STR_LEN + 1];
-    int skip, total_len, num_rec;    
+    int skip, total_len, num_rec;
     char basename[G2C_INDEX_BASENAME_LEN + 1];
     size_t file_pos = G2C_INDEX_HEADER_LEN * 2;
     unsigned char pds_val[G2C_INDEX1_PDS_VAL_LEN];
@@ -832,42 +829,42 @@ g2c_open_index1(const char *index_file)
 
     /* Read header record apparently named after Steve Lord. */
     if ((ret = read_hdr_rec1(f, &i, &j, &k, date_str, time_str)))
-	return ret;
+        return ret;
     LOG((4, "i %d j %d k %d date_str %s time_str %s", i, j, k, date_str, time_str));
 
     /* Read second header record. */
     if ((ret = read_hdr_rec2(f, &skip, &total_len, &num_rec, basename, &index_version)))
-	return ret;
+        return ret;
     LOG((4, "skip %d total_len %d num_rec %d basename %s", skip, total_len, num_rec, basename));
 
     /* Read each index record. These is one record for each message in
        the original GRIB1 file. */
     for (rec = 0; rec < num_rec; rec++)
     {
-	unsigned int b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen;
-	unsigned char version;
+        unsigned int b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen;
+        unsigned char version;
 
-	/* Move to beginning of index record. */
-	if (fseek(f, file_pos, SEEK_SET))
-	{
-	    ret = G2C_EFILE;
-	    break;
-	}
+        /* Move to beginning of index record. */
+        if (fseek(f, file_pos, SEEK_SET))
+        {
+            ret = G2C_EFILE;
+            break;
+        }
 
-	/* Read the index1 record. */
-	LOG((4, "reading index1 record at file position %ld", ftell(f)));
-	if ((ret = g2c_start_index1_record(f, G2C_FILE_READ, &b2_msg, &b2_pds, &b2_gds,
-					   &b2_bms, &b2_bds, &msglen, &version, pds_val,
-					   gds_val, bms_val, bds_val, NULL, NULL, NULL)))
-	    break;
+        /* Read the index1 record. */
+        LOG((4, "reading index1 record at file position %ld", ftell(f)));
+        if ((ret = g2c_start_index1_record(f, G2C_FILE_READ, &b2_msg, &b2_pds, &b2_gds,
+                                           &b2_bms, &b2_bds, &msglen, &version, pds_val,
+                                           gds_val, bms_val, bds_val, NULL, NULL, NULL)))
+            break;
 
-	LOG((4, "b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d",
-	     b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version));
-	printf("b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d\n",
-	       b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version);
+        LOG((4, "b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d",
+             b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version));
+        printf("b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d\n",
+               b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version);
 
-	/* Move the file position to the start of the next index record. */
-	file_pos += total_len;
+        /* Move the file position to the start of the next index record. */
+        file_pos += total_len;
     } /* next rec */
 
     /* If using threading, unlock the mutex. */
@@ -936,7 +933,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
         int skip, total_len, num_rec;
         char basename[G2C_INDEX_BASENAME_LEN + 1];
         size_t file_pos = G2C_INDEX_HEADER_LEN * 2;
-	int index_version;
+        int index_version;
         int rec;
 
         /* Read the first line of header. */
@@ -947,7 +944,7 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
         {
             char long_date_str[G2C_INDEX_HEADER_LEN + 1], long_time_str[G2C_INDEX_HEADER_LEN + 1];
             char long_str1[G2C_INDEX_HEADER_LEN + 1];
-            
+
             sscanf(line, "%s %d %d %d %s %s GB2IX1", long_str1, &i, &j, &k, long_date_str, long_time_str);
             memcpy(str1, long_str1, G2C_INDEX_STR1_LEN);
             date_str[G2C_INDEX_STR1_LEN] = 0;
@@ -966,8 +963,8 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
         /* Scan the line. Hard! */
         {
             char long_basename[G2C_INDEX_HEADER_LEN + 1];
-	    sscanf(line, "IX%dFORM: %d %d %d %s", &index_version, &skip, &total_len,
-		   &num_rec, long_basename);
+            sscanf(line, "IX%dFORM: %d %d %d %s", &index_version, &skip, &total_len,
+                   &num_rec, long_basename);
             memcpy(basename, long_basename, G2C_INDEX_BASENAME_LEN);
             basename[G2C_INDEX_BASENAME_LEN] = 0;
         }
@@ -991,29 +988,29 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
 
             /* Read the index record. */
             LOG((4, "reading index record at file position %ld, index_version %d",
-		 ftell(f), index_version));
-	    if (index_version == 1)
-	    {
-		if ((ret = g2c_start_index_record(f, G2C_FILE_READ, &reclen, &msgint, &local, &gds, &pds,
-						  &drs, &bms, &data, &msglen, &version, &discipline, &fieldnum)))
-		    break;
-		msg = msgint;
-		local8 = local;
-		gds8 = gds;
-		pds8 = pds;
-		drs8 = drs;
-		bms8 = bms;
-		data8 = data;
-	    }
-	    else
-	    {
-		if ((ret = g2c_start_index_record_lf(f, G2C_FILE_READ, &reclen, &msg, &local8, &gds8, &pds8,
-						     &drs8, &bms8, &data8, &msglen, &version, &discipline, &fieldnum)))
-		    break;
-	    }
+                 ftell(f), index_version));
+            if (index_version == 1)
+            {
+                if ((ret = g2c_start_index_record(f, G2C_FILE_READ, &reclen, &msgint, &local, &gds, &pds,
+                                                  &drs, &bms, &data, &msglen, &version, &discipline, &fieldnum)))
+                    break;
+                msg = msgint;
+                local8 = local;
+                gds8 = gds;
+                pds8 = pds;
+                drs8 = drs;
+                bms8 = bms;
+                data8 = data;
+            }
+            else
+            {
+                if ((ret = g2c_start_index_record_lf(f, G2C_FILE_READ, &reclen, &msg, &local8, &gds8, &pds8,
+                                                     &drs8, &bms8, &data8, &msglen, &version, &discipline, &fieldnum)))
+                    break;
+            }
 
             LOG((1, "reclen %d msg %ld local8 %d gds8 %d pds8 %d drs8 %d bms8 %d data8 %d "
-                 "msglen %ld version %d discipline %d fieldnum %d",
+                    "msglen %ld version %d discipline %d fieldnum %d",
                  reclen, msg, local8, gds8, pds8, drs8, bms8, data8, msglen,
                  version, discipline, fieldnum));
 
@@ -1065,8 +1062,8 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                          * data read operations. So we will use the
                          * open data file and get the length of this
                          * section. */
-			LOG((4, "seeking to section 7 in data file, position msgp->bytes_to_msg %ld data %ld",
-			     msgp->bytes_to_msg, data8));			
+                        LOG((4, "seeking to section 7 in data file, position msgp->bytes_to_msg %ld data %ld",
+                             msgp->bytes_to_msg, data8));
                         if (fseek(g2c_file[*g2cid].f, msgp->bytes_to_msg + data8, SEEK_SET))
                         {
                             ret = G2C_EFILE;
@@ -1109,8 +1106,8 @@ g2c_open_index(const char *data_file, const char *index_file, int mode,
                     /* Read the section info from the index file,
                      * using the same functions that read it from the
                      * GRIB2 data file. */
-		    LOG((4, "about to add_section sec_id %d sec_len %d bytes_to_sec %ld sec_num %d",
-			 sec_id, sec_len, bytes_to_sec, sec_num));
+                    LOG((4, "about to add_section sec_id %d sec_len %d bytes_to_sec %ld sec_num %d",
+                         sec_id, sec_len, bytes_to_sec, sec_num));
                     if ((ret = add_section(f, msgp, sec_id++, sec_len, bytes_to_sec, sec_num)))
                         break;
                 } /* next section */

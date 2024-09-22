@@ -4,9 +4,9 @@
  * Ed Hartnett 10/24/21
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /* Prototypes. */
 g2int getgridindex(g2int number);
@@ -14,7 +14,7 @@ g2int getgridindex(g2int number);
 int
 main()
 {
-    
+
     printf("Testing gridtemplates.\n");
     printf("Testing simple getgridtemplate() calls (expect and ignore error messages)...");
     {
@@ -22,7 +22,7 @@ main()
         gtemplate *tmpl;
         g2int list[9] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
         g2int list2[20] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
-        
+
         /* Check for one that's there and does not need extension. */
         if (!(tmpl = getgridtemplate(1)))
             return G2C_ERROR;
