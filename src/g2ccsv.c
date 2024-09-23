@@ -202,7 +202,7 @@ g2c_csv_init()
         return G2C_NOERROR;
 
     /* Ingest the CSV document. */
-    if (!(doc = fopen("CodeFlag.txt", "r")))
+    if (!(doc = fopen("../shared/g2c/CodeFlag.txt", "r")))
         return G2C_ECSV;
 
     /* Skip header line */
