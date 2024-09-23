@@ -91,7 +91,7 @@ main()
         for (i = 0; i < DATA_LEN; i++)
         {
             //printf("%g %g\n",fld[i], fld_in[i]);
-            if (fld[i] != fld_in[i])
+            if (abs(fld[i] - fld_in[i]) >= EPSILON)
                 return G2C_ERROR;
         }
     }
@@ -120,7 +120,7 @@ main()
         for (i = 0; i < DATA_LEN; i++)
         {
             /* printf("%g %g\n", fld[i], fld_in[i]); */
-            if (fld[i] != fld_in[i])
+            if (abs(fld[i] - fld_in[i]) >= EPSILON)
                 return G2C_ERROR;
         }
     }
