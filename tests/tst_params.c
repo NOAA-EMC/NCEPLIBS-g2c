@@ -25,7 +25,7 @@ main()
             return ret;
         if (strcmp(abbrev, "PRES"))
             return G2C_ERROR;
-        
+
         if ((ret = g2c_param_abbrev(0, 3, 0, abbrev)))
             return ret;
         if (strcmp(abbrev, "PRES"))
@@ -2494,7 +2494,7 @@ main()
             return G2C_ERROR;
         if ((ret = g2c_param_abbrev(0, 4, 202, abbrev)))
             return ret;
-       if (strcmp(abbrev, "NBDSF"))
+        if (strcmp(abbrev, "NBDSF"))
             return G2C_ERROR;
         if ((ret = g2c_param_abbrev(0, 4, 203, abbrev)))
             return ret;
@@ -4088,8 +4088,7 @@ main()
             return ret;
         if (strcmp(abbrev, "SOILL"))
             return G2C_ERROR;
-        
-        
+
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
@@ -4101,7 +4100,7 @@ main()
     {
         int g2disc, g2cat, g2num;
         int ret;
-        
+
         /* This will work. */
         if ((ret = g2c_param_g1tog2(1, 2, &g2disc, &g2cat, &g2num)))
             return ret;
@@ -4115,14 +4114,13 @@ main()
         /* This will fail. */
         /* if (g2c_param_g1tog2(1, 2000, &g2disc, &g2cat, &g2num) != G2C_ENOPARAM) */
         /*     return G2C_ERROR; */
-        
     }
     printf("ok!\n");
     printf("Testing g2c_param_g2tog1()...");
     {
         int g1num, g1ver;
         int ret;
-        
+
         /* This will work. */
         if ((ret = g2c_param_g2tog1(0, 3, 0, &g1num, &g1ver)))
             return ret;
@@ -4136,16 +4134,15 @@ main()
         /* This will fail. */
         /* if (g2c_param_g2tog1(0, 2000, 0, &g1num, &g1ver) != G2C_ENOPARAM) */
         /*     return G2C_ERROR; */
-        
     }
     printf("ok!\n");
     printf("Testing g2c_param_all()...");
     {
-        int g2disc, g2cat, g2num;        
+        int g2disc, g2cat, g2num;
         int g1num, g1ver;
-        char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];        
+        char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
         int ret;
-        
+
         /* g2c_set_log_level(10); */
 
         /* This will work. */
@@ -4165,10 +4162,8 @@ main()
             return G2C_ERROR;
         if (g2c_param_all(-1, &g1num, &g1ver, &g2disc, &g2cat, &g2num, abbrev) != G2C_EINVAL)
             return G2C_ERROR;
-        
     }
     printf("ok!\n");
     printf("SUCCESS!!!\n");
     return G2C_NOERROR;
 }
-

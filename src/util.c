@@ -1,4 +1,4 @@
-/** 
+/**
  * @file
  * @brief Internal utility functions for the g2c library.
  * @author Ed Hartnett @date Nov 11, 2021
@@ -25,11 +25,11 @@
 int
 g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
 {
-    unsigned char G = 0x47;       /* 'G' */
-    unsigned char R = 0x52;       /* 'R' */
-    unsigned char I = 0x49;       /* 'I' */
-    unsigned char B = 0x42;       /* 'B' */
-    unsigned char seven = 0x37;   /* '7' */
+    unsigned char G = 0x47;     /* 'G' */
+    unsigned char R = 0x52;     /* 'R' */
+    unsigned char I = 0x49;     /* 'I' */
+    unsigned char B = 0x42;     /* 'B' */
+    unsigned char seven = 0x37; /* '7' */
 
     assert(cgrib && lencurr);
 
@@ -108,8 +108,8 @@ g2_log(int severity, const char *fmt, ...)
 #endif /* LOGGING */
 
 /**
- * Use this to set the global log level. 
- * 
+ * Use this to set the global log level.
+ *
  * Settings:
  * - -1 turn off all logging.
  * - 0 show only errors.
@@ -136,4 +136,3 @@ g2c_set_log_level(int new_level)
 #endif
     return G2C_NOERROR;
 }
-

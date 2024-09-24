@@ -33,10 +33,11 @@
  *
  * @author ECMWF programmer
  */
-static void openjpeg_warning(const char *msg, void *client_data)
+static void
+openjpeg_warning(const char *msg, void *client_data)
 {
     (void)client_data;
-    fprintf(stderr,"openjpeg: %s",msg);
+    fprintf(stderr, "openjpeg: %s", msg);
 }
 
 /**
@@ -47,10 +48,11 @@ static void openjpeg_warning(const char *msg, void *client_data)
  *
  * @author ECMWF programmer
  */
-static void openjpeg_error(const char *msg, void *client_data)
+static void
+openjpeg_error(const char *msg, void *client_data)
 {
     (void)client_data;
-    fprintf(stderr,"openjpeg: %s",msg);
+    fprintf(stderr, "openjpeg: %s", msg);
 }
 
 /**
@@ -61,7 +63,8 @@ static void openjpeg_error(const char *msg, void *client_data)
  *
  * @author ECMWF programmer
  */
-static void openjpeg_info(const char *msg, void *client_data)
+static void
+openjpeg_info(const char *msg, void *client_data)
 {
     (void)msg;
     (void)client_data;
@@ -75,9 +78,9 @@ static void openjpeg_info(const char *msg, void *client_data)
 /* struct need to treat memory as a stream */
 typedef struct
 {
-    OPJ_UINT8* pData;       /* our data */
-    OPJ_SIZE_T dataSize;    /* how big is our data */
-    OPJ_SIZE_T offset;      /* where we are currently in our data */
+    OPJ_UINT8 *pData;    /* our data */
+    OPJ_SIZE_T dataSize; /* how big is our data */
+    OPJ_SIZE_T offset;   /* where we are currently in our data */
 } opj_memory_stream;
 
 /**
@@ -91,14 +94,15 @@ typedef struct
  *
  * @author ECMWF programmer
  */
-static OPJ_SIZE_T opj_memory_stream_read(void *buffer, OPJ_SIZE_T nb_bytes, void * p_user_data)
+static OPJ_SIZE_T
+opj_memory_stream_read(void *buffer, OPJ_SIZE_T nb_bytes, void *p_user_data)
 {
-    opj_memory_stream* mstream = (opj_memory_stream*) p_user_data; /* Our data */
-    OPJ_SIZE_T nb_bytes_read = nb_bytes; /* Amount to move to buffer */
+    opj_memory_stream *mstream = (opj_memory_stream *)p_user_data; /* Our data */
+    OPJ_SIZE_T nb_bytes_read = nb_bytes;                           /* Amount to move to buffer */
 
     /* Check if the current offset is outside our data buffer */
     if (mstream->offset >= mstream->dataSize)
-        return (OPJ_SIZE_T) -1;
+        return (OPJ_SIZE_T)-1;
 
     /* Check if we are reading more than we have */
     if (nb_bytes > (mstream->dataSize - mstream->offset))
@@ -120,10 +124,11 @@ static OPJ_SIZE_T opj_memory_stream_read(void *buffer, OPJ_SIZE_T nb_bytes, void
  *
  * @author ECMWF programmer
  */
-static OPJ_SIZE_T opj_memory_stream_write(void *buffer, OPJ_SIZE_T nb_bytes, void *user_data)
+static OPJ_SIZE_T
+opj_memory_stream_write(void *buffer, OPJ_SIZE_T nb_bytes, void *user_data)
 {
-    opj_memory_stream* mstream = (opj_memory_stream*) user_data; /* our data */
-    OPJ_SIZE_T nb_bytes_write = nb_bytes; /* Amount to move to buffer */
+    opj_memory_stream *mstream = (opj_memory_stream *)user_data; /* our data */
+    OPJ_SIZE_T nb_bytes_write = nb_bytes;                        /* Amount to move to buffer */
 
     /* Check if the current offset is outside our data buffer */
     if (mstream->offset >= mstream->dataSize)
@@ -149,14 +154,15 @@ static OPJ_SIZE_T opj_memory_stream_write(void *buffer, OPJ_SIZE_T nb_bytes, voi
  *
  * @author ECMWF programmer
  */
-static OPJ_OFF_T opj_memory_stream_skip(OPJ_OFF_T nb_bytes, void *user_data)
+static OPJ_OFF_T
+opj_memory_stream_skip(OPJ_OFF_T nb_bytes, void *user_data)
 {
-    opj_memory_stream* mstream = (opj_memory_stream*) user_data;
+    opj_memory_stream *mstream = (opj_memory_stream *)user_data;
     OPJ_SIZE_T l_nb_bytes;
 
     if (nb_bytes < 0)
-        return -1; /* No skipping backwards */
-    l_nb_bytes = (OPJ_SIZE_T) nb_bytes; /* Allowed because it is positive */
+        return -1;                     /* No skipping backwards */
+    l_nb_bytes = (OPJ_SIZE_T)nb_bytes; /* Allowed because it is positive */
     /* Do not allow jumping past the end */
     if (l_nb_bytes > mstream->dataSize - mstream->offset)
         l_nb_bytes = mstream->dataSize - mstream->offset;
@@ -174,15 +180,16 @@ static OPJ_OFF_T opj_memory_stream_skip(OPJ_OFF_T nb_bytes, void *user_data)
  *
  * @author ECMWF programmer
  */
-static OPJ_BOOL opj_memory_stream_seek(OPJ_OFF_T nb_bytes, void * user_data)
+static OPJ_BOOL
+opj_memory_stream_seek(OPJ_OFF_T nb_bytes, void *user_data)
 {
-    opj_memory_stream* mstream = (opj_memory_stream*) user_data;
+    opj_memory_stream *mstream = (opj_memory_stream *)user_data;
 
     if (nb_bytes < 0)
         return OPJ_FALSE; /* Not before the buffer */
-    if (nb_bytes >(OPJ_OFF_T) mstream->dataSize)
-        return OPJ_FALSE; /* Not after the buffer */
-    mstream->offset = (OPJ_SIZE_T) nb_bytes; /* Move to new position */
+    if (nb_bytes > (OPJ_OFF_T)mstream->dataSize)
+        return OPJ_FALSE;                   /* Not after the buffer */
+    mstream->offset = (OPJ_SIZE_T)nb_bytes; /* Move to new position */
     return OPJ_TRUE;
 }
 
@@ -193,7 +200,8 @@ static OPJ_BOOL opj_memory_stream_seek(OPJ_OFF_T nb_bytes, void * user_data)
  *
  * @author ECMWF programmer
  */
-static void opj_memory_stream_do_nothing(void * p_user_data)
+static void
+opj_memory_stream_do_nothing(void *p_user_data)
 {
     OPJ_ARG_NOT_USED(p_user_data);
 }
@@ -208,9 +216,10 @@ static void opj_memory_stream_do_nothing(void * p_user_data)
  *
  * @author ECMWF programmer
  */
-static opj_stream_t* opj_stream_create_default_memory_stream(opj_memory_stream* memoryStream, OPJ_BOOL is_read_stream)
+static opj_stream_t *
+opj_stream_create_default_memory_stream(opj_memory_stream *memoryStream, OPJ_BOOL is_read_stream)
 {
-    opj_stream_t* stream;
+    opj_stream_t *stream;
 
     if (!(stream = opj_stream_default_create(is_read_stream)))
         return (NULL);
@@ -248,7 +257,8 @@ static opj_stream_t* opj_stream_create_default_memory_stream(opj_memory_stream* 
  *
  * @author Stephen Gilbert, Jovic
  */
-int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
+int
+dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
 {
     int iret = 0;
     OPJ_INT32 mask;
@@ -258,7 +268,9 @@ int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
     opj_codec_t *codec = NULL;
 
     /* set decoding parameters to default values */
-    opj_dparameters_t parameters = {0,};        /* decompression parameters */
+    opj_dparameters_t parameters = {
+        0,
+    }; /* decompression parameters */
     opj_set_default_decoder_parameters(&parameters);
     parameters.decod_format = 1; /* JP2_FMT */
 
@@ -268,7 +280,7 @@ int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
     /* catch events using our callbacks */
     opj_set_info_handler(codec, openjpeg_info, NULL);
     opj_set_warning_handler(codec, openjpeg_warning, NULL);
-    opj_set_error_handler(codec, openjpeg_error,NULL);
+    opj_set_error_handler(codec, openjpeg_error, NULL);
 
     /* initialize our memory stream */
     opj_memory_stream mstream;
@@ -276,48 +288,56 @@ int dec_jpeg2000(char *injpc,g2int bufsize,g2int *outfld)
     mstream.dataSize = (OPJ_SIZE_T)bufsize;
     mstream.offset = 0;
     /* open a byte stream from memory stream */
-    stream = opj_stream_create_default_memory_stream( &mstream, OPJ_STREAM_READ);
+    stream = opj_stream_create_default_memory_stream(&mstream, OPJ_STREAM_READ);
 
     /* setup the decoder decoding parameters using user parameters */
-    if (!opj_setup_decoder(codec, &parameters)) {
-        fprintf(stderr,"openjpeg: failed to setup decoder");
+    if (!opj_setup_decoder(codec, &parameters))
+    {
+        fprintf(stderr, "openjpeg: failed to setup decoder");
         iret = -3;
         goto cleanup;
     }
-    if  (!opj_read_header(stream, codec, &image)) {
-        fprintf(stderr,"openjpeg: failed to read the header");
+    if (!opj_read_header(stream, codec, &image))
+    {
+        fprintf(stderr, "openjpeg: failed to read the header");
         iret = -3;
         goto cleanup;
     }
-    if (!opj_decode(codec, stream, image)) {
-        fprintf(stderr,"openjpeg: failed to decode");
+    if (!opj_decode(codec, stream, image))
+    {
+        fprintf(stderr, "openjpeg: failed to decode");
         iret = -3;
         goto cleanup;
     }
 
-    if ( (image->numcomps != 1) || (image->x1 * image->y1)==0 ) {
+    if ((image->numcomps != 1) || (image->x1 * image->y1) == 0)
+    {
         iret = -3;
         goto cleanup;
     }
 
     assert(image->comps[0].sgnd == 0);
-    assert(image->comps[0].prec < sizeof(mask)*8-1);
+    assert(image->comps[0].prec < sizeof(mask) * 8 - 1);
 
     mask = (1 << image->comps[0].prec) - 1;
 
-    for(unsigned int i = 0; i < image->comps[0].w * image->comps[0].h ; i++)
-        outfld[i] = (g2int) (image->comps[0].data[i] & mask);
+    for (unsigned int i = 0; i < image->comps[0].w * image->comps[0].h; i++)
+        outfld[i] = (g2int)(image->comps[0].data[i] & mask);
 
-    if (!opj_end_decompress(codec, stream)) {
-        fprintf(stderr,"openjpeg: failed in opj_end_decompress");
+    if (!opj_end_decompress(codec, stream))
+    {
+        fprintf(stderr, "openjpeg: failed in opj_end_decompress");
         iret = -3;
     }
 
 cleanup:
     /* close the byte stream */
-    if (codec)  opj_destroy_codec(codec);
-    if (stream) opj_stream_destroy(stream);
-    if (image)  opj_image_destroy(image);
+    if (codec)
+        opj_destroy_codec(codec);
+    if (stream)
+        opj_stream_destroy(stream);
+    if (image)
+        opj_image_destroy(image);
 
     return iret;
 }
@@ -355,11 +375,12 @@ cleanup:
  *
  * @author Stephen Gilbert, Jovic
  */
-int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
-                 g2int ltype, g2int ratio, g2int retry, char *outjpc,
-                 g2int jpclen)
+int
+enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
+             g2int ltype, g2int ratio, g2int retry, char *outjpc,
+             g2int jpclen)
 {
-    (void) retry;
+    (void)retry;
     int iret = 0;
     int nbytes = 0;
     const int numcomps = 1;
@@ -370,14 +391,17 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     opj_stream_t *stream = NULL;
 
     /* set encoding parameters to default values */
-    opj_cparameters_t parameters = {0,};        /* compression parameters */
+    opj_cparameters_t parameters = {
+        0,
+    }; /* compression parameters */
     opj_set_default_encoder_parameters(&parameters);
 
-    parameters.tcp_numlayers  = 1;
+    parameters.tcp_numlayers = 1;
     parameters.cp_disto_alloc = 1;
-    if (ltype == 1) {
+    if (ltype == 1)
+    {
         assert(ratio != 255);
-        parameters.tcp_rates[0] = 1.0f/(float)ratio;
+        parameters.tcp_rates[0] = 1.0f / (float)ratio;
     }
 
     /* By default numresolution = 6 (must be between 1 and 32)
@@ -391,7 +415,9 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     }
 
     /* initialize image component */
-    opj_image_cmptparm_t cmptparm = {0,};
+    opj_image_cmptparm_t cmptparm = {
+        0,
+    };
     cmptparm.prec = (OPJ_UINT32)nbits;
     cmptparm.bpp = (OPJ_UINT32)nbits;
     cmptparm.sgnd = 0;
@@ -412,7 +438,7 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     image->x1 = (OPJ_UINT32)width;
     image->y1 = (OPJ_UINT32)height;
 
-    assert(cmptparm.prec <= sizeof(image->comps[0].data[0])*8 - 1); /* BR: -1 because I don't know what happens if the sign bit is set */
+    assert(cmptparm.prec <= sizeof(image->comps[0].data[0]) * 8 - 1); /* BR: -1 because I don't know what happens if the sign bit is set */
 
     ifld = malloc(width * height * sizeof(g2int));
     nbytes = (nbits + 7) / 8;
@@ -428,12 +454,12 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
 
     opj_set_info_handler(codec, openjpeg_info, NULL);
     opj_set_warning_handler(codec, openjpeg_warning, NULL);
-    opj_set_error_handler(codec, openjpeg_error,NULL);
+    opj_set_error_handler(codec, openjpeg_error, NULL);
 
     /* setup the encoder parameters using the current image and user parameters */
     if (!opj_setup_encoder(codec, &parameters, image))
     {
-        fprintf(stderr,"openjpeg: failed to setup encoder");
+        fprintf(stderr, "openjpeg: failed to setup encoder");
         iret = -3;
         goto cleanup;
     }
@@ -446,14 +472,14 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     stream = opj_stream_create_default_memory_stream(&mstream, OPJ_STREAM_WRITE);
     if (!stream)
     {
-        fprintf(stderr,"openjpeg: failed create default memory stream");
+        fprintf(stderr, "openjpeg: failed create default memory stream");
         iret = -3;
         goto cleanup;
     }
 
     if (!opj_start_compress(codec, image, stream))
     {
-        fprintf(stderr,"openjpeg: failed to setup encoder");
+        fprintf(stderr, "openjpeg: failed to setup encoder");
         iret = -3;
         goto cleanup;
     }
@@ -461,14 +487,14 @@ int enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     /* encode image */
     if (!opj_encode(codec, stream))
     {
-        fprintf(stderr,"openjpeg: opj_encode failed");
+        fprintf(stderr, "openjpeg: opj_encode failed");
         iret = -3;
         goto cleanup;
     }
 
     if (!opj_end_compress(codec, stream))
     {
-        fprintf(stderr,"openjpeg: opj_end_compress failed");
+        fprintf(stderr, "openjpeg: opj_end_compress failed");
         iret = -3;
         goto cleanup;
     }

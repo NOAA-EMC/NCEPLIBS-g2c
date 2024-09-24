@@ -4,9 +4,9 @@
  * Ed Hartnett 11/1/21
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 #define DATA_LEN 4
 #define PACKED_LEN 200
@@ -17,7 +17,7 @@ int
 main()
 {
     int i;
-    
+
     printf("Testing JPEG functions.\n");
     /* g2c_set_log_level(10); */
 #ifdef USE_JPEG2000
@@ -29,7 +29,7 @@ main()
         char outjpc[PACKED_LEN];
         g2int outfld[DATA_LEN];
         int ret;
-    
+
         /* Encode some data. */
         if ((ret = enc_jpeg2000(data, width, height, nbits, ltype,
                                 ratio, retry, outjpc, jpclen)) < 0)
@@ -127,7 +127,7 @@ main()
         {
             float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
             float fld_in[DATA_LEN];
-            size_t lcpack_st = PACKED_LEN;            
+            size_t lcpack_st = PACKED_LEN;
             int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
 
             /* Pack the data. */
@@ -153,13 +153,13 @@ main()
             /* See
              * https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml */
             g2int idrstmpl[7] = {
-                0, /* Reference value (R) (IEEE 32-bit floating-point value) */
-                0, /* Binary scale factor (E) */
-                1, /* Decimal scale factor (D) */
+                0,  /* Reference value (R) (IEEE 32-bit floating-point value) */
+                0,  /* Binary scale factor (E) */
+                1,  /* Decimal scale factor (D) */
                 32, /* Number of bits required to hold the resulting scaled and referenced data values. (i.e. The depth of the grayscale image.) (see Note 2) */
-                0, /* Type of original field values (see Code Table 5.1) */
-                0, /* Type of Compression used. (see Code Table 5.40) */
-                1 /* Target compression ratio, M:1 (with respect to the bit-depth specified in octet 20), when octet 22 indicates Lossy Compression. Otherwise, set to missing (see Note 3) */
+                0,  /* Type of original field values (see Code Table 5.1) */
+                0,  /* Type of Compression used. (see Code Table 5.40) */
+                1   /* Target compression ratio, M:1 (with respect to the bit-depth specified in octet 20), when octet 22 indicates Lossy Compression. Otherwise, set to missing (see Note 3) */
             };
 
             /* Pack the data. */
@@ -239,7 +239,7 @@ main()
             float fld[DATA_LEN] = {1.0, 1.0, 1.0, 1.0};
             float fld_in[DATA_LEN];
             g2int lcpack = PACKED_LEN;
-            g2int idrstmpl[7] = { 0, 0, 1, 32, 0, 0, 1};
+            g2int idrstmpl[7] = {0, 0, 1, 32, 0, 0, 1};
 
             /* Pack the data. */
             jpcpack(fld, width, height, idrstmpl, cpack, &lcpack);

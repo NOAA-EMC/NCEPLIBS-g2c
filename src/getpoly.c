@@ -4,9 +4,9 @@
  * coefficients using GDT 5.50 through 5.53
  * @author Stephen Gilbert @date 2002-12-11
  */
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * This subroutine returns the J, K, and M pentagonal resolution
@@ -44,30 +44,28 @@ getpoly(unsigned char *csec3, g2int *jj, g2int *kk, g2int *mm)
     g2int *igds;
     g2int iofst, igdtlen, num_opt;
 
-    iofst = 0;       /* set offset to beginning of section */
+    iofst = 0; /* set offset to beginning of section */
     if (!g2_unpack3(csec3, &iofst, &igds, &igdstmpl, &igdtlen,
-		    &list_opt, &num_opt))
+                    &list_opt, &num_opt))
     {
-        switch (igds[4])     /*  Template number */
+        switch (igds[4]) /*  Template number */
         {
-        case 50:     /* Spherical harmonic coefficients */
+        case 50: /* Spherical harmonic coefficients */
         case 51:
         case 52:
-        case 53:
-        {
+        case 53: {
             *jj = igdstmpl[0];
             *kk = igdstmpl[1];
             *mm = igdstmpl[2];
             break;
         }
-        default:
-        {
+        default: {
             *jj = 0;
             *kk = 0;
             *mm = 0;
             break;
         }
-        }     /* end switch */
+        } /* end switch */
     }
     else
     {
@@ -77,11 +75,11 @@ getpoly(unsigned char *csec3, g2int *jj, g2int *kk, g2int *mm)
     }
 
     if (igds)
-	free(igds);
+        free(igds);
     if (igdstmpl)
-	free(igdstmpl);
+        free(igdstmpl);
     if (list_opt)
-	free(list_opt);
+        free(list_opt);
 
     return 0;
 }

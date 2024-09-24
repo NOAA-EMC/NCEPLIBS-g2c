@@ -15,9 +15,9 @@
  * 2023-10-16 | Engle | Added support for DRT 5.42, AEC compression.
  *
  */
+#include "grib2_int.h"
 #include <memory.h>
 #include <string.h>
-#include "grib2_int.h"
 
 /**
  * Unpacks Section 7 (Data Section) of a GRIB2 message.
@@ -46,9 +46,9 @@
  * (N=idrsnum). Each element of this integer array contains an entry
  * (in the order specified) of Data Representation Template 5.N
  * @param ndpts Number of data points to be unpacked and returned.
- * @param v1 If non-zero, then act like the V1 G2C API. This includes: 
+ * @param v1 If non-zero, then act like the V1 G2C API. This includes:
  * - printing error messages to stderr in the event of error.
- * - returning V1 error codes. 
+ * - returning V1 error codes.
  * @param fld Pointer to a float pointer which gets a pointer to an
  * array allocated by this function to hold the unpacked data. This
  * memory must be freed by the caller.
@@ -72,10 +72,10 @@ g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstm
     float *lfld;
 
     assert(cgrib && iofst && idrstmpl && fld);
-    
+
     LOG((2, "g2c_unpack7_int *iofst %ld igdsnum %ld idrsnum %ld ndpts %ld v1 %d",
          *iofst, igdsnum, idrsnum, ndpts, v1));
-    
+
     /* Get Length of Section */
     gbit(cgrib, &lensec, *iofst, 32);
     *iofst = *iofst + 32;
@@ -108,7 +108,7 @@ g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstm
     }
     else if (idrsnum == 2 || idrsnum == 3)
     {
-        if (comunpack(cgrib+ipos, lensec, idrsnum, idrstmpl, ndpts, *fld))
+        if (comunpack(cgrib + ipos, lensec, idrsnum, idrstmpl, ndpts, *fld))
             return G2_UNPACK7_CORRUPT_SEC;
     }
     else if (idrsnum == 50)
@@ -139,24 +139,25 @@ g2c_unpack7_int(unsigned char *cgrib, g2int *iofst, g2int igdsnum, g2int *igdstm
     {
         jpcunpack(cgrib + ipos, lensec - 5, idrstmpl, ndpts, *fld);
     }
-#endif  /* USE_JPEG2000 */
+#endif /* USE_JPEG2000 */
 #ifdef USE_PNG
     else if (idrsnum == 41 || idrsnum == 40010)
     {
         pngunpack(cgrib + ipos, lensec - 5, idrstmpl, ndpts, *fld);
     }
-#endif  /* USE_PNG */
+#endif /* USE_PNG */
 #ifdef USE_AEC
     else if (idrsnum == 42)
     {
         aecunpack(cgrib + ipos, lensec - 5, idrstmpl, ndpts, *fld);
     }
-#endif  /* USE_AEC */
+#endif /* USE_AEC */
     else
     {
         if (v1)
             fprintf(stderr, "g2_unpack7: Data Representation Template 5.%d not yet "
-                    "implemented.\n", (int)idrsnum);
+                            "implemented.\n",
+                    (int)idrsnum);
         if (lfld)
             free(lfld);
         *fld = NULL;
@@ -277,18 +278,18 @@ g2c_unpack7(unsigned char *cgrib, int igdsnum, int gds_tmpl_len, long long int *
         if (!(igdstmpl = malloc(gds_tmpl_len * sizeof(g2int))))
             return G2C_ENOMEM;
     if (!(idrstmpl = malloc(drs_tmpl_len * sizeof(g2int))))
-	return G2C_ENOMEM;
+        return G2C_ENOMEM;
 
     /* Copy the templates. */
     if (gds_tmpl_len)
         for (i = 0; i < gds_tmpl_len; i++)
             igdstmpl[i] = gdstmpl[i];
     for (i = 0; i < drs_tmpl_len; i++)
-	idrstmpl[i] = drstmpl[i];
-    
+        idrstmpl[i] = drstmpl[i];
+
     /* Call the internal function that does the work. */
     ret = g2c_unpack7_int(cgrib, &iofst, igdsnum, igdstmpl, idrsnum, idrstmpl,
-			  ndpts, 0, &fld);
+                          ndpts, 0, &fld);
 
     /* Free the g2int versions of the templates. */
     if (igdstmpl)
@@ -297,5 +298,3 @@ g2c_unpack7(unsigned char *cgrib, int igdsnum, int gds_tmpl_len, long long int *
 
     return ret;
 }
-
-

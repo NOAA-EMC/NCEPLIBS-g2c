@@ -5,14 +5,14 @@
  * @author Stephen Gilbeert @date 2002-11-01
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Packs a [Grid Definition Section (Section
  * 3)](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_sect3.shtml)
- * and adds it to a GRIB2 message. 
+ * and adds it to a GRIB2 message.
  *
  * This function is used with routines
  * g2_create(), g2_addlocal(), g2_addfield(), and g2_gribend() to
@@ -84,7 +84,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
 
     /* Loop through all current sections of the GRIB message to find
      * the last section number. */
-    len = 16;    /* length of Section 0 */
+    len = 16; /* length of Section 0 */
     for (;;)
     {
         /* Get section number and length of next section. */
@@ -118,25 +118,25 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     }
 
     /* Add Section 3  - Grid Definition Section. */
-    ibeg = lencurr * 8;        /*   Calculate offset for beginning of section 3 */
-    iofst = ibeg + 32;         /*   leave space for length of section */
-    sbit(cgrib, &three, iofst, 8);     /* Store section number (3) */
+    ibeg = lencurr * 8;            /*   Calculate offset for beginning of section 3 */
+    iofst = ibeg + 32;             /*   leave space for length of section */
+    sbit(cgrib, &three, iofst, 8); /* Store section number (3) */
     iofst = iofst + 8;
-    sbit(cgrib, igds+0, iofst, 8);     /* Store source of Grid def. */
+    sbit(cgrib, igds + 0, iofst, 8); /* Store source of Grid def. */
     iofst = iofst + 8;
-    sbit(cgrib, igds+1, iofst, 32);    /* Store number of data pts. */
+    sbit(cgrib, igds + 1, iofst, 32); /* Store number of data pts. */
     iofst = iofst + 32;
-    sbit(cgrib, igds+2, iofst, 8);     /* Store number of extra octets. */
+    sbit(cgrib, igds + 2, iofst, 8); /* Store number of extra octets. */
     iofst = iofst + 8;
-    sbit(cgrib, igds+3, iofst, 8);     /* Store interp. of extra octets. */
+    sbit(cgrib, igds + 3, iofst, 8); /* Store interp. of extra octets. */
     iofst = iofst + 8;
 
     /* if Octet 6 is not equal to zero, Grid Definition Template may
      * not be supplied. */
     if (igds[0] == 0)
-        sbit(cgrib, igds+4, iofst, 16);  /* Store Grid Def Template num. */
+        sbit(cgrib, igds + 4, iofst, 16); /* Store Grid Def Template num. */
     else
-        sbit(cgrib, &miss, iofst, 16);   /* Store missing value as Grid Def Template num. */
+        sbit(cgrib, &miss, iofst, 16); /* Store missing value as Grid Def Template num. */
     iofst = iofst + 16;
 
     /* Get Grid Definition Template. */
@@ -162,12 +162,12 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
     {
         nbits = abs(mapgrid->map[i]) * 8;
         if ((mapgrid->map[i] >= 0) || (igdstmpl[i] >= 0))
-            sbit(cgrib, igdstmpl+i, iofst, nbits);
+            sbit(cgrib, igdstmpl + i, iofst, nbits);
         else
         {
             sbit(cgrib, &one, iofst, 1);
             temp = abs(igdstmpl[i]);
-            sbit(cgrib, &temp, iofst+1, nbits-1);
+            sbit(cgrib, &temp, iofst + 1, nbits - 1);
         }
         iofst = iofst + nbits;
     }

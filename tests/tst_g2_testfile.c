@@ -38,7 +38,7 @@ main()
         int ret;
 
         /* g2c_set_log_level(20); */
-        
+
         /* Open test file. */
         if ((ret = g2c_open(FILENAME, 0, &g2cid)))
             return ret;
@@ -77,11 +77,11 @@ main()
             if (gds_template[i] != expected_gds[i])
                 return G2C_ERROR;
         for (i = 0; i < DRSLEN; i++)
-	{
-	    printf("drs_template[%d] %lld\n", i, drs_template[i]);
+        {
+            printf("drs_template[%d] %lld\n", i, drs_template[i]);
             if (drs_template[i] != expected_drs[i])
                 return G2C_ERROR;
-	}
+        }
 
         /* Close test file. */
         if ((ret = g2c_close(g2cid)))
@@ -94,7 +94,7 @@ main()
         int ret;
 
         /* g2c_set_log_level(20); */
-        
+
         /* Open test file. */
         if ((ret = g2c_open(FILENAME, 0, &g2cid)))
             return ret;
@@ -106,7 +106,7 @@ main()
         /* Check results. */
         if ((ret = compare_degrib2_files2(DEGRIB2_FILENAME, REF_FILENAME)))
             return ret;
-        
+
         /* Close test file. */
         if ((ret = g2c_close(g2cid)))
             return ret;

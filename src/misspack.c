@@ -4,9 +4,9 @@
  * @author Stephen Gilbert @date 2000-06-21
  */
 
-#include <stdlib.h>
-#include <math.h>
 #include "grib2_int.h"
+#include <math.h>
+#include <stdlib.h>
 
 /**
  * Pack a data field using a complex packing algorithm.
@@ -16,7 +16,7 @@
  * (See [Template
  * 5.2](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-2.shtml)
  * and [Template
- * 5.3](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-3.shtml)). 
+ * 5.3](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-3.shtml)).
  *
  * This function fills in GRIB2 Data Representation template arrays
  * with the appropriate values.
@@ -56,7 +56,7 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     g2int imax, lg, mtemp, ier, igmax;
     g2int kfildo, minpk, inc, maxgrps, ibit, jbit, kbit, novref, lbitref;
     float rmissp, rmisss, bscale, dscale, rmin, temp;
-    static float alog2 = ALOG2;       /*  ln(2.0) */
+    static float alog2 = ALOG2; /*  ln(2.0) */
     static g2int one = 1;
 
     bscale = int_power(2.0, -idrstmpl[1]);
@@ -69,7 +69,7 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         return;
     }
     else
-    {    /*  Get missing values */
+    { /*  Get missing values */
         rdieee(idrstmpl + 7, &rmissp, 1);
         if (missopt == 2)
             rdieee(idrstmpl + 8, &rmisss, 1);
@@ -79,8 +79,8 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
      * missing value mapping of the field. */
     ifldmiss = calloc(ndpts, sizeof(g2int));
     rmin = 1E+37;
-    if (missopt ==  1)
-    {        /* Primary missing value only */
+    if (missopt == 1)
+    { /* Primary missing value only */
         for (j = 0; j < ndpts; j++)
         {
             if (fld[j] == rmissp)
@@ -95,8 +95,8 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
             }
         }
     }
-    if (missopt ==  2)
-    {        /* Primary and secondary missing values */
+    if (missopt == 2)
+    { /* Primary and secondary missing values */
         for (j = 0; j < ndpts; j++)
         {
             if (fld[j] == rmissp)
@@ -131,7 +131,7 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     /* Scale original data. */
     nonmiss = 0;
     if (idrstmpl[1] == 0)
-    {        /*  No binary scaling */
+    { /*  No binary scaling */
         imin = (g2int)rint(rmin * dscale);
         rmin = (float)imin;
         for (j = 0; j < ndpts; j++)
@@ -158,18 +158,18 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
 
     /*  Calculate Spatial differences, if using DRS Template 5.3. */
     if (idrsnum == 3)
-    {        /* spatial differences */
+    { /* spatial differences */
         if (idrstmpl[16] != 1 && idrstmpl[16] != 2)
             idrstmpl[16] = 2;
         if (idrstmpl[16] == 1)
-        {      /* first order */
+        { /* first order */
             ival1 = jfld[0];
             for (j = nonmiss - 1; j > 0; j--)
                 jfld[j] = jfld[j] - jfld[j - 1];
             jfld[0] = 0;
         }
         else if (idrstmpl[16] == 2)
-        {      /* second order */
+        { /* second order */
             ival1 = jfld[0];
             ival2 = jfld[1];
             for (j = nonmiss - 1; j > 1; j--)
@@ -211,7 +211,8 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         if (nbitsd != 0)
         {
             /*   pack first original value */
-            if (ival1 >= 0) {
+            if (ival1 >= 0)
+            {
                 sbit(cpack, &ival1, iofst, nbitsd);
                 iofst = iofst + nbitsd;
             }
@@ -220,7 +221,7 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                 sbit(cpack, &one, iofst, 1);
                 iofst = iofst + 1;
                 itemp = abs(ival1);
-                sbit(cpack, &itemp, iofst, nbitsd-1);
+                sbit(cpack, &itemp, iofst, nbitsd - 1);
                 iofst = iofst + nbitsd - 1;
             }
             if (idrstmpl[16] == 2)
@@ -236,7 +237,7 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                     sbit(cpack, &one, iofst, 1);
                     iofst = iofst + 1;
                     itemp = abs(ival2);
-                    sbit(cpack, &itemp, iofst, nbitsd-1);
+                    sbit(cpack, &itemp, iofst, nbitsd - 1);
                     iofst = iofst + nbitsd - 1;
                 }
             }
@@ -251,11 +252,11 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                 sbit(cpack, &one, iofst, 1);
                 iofst = iofst + 1;
                 itemp = abs(minsd);
-                sbit(cpack, &itemp, iofst, nbitsd-1);
+                sbit(cpack, &itemp, iofst, nbitsd - 1);
                 iofst = iofst + nbitsd - 1;
             }
         }
-    }       /*  end of spatial diff section */
+    } /*  end of spatial diff section */
 
     /* Expand non-missing data values to original grid. */
     miss1 = jfld[0];
@@ -263,7 +264,7 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         if (jfld[j] < miss1)
             miss1 = jfld[j];
     miss1--;
-    miss2 = miss1-1;
+    miss2 = miss1 - 1;
     n = 0;
     for (j = 0; j < ndpts; j++)
     {
@@ -291,8 +292,8 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     jmin = calloc(maxgrps, sizeof(g2int));
     jmax = calloc(maxgrps, sizeof(g2int));
     lbit = calloc(maxgrps, sizeof(g2int));
-    pack_gp(&kfildo, ifld, &ndpts, &missopt, &minpk, &inc, &miss1, &miss2, 
-            jmin, jmax, lbit, glen, &maxgrps, &ngroups, &ibit, &jbit, 
+    pack_gp(&kfildo, ifld, &ndpts, &missopt, &minpk, &inc, &miss1, &miss2,
+            jmin, jmax, lbit, glen, &maxgrps, &ngroups, &ibit, &jbit,
             &kbit, &novref, &lbitref, &ier);
     for (ng = 0; ng < ngroups; ng++)
         glen[ng] = glen[ng] + novref;
@@ -317,19 +318,19 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                 num2++;
         }
         if (num0 == 0)
-        {      /* all missing values */
+        { /* all missing values */
             if (num1 == 0)
-            {       /* all secondary missing */
+            { /* all secondary missing */
                 gref[ng] = -2;
                 gwidth[ng] = 0;
             }
             else if (num2 == 0)
-            {       /* all primary missing */
+            { /* all primary missing */
                 gref[ng] = -1;
                 gwidth[ng] = 0;
             }
             else
-            {                          /* both primary and secondary */
+            { /* both primary and secondary */
                 gref[ng] = 0;
                 gwidth[ng] = 1;
             }
@@ -352,9 +353,9 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
                 j++;
             }
             if (missopt == 1)
-                imax = imax+1;
+                imax = imax + 1;
             if (missopt == 2)
-                imax = imax+2;
+                imax = imax + 2;
             /*   calc num of bits needed to hold data */
             if (gref[ng] != imax)
             {
@@ -371,11 +372,11 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         mtemp = (g2int)int_power(2., gwidth[ng]);
         for (lg = 0; lg < glen[ng]; lg++)
         {
-            if (ifldmiss[j] == 0)            /* non-missing */
+            if (ifldmiss[j] == 0) /* non-missing */
                 ifld[j] = ifld[j] - gref[ng];
-            else if (ifldmiss[j] == 1)         /* primary missing */
+            else if (ifldmiss[j] == 1) /* primary missing */
                 ifld[j] = mtemp - 1;
-            else if (ifldmiss[j] == 2)         /* secondary missing */
+            else if (ifldmiss[j] == 2) /* secondary missing */
                 ifld[j] = mtemp - 2;
             j++;
         }
@@ -403,9 +404,9 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
         for (j = 0; j < ngroups; j++)
         {
             if (gref[j] == -1)
-                gref[j] = mtemp-1;
+                gref[j] = mtemp - 1;
             if (gref[j] == -2)
-                gref[j] = mtemp-2;
+                gref[j] = mtemp - 2;
         }
         sbits(cpack, gref, iofst, nbitsgref, 0, ngroups);
         itemp = nbitsgref * ngroups;
@@ -439,13 +440,13 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     {
         temp = log((double)(iwmax - ngwidthref + 1)) / alog2;
         nbitsgwidth = (g2int)ceil(temp);
-        for (i = 0; i<ngroups; i++)
-            gwidth[i] = gwidth[i]-ngwidthref;
+        for (i = 0; i < ngroups; i++)
+            gwidth[i] = gwidth[i] - ngwidthref;
         sbits(cpack, gwidth, iofst, nbitsgwidth, 0, ngroups);
         itemp = nbitsgwidth * ngroups;
         iofst = iofst + itemp;
         /* Pad last octet with Zeros, if necessary. */
-        if ((itemp %8) != 0)
+        if ((itemp % 8) != 0)
         {
             left = 8 - (itemp % 8);
             sbit(cpack, &zero, iofst, left);
@@ -537,15 +538,15 @@ misspack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
     /* Fill in ref value and number of bits in Template 5.2. */
     mkieee(&rmin, idrstmpl, 1); /* ensure reference value is IEEE format */
     idrstmpl[3] = nbitsgref;
-    idrstmpl[4] = 0;         /* original data were reals */
-    idrstmpl[5] = 1;         /* general group splitting */
-    idrstmpl[9] = ngroups;          /* Number of groups */
-    idrstmpl[10] = ngwidthref;       /* reference for group widths */
-    idrstmpl[11] = nbitsgwidth;      /* num bits used for group widths */
-    idrstmpl[12] = nglenref;         /* Reference for group lengths */
-    idrstmpl[13] = 1;                /* length increment for group lengths */
-    idrstmpl[14] = nglenlast;        /* True length of last group */
-    idrstmpl[15] = nbitsglen;        /* num bits used for group lengths */
+    idrstmpl[4] = 0;            /* original data were reals */
+    idrstmpl[5] = 1;            /* general group splitting */
+    idrstmpl[9] = ngroups;      /* Number of groups */
+    idrstmpl[10] = ngwidthref;  /* reference for group widths */
+    idrstmpl[11] = nbitsgwidth; /* num bits used for group widths */
+    idrstmpl[12] = nglenref;    /* Reference for group lengths */
+    idrstmpl[13] = 1;           /* length increment for group lengths */
+    idrstmpl[14] = nglenlast;   /* True length of last group */
+    idrstmpl[15] = nbitsglen;   /* num bits used for group lengths */
     if (idrsnum == 3)
         idrstmpl[17] = nbitsd / 8; /* num bits used for extra spatial differencing values */
 }

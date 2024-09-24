@@ -4,13 +4,13 @@
  * @author Ed Hartnett @date 8/25/22
  */
 
+#include <grib2_int.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <grib2_int.h>
 
 /** Contains the parsed CSV document. */
-FILE* doc;
+FILE *doc;
 
 /** Pointer to the list of code tables. */
 G2C_CODE_TABLE_T *g2c_table = NULL;
@@ -26,12 +26,11 @@ g2c_print_tables()
 
     for (t = g2c_table; t; t = t->next)
     {
-	G2C_CODE_ENTRY_T *e;
-	
-	printf("%s\n", t->title);
-	for (e = t->entry; e; e = e->next)
-	    printf("code %s desc %s status %s\n", e->code, e->desc, e->status);
-	
+        G2C_CODE_ENTRY_T *e;
+
+        printf("%s\n", t->title);
+        for (e = t->entry; e; e = e->next)
+            printf("code %s desc %s status %s\n", e->code, e->desc, e->status);
     }
 }
 
@@ -47,23 +46,23 @@ g2c_free_tables()
     /* If g2c_table is NULL, then tables have already been
      * freed. */
     if (!g2c_table)
-	return;
+        return;
 
     /* Free each table. */
     for (t = g2c_table; t; t = the_next)
     {
-	G2C_CODE_ENTRY_T *e;
-	G2C_CODE_ENTRY_T *e_next;
+        G2C_CODE_ENTRY_T *e;
+        G2C_CODE_ENTRY_T *e_next;
 
-	/* Free each entry in the table. */
-	the_next = t->next;
-	for (e = t->entry; e; e = e_next)
-	{
-	    e_next = e->next;
-	    free(e);
-	}
+        /* Free each entry in the table. */
+        the_next = t->next;
+        for (e = t->entry; e; e = e_next)
+        {
+            e_next = e->next;
+            free(e);
+        }
 
-	free(t);
+        free(t);
     }
 
     /* Set to NULL so we all know g2c_table has been freed. */
@@ -88,33 +87,32 @@ g2c_find_desc_str(char *title, char *code, char *desc)
     int found = 0;
 
     /* Check inputs. */
-    if (!title || strlen(title) > G2C_MAX_GRIB_TITLE_LEN
-	|| !code || strlen(code) > G2C_MAX_GRIB_CODE_LEN || !desc)
-	return G2C_EINVAL;
-    
+    if (!title || strlen(title) > G2C_MAX_GRIB_TITLE_LEN || !code || strlen(code) > G2C_MAX_GRIB_CODE_LEN || !desc)
+        return G2C_EINVAL;
+
     /* Find table. */
     for (t = g2c_table; !found && t; t = t->next)
     {
-	if (!strncmp(title, t->title, strlen(title)))
-	{
-	    G2C_CODE_ENTRY_T *e = NULL;
-	    
-	    /* Find entry. */
-	    for (e = t->entry; e; e = e->next)
-	    {
-		if (!strncmp(code, e->code, strlen(code)))
-		{
-		    strcpy(desc, e->desc);
-		    found++;
-		    break;
-		}
-	    }
-	}
+        if (!strncmp(title, t->title, strlen(title)))
+        {
+            G2C_CODE_ENTRY_T *e = NULL;
+
+            /* Find entry. */
+            for (e = t->entry; e; e = e->next)
+            {
+                if (!strncmp(code, e->code, strlen(code)))
+                {
+                    strcpy(desc, e->desc);
+                    found++;
+                    break;
+                }
+            }
+        }
     }
 
     if (!found)
-	return G2C_ENOTFOUND;
-    
+        return G2C_ENOTFOUND;
+
     return G2C_NOERROR;
 }
 
@@ -152,8 +150,8 @@ g2c_find_table(char *key)
     G2C_CODE_TABLE_T *g;
 
     for (g = g2c_table; g; g = g->next)
-	if (!strncmp(key, g->title, G2C_MAX_GRIB_TITLE_LEN))
-	    return g;
+        if (!strncmp(key, g->title, G2C_MAX_GRIB_TITLE_LEN))
+            return g;
 
     return NULL;
 }
@@ -173,8 +171,8 @@ g2c_find_entry(char *desc, G2C_CODE_TABLE_T *table)
     G2C_CODE_ENTRY_T *e;
 
     for (e = table->entry; e; e = e->next)
-	if (!strncmp(desc, e->desc, G2C_MAX_GRIB_DESC_LEN))
-	    return e;
+        if (!strncmp(desc, e->desc, G2C_MAX_GRIB_DESC_LEN))
+            return e;
 
     return NULL;
 }
@@ -201,124 +199,124 @@ g2c_csv_init()
     /* If g2c_table is not NULL, then tables have already been
      * initialized. */
     if (g2c_table)
-	return G2C_NOERROR;
+        return G2C_NOERROR;
 
     /* Ingest the CSV document. */
     if (!(doc = fopen("CodeFlag.txt", "r")))
-	return G2C_ECSV;
+        return G2C_ECSV;
 
     /* Skip header line */
-    buf = fgets(line,max_line_size,doc); 
+    buf = fgets(line, max_line_size, doc);
 
-    /* Go through the document and save table data. 
+    /* Go through the document and save table data.
      * Each line is a table of codes. */
-	while((buf = fgets(line,max_line_size,doc)) != NULL)
-	{
-	    i = 0;
-	    while(buf != NULL && i < num_columns)
-		{
-		    G2C_CODE_TABLE_T *new_table = NULL;
-		    
-		    if (*buf == '\"')
-			{
-			    tmp = strsep(&buf,"\"");
-			    tmp = strsep(&buf,"\"");
-			    key = strdup((const char*)tmp);
-			    tmp = strsep(&buf,",");
-			}
-			else
-			{
-			    tmp = strsep(&buf,",");
-			    key = strdup((const char*)tmp);
-			}
+    while ((buf = fgets(line, max_line_size, doc)) != NULL)
+    {
+        i = 0;
+        while (buf != NULL && i < num_columns)
+        {
+            G2C_CODE_TABLE_T *new_table = NULL;
+
+            if (*buf == '\"')
+            {
+                tmp = strsep(&buf, "\"");
+                tmp = strsep(&buf, "\"");
+                key = strdup((const char *)tmp);
+                tmp = strsep(&buf, ",");
+            }
+            else
+            {
+                tmp = strsep(&buf, ",");
+                key = strdup((const char *)tmp);
+            }
 
             /* Title_en */
-			if (i==0)
-			{
-            if (strlen(key) > G2C_MAX_GRIB_TITLE_LEN)
-                return G2C_ENAMETOOLONG;
-            if (!(my_table = g2c_find_table(key)))
+            if (i == 0)
             {
-                if (!(new_table = calloc(1,sizeof(G2C_CODE_TABLE_T))))
-                    return G2C_ENOMEM;
-                strncpy(new_table->title, key,G2C_MAX_GRIB_TITLE_LEN);
-                my_table = new_table;
+                if (strlen(key) > G2C_MAX_GRIB_TITLE_LEN)
+                    return G2C_ENAMETOOLONG;
+                if (!(my_table = g2c_find_table(key)))
+                {
+                    if (!(new_table = calloc(1, sizeof(G2C_CODE_TABLE_T))))
+                        return G2C_ENOMEM;
+                    strncpy(new_table->title, key, G2C_MAX_GRIB_TITLE_LEN);
+                    my_table = new_table;
+                }
             }
-			}
-			
+
             if (my_table)
             {
-            /* CodeFlag */
-            if (i==2)
-            {
-                G2C_CODE_ENTRY_T *e;
-
-                if (!(new_entry = calloc(1,sizeof(G2C_CODE_ENTRY_T))))
-                    return G2C_ENOMEM;
-                if (strlen(key) > G2C_MAX_GRIB_CODE_LEN)
-                    return G2C_ENAMETOOLONG;
-                strncpy(new_entry->code,key,G2C_MAX_GRIB_CODE_LEN);
-                
-                /* Add entry at end of list. */
-                if (my_table->entry)
+                /* CodeFlag */
+                if (i == 2)
                 {
-                for (e = my_table->entry; e->next; e = e->next);
-                e->next = new_entry;
+                    G2C_CODE_ENTRY_T *e;
+
+                    if (!(new_entry = calloc(1, sizeof(G2C_CODE_ENTRY_T))))
+                        return G2C_ENOMEM;
+                    if (strlen(key) > G2C_MAX_GRIB_CODE_LEN)
+                        return G2C_ENAMETOOLONG;
+                    strncpy(new_entry->code, key, G2C_MAX_GRIB_CODE_LEN);
+
+                    /* Add entry at end of list. */
+                    if (my_table->entry)
+                    {
+                        for (e = my_table->entry; e->next; e = e->next)
+                            ;
+                        e->next = new_entry;
+                    }
+                    else
+                        my_table->entry = new_entry;
                 }
-                else
-                my_table->entry = new_entry;
-            }
-            /* MeaningParameterDescription */
-            if (i==4)
-            {
-                if (strlen(key) > G2C_MAX_GRIB_DESC_LEN)
-                return G2C_ENAMETOOLONG;
-                if (!new_entry)
-                return G2C_ECSV;
-                strncpy(new_entry->desc,key,G2C_MAX_GRIB_LEVEL_DESC_LEN);
-            }
-            /* Status */
-            if (i==8)
-            {
-                if (strlen(key) > G2C_MAX_GRIB_STATUS_LEN)
-                return G2C_ENAMETOOLONG;
-                if (!new_entry)
-                return G2C_ECSV;
-                strncpy(new_entry->status,key,G2C_MAX_GRIB_STATUS_LEN);
-            }
+                /* MeaningParameterDescription */
+                if (i == 4)
+                {
+                    if (strlen(key) > G2C_MAX_GRIB_DESC_LEN)
+                        return G2C_ENAMETOOLONG;
+                    if (!new_entry)
+                        return G2C_ECSV;
+                    strncpy(new_entry->desc, key, G2C_MAX_GRIB_LEVEL_DESC_LEN);
+                }
+                /* Status */
+                if (i == 8)
+                {
+                    if (strlen(key) > G2C_MAX_GRIB_STATUS_LEN)
+                        return G2C_ENAMETOOLONG;
+                    if (!new_entry)
+                        return G2C_ECSV;
+                    strncpy(new_entry->status, key, G2C_MAX_GRIB_STATUS_LEN);
+                }
             }
 
             /* Add this table to our list of GRIB tables. */
             if (new_table)
             {
-            if (!g2c_table)
-                g2c_table = new_table;
-            else 
-            { 
-                G2C_CODE_TABLE_T *g = g2c_table;
-
-                /* Go to end of list and add the table. */
-                if (g)
-                {
-                for (; g->next; g = g->next)
-                    ;
-                g->next = new_table;
-                }
+                if (!g2c_table)
+                    g2c_table = new_table;
                 else
                 {
-                g2c_table = new_table;
+                    G2C_CODE_TABLE_T *g = g2c_table;
+
+                    /* Go to end of list and add the table. */
+                    if (g)
+                    {
+                        for (; g->next; g = g->next)
+                            ;
+                        g->next = new_table;
+                    }
+                    else
+                    {
+                        g2c_table = new_table;
+                    }
                 }
-            }
-            new_table = NULL;
+                new_table = NULL;
             }
 
             free(key);
-			i++;
-		}
-	} 
+            i++;
+        }
+    }
 
-	fclose(doc);
+    fclose(doc);
 
     return G2C_NOERROR;
 }
-
