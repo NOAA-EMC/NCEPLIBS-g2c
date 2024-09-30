@@ -80,7 +80,7 @@ main()
 
         printf("Testing jpcpack()/jpcunpack() call...");
         {
-            float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+            float fld[DATA_LEN] = {100.0, 200.0, 300.0, 0.0};
             float fld_in[DATA_LEN];
             g2int lcpack = PACKED_LEN;
             g2int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
@@ -103,7 +103,7 @@ main()
         printf("ok!\n");
         printf("Testing g2c_jpcpackd()/g2c_jpcunpackd() call...");
         {
-            double fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+            double fld[DATA_LEN] = {10000.0, 20000.0, 30000.0, 0.0};
             double fld_in[DATA_LEN];
             size_t lcpack_st = PACKED_LEN;
             int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
@@ -125,7 +125,7 @@ main()
         printf("ok!\n");
         printf("Testing g2c_jpcpackf()/g2c_jpcunpackf() call...");
         {
-            float fld[DATA_LEN] = {1.0, 2.0, 3.0, 0.0};
+            float fld[DATA_LEN] = {1000.0, 2000.0, 3000.0, 0.0};
             float fld_in[DATA_LEN];
             size_t lcpack_st = PACKED_LEN;
             int idrstmpl[7] = {0, 1, 1, 16, 0, 0, 0};
