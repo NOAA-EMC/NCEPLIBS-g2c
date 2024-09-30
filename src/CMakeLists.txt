@@ -157,6 +157,14 @@ CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/grib2.h.in" "${CMAKE_CURRENT_BINARY_
 
 target_include_directories(${lib_name}_objlib PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}>"
                                                      $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
+if(BUILD_SHARED_LIBS)
+  target_include_directories(${lib_name}_shared PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}>"
+                                                       $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
+endif()
+if(BUILD_STATIC_LIBS)
+  target_include_directories(${lib_name}_static PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}>"
+                                                       $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
+endif()
 
 if (NOT WIN32)
   target_link_libraries(${lib_name}_objlib INTERFACE m)
