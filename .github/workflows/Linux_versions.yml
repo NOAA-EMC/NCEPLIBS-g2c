@@ -23,7 +23,7 @@ jobs:
     - name: install-dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libaec-dev libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev
+        sudo apt-get install libaec-dev libpng-dev zlib1g-dev
         if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
           sudo apt-get install clang
         fi
@@ -73,7 +73,7 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake -DJasper_ROOT=~/jasper -DENABLE_OpenJPEG=ON -DUSE_AEC=ON .. 
+        cmake -DJasper_ROOT=~/jasper -DUSE_AEC=ON .. 
         make -j2 VERBOSE=1
 
     - name: test
