@@ -9,31 +9,34 @@ on:
 
 jobs:
   Linux_versions:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
-      CC: gcc
       CXX: g++
     strategy:
       fail-fast: true
       matrix:
         jasper-version: [2.0.33, 3.0.3, 4.0.0]
-        ccompiler: [clang, gcc]
+        ccompiler: [clang, gcc-12]
+        include:
+        - jasper-version: 4.0.0
+          ccompiler: gcc-14
     
     steps:
     - name: install-dependencies
       run: |
         sudo apt-get update
         sudo apt-get install libaec-dev libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev
-        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
-          sudo apt-get install clang
+        if [[ -z $(type -P ${{ matrix.ccompiler }}) ]]; then
+          sudo apt-get install ${{ matrix.ccompiler }}
         fi
+        echo "CC=${{ matrix.ccompiler }}" >> $GITHUB_ENV
 
     - name: cache-jasper
       id: cache-jasper
       uses: actions/cache@v4
       with:
         path: ~/jasper
-        key: jasper-${{ runner.os }}-${{ matrix.jasper-version }}
+        key: jasper-${{ runner.os }}-${{ matrix.jasper-version }}-${{ matrix.ccompiler }}
 
     - name: checkout-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
@@ -46,11 +49,6 @@ jobs:
     - name: build-jasper
       if: steps.cache-jasper.outputs.cache-hit != 'true'
       run: |
-        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
-          export CC=clang
-        elif [[ ${{ matrix.ccompiler }} == "gcc" ]]; then
-          export CC=gcc
-        fi
         cd jasper
         mkdir cmake_build
         cd cmake_build
@@ -65,11 +63,6 @@ jobs:
 
     - name: build
       run: |
-        if [[ ${{ matrix.ccompiler }} == "clang" ]]; then
-          export CC=clang
-        elif [[ ${{ matrix.ccompiler }} == "gcc" ]]; then
-          export CC=gcc
-        fi
         cd g2c
         mkdir build
         cd build
