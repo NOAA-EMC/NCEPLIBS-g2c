@@ -101,7 +101,7 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
         unsigned char *cout)
 {
     int interlace, color, compres, filter, bit_depth;
-    g2int j, k, n, bytes, clen;
+    g2int j, k, n, bytes;
     png_structp png_ptr;
     png_infop info_ptr, end_info;
     png_bytepp row_pointers;
@@ -171,11 +171,13 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
 
     /* Copy image data to output string   */
     n = 0;
-    bytes = bit_depth / 8;
-    clen = (*width) * bytes;
+    bytes = (*width * bit_depth) / 8;
+    if ((*width * bit_depth) % 8 != 0) {
+        bytes++;
+    }
     for (j = 0; j < *height; j++)
     {
-        for (k = 0; k < clen; k++)
+        for (k = 0; k < bytes; k++)
         {
             cout[n] = *(row_pointers[j] + k);
             n++;
@@ -254,10 +256,15 @@ enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
                  PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 
     /* Put image data into the PNG info structure. */
-    bytes = nbits / 8;
+    bytes = (width * nbits) / 8;
+    if ((width * nbits) % 8 != 0) {
+        bytes++;
+    }
+
     row_pointers = malloc(height * sizeof(png_bytep));
     for (j = 0; j < height; j++)
-        row_pointers[j] = (png_bytep *)(data + (j * width * bytes));
+        row_pointers[j] = (png_bytep *)(data + (j * bytes));
+
     png_set_rows(png_ptr, info_ptr, (png_bytepp)row_pointers);
 
     /* Do the PNG encoding, and write out PNG stream. */

@@ -168,7 +168,13 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 
         /* Pack data into full octets, then do PNG encode and
          * calculate the length of the packed data in bytes. */
-        if (nbits <= 8)
+        if (nbits <= 1)
+            nbits = 1;
+        else if (nbits <= 2)
+            nbits = 2;
+        else if (nbits <= 4)
+            nbits = 4;
+        else if (nbits <= 8)
             nbits = 8;
         else if (nbits <= 16)
             nbits = 16;
@@ -177,9 +183,14 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         else
             nbits = 32;
 
-        nbytes = (nbits / 8) * ndpts;
+        int bytes_per_row = (nbits * width) / 8;
+        if ((width * nbits) % 8 != 0) {
+            bytes_per_row++;
+        }
+        nbytes = bytes_per_row * height;
         ctemp = calloc(nbytes, 1);
-        sbits(ctemp, ifld, 0, nbits, 0, ndpts);
+        for (j = 0; j < height; j++)
+            sbits(ctemp + (j * bytes_per_row), ifld + (j * width), 0, nbits, 0, width);
 
         /* Encode data into PNG Format. */
         if ((*lcpack = (g2int)enc_png(ctemp, width, height, nbits, cpack)) <= 0)
