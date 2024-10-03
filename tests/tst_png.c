@@ -69,6 +69,90 @@ main()
         }
     }
     printf("ok!\n");
+    printf("Testing pngpack()/pngunpack() calls bit_depth 1 ...");
+    {
+        g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN;
+        float fld[DATA_LEN] = {1.0, 2.0, 1.0, 2.0};
+        float fld_in[DATA_LEN];
+        unsigned char cpack[PACKED_LEN];
+        g2int lcpack;
+        g2int idrstmpl[5] = {0, 0, 0, 0, 0};
+        int i;
+
+        /* Pack the data. */
+        pngpack(fld, width, height, idrstmpl, cpack, &lcpack);
+
+        /* Unpack the data. */
+        if (pngunpack(cpack, len, idrstmpl, ndpts, fld_in))
+            return G2C_ERROR;
+
+        if (idrstmpl[3] != 1)
+            return G2C_ERROR;
+
+        for (i = 0; i < DATA_LEN; i++)
+        {
+            /* printf("%g %g\n", fld[i], fld_in[i]); */
+            if (fld[i] != fld_in[i])
+                return G2C_ERROR;
+        }
+    }
+    printf("ok!\n");
+    printf("Testing pngpack()/pngunpack() calls bit_depth 2 ...");
+    {
+        g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN;
+        float fld[DATA_LEN] = {1.0, 2.0, 3.0, 4.0};
+        float fld_in[DATA_LEN];
+        unsigned char cpack[PACKED_LEN];
+        g2int lcpack;
+        g2int idrstmpl[5] = {0, 0, 0, 0, 0};
+        int i;
+
+        /* Pack the data. */
+        pngpack(fld, width, height, idrstmpl, cpack, &lcpack);
+
+        /* Unpack the data. */
+        if (pngunpack(cpack, len, idrstmpl, ndpts, fld_in))
+            return G2C_ERROR;
+
+        if (idrstmpl[3] != 2)
+            return G2C_ERROR;
+
+        for (i = 0; i < DATA_LEN; i++)
+        {
+            /* printf("%g %g\n", fld[i], fld_in[i]); */
+            if (fld[i] != fld_in[i])
+                return G2C_ERROR;
+        }
+    }
+    printf("ok!\n");
+    printf("Testing pngpack()/pngunpack() calls bit_depth 4 ...");
+    {
+        g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN;
+        float fld[DATA_LEN] = {1.0, 4.0, 8.0, 16.0};
+        float fld_in[DATA_LEN];
+        unsigned char cpack[PACKED_LEN];
+        g2int lcpack;
+        g2int idrstmpl[5] = {0, 0, 0, 0, 0};
+        int i;
+
+        /* Pack the data. */
+        pngpack(fld, width, height, idrstmpl, cpack, &lcpack);
+
+        /* Unpack the data. */
+        if (pngunpack(cpack, len, idrstmpl, ndpts, fld_in))
+            return G2C_ERROR;
+
+        if (idrstmpl[3] != 4)
+            return G2C_ERROR;
+
+        for (i = 0; i < DATA_LEN; i++)
+        {
+            /* printf("%g %g\n", fld[i], fld_in[i]); */
+            if (fld[i] != fld_in[i])
+                return G2C_ERROR;
+        }
+    }
+    printf("ok!\n");
     printf("Testing g2c_pngpackd()/g2c_pngunpackd() calls...");
     {
         size_t height = 2, width = 2;
