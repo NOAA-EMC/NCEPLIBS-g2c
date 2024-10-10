@@ -68,7 +68,15 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
             return G2C_ENOMEM;
         }
         dec_png(cpack, &width, &height, ctemp);
-        gbits(ctemp, ifld, 0, nbits, 0, ndpts);
+
+        int bytes_per_row = (nbits * width) / 8;
+        if ((width * nbits) % 8 != 0) {
+            bytes_per_row++;
+        }
+        for (j = 0; j < height; j++) {
+            gbits(ctemp + (j * bytes_per_row), ifld + (j * width), 0, nbits, 0, width);
+        }
+
         for (j = 0; j < ndpts; j++)
         {
             if (fld_is_double)
