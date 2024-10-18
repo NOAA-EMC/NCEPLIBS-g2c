@@ -70,7 +70,7 @@ main(int argc, char **argv)
     g2c_set_log_level(10);
     if ((ret = g2c_open(path[0], G2C_NOWRITE, &g2cid0)))
         return ret;
-    if ((ret = g2c_open(path[0], G2C_NOWRITE, &g2cid1)))
+    if ((ret = g2c_open(path[1], G2C_NOWRITE, &g2cid1)))
         return ret;
 
     /* Compare the files. */
