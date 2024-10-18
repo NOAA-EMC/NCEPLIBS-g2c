@@ -224,5 +224,5 @@ install(EXPORT ${PROJECT_NAME}Exports
 if(BUILD_G2C)
   set(CSV_FILES Template.txt CodeFlag.txt)
   install(FILES ${CSV_FILES}
-    DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/g2c/)
 endif()
