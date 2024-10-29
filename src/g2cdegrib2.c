@@ -735,10 +735,10 @@ g2c_degrib2(int g2cid, const char *fileout)
              * discipline and the first two elements of the product
              * template, which will be the category and product
              * number. */
-            if ((ret = g2c_param_abbrev(msg->discipline, sec->template[0], sec -> template[1], abbrev)))
+            if ((ret = g2c_param_abbrev(msg->discipline, sec->template[0], sec->template[1], abbrev)))
                 return ret;
             fprintf(f, "( PARAMETER = %-8s %d %lld %lld ) ", abbrev, sec->msg->discipline, sec->template[0],
-                    sec -> template[1]);
+                    sec->template[1]);
             /* Cast to int to match behavior of  degrib2.F90. */
             for (t = 0; t < sec->template_len; t++)
                 fprintf(f, " %d", (int)sec->template[t]);
