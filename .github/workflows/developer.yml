@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   developer:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       CC: gcc
       CXX: g++
@@ -33,7 +33,7 @@ jobs:
     - name: install-format-dependencies
       if: matrix.config == 'format'      
       run: |
-        sudo apt-get install clang-format-15
+        sudo apt-get install clang-format-18
 
     - name: install-docs-dependencies
       if: matrix.config == 'docs'      
