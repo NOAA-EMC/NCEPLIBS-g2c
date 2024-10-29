@@ -31,7 +31,7 @@ int
 g2c_inq(int g2cid, int *num_msg)
 {
     int ret = G2C_NOERROR;
-    
+
     /* Is this an open GRIB2 file? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
@@ -254,7 +254,7 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
             for (t = 0; t < sec4->template_len; t++)
                 pds_template[t] = sec4->template[t];
     }
-    
+
     /* Find the GDS. */
     if (!ret)
     {
@@ -274,7 +274,7 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
             for (t = 0; t < sec3->template_len; t++)
                 gds_template[t] = sec3->template[t];
     }
-    
+
     /* Find the DRS. */
     if (!ret)
     {
@@ -294,7 +294,7 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
             for (t = 0; t < sec5->template_len; t++)
                 drs_template[t] = sec5->template[t];
     }
-    
+
     /* If using threading, unlock the mutex. */
     MUTEX_UNLOCK(m);
 
@@ -326,7 +326,7 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
  */
 int
 g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
-                char *name, float *val)
+            char *name, float *val)
 {
     G2C_MESSAGE_INFO_T *msg;
     G2C_SECTION_INFO_T *sec4, *sec3;
@@ -376,7 +376,6 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
     if (val)
         for (d = 0; d < dim->len; d++)
             val[d] = dim->value[d];
-        
 
     return ret;
 }

@@ -16,7 +16,7 @@
 #define REF_INDEX_FILE "data/ref_gdaswave.t00z.wcoast.0p16.f000.grb2index"
 #define TEST_INDEX_FILE "tst_gdaswave.t00z.wcoast.0p16.f000.grb2index"
 
-/* The first message of the file has the following degrib2 output in the g2 project: 
+/* The first message of the file has the following degrib2 output in the g2 project:
 
  GRIB MESSAGE  1  starts at 1
 

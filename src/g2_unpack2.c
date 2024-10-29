@@ -3,9 +3,9 @@
  * @author Stephen Gilbert @date 2002-10-31
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Unpack [Section 2 (Local Use

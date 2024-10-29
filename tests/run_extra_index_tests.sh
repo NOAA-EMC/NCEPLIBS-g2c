@@ -16,7 +16,7 @@ echo "*** Running g2c_index extra file test"
 ../utils/g2c_index -o GFSPRS.GrbF06.idx -l -v data/GFSPRS.GrbF06
 
 # Summarize the index data.
-#../utils/g2c_degrib2 -v -o fv3lam.t00z.prslev.f000.grib2.idx.degrib2 data/fv3lam.t00z.prslev.f000.grib2 fv3lam.t00z.prslev.f000.grib2.idx 
+#../utils/g2c_degrib2 -v -o fv3lam.t00z.prslev.f000.grib2.idx.degrib2 data/fv3lam.t00z.prslev.f000.grib2 fv3lam.t00z.prslev.f000.grib2.idx
 
 # Check against expected output.
 #diff -w fv3lam.t00z.prslev.f000.grib2.idx.degrib2 data/ref_fv3lam.t00z.prslev.f000.grib2.degrib2

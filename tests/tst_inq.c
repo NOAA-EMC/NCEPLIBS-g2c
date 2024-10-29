@@ -123,8 +123,7 @@ main()
                     {0, 4, 2, 0, 11, 0, 0, 1, 0, 1, 0, 1, 255, 0, 0},
                     {0, 7, 2, 0, 11, 0, 0, 1, 0, 241, 0, 1, 255, 0, 0},
                     {0, 7, 2, 0, 11, 0, 0, 1, 0, 241, 0, 2, 255, 0, 0},
-                    {0, 7, 2, 0, 11, 0, 0, 1, 0, 241, 0, 3, 255, 0, 0}
-                };
+                    {0, 7, 2, 0, 11, 0, 0, 1, 0, 241, 0, 3, 255, 0, 0}};
                 long long int expected_gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN] =
                     {6, 0, 0, 0, 0, 0, 0, 241, 151, 0, 0, 50000000, 210000000, 48, 25000000, 250000000, 166667, 166667, 0};
                 long long int expected_drs_template[NUM_MSG][G2C_MAX_DRS_TEMPLATE_MAPLEN] = {
@@ -146,16 +145,15 @@ main()
                     {0, 0, 2, 16, 0, 0, 255},
                     {1183603200, 0, 2, 14, 0, 0, 255},
                     {1140424704, 0, 2, 16, 0, 0, 255},
-                    {1092616192, 0, 2, 16, 0, 0, 255}
-                };
+                    {1092616192, 0, 2, 16, 0, 0, 255}};
                 unsigned char sig_ref_time, month, day, hour, minute, second;
                 short year;
                 short center, subcenter;
                 unsigned char master_version, local_version;
                 int p;
 
-		printf("\t\tinquiring about message %d...\n", m);
-		
+                printf("\t\tinquiring about message %d...\n", m);
+
                 /* Inquire about this message. */
                 if ((ret = g2c_inq_msg(g2cid, m, &discipline, &num_fields, &num_local,
                                        &center, &subcenter, &master_version, &local_version)))
@@ -177,7 +175,7 @@ main()
                 if (sig_ref_time != 1 || year != 2021 || month != 11 || day != 30 ||
                     hour != 0 || minute != 0 || second != 0)
                     return G2C_ERROR;
- 
+
                 /* Each message in the test file has one product. Inqure
                  * about it. */
                 if ((ret = g2c_inq_prod(g2cid, m, 0, &pds_template_len, pds_template,
@@ -199,11 +197,11 @@ main()
                 if (drs_template_len != 7)
                     return G2C_ERROR;
                 for (p = 0; p < drs_template_len; p++)
-		{
-		    /* printf("drs_template[%d] %lld\n", p, drs_template[p]); */
+                {
+                    /* printf("drs_template[%d] %lld\n", p, drs_template[p]); */
                     if (drs_template[p] != expected_drs_template[m][p])
                         return G2C_ERROR;
-		}
+                }
             }
 
             /* Close the file. */

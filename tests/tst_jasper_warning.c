@@ -5,9 +5,9 @@
  * Ed Hartnett 10/26/23
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 #define DATA_LEN 4
 #define PACKED_LEN 200
@@ -24,9 +24,9 @@ main()
         g2int ltype = 0, ratio = 0, retry = 0, jpclen = PACKED_LEN;
         char outjpc[PACKED_LEN];
         g2int outfld[DATA_LEN];
-	int i;
+        int i;
         int ret;
-    
+
         /* Encode some data. */
         if ((ret = enc_jpeg2000(data, width, height, nbits, ltype,
                                 ratio, retry, outjpc, jpclen)) < 0)

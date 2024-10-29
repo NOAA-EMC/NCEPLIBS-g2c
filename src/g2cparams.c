@@ -1,4 +1,4 @@
-/** 
+/**
  * @file
  * @brief Functions for serving up NOAA parameter abbreviations and
  * GRIB1/GRIB2 translations.
@@ -1051,7 +1051,7 @@ int
 g2c_param_g1tog2(int g1num, int g1ver, int *g2disc, int *g2cat, int *g2num)
 {
     int p;
-    
+
     /* Loop through array until matching values are found. */
     for (p = 0; p < G2C_MAX_NOAA_PARAMS; p++)
         if (param[p].g1num == g1num && param[p].g1ver == g1ver)
@@ -1110,7 +1110,7 @@ g2c_param_abbrev(int g2disc, int g2cat, int g2num, char *abbrev)
         strncpy(abbrev, param[p].abbrev, G2C_MAX_NOAA_ABBREV_LEN + 1);
 
     LOG((12, "abbrev %s", abbrev));
-    
+
     return G2C_NOERROR;
 }
 
@@ -1138,7 +1138,7 @@ g2c_param_g2tog1(int g2disc, int g2cat, int g2num, int *g1num, int *g1ver)
     int p;
 
     LOG((2, "g2c_param_g2tog1 g2disc %d g2cat %d g2num %d", g2disc, g2cat, g2num));
-    
+
     /* Loop through array until matching values are found. */
     for (p = 0; p < G2C_MAX_NOAA_PARAMS; p++)
         if (param[p].g2disc == g2disc && param[p].g2cat == g2cat && param[p].g2num == g2num)
@@ -1202,8 +1202,6 @@ g2c_param_all(int param_idx, int *g1num, int *g1ver, int *g2disc, int *g2cat,
         *g2num = param[param_idx].g2num;
     if (abbrev)
         strncpy(abbrev, param[param_idx].abbrev, G2C_MAX_NOAA_ABBREV_LEN);
-    
+
     return G2C_NOERROR;
 }
-
-

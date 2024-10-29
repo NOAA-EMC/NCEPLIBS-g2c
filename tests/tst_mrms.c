@@ -6,9 +6,9 @@
  * Ed Hartnett 7/5/23
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 #define MRMS_FILE "data/MRMS_MultiSensor_QPE_24H_Pass2_00.00_20230621-110000.grib2"
 #define LAT_LEN 3500
@@ -33,7 +33,7 @@ main()
         /* int d; */
 
         /* Open GRIB2 file. */
-	g2c_set_log_level(10);
+        g2c_set_log_level(10);
         if (g2c_open(MRMS_FILE, 0, &g2cid))
             return G2C_ERROR;
 

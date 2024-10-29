@@ -13,7 +13,7 @@ G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 int g2c_next_g2cid = 1;
 
 /** Find a minimum. */
-#define MIN(a,b) ((a) < (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 /** Default size of read-buffer. */
 #define READ_BUF_SIZE 4092
@@ -30,7 +30,7 @@ MUTEX(m);
 extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 
 /**
- * Search a file for the next GRIB2 Message. 
+ * Search a file for the next GRIB2 Message.
  *
  * The search is terminated when a GRIB2 message is found, or the end
  * of the file is reached.
@@ -64,8 +64,8 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
 
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
-	return G2C_EBADID;
-    
+        return G2C_EBADID;
+
     LOG((3, "g2c_seekgb skip %ld", skip));
 
     /* Get memory to read in some of the file. */
@@ -95,8 +95,8 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
                  * an 8-byte big-endian integer starting at positon
                  * 8 in cbuf. */
                 my_msglen = hton64(*(size_t *)&cbuf[k + 8]);
-                
-		LOG((4, "my_msglen %ld", my_msglen));
+
+                LOG((4, "my_msglen %ld", my_msglen));
 
                 /* Read the last 4 bytes of the message. */
                 if (fseek(g2c_file[g2cid].f, ipos + k + my_msglen - 4, SEEK_SET))
@@ -104,19 +104,19 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
                     free(cbuf);
                     return G2C_EFILE;
                 }
-                    
+
                 if ((k4 = fread(&end, 4, 1, g2c_file[g2cid].f)) != 1)
                 {
                     free(cbuf);
                     return G2C_EFILE;
                 }
-                    
+
                 /* Look for '7777' at end of grib message. */
                 if (k4 == 1 && end == 926365495)
                 {
                     /* GRIB message found. */
                     my_offset = ipos + k;
-		    LOG((4, "found end of message my_offset %ld", my_offset));
+                    LOG((4, "found end of message my_offset %ld", my_offset));
                     break;
                 }
             }
@@ -216,8 +216,7 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
                 /* if (i < 10) LOG((3, "buf[%ld] = %2.2x", i, buf[i])); */
 #endif
                 /* Find the beginning of a GRIB message. */
-                if (buf[i] == 'G' && i < bytes_read - G2C_MAGIC_HEADER_LEN
-                    && buf[i + 1] == 'R' && buf[i + 2] == 'I' && buf[i + 3] == 'B')
+                if (buf[i] == 'G' && i < bytes_read - G2C_MAGIC_HEADER_LEN && buf[i + 1] == 'R' && buf[i + 2] == 'I' && buf[i + 3] == 'B')
                 {
                     msg_found++;
                     *bytes_to_msg = ftell_pos + i;
@@ -232,8 +231,7 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
                 }
 
                 /* Find the end of a GRIB message. And then we're done. */
-                if (msg_found && buf[i] == '7' && i < bytes_read - G2C_MAGIC_HEADER_LEN
-                    && buf[i + 1] == '7' && buf[i + 2] == '7' && buf[i + 3] == '7')
+                if (msg_found && buf[i] == '7' && i < bytes_read - G2C_MAGIC_HEADER_LEN && buf[i + 1] == '7' && buf[i + 2] == '7' && buf[i + 3] == '7')
                 {
                     msg_found--;
                     *bytes_in_msg = ftell_pos + i - *bytes_to_msg + 4;
@@ -394,7 +392,6 @@ find_available_g2cid(int *g2cid)
     return ret;
 }
 
-
 /**
  * Determine the dimension information from the section 3 metadata.
  *
@@ -439,7 +436,7 @@ determine_dims(G2C_SECTION_INFO_T *sec)
         d0->value[0] = sec->template[11];
         for (d = 1; d < d0->len; d++)
             d0->value[d] = d0->value[d - 1] - sec->template[16];
-        
+
         d1->len = sec->template[7];
         strncpy(d1->name, LONGITUDE, G2C_MAX_NAME);
         if (!(d1->value = malloc(d1->len * sizeof(float))))
@@ -451,7 +448,7 @@ determine_dims(G2C_SECTION_INFO_T *sec)
     default:
         break;
     }
-    
+
     return G2C_NOERROR;
 }
 
@@ -466,7 +463,7 @@ determine_dims(G2C_SECTION_INFO_T *sec)
  *
  * @param f FILE pointer to open GRIB2 file.
  * @param rw_flag ::G2C_FILE_WRITE if function should write,
- * ::G2C_FILE_READ (0) if it should read. 
+ * ::G2C_FILE_READ (0) if it should read.
  * @param sec Pointer to the G2C_SECTION_INFO_T struct.
  *
  * @return
@@ -884,7 +881,7 @@ g2c_rw_section1_metadata(FILE *f, int rw_flag, G2C_MESSAGE_INFO_T *msg)
     /* Read the section. */
     if ((ret = g2c_file_io_uint(f, rw_flag, (unsigned int *)&msg->sec1_len)))
         return ret;
-    
+
     if ((ret = g2c_file_io_ubyte(f, rw_flag, &sec_num)))
         return ret;
     if (!rw_flag && sec_num != 1) /* When reading sec num must be 1. */

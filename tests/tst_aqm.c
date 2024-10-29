@@ -30,7 +30,6 @@ main()
         /* Close the data file. */
         if ((ret = g2c_close(g2cid)))
             return ret;
-        
     }
     printf("ok!\n");
     printf("SUCCESS!\n");

@@ -16,9 +16,9 @@
  */
 static int
 cmpString(const void *p, const void *q)
-{    
-    const char *pp = (const char*)p;
-    const char *qq = (const char*)q;
+{
+    const char *pp = (const char *)p;
+    const char *qq = (const char *)q;
     int i, j;
     for (i = 0; isblank(pp[i]); ++i)
         ;
@@ -153,4 +153,3 @@ compare_degrib2_files2(char *fname1, char *fname2)
 
     return G2C_NOERROR;
 }
-

@@ -3,9 +3,9 @@
  * algorithm.
  * @author Stephen Gilbert @date 2002-10-29
  */
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Unpack a data field that was packed using a simple packing
@@ -32,7 +32,7 @@ simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, float *fld)
     float ref, bscale, dscale;
 
     assert(cpack && idrstmpl && fld);
-    
+
     LOG((3, "simunpack ndpts %ld idrstmpl: %ld %ld %ld %ld %ld", ndpts, idrstmpl[0],
          idrstmpl[1], idrstmpl[2], idrstmpl[3], idrstmpl[4]));
 
@@ -44,7 +44,7 @@ simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, float *fld)
     if (!(ifld = calloc(ndpts, sizeof(g2int))))
     {
         fprintf(stderr, "Could not allocate space in simunpack.\n  "
-		"Data field NOT upacked.\n");
+                        "Data field NOT upacked.\n");
         return G2_JPCUNPACK_MEM;
     }
 

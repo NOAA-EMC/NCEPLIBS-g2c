@@ -4,9 +4,9 @@
  * @author Stephen Gilbert @date 2002-11-05
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Pack sections 4 through 7 and adds them to a GRIB2 message.
@@ -130,7 +130,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
 
     /* Loop through all current sections of the GRIB message to find
      * the last section number. */
-    len = 16;    /* length of Section 0 */
+    len = 16; /* length of Section 0 */
     for (;;)
     {
         /* Get number and length of next section. */
@@ -189,13 +189,13 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     }
 
     /* Add Section 4  - Product Definition Section. */
-    ibeg = lencurr * 8;        /* Calculate offset for beginning of section 4 */
-    iofst = ibeg + 32;         /* leave space for length of section */
-    sbit(cgrib, &four, iofst, 8);     /* Store section number (4) */
+    ibeg = lencurr * 8;           /* Calculate offset for beginning of section 4 */
+    iofst = ibeg + 32;            /* leave space for length of section */
+    sbit(cgrib, &four, iofst, 8); /* Store section number (4) */
     iofst = iofst + 8;
-    sbit(cgrib, &numcoord, iofst, 16);   /* Store num of coordinate values */
+    sbit(cgrib, &numcoord, iofst, 16); /* Store num of coordinate values */
     iofst = iofst + 16;
-    sbit(cgrib, &ipdsnum, iofst, 16);    /* Store Prod Def Template num. */
+    sbit(cgrib, &ipdsnum, iofst, 16); /* Store Prod Def Template num. */
     iofst = iofst + 16;
 
     /* Get Product Definition Template. */
@@ -223,7 +223,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         {
             sbit(cgrib, &one, iofst, 1);
             temp = abs(ipdstmpl[i]);
-            sbit(cgrib, &temp, iofst + 1, nbits-1);
+            sbit(cgrib, &temp, iofst + 1, nbits - 1);
         }
         iofst = iofst + nbits;
     }
@@ -297,16 +297,16 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     cpack = malloc(nsize);
 
     /* Call packing function based on idrsnum. */
-    if (idrsnum == 0)           /*  Simple Packing */
+    if (idrsnum == 0) /*  Simple Packing */
         simpack(pfld, ndpts, idrstmpl, cpack, &lcpack);
-    else if (idrsnum == 2 || idrsnum == 3)           /*  Complex Packing */
+    else if (idrsnum == 2 || idrsnum == 3) /*  Complex Packing */
         cmplxpack(pfld, ndpts, idrsnum, idrstmpl, cpack, &lcpack);
-    else if (idrsnum == 50)  /* Sperical Harmonic Simple Packing */
+    else if (idrsnum == 50) /* Sperical Harmonic Simple Packing */
     {
         simpack(pfld + 1, ndpts - 1, idrstmpl, cpack, &lcpack);
-        mkieee(pfld, idrstmpl + 4, 1);  /* ensure RE(0, 0) value is IEEE format */
+        mkieee(pfld, idrstmpl + 4, 1); /* ensure RE(0, 0) value is IEEE format */
     }
-    else if (idrsnum == 51)      /* Sperical Harmonic Complex Packing */
+    else if (idrsnum == 51) /* Sperical Harmonic Complex Packing */
     {
         getpoly(cgrib + lpos3, &JJ, &KK, &MM);
         if (JJ != 0 && KK != 0 && MM != 0)
@@ -319,7 +319,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     }
 #if defined USE_JPEG2000 || defined USE_OPENJPEG
     else if (idrsnum == 40 || idrsnum == 40000)
-    {    /*  JPEG2000 encoding  */
+    { /*  JPEG2000 encoding  */
         if (ibmap == 255)
         {
             getdim(cgrib + lpos3, &width, &height, &iscan);
@@ -334,7 +334,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
                 height = 1;
             }
             else if ((iscan & 32) == 32)
-            {   /* Scanning mode: bit 3  */
+            { /* Scanning mode: bit 3  */
                 itemp = width;
                 width = height;
                 height = itemp;
@@ -348,10 +348,10 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         lcpack = nsize;
         jpcpack(pfld, width, height, idrstmpl, cpack, &lcpack);
     }
-#endif  /* USE_JPEG2000 */
+#endif /* USE_JPEG2000 */
 #ifdef USE_PNG
     else if (idrsnum == 41 || idrsnum == 40010)
-    {      /*  PNG encoding   */
+    { /*  PNG encoding   */
         if (ibmap == 255)
         {
             getdim(cgrib + lpos3, &width, &height, &iscan);
@@ -366,7 +366,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
                 height = 1;
             }
             else if ((iscan & 32) == 32)
-            {   /* Scanning mode: bit 3  */
+            { /* Scanning mode: bit 3  */
                 itemp = width;
                 width = height;
                 height = itemp;
@@ -379,10 +379,10 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         }
         pngpack(pfld, width, height, idrstmpl, cpack, &lcpack);
     }
-#endif  /* USE_PNG */
+#endif /* USE_PNG */
 #ifdef USE_AEC
     else if (idrsnum == 42)
-    {   /* AEC Encoding */
+    { /* AEC Encoding */
         if (ibmap == 255)
         {
             getdim(cgrib + lpos3, &width, &height, &iscan);
@@ -397,7 +397,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
                 height = 1;
             }
             else if ((iscan & 32) == 32)
-            {   /* Scanning mode: bit 3  */
+            { /* Scanning mode: bit 3  */
                 itemp = width;
                 width = height;
                 height = itemp;
@@ -408,7 +408,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
             width = ndpts;
             height = 1;
         }
-	//printf("IN G2C, in g2_addfield, using AEC compression...\n");
+        //printf("IN G2C, in g2_addfield, using AEC compression...\n");
         lcpack = nsize;
         aecpack(pfld, width, height, idrstmpl, cpack, &lcpack);
     }
@@ -419,7 +419,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
         return G2_ADDFIELD_BAD_DRT;
     }
 
-    /* Free temp space. */    
+    /* Free temp space. */
     if (ibmap == 0 || ibmap == 254)
     {
         if (fld != pfld)
@@ -436,13 +436,13 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     }
 
     /*  Add Section 5  - Data Representation Section */
-    ibeg = iofst;            /*   Calculate offset for beginning of section 5 */
-    iofst = ibeg + 32;         /*   leave space for length of section */
-    sbit(cgrib, &five, iofst, 8);     /* Store section number (5) */
+    ibeg = iofst;                 /*   Calculate offset for beginning of section 5 */
+    iofst = ibeg + 32;            /*   leave space for length of section */
+    sbit(cgrib, &five, iofst, 8); /* Store section number (5) */
     iofst = iofst + 8;
-    sbit(cgrib, &ndpts, iofst, 32);    /* Store num of actual data points */
+    sbit(cgrib, &ndpts, iofst, 32); /* Store num of actual data points */
     iofst = iofst + 32;
-    sbit(cgrib, &idrsnum, iofst, 16);    /* Store Data Repr. Template num. */
+    sbit(cgrib, &idrsnum, iofst, 16); /* Store Data Repr. Template num. */
     iofst = iofst + 16;
 
     /*   Pack up each input value in array idrstmpl into the */
@@ -469,17 +469,17 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     sbit(cgrib, &lensec5, ibeg, 32);
 
     /* Add Section 6  - Bit-Map Section */
-    ibeg = iofst;            /*   Calculate offset for beginning of section 6 */
-    iofst = ibeg + 32;         /*   leave space for length of section */
-    sbit(cgrib, &six, iofst, 8);     /* Store section number (6) */
+    ibeg = iofst;                /*   Calculate offset for beginning of section 6 */
+    iofst = ibeg + 32;           /*   leave space for length of section */
+    sbit(cgrib, &six, iofst, 8); /* Store section number (6) */
     iofst = iofst + 8;
-    sbit(cgrib, &ibmap, iofst, 8);    /* Store Bit Map indicator */
+    sbit(cgrib, &ibmap, iofst, 8); /* Store Bit Map indicator */
     iofst = iofst + 8;
 
     /*  Store bitmap, if supplied */
     if (ibmap == 0)
     {
-        sbits(cgrib, bmap, iofst, 1, 0, ngrdpts);    /* Store BitMap */
+        sbits(cgrib, bmap, iofst, 1, 0, ngrdpts); /* Store BitMap */
         iofst = iofst + ngrdpts;
     }
 
@@ -497,16 +497,16 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     left = 8 - (iofst % 8);
     if (left != 8)
     {
-        sbit(cgrib, &zero, iofst, left);     /* Pad with zeros to fill Octet */
+        sbit(cgrib, &zero, iofst, left); /* Pad with zeros to fill Octet */
         iofst = iofst + left;
     }
     lensec6 = (iofst - ibeg) / 8;
     sbit(cgrib, &lensec6, ibeg, 32);
 
     /* Add Section 7  - Data Section */
-    ibeg = iofst;            /*   Calculate offset for beginning of section 7 */
-    iofst = ibeg + 32;        /*   leave space for length of section */
-    sbit(cgrib, &seven, iofst, 8);    /* Store section number (7) */
+    ibeg = iofst;                  /*   Calculate offset for beginning of section 7 */
+    iofst = ibeg + 32;             /*   leave space for length of section */
+    sbit(cgrib, &seven, iofst, 8); /* Store section number (7) */
     iofst = iofst + 8;
 
     /* Store Packed Binary Data values, if non-constant field. */

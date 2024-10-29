@@ -3,9 +3,9 @@
  * @author Stephen Gilbert @date 2002-10-31
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Unpack [Section 4 (Product Definition
@@ -56,9 +56,9 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
     *ipdstmpl = NULL;
     *coordlist = NULL;
 
-    gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
+    gbit(cgrib, &lensec, *iofst, 32); /* Get Length of Section */
     *iofst = *iofst + 32;
-    gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
+    gbit(cgrib, &isecnum, *iofst, 8); /* Get Section Number */
     *iofst = *iofst + 8;
 
     if (isecnum != 4)
@@ -68,9 +68,9 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
         return G2_UNPACK_BAD_SEC;
     }
 
-    gbit(cgrib, numcoord, *iofst, 16);    /* Get num of coordinate values */
+    gbit(cgrib, numcoord, *iofst, 16); /* Get num of coordinate values */
     *iofst = *iofst + 16;
-    gbit(cgrib, ipdsnum, *iofst, 16);    /* Get Prod. Def Template num. */
+    gbit(cgrib, ipdsnum, *iofst, 16); /* Get Prod. Def Template num. */
     *iofst = *iofst + 16;
 
     /* Get Product Definition Template */
@@ -108,7 +108,8 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
         {
             gbit(cgrib, &isign, *iofst, 1);
             gbit(cgrib, lipdstmpl + i, *iofst + 1, nbits - 1);
-            if (isign == 1) lipdstmpl[i] = -1 * lipdstmpl[i];
+            if (isign == 1)
+                lipdstmpl[i] = -1 * lipdstmpl[i];
         }
         *iofst = *iofst + nbits;
     }
@@ -121,7 +122,7 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
     {
         free(mappds);
         mappds = extpdstemplate(*ipdsnum, lipdstmpl);
-        newlen = mappds->maplen+mappds->extlen;
+        newlen = mappds->maplen + mappds->extlen;
         lipdstmpl = realloc(lipdstmpl, newlen * sizeof(g2int));
         *ipdstmpl = lipdstmpl;
         /*   Unpack the rest of the Product Definition Template */
@@ -136,7 +137,7 @@ g2_unpack4(unsigned char *cgrib, g2int *iofst, g2int *ipdsnum, g2int **ipdstmpl,
             else
             {
                 gbit(cgrib, &isign, *iofst, 1);
-                gbit(cgrib, lipdstmpl + i, *iofst+1, nbits-1);
+                gbit(cgrib, lipdstmpl + i, *iofst + 1, nbits - 1);
                 if (isign == 1)
                     lipdstmpl[i] = -1 * lipdstmpl[i];
             }

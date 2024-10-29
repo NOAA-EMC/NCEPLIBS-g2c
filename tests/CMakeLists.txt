@@ -79,7 +79,7 @@ if(FTP_LARGE_TEST_FILES)
   set(REF_FILES ${REF_FILES} "ref_fv3lam.t00z.prslev.f000.grib2.degrib2")
 endif()
 
-foreach(THE_FILE IN LISTS REF_FILES) 
+foreach(THE_FILE IN LISTS REF_FILES)
   FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data/${THE_FILE}
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
 endforeach()
@@ -114,7 +114,7 @@ endfunction()
 function(g2c_ptest name)
   g2c_test(${name})
   if(PTHREADS)
-    target_compile_definitions(${name} PRIVATE -DPTHREADS)    
+    target_compile_definitions(${name} PRIVATE -DPTHREADS)
     target_link_libraries(${name} PRIVATE pthread)
   endif()
 endfunction()
@@ -140,18 +140,18 @@ if(FTP_TEST_FILES)
     "WW3_Regional_US_East_Coast_20220717_0600.grib2"
     "gdas.t12z.pgrb2.1p00.anl.grib2" "blend.t19z.core.f001.co.grib2"
     "cmc_geavg.t12z.pgrb2a.0p50.f000"
-    "flxf2022111712.01.2022111712.grb2" 
+    "flxf2022111712.01.2022111712.grb2"
     "GLOBAL.grib2.2022103000.0000" "hiresw.t00z.arw_5km.f00.hi.grib2"
     "naefs_ge10pt.t12z.pgrb2a.0p50_bcf003"
     "rap.t00z.awp130pgrbf00.grib2" "seaice.t00z.grb.grib2"
     "sgx_nwps_CG3_20221117_1200.grib2" "aqm.t12z.max_8hr_o3.227.grib2")
-  foreach(THE_FILE IN LISTS FTP_FILES) 
+  foreach(THE_FILE IN LISTS FTP_FILES)
     PULL_DATA(${G2_FTP_URL} ${THE_FILE})
   endforeach()
 
   if(FTP_LARGE_TEST_FILES)
     set(LARGE_FTP_FILES "fv3lam.t00z.prslev.f000.grib2")
-    foreach(THE_FILE IN LISTS LARGE_FTP_FILES) 
+    foreach(THE_FILE IN LISTS LARGE_FTP_FILES)
       PULL_DATA(${G2_FTP_URL} ${THE_FILE})
     endforeach()
     add_definitions(-DLARGE_FTP_TESTS)
@@ -160,7 +160,7 @@ if(FTP_TEST_FILES)
   if(FTP_EXTRA_TEST_FILES)
     set(EXTRA_FTP_FILES MRMS_MultiSensor_QPE_24H_Pass2_00.00_20230621-110000.grib2
       GFSPRS.GrbF06 rrfs.t18z.prslev.f000.grib2)
-    foreach(THE_FILE IN LISTS EXTRA_FTP_FILES) 
+    foreach(THE_FILE IN LISTS EXTRA_FTP_FILES)
       PULL_DATA(${G2_FTP_URL} ${THE_FILE})
     endforeach()
   endif()
@@ -170,7 +170,7 @@ if(FTP_TEST_FILES)
   add_definitions(-DFTP_TEST_FILES)
 
   # Run this test only if FTP test files are used.
-  if(BUILD_G2C)  
+  if(BUILD_G2C)
     g2c_ptest(tst_aqm)
   endif()
 endif()

@@ -3,9 +3,9 @@
  * @author Stephen Gilbert @date 2002-10-29
  */
 
-#include <stdlib.h>
-#include <math.h>
 #include "grib2_int.h"
+#include <math.h>
+#include <stdlib.h>
 
 /**
  * Store a list of real values in 32-bit IEEE floating point format.
@@ -21,7 +21,7 @@
 void
 mkieee(float *a, g2int *rieee, g2int num)
 {
-    g2int j,n,ieee,iexp,imant;
+    g2int j, n, ieee, iexp, imant;
     double atemp;
     static double two23, two126;
     static g2int test = 0;
@@ -36,7 +36,7 @@ mkieee(float *a, g2int *rieee, g2int num)
     for (j = 0; j < num; j++)
     {
 
-        ieee=0;
+        ieee = 0;
 
         if (a[j] == 0.0)
         {
@@ -47,20 +47,20 @@ mkieee(float *a, g2int *rieee, g2int num)
         //  Set Sign bit (bit 31 - leftmost bit).
         if (a[j] < 0.0)
         {
-            ieee= 1 << 31;
-            atemp=-1.0*a[j];
+            ieee = 1 << 31;
+            atemp = -1.0 * a[j];
         }
         else
         {
-            ieee= 0 << 31;
-            atemp=a[j];
+            ieee = 0 << 31;
+            atemp = a[j];
         }
 
         //  Determine exponent n with base 2.
         if (atemp >= 1.0)
         {
             n = 0;
-            while (int_power(2.0,n+1) <= atemp)
+            while (int_power(2.0, n + 1) <= atemp)
             {
                 n++;
             }
@@ -68,17 +68,17 @@ mkieee(float *a, g2int *rieee, g2int num)
         else
         {
             n = -1;
-            while (int_power(2.0,n) > atemp)
+            while (int_power(2.0, n) > atemp)
                 n--;
         }
         iexp = n + 127;
-        if (n >  127)
-            iexp = 255;     // overflow
+        if (n > 127)
+            iexp = 255; // overflow
         if (n < -127)
             iexp = 0;
 
         //      set exponent bits ( bits 30-23 )
-        ieee = ieee | ( iexp << 23 );
+        ieee = ieee | (iexp << 23);
 
         //  Determine Mantissa
         if (iexp != 255)

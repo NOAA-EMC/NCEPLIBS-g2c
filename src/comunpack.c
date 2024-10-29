@@ -3,9 +3,9 @@
  * complex packing algorithm as defined in the GRIB2 documention.
  * @author Stephen Gilbert @date 2002-10-29
  */
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Unpack a data field that was packed using a complex packing
@@ -18,7 +18,7 @@
  *
  * ### Program History Log
  * Date | Programmer | Comments
- * -----|------------|--------- 
+ * -----|------------|---------
  * 2002-10-29 | Gilbert | Initial
  * 2004-12-16 | Gilbert | Added test (from Arthur Taylor/MDL) verifying group widths/lengths
  *
@@ -41,14 +41,14 @@ int
 comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
           g2int *idrstmpl, g2int ndpts, float *fld)
 {
-    g2int nbitsd=0, isign;
-    g2int j, iofst, ival1, ival2, minsd, itemp, l, k, n, non=0;
-    g2int *ifld, *ifldmiss=0;
+    g2int nbitsd = 0, isign;
+    g2int j, iofst, ival1, ival2, minsd, itemp, l, k, n, non = 0;
+    g2int *ifld, *ifldmiss = 0;
     g2int *gref, *gwidth, *glen;
     g2int itype, ngroups, nbitsgref, nbitsgwidth, nbitsglen;
     g2int msng1, msng2;
     float ref, bscale, dscale, rmiss1, rmiss2;
-    g2int totBit,  totLen;
+    g2int totBit, totLen;
 
     LOG((3, "comunpack lensec %ld idrsnum %ld ndpts %ld", lensec, idrsnum, ndpts));
 
@@ -61,14 +61,14 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
     nbitsgwidth = idrstmpl[11];
     nbitsglen = idrstmpl[15];
     if (idrsnum == 3)
-        nbitsd=idrstmpl[17] * 8;
+        nbitsd = idrstmpl[17] * 8;
 
     /*   Constant field */
     if (ngroups == 0)
     {
         for (j = 0; j < ndpts; j++)
             fld[j] = ref;
-        return(0);
+        return (0);
     }
 
     iofst = 0;
@@ -80,7 +80,7 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
     if (idrstmpl[6] == 1)
     {
         if (itype == 0)
-            rdieee(idrstmpl+7,&rmiss1,1);
+            rdieee(idrstmpl + 7, &rmiss1, 1);
         else
             rmiss1 = (float)idrstmpl[7];
     }
@@ -88,10 +88,11 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
     {
         if (itype == 0)
         {
-            rdieee(idrstmpl+7,&rmiss1,1);
-            rdieee(idrstmpl+8,&rmiss2,1);
+            rdieee(idrstmpl + 7, &rmiss1, 1);
+            rdieee(idrstmpl + 8, &rmiss2, 1);
         }
-        else {
+        else
+        {
             rmiss1 = (float)idrstmpl[7];
             rmiss2 = (float)idrstmpl[8];
         }
@@ -118,7 +119,8 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
             if (isign == 1)
                 minsd = -minsd;
         }
-        else {
+        else
+        {
             ival1 = 0;
             ival2 = 0;
             minsd = 0;
@@ -139,16 +141,18 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
         for (j = 0; j < ngroups; j++)
             gref[j] = 0;
     }
-    
+
     /*  Extract Each Group's bit width */
-    if (nbitsgwidth != 0) {
+    if (nbitsgwidth != 0)
+    {
         gbits(cpack, gwidth, iofst, nbitsgwidth, 0, ngroups);
         itemp = nbitsgwidth * ngroups;
         iofst = iofst + itemp;
         if (itemp % 8 != 0)
             iofst = iofst + (8 - (itemp % 8));
     }
-    else {
+    else
+    {
         for (j = 0; j < ngroups; j++)
             gwidth[j] = 0;
     }
@@ -171,9 +175,9 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
         for (j = 0; j < ngroups; j++)
             glen[j] = 0;
     }
-    for (j = 0;j<ngroups;j++)
-        glen[j] = (glen[j]*idrstmpl[13])+idrstmpl[12];
-    glen[ngroups-1] = idrstmpl[14];
+    for (j = 0; j < ngroups; j++)
+        glen[j] = (glen[j] * idrstmpl[13]) + idrstmpl[12];
+    glen[ngroups - 1] = idrstmpl[14];
 
     /*  Test to see if the group widths and lengths are consistent
      *  with number of values, and length of section 7. */
@@ -191,7 +195,7 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
 
     /*  For each group, unpack data values */
     if (idrstmpl[6] == 0)
-    {        /* no missing values */
+    { /* no missing values */
         n = 0;
         for (j = 0; j < ngroups; j++)
         {
@@ -231,11 +235,12 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
                 iofst = iofst + (gwidth[j] * glen[j]);
                 for (k = 0; k < glen[j]; k++)
                 {
-                    if (ifld[n] == msng1) 
+                    if (ifld[n] == msng1)
                         ifldmiss[n] = 1;
-                    else if (idrstmpl[6] == 2 && ifld[n] == msng2) 
+                    else if (idrstmpl[6] == 2 && ifld[n] == msng2)
                         ifldmiss[n] = 2;
-                    else {
+                    else
+                    {
                         ifldmiss[n] = 0;
                         ifld[non++] = ifld[n] + gref[j];
                     }
@@ -244,7 +249,7 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
             }
             else
             {
-                msng1 = (g2int)int_power(2.0, nbitsgref) -1;
+                msng1 = (g2int)int_power(2.0, nbitsgref) - 1;
                 msng2 = msng1 - 1;
                 if (gref[j] == msng1)
                 {
@@ -278,12 +283,12 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
 
     /*  If using spatial differences, add overall min value, and sum up recursively */
     if (idrsnum == 3)
-    {         /* spatial differencing */
+    { /* spatial differencing */
         if (idrstmpl[16] == 1)
-        {      /* first order */
+        { /* first order */
             ifld[0] = ival1;
             if (idrstmpl[6] == 0)
-                itemp = ndpts;        /* no missing values */
+                itemp = ndpts; /* no missing values */
             else
                 itemp = non;
             for (n = 1; n < itemp; n++)
@@ -293,11 +298,11 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
             }
         }
         else if (idrstmpl[16] == 2)
-        {    /* second order */
+        { /* second order */
             ifld[0] = ival1;
             ifld[1] = ival2;
             if (idrstmpl[6] == 0)
-                itemp = ndpts;        /* no missing values */
+                itemp = ndpts; /* no missing values */
             else
                 itemp = non;
             for (n = 2; n < itemp; n++)
@@ -310,8 +315,8 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
 
     /*  Scale data back to original form */
     if (idrstmpl[6] == 0)
-    {        /* no missing values */
-        for (n = 0; n <ndpts; n++)
+    { /* no missing values */
+        for (n = 0; n < ndpts; n++)
         {
             fld[n] = (((float)ifld[n] * bscale) + ref) * dscale;
         }

@@ -4,8 +4,8 @@
  * Ed Hartnett 7/11/21
  */
 
-#include <stdio.h>
 #include "grib2_int.h"
+#include <stdio.h>
 
 #define MSG_LEN 37
 
@@ -20,9 +20,9 @@ main()
     printf("Testing simple g2_create() call...");
     {
         unsigned char expected_cgrib[MSG_LEN] = {71, 82, 73, 66, 0, 0, 0, 2, 0, 0,
-            0, 0, 0, 0, 0, 37, 0, 0, 0, 21, 1,
-            0, 0, 0, 0, 0, 0, 0, 7, 229, 9, 22,
-            0, 0, 0, 0, 0};
+                                                 0, 0, 0, 0, 0, 37, 0, 0, 0, 21, 1,
+                                                 0, 0, 0, 0, 0, 0, 0, 7, 229, 9, 22,
+                                                 0, 0, 0, 0, 0};
         int i;
         int ret;
 

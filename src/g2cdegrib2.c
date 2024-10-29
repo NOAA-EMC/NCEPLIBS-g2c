@@ -6,8 +6,8 @@
  * @author Ed Hartnett @date Sep 17, 2022
  */
 #include "grib2_int.h"
-#include <stdarg.h>
 #include <math.h>
+#include <stdarg.h>
 
 /** Global file information. */
 extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
@@ -16,7 +16,7 @@ extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 extern G2C_CODE_TABLE_T *g2c_table;
 
 /** Maximum length of "Type of first fixed surface" string. */
-#define G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN  40
+#define G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN 40
 
 #define G2C_DATE_TIME_LEN 25 /**< Size of the date/time string. */
 
@@ -72,22 +72,21 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    };
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     /* data ipos2 /7*0, 26, 33, 27, 29, 28, 42, 41, 27*0, 22, 30, 0, 0, 32,  & */
     /*      35, 43*0, 33, 109*0/ */
 
     int ipos2[200] = {
         0, 0, 0, 0, 0, 0, 0, 26, 33, 27,
         29, 28, 42, 41, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 22, 30, 0, 0, 32, 35, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        33, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -97,8 +96,7 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    };
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     /* tabbrev(1:100) = " " */
 
     /* Check inputs. */
@@ -158,9 +156,9 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
 
     /* Determine second unit of time range. */
     if (ipdtn > 0)
-	iutpos2 = ipos2[ipdtn - 1];
+        iutpos2 = ipos2[ipdtn - 1];
     else
-	iutpos2 = 0;
+        iutpos2 = 0;
     switch (ipdtmpl[iutpos2])
     {
     case 0:
@@ -217,22 +215,22 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
     {
         is = ipos[ipdtn - 1] - 1; /* Continuous time interval. */
         sprintf(endtime, "%4.4d%2.2d%2.2d%2.2d:%2.2d:%2.2d", (int)ipdtmpl[is], (int)ipdtmpl[is + 1],
-		(int)ipdtmpl[is + 2], (int)ipdtmpl[is + 3], (int)ipdtmpl[is + 4], (int)ipdtmpl[is + 5]);
+                (int)ipdtmpl[is + 2], (int)ipdtmpl[is + 3], (int)ipdtmpl[is + 4], (int)ipdtmpl[is + 5]);
         /*    write(endtime, fmt = '(i4,3i2.2,":",i2.2,":",i2.2)') (ipdtmpl(j), j = is, is + 5) */
-	itemp2 = abs(ipdtmpl[iutpos2]) * iunit2;
-	itemp2 = itemp + itemp2;
-	sprintf(tmpval2, "%d", itemp2);
+        itemp2 = abs(ipdtmpl[iutpos2]) * iunit2;
+        itemp2 = itemp + itemp2;
+        sprintf(tmpval2, "%d", itemp2);
         if (ipdtn == 8 && ipdtmpl[8] < 0)
         {
             /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // ") valid  " // trim(tmpval) // " " // trim(tunit) // " before " // reftime // " to " //endtime */
-	    sprintf(tabbrev, "(%d -%d) valid  %d %s before %s to %s", itemp, itemp2, itemp, tunit, reftime, endtime);	    	    
+            sprintf(tabbrev, "(%d -%d) valid  %d %s before %s to %s", itemp, itemp2, itemp, tunit, reftime, endtime);
         }
         else if ((ipdtn >= 8 && ipdtn <= 14) || (ipdtn >= 42 && ipdtn <= 47) ||
-		 ipdtn == 91) /* Continuous time interval */
+                 ipdtn == 91) /* Continuous time interval */
         {
             /*       write(tmpval2, '(I0)') itemp2 */
             /*       tabbrev = "(" // trim(tmpval) // " -" // trim(tmpval2) // " hr) valid  " // trim(tmpval) // " " // trim(tunit) // " after " // reftime // " to " // endtime */
-	    sprintf(tabbrev, "(%d -%d hr) valid  %d %s after %s to %s", itemp, itemp2, itemp, tunit, reftime, endtime);	    
+            sprintf(tabbrev, "(%d -%d hr) valid  %d %s after %s to %s", itemp, itemp2, itemp, tunit, reftime, endtime);
         }
     }
 
@@ -256,7 +254,7 @@ static int
 format_level(char *cbuf, int ival, int scale)
 {
     char tmpcbuf[37];
-    
+
     assert(cbuf);
 
     if (!scale)
@@ -277,9 +275,8 @@ format_level(char *cbuf, int ival, int scale)
             char fmt[37];
             sprintf(fmt, "%s%d%s", "%.", (int)abs(scale), "f");
             sprintf(tmpcbuf, fmt, rval);
-	    strcpy(cbuf, &tmpcbuf[1]);
+            strcpy(cbuf, &tmpcbuf[1]);
         }
-
     }
     return G2C_NOERROR;
 }
@@ -513,8 +510,8 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
         strcpy(level_desc, " Cloud top lvl");
     else if (ipdtmpl[ipos] == 4)
         strcpy(level_desc, " 0 Deg Isotherm");
-    else if (ipdtmpl[ipos] == 5)       /* from the surface. */
-        strcpy(level_desc, " Level of adiabatic"     );
+    else if (ipdtmpl[ipos] == 5) /* from the surface. */
+        strcpy(level_desc, " Level of adiabatic");
     else if (ipdtmpl[ipos] == 6)
         strcpy(level_desc, " Max wind lvl");
     else if (ipdtmpl[ipos] == 7)
@@ -579,8 +576,8 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
         strcpy(level_desc, " Bot. Ocean mix. lyr");
     else if (ipdtmpl[ipos] == 238)
         strcpy(level_desc, " Bot. Ocean iso. lyr");
-    else if (ipdtmpl[ipos] == 239)       /* isothermal level (S26CY). */
-        strcpy(level_desc, " layer ocean sfc 26C"    );
+    else if (ipdtmpl[ipos] == 239) /* isothermal level (S26CY). */
+        strcpy(level_desc, " layer ocean sfc 26C");
     else if (ipdtmpl[ipos] == 240)
         strcpy(level_desc, " Ocean Mixed Layer");
     else if (ipdtmpl[ipos] == 241)
@@ -605,13 +602,13 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
         strcpy(level_desc, " Deep conv. cld bl");
     else if (ipdtmpl[ipos] == 252)
         strcpy(level_desc, " Deep conv. cld tl");
-    else if (ipdtmpl[ipos] == 253)       /* liquid water layer (LBLSW). */
-        strcpy(level_desc, " Lowest bot. lvl sup"    );
-    else if (ipdtmpl[ipos] == 254)       /* liquid water layer (HBLSW). */
-        strcpy(level_desc, " highest top lvl sup"    );
+    else if (ipdtmpl[ipos] == 253) /* liquid water layer (LBLSW). */
+        strcpy(level_desc, " Lowest bot. lvl sup");
+    else if (ipdtmpl[ipos] == 254) /* liquid water layer (HBLSW). */
+        strcpy(level_desc, " highest top lvl sup");
     else
     {
-	sprintf(level_desc, " %4d (Unknown Lvl)", (int)ipdtmpl[ipos]);
+        sprintf(level_desc, " %4d (Unknown Lvl)", (int)ipdtmpl[ipos]);
         /* write(level_desc, fmt = '(1x,I4," (Unknown Lvl)")') ipdtmpl[ipos] */
     }
 
@@ -688,14 +685,14 @@ g2c_degrib2(int g2cid, const char *fileout)
 
             fprintf(f, "\n");
             fprintf(f, "  FIELD  %d\n", fld + 1);
-	    /* Only print section 0 and 1 data for the first field. */
-	    if (fld == 0)
-	    {
-		fprintf(f, "  SECTION 0:  %d 2\n", msg->discipline);
-		fprintf(f, "  SECTION 1:  %d %d %d %d %d %d %d %d %d %d %d %d %d\n", msg->center, msg->subcenter,
-			msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
-			msg->hour, msg->minute, msg->second, msg->status, msg->type);
-	    }
+            /* Only print section 0 and 1 data for the first field. */
+            if (fld == 0)
+            {
+                fprintf(f, "  SECTION 0:  %d 2\n", msg->discipline);
+                fprintf(f, "  SECTION 1:  %d %d %d %d %d %d %d %d %d %d %d %d %d\n", msg->center, msg->subcenter,
+                        msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
+                        msg->hour, msg->minute, msg->second, msg->status, msg->type);
+            }
 
             /* Find this field (a.k.a. product, a.k.a. section 4). */
             for (sec = msg->sec; sec; sec = sec->next)
@@ -809,7 +806,7 @@ g2c_degrib2(int g2cid, const char *fileout)
                 if (!(data = malloc(sec5_info->num_data_points * sizeof(float))))
                     return G2C_ERROR;
             }
-            
+
             /* Get the data from message 0, product 0. */
             if ((ret = g2c_get_prod(g2cid, msg->msg_num, fld, NULL, data)))
                 return ret;
@@ -828,7 +825,7 @@ g2c_degrib2(int g2cid, const char *fileout)
                     if (data[i] < min)
                         min = data[i];
                 }
-		avg = total/sec5_info->num_data_points;
+                avg = total / sec5_info->num_data_points;
             }
             fprintf(f, "( PARM= %s ) :  MIN=%25.8f AVE=%25.8f MAX=%25.8f\n",
                     abbrev, min, avg, max);

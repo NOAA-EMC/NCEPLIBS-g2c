@@ -4,9 +4,9 @@
  * Ed Hartnett 11/4/21
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 #define SEC0_LEN 16
 #define SEC1_LEN 21
@@ -32,25 +32,25 @@ main()
         g2int igds[5] = {0, 4, 0, 0, 10}; /* 10 is Mercator */
         /* See https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp3-10.shtml. */
         g2int igdstmpl[19] = {
-            0, /* Shape of the Earth (See Code Table 3.2) */
-            1, /* Scale factor of radius of spherical Earth */
-            1, /* Scale value of radius of spherical Earth */
-            1, /* Scale factor of major axis of oblate spheroid Earth */
-            1, /* Scaled value of major axis of oblate spheroid Earth */
-            1, /* Scale factor of minor axis of oblate spheroid Earth */
-            1, /* Scaled value of minor axis of oblate spheroid Earth */
-            2, /* Nj—number of points along a parallel  */
-            2, /* Nj—number of points along a meridian */
-            0, /* La1 ― latitude of first grid point */
-            0, /* Lo1 ― longitude of first grid point */
-            0, /* Resolution and component flags (see Flag Table 3.3) */
-            90, /* LaD — latitude(s) at which the Mercator projection intersects the Earth (Latitude(s) where Di and Dj are specified)  */
-            90, /* La2 ― latitude of last grid point */
-            90, /* Lo2 — longitude of last grid point   */
-            0, /* Scanning mode (flags — see Flag Table 3.4) */
-            0, /* Orientation of the grid, angle between i direction on the map and the Equator  (see Note1)     */
+            0,   /* Shape of the Earth (See Code Table 3.2) */
+            1,   /* Scale factor of radius of spherical Earth */
+            1,   /* Scale value of radius of spherical Earth */
+            1,   /* Scale factor of major axis of oblate spheroid Earth */
+            1,   /* Scaled value of major axis of oblate spheroid Earth */
+            1,   /* Scale factor of minor axis of oblate spheroid Earth */
+            1,   /* Scaled value of minor axis of oblate spheroid Earth */
+            2,   /* Nj—number of points along a parallel  */
+            2,   /* Nj—number of points along a meridian */
+            0,   /* La1 ― latitude of first grid point */
+            0,   /* Lo1 ― longitude of first grid point */
+            0,   /* Resolution and component flags (see Flag Table 3.3) */
+            90,  /* LaD — latitude(s) at which the Mercator projection intersects the Earth (Latitude(s) where Di and Dj are specified)  */
+            90,  /* La2 ― latitude of last grid point */
+            90,  /* Lo2 — longitude of last grid point   */
+            0,   /* Scanning mode (flags — see Flag Table 3.4) */
+            0,   /* Orientation of the grid, angle between i direction on the map and the Equator  (see Note1)     */
             100, /* Dj —  longitudinal direction grid length (see Note 2) */
-            100 /* Dj ― latitudinal direction grid length  (see Note 2) */
+            100  /* Dj ― latitudinal direction grid length  (see Note 2) */
         };
         /* unsigned char expected_cgrib[FULL_MSG_LEN] = {0x47, 0x52, 0x49, 0x42, 0x00, 0x00, 0x01, 0x02, 0x00, 0x00, 0x00, */
         /*     0x00, 0x00, 0x00, 0x01, 0x65, 0x00, 0x00, 0x00, 0x15, 0x01, 0x00, 0x07, 0x00, 0x04, 0x18, 0x00, 0x00, 0x07, */
@@ -74,7 +74,7 @@ main()
         /*     0x93, 0xc7, 0x41, 0x07, 0x80, 0x80, 0x80, 0xcf, 0x90, 0x08, 0x03, 0xc7, 0xc2, 0x10, 0x0b, 0x5f, 0xff, 0xd9, */
         /*     0x37, 0x37, 0x37, 0x37}; */
         /* unsigned char old_val; */
-         /* Analysis or forecast at a horizontal level or in a
+        /* Analysis or forecast at a horizontal level or in a
          * horizontal layer at a point in time. */
         g2int ipdsnum = 31;
         /* See
@@ -89,8 +89,7 @@ main()
             0,
             0,
             0,
-            0
-        };
+            0};
         float coordlist[1] = {1};
         g2int numcoord = 0;
         g2int idrsnum = 40; /* Grid Point Data - JPEG2000 Compression (see Template 5.40) */
@@ -191,12 +190,12 @@ main()
             if (gfld->ipdtmpl[i] != ipdstmpl[i])
                 return G2C_ERROR;
 
-	/* Try the g2_miss() function. */
-	float rmiss[1];
-	int nmiss;
-	g2_miss(gfld, rmiss, &nmiss);
-	if (nmiss)
-	    return G2C_ERROR;
+        /* Try the g2_miss() function. */
+        float rmiss[1];
+        int nmiss;
+        g2_miss(gfld, rmiss, &nmiss);
+        if (nmiss)
+            return G2C_ERROR;
 
         /* Free the memory. */
         g2_free(gfld);

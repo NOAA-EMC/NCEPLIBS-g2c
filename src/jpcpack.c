@@ -11,11 +11,11 @@
  * 2005-05-10 | Gilbert | Imposed minimum size on cpack.
  * 2022-08-12 | Hartnett | Now handle doubles too.
  */
-#include <stdlib.h>
-#include <math.h>
 #include "grib2_int.h"
+#include <math.h>
+#include <stdlib.h>
 
-/** 
+/**
  * Packs a float or double array into a JPEG2000 code stream.
  *
  * This function is used by jpcpack(), g2c_jpcpackf(), and
@@ -48,33 +48,33 @@
  * - ::G2C_NOERROR No error.
  * - ::G2C_EJPEG Error encoding/decoding JPEG data.
  *
- * @author Stephen Gilbert, Ed Hartnett 
+ * @author Stephen Gilbert, Ed Hartnett
  */
 static int
 jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrstmpl,
-	    unsigned char *cpack, g2int *lcpack, int verbose)
+            unsigned char *cpack, g2int *lcpack, int verbose)
 {
-    g2int  *ifld = NULL;
-    static float alog2 = ALOG2;       /*  ln(2.0) */
-    g2int  j, nbits, imin, imax, maxdif;
-    g2int  ndpts, nbytes, nsize, retry;
-    float  bscale, dscale, rmax, rmin, temp;
-    double  rmaxd, rmind;
+    g2int *ifld = NULL;
+    static float alog2 = ALOG2; /*  ln(2.0) */
+    g2int j, nbits, imin, imax, maxdif;
+    g2int ndpts, nbytes, nsize, retry;
+    float bscale, dscale, rmax, rmin, temp;
+    double rmaxd, rmind;
     unsigned char *ctemp;
     float *ffld = fld;
     double *dfld = fld;
     int ret = G2C_NOERROR;
 
     LOG((2, "jpcpack_int() fld_is_double %d width %ld height %ld idrstmpl[1] %d *lcpack %ld",
-	 fld_is_double, width, height, idrstmpl[1], *lcpack));
+         fld_is_double, width, height, idrstmpl[1], *lcpack));
     LOG((3, "idrstmpl: %ld %ld %ld %ld %ld %ld %ld", idrstmpl[0], idrstmpl[1], idrstmpl[2],
-	 idrstmpl[3], idrstmpl[4], idrstmpl[5], idrstmpl[6]));
-    
+         idrstmpl[3], idrstmpl[4], idrstmpl[5], idrstmpl[6]));
+
     ndpts = width * height;
     bscale = int_power(2.0, -idrstmpl[1]);
     dscale = int_power(10.0, idrstmpl[2]);
     LOG((3, "ndpts %ld bscale %g dscale %g", ndpts, bscale, dscale));
-	
+
     /* Find max and min values in the data. */
     rmaxd = dfld[0];
     rmind = dfld[0];
@@ -82,31 +82,31 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     rmin = ffld[0];
     if (fld_is_double)
     {
-	for (j = 1; j < ndpts; j++)
-	{
-	    if (dfld[j] > rmaxd)
-		rmaxd = dfld[j];
-	    if (dfld[j] < rmind)
-		rmind = dfld[j];
-	}
-	if (idrstmpl[1] == 0)
-	    maxdif = (g2int)(rint(rmaxd * dscale) - rint(rmind * dscale));
-	else
-	    maxdif = (g2int)rint((rmaxd - rmind) * dscale * bscale);
+        for (j = 1; j < ndpts; j++)
+        {
+            if (dfld[j] > rmaxd)
+                rmaxd = dfld[j];
+            if (dfld[j] < rmind)
+                rmind = dfld[j];
+        }
+        if (idrstmpl[1] == 0)
+            maxdif = (g2int)(rint(rmaxd * dscale) - rint(rmind * dscale));
+        else
+            maxdif = (g2int)rint((rmaxd - rmind) * dscale * bscale);
     }
     else
     {
-	for (j = 1; j < ndpts; j++)
-	{
-	    if (ffld[j] > rmax)
-		rmax = ffld[j];
-	    if (ffld[j] < rmin)
-		rmin = ffld[j];
-	}
-	if (idrstmpl[1] == 0)
-	    maxdif = (g2int)(rint(rmax * dscale) - rint(rmin * dscale));
-	else
-	    maxdif = (g2int)rint((rmax - rmin) * dscale * bscale);
+        for (j = 1; j < ndpts; j++)
+        {
+            if (ffld[j] > rmax)
+                rmax = ffld[j];
+            if (ffld[j] < rmin)
+                rmin = ffld[j];
+        }
+        if (idrstmpl[1] == 0)
+            maxdif = (g2int)(rint(rmax * dscale) - rint(rmin * dscale));
+        else
+            maxdif = (g2int)rint((rmax - rmin) * dscale * bscale);
     }
     LOG((3, "rmax %g rmaxd %g rmin %g rmind %g", rmax, rmaxd, rmin, rmind));
 
@@ -129,80 +129,80 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
             temp = log((double)(maxdif + 1)) / alog2;
             nbits = (g2int)ceil(temp);
             /*   scale data */
-	    if (fld_is_double)
-	    {
-		rmind = (float)imin;
-		for(j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(dfld[j] * dscale) - imin;
-	    }
-	    else
-	    {
-		rmin = (float)imin;
-		for(j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(ffld[j] * dscale) - imin;
-	    }
+            if (fld_is_double)
+            {
+                rmind = (float)imin;
+                for (j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(dfld[j] * dscale) - imin;
+            }
+            else
+            {
+                rmin = (float)imin;
+                for (j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(ffld[j] * dscale) - imin;
+            }
         }
         else
         {
             /* Use binary scaling factor and calculate minumum number
              * of bits in which the data will fit. */
-	    if (fld_is_double)
-	    {
-		rmind = rmind * dscale;
-		rmaxd = rmaxd * dscale;
-		maxdif = (g2int)rint((rmaxd - rmind) * bscale);
-	    }
-	    else
-	    {
-		rmin = rmin * dscale;
-		rmax = rmax * dscale;
-		maxdif = (g2int)rint((rmax - rmin) * bscale);
-	    }
-		
+            if (fld_is_double)
+            {
+                rmind = rmind * dscale;
+                rmaxd = rmaxd * dscale;
+                maxdif = (g2int)rint((rmaxd - rmind) * bscale);
+            }
+            else
+            {
+                rmin = rmin * dscale;
+                rmax = rmax * dscale;
+                maxdif = (g2int)rint((rmax - rmin) * bscale);
+            }
+
             temp = log((double)(maxdif + 1)) / alog2;
             nbits = (g2int)ceil(temp);
             /*   scale data */
-	    if (fld_is_double)
-	    {
-		for (j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(((dfld[j] * dscale) - rmind) * bscale);
-	    }
-	    else
-	    {
-		for (j = 0; j < ndpts; j++)
-		    ifld[j] = (g2int)rint(((ffld[j] * dscale) - rmin) * bscale);
-	    }		
+            if (fld_is_double)
+            {
+                for (j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(((dfld[j] * dscale) - rmind) * bscale);
+            }
+            else
+            {
+                for (j = 0; j < ndpts; j++)
+                    ifld[j] = (g2int)rint(((ffld[j] * dscale) - rmin) * bscale);
+            }
         }
 
         /* Pack data into full octets, then do JPEG 2000 encode and
          * calculate the length of the packed data in bytes. */
         retry = 0;
         nbytes = (nbits + 7) / 8;
-        nsize = *lcpack;          /* needed for input to enc_jpeg2000 */
+        nsize = *lcpack; /* needed for input to enc_jpeg2000 */
         ctemp = calloc(ndpts, nbytes);
         sbits(ctemp, ifld, 0, nbytes * 8, 0, ndpts);
         if ((*lcpack = (g2int)enc_jpeg2000(ctemp, width, height, nbits, idrstmpl[5],
                                            idrstmpl[6], retry, (char *)cpack, nsize)) <= 0)
         {
-	    if (verbose)
-		printf("jpcpack: ERROR Packing JPC = %d\n", (int)*lcpack);
-	    ret = G2C_EJPEG;
+            if (verbose)
+                printf("jpcpack: ERROR Packing JPC = %d\n", (int)*lcpack);
+            ret = G2C_EJPEG;
             if (*lcpack == -3)
             {
                 retry = 1;
                 if ((*lcpack = (g2int)enc_jpeg2000(ctemp, width, height, nbits, idrstmpl[5],
                                                    idrstmpl[6], retry, (char *)cpack, nsize)) <= 0)
-		{
-		    if (verbose)
-			printf("jpcpack: Retry Failed.\n");
-		    ret = G2C_EJPEG;
-		}
+                {
+                    if (verbose)
+                        printf("jpcpack: Retry Failed.\n");
+                    ret = G2C_EJPEG;
+                }
                 else
-		{
-		    if (verbose)
-			printf("jpcpack: Retry Successful.\n");
-		    ret = G2C_NOERROR;
-		}
+                {
+                    if (verbose)
+                        printf("jpcpack: Retry Successful.\n");
+                    ret = G2C_NOERROR;
+                }
             }
         }
         free(ctemp);
@@ -215,12 +215,12 @@ jpcpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
 
     /* Fill in ref value and number of bits in Template 5.0. */
     if (fld_is_double)
-	rmin = (float)rmind;
-    mkieee(&rmin, idrstmpl, 1);   /* ensure reference value is IEEE format. */
+        rmin = (float)rmind;
+    mkieee(&rmin, idrstmpl, 1); /* ensure reference value is IEEE format. */
     idrstmpl[3] = nbits;
-    idrstmpl[4] = 0;         /* original data were reals */
+    idrstmpl[4] = 0; /* original data were reals */
     if (idrstmpl[5] == 0)
-        idrstmpl[6] = 255;       /* lossy not used */
+        idrstmpl[6] = 255; /* lossy not used */
     if (ifld)
         free(ifld);
 
@@ -323,7 +323,7 @@ g2c_jpcpackf(float *fld, size_t width, size_t height, int *idrstmpl,
     g2int width8 = width, height8 = height, lcpack8 = *lcpack;
     g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
     int i, ret;
-    
+
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
 
@@ -389,11 +389,11 @@ g2c_jpcpackd(double *fld, size_t width, size_t height, int *idrstmpl,
     g2int width8 = width, height8 = height, lcpack8 = *lcpack;
     g2int idrstmpl8[G2C_JPEG_DRS_TEMPLATE_LEN];
     int i, ret;
-    
+
     for (i = 0; i < G2C_JPEG_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
 
-    ret = jpcpack_int(fld, 1, width8, height8, idrstmpl8, cpack, &lcpack8, 0);    
+    ret = jpcpack_int(fld, 1, width8, height8, idrstmpl8, cpack, &lcpack8, 0);
 
     if (!ret)
     {

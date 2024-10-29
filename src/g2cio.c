@@ -6,7 +6,7 @@
 
 #include "grib2_int.h"
 
-#define BITSHIFT_7 7 /**< 7 bits. */
+#define BITSHIFT_7 7   /**< 7 bits. */
 #define BITSHIFT_15 15 /**< 15 bits. */
 #define BITSHIFT_31 31 /**< 31 bits. */
 #define BITSHIFT_63 63 /**< 63 bits. */
@@ -67,7 +67,7 @@ g2c_file_io(FILE *f, int write, int g2ctype, void *var)
             /* Are we writing a negative number? */
             if (g2ctype == G2C_BYTE && *bvar < 0)
             {
-                byte_tmp = -1 * *bvar; /* Store as positive. */
+                byte_tmp = -1 * *bvar;         /* Store as positive. */
                 byte_tmp |= 1UL << BITSHIFT_7; /* Set sign bit. */
             }
             else
@@ -87,7 +87,7 @@ g2c_file_io(FILE *f, int write, int g2ctype, void *var)
             /* Are we writing a negative number? */
             if (g2ctype == G2C_SHORT && *svar < 0)
             {
-                short_tmp = -1 * *svar; /* Store as positive. */
+                short_tmp = -1 * *svar;          /* Store as positive. */
                 short_tmp |= 1UL << BITSHIFT_15; /* Set sign bit. */
             }
             else
@@ -107,7 +107,7 @@ g2c_file_io(FILE *f, int write, int g2ctype, void *var)
             /* Are we writing a negative number? */
             if (g2ctype == G2C_INT && *ivar < 0)
             {
-                int_tmp = -1 * *ivar; /* Store as positive. */
+                int_tmp = -1 * *ivar;          /* Store as positive. */
                 int_tmp |= 1UL << BITSHIFT_31; /* Set sign bit. */
             }
             else
@@ -127,7 +127,7 @@ g2c_file_io(FILE *f, int write, int g2ctype, void *var)
             /* Are we writing a negative number? */
             if (g2ctype == G2C_INT64 && *i64var < 0)
             {
-                int64_tmp = -1 * *i64var; /* Store as positive. */
+                int64_tmp = -1 * *i64var;         /* Store as positive. */
                 int64_tmp |= 1ULL << BITSHIFT_63; /* Set sign bit. */
             }
             else
@@ -158,48 +158,48 @@ g2c_file_io(FILE *f, int write, int g2ctype, void *var)
         case G2C_UBYTE:
             /* No conversion needed for one-byte values. */
             *bvar = byte_be;
-            
+
             /* Did we read a negative number? Check the sign bit... */
             if (g2ctype == G2C_BYTE && *bvar & 1 << BITSHIFT_7)
             {
                 *bvar &= ~(1UL << BITSHIFT_7); /* Clear sign bit. */
-                *bvar *= -1; /* Make it negative. */
+                *bvar *= -1;                   /* Make it negative. */
             }
             break;
         case G2C_SHORT:
         case G2C_USHORT:
             /* Convert from big-endian. */
             *svar = htons(short_be);
-            
+
             /* Did we read a negative number? Check the sign bit... */
             if (g2ctype == G2C_SHORT && *svar & 1 << BITSHIFT_15)
             {
                 *svar &= ~(1UL << BITSHIFT_15); /* Clear sign bit. */
-                *svar *= -1; /* Make it negative. */
+                *svar *= -1;                    /* Make it negative. */
             }
             break;
         case G2C_INT:
         case G2C_UINT:
             /* Convert from big-endian. */
             *ivar = htonl(int_be);
-            
+
             /* Did we read a negative number? Check the sign bit... */
             if (g2ctype == G2C_INT && *ivar & 1 << BITSHIFT_31)
             {
                 *ivar &= ~(1UL << BITSHIFT_31); /* Clear sign bit. */
-                *ivar *= -1; /* Make it negative. */
+                *ivar *= -1;                    /* Make it negative. */
             }
             break;
         case G2C_INT64:
         case G2C_UINT64:
             /* Convert from big-endian. */
             *i64var = hton64(int64_be);
-            
+
             /* Did we read a negative number? Check the sign bit... */
             if (g2ctype == G2C_INT64 && *i64var & 1ULL << BITSHIFT_63)
             {
                 *i64var &= ~(1ULL << BITSHIFT_63); /* Clear sign bit. */
-                *i64var *= -1; /* Make it negative. */
+                *i64var *= -1;                     /* Make it negative. */
             }
             break;
         default:
@@ -413,7 +413,7 @@ g2c_file_io_template(FILE *f, int rw_flag, int map, long long int *template_valu
      * numbers are negative - used to indicate that the
      * cooresponding fields can contain negative data (needed for
      * unpacking). */
-    switch(abs(map))
+    switch (abs(map))
     {
     case ONE_BYTE:
         if (map < 0)
@@ -486,6 +486,6 @@ g2c_file_io_template(FILE *f, int rw_flag, int map, long long int *template_valu
     default:
         return G2C_EBADTEMPLATE;
     }
-    
+
     return G2C_NOERROR;
 }

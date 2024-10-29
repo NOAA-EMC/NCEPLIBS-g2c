@@ -7,7 +7,7 @@
 
 /**
  * Pack up a data field using a complex packing
- * algorithm. 
+ * algorithm.
  *
  * This function supports GRIB2
  * complex packing templates with or without spatial differences
@@ -37,14 +37,13 @@ void
 cmplxpack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl,
           unsigned char *cpack, g2int *lcpack)
 {
-    if (idrstmpl[6] == 0)  /* No internal missing values */
+    if (idrstmpl[6] == 0) /* No internal missing values */
         compack(fld, ndpts, idrsnum, idrstmpl, cpack, lcpack);
-    else if (idrstmpl[6] == 1  ||  idrstmpl[6] == 2)
+    else if (idrstmpl[6] == 1 || idrstmpl[6] == 2)
         misspack(fld, ndpts, idrsnum, idrstmpl, cpack, lcpack);
     else
     {
         printf("cmplxpack: Don:t recognize Missing value option.");
         *lcpack = -1;
     }
-
 }

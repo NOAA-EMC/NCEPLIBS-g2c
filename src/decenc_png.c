@@ -3,11 +3,11 @@
  * @author Alyson Stahl @date 2024-13-08
  */
 
+#include "grib2_int.h"
+#include <png.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <png.h>
-#include "grib2_int.h"
 
 /**
  * Struct for PNG stream.
@@ -15,7 +15,7 @@
 struct png_stream
 {
     unsigned char *stream_ptr; /**< Location to write PNG stream. */
-    g2int stream_len; /**< Number of bytes written. */
+    g2int stream_len;          /**< Number of bytes written. */
 };
 
 typedef struct png_stream png_stream; /**< Typedef for PNG stream. */
@@ -79,7 +79,8 @@ user_write_data(png_structp png_ptr, png_bytep data, png_uint_32 length)
  *
  * @author Stephen Gilbert
  */
-void user_flush_data(png_structp png_ptr)
+void
+user_flush_data(png_structp png_ptr)
 {
 }
 
@@ -100,7 +101,7 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
         unsigned char *cout)
 {
     int interlace, color, compres, filter, bit_depth;
-    g2int j, k, n, bytes, clen;
+    g2int j, k, n, bytes;
     png_structp png_ptr;
     png_infop info_ptr, end_info;
     png_bytepp row_pointers;
@@ -131,7 +132,7 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
     /* Set Error callback. */
     if (setjmp(png_jmpbuf(png_ptr)))
     {
-        png_destroy_read_struct(&png_ptr,  &info_ptr, &end_info);
+        png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
         return -3;
     }
 
@@ -170,11 +171,13 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
 
     /* Copy image data to output string   */
     n = 0;
-    bytes = bit_depth / 8;
-    clen = (*width) * bytes;
+    bytes = (*width * bit_depth) / 8;
+    if ((*width * bit_depth) % 8 != 0) {
+        bytes++;
+    }
     for (j = 0; j < *height; j++)
     {
-        for (k = 0; k < clen; k++)
+        for (k = 0; k < bytes; k++)
         {
             cout[n] = *(row_pointers[j] + k);
             n++;
@@ -253,10 +256,15 @@ enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
                  PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 
     /* Put image data into the PNG info structure. */
-    bytes = nbits / 8;
+    bytes = (width * nbits) / 8;
+    if ((width * nbits) % 8 != 0) {
+        bytes++;
+    }
+
     row_pointers = malloc(height * sizeof(png_bytep));
     for (j = 0; j < height; j++)
-        row_pointers[j] = (png_bytep *)(data + (j * width * bytes));
+        row_pointers[j] = (png_bytep *)(data + (j * bytes));
+
     png_set_rows(png_ptr, info_ptr, (png_bytepp)row_pointers);
 
     /* Do the PNG encoding, and write out PNG stream. */

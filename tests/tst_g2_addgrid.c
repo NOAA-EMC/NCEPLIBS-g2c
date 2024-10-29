@@ -4,8 +4,8 @@
  * Ed Hartnett 10/25/21
  */
 
-#include <stdio.h>
 #include "grib2_int.h"
+#include <stdio.h>
 
 #define SEC0_LEN 16
 #define SEC1_LEN 21
@@ -43,10 +43,10 @@ main()
         g2int igds[5] = {0, 4, 0, 0, 0};
         g2int igdstmpl[19] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18};
         unsigned char expected_cgrib[MSG_LEN] = {71, 82, 73, 66, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0,
-            109, 0, 0, 0, 21, 1, 0, 7, 0, 4, 24, 0, 0, 7, 229, 10, 24, 6, 54, 59, 7, 192, 0, 0, 0,
-            72, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 3, 0, 0, 0, 4, 5, 0, 0, 0, 6, 0, 0,
-            0, 7, 0, 0, 0, 8, 0, 0, 0, 9, 0, 0, 0, 10, 0, 0, 0, 11, 0, 0, 0, 12, 13, 0, 0, 0, 14,
-            0, 0, 0, 15, 0, 0, 0, 16, 0, 0, 0, 17, 18};
+                                                 109, 0, 0, 0, 21, 1, 0, 7, 0, 4, 24, 0, 0, 7, 229, 10, 24, 6, 54, 59, 7, 192, 0, 0, 0,
+                                                 72, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 3, 0, 0, 0, 4, 5, 0, 0, 0, 6, 0, 0,
+                                                 0, 7, 0, 0, 0, 8, 0, 0, 0, 9, 0, 0, 0, 10, 0, 0, 0, 11, 0, 0, 0, 12, 13, 0, 0, 0, 14,
+                                                 0, 0, 0, 15, 0, 0, 0, 16, 0, 0, 0, 17, 18};
         unsigned char old_val;
         int i;
         int ret;
@@ -61,7 +61,7 @@ main()
         /* Try to add the grid. Won't work, bad section length. */
         if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != -3)
             return G2C_ERROR;
-        
+
         /* Fix the section length. */
         cgrib[19] = old_val;
 
@@ -84,11 +84,9 @@ main()
         /* Try to add section 3 again. Won't work. */
         if ((ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0)) != -4)
             return G2C_ERROR;
-        
     }
     printf("ok!\n");
 
-    
     /* This test can't work because of the memory leak described in
      * https://github.com/NOAA-EMC/NCEPLIBS-g2c/issues/150. */
     /* printf("Testing g2_addgrid() call with grid def template number 5..."); */
@@ -158,16 +156,16 @@ main()
     printf("Testing g2_addgrid() call with grid def template number 120...");
     {
 #define MSG_LEN_120 84
-        unsigned char cgrib[MSG_LEN_120+ 50];
+        unsigned char cgrib[MSG_LEN_120 + 50];
         g2int lencurr;
         g2int listsec0[2] = {1, 2};
         g2int listsec1[13] = {7, 4, 24, 0, 0, 2021, 10, 24, 6, 54, 59, 7, 192};
         g2int igds[5] = {
-            0, /* Source of grid definition (see Code Table 3.0). */
-            4, /* Number of grid points in the defined grid. */
-            0, /* Number of octets needed for each additional grid points definition. Used to define number of points in each row (or column) for non-regular grids. = 0, if using regular grid. */
-            0, /* Interpretation of list for optional points definition. (See Code Table 3.11). */
-            120  /* Grid Definition Template Number (See Code Table 3.1). 120 = Azimuth-range projection */
+            0,  /* Source of grid definition (see Code Table 3.0). */
+            4,  /* Number of grid points in the defined grid. */
+            0,  /* Number of octets needed for each additional grid points definition. Used to define number of points in each row (or column) for non-regular grids. = 0, if using regular grid. */
+            0,  /* Interpretation of list for optional points definition. (See Code Table 3.11). */
+            120 /* Grid Definition Template Number (See Code Table 3.1). 120 = Azimuth-range projection */
         };
         /* See
          * https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp3-120.shtml. */
@@ -178,13 +176,12 @@ main()
             0, /* Lo1 ― longitude of centre point */
             1, /* Dx ― spacing of bins along radials */
             0, /* Dstart ― offset from origin to inner bound */
-            0,  /* Scanning mode (see Flag Table 3.4) */
-            0, 0, 0, 0
-        };
+            0, /* Scanning mode (see Flag Table 3.4) */
+            0, 0, 0, 0};
         unsigned char expected_cgrib[MSG_LEN_120] = {71, 82, 73, 66, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0,
-            84, 0, 0, 0, 21, 1, 0, 7, 0, 4, 24, 0, 0, 7, 229, 10, 24, 6, 54, 59, 7, 192, 0, 0, 0, 47,
-            3, 0, 0, 0, 0, 4, 0, 0, 0, 120, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                                                     84, 0, 0, 0, 21, 1, 0, 7, 0, 4, 24, 0, 0, 7, 229, 10, 24, 6, 54, 59, 7, 192, 0, 0, 0, 47,
+                                                     3, 0, 0, 0, 0, 4, 0, 0, 0, 120, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         /* unsigned char old_val; */
         int i;
         int ret;

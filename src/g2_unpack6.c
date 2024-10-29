@@ -2,9 +2,9 @@
  * @brief Unpack Section 6 (Bit-Map Section) of a GRIB2 message.
  * @author Stephen Gilbert @date 2002-10-31
  */
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Unpack Section 6 (Bit-Map Section) of a GRIB2 message.
@@ -38,8 +38,8 @@ g2_unpack6(unsigned char *cgrib, g2int *iofst, g2int ngpts, g2int *ibmap,
 
     *bmap = NULL;
 
-    *iofst = *iofst + 32;    /* skip Length of Section */
-    gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
+    *iofst = *iofst + 32;             /* skip Length of Section */
+    gbit(cgrib, &isecnum, *iofst, 8); /* Get Section Number */
     *iofst = *iofst + 8;
 
     if (isecnum != 6)
@@ -48,11 +48,11 @@ g2_unpack6(unsigned char *cgrib, g2int *iofst, g2int ngpts, g2int *ibmap,
         return G2_UNPACK_BAD_SEC;
     }
 
-    gbit(cgrib, ibmap, *iofst, 8);    /* Get bit-map indicator */
+    gbit(cgrib, ibmap, *iofst, 8); /* Get bit-map indicator */
     *iofst = *iofst + 8;
 
     if (*ibmap == 0)
-    {               /* Unpack bitmap */
+    { /* Unpack bitmap */
         if (ngpts > 0)
             lbmap = calloc(ngpts, sizeof(g2int));
         if (!lbmap)

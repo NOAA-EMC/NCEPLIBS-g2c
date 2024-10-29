@@ -59,7 +59,7 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits,
 {
     g2int i, tbit, bitcnt, ibit, itmp;
     g2int nbit, index;
-    static g2int ones[]={1, 3, 7, 15, 31, 63, 127, 255};
+    static g2int ones[] = {1, 3, 7, 15, 31, 63, 127, 255};
 
     /* nbit is the start position of the field in bits */
     nbit = iskip;
@@ -71,10 +71,10 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits,
         nbit = nbit + nbits + nskip;
 
         /* first byte */
-        tbit = (bitcnt < (8 - ibit)) ? bitcnt : 8 - ibit;  // find min
+        tbit = (bitcnt < (8 - ibit)) ? bitcnt : 8 - ibit; // find min
         itmp = (int)*(in + index) & ones[7 - ibit];
         if (tbit != 8 - ibit)
-	    itmp >>= (8 - ibit - tbit);
+            itmp >>= (8 - ibit - tbit);
         index++;
         bitcnt = bitcnt - tbit;
 
@@ -90,7 +90,7 @@ gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits,
         if (bitcnt > 0)
         {
             itmp = (itmp << bitcnt) |
-                (((int)*(in + index) >> (8 - bitcnt)) & ones[bitcnt - 1]);
+                   (((int)*(in + index) >> (8 - bitcnt)) & ones[bitcnt - 1]);
         }
 
         iout[i] = itmp;
@@ -127,7 +127,7 @@ g2c_gbit_int(unsigned char *in, int *iout, int iskip, int nbits)
  * @param nskip Additional number of bits to skip on each iteration.
  * @param n Number of iterations.
  *
- * @return 
+ * @return
  * - ::G2C_NOERROR No error.
  * - ::G2C_ENOMEM Out of memory.
  *
@@ -135,28 +135,28 @@ g2c_gbit_int(unsigned char *in, int *iout, int iskip, int nbits)
  */
 int
 g2c_gbits_int(unsigned char *in, int *iout, int iskip, int nbits,
-	      int nskip, int n)
+              int nskip, int n)
 {
     g2int *g2iout;
     int i;
 
     /* The in parameter is required. */
     if (!in)
-	return G2C_EINVAL;
+        return G2C_EINVAL;
 
     /* Get some memory for results. */
     if (!(g2iout = malloc(n * sizeof(g2int))))
-	return G2C_ENOMEM;
-    
+        return G2C_ENOMEM;
+
     gbits(in, g2iout, iskip, nbits, nskip, n);
 
     /* Copy from g2int to int. */
     for (i = 0; i < n; i++)
-	iout[i] = (int)g2iout[i];
+        iout[i] = (int)g2iout[i];
 
     /* Free memory. */
     free(g2iout);
-    
+
     return G2C_NOERROR;
 }
 
@@ -180,7 +180,7 @@ sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbits,
 {
     g2int i, bitcnt, tbit, ibit, itmp, imask, itmp2, itmp3;
     g2int nbit, index;
-    static g2int ones[]={1, 3, 7, 15, 31, 63, 127, 255};
+    static g2int ones[] = {1, 3, 7, 15, 31, 63, 127, 255};
 
     /* number bits from zero to ... nbit is the last bit of the field
      * to be filled. */
@@ -196,7 +196,7 @@ sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbits,
         /* make byte aligned  */
         if (ibit != 7)
         {
-            tbit = (bitcnt < (ibit+1)) ? bitcnt : ibit + 1;  /* find min */
+            tbit = (bitcnt < (ibit + 1)) ? bitcnt : ibit + 1; /* find min */
             imask = ones[tbit - 1] << (7 - ibit);
             itmp2 = (itmp << (7 - ibit)) & imask;
             itmp3 = (int)*(out + index) & (255 - imask);
@@ -224,5 +224,4 @@ sbits(unsigned char *out, g2int *in, g2int iskip, g2int nbits,
             out[index] = (unsigned char)(itmp2 | itmp3);
         }
     }
-
 }

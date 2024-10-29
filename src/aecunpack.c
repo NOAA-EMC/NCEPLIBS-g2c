@@ -3,9 +3,9 @@
  * stream
  * @author Eric Engle @date 2023-10-16
  */
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Unpack AEC compressed data into an
@@ -41,10 +41,10 @@
  */
 static int
 aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-          void *fld, int fld_is_double, int verbose)
+              void *fld, int fld_is_double, int verbose)
 {
     g2int *ifld;
-    g2int j, ctemplen = 0 , nbits;
+    g2int j, ctemplen = 0, nbits;
     g2int ccsds_flags, ccsds_block_size, ccsds_rsi;
     //g2int ifld1 = 0;
     int ret = 0;
@@ -78,11 +78,11 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 
         /* Determine the number of bytes needed for each value, then allocate the
          * buffer for the decoded AEC stream. */
-        nbytes = (nbits + 7)/8;
+        nbytes = (nbits + 7) / 8;
         if (nbytes == 3)
             nbytes = 4;
         ctemplen = nbytes * ndpts;
-        if ((ctemp = (unsigned char *) malloc(ctemplen)) == NULL)
+        if ((ctemp = (unsigned char *)malloc(ctemplen)) == NULL)
         {
             if (verbose)
                 fprintf(stderr, "Allocation error.\n");
@@ -96,7 +96,7 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 
         /* IMPORTANT: The decoded AEC stream is byte-aligned (not bit), so when extracting the data
          * values from the buffer via gbits, we need to pass the byte size in bits, not nbits. */
-        gbits(ctemp, ifld, 0, nbytes*8, 0, ndpts);
+        gbits(ctemp, ifld, 0, nbytes * 8, 0, ndpts);
 
         /* Zero out all higher-order bits, preserving nbits. NOTE: This might be unecessary. */
         //for (j = 0; j < ndpts; j++)
@@ -109,7 +109,7 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
         if (fld_is_double)
         {
             for (j = 0; j < ndpts; j++)
-                 dfld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
+                dfld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
         }
         else
         {
@@ -162,7 +162,7 @@ aecunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
           float *fld)
 {
     int ret;
-    
+
     LOG((2, "g2c_aecunpack len %lld ndpts %lld", len, ndpts));
 
     ret = aecunpack_int(cpack, len, idrstmpl, ndpts, fld, 0, 1);
@@ -199,10 +199,10 @@ g2c_aecunpackf(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
     int i;
 
     LOG((2, "g2c_aecunpackf len %d ndpts %lld", len, ndpts));
-    
+
     for (i = 0; i < G2C_AEC_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
-    
+
     return aecunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 0, 0);
 }
 
@@ -235,11 +235,11 @@ g2c_aecunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts,
     g2int idrstmpl8[G2C_AEC_DRS_TEMPLATE_LEN];
     g2int len8 = len, ndpts8 = ndpts;
     int i;
-    
+
     LOG((2, "g2c_aecunpackd len %lld ndpts %lld", len, ndpts));
-    
+
     for (i = 0; i < G2C_AEC_DRS_TEMPLATE_LEN; i++)
         idrstmpl8[i] = idrstmpl[i];
-    
+
     return aecunpack_int(cpack, len8, idrstmpl8, ndpts8, fld, 1, 0);
 }

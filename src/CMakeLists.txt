@@ -157,6 +157,14 @@ CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/grib2.h.in" "${CMAKE_CURRENT_BINARY_
 
 target_include_directories(${lib_name}_objlib PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}>"
                                                      $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
+if(BUILD_SHARED_LIBS)
+  target_include_directories(${lib_name}_shared PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}>"
+                                                       $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
+endif()
+if(BUILD_STATIC_LIBS)
+  target_include_directories(${lib_name}_static PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR};${CMAKE_CURRENT_SOURCE_DIR}>"
+                                                       $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
+endif()
 
 if (NOT WIN32)
   target_link_libraries(${lib_name}_objlib INTERFACE m)
@@ -193,7 +201,7 @@ export(EXPORT ${PROJECT_NAME}Exports
 
 # g2c-config.cmake
 configure_package_config_file(
-  ${CMAKE_SOURCE_DIR}/cmake/PackageConfig.cmake.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+  ${PROJECT_SOURCE_DIR}/cmake/PackageConfig.cmake.in ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
   INSTALL_DESTINATION ${CONFIG_INSTALL_DESTINATION})
 install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake
   DESTINATION ${CONFIG_INSTALL_DESTINATION})
@@ -216,5 +224,5 @@ install(EXPORT ${PROJECT_NAME}Exports
 if(BUILD_G2C)
   set(CSV_FILES Template.txt CodeFlag.txt)
   install(FILES ${CSV_FILES}
-    DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/g2c/)
 endif()

@@ -3,9 +3,9 @@
  * @author Stephen Gilbert @date 2002-10-31
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Unpack Section 5 (Data Representation Section) of a GRIB2 message.
@@ -45,11 +45,11 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
     g2int *lidrstmpl = 0;
     gtemplate *mapdrs;
 
-    *idrstmpl = 0;       /* NULL*/
+    *idrstmpl = 0; /* NULL*/
 
-    gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
+    gbit(cgrib, &lensec, *iofst, 32); /* Get Length of Section */
     *iofst = *iofst + 32;
-    gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
+    gbit(cgrib, &isecnum, *iofst, 8); /* Get Section Number */
     *iofst = *iofst + 8;
 
     if (isecnum != 5)
@@ -59,9 +59,9 @@ g2_unpack5(unsigned char *cgrib, g2int *iofst, g2int *ndpts, g2int *idrsnum,
         return G2_UNPACK_BAD_SEC;
     }
 
-    gbit(cgrib, ndpts, *iofst, 32);    /* Get num of data points */
+    gbit(cgrib, ndpts, *iofst, 32); /* Get num of data points */
     *iofst = *iofst + 32;
-    gbit(cgrib, idrsnum, *iofst, 16);     /* Get Data Rep Template Num. */
+    gbit(cgrib, idrsnum, *iofst, 16); /* Get Data Rep Template Num. */
     *iofst = *iofst + 16;
 
     /*   Gen Data Representation Template */

@@ -10,11 +10,11 @@
  *                      for CCSDS parameters.
  */
 
+#include "grib2_int.h"
+#include <libaec.h>
+#include <math.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <math.h>
-#include <libaec.h>
-#include "grib2_int.h"
 
 /**
  * Pack a float or double array into a AEC/CCSDS code stream.
@@ -140,13 +140,13 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
             if (fld_is_double)
             {
                 rmind = (float)imin;
-                for(j = 0; j < ndpts; j++)
+                for (j = 0; j < ndpts; j++)
                     ifld[j] = (g2int)rint(dfld[j] * dscale) - imin;
             }
             else
             {
                 rmin = (float)imin;
-                for(j = 0; j < ndpts; j++)
+                for (j = 0; j < ndpts; j++)
                     ifld[j] = (g2int)rint(ffld[j] * dscale) - imin;
             }
         }
@@ -184,12 +184,12 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
         /* Define AEC compression options */
         if (idrstmpl[3] <= 0)
         {
-            nbits = pow(2, ceil(log(nbits)/log(2))); // Round to nearest base 2 int
+            nbits = pow(2, ceil(log(nbits) / log(2))); // Round to nearest base 2 int
         }
         else
         {
             nbits = idrstmpl[3];
-            nbits = pow(2, ceil(log(nbits)/log(2))); // Round to nearest base 2 int
+            nbits = pow(2, ceil(log(nbits) / log(2))); // Round to nearest base 2 int
         }
         nbits = nbits < 8 ? 8 : nbits;
 
@@ -222,18 +222,19 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
          * calculate the length of the packed data in bytes. */
         nbytes = (nbits + 7) / 8;
         ctemp = calloc(ndpts, nbytes);
-        ctemplen = ndpts*nbytes;
-        sbits(ctemp, ifld, 0, nbytes*8, 0, ndpts);
+        ctemplen = ndpts * nbytes;
+        sbits(ctemp, ifld, 0, nbytes * 8, 0, ndpts);
 
-        ret = enc_aec(ctemp, ctemplen, nbits, ccsds_flags, ccsds_block_size, ccsds_rsi, cpack, lcpack);
-        if (ret < 0)
+        *lcpack = enc_aec(ctemp, ctemplen, nbits, ccsds_flags, ccsds_block_size, ccsds_rsi, cpack, lcpack);
+        if (*lcpack < 0)
         {
-            if (verbose) printf("aecpack: ERROR Packing AEC = %d\n",ret);
+            if (verbose)
+                printf("aecpack: ERROR Packing AEC = %d\n", ret);
             nbits = 0;
             *lcpack = 0;
+            ret = G2C_EAEC;
         }
 
-        *lcpack = ret;
         free(ctemp);
     }
     else
@@ -245,7 +246,7 @@ aecpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
     /* Fill in values for template 5.42. */
     if (fld_is_double)
         rmin = (float)rmind;
-    mkieee(&rmin, idrstmpl, 1);   /* ensure reference value is IEEE format. */
+    mkieee(&rmin, idrstmpl, 1); /* ensure reference value is IEEE format. */
     idrstmpl[3] = nbits;
     idrstmpl[5] = ccsds_flags;
     idrstmpl[6] = ccsds_block_size;

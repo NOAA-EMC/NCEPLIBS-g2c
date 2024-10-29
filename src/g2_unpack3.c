@@ -3,9 +3,9 @@
  * message.
  * @author Stephen Gilbert @date 2002-10-31
  */
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 /**
  * Unpack [Section 3 (Grid Definition
@@ -71,9 +71,9 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
     *igdstmpl = NULL;
     *ideflist = NULL;
 
-    gbit(cgrib, &lensec, *iofst, 32);        /* Get Length of Section */
+    gbit(cgrib, &lensec, *iofst, 32); /* Get Length of Section */
     *iofst = *iofst + 32;
-    gbit(cgrib, &isecnum, *iofst, 8);         /* Get Section Number */
+    gbit(cgrib, &isecnum, *iofst, 8); /* Get Section Number */
     *iofst = *iofst + 8;
 
     if (isecnum != 3)
@@ -86,22 +86,22 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
     ligds = calloc(5, sizeof(g2int));
     *igds = ligds;
 
-    gbit(cgrib, &ligds[0], *iofst, 8);     /* Get source of Grid def. */
+    gbit(cgrib, &ligds[0], *iofst, 8); /* Get source of Grid def. */
     *iofst = *iofst + 8;
-    gbit(cgrib, &ligds[1], *iofst, 32);    /* Get number of grid pts. */
+    gbit(cgrib, &ligds[1], *iofst, 32); /* Get number of grid pts. */
     *iofst = *iofst + 32;
-    gbit(cgrib, &ligds[2], *iofst, 8);     /* Get num octets for opt. list */
+    gbit(cgrib, &ligds[2], *iofst, 8); /* Get num octets for opt. list */
     *iofst = *iofst + 8;
-    gbit(cgrib, &ligds[3], *iofst, 8);     /* Get interpret. for opt. list */
+    gbit(cgrib, &ligds[3], *iofst, 8); /* Get interpret. for opt. list */
     *iofst = *iofst + 8;
-    gbit(cgrib, &ligds[4], *iofst, 16);    /* Get Grid Def Template num. */
+    gbit(cgrib, &ligds[4], *iofst, 16); /* Get Grid Def Template num. */
     *iofst = *iofst + 16;
 
     if (ligds[4] != 65535)
     {
         /*   Get Grid Definition Template */
         if (!(mapgrid = getgridtemplate(ligds[4])))
-        {         /* undefined template */
+        { /* undefined template */
             free(ligds);
             return G2_UNPACK3_BAD_GDT;
         }
@@ -180,7 +180,7 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
             free(mapgrid);
     }
     else
-    {              /* No Grid Definition Template */
+    { /* No Grid Definition Template */
         *mapgridlen = 0;
         *igdstmpl = 0;
     }
@@ -210,5 +210,5 @@ g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl,
         *ideflist = NULL;
     }
 
-    return G2_NO_ERROR;    /* End of Section 3 processing */
+    return G2_NO_ERROR; /* End of Section 3 processing */
 }

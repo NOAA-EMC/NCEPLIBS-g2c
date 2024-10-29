@@ -1764,7 +1764,7 @@ Code table 4.2 - Parameter number by product discipline and parameter category,"
 Code table 4.2 - Parameter number by product discipline and parameter category,"Product discipline 10 - Oceanographic products, parameter category 2: ice",23,,Sea ice fraction tendency due to parameterization,,,s-1,Operational
 Code table 4.2 - Parameter number by product discipline and parameter category,"Product discipline 10 - Oceanographic products, parameter category 2: ice",24,,x-component of ice drift,,,m s-1,Operational
 Code table 4.2 - Parameter number by product discipline and parameter category,"Product discipline 10 - Oceanographic products, parameter category 2: ice",25,,y-component of ice drift,,,m s-1,Operational
-Code table 4.2 - Parameter number by product discipline and parameter category,"Product discipline 10 - Oceanographic products, parameter category 2: ice",26,,Sea ice salinity,,,g kg-1,operational 
+Code table 4.2 - Parameter number by product discipline and parameter category,"Product discipline 10 - Oceanographic products, parameter category 2: ice",26,,Sea ice salinity,,,g kg-1,operational
 Code table 4.2 - Parameter number by product discipline and parameter category,"Product discipline 10 - Oceanographic products, parameter category 2: ice",27,,Freezing/melting potential,,,W m-2,Operational
 Code table 4.2 - Parameter number by product discipline and parameter category,"Product discipline 10 - Oceanographic products, parameter category 2: ice",28,,Melt onset date,(see Note 2),144,Numeric,Operational
 Code table 4.2 - Parameter number by product discipline and parameter category,"Product discipline 10 - Oceanographic products, parameter category 2: ice",29,,Freeze onset date,(see Note 3),145,Numeric,Operational

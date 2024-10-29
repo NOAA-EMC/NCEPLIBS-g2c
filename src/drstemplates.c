@@ -40,9 +40,9 @@
  */
 struct drstemplate
 {
-    g2int template_num; /**< The number of entries in the template. */
-    g2int mapdrslen; /**< Length of map of the template. */
-    g2int needext; /**< Whether the Template needs to be extended. */
+    g2int template_num;                        /**< The number of entries in the template. */
+    g2int mapdrslen;                           /**< Length of map of the template. */
+    g2int needext;                             /**< Whether the Template needs to be extended. */
     g2int mapdrs[G2C_MAX_DRS_TEMPLATE_MAPLEN]; /**< A map of the template. */
 };
 
@@ -51,28 +51,28 @@ struct drstemplate
  * template.
  */
 static const struct drstemplate templatesdrs[G2C_MAX_DRS_TEMPLATE] =
-{
-    /** [5.0: Grid point data - Simple
+    {
+        /** [5.0: Grid point data - Simple
      * Packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-0.shtml) */
-    {0, 5, 0, {4, -2, -2, 1, 1}},
+        {0, 5, 0, {4, -2, -2, 1, 1}},
 
-    /** [5.2: Grid point data - Complex
+        /** [5.2: Grid point data - Complex
      * Packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-2.shtml) */
-    {2, 16, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1}},
+        {2, 16, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1}},
 
-    /** [5.3: Grid point data - Complex Packing and spatial
+        /** [5.3: Grid point data - Complex Packing and spatial
      * differencing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-3.shtml) */
-    {3, 18, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1, 1, 1}},
+        {3, 18, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1, 1, 1}},
 
-    /** [5.50: Spectral Data - Simple
+        /** [5.50: Spectral Data - Simple
      * Packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-50.shtml) */
-    {50, 5, 0, {4, -2, -2, 1, 4}},
+        {50, 5, 0, {4, -2, -2, 1, 4}},
 
-    /** [5.51: Spherical Harmonics data - Complex
+        /** [5.51: Spherical Harmonics data - Complex
      * packing](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-51.shtml) */
-    {51, 10, 0, {4, -2, -2, 1, -4, 2, 2, 2, 4, 1}},
+        {51, 10, 0, {4, -2, -2, 1, -4, 2, 2, 2, 4, 1}},
 
-    /* 5.1: Matrix values at gridpoint - Simple packing.
+        /* 5.1: Matrix values at gridpoint - Simple packing.
      * Comment from Stephen Gilbert in 2021:
      *
      * This encoder/decoder was written in the early days of GRIB2
@@ -92,32 +92,32 @@ static const struct drstemplate templatesdrs[G2C_MAX_DRS_TEMPLATE] =
      * in the future.
      */
 
-    /* {1, 15, 1, {4, -2, -2, 1, 1, 1, 4, 2, 2, 1, 1, 1, 1, 1, 1}}, */
+        /* {1, 15, 1, {4, -2, -2, 1, 1, 1, 4, 2, 2, 1, 1, 1, 1, 1, 1}}, */
 
-    /** [5.40: Grid point data - JPEG2000
+        /** [5.40: Grid point data - JPEG2000
      * encoding](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-40.shtml) */
-    {40, 7, 0, {4, -2, -2, 1, 1, 1, 1}},
+        {40, 7, 0, {4, -2, -2, 1, 1, 1, 1}},
 
-    /** [5.41: Grid point data - PNG
+        /** [5.41: Grid point data - PNG
      * encoding](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-41.shtml) */
-    {41, 5, 0, {4, -2, -2, 1, 1}},
+        {41, 5, 0, {4, -2, -2, 1, 1}},
 
-    /** [5.42: Grid point data - CCSDS recommended lossless compress (libaec)
+        /** [5.42: Grid point data - CCSDS recommended lossless compress (libaec)
      * encoding](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/grib2_temp5-42.shtml) */
-    {42, 8, 0, {4, -2, -2, 1, 1, 1, 1, 2}},
+        {42, 8, 0, {4, -2, -2, 1, 1, 1, 1, 2}},
 
-    /** 5.40000: Grid point data - JPEG2000 encoding
+        /** 5.40000: Grid point data - JPEG2000 encoding
      *
      * This is a local template number, from a time before WMO standardized use of JPEG2000
      * with 5.40. This should not be used in new data files. Use 5.40 instead. */
-    {40000, 7, 0, {4, -2, -2, 1, 1, 1, 1}},
+        {40000, 7, 0, {4, -2, -2, 1, 1, 1, 1}},
 
-    /** 5.40010: Grid point data - PNG encoding
+        /** 5.40010: Grid point data - PNG encoding
      *
      * This is a local template number, from a time before WMO standardized use of PNG
      * with 5.41. This should not be used in new data files. Use 5.41 instead. */
-    {40010, 5, 0, {4, -2, -2, 1, 1}},
-} ;
+        {40010, 5, 0, {4, -2, -2, 1, 1}},
+};
 
 /**
  * This function returns the index of specified Data Representation
@@ -141,11 +141,11 @@ getdrsindex(g2int number)
         if (number == templatesdrs[j].template_num)
         {
             getdrsindex = j;
-            return(getdrsindex);
+            return (getdrsindex);
         }
     }
 
-    return(getdrsindex);
+    return (getdrsindex);
 }
 
 /**
@@ -181,15 +181,15 @@ getdrstemplate(g2int number)
         new->map = (g2int *)templatesdrs[index].mapdrs;
         new->extlen = 0;
         new->ext = NULL;
-        return(new);
+        return (new);
     }
     else
     {
         printf("getdrstemplate: DRS Template 5.%d not defined.\n", (int)number);
-        return(NULL);
+        return (NULL);
     }
 
-    return(NULL);
+    return (NULL);
 }
 
 /**
@@ -220,7 +220,7 @@ extdrstemplate(g2int number, g2int *list)
     new = getdrstemplate(number);
 
     if (!new->needext)
-        return(new);
+        return (new);
 
     /* This template is commented out (see comment in struct
      * drstemplate for explanation). */
@@ -284,4 +284,3 @@ g2c_get_drs_template(int drs_template_num, int *maplen, int *map, int *needext)
     /* If we didn't find a template, return an error. */
     return G2C_ENOTEMPLATE;
 }
-

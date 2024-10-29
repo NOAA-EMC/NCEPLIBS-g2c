@@ -3,13 +3,13 @@
  * @author Stephen Gilbert @date 2002-11-06
  */
 
-#include <stdlib.h>
-#include <math.h>
 #include "grib2_int.h"
+#include <math.h>
+#include <stdlib.h>
 
 /**
  * Packs a data field using the simple packing
- * algorithm. 
+ * algorithm.
  *
  * This function also fills in GRIB2 Data Representation Template 5.0
  * with the appropriate values.
@@ -33,15 +33,15 @@
  * @author Stephen Gilbert @date 2002-11-06
  */
 void
-simpack(float *fld, g2int ndpts, g2int *idrstmpl, 
-	unsigned char *cpack, g2int *lcpack)
+simpack(float *fld, g2int ndpts, g2int *idrstmpl,
+        unsigned char *cpack, g2int *lcpack)
 {
     static g2int zero = 0;
     g2int *ifld;
     g2int j, nbits, imin, imax, maxdif, nbittot, left;
     float bscale, dscale, rmax, rmin, temp;
     double maxnum;
-    static float alog2 = ALOG2;       /*  ln(2.0) */
+    static float alog2 = ALOG2; /*  ln(2.0) */
 
     LOG((3, "simpack ndpts %ld", ndpts));
 
@@ -55,11 +55,12 @@ simpack(float *fld, g2int ndpts, g2int *idrstmpl,
     /* Find max and min values in the data. */
     rmax = fld[0];
     rmin = fld[0];
-    for (j = 1; j < ndpts; j++) {
+    for (j = 1; j < ndpts; j++)
+    {
         if (fld[j] > rmax)
-	    rmax = fld[j];
+            rmax = fld[j];
         if (fld[j] < rmin)
-	    rmin = fld[j];
+            rmin = fld[j];
     }
 
     ifld = calloc(ndpts, sizeof(g2int));
@@ -67,11 +68,13 @@ simpack(float *fld, g2int ndpts, g2int *idrstmpl,
     /* If max and min values are not equal, pack up field. If they are
      * equal, we have a constant field, and the reference value (rmin)
      * is the value for each point in the field and set nbits to 0. */
-    if (rmin != rmax) {
+    if (rmin != rmax)
+    {
 
         /* Determine which algorithm to use based on user-supplied
 	 * binary scale factor and number of bits. */
-        if (nbits == 0 && idrstmpl[1] == 0) {
+        if (nbits == 0 && idrstmpl[1] == 0)
+        {
 
             /* No binary scaling and calculate minumum number of bits
 	     * in which the data will fit. */
@@ -82,10 +85,11 @@ simpack(float *fld, g2int ndpts, g2int *idrstmpl,
             nbits = (g2int)ceil(temp);
             rmin = (float)imin;
             /*   scale data */
-            for(j = 0; j < ndpts; j++)
+            for (j = 0; j < ndpts; j++)
                 ifld[j] = (g2int)rint(fld[j] * dscale) - imin;
         }
-        else if (nbits != 0 && idrstmpl[1] == 0) {
+        else if (nbits != 0 && idrstmpl[1] == 0)
+        {
 
             /* Use minimum number of bits specified by user and adjust
 	     * binary scaling factor to accomodate data. */
@@ -99,7 +103,8 @@ simpack(float *fld, g2int ndpts, g2int *idrstmpl,
             for (j = 0; j < ndpts; j++)
                 ifld[j] = (g2int)rint(((fld[j] * dscale) - rmin) * bscale);
         }
-        else if (nbits == 0 && idrstmpl[1] != 0) {
+        else if (nbits == 0 && idrstmpl[1] != 0)
+        {
 
             /* Use binary scaling factor and calculate minumum number
 	     * of bits in which the data will fit. */
@@ -112,7 +117,8 @@ simpack(float *fld, g2int ndpts, g2int *idrstmpl,
             for (j = 0; j < ndpts; j++)
                 ifld[j] = (g2int)rint(((fld[j] * dscale) - rmin) * bscale);
         }
-        else if (nbits != 0 && idrstmpl[1] != 0) {
+        else if (nbits != 0 && idrstmpl[1] != 0)
+        {
 
             /* Use binary scaling factor and use minumum number of
 	     * bits specified by user. Dangerous - may loose
@@ -129,21 +135,23 @@ simpack(float *fld, g2int ndpts, g2int *idrstmpl,
         sbits(cpack, ifld, 0, nbits, 0, ndpts);
         nbittot = nbits * ndpts;
         left = 8 - (nbittot % 8);
-        if (left != 8) {
-            sbit(cpack, &zero, nbittot, left);   /* Pad with zeros to fill Octet. */
+        if (left != 8)
+        {
+            sbit(cpack, &zero, nbittot, left); /* Pad with zeros to fill Octet. */
             nbittot = nbittot + left;
         }
         *lcpack = nbittot / 8;
     }
-    else {
+    else
+    {
         nbits = 0;
         *lcpack = 0;
     }
 
     /* Fill in ref value and number of bits in Template 5.0. */
-    mkieee(&rmin, idrstmpl, 1);   /* ensure reference value is IEEE format. */
+    mkieee(&rmin, idrstmpl, 1); /* ensure reference value is IEEE format. */
     idrstmpl[3] = nbits;
-    idrstmpl[4] = 0;         /* original data were reals. */
+    idrstmpl[4] = 0; /* original data were reals. */
 
     free(ifld);
 }

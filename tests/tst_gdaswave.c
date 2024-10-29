@@ -6,9 +6,9 @@
  * Ed Hartnett 7/5/23
  */
 
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "grib2_int.h"
 
 #define GDAS_FILE "data/gdaswave.t00z.wcoast.0p16.f000.grib2"
 #define LAT_LEN 241
@@ -29,7 +29,7 @@ main()
         int d;
 
         /* Open GRIB2 file. */
-	g2c_set_log_level(10);
+        g2c_set_log_level(10);
         if (g2c_open(GDAS_FILE, 0, &g2cid))
             return G2C_ERROR;
 
@@ -46,7 +46,6 @@ main()
         printf("len0 %ld dimname0 %s\n", len0, dimname0);
         for (d = 0; d < len0; d++)
             printf("lat[%d] = %f\n", d, lat[d]);
-
     }
     printf("ok!\n");
     printf("SUCCESS!\n");

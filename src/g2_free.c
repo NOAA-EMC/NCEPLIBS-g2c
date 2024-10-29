@@ -4,8 +4,8 @@
  * @author Stephen Gilbeert @date 2002-10-28
  */
 
+#include "grib2_int.h"
 #include <stdlib.h>
-#include  "grib2_int.h"
 
 /**
  * Free memory that was allocated for struct ::gribfield.

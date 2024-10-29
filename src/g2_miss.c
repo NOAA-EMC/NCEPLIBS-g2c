@@ -27,7 +27,7 @@ g2_miss(gribfield *gfld, float *rmiss, int *nmiss)
 
     /* Missing value management currnetly only used in DRT's 5.2 and
      * 5.3. */
-    if (gfld->idrtnum != 2  &&  gfld->idrtnum != 3)
+    if (gfld->idrtnum != 2 && gfld->idrtnum != 3)
     {
         *nmiss = 0;
         return;
@@ -38,7 +38,7 @@ g2_miss(gribfield *gfld, float *rmiss, int *nmiss)
     {
         *nmiss = 1;
         if (itype == 0)
-            rdieee(gfld->idrtmpl + 7, rmiss+0, 1);
+            rdieee(gfld->idrtmpl + 7, rmiss + 0, 1);
         else
             rmiss[0] = (float)gfld->idrtmpl[7];
     }

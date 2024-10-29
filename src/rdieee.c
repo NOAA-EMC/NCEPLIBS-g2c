@@ -20,29 +20,29 @@ void
 rdieee(g2int *rieee, float *a, g2int num)
 {
 
-    g2int  j;
-    g2int  isign,iexp,imant;
+    g2int j;
+    g2int isign, iexp, imant;
 
-    float  sign,temp;
-    static float  two23,two126;
+    float sign, temp;
+    static float two23, two126;
     static g2int test = 0;
-    uint64_t msk1 = 0x80000000;        /* 10000000000000000000000000000000 binary */
-    g2int msk2 = 0x7F800000;         /* 01111111100000000000000000000000 binary */
-    g2int msk3 = 0x007FFFFF;         /* 00000000011111111111111111111111 binary */
+    uint64_t msk1 = 0x80000000; /* 10000000000000000000000000000000 binary */
+    g2int msk2 = 0x7F800000;    /* 01111111100000000000000000000000 binary */
+    g2int msk3 = 0x007FFFFF;    /* 00000000011111111111111111111111 binary */
 
     if (test == 0)
     {
-        two23 = (float)int_power(2.0,-23);
-        two126 = (float)int_power(2.0,-126);
+        two23 = (float)int_power(2.0, -23);
+        two126 = (float)int_power(2.0, -126);
         test = 1;
     }
 
     for (j = 0; j < num; j++)
     {
         /*  Extract sign bit, exponent, and mantissa */
-        isign = (rieee[j]&msk1)>>31;
-        iexp = (rieee[j]&msk2)>>23;
-        imant = (rieee[j]&msk3);
+        isign = (rieee[j] & msk1) >> 31;
+        iexp = (rieee[j] & msk2) >> 23;
+        imant = (rieee[j] & msk3);
         /*printf("SAGieee= %ld %ld %ld\n",isign,iexp,imant); */
 
         sign = 1.0;
@@ -60,10 +60,8 @@ rdieee(g2int *rieee, float *a, g2int num)
                 a[j] = sign * two126 * two23 * (float)imant;
             else
                 a[j] = sign * 0.0;
-
         }
         else if (iexp == 255)
             a[j] = sign * (1E+37);
-
     }
 }
