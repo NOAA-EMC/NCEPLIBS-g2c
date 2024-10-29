@@ -28,19 +28,24 @@ jobs:
     - name: install-dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev clang-format-14
+        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev 
 
-    - name: install-clang-dependencies
+    - name: install-format-dependencies
+      if: matrix.config == 'format'      
+      run: |
+        sudo apt-get install clang-format-14
+
+    - name: install-docs-dependencies
       if: matrix.config == 'docs'      
       run: |
         sudo apt-get install doxygen
 
-    - name: install-clang-dependencies
+    - name: install-memory-dependencies
       if: matrix.config == 'memory'      
       run: |
         sudo apt-get install valgrind
 
-    - name: install-clang-dependencies
+    - name: install-code_coverage-dependencies
       if: matrix.config == 'code coverage'      
       run: |
         sudo apt-get install clang-format
