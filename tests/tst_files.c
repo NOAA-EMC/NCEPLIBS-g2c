@@ -280,9 +280,9 @@ main()
             }
 
             {
-                int pds_template_len, pds_template[G2C_MAX_PDS_TEMPLATE_MAPLEN];
-                int gds_template_len, gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN];
-                int drs_template_len, drs_template[G2C_MAX_DRS_TEMPLATE_MAPLEN];
+                int pds_template_len, gds_template_len, drs_template_len;
+                long long int pds_template[G2C_MAX_PDS_TEMPLATE_MAPLEN], gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN],
+		    drs_template[G2C_MAX_DRS_TEMPLATE_MAPLEN];
                 int t;
 
                 if ((ret = g2c_inq_prod(g2cid, m, 0, &pds_template_len, pds_template,
