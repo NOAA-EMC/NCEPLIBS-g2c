@@ -127,31 +127,31 @@ main()
     printf("ok!\n");
     printf("Testing g2c_aecpackd()/g2c_aecunpackd() calls with data...");
     {
-	size_t height = 2, width = 2;
-	size_t ndpts = DATA_LEN, len = PACKED_LEN; 	
-	double fld[DATA_LEN] = {1.0, 2.0, 3.0, 4.0};
-	double fld_in[DATA_LEN];
-	unsigned char cpack[PACKED_LEN];
-	size_t lcpack;
-    g2int idrstmpl[8] = {0, 1, 1, 0, 0, 0, 16, 128};
-	int i, ret;
+        size_t height = 2, width = 2;
+        size_t ndpts = DATA_LEN, len = PACKED_LEN;
+        double fld[DATA_LEN] = {1.0, 2.0, 3.0, 4.0};
+        double fld_in[DATA_LEN];
+        unsigned char cpack[PACKED_LEN];
+        size_t lcpack;
+        g2int idrstmpl[8] = {0, 1, 1, 0, 0, 0, 16, 128};
+        int i, ret;
 
         idrstmpl[5] = CCSDS_FLAGS;
 
-	/* Pack the data. */
-	g2c_aecpackd(fld, width, height, (int *)idrstmpl, cpack, &lcpack);
+        /* Pack the data. */
+        g2c_aecpackd(fld, width, height, (int *)idrstmpl, cpack, &lcpack);
 
-	/* Unpack the data. */
-	ret = g2c_aecunpackd(cpack, len, (int *)idrstmpl, ndpts, fld_in);
-	if (ret < 0)
-	    return G2C_ERROR;
+        /* Unpack the data. */
+        ret = g2c_aecunpackd(cpack, len, (int *)idrstmpl, ndpts, fld_in);
+        if (ret < 0)
+            return G2C_ERROR;
 
-	for (i = 0; i < DATA_LEN; i++)
-	{
-	    /* printf("%g %g\n", fld[i], fld_in[i]); */
-	    if (abs(fld[i] - fld_in[i]) >= EPSILON)
-		return G2C_ERROR;
-	}
+        for (i = 0; i < DATA_LEN; i++)
+        {
+            /* printf("%g %g\n", fld[i], fld_in[i]); */
+            if (abs(fld[i] - fld_in[i]) >= EPSILON)
+                return G2C_ERROR;
+        }
     }
     printf("ok!\n");
     printf("SUCCESS!\n");

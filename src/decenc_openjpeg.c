@@ -444,7 +444,8 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
     nbytes = (nbits + 7) / 8;
     gbits(cin, ifld, 0, nbytes * 8, 0, width * height);
     /* Simple packing */
-    for (int i = 0; i < width * height; i++) {
+    for (int i = 0; i < width * height; i++)
+    {
         image->comps[0].data[i] = ifld[i];
     }
     free(ifld);

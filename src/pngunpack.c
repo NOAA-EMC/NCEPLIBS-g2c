@@ -70,10 +70,12 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
         dec_png(cpack, &width, &height, ctemp);
 
         int bytes_per_row = (nbits * width) / 8;
-        if ((width * nbits) % 8 != 0) {
+        if ((width * nbits) % 8 != 0)
+        {
             bytes_per_row++;
         }
-        for (j = 0; j < height; j++) {
+        for (j = 0; j < height; j++)
+        {
             gbits(ctemp + (j * bytes_per_row), ifld + (j * width), 0, nbits, 0, width);
         }
 

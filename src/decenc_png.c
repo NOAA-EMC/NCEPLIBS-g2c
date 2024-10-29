@@ -172,7 +172,8 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
     /* Copy image data to output string   */
     n = 0;
     bytes = (*width * bit_depth) / 8;
-    if ((*width * bit_depth) % 8 != 0) {
+    if ((*width * bit_depth) % 8 != 0)
+    {
         bytes++;
     }
     for (j = 0; j < *height; j++)
@@ -257,7 +258,8 @@ enc_png(unsigned char *data, g2int width, g2int height, g2int nbits,
 
     /* Put image data into the PNG info structure. */
     bytes = (width * nbits) / 8;
-    if ((width * nbits) % 8 != 0) {
+    if ((width * nbits) % 8 != 0)
+    {
         bytes++;
     }
 

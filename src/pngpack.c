@@ -184,7 +184,8 @@ pngpack_int(void *fld, int fld_is_double, g2int width, g2int height, g2int *idrs
             nbits = 32;
 
         int bytes_per_row = (nbits * width) / 8;
-        if ((width * nbits) % 8 != 0) {
+        if ((width * nbits) % 8 != 0)
+        {
             bytes_per_row++;
         }
         nbytes = bytes_per_row * height;

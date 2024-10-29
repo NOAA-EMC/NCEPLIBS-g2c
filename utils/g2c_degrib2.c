@@ -3,10 +3,10 @@
  * @author Ed Hartnett @date 12/29/22
  */
 #include <ctype.h>
+#include <grib2.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <grib2.h>
 
 /**
  * Compare two GRIB2 files.
@@ -44,8 +44,8 @@ main(int argc, char **argv)
             verbose = 1;
             break;
         case 'o':
-	    if (!(fileout = malloc(sizeof(char) * strlen(optarg) + 1)))
-		return G2C_ENOMEM;
+            if (!(fileout = malloc(sizeof(char) * strlen(optarg) + 1)))
+                return G2C_ENOMEM;
             strcpy(fileout, optarg);
             break;
         case '?':
@@ -62,18 +62,18 @@ main(int argc, char **argv)
     /* Get names of input file(s). */
     for (index = optind; index < argc; index++)
     {
-	if (!p)
-	{
-	    if (!(filein = malloc(sizeof(char) * strlen(argv[index]) + 1)))
-		return G2C_ENOMEM;
-	    strcpy(filein, argv[index]);
-	}
-	else
-	{
-	    if (!(fileidx = malloc(sizeof(char) * strlen(argv[index]) + 1)))
-		return G2C_ENOMEM;
-	    strcpy(fileidx, argv[index]);
-	}
+        if (!p)
+        {
+            if (!(filein = malloc(sizeof(char) * strlen(argv[index]) + 1)))
+                return G2C_ENOMEM;
+            strcpy(filein, argv[index]);
+        }
+        else
+        {
+            if (!(fileidx = malloc(sizeof(char) * strlen(argv[index]) + 1)))
+                return G2C_ENOMEM;
+            strcpy(fileidx, argv[index]);
+        }
         if (++p == 2)
             break;
     }
@@ -81,62 +81,62 @@ main(int argc, char **argv)
     /* Turn on logging for verbose output. This only has effect if the
      * library was built with LOGGING=ON. */
     if (verbose)
-	g2c_set_log_level(4);
+        g2c_set_log_level(4);
 
     /* If we got one input file, open it. If we got two input files,
      * the second is an index file for the first. */
     if (p == 1)
     {
-	if (verbose)
-	    printf("g2c_degrib2 %s summarizing %s into %s.\n", G2C_VERSION, filein, fileout);
+        if (verbose)
+            printf("g2c_degrib2 %s summarizing %s into %s.\n", G2C_VERSION, filein, fileout);
 
-	/* Open the GRIB2 file. */
-	if ((ret = g2c_open(filein, G2C_NOWRITE, &g2cid)))
-	{
-	    fprintf(stderr, "Could not read file %s.\n", filein);
-	    return ret;
-	}
+        /* Open the GRIB2 file. */
+        if ((ret = g2c_open(filein, G2C_NOWRITE, &g2cid)))
+        {
+            fprintf(stderr, "Could not read file %s.\n", filein);
+            return ret;
+        }
     }
     else if (p == 2)
     {
-	if (verbose)
-	    printf("g2c_degrib2 %s summarizing %s, with index %s into %s.\n", G2C_VERSION,
-		   filein, fileidx, fileout);
+        if (verbose)
+            printf("g2c_degrib2 %s summarizing %s, with index %s into %s.\n", G2C_VERSION,
+                   filein, fileidx, fileout);
 
-	/* Open the GRIB2 file with index. */
-	if ((ret = g2c_open_index(filein, fileidx, G2C_NOWRITE, &g2cid)))
-	{
-	    fprintf(stderr, "Could not read file %s with index %s.\n", filein, fileidx);
-	    return ret;
-	}
+        /* Open the GRIB2 file with index. */
+        if ((ret = g2c_open_index(filein, fileidx, G2C_NOWRITE, &g2cid)))
+        {
+            fprintf(stderr, "Could not read file %s with index %s.\n", filein, fileidx);
+            return ret;
+        }
     }
     else
     {
-	printf("One or two filenames must be provided, for input and (optionally) index.\n");
-	return G2C_ERROR;
+        printf("One or two filenames must be provided, for input and (optionally) index.\n");
+        return G2C_ERROR;
     }
 
     /* Write the degrib2 summary. */
     if ((ret = g2c_degrib2(g2cid, fileout)))
     {
-	fprintf(stderr, "Could not write degrib2 summary to %s.\n", fileout);
+        fprintf(stderr, "Could not write degrib2 summary to %s.\n", fileout);
         return ret;
     }
 
     /* Close the file. */
     if ((ret = g2c_close(g2cid)))
     {
-	fprintf(stderr, "Error closing the file.\n");
+        fprintf(stderr, "Error closing the file.\n");
         return ret;
     }
 
     /* Free memory. */
     if (filein)
-	free(filein);
+        free(filein);
     if (fileidx)
-	free(fileidx);
+        free(fileidx);
     if (fileout)
-	free(fileout);
+        free(fileout);
 
     return 0;
 }

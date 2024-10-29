@@ -3,10 +3,10 @@
  * @author Ed Hartnett @date 12/29/22
  */
 #include <ctype.h>
+#include <grib2.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <grib2.h>
 
 /**
  * Compare two GRIB2 files.
@@ -86,6 +86,6 @@ main(int argc, char **argv)
     /* Clean up. */
     free(path[0]);
     free(path[1]);
-    
+
     return 0;
 }

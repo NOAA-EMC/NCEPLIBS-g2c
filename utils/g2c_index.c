@@ -5,10 +5,10 @@
  * @author Ed Hartnett @date 12/29/22
  */
 #include <ctype.h>
+#include <grib2.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <grib2.h>
 
 /**
  * Write a GRIB2 index file.
@@ -50,8 +50,8 @@ main(int argc, char **argv)
             large_file_index = 1;
             break;
         case 'o':
-	    if (!(fileout = malloc(sizeof(char) * strlen(optarg) + 1)))
-		return G2C_ENOMEM;
+            if (!(fileout = malloc(sizeof(char) * strlen(optarg) + 1)))
+                return G2C_ENOMEM;
             strcpy(fileout, optarg);
             break;
         case '?':
@@ -68,9 +68,9 @@ main(int argc, char **argv)
     /* Get names of input file. */
     for (index = optind; index < argc; index++)
     {
-	if (!(filein = malloc(sizeof(char) * strlen(argv[index]) + 1)))
-	    return G2C_ENOMEM;
-	strcpy(filein, argv[index]);
+        if (!(filein = malloc(sizeof(char) * strlen(argv[index]) + 1)))
+            return G2C_ENOMEM;
+        strcpy(filein, argv[index]);
         if (++p == 1)
             break;
     }
@@ -79,8 +79,8 @@ main(int argc, char **argv)
     if (verbose)
     {
         printf("g2c_index %s reading index file %s summarizing into %s.\n",
-	       G2C_VERSION, filein, fileout);
-	g2c_set_log_level(1);
+               G2C_VERSION, filein, fileout);
+        g2c_set_log_level(1);
     }
 
     /* Open the GRIB2 file. */
@@ -89,7 +89,7 @@ main(int argc, char **argv)
 
     /* Write the index file. */
     if (large_file_index)
-	      write_index_flag |= G2C_LARGE_FILE_INDEX;
+        write_index_flag |= G2C_LARGE_FILE_INDEX;
     if ((ret = g2c_write_index(g2cid, write_index_flag, fileout)))
         return ret;
 
@@ -99,9 +99,9 @@ main(int argc, char **argv)
 
     /* Free memory. */
     if (filein)
-	free(filein);
+        free(filein);
     if (fileout)
-	free(fileout);
+        free(fileout);
 
     return 0;
 }
