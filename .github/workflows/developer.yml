@@ -33,7 +33,7 @@ jobs:
     - name: install-format-dependencies
       if: matrix.config == 'format'      
       run: |
-        sudo apt-get install clang-format-15
+        sudo apt-get install clang-format-16
 
     - name: install-docs-dependencies
       if: matrix.config == 'docs'      
