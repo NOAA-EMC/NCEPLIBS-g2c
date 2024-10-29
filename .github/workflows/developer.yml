@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        config: ["asan", "code coverage", "memcheck", "docs"]
+        config: ["asan", "code coverage", "memcheck", "docs", "format"]
 
     steps:
     - name: install-dependencies
@@ -30,6 +30,11 @@ jobs:
         sudo apt-get update
         sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev valgrind libaec-dev
         python3 -m pip install gcovr
+
+    - name: install-clang-dependencies
+      if: matrix.config == 'format'      
+      run: |
+        sudo apt-get install clang-format
 
     - name: "Build dependencies"
       uses: NOAA-EMC/ci-build-nceplibs@develop
@@ -90,6 +95,12 @@ jobs:
         cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DENABLE_DOCS=On -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-g" 
         cmake --build g2c/build --parallel 2 --verbose
         ls -l g2c/build/docs/html
+        
+    - name: format
+      if: matrix.config == 'format'
+      run: |
+        set -x
+        find . -name '*.[ch]'|xargs clang-format -Werror --verbose --dry-run
         
     - name: cache-data
       if: steps.cache-data.outputs.cache-hit != 'true'
