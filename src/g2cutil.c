@@ -155,7 +155,7 @@ g2c_log_section(G2C_SECTION_INFO_T *sec)
     int ret;
 
     LOG((3, "sec_id %d sec_len %d byte_to_sec %ld sec_num %d", sec->sec_id,
-	 sec->sec_len, sec->bytes_to_sec, sec->sec_num));
+         sec->sec_len, sec->bytes_to_sec, sec->sec_num));
     if (sec->sec_num == 4)
     {
         char abbrev[G2C_MAX_NOAA_ABBREV_LEN + 1];
@@ -163,7 +163,7 @@ g2c_log_section(G2C_SECTION_INFO_T *sec)
         /* Look up the parameter abbreviation with the discipline,
          * category, and product number. */
         if ((ret = g2c_param_abbrev(sec->msg->discipline, sec->template[0],
-				    sec->template[1], abbrev)))
+                                    sec -> template[1], abbrev)))
             return ret;
         LOG((4, "%s", abbrev));
     }
