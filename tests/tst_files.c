@@ -281,7 +281,8 @@ main()
 
             {
                 int pds_template_len, gds_template_len, drs_template_len;
-                long long int pds_template[G2C_MAX_PDS_TEMPLATE_MAPLEN], gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN],
+                long long int pds_template[G2C_MAX_PDS_TEMPLATE_MAPLEN],
+		    gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN],
 		    drs_template[G2C_MAX_DRS_TEMPLATE_MAPLEN];
                 int t;
 
