@@ -116,6 +116,7 @@ jobs:
       run: |
         set -x
         cd g2c
+        clang-format --version        
         find . -name '*.[ch]'|xargs clang-format -Werror --verbose --dry-run
         
     - name: cache-data
