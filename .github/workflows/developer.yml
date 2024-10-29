@@ -28,7 +28,7 @@ jobs:
     - name: install-dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev clang-format
+        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev clang-format-18
 
     - name: install-clang-dependencies
       if: matrix.config == 'docs'      
