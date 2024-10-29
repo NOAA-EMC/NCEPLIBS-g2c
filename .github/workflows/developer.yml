@@ -28,13 +28,28 @@ jobs:
     - name: install-dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev doxygen libopenjp2-7-dev valgrind libaec-dev
-        python3 -m pip install gcovr
+        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev
 
     - name: install-clang-dependencies
       if: matrix.config == 'format'      
       run: |
         sudo apt-get install clang-format
+
+    - name: install-clang-dependencies
+      if: matrix.config == 'docs'      
+      run: |
+        sudo apt-get install doxygen
+
+    - name: install-clang-dependencies
+      if: matrix.config == 'memory'      
+      run: |
+        sudo apt-get install valgrind
+
+    - name: install-clang-dependencies
+      if: matrix.config == 'code coverage'      
+      run: |
+        sudo apt-get install clang-format
+        python3 -m pip install gcovr
 
     - name: "Build dependencies"
       uses: NOAA-EMC/ci-build-nceplibs@develop
