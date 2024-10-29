@@ -254,20 +254,6 @@ g2int g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
                   float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap);
 g2int g2_gribend(unsigned char *cgrib);
 
-/* Compression. */
-void pngpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
-             unsigned char *cpack, g2int *lcpack);
-g2int pngunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-                float *fld);
-void jpcpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
-             unsigned char *cpack, g2int *lcpack);
-g2int jpcunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-                float *fld);
-void aecpack(float *fld, g2int width, g2int height, g2int *idrstmpl,
-             unsigned char *cpack, g2int *lcpack);
-g2int aecunpack(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
-                float *fld);
-
 /* The new g2c API is being introduced in version 2.0 of the library. */
 
 /* Data types. */
