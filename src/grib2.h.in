@@ -254,7 +254,7 @@ g2int g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
                   float *fld, g2int ngrdpts, g2int ibmap, g2int *bmap);
 g2int g2_gribend(unsigned char *cgrib);
 
-/* The new g2c API is being introduced in version 2.0 of the library. */
+/* The file-based g2c API was introduced in version 2.0.0 of the library. */
 
 /* Data types. */
 #define G2C_BYTE 1    /**< signed 1 byte integer */
