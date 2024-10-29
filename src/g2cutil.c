@@ -163,7 +163,7 @@ g2c_log_section(G2C_SECTION_INFO_T *sec)
         /* Look up the parameter abbreviation with the discipline,
          * category, and product number. */
         if ((ret = g2c_param_abbrev(sec->msg->discipline, sec->template[0],
-                                    sec -> template[1], abbrev)))
+                                    sec->template[1], abbrev)))
             return ret;
         LOG((4, "%s", abbrev));
     }
