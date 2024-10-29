@@ -295,15 +295,15 @@ main()
                     return G2C_ERROR;
                 printf("pds_template {");
                 for (t = 0; t < pds_template_len; t++)
-                    printf("%d, ", pds_template[t]);
+                    printf("%lld, ", pds_template[t]);
                 printf("}\n");
                 printf("gds_template {");
                 for (t = 0; t < gds_template_len; t++)
-                    printf("%d, ", gds_template[t]);
+                    printf("%lld, ", gds_template[t]);
                 printf("}\n");
                 printf("drs_template {");
                 for (t = 0; t < drs_template_len; t++)
-                    printf("%d, ", drs_template[t]);
+                    printf("%lld, ", drs_template[t]);
                 printf("}\n");
             }
         }
