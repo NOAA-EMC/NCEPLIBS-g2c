@@ -1,22 +1,13 @@
 var grib2__int_8h =
 [
-    [ "g2c_code_table", "grib2__int_8h.html#structg2c__code__table", [
-      [ "entry", "grib2__int_8h.html#ac32f52eb1327e634fc145b68183e59ee", null ],
-      [ "next", "grib2__int_8h.html#a9158c5d68cedc452fbf2568341636edb", null ],
-      [ "title", "grib2__int_8h.html#a61b72df6f3a4f2814d4a44973198dffd", null ]
-    ] ],
+    [ "g2c_code_table", "grib2__int_8h.html#structg2c__code__table", null ],
     [ "g2c_dim_info", "grib2__int_8h.html#structg2c__dim__info", [
       [ "dimid", "grib2__int_8h.html#abd1ec3c7391edfa6899ccf4e45b7e52e", null ],
       [ "len", "grib2__int_8h.html#a1ff7f8239d6d580d53d1857b05842eda", null ],
       [ "name", "grib2__int_8h.html#a72cb1219a1d21a7261b3ff4f6e6ea1c1", null ],
       [ "value", "grib2__int_8h.html#a9795d38c518857794dee05363ea27997", null ]
     ] ],
-    [ "g2c_entry", "grib2__int_8h.html#structg2c__entry", [
-      [ "code", "grib2__int_8h.html#a954890dd7dfa657a4e79b6db935c7dd8", null ],
-      [ "desc", "grib2__int_8h.html#a66dc56bf1a756ef53254c3236e4ef973", null ],
-      [ "next", "grib2__int_8h.html#a5427ea8ad56c881a66f899c6e1381efd", null ],
-      [ "status", "grib2__int_8h.html#aa04cfaa40b9234bd8e2a657ef8415c80", null ]
-    ] ],
+    [ "g2c_entry", "grib2__int_8h.html#structg2c__entry", null ],
     [ "g2c_file_info", "grib2__int_8h.html#structg2c__file__info", [
       [ "f", "grib2__int_8h.html#ac1966f1beac4c32fd406abb7272108f5", null ],
       [ "g2cid", "grib2__int_8h.html#a6c2582f1e1d3c5e49df28497d9264fcd", null ],
@@ -26,9 +17,9 @@ var grib2__int_8h =
     ] ],
     [ "g2c_message_info", "grib2__int_8h.html#structg2c__message__info", [
       [ "bytes_in_msg", "grib2__int_8h.html#a7eccf6cd6fa0f202a1c71c5af338d227", null ],
-      [ "bytes_to_bms", "grib2__int_8h.html#ae8a6efe20a158c6aa8ff026e13b1780f", null ],
-      [ "bytes_to_data", "grib2__int_8h.html#a62eb31cd21e5c37b6378a052eecd67bc", null ],
-      [ "bytes_to_local", "grib2__int_8h.html#a06da9ee061feffa47c552b808166dd6b", null ],
+      [ "bytes_to_bms", "grib2__int_8h.html#a899ef1edc1b17d6aae42a682dc97dee5", null ],
+      [ "bytes_to_data", "grib2__int_8h.html#acd6121670e225b46e7ff7773f3c4cc19", null ],
+      [ "bytes_to_local", "grib2__int_8h.html#a0d4bd7411ad8858b5b691027bccd3f89", null ],
       [ "bytes_to_msg", "grib2__int_8h.html#af149feb9c6a24df42c987bbadb5d2c18", null ],
       [ "center", "grib2__int_8h.html#afca06e92d8dcf3c8f1172f3414ab870a", null ],
       [ "day", "grib2__int_8h.html#abecb87ff997d6d0f929ba1a770f0621b", null ],
@@ -74,7 +65,6 @@ var grib2__int_8h =
       [ "source_grid_def", "grib2__int_8h.html#ac5089b3aa084e111dcf76fe148d4cadc", null ]
     ] ],
     [ "g2c_section4_info", "grib2__int_8h.html#structg2c__section4__info", [
-      [ "field_num", "grib2__int_8h.html#a4993920fef41b3e00837ecf78b5af92e", null ],
       [ "num_coord", "grib2__int_8h.html#a5c5c17ef34f6f6401cf4ebd9a3fbf9b0", null ],
       [ "optional", "grib2__int_8h.html#a69a46b58c28c0102b219f9310ff12b85", null ],
       [ "prod_def", "grib2__int_8h.html#affe809d466e10244055a71487aaa43cb", null ]
@@ -162,9 +152,9 @@ var grib2__int_8h =
     [ "enc_aec", "grib2__int_8h.html#a5f6acf7278bfdd6e54a00749c694c531", null ],
     [ "enc_jpeg2000", "grib2__int_8h.html#af4af6d586d2f9ca5da713d025dccf781", null ],
     [ "enc_png", "grib2__int_8h.html#a0b304f2dca88e94a76c1182fbc1f5938", null ],
-    [ "extdrstemplate", "grib2__int_8h.html#a29eb8a2ca16e15e491d7115725ff907c", null ],
-    [ "extgridtemplate", "grib2__int_8h.html#a0d65c7c29a06c12ebee26746476d49c9", null ],
-    [ "extpdstemplate", "grib2__int_8h.html#a64e5f115f7c4ec0b1b7d8af8376d12eb", null ],
+    [ "extdrstemplate", "grib2__int_8h.html#ae4df353015fc31f0f7391b4b4e9cbe8e", null ],
+    [ "extgridtemplate", "grib2__int_8h.html#ad5f08a64eefba6a4da046c3ecff5ac49", null ],
+    [ "extpdstemplate", "grib2__int_8h.html#abfdc2d51761706d7d8e4952b3d72cdef", null ],
     [ "g2c_add_file", "grib2__int_8h.html#af12335d519df51c7331a8c4f343fb98a", null ],
     [ "g2c_check_msg", "grib2__int_8h.html#a3acf35e5653f0dab59b3e6fd130f2d62", null ],
     [ "g2c_file_io", "grib2__int_8h.html#a86669f909e0dd9439ce7ad8de66905ff", null ],
@@ -188,9 +178,9 @@ var grib2__int_8h =
     [ "gbit", "grib2__int_8h.html#a1efb9739e947d94010aeba6daf62eca3", null ],
     [ "gbits", "grib2__int_8h.html#a31ebdbbf262b7478d6a7cc4326f76ade", null ],
     [ "getdim", "grib2__int_8h.html#aabc49a338fae74f6dfc9e98b6cb59de7", null ],
-    [ "getdrstemplate", "grib2__int_8h.html#acf3195b5cecc028727faa8a921eba03e", null ],
-    [ "getgridtemplate", "grib2__int_8h.html#af67f9624982c81a36531989254a9b98a", null ],
-    [ "getpdstemplate", "grib2__int_8h.html#ad08ad7c4bee0466cd8ccafc1c1e76520", null ],
+    [ "getdrstemplate", "grib2__int_8h.html#aa577ddb355fd24011035f76aa9e3d4e2", null ],
+    [ "getgridtemplate", "grib2__int_8h.html#ae876ef88fdbfdc36db765e877b650a9c", null ],
+    [ "getpdstemplate", "grib2__int_8h.html#ae9953e874988bc0d485ca54d9246e38d", null ],
     [ "getpoly", "grib2__int_8h.html#aa8f99915cc3bf0efa7544cf3c2e1b552", null ],
     [ "int_power", "grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8", null ],
     [ "jpcpack", "grib2__int_8h.html#ac5fa531e1573e7ae501a4e2826d22e89", null ],

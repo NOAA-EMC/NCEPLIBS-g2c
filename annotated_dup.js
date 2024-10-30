@@ -1,8 +1,8 @@
 var annotated_dup =
 [
-    [ "g2c_code_table", "grib2__int_8h.html#structg2c__code__table", "grib2__int_8h_structg2c__code__table" ],
+    [ "g2c_code_table", "grib2__int_8h.html#structg2c__code__table", null ],
     [ "g2c_dim_info", "grib2__int_8h.html#structg2c__dim__info", "grib2__int_8h_structg2c__dim__info" ],
-    [ "g2c_entry", "grib2__int_8h.html#structg2c__entry", "grib2__int_8h_structg2c__entry" ],
+    [ "g2c_entry", "grib2__int_8h.html#structg2c__entry", null ],
     [ "g2c_file_info", "grib2__int_8h.html#structg2c__file__info", "grib2__int_8h_structg2c__file__info" ],
     [ "g2c_message_info", "grib2__int_8h.html#structg2c__message__info", "grib2__int_8h_structg2c__message__info" ],
     [ "g2c_param", "grib2__int_8h.html#structg2c__param", "grib2__int_8h_structg2c__param" ],

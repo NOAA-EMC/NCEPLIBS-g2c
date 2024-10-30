@@ -25,14 +25,14 @@
 var NAVTREE =
 [
   [ "NCEPLIBS-g2c", "index.html", [
-    [ "GRIB2 Encoding Routines", "index.html#autotoc_md1", null ],
-    [ "GRIB2 Decoding Routines", "index.html#autotoc_md2", null ],
-    [ "Extracting GRIB2 Fields from a GRIB2 file", "index.html#autotoc_md3", null ],
-    [ "GRIB2 Tables/Templates", "index.html#autotoc_md4", [
+    [ "Data Types", "annotated.html", [
       [ "Introduction", "index.html#autotoc_md0", null ],
-      [ "Documentation for Previous Versions of NCEPLIBS-g2c", "index.html#autotoc_md5", null ]
-    ] ],
-    [ "Data Types List", "annotated.html", [
+      [ "GRIB2 File-Based API", "index.html#autotoc_md1", null ],
+      [ "GRIB2 Message Encoding Routines", "index.html#autotoc_md2", null ],
+      [ "GRIB2 Message Decoding Routines", "index.html#autotoc_md3", null ],
+      [ "GRIB2 Tables/Templates", "index.html#autotoc_md4", null ],
+      [ "GRIB2 Documentation", "index.html#autotoc_md5", null ],
+      [ "Documentation for Previous Versions of NCEPLIBS-g2c", "index.html#autotoc_md6", null ],
       [ "Data Types List", "annotated.html", "annotated_dup" ],
       [ "Data Fields", "functions.html", [
         [ "All", "functions.html", null ],
@@ -56,8 +56,8 @@ var NAVTREEINDEX =
 [
 "aecpack_8c.html",
 "globals.html",
-"grib2_8h.html#af08bc0c9226ed15638aa909821d4b04b",
-"mkieee_8c.html#a1594a8cc9a699a73a870b9ec4231fbd3"
+"grib2_8h.html#af32c4bff1609a6286dbd77dd2fa0b624",
+"pdstemplates_8c.html#a657046138f00942c426122df3e25c546"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
