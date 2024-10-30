@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        config: ["asan", "code coverage", "memcheck", "docs", "format"]
+        config: ["asan", "code coverage", "memcheck", "docs", "format", "warning"]
 
     steps:
     - name: install-dependencies
@@ -73,16 +73,24 @@ jobs:
       run: |
         set -x
         export CC=gcc
-        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug-DCMAKE_C_FLAGS="-Werror -g -O0 -fsanitize=address -fno-omit-frame-pointer" 
+        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-Werror -g -O0 -fsanitize=address -fno-omit-frame-pointer" 
         cmake --build g2c/build --parallel 2 --verbose
         ctest --test-dir g2c/build --verbose --output-on-failure --rerun-failed
+        
+    - name: warning
+      if: matrix.config == 'warning'
+      run: |
+        set -x
+        export CC=gcc
+        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-Wall -Werror" 
+        cmake --build g2c/build --verbose
         
     - name: code_coverage
       if: matrix.config == 'code coverage'
       run: |
         set -x
         export CC=gcc
-        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug-DCMAKE_C_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0"
+        cmake -S g2c -B g2c/build -DUSE_AEC=ON -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=ON -DLOGGING=On -DPTHREADS=ON -DFTP_TEST_FILES=ON -DFTP_LARGE_TEST_FILES=OFF -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-g -fprofile-arcs -ftest-coverage -fprofile-abs-path -O0"
         pwd
         cd g2c/build
         make VERBOSE=1

@@ -104,16 +104,16 @@ main()
     /*     /\* Create max number of files. *\/ */
     /*     for (i = 0; i < G2C_MAX_FILES; i++) */
     /*         if ((ret = g2c_create(FILE_NAME, G2C_CLOBBER, &g2cid[i]))) */
-    /*     	return ret; */
+    /*          return ret; */
 
     /*     /\* Try to create one more. *\/ */
     /*     if (g2c_create(FILE_NAME, G2C_CLOBBER, &g2cid2) != G2C_ETOOMANYFILES) */
     /*         return G2C_ERROR; */
 
-    /* 	/\* Close all open files. *\/ */
+    /*  /\* Close all open files. *\/ */
     /*     for (i = 0; i < G2C_MAX_FILES; i++) */
     /*         if ((ret = g2c_close(g2cid[i]))) */
-    /*     	return ret; */
+    /*          return ret; */
     /* } */
     /* printf("ok!\n"); */
     printf("Testing g2c_find_msg2 on file %s...", WAVE_FILE);
@@ -280,9 +280,10 @@ main()
             }
 
             {
-                int pds_template_len, pds_template[G2C_MAX_PDS_TEMPLATE_MAPLEN];
-                int gds_template_len, gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN];
-                int drs_template_len, drs_template[G2C_MAX_DRS_TEMPLATE_MAPLEN];
+                int pds_template_len, gds_template_len, drs_template_len;
+                long long int pds_template[G2C_MAX_PDS_TEMPLATE_MAPLEN];
+                long long int gds_template[G2C_MAX_GDS_TEMPLATE_MAPLEN];
+                long long int drs_template[G2C_MAX_DRS_TEMPLATE_MAPLEN];
                 int t;
 
                 if ((ret = g2c_inq_prod(g2cid, m, 0, &pds_template_len, pds_template,
@@ -295,15 +296,15 @@ main()
                     return G2C_ERROR;
                 printf("pds_template {");
                 for (t = 0; t < pds_template_len; t++)
-                    printf("%d, ", pds_template[t]);
+                    printf("%lld, ", pds_template[t]);
                 printf("}\n");
                 printf("gds_template {");
                 for (t = 0; t < gds_template_len; t++)
-                    printf("%d, ", gds_template[t]);
+                    printf("%lld, ", gds_template[t]);
                 printf("}\n");
                 printf("drs_template {");
                 for (t = 0; t < drs_template_len; t++)
-                    printf("%d, ", drs_template[t]);
+                    printf("%lld, ", drs_template[t]);
                 printf("}\n");
             }
         }
