@@ -31,7 +31,21 @@ redefined.
 For detailed information on GRIB2 see the [NCEP WMO GRIB2
 Documentation](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/).
 
-## GRIB2 Encoding Routines
+## GRIB2 File-Based API
+
+Starting with version 2.0.0 of the NCEPLIBS-g2c library, a file-based
+API is supported.
+
+To open a GRIB2 file, call g2c_open() or g2c_open_index(). All opened
+files must be closed with g2c_close().
+
+Once opened, inquiry functions such as g2c_inq(), g2c_inq_msg(),
+g2c_inq_msg_time(), g2c_inq_prod(), and g2c_inq_dim() can be used to
+learn about the messages in the file.
+
+Use g2c_get_prod() to read data from a message.
+
+## GRIB2 Message Encoding Routines
 
 Since a GRIB2 message can contain gridded fields for many parameters
 on a number of different grids, several routines are used to encode a
@@ -60,7 +74,7 @@ call to routine g2_gribend() is needed to add the final section 8 to the
 message and to update the length of the message. A call to g2_gribend()
 is required for each GRIB2 message.
 
-## GRIB2 Decoding Routines
+## GRIB2 Message Decoding Routines
 
 Function g2_info() can be used to find out how many Local Use
 sections and data fields are contained in a given GRIB2 message. In
@@ -72,12 +86,12 @@ data field in the message. An option exists that lets the user decide
 if the function should unpack the Bit-map (if applicable) and the
 data values or just return the field description information.
 
-## Extracting GRIB2 Fields from a GRIB2 file
-
-Function g2_info() can be used to find out how many Local Use
-sections and data fields are contained in a given GRIB2 message.
-
 ## GRIB2 Tables/Templates
+
+Use g2c_get_grid_template(), g2c_get_pds_template(), and
+g2c_get_drs_template() to get GRIB2 template information.
+
+## GRIB2 Documentation
 
 NCO Provides documentation on WMO GRIB2 at
 https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/
