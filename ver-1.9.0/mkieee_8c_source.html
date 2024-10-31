@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -98,15 +98,15 @@ $(document).ready(function(){initNavTree('mkieee_8c_source.html',''); initResiza
 </div><!--header-->
 <div class="contents">
 <a href="mkieee_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="grib2__int_8h.html">grib2_int.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;math.h&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="grib2__int_8h.html">grib2_int.h</a>&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">void</span></div>
 <div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="grib2__int_8h.html#a1594a8cc9a699a73a870b9ec4231fbd3">   22</a></span><a class="code hl_function" href="mkieee_8c.html#a1594a8cc9a699a73a870b9ec4231fbd3">mkieee</a>(<span class="keywordtype">float</span> *a, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *rieee, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> num)</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> j, n, ieee, iexp, imant;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> j,n,ieee,iexp,imant;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">double</span> atemp;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">static</span> <span class="keywordtype">double</span> two23, two126;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">static</span> <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> test = 0;</div>
@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('mkieee_8c_source.html',''); initResiza
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">for</span> (j = 0; j &lt; num; j++)</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    {</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        ieee = 0;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        ieee=0;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">if</span> (a[j] == 0.0)</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        {</div>
@@ -132,20 +132,20 @@ $(document).ready(function(){initNavTree('mkieee_8c_source.html',''); initResiza
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="comment">//  Set Sign bit (bit 31 - leftmost bit).</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">if</span> (a[j] &lt; 0.0)</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            ieee = 1 &lt;&lt; 31;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            atemp = -1.0 * a[j];</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            ieee= 1 &lt;&lt; 31;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            atemp=-1.0*a[j];</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            ieee = 0 &lt;&lt; 31;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            atemp = a[j];</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            ieee= 0 &lt;&lt; 31;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            atemp=a[j];</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        }</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="comment">//  Determine exponent n with base 2.</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">if</span> (atemp &gt;= 1.0)</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        {</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            n = 0;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">while</span> (<a class="code hl_function" href="grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a>(2.0, n + 1) &lt;= atemp)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">while</span> (<a class="code hl_function" href="grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a>(2.0,n+1) &lt;= atemp)</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            {</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                n++;</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            }</div>
@@ -153,17 +153,17 @@ $(document).ready(function(){initNavTree('mkieee_8c_source.html',''); initResiza
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        {</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            n = -1;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordflow">while</span> (<a class="code hl_function" href="grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a>(2.0, n) &gt; atemp)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordflow">while</span> (<a class="code hl_function" href="grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a>(2.0,n) &gt; atemp)</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                n--;</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        iexp = n + 127;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">if</span> (n &gt; 127)</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            iexp = 255; <span class="comment">// overflow</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">if</span> (n &gt;  127)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            iexp = 255;     <span class="comment">// overflow</span></div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">if</span> (n &lt; -127)</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            iexp = 0;</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="comment">//      set exponent bits ( bits 30-23 )</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        ieee = ieee | (iexp &lt;&lt; 23);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        ieee = ieee | ( iexp &lt;&lt; 23 );</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="comment">//  Determine Mantissa</span></div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">if</span> (iexp != 255)</div>

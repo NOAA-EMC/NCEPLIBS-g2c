@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -99,10 +99,10 @@ $(document).ready(function(){initNavTree('g2c__compare_8c_source.html',''); init
 <div class="contents">
 <a href="g2c__compare_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;ctype.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="grib2_8h.html">grib2.h</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="grib2_8h.html">grib2.h</a>&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">int</span></div>
 <div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
@@ -155,7 +155,7 @@ $(document).ready(function(){initNavTree('g2c__compare_8c_source.html',''); init
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_function" href="util_8c.html#a9a2353e67d13207769db5bd68e343abe">g2c_set_log_level</a>(10);</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cfile_8c.html#a216f2c45794641932725b7a8b1800423">g2c_open</a>(path[0], <a class="code hl_define" href="grib2_8h.html#ae0a9149f145ff6ca1d8539231b8bcf55">G2C_NOWRITE</a>, &amp;g2cid0)))</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cfile_8c.html#a216f2c45794641932725b7a8b1800423">g2c_open</a>(path[1], <a class="code hl_define" href="grib2_8h.html#ae0a9149f145ff6ca1d8539231b8bcf55">G2C_NOWRITE</a>, &amp;g2cid1)))</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cfile_8c.html#a216f2c45794641932725b7a8b1800423">g2c_open</a>(path[0], <a class="code hl_define" href="grib2_8h.html#ae0a9149f145ff6ca1d8539231b8bcf55">G2C_NOWRITE</a>, &amp;g2cid1)))</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> ret;</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment">/* Compare the files. */</span></div>
@@ -171,19 +171,19 @@ $(document).ready(function(){initNavTree('g2c__compare_8c_source.html',''); init
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">/* Clean up. */</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    free(path[0]);</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    free(path[1]);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}</div>
 </div>
 <div class="ttc" id="ag2c__compare_8c_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="g2c__compare_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdoc">Compare two GRIB2 files.</div><div class="ttdef"><b>Definition</b> <a href="g2c__compare_8c_source.html#l00024">g2c_compare.c:24</a></div></div>
 <div class="ttc" id="ag2ccompare_8c_html_aeca63ecfd7407114317ddb9e5341b71c"><div class="ttname"><a href="g2ccompare_8c.html#aeca63ecfd7407114317ddb9e5341b71c">g2c_compare</a></div><div class="ttdeci">int g2c_compare(int g2cid1, int g2cid2)</div><div class="ttdoc">Compare the metadata of two open GRIB2 files.</div><div class="ttdef"><b>Definition</b> <a href="g2ccompare_8c_source.html#l00028">g2ccompare.c:28</a></div></div>
-<div class="ttc" id="ag2cfile_8c_html_a216f2c45794641932725b7a8b1800423"><div class="ttname"><a href="g2cfile_8c.html#a216f2c45794641932725b7a8b1800423">g2c_open</a></div><div class="ttdeci">int g2c_open(const char *path, int mode, int *g2cid)</div><div class="ttdoc">Open an existing GRIB2 file.</div><div class="ttdef"><b>Definition</b> <a href="g2cfile_8c_source.html#l01190">g2cfile.c:1190</a></div></div>
-<div class="ttc" id="ag2cfile_8c_html_a7761e7401213d226560fd1b379d33ba8"><div class="ttname"><a href="g2cfile_8c.html#a7761e7401213d226560fd1b379d33ba8">g2c_close</a></div><div class="ttdeci">int g2c_close(int g2cid)</div><div class="ttdoc">Close a GRIB2 file, freeing resources.</div><div class="ttdef"><b>Definition</b> <a href="g2cfile_8c_source.html#l01356">g2cfile.c:1356</a></div></div>
+<div class="ttc" id="ag2cfile_8c_html_a216f2c45794641932725b7a8b1800423"><div class="ttname"><a href="g2cfile_8c.html#a216f2c45794641932725b7a8b1800423">g2c_open</a></div><div class="ttdeci">int g2c_open(const char *path, int mode, int *g2cid)</div><div class="ttdoc">Open an existing GRIB2 file.</div><div class="ttdef"><b>Definition</b> <a href="g2cfile_8c_source.html#l01193">g2cfile.c:1193</a></div></div>
+<div class="ttc" id="ag2cfile_8c_html_a7761e7401213d226560fd1b379d33ba8"><div class="ttname"><a href="g2cfile_8c.html#a7761e7401213d226560fd1b379d33ba8">g2c_close</a></div><div class="ttdeci">int g2c_close(int g2cid)</div><div class="ttdoc">Close a GRIB2 file, freeing resources.</div><div class="ttdef"><b>Definition</b> <a href="g2cfile_8c_source.html#l01359">g2cfile.c:1359</a></div></div>
 <div class="ttc" id="agrib2_8h_html"><div class="ttname"><a href="grib2_8h.html">grib2.h</a></div><div class="ttdoc">Header file for NCEPLIBS-g2c library.</div></div>
-<div class="ttc" id="agrib2_8h_html_a6f87ce641388b1464e2287fd3814993f"><div class="ttname"><a href="grib2_8h.html#a6f87ce641388b1464e2287fd3814993f">G2C_ENOMEM</a></div><div class="ttdeci">#define G2C_ENOMEM</div><div class="ttdoc">Out of memory.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00485">grib2.h:485</a></div></div>
-<div class="ttc" id="agrib2_8h_html_a898aa73781e9952c3e56ed3282a873f4"><div class="ttname"><a href="grib2_8h.html#a898aa73781e9952c3e56ed3282a873f4">G2C_ERROR</a></div><div class="ttdeci">#define G2C_ERROR</div><div class="ttdoc">General error code, returned for some test errors.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00477">grib2.h:477</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a6f87ce641388b1464e2287fd3814993f"><div class="ttname"><a href="grib2_8h.html#a6f87ce641388b1464e2287fd3814993f">G2C_ENOMEM</a></div><div class="ttdeci">#define G2C_ENOMEM</div><div class="ttdoc">Out of memory.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00500">grib2.h:500</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a898aa73781e9952c3e56ed3282a873f4"><div class="ttname"><a href="grib2_8h.html#a898aa73781e9952c3e56ed3282a873f4">G2C_ERROR</a></div><div class="ttdeci">#define G2C_ERROR</div><div class="ttdoc">General error code, returned for some test errors.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00492">grib2.h:492</a></div></div>
 <div class="ttc" id="agrib2_8h_html_ace11da5841473bb62734708867bb11bd"><div class="ttname"><a href="grib2_8h.html#ace11da5841473bb62734708867bb11bd">G2C_VERSION</a></div><div class="ttdeci">#define G2C_VERSION</div><div class="ttdoc">Current version of NCEPLIBS-g2c library.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00025">grib2.h:25</a></div></div>
-<div class="ttc" id="agrib2_8h_html_ae0a9149f145ff6ca1d8539231b8bcf55"><div class="ttname"><a href="grib2_8h.html#ae0a9149f145ff6ca1d8539231b8bcf55">G2C_NOWRITE</a></div><div class="ttdeci">#define G2C_NOWRITE</div><div class="ttdoc">Set read-only access for g2c_open().</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00275">grib2.h:275</a></div></div>
+<div class="ttc" id="agrib2_8h_html_ae0a9149f145ff6ca1d8539231b8bcf55"><div class="ttname"><a href="grib2_8h.html#ae0a9149f145ff6ca1d8539231b8bcf55">G2C_NOWRITE</a></div><div class="ttdeci">#define G2C_NOWRITE</div><div class="ttdoc">Set read-only access for g2c_open().</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00290">grib2.h:290</a></div></div>
 <div class="ttc" id="autil_8c_html_a9a2353e67d13207769db5bd68e343abe"><div class="ttname"><a href="util_8c.html#a9a2353e67d13207769db5bd68e343abe">g2c_set_log_level</a></div><div class="ttdeci">int g2c_set_log_level(int new_level)</div><div class="ttdoc">Use this to set the global log level.</div><div class="ttdef"><b>Definition</b> <a href="util_8c_source.html#l00129">util.c:129</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

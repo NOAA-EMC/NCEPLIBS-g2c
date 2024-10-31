@@ -11,7 +11,7 @@ var searchData=
   ['igdtmpl_8',['igdtmpl',['../grib2_8h.html#a9c94d15723e5a2d175d96f8c6fa2fd53',1,'gribfield']]],
   ['igdtnum_9',['igdtnum',['../grib2_8h.html#a065d206f38d552c49af642e3cf6056b3',1,'gribfield']]],
   ['indicator_10',['indicator',['../grib2__int_8h.html#a9974cef2b24b092ce879c1f65c6ed88c',1,'g2c_section6_info']]],
-  ['int_5fdec_5fjpeg2000_11',['int_dec_jpeg2000',['../decenc__jpeg2000_8c.html#ac822263ee9732d7603f242a848888ed9',1,'decenc_jpeg2000.c']]],
+  ['int_5fdec_5fjpeg2000_11',['int_dec_jpeg2000',['../dec__jpeg2000_8c.html#ac822263ee9732d7603f242a848888ed9',1,'dec_jpeg2000.c']]],
   ['int_5fpower_12',['int_power',['../grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8',1,'int_power(double x, g2int y):&#160;int_power.c'],['../int__power_8c.html#a6b284a64a4b42cd86db872ae7e1eeaa8',1,'int_power(double x, g2int y):&#160;int_power.c']]],
   ['int_5fpower_2ec_13',['int_power.c',['../int__power_8c.html',1,'']]],
   ['interp_5flist_14',['interp_list',['../grib2__int_8h.html#a761fd11af0a8e1d3b9eb147edb653b0b',1,'g2c_section3_info']]],

@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -98,11 +98,11 @@ $(document).ready(function(){initNavTree('g2__create_8c_source.html',''); initRe
 </div><!--header-->
 <div class="contents">
 <a href="g2__create_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="grib2__int_8h.html">grib2_int.h</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="grib2__int_8h.html">grib2_int.h</a>&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="g2__create_8c.html#a7ea6e1ded57657a0b75c46636e6dbb89">   10</a></span><span class="preprocessor">#define MAPSEC1LEN 13 </span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="g2__create_8c.html#a509c8614b4771ae9b3d2a96a6f3bdc15">   11</a></span><span class="preprocessor">#define LENSEC0 16    </span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="g2__create_8c.html#a509c8614b4771ae9b3d2a96a6f3bdc15">   11</a></span><span class="preprocessor">#define LENSEC0 16 </span></div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div>
 <div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108">   68</a></span><a class="code hl_function" href="g2__create_8c.html#a0e8970973e1cefc142240f961a796108">g2_create</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cgrib, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *listsec0, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *listsec1)</div>
@@ -127,17 +127,17 @@ $(document).ready(function(){initNavTree('g2__create_8c_source.html',''); initRe
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="comment">/* Pack Section 0 - Indicator Section (except for total length of</span></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">     * GRIB message). */</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    cgrib[0] = 0x47;                  <span class="comment">/* &#39;G&#39; */</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    cgrib[1] = 0x52;                  <span class="comment">/* &#39;R&#39; */</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    cgrib[2] = 0x49;                  <span class="comment">/* &#39;I&#39; */</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    cgrib[3] = 0x42;                  <span class="comment">/* &#39;B&#39; */</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_function" href="gbits_8c.html#af9e044ba7da32a5415e351ed647ef676">sbit</a>(cgrib, &amp;zero, 32, 16);       <span class="comment">/* reserved for future use */</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    cgrib[0] = 0x47; <span class="comment">/* &#39;G&#39; */</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    cgrib[1] = 0x52; <span class="comment">/* &#39;R&#39; */</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    cgrib[2] = 0x49; <span class="comment">/* &#39;I&#39; */</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    cgrib[3] = 0x42; <span class="comment">/* &#39;B&#39; */</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_function" href="gbits_8c.html#af9e044ba7da32a5415e351ed647ef676">sbit</a>(cgrib, &amp;zero, 32, 16); <span class="comment">/* reserved for future use */</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <a class="code hl_function" href="gbits_8c.html#af9e044ba7da32a5415e351ed647ef676">sbit</a>(cgrib, listsec0 + 0, 48, 8); <span class="comment">/* Discipline */</span></div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <a class="code hl_function" href="gbits_8c.html#af9e044ba7da32a5415e351ed647ef676">sbit</a>(cgrib, listsec0 + 1, 56, 8); <span class="comment">/* GRIB edition number */</span></div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="comment">/* Pack Section 1 - Identification Section. */</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    ibeg = <a class="code hl_define" href="g2__create_8c.html#a509c8614b4771ae9b3d2a96a6f3bdc15">LENSEC0</a> * 8;          <span class="comment">/* Calculate offset for beginning of section 1. */</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    iofst = ibeg + 32;           <span class="comment">/* Leave space for length of section. */</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    ibeg = <a class="code hl_define" href="g2__create_8c.html#a509c8614b4771ae9b3d2a96a6f3bdc15">LENSEC0</a> * 8; <span class="comment">/* Calculate offset for beginning of section 1. */</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    iofst = ibeg + 32; <span class="comment">/* Leave space for length of section. */</span></div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_function" href="gbits_8c.html#af9e044ba7da32a5415e351ed647ef676">sbit</a>(cgrib, &amp;one, iofst, 8); <span class="comment">/* Store section number (1). */</span></div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    iofst = iofst + 8;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
@@ -167,7 +167,7 @@ $(document).ready(function(){initNavTree('g2__create_8c_source.html',''); initRe
 <div class="ttc" id="ag2__create_8c_html_a509c8614b4771ae9b3d2a96a6f3bdc15"><div class="ttname"><a href="g2__create_8c.html#a509c8614b4771ae9b3d2a96a6f3bdc15">LENSEC0</a></div><div class="ttdeci">#define LENSEC0</div><div class="ttdoc">Length of GRIB Section 0.</div><div class="ttdef"><b>Definition</b> <a href="g2__create_8c_source.html#l00011">g2_create.c:11</a></div></div>
 <div class="ttc" id="ag2__create_8c_html_a7ea6e1ded57657a0b75c46636e6dbb89"><div class="ttname"><a href="g2__create_8c.html#a7ea6e1ded57657a0b75c46636e6dbb89">MAPSEC1LEN</a></div><div class="ttdeci">#define MAPSEC1LEN</div><div class="ttdoc">Length of Map Section 1.</div><div class="ttdef"><b>Definition</b> <a href="g2__create_8c_source.html#l00010">g2_create.c:10</a></div></div>
 <div class="ttc" id="agbits_8c_html_af9e044ba7da32a5415e351ed647ef676"><div class="ttname"><a href="gbits_8c.html#af9e044ba7da32a5415e351ed647ef676">sbit</a></div><div class="ttdeci">void sbit(unsigned char *out, g2int *in, g2int iskip, g2int nbits)</div><div class="ttdoc">Store arbitrary size values into a packed bit string, taking the low order bits from each value in th...</div><div class="ttdef"><b>Definition</b> <a href="gbits_8c_source.html#l00038">gbits.c:38</a></div></div>
-<div class="ttc" id="agrib2_8h_html_ae740c66315236fc68d4f337558587505"><div class="ttname"><a href="grib2_8h.html#ae740c66315236fc68d4f337558587505">G2_CREATE_GRIB_VERSION</a></div><div class="ttdeci">#define G2_CREATE_GRIB_VERSION</div><div class="ttdoc">Wrong GRIB version for g2_create(), must be 2.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00424">grib2.h:424</a></div></div>
+<div class="ttc" id="agrib2_8h_html_ae740c66315236fc68d4f337558587505"><div class="ttname"><a href="grib2_8h.html#ae740c66315236fc68d4f337558587505">G2_CREATE_GRIB_VERSION</a></div><div class="ttdeci">#define G2_CREATE_GRIB_VERSION</div><div class="ttdoc">Wrong GRIB version for g2_create(), must be 2.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00439">grib2.h:439</a></div></div>
 <div class="ttc" id="agrib2_8h_html_af0b63b0e0f41f07f562a4367e2a60838"><div class="ttname"><a href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div><div class="ttdeci">int64_t g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00032">grib2.h:32</a></div></div>
 <div class="ttc" id="agrib2__int_8h_html"><div class="ttname"><a href="grib2__int_8h.html">grib2_int.h</a></div><div class="ttdoc">Header file with internal function prototypes NCEPLIBS-g2c library.</div></div>
 </div><!-- fragment --></div><!-- contents -->

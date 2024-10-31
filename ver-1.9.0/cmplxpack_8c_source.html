@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -105,16 +105,17 @@ $(document).ready(function(){initNavTree('cmplxpack_8c_source.html',''); initRes
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="cmplxpack_8c.html#a099225c582defca6ab562d9aad5bc20b">   37</a></span><a class="code hl_function" href="cmplxpack_8c.html#a099225c582defca6ab562d9aad5bc20b">cmplxpack</a>(<span class="keywordtype">float</span> *fld, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> idrsnum, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl,</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>          <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *lcpack)</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span> (idrstmpl[6] == 0) <span class="comment">/* No internal missing values */</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span> (idrstmpl[6] == 0)  <span class="comment">/* No internal missing values */</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_function" href="compack_8c.html#acbf694045589babceb7412ac6faadc39">compack</a>(fld, ndpts, idrsnum, idrstmpl, cpack, lcpack);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrstmpl[6] == 1 || idrstmpl[6] == 2)</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idrstmpl[6] == 1  ||  idrstmpl[6] == 2)</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_function" href="grib2__int_8h.html#aaa78613e8bf42b3dbd6d3813371bc339">misspack</a>(fld, ndpts, idrsnum, idrstmpl, cpack, lcpack);</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    {</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        printf(<span class="stringliteral">&quot;cmplxpack: Don:t recognize Missing value option.&quot;</span>);</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        *lcpack = -1;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
 </div>
 <div class="ttc" id="acmplxpack_8c_html_a099225c582defca6ab562d9aad5bc20b"><div class="ttname"><a href="cmplxpack_8c.html#a099225c582defca6ab562d9aad5bc20b">cmplxpack</a></div><div class="ttdeci">void cmplxpack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</div><div class="ttdoc">Pack up a data field using a complex packing algorithm.</div><div class="ttdef"><b>Definition</b> <a href="cmplxpack_8c_source.html#l00037">cmplxpack.c:37</a></div></div>
 <div class="ttc" id="acompack_8c_html_acbf694045589babceb7412ac6faadc39"><div class="ttname"><a href="compack_8c.html#acbf694045589babceb7412ac6faadc39">compack</a></div><div class="ttdeci">void compack(float *fld, g2int ndpts, g2int idrsnum, g2int *idrstmpl, unsigned char *cpack, g2int *lcpack)</div><div class="ttdoc">Pack a data field using a complex packing algorithm.</div><div class="ttdef"><b>Definition</b> <a href="compack_8c_source.html#l00042">compack.c:42</a></div></div>

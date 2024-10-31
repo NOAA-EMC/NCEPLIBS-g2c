@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['jpcpack_2ec_0',['jpcpack.c',['../jpcpack_8c.html',1,'']]],
-  ['jpcunpack_2ec_1',['jpcunpack.c',['../jpcunpack_8c.html',1,'']]]
+  ['int_5fpower_2ec_0',['int_power.c',['../int__power_8c.html',1,'']]]
 ];

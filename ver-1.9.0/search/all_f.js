@@ -9,5 +9,5 @@ var searchData=
   ['read_5fmsg_5fmetadata_6',['read_msg_metadata',['../g2cfile_8c.html#a666d5536f6359a1e357d5518413b6381',1,'g2cfile.c']]],
   ['reduce_7',['reduce',['../reduce_8c.html#a6bb0dafca9ef2de9d433cb4c72f34b2d',1,'reduce.c']]],
   ['reduce_2ec_8',['reduce.c',['../reduce_8c.html',1,'']]],
-  ['routines_9',['routines',['../index.html#autotoc_md3',1,'GRIB2 Message Decoding Routines'],['../index.html#autotoc_md2',1,'GRIB2 Message Encoding Routines']]]
+  ['routines_9',['routines',['../index.html#autotoc_md2',1,'GRIB2 Decoding Routines'],['../index.html#autotoc_md1',1,'GRIB2 Encoding Routines']]]
 ];

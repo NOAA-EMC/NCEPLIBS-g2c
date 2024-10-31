@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -98,9 +98,9 @@ $(document).ready(function(){initNavTree('getpoly_8c_source.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 <a href="getpoly_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="grib2__int_8h.html">grib2_int.h</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="grib2__int_8h.html">grib2_int.h</a>&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div>
 <div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
@@ -111,45 +111,47 @@ $(document).ready(function(){initNavTree('getpoly_8c_source.html',''); initResiz
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *igds;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> iofst, igdtlen, num_opt;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    iofst = 0; <span class="comment">/* set offset to beginning of section */</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    iofst = 0;       <span class="comment">/* set offset to beginning of section */</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="g2__unpack3_8c.html#ae0f9483c798b7819852b21fa0ae51590">g2_unpack3</a>(csec3, &amp;iofst, &amp;igds, &amp;igdstmpl, &amp;igdtlen,</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                    &amp;list_opt, &amp;num_opt))</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            &amp;list_opt, &amp;num_opt))</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">switch</span> (igds[4]) <span class="comment">/*  Template number */</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">switch</span> (igds[4])     <span class="comment">/*  Template number */</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">case</span> 50: <span class="comment">/* Spherical harmonic coefficients */</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">case</span> 50:     <span class="comment">/* Spherical harmonic coefficients */</span></div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">case</span> 51:</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">case</span> 52:</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">case</span> 53: {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            *jj = igdstmpl[0];</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            *kk = igdstmpl[1];</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            *mm = igdstmpl[2];</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">default</span>: {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            *jj = 0;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            *kk = 0;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            *mm = 0;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        } <span class="comment">/* end switch */</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        *jj = 0;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        *kk = 0;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        *mm = 0;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">if</span> (igds)</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        free(igds);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span> (igdstmpl)</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        free(igdstmpl);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">if</span> (list_opt)</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        free(list_opt);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">case</span> 53:</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            *jj = igdstmpl[0];</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            *kk = igdstmpl[1];</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            *mm = igdstmpl[2];</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            *jj = 0;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            *kk = 0;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            *mm = 0;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }     <span class="comment">/* end switch */</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        *jj = 0;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        *kk = 0;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        *mm = 0;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span> (igds)</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    free(igds);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">if</span> (igdstmpl)</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    free(igdstmpl);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">if</span> (list_opt)</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    free(list_opt);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
 </div>
 <div class="ttc" id="ag2__unpack3_8c_html_ae0f9483c798b7819852b21fa0ae51590"><div class="ttname"><a href="g2__unpack3_8c.html#ae0f9483c798b7819852b21fa0ae51590">g2_unpack3</a></div><div class="ttdeci">g2int g2_unpack3(unsigned char *cgrib, g2int *iofst, g2int **igds, g2int **igdstmpl, g2int *mapgridlen, g2int **ideflist, g2int *idefnum)</div><div class="ttdoc">Unpack Section 3 (Grid Definition Section) of a GRIB2 message.</div><div class="ttdef"><b>Definition</b> <a href="g2__unpack3_8c_source.html#l00062">g2_unpack3.c:62</a></div></div>
 <div class="ttc" id="agetpoly_8c_html_aa8f99915cc3bf0efa7544cf3c2e1b552"><div class="ttname"><a href="getpoly_8c.html#aa8f99915cc3bf0efa7544cf3c2e1b552">getpoly</a></div><div class="ttdeci">g2int getpoly(unsigned char *csec3, g2int *jj, g2int *kk, g2int *mm)</div><div class="ttdoc">This subroutine returns the J, K, and M pentagonal resolution parameters specified in a GRIB Grid Def...</div><div class="ttdef"><b>Definition</b> <a href="getpoly_8c_source.html#l00040">getpoly.c:40</a></div></div>

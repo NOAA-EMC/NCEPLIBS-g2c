@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('g2__miss_8c_source.html',''); initResi
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="comment">/* Missing value management currnetly only used in DRT&#39;s 5.2 and</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">     * 5.3. */</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">if</span> (gfld-&gt;<a class="code hl_variable" href="grib2_8h.html#a9e82319d51b43e564aa3b5199cb9f15f">idrtnum</a> != 2 &amp;&amp; gfld-&gt;<a class="code hl_variable" href="grib2_8h.html#a9e82319d51b43e564aa3b5199cb9f15f">idrtnum</a> != 3)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">if</span> (gfld-&gt;<a class="code hl_variable" href="grib2_8h.html#a9e82319d51b43e564aa3b5199cb9f15f">idrtnum</a> != 2  &amp;&amp;  gfld-&gt;<a class="code hl_variable" href="grib2_8h.html#a9e82319d51b43e564aa3b5199cb9f15f">idrtnum</a> != 3)</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    {</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        *nmiss = 0;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">return</span>;</div>
@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('g2__miss_8c_source.html',''); initResi
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    {</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        *nmiss = 1;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordflow">if</span> (itype == 0)</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <a class="code hl_function" href="grib2__int_8h.html#af4e2650852f7bbbfb531c977fcbd42ca">rdieee</a>(gfld-&gt;<a class="code hl_variable" href="grib2_8h.html#aadea4d0f1c3d8f4a40087f3b20ddf457">idrtmpl</a> + 7, rmiss + 0, 1);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <a class="code hl_function" href="grib2__int_8h.html#af4e2650852f7bbbfb531c977fcbd42ca">rdieee</a>(gfld-&gt;<a class="code hl_variable" href="grib2_8h.html#aadea4d0f1c3d8f4a40087f3b20ddf457">idrtmpl</a> + 7, rmiss+0, 1);</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            rmiss[0] = (float)gfld-&gt;<a class="code hl_variable" href="grib2_8h.html#aadea4d0f1c3d8f4a40087f3b20ddf457">idrtmpl</a>[7];</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>

@@ -1,9 +1,9 @@
 var grib2__int_8h_structg2c__message__info =
 [
     [ "bytes_in_msg", "grib2__int_8h.html#a7eccf6cd6fa0f202a1c71c5af338d227", null ],
-    [ "bytes_to_bms", "grib2__int_8h.html#a899ef1edc1b17d6aae42a682dc97dee5", null ],
-    [ "bytes_to_data", "grib2__int_8h.html#acd6121670e225b46e7ff7773f3c4cc19", null ],
-    [ "bytes_to_local", "grib2__int_8h.html#a0d4bd7411ad8858b5b691027bccd3f89", null ],
+    [ "bytes_to_bms", "grib2__int_8h.html#ae8a6efe20a158c6aa8ff026e13b1780f", null ],
+    [ "bytes_to_data", "grib2__int_8h.html#a62eb31cd21e5c37b6378a052eecd67bc", null ],
+    [ "bytes_to_local", "grib2__int_8h.html#a06da9ee061feffa47c552b808166dd6b", null ],
     [ "bytes_to_msg", "grib2__int_8h.html#af149feb9c6a24df42c987bbadb5d2c18", null ],
     [ "center", "grib2__int_8h.html#afca06e92d8dcf3c8f1172f3414ab870a", null ],
     [ "day", "grib2__int_8h.html#abecb87ff997d6d0f929ba1a770f0621b", null ],

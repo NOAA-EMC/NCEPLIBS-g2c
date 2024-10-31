@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -102,26 +102,26 @@ $(document).ready(function(){initNavTree('drstemplates_8c_source.html',''); init
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">struct </span>drstemplate</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>{</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> template_num;                        </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> mapdrslen;                           </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> needext;                             </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> template_num; </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> mapdrslen; </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> needext; </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> mapdrs[<a class="code hl_define" href="grib2_8h.html#a9fd31927766f572312f6b7b6993a56c2">G2C_MAX_DRS_TEMPLATE_MAPLEN</a>]; </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>};</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="foldopen" id="foldopen00053" data-start="{" data-end="};">
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="drstemplates_8c.html#a091bb17f961371f8e1fbb561704c8d79">   53</a></span><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">struct </span>drstemplate <a class="code hl_variable" href="drstemplates_8c.html#a091bb17f961371f8e1fbb561704c8d79">templatesdrs</a>[<a class="code hl_define" href="grib2_8h.html#a6da0d8269b5acb7475bfa5bd6b78da28">G2C_MAX_DRS_TEMPLATE</a>] =</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        {0, 5, 0, {4, -2, -2, 1, 1}},</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>{</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    {0, 5, 0, {4, -2, -2, 1, 1}},</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        {2, 16, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1}},</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    {2, 16, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1}},</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        {3, 18, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1, 1, 1}},</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    {3, 18, 0, {4, -2, -2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 4, 1, 4, 1, 1, 1}},</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        {50, 5, 0, {4, -2, -2, 1, 4}},</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    {50, 5, 0, {4, -2, -2, 1, 4}},</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        {51, 10, 0, {4, -2, -2, 1, -4, 2, 2, 2, 4, 1}},</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    {51, 10, 0, {4, -2, -2, 1, -4, 2, 2, 2, 4, 1}},</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="comment">/* 5.1: Matrix values at gridpoint - Simple packing.</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="comment">/* 5.1: Matrix values at gridpoint - Simple packing.</span></div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">     * Comment from Stephen Gilbert in 2021:</span></div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">     *</span></div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">     * This encoder/decoder was written in the early days of GRIB2</span></div>
@@ -141,18 +141,18 @@ $(document).ready(function(){initNavTree('drstemplates_8c_source.html',''); init
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">     * in the future.</span></div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">     */</span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="comment">/* {1, 15, 1, {4, -2, -2, 1, 1, 1, 4, 2, 2, 1, 1, 1, 1, 1, 1}}, */</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="comment">/* {1, 15, 1, {4, -2, -2, 1, 1, 1, 4, 2, 2, 1, 1, 1, 1, 1, 1}}, */</span></div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        {40, 7, 0, {4, -2, -2, 1, 1, 1, 1}},</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    {40, 7, 0, {4, -2, -2, 1, 1, 1, 1}},</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        {41, 5, 0, {4, -2, -2, 1, 1}},</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    {41, 5, 0, {4, -2, -2, 1, 1}},</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        {42, 8, 0, {4, -2, -2, 1, 1, 1, 1, 2}},</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    {42, 8, 0, {4, -2, -2, 1, 1, 1, 1, 2}},</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        {40000, 7, 0, {4, -2, -2, 1, 1, 1, 1}},</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    {40000, 7, 0, {4, -2, -2, 1, 1, 1, 1}},</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        {40010, 5, 0, {4, -2, -2, 1, 1}},</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>};</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    {40010, 5, 0, {4, -2, -2, 1, 1}},</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>} ;</div>
 </div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="keyword">static</span> <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div>
@@ -166,11 +166,11 @@ $(document).ready(function(){initNavTree('drstemplates_8c_source.html',''); init
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keywordflow">if</span> (number == <a class="code hl_variable" href="drstemplates_8c.html#a091bb17f961371f8e1fbb561704c8d79">templatesdrs</a>[j].template_num)</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        {</div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            <a class="code hl_function" href="drstemplates_8c.html#a307a8ced5bd81dd2bf110596fc9e6532">getdrsindex</a> = j;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            <span class="keywordflow">return</span> (<a class="code hl_function" href="drstemplates_8c.html#a307a8ced5bd81dd2bf110596fc9e6532">getdrsindex</a>);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            <span class="keywordflow">return</span>(<a class="code hl_function" href="drstemplates_8c.html#a307a8ced5bd81dd2bf110596fc9e6532">getdrsindex</a>);</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        }</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    }</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">return</span> (<a class="code hl_function" href="drstemplates_8c.html#a307a8ced5bd81dd2bf110596fc9e6532">getdrsindex</a>);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">return</span>(<a class="code hl_function" href="drstemplates_8c.html#a307a8ced5bd81dd2bf110596fc9e6532">getdrsindex</a>);</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>}</div>
 </div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
@@ -193,15 +193,15 @@ $(document).ready(function(){initNavTree('drstemplates_8c_source.html',''); init
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <span class="keyword">new</span>-&gt;map = (<a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *)<a class="code hl_variable" href="drstemplates_8c.html#a091bb17f961371f8e1fbb561704c8d79">templatesdrs</a>[index].mapdrs;</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keyword">new</span>-&gt;extlen = 0;</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keyword">new</span>-&gt;ext = NULL;</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="keywordflow">return</span> (<span class="keyword">new</span>);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="keywordflow">return</span>(<span class="keyword">new</span>);</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    }</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    {</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        printf(<span class="stringliteral">&quot;getdrstemplate: DRS Template 5.%d not defined.\n&quot;</span>, (<span class="keywordtype">int</span>)number);</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="keywordflow">return</span> (NULL);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="keywordflow">return</span>(NULL);</div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    }</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordflow">return</span> (NULL);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordflow">return</span>(NULL);</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>}</div>
 </div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
@@ -217,7 +217,7 @@ $(document).ready(function(){initNavTree('drstemplates_8c_source.html',''); init
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keyword">new</span> = <a class="code hl_function" href="drstemplates_8c.html#aa577ddb355fd24011035f76aa9e3d4e2">getdrstemplate</a>(number);</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">if</span> (!new-&gt;needext)</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <span class="keywordflow">return</span> (<span class="keyword">new</span>);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <span class="keywordflow">return</span>(<span class="keyword">new</span>);</div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="comment">/* This template is commented out (see comment in struct</span></div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment">     * drstemplate for explanation). */</span></div>
@@ -264,18 +264,19 @@ $(document).ready(function(){initNavTree('drstemplates_8c_source.html',''); init
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a6ec2aa9a3c6ce2699f87223f9c45c2d9">G2C_ENOTEMPLATE</a>;</div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>}</div>
 </div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
 <div class="ttc" id="adrstemplates_8c_html_a091bb17f961371f8e1fbb561704c8d79"><div class="ttname"><a href="drstemplates_8c.html#a091bb17f961371f8e1fbb561704c8d79">templatesdrs</a></div><div class="ttdeci">static const struct drstemplate templatesdrs[G2C_MAX_DRS_TEMPLATE]</div><div class="ttdoc">Stuct holding data for GRIB2 Data Representation Section (DRS) template.</div><div class="ttdef"><b>Definition</b> <a href="drstemplates_8c_source.html#l00053">drstemplates.c:53</a></div></div>
 <div class="ttc" id="adrstemplates_8c_html_a307a8ced5bd81dd2bf110596fc9e6532"><div class="ttname"><a href="drstemplates_8c.html#a307a8ced5bd81dd2bf110596fc9e6532">getdrsindex</a></div><div class="ttdeci">static g2int getdrsindex(g2int number)</div><div class="ttdoc">This function returns the index of specified Data Representation Template.</div><div class="ttdef"><b>Definition</b> <a href="drstemplates_8c_source.html#l00135">drstemplates.c:135</a></div></div>
 <div class="ttc" id="adrstemplates_8c_html_aa577ddb355fd24011035f76aa9e3d4e2"><div class="ttname"><a href="drstemplates_8c.html#aa577ddb355fd24011035f76aa9e3d4e2">getdrstemplate</a></div><div class="ttdeci">gtemplate * getdrstemplate(g2int number)</div><div class="ttdoc">This subroutine returns DRS template information for a specified Data Representation Template.</div><div class="ttdef"><b>Definition</b> <a href="drstemplates_8c_source.html#l00167">drstemplates.c:167</a></div></div>
 <div class="ttc" id="adrstemplates_8c_html_aa9a9b32379db85395891b59213f08a5d"><div class="ttname"><a href="drstemplates_8c.html#aa9a9b32379db85395891b59213f08a5d">g2c_get_drs_template</a></div><div class="ttdeci">int g2c_get_drs_template(int drs_template_num, int *maplen, int *map, int *needext)</div><div class="ttdoc">Get DRS template information.</div><div class="ttdef"><b>Definition</b> <a href="drstemplates_8c_source.html#l00261">drstemplates.c:261</a></div></div>
 <div class="ttc" id="adrstemplates_8c_html_ae4df353015fc31f0f7391b4b4e9cbe8e"><div class="ttname"><a href="drstemplates_8c.html#ae4df353015fc31f0f7391b4b4e9cbe8e">extdrstemplate</a></div><div class="ttdeci">gtemplate * extdrstemplate(g2int number, g2int *list)</div><div class="ttdoc">This subroutine generates the remaining octet map for a given Data Representation Template,...</div><div class="ttdef"><b>Definition</b> <a href="drstemplates_8c_source.html#l00213">drstemplates.c:213</a></div></div>
-<div class="ttc" id="agrib2_8h_html_a6da0d8269b5acb7475bfa5bd6b78da28"><div class="ttname"><a href="grib2_8h.html#a6da0d8269b5acb7475bfa5bd6b78da28">G2C_MAX_DRS_TEMPLATE</a></div><div class="ttdeci">#define G2C_MAX_DRS_TEMPLATE</div><div class="ttdoc">Maximum number of DRS templates.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00296">grib2.h:296</a></div></div>
-<div class="ttc" id="agrib2_8h_html_a6ec2aa9a3c6ce2699f87223f9c45c2d9"><div class="ttname"><a href="grib2_8h.html#a6ec2aa9a3c6ce2699f87223f9c45c2d9">G2C_ENOTEMPLATE</a></div><div class="ttdeci">#define G2C_ENOTEMPLATE</div><div class="ttdoc">Template not found.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00497">grib2.h:497</a></div></div>
-<div class="ttc" id="agrib2_8h_html_a9fd31927766f572312f6b7b6993a56c2"><div class="ttname"><a href="grib2_8h.html#a9fd31927766f572312f6b7b6993a56c2">G2C_MAX_DRS_TEMPLATE_MAPLEN</a></div><div class="ttdeci">#define G2C_MAX_DRS_TEMPLATE_MAPLEN</div><div class="ttdoc">Maximum DRS template map length.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00297">grib2.h:297</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a6da0d8269b5acb7475bfa5bd6b78da28"><div class="ttname"><a href="grib2_8h.html#a6da0d8269b5acb7475bfa5bd6b78da28">G2C_MAX_DRS_TEMPLATE</a></div><div class="ttdeci">#define G2C_MAX_DRS_TEMPLATE</div><div class="ttdoc">Maximum number of DRS templates.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00311">grib2.h:311</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a6ec2aa9a3c6ce2699f87223f9c45c2d9"><div class="ttname"><a href="grib2_8h.html#a6ec2aa9a3c6ce2699f87223f9c45c2d9">G2C_ENOTEMPLATE</a></div><div class="ttdeci">#define G2C_ENOTEMPLATE</div><div class="ttdoc">Template not found.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00512">grib2.h:512</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a9fd31927766f572312f6b7b6993a56c2"><div class="ttname"><a href="grib2_8h.html#a9fd31927766f572312f6b7b6993a56c2">G2C_MAX_DRS_TEMPLATE_MAPLEN</a></div><div class="ttdeci">#define G2C_MAX_DRS_TEMPLATE_MAPLEN</div><div class="ttdoc">Maximum DRS template map length.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00312">grib2.h:312</a></div></div>
 <div class="ttc" id="agrib2_8h_html_af0b63b0e0f41f07f562a4367e2a60838"><div class="ttname"><a href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div><div class="ttdeci">int64_t g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00032">grib2.h:32</a></div></div>
-<div class="ttc" id="agrib2_8h_html_af837ca43cf1f95ac2d4096d3c3e35576"><div class="ttname"><a href="grib2_8h.html#af837ca43cf1f95ac2d4096d3c3e35576">G2C_NOERROR</a></div><div class="ttdeci">#define G2C_NOERROR</div><div class="ttdoc">No error.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00476">grib2.h:476</a></div></div>
+<div class="ttc" id="agrib2_8h_html_af837ca43cf1f95ac2d4096d3c3e35576"><div class="ttname"><a href="grib2_8h.html#af837ca43cf1f95ac2d4096d3c3e35576">G2C_NOERROR</a></div><div class="ttdeci">#define G2C_NOERROR</div><div class="ttdoc">No error.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00491">grib2.h:491</a></div></div>
 <div class="ttc" id="agrib2__int_8h_html"><div class="ttname"><a href="grib2__int_8h.html">grib2_int.h</a></div><div class="ttdoc">Header file with internal function prototypes NCEPLIBS-g2c library.</div></div>
-<div class="ttc" id="agrib2__int_8h_html_structgtemplate"><div class="ttname"><a href="grib2__int_8h.html#structgtemplate">gtemplate</a></div><div class="ttdoc">Struct for GRIB template, returned by getgridtemplate().</div><div class="ttdef"><b>Definition</b> <a href="grib2__int_8h_source.html#l00277">grib2_int.h:278</a></div></div>
+<div class="ttc" id="agrib2__int_8h_html_structgtemplate"><div class="ttname"><a href="grib2__int_8h.html#structgtemplate">gtemplate</a></div><div class="ttdoc">Struct for GRIB template, returned by getgridtemplate().</div><div class="ttdef"><b>Definition</b> <a href="grib2__int_8h_source.html#l00275">grib2_int.h:276</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

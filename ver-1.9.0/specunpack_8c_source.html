@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -98,10 +98,10 @@ $(document).ready(function(){initNavTree('specunpack_8c_source.html',''); initRe
 </div><!--header-->
 <div class="contents">
 <a href="specunpack_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="grib2__int_8h.html">grib2_int.h</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;math.h&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;math.h&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="grib2__int_8h.html">grib2_int.h</a>&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div>
 <div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
@@ -114,7 +114,7 @@ $(document).ready(function(){initNavTree('specunpack_8c_source.html',''); initRe
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> Js, Ks, Ms, Ts, Ns, Nm, n, m;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> inc, incu, incp;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_function" href="grib2__int_8h.html#af4e2650852f7bbbfb531c977fcbd42ca">rdieee</a>(idrstmpl + 0, &amp;ref, 1);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_function" href="grib2__int_8h.html#af4e2650852f7bbbfb531c977fcbd42ca">rdieee</a>(idrstmpl+0, &amp;ref, 1);</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    bscale = <a class="code hl_function" href="grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a>(2.0, idrstmpl[1]);</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    dscale = <a class="code hl_function" href="grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a>(10.0, -idrstmpl[2]);</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    nbits = idrstmpl[3];</div>
@@ -124,22 +124,22 @@ $(document).ready(function(){initNavTree('specunpack_8c_source.html',''); initRe
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    Ts = idrstmpl[8];</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">if</span> (idrstmpl[9] == 1)</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    { <span class="comment">/* unpacked floats are 32-bit IEEE */</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    {           <span class="comment">/* unpacked floats are 32-bit IEEE */</span></div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        unpk = malloc(ndpts * <span class="keyword">sizeof</span>(<span class="keywordtype">float</span>));</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        ifld = malloc(ndpts * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a>));</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_function" href="gbits_8c.html#a31ebdbbf262b7478d6a7cc4326f76ade">gbits</a>(cpack, ifld, 0, 32, 0, Ts);</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        iofst = 32 * Ts;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_function" href="grib2__int_8h.html#af4e2650852f7bbbfb531c977fcbd42ca">rdieee</a>(ifld, unpk, Ts);                          <span class="comment">/* read IEEE unpacked floats */</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_function" href="gbits_8c.html#a31ebdbbf262b7478d6a7cc4326f76ade">gbits</a>(cpack, ifld, iofst, nbits, 0, ndpts - Ts); <span class="comment">/* unpack scaled data */</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_function" href="grib2__int_8h.html#af4e2650852f7bbbfb531c977fcbd42ca">rdieee</a>(ifld, unpk, Ts);          <span class="comment">/* read IEEE unpacked floats */</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_function" href="gbits_8c.html#a31ebdbbf262b7478d6a7cc4326f76ade">gbits</a>(cpack, ifld, iofst, nbits, 0, ndpts - Ts);  <span class="comment">/* unpack scaled data */</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="comment">/* Calculate Laplacian scaling factors for each possible wave</span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">         * number. */</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        pscale = malloc((JJ + MM + 1) * <span class="keyword">sizeof</span>(<span class="keywordtype">float</span>));</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        tscale = idrstmpl[4] * 1E-6;</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">for</span> (n = Js; n &lt;= JJ + MM; n++)</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            pscale[n] = pow((<span class="keywordtype">float</span>)(n * (n + 1)), -tscale);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            pscale[n] = pow((<span class="keywordtype">float</span>)(n * (n+1)), -tscale);</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="comment">/* Assemble spectral coeffs back to original order. */</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        inc = 0;</div>
@@ -147,25 +147,25 @@ $(document).ready(function(){initNavTree('specunpack_8c_source.html',''); initRe
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        incp = 0;</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">for</span> (m = 0; m &lt;= MM; m++)</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            Nm = JJ; <span class="comment">/* triangular or trapezoidal */</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">if</span> (KK == JJ + MM)</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                Nm = JJ + m; <span class="comment">/* rhombodial */</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            Ns = Js;         <span class="comment">/* triangular or trapezoidal */</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            Nm = JJ;      <span class="comment">/* triangular or trapezoidal */</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">if</span> (KK == JJ+MM)</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                Nm = JJ + m;          <span class="comment">/* rhombodial */</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            Ns = Js;      <span class="comment">/* triangular or trapezoidal */</span></div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <span class="keywordflow">if</span> (Ks == Js + Ms)</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                Ns = Js + m; <span class="comment">/* rhombodial */</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                Ns = Js + m;          <span class="comment">/* rhombodial */</span></div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keywordflow">for</span> (n = m; n &lt;= Nm; n++)</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            {</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                <span class="keywordflow">if</span> (n &lt;= Ns &amp;&amp; m &lt;= Ms)</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                {                              <span class="comment">/* grab unpacked value */</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                    fld[inc++] = unpk[incu++]; <span class="comment">/* real part */</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                    fld[inc++] = unpk[incu++]; <span class="comment">/* imaginary part */</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                {    <span class="comment">/* grab unpacked value */</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                    fld[inc++] = unpk[incu++];         <span class="comment">/* real part */</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                    fld[inc++] = unpk[incu++];     <span class="comment">/* imaginary part */</span></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                }</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                { <span class="comment">/* Calc coeff from packed value */</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                {                       <span class="comment">/* Calc coeff from packed value */</span></div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                    fld[inc++] = (((float)ifld[incp++] * bscale) + ref) *</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                                 dscale * pscale[n]; <span class="comment">/* real part */</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                        dscale * pscale[n];          <span class="comment">/* real part */</span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                    fld[inc++] = (((float)ifld[incp++] * bscale) + ref) *</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                                 dscale * pscale[n]; <span class="comment">/* imaginary part */</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                        dscale * pscale[n];          <span class="comment">/* imaginary part */</span></div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                }</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            }</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        }</div>
@@ -186,8 +186,8 @@ $(document).ready(function(){initNavTree('specunpack_8c_source.html',''); initRe
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
 </div>
 <div class="ttc" id="agbits_8c_html_a31ebdbbf262b7478d6a7cc4326f76ade"><div class="ttname"><a href="gbits_8c.html#a31ebdbbf262b7478d6a7cc4326f76ade">gbits</a></div><div class="ttdeci">void gbits(unsigned char *in, g2int *iout, g2int iskip, g2int nbits, g2int nskip, g2int n)</div><div class="ttdoc">Unpack arbitrary size values from a packed bit string, right justifying each value in the unpacked io...</div><div class="ttdef"><b>Definition</b> <a href="gbits_8c_source.html#l00057">gbits.c:57</a></div></div>
-<div class="ttc" id="agrib2_8h_html_a94af4623709fa1c08f8035b98e7ca56b"><div class="ttname"><a href="grib2_8h.html#a94af4623709fa1c08f8035b98e7ca56b">G2_NO_ERROR</a></div><div class="ttdeci">#define G2_NO_ERROR</div><div class="ttdoc">Function succeeded.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00423">grib2.h:423</a></div></div>
-<div class="ttc" id="agrib2_8h_html_ac046d29b8feb2f0333e7a5c8803aba4d"><div class="ttname"><a href="grib2_8h.html#ac046d29b8feb2f0333e7a5c8803aba4d">G2_SPECUNPACK_TYPE</a></div><div class="ttdeci">#define G2_SPECUNPACK_TYPE</div><div class="ttdoc">In specunpack() Can't handle 64 or 128 bit floats.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00469">grib2.h:469</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a94af4623709fa1c08f8035b98e7ca56b"><div class="ttname"><a href="grib2_8h.html#a94af4623709fa1c08f8035b98e7ca56b">G2_NO_ERROR</a></div><div class="ttdeci">#define G2_NO_ERROR</div><div class="ttdoc">Function succeeded.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00438">grib2.h:438</a></div></div>
+<div class="ttc" id="agrib2_8h_html_ac046d29b8feb2f0333e7a5c8803aba4d"><div class="ttname"><a href="grib2_8h.html#ac046d29b8feb2f0333e7a5c8803aba4d">G2_SPECUNPACK_TYPE</a></div><div class="ttdeci">#define G2_SPECUNPACK_TYPE</div><div class="ttdoc">In specunpack() Can't handle 64 or 128 bit floats.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00484">grib2.h:484</a></div></div>
 <div class="ttc" id="agrib2_8h_html_af0b63b0e0f41f07f562a4367e2a60838"><div class="ttname"><a href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a></div><div class="ttdeci">int64_t g2int</div><div class="ttdoc">Long integer type.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00032">grib2.h:32</a></div></div>
 <div class="ttc" id="agrib2__int_8h_html"><div class="ttname"><a href="grib2__int_8h.html">grib2_int.h</a></div><div class="ttdoc">Header file with internal function prototypes NCEPLIBS-g2c library.</div></div>
 <div class="ttc" id="agrib2__int_8h_html_a6b284a64a4b42cd86db872ae7e1eeaa8"><div class="ttname"><a href="grib2__int_8h.html#a6b284a64a4b42cd86db872ae7e1eeaa8">int_power</a></div><div class="ttdeci">double int_power(double x, g2int y)</div><div class="ttdoc">Function similar to C pow() power function.</div><div class="ttdef"><b>Definition</b> <a href="int__power_8c_source.html#l00018">int_power.c:18</a></div></div>

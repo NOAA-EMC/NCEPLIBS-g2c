@@ -14,7 +14,7 @@ var g2cindex_8c =
     [ "g2c_open_index1", "g2cindex_8c.html#a32a9653961314d342b211ab98a07aa0a", null ],
     [ "g2c_start_index1_record", "g2cindex_8c.html#a3012c86f328edde808fb0c27bcbd0de2", null ],
     [ "g2c_start_index_record", "g2cindex_8c.html#a98ff06adef664fd65de70cc2ecfb2354", null ],
-    [ "g2c_start_index_record_lf", "g2cindex_8c.html#a23ed7bdfd9dc8bee1884d2bd2d16d32f", null ],
+    [ "g2c_start_index_record_lf", "g2cindex_8c.html#a760e5c7f0c65c386551bb935447700cb", null ],
     [ "g2c_write_index", "g2cindex_8c.html#aa370217896d20f1ccb1c77e7a4edc1ed", null ],
     [ "read_hdr_rec1", "g2cindex_8c.html#a34cdf8504ffcbd6a648d5748386bdd71", null ],
     [ "read_hdr_rec2", "g2cindex_8c.html#a340b8aa793ffa2ad1a1debbc5e099154", null ],

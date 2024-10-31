@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -98,14 +98,14 @@ $(document).ready(function(){initNavTree('specpack_8c_source.html',''); initResi
 </div><!--header-->
 <div class="contents">
 <a href="specpack_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="grib2__int_8h.html">grib2_int.h</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;math.h&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;math.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="grib2__int_8h.html">grib2_int.h</a>&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">void</span></div>
 <div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="grib2__int_8h.html#ab712ca4ca13ff72a2a4f3738e9ef66ce">   33</a></span><a class="code hl_function" href="specpack_8c.html#ab712ca4ca13ff72a2a4f3738e9ef66ce">specpack</a>(<span class="keywordtype">float</span> *fld, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> JJ, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> KK, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> MM,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="grib2__int_8h.html#ab712ca4ca13ff72a2a4f3738e9ef66ce">   33</a></span><a class="code hl_function" href="specpack_8c.html#ab712ca4ca13ff72a2a4f3738e9ef66ce">specpack</a>(<span class="keywordtype">float</span> *fld, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> ndpts, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> JJ, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> KK, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> MM, </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>         <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *idrstmpl, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cpack, <a class="code hl_typedef" href="grib2_8h.html#af0b63b0e0f41f07f562a4367e2a60838">g2int</a> *lcpack)</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
@@ -137,23 +137,23 @@ $(document).ready(function(){initNavTree('specpack_8c_source.html',''); initResi
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    incp = 0;</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">for</span> (m = 0; m &lt;= MM; m++)</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        Nm = JJ; <span class="comment">/* triangular or trapezoidal */</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        Nm = JJ;      <span class="comment">/* triangular or trapezoidal */</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">if</span> (KK == JJ + MM)</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            Nm = JJ + m; <span class="comment">/* rhombodial */</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        Ns = Js;         <span class="comment">/* triangular or trapezoidal */</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            Nm = JJ + m;          <span class="comment">/* rhombodial */</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        Ns = Js;      <span class="comment">/* triangular or trapezoidal */</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span> (Ks == Js + Ms)</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            Ns = Js + m; <span class="comment">/* rhombodial */</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            Ns = Js + m;          <span class="comment">/* rhombodial */</span></div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">for</span> (n = m; n &lt;= Nm; n++)</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        {</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="keywordflow">if</span> (n &lt;= Ns &amp;&amp; m &lt;= Ms)</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            {                              <span class="comment">/* save unpacked value */</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                unpk[incu++] = fld[inc++]; <span class="comment">/* real part */</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                unpk[incu++] = fld[inc++]; <span class="comment">/* imaginary part */</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            {       <span class="comment">/* save unpacked value */</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                unpk[incu++] = fld[inc++];         <span class="comment">/* real part */</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                unpk[incu++] = fld[inc++];     <span class="comment">/* imaginary part */</span></div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            }</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            {                                          <span class="comment">/* Save value to be packed and scale Laplacian scale factor. */</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                tfld[incp++] = fld[inc++] * pscale[n]; <span class="comment">/* real part */</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                tfld[incp++] = fld[inc++] * pscale[n]; <span class="comment">/* imaginary part */</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            { <span class="comment">/* Save value to be packed and scale Laplacian scale factor. */</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                tfld[incp++] = fld[inc++] * pscale[n];      <span class="comment">/* real part */</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                tfld[incp++] = fld[inc++] * pscale[n];      <span class="comment">/* imaginary part */</span></div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            }</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        }</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    }</div>
