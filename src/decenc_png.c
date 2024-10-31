@@ -97,6 +97,27 @@ user_flush_data(png_structp png_ptr)
  * @author Stephen Gilbert
  */
 int
+g2c_dec_png(unsigned char *pngbuf, int *width, int *height,
+        unsigned char *cout)
+{
+    g2int width8 = width, height8 = height;
+
+    return dec_png(pngbuf, width8, height8, cout);
+}
+
+/**
+ * Decode PNG.
+ *
+ * @param pngbuf Pointer to PNG buffer.
+ * @param width Pointer to width.
+ * @param height Pointer to height.
+ * @param cout Output buffer.
+ *
+ * @return 0 for success, error code otherwise.
+ *
+ * @author Stephen Gilbert
+ */
+int
 dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
         unsigned char *cout)
 {
@@ -188,6 +209,28 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
     /* Clean up. */
     png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
     return 0;
+}
+
+/**
+ * Encode PNG.
+ *
+ * @param data data.
+ * @param width width.
+ * @param height height.
+ * @param nbits number of bits.
+ * @param pngbuf PNG buffer.
+ *
+ * @return PNG length, or negative number for error.
+ *
+ * @author Stephen Gilbert
+ */
+int
+g2c_enc_png(unsigned char *data, int width, int height, int nbits,
+        unsigned char *pngbuf)
+{
+    g2int width8 = width, height8 = height, nbits8 = nbits;
+
+    return enc_png(data, width8, height8, nbits8, pngbuf);
 }
 
 /**

@@ -44,6 +44,34 @@ main()
                 return G2C_ERROR;
     }
     printf("ok!\n");
+    printf("Testing g2c_enc_png()/g2c_dec_png() calls...");
+    {
+        unsigned char data[4] = {1, 2, 3, 4};
+        int width = 1, height = 1, nbits = 32;
+        int width_in, height_in;
+        unsigned char pngbuf[200];
+        unsigned char cout[200];
+        int i, ret;
+
+        /* Encode some data. */
+        if ((ret = g2c_enc_png(data, width, height, nbits, pngbuf)) != 70)
+        {
+            printf("%d\n", ret);
+            return G2C_ERROR;
+        }
+
+        /* Now decode it. */
+        if ((ret = g2c_dec_png((unsigned char *)pngbuf, &width_in, &height_in, cout)))
+        {
+            printf("%d\n", ret);
+            return G2C_ERROR;
+        }
+
+        for (i = 0; i < 4; i++)
+            if (cout[i] != data[i])
+                return G2C_ERROR;
+    }
+    printf("ok!\n");
     printf("Testing pngpack()/pngunpack() calls...");
     {
         g2int height = 2, width = 2, ndpts = DATA_LEN, len = PACKED_LEN;
