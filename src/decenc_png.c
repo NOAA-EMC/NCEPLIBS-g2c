@@ -97,7 +97,7 @@ user_flush_data(png_structp png_ptr)
  * @author Stephen Gilbert
  */
 int
-g2c_dec_png(unsigned char *pngbuf, int *width, int *height,
+g2c_dec_png(unsigned char *pngbuf, int width, int height,
         unsigned char *cout)
 {
     g2int width8 = width, height8 = height;
