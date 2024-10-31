@@ -48,7 +48,7 @@ jobs:
         mkdir build
         cd build
         # Windows CI fails when building with shared libs, turn off
-        cmake -DUSE_OpenJPEG=ON -DUSE_Jasper=OFF -DBUILD_SHARED_LIBS=OFF -DLOGGING=ON -DUSE_AEC=ON  -DBUILD_G2C=OFF ..
+        cmake -DUSE_OpenJPEG=ON -DUSE_Jasper=OFF -DBUILD_SHARED_LIBS=OFF -DLOGGING=ON -DUSE_AEC=ON  ..
         cmake --build .
 
     - name: test
