@@ -98,10 +98,8 @@ user_flush_data(png_structp png_ptr)
  */
 int
 g2c_dec_png(unsigned char *pngbuf, int *width, int *height,
-        unsigned char *cout)
+            unsigned char *cout)
 {
-   // g2int* width8 = (g2int)&width, height8 = (g2int)&height;
-
     return dec_png(pngbuf, (g2int *)&width, (g2int *)&height, cout);
 }
 
@@ -226,7 +224,7 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
  */
 int
 g2c_enc_png(unsigned char *data, int width, int height, int nbits,
-        unsigned char *pngbuf)
+            unsigned char *pngbuf)
 {
     g2int width8 = width, height8 = height, nbits8 = nbits;
 
