@@ -45,7 +45,7 @@ jobs:
           
     - name: build
       run: |
-        cmake -S g2c -B g2c/build -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper -DBUILD_G2C=OFF
+        cmake -S g2c -B g2c/build -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper
         cmake --build g2c/build --parallel 2 --verbose
 
     - name: Perform CodeQL Analysis

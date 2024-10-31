@@ -620,6 +620,9 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
  *
  * @param g2cid Indentifier for the file, returned by g2c_open() or
  * g2c_create().
+ * @parm ave_round Number of digits to show for average. This is
+ * useful for limiting the difference of the "AVE" value between
+ * different compilers, which wil...
  * @param fileout Path of output file. Any existing file of this name
  * will be overwritten.
  *
@@ -680,7 +683,8 @@ g2c_degrib2(int g2cid, const char *fileout)
             char level_desc[G2C_MAX_TYPE_OF_FIXED_SURFACE_LEN + 1];
             char date_time[100 + 1];
             float *data = NULL;
-            float total = 0.0, max = 0.0, min = 0.0, avg = 0;
+	    double total = 0.0, avg = 0;
+            float max = 0.0, min = 0.0;
             int t;
 
             fprintf(f, "\n");
@@ -828,7 +832,7 @@ g2c_degrib2(int g2cid, const char *fileout)
                 avg = total / sec5_info->num_data_points;
             }
             fprintf(f, "( PARM= %s ) :  MIN=%25.8f AVE=%25.8f MAX=%25.8f\n",
-                    abbrev, min, avg, max);
+                    abbrev, min, (float)avg, max);
 
             /* Free the data. */
             if (sec5_info->num_data_points)
