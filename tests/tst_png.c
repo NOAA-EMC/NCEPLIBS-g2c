@@ -61,7 +61,7 @@ main()
         }
 
         /* Now decode it. */
-        if ((ret = g2c_dec_png((unsigned char *)pngbuf, width_in, height_in, cout)))
+        if ((ret = g2c_dec_png((unsigned char *)pngbuf, &width_in, &height_in, cout)))
         {
             printf("%d\n", ret);
             return G2C_ERROR;
