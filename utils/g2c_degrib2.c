@@ -31,6 +31,7 @@ main(int argc, char **argv)
     char *filein = NULL;
     char *fileidx = NULL;
     char *fileout = NULL;
+    int avg_round = 8;
     int ret;
 
     opterr = 0;
@@ -117,7 +118,7 @@ main(int argc, char **argv)
     }
 
     /* Write the degrib2 summary. */
-    if ((ret = g2c_degrib2(g2cid, fileout)))
+    if ((ret = g2c_degrib2(g2cid, avg_round, fileout)))
     {
         fprintf(stderr, "Could not write degrib2 summary to %s.\n", fileout);
         return ret;

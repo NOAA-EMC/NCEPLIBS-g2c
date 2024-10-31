@@ -389,7 +389,7 @@ int g2c_aecunpackd(unsigned char *cpack, size_t len, int *idrstmpl, size_t ndpts
 int g2c_compare(int g2cid1, int g2cid2);
 
 /* Output. */
-int g2c_degrib2(int g2cid, const char *fileout);
+int g2c_degrib2(int g2cid, int avg_rount, const char *fileout);
 
 /* Parameters. */
 int g2c_param_g1tog2(int g1val, int g1ver, int *g2disc, int *g2cat, int *g2num);

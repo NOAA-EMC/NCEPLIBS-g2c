@@ -620,9 +620,11 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
  *
  * @param g2cid Indentifier for the file, returned by g2c_open() or
  * g2c_create().
- * @parm ave_round Number of digits to show for average. This is
+ * @param avg_round Number of digits to show for average. This is
  * useful for limiting the difference of the "AVE" value between
- * different compilers, which wil...
+ * different compilers, which will come out with slightly different
+ * answers. The degrib2 Fortran utility shows 8 numbers after the
+ * decimal. In testing, 3 works everywhere we've tried.
  * @param fileout Path of output file. Any existing file of this name
  * will be overwritten.
  *
@@ -634,7 +636,7 @@ g2c_get_level_desc(int ipdtn, long long int *ipdtmpl, char *level_desc)
  * @author Ed Hartnett @date Sep 17, 2022
  */
 int
-g2c_degrib2(int g2cid, const char *fileout)
+g2c_degrib2(int g2cid, int avg_round, const char *fileout)
 {
     FILE *f;
     G2C_MESSAGE_INFO_T *msg;

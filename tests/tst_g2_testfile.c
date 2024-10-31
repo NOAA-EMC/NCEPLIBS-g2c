@@ -100,7 +100,7 @@ main()
             return ret;
 
         /* Write degrib2 output. */
-        if ((ret = g2c_degrib2(g2cid, DEGRIB2_FILENAME)))
+        if ((ret = g2c_degrib2(g2cid, 8, DEGRIB2_FILENAME)))
             return ret;
 
         /* Check results. */
