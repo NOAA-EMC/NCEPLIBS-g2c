@@ -260,7 +260,7 @@ opj_stream_create_default_memory_stream(opj_memory_stream *memoryStream, OPJ_BOO
 int
 g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld)
 {
-    return int_dec_jpeg2000(injpc, bufsize, outfld, 0);
+    return dec_jpeg2000(injpc, bufsize, (g2int *)outfld);
 }
 
 /**
