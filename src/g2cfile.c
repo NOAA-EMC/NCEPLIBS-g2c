@@ -1175,6 +1175,17 @@ g2c_add_file(const char *path, int mode, int *g2cid)
 
 /** Open an existing GRIB2 file.
  *
+ * This function opens the GRIB2 file and reads its metadata.
+ *
+ * GRIB2 messages in the file are assigned a message ID, starting with
+ * 0 for the first message in the file.
+ *
+ * Each product within a message is assigned a product ID, starting
+ * with 0 for the first product in the message.
+ *
+ * Files opened with this function should be closed with a call
+ * g2c_close() to release resources.
+ *
  * @param path Path of the file.
  * @param mode Open mode flags.
  * @param g2cid Pointer that gets an indentifier for the file.
