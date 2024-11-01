@@ -94,7 +94,7 @@ user_flush_data(png_structp png_ptr)
  *
  * @return 0 for success, error code otherwise.
  *
- * @author Stephen Gilbert
+ * @author Alyson Stahl
  */
 int
 g2c_dec_png(unsigned char *pngbuf, int *width, int *height,
@@ -220,7 +220,7 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
  *
  * @return PNG length, or negative number for error.
  *
- * @author Stephen Gilbert
+ * @author Alyson Stahl
  */
 int
 g2c_enc_png(unsigned char *data, int width, int height, int nbits,

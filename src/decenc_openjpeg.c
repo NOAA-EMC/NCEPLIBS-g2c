@@ -255,7 +255,7 @@ opj_stream_create_default_memory_stream(opj_memory_stream *memoryStream, OPJ_BOO
  *
  * @note Requires OpenJPEG Version 2.
  *
- * @author Stephen Gilbert, Jovic
+ * @author Alyson Stahl
  */
 int
 g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld)
@@ -400,7 +400,7 @@ cleanup:
  *
  * @note Requires OpenJPEG Version 2.
  *
- * @author Stephen Gilbert, Jovic
+ * @author Alyson Stahl
  */
 int
 g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
