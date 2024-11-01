@@ -788,6 +788,18 @@ read_hdr_rec2(FILE *f, int *skipp, int *total_lenp, int *num_recp,
 /**
  * Open a GRIB1 index file and read the contents.
  *
+ * This function opens the GRIB2 index file and reads its metadata,
+ * and opens the accompanying GRIB2 file.
+ *
+ * GRIB2 messages in the file are assigned a message ID, starting with
+ * 0 for the first message in the file.
+ *
+ * Each product within a message is assigned a product ID, starting
+ * with 0 for the first product in the message.
+ *
+ * Files opened with this function should be closed with a call
+ * g2c_close() to release resources.
+ *
  * @param index_file The name that will be given to the index file. An
  * existing file will be overwritten.
  *
