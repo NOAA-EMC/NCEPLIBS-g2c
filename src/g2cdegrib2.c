@@ -197,7 +197,7 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
     /* Write a string with the date and time from section 1 of the message. */
     sprintf(reftime, "%4.4d%2.2d%2.2d%2.2d:%2.2d:%2.2d", year, month, day, hour, minute, second);
 
-    itemp = abs(ipdtmpl[iutpos + 1]) * iunit;
+    itemp = abs((int)ipdtmpl[iutpos + 1]) * iunit;
 
     /* write(tmpval, '(I0)') itemp */
 
@@ -217,7 +217,7 @@ g2c_get_datetime(int ipdtn, long long int *ipdtmpl, short year, unsigned char mo
         sprintf(endtime, "%4.4d%2.2d%2.2d%2.2d:%2.2d:%2.2d", (int)ipdtmpl[is], (int)ipdtmpl[is + 1],
                 (int)ipdtmpl[is + 2], (int)ipdtmpl[is + 3], (int)ipdtmpl[is + 4], (int)ipdtmpl[is + 5]);
         /*    write(endtime, fmt = '(i4,3i2.2,":",i2.2,":",i2.2)') (ipdtmpl(j), j = is, is + 5) */
-        itemp2 = abs(ipdtmpl[iutpos2]) * iunit2;
+        itemp2 = abs((int)ipdtmpl[iutpos2]) * iunit2;
         itemp2 = itemp + itemp2;
         sprintf(tmpval2, "%d", itemp2);
         if (ipdtn == 8 && ipdtmpl[8] < 0)
@@ -657,9 +657,9 @@ g2c_degrib2(int g2cid, const char *fileout)
         int fld;
 
         fprintf(f, "\n");
-        fprintf(f, " GRIB MESSAGE  %ld  starts at %ld\n", msg->msg_num + 1, msg->bytes_to_msg + 1);
+        fprintf(f, " GRIB MESSAGE  %ld  starts at %zu\n", msg->msg_num + 1, msg->bytes_to_msg + 1);
         fprintf(f, "\n");
-        fprintf(f, "  SECTION 0:  %d 2 %ld\n", msg->discipline, msg->bytes_in_msg);
+        fprintf(f, "  SECTION 0:  %d 2 %zu\n", msg->discipline, msg->bytes_in_msg);
         fprintf(f, "  SECTION 1:  %d %d %d %d %d %d %d %d %d %d %d %d %d\n", msg->center, msg->subcenter,
                 msg->master_version, msg->local_version, msg->sig_ref_time, msg->year, msg->month, msg->day,
                 msg->hour, msg->minute, msg->second, msg->status, msg->type);
