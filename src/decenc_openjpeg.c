@@ -255,6 +255,33 @@ opj_stream_create_default_memory_stream(opj_memory_stream *memoryStream, OPJ_BOO
  *
  * @note Requires OpenJPEG Version 2.
  *
+ * @author Alyson Stahl
+ */
+int
+g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld)
+{
+    return dec_jpeg2000(injpc, bufsize, (g2int *)outfld);
+}
+
+/**
+ * This Function decodes a JPEG2000 code stream specified in the
+ * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using OpenJPEG.
+ *
+ * PROGRAM HISTORY LOG:
+ * - 2002-12-02  Gilbert
+ * - 2016-06-08  Jovic
+ *
+ * @param injpc Input JPEG2000 code stream.
+ * @param bufsize Length (in bytes) of the input JPEG2000 code stream.
+ * @param outfld Output matrix of grayscale image values.
+ *
+ * @return
+ * - 0 Successful decode
+ * - -3 Error decode jpeg2000 code stream.
+ * - -5 decoded image had multiple color components. Only grayscale is expected.
+ *
+ * @note Requires OpenJPEG Version 2.
+ *
  * @author Stephen Gilbert, Jovic
  */
 int
@@ -340,6 +367,51 @@ cleanup:
         opj_image_destroy(image);
 
     return iret;
+}
+
+/**
+ * This Function encodes a grayscale image into a JPEG2000 code stream
+ * specified in the JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1)
+ * using OpenJPEG library.
+ *
+ * PROGRAM HISTORY LOG:
+ * - 2002-12-02  Gilbert
+ * - 2016-06-08  Jovic
+ *
+ * @param cin Packed matrix of Grayscale image values to encode.
+ * @param width width of image
+ * @param height height of image
+ * @param nbits depth (in bits) of image.i.e number of bits used to
+ * hold each data value
+ * @param ltype indicator of lossless or lossy compression = 1, for
+ * lossy compression != 1, for lossless compression.
+ * @param ratio target compression ratio.  (ratio:1) Used only when
+ * ltype == 1.
+ * @param retry Pointer to option type. 1 = try increasing number of
+ * guard bits otherwise, no additional options.
+ * @param outjpc Output encoded JPEG2000 code stream.
+ * @param jpclen Number of bytes allocated for new JPEG2000 code
+ * stream in outjpc.
+ *
+ * @return
+ * - > 0 Length in bytes of encoded JPEG2000 code stream
+ * - -3 Error decode jpeg2000 code stream.
+ * - -5 decoded image had multiple color components. Only grayscale is expected.
+ *
+ * @note Requires OpenJPEG Version 2.
+ *
+ * @author Alyson Stahl
+ */
+int
+g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
+                 int ltype, int ratio, int retry, char *outjpc,
+                 size_t jpclen)
+{
+    g2int width8 = width, height8 = height, nbits8 = nbits, ltype8 = ltype;
+    g2int ratio8 = ratio, retry8 = retry, jpclen8 = jpclen;
+
+    return enc_jpeg2000(cin, width8, height8, nbits8, ltype8, ratio8, retry8,
+                        outjpc, jpclen8);
 }
 
 /**

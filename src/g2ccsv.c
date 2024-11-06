@@ -4,7 +4,7 @@
  * @author Ed Hartnett @date 8/25/22
  */
 
-#include <grib2_int.h>
+#include "grib2_int.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -376,6 +376,10 @@ int g2c_enc_jpeg2000(unsigned char *cin, int width, int height, int nbits,
                      int ltype, int ratio, int retry, char *outjpc,
                      size_t jpclen);
 int g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld);
+int g2c_enc_png(unsigned char *data, int width, int height, int nbits,
+                unsigned char *pngbuf);
+int g2c_dec_png(unsigned char *pngbuf, int *width, int *height,
+                unsigned char *cout);
 int g2c_aecpackf(float *fld, size_t width, size_t height, int *idrstmpl,
                  unsigned char *cpack, size_t *lcpack);
 int g2c_aecpackd(double *fld, size_t width, size_t height, int *idrstmpl,
