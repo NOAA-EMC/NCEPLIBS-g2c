@@ -26,6 +26,7 @@ endif()
 # static and shared libraries.
 add_library(${lib_name}_objlib OBJECT ${src_files})
 set_property(TARGET ${lib_name}_objlib PROPERTY C_STANDARD 11)
+target_include_directories(${lib_name}_objlib PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 if(BUILD_SHARED_LIBS)
   set_property(TARGET ${lib_name}_objlib PROPERTY POSITION_INDEPENDENT_CODE 1)
 endif()

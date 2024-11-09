@@ -177,6 +177,32 @@ g2c_find_entry(char *desc, G2C_CODE_TABLE_T *table)
     return NULL;
 }
 
+/** Implementation of strsep for code portability.
+ * Extracts first token in string given a delimiter.
+ *
+ * @param stringp The address of a pointer to string to be separated.
+ * This value is overwritten with the value past the delimiter.
+ * @param delim Characters that delimit the tokens.
+ *
+ * @author Alyson Stahl @date 11/6/24
+ *
+ * @return a pointer to the original value of stringp
+ */
+static char *
+g2c_csv_strsep(char **stringp, const char *delim)
+{
+    char *rv = *stringp;
+    if (rv)
+    {
+        *stringp += strcspn(*stringp, delim);
+        if (**stringp)
+            *(*stringp)++ = '\0';
+        else
+            *stringp = 0;
+    }
+    return rv;
+}
+
 /**
  * Initialize tables from "CodeFlag.txt".
  *
@@ -219,14 +245,14 @@ g2c_csv_init()
 
             if (*buf == '\"')
             {
-                tmp = strsep(&buf, "\"");
-                tmp = strsep(&buf, "\"");
+                tmp = g2c_csv_strsep(&buf, "\"");
+                tmp = g2c_csv_strsep(&buf, "\"");
                 key = strdup((const char *)tmp);
-                tmp = strsep(&buf, ",");
+                tmp = g2c_csv_strsep(&buf, ",");
             }
             else
             {
-                tmp = strsep(&buf, ",");
+                tmp = g2c_csv_strsep(&buf, ",");
                 key = strdup((const char *)tmp);
             }
 
