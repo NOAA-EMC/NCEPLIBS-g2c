@@ -91,6 +91,6 @@ class G2c(CMakePackage):
         env.set("G2C_LIB", lib[0])
         env.set("G2C_INC", join_path(self.prefix, "include"))
 
-    #def check(self):
-    #    with working_dir(self.builder.build_directory):
-    #        make("test")
+    def check(self):
+        with working_dir(self.build_directory):
+            make("test")
