@@ -170,11 +170,11 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
     /* Set new custom read function. */
     png_set_read_fn(png_ptr, (png_voidp)&read_io_ptr, (png_rw_ptr)user_read_data);
 
+    /*     support for larger grids   */
+    png_set_user_limits(png_ptr, G2C_PNG_WIDTH_MAX, G2C_PNG_HEIGHT_MAX);
+
     /* Read and decode PNG stream. */
     png_read_png(png_ptr, info_ptr, PNG_TRANSFORM_IDENTITY, NULL);
-
-/*     support for larger grids   */
-    png_set_user_limits(png_ptr, G2C_PNG_WIDTH_MAX, G2C_PNG_HEIGHT_MAX);
 
     /* Get pointer to each row of image data. */
     row_pointers = png_get_rows(png_ptr, info_ptr);
