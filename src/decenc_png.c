@@ -103,7 +103,7 @@ g2c_dec_png(unsigned char *pngbuf, int *width, int *height,
     g2int width8 = *width, height8 = *height;
     int ret;
 
-    ret = dec_png(pngbuf, width8, height8, cout);
+    ret = dec_png(pngbuf, &width8, &height8, cout);
 
     *width = (g2int)width8;
     *height = (g2int)height8;
