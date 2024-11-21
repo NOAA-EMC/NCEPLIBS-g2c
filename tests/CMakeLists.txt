@@ -72,6 +72,7 @@ set(REF_FILES "gdaswave.t00z.wcoast.0p16.f000.grib2.idx"
   "ref_testgrib2.grb2.degrib2"
   "ref_gdaswave_2.grib1.idx"
   "ref_tst_jasper_warning.txt"
+  "ref_large_png.grib2"
   )
 
 # Copy large files if needed.
@@ -223,6 +224,7 @@ endif()
 if(USE_PNG)
   g2c_test(tst_png)
   g2c_test(tst_addfield2)
+  g2c_test(tst_large_png)
 endif()
 
 # Run these tests only if Jasper or OpenJPEG are linked.
