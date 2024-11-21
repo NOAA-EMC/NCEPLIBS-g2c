@@ -13,7 +13,7 @@
 int
 main()
 {
-    printf("Testing dec_png() on large test file...")
+    printf("Testing dec_png() on large test file...\n");
     {
         float *data;
         int g2cid, num_data_points;
@@ -38,6 +38,9 @@ main()
         /* Close the data file. */
         if ((ret = g2c_close(g2cid)))
             return ret;
+
+        /* Free the memory allocated to hold the data. */
+        free(data);
     }
     printf("ok!\n");
     printf("SUCCESS!\n");
