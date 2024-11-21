@@ -20,11 +20,11 @@ main()
         int ret = G2C_NOERROR;
 
         /* Open the data file. */
-        if (ret = g2c_open(TEST_FILE, 0, &g2cid))
+        if ((ret = g2c_open(TEST_FILE, 0, &g2cid)))
             return ret;
 
         /* Get the size of the data from message 0, product 0. */
-        if (ret = g2c_get_prod(g2cid, 0, 0, &num_data_points, NULL))
+        if ((ret = g2c_get_prod(g2cid, 0, 0, &num_data_points, NULL)))
             return ret;
 
         /* Allocate storage for the data. */
