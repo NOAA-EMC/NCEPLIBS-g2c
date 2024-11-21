@@ -67,8 +67,10 @@ main()
             return G2C_ERROR;
         }
 
-        printf("width = %d\n", width_in);
-        printf("height = %d\n", height_in);
+        /* Check that width and height are returned correctly. */
+        if (width_in != 1 || height_in != 1)
+            return G2C_ERROR;
+        
         for (i = 0; i < 4; i++)
             if (cout[i] != data[i])
                 return G2C_ERROR;
