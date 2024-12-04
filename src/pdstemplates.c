@@ -241,6 +241,12 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.59: Individual Ensemble Forecast, Control and Perturbed, at a horizontal level or in
         a horizontal layer at a point in time interval for Spatio-Temporal changing tile parameters */
         {59, 24, 0, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
+        /** PDT 4.62 (12/04/2024)
+        4.62: Average, Accumulation and/or Extreme values or other
+        Statistically-processed values at a horizontal level or in a horizontal
+        layer in a continuous or non-continuous time interval for spatio-temporal
+        changing tiles at a horizontal level or horizontal layer at a point in time */
+        {62, 35, 1, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, -2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, -4, 1, 4}},
 };
 
 /**
@@ -775,6 +781,23 @@ extpdstemplate(g2int number, g2int *list)
             new->ext[l + 15] = 1;
             new->ext[l + 16] = 1;
             new->ext[l + 17] = 1;
+        }
+    }
+    /* PDT 4.62 (12/04/2024) */
+    else if (number == 62)
+    {
+        if (list[27] > 1)
+        {
+            new->extlen = (list[27] - 1) * 6;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[27]; j++)
+            {
+                l = (j - 2) * 6;
+                for (k = 0; k < 6; k++)
+                {
+                    new->ext[l + k] = new->map[29 + k];
+                }
+            }
         }
     }
     return new;
