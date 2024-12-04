@@ -246,7 +246,7 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         Statistically-processed values at a horizontal level or in a horizontal
         layer in a continuous or non-continuous time interval for spatio-temporal
         changing tiles at a horizontal level or horizontal layer at a point in time */
-        {62, 35, 1, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, -2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, -4, 1, 4}},
+        {62, 35, 1, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 };
 
 /**
