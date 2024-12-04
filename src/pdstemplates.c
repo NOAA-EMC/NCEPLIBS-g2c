@@ -222,8 +222,11 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
                 4.35: Individual ensemble reforecast, control and perturbed,
                 at a horizontal level or in a  horizontal layer
                 in a continuous or non-continuous time interval. */
-        {35, 6, 1, {1, 1, 1, 1, 1, 1}}
-
+        {35, 6, 1, {1, 1, 1, 1, 1, 1}},
+        /** 4.49: Individual Ensemble Forecast, Control and Perturbed,
+        at a horizontal level or in a horizontal layer at a point in time
+        for Optical Properties of Aerosol for Optical Properties of Aerosol */
+        {49, 29, 0, { 1, 1, 2, 1, -1, -4, -1, -4, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
 };
 
 /**
