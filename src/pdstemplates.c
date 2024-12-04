@@ -247,6 +247,11 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         layer in a continuous or non-continuous time interval for spatio-temporal
         changing tiles at a horizontal level or horizontal layer at a point in time */
         {62, 35, 1, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
+        /** PDT 4.63 (12/04/2024)
+        4.63: Individual ensemble forecast, control and perturbed,
+        at a horizontal level or in a horizontal layer in a continuous or
+        non-continuous time interval for spatio-temporal changing tiles */
+        {63, 38, 1, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 };
 
 /**
@@ -796,6 +801,23 @@ extpdstemplate(g2int number, g2int *list)
                 for (k = 0; k < 6; k++)
                 {
                     new->ext[l + k] = new->map[29 + k];
+                }
+            }
+        }
+    }
+    /* PDT 4.63 (12/04/2024) */
+    else if (number == 63)
+    {
+        if (list[30] > 1)
+        {
+            new->extlen = (list[30] - 1) * 6;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[30]; j++)
+            {
+                l = (j - 2) * 6;
+                for (k = 0; k < 6; k++)
+                {
+                    new->ext[l + k] = new->map[32 + k];
                 }
             }
         }

@@ -374,11 +374,22 @@ main()
             return G2C_ERROR;
         free(tmpl->ext);
         free(tmpl);
+
+        /* Check for one that's there but does need an extension. */
+        tmpl = extpdstemplate(63, list);
+        if (!tmpl)
+            return G2C_ERROR;
+        if (tmpl->num != 63 || tmpl->maplen != 38 || !tmpl->needext)
+            return G2C_ERROR;
+        if (!tmpl->ext)
+            return G2C_ERROR;
+        free(tmpl->ext);
+        free(tmpl);
     }
     printf("ok!\n");
     printf("Testing all getpdstemplate() calls with extensions...\n");
     {
-#define NUM_TEST 52
+#define NUM_TEST 53
         int number[NUM_TEST] = {
             0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 30, 31, 40, 41,
             42, 43, 254, 1000, 1001, 1002, 1100, 1101, 32, 44, 45, 46, 47, 48, 50, 52,
@@ -443,7 +454,8 @@ main()
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4},                                                                             /* 55 */
             {1, 1, 2, 2, 2, 2, 1},                                                                                                                            /* 58 */
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1},                                                                    /* 59 */
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4},                                 /* 62 */
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4},                                   /* 62 */
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4},                          /* 63 */
         };
         int t;
         int ext_t = 0;
@@ -485,9 +497,9 @@ main()
                     if (map[m] != expected_map[t][m])
                         return G2C_ERROR;
 
-#define NUM_EXT_TEST 27
+#define NUM_EXT_TEST 28
                 int template[G2C_MAX_PDS_TEMPLATE_MAPLEN];
-                int expected_extlen[NUM_EXT_TEST] = {2, 2, 6, 6, 6, 6, 6, 8, 8, 10, 10, 6, 6, 10, 6, 6, 12, 8, 2, 8, 2, 2, 30, 6, 10, 36, 6};
+                int expected_extlen[NUM_EXT_TEST] = {2, 2, 6, 6, 6, 6, 6, 8, 8, 10, 10, 6, 6, 10, 6, 6, 12, 8, 2, 8, 2, 2, 30, 6, 10, 36, 6, 6};
                 int expected_ext[NUM_EXT_TEST][48] = {
                     {1, 1},                                                                                                                     /* 3 */
                     {1, 1},                                                                                                                     /* 4 */
@@ -516,6 +528,7 @@ main()
                     {2, 2, 2, 1, 4, 2, 2, 2, 1, 4},                                                                                             /* 35 */
                     {-1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}, /* 58 */
                     {1, 1, 1, 4, 1, 4},                                                                                                         /* 62 */
+                    {1, 1, 1, 4, 1, 4},                                                                                                         /* 63 */
                 };
 
                 if (needext)
