@@ -764,7 +764,7 @@ extpdstemplate(g2int number, g2int *list)
             new->ext[l + 8] = -4;
             new->ext[l + 9] = 1;
             new->ext[l + 10] = -1;
-            new->ext[l + 11] =-4;
+            new->ext[l + 11] = -4;
             new->ext[l + 12] = 1;
             new->ext[l + 13] = -1;
             new->ext[l + 14] = -4;
