@@ -227,6 +227,9 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         at a horizontal level or in a horizontal layer at a point in time
         for Optical Properties of Aerosol for Optical Properties of Aerosol */
         {49, 29, 0, {1, 1, 2, 1, -1, -4, -1, -4, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
+        /** 4.55: Spatio-temporal changing tiles
+        at a horizontal level or horizontal layer at a point in time */
+        {55, 21, 0, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
 };
 
 /**
