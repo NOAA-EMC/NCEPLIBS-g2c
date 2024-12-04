@@ -626,6 +626,9 @@ main()
                     case 62:
                         template[27] = 2;
                         break;
+                    case 63:
+                        template[30] = 2;
+                        break;
                     default:
                         return G2C_ERROR;
                     }
