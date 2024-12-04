@@ -223,13 +223,20 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
                 at a horizontal level or in a  horizontal layer
                 in a continuous or non-continuous time interval. */
         {35, 6, 1, {1, 1, 1, 1, 1, 1}},
-        /** 4.49: Individual Ensemble Forecast, Control and Perturbed,
+        /** PDT 4.49 (12/04/2024)
+        4.49: Individual Ensemble Forecast, Control and Perturbed,
         at a horizontal level or in a horizontal layer at a point in time
         for Optical Properties of Aerosol for Optical Properties of Aerosol */
         {49, 29, 0, {1, 1, 2, 1, -1, -4, -1, -4, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
-        /** 4.55: Spatio-temporal changing tiles
+        /** PDT 4.55 (12/04/2024)
+        4.55: Spatio-temporal changing tiles
         at a horizontal level or horizontal layer at a point in time */
         {55, 21, 0, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
+        /** PDT 4.58 (12/04/2024)
+        4.58: Individual Ensemble Forecast, Control and Perturbed, at a
+        horizontal level or in a horizontal layer at a point in time interval for
+        Atmospheric Chemical Constituents based on a distribution function */
+        {58, 7, 1, {1, 1, 2, 2, 2, 2, 1}},
 };
 
 /**
@@ -736,6 +743,34 @@ extpdstemplate(g2int number, g2int *list)
             new->ext[l + 2] = 2;
             new->ext[l + 3] = 1;
             new->ext[l + 4] = 4;
+        }
+    }
+    /* PDT 4.58 (12/04/2024) */
+    else if (number == 58)
+    {
+        new->extlen = list[6] * 18;
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < list[6]; i++)
+        {
+            l = i * 18;
+            new->ext[l] = -1;
+            new->ext[l + 1] = -4;
+            new->ext[l + 2] = 1;
+            new->ext[l + 3] = 1;
+            new->ext[l + 4] = 1;
+            new->ext[l + 5] = 2;
+            new->ext[l + 6] = 1;
+            new->ext[l + 7] = 1;
+            new->ext[l + 8] = -4;
+            new->ext[l + 9] = 1;
+            new->ext[l + 10] = -1;
+            new->ext[l + 11] =-4;
+            new->ext[l + 12] = 1;
+            new->ext[l + 13] = -1;
+            new->ext[l + 14] = -4;
+            new->ext[l + 15] = 1;
+            new->ext[l + 16] = 1;
+            new->ext[l + 17] = 1;
         }
     }
     return new;
