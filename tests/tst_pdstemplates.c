@@ -485,7 +485,7 @@ main()
                     if (map[m] != expected_map[t][m])
                         return G2C_ERROR;
 
-#define NUM_EXT_TEST 26
+#define NUM_EXT_TEST 27
                 int template[G2C_MAX_PDS_TEMPLATE_MAPLEN];
                 int expected_extlen[NUM_EXT_TEST] = {2, 2, 6, 6, 6, 6, 6, 8, 8, 10, 10, 6, 6, 10, 6, 6, 12, 8, 2, 8, 2, 2, 30, 6, 10, 36, 6};
                 int expected_ext[NUM_EXT_TEST][48] = {
