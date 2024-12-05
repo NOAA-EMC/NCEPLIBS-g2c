@@ -334,6 +334,9 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         /** PDT 4.88 (12/04/2024)
         4.88: Analysis or forecast at a horizontal level or in a horizontal layer at a specified local time */
         {88, 24, 1, {1, 1, 1, 1, 1, 1, -1, -4, 1, -1, -4, 1, 1, 2, 1, 1, 1, 1, 1, 1, -4, 1, 1, 4}},
+        /** PDT 4.89 (12/04/2024)
+        4.89: Post-processed quantile forecasts at a horizontal level or in a horizontal layer at a point in time */
+        {89, 20, 0, {1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 2}},
 };
 
 /**
