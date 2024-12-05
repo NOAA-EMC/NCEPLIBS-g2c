@@ -324,6 +324,9 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.85: Individual ensemble forecast, control and perturbed, at a horizontal level
         or in a horizontal layer in a continuous or non-continuous time interval for aerosol */
         {85, 38, 1, {1, 1, 2, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
+        /** PDT 4.86 (12/04/2024)
+        4.86: Quantile forecasts at a horizontal level or in a horizontal layer at a point in time */
+        {86, 17, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 2}},
 };
 
 /**
