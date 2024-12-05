@@ -284,6 +284,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.76: Analysis or forecast at a horizontal level or in a horizontal layer at a point in
         time for atmospheric chemical constituents with source or sink */
         {76, 17, 0, {1, 1, 2, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
+        /** PDT 4.77 (12/04/2024)
+        4.77: Individual ensemble forecast, control and perturbed, at a horizontal level or in
+        a horizontal layer at a point in time for atmospheric chemical constituents with source or sink */
+        {77, 20, 0, {1, 1, 2, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
 };
 
 /**
