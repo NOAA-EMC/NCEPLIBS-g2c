@@ -258,6 +258,11 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         horizontal layer in a continuous or non-continuous time interval for
         Atmospheric Chemical Constituents based on a distribution function */
         {67, 7, 1, {1, 1, 2, 2, 2, 2, 1}},
+        /** PDT 4.68 (12/04/2024)
+        4.68: Individual ensemble forecast, control and perturbed, at a horizontal level
+        or in a horizontal layer in a continuous or non-continuous time interval
+        for Atmospheric Chemical Constituents based on a distribution function */
+        {68, 7, 1, {1, 1, 2, 2, 2, 2, 1}},
 };
 
 /**
@@ -868,6 +873,49 @@ extpdstemplate(g2int number, g2int *list)
         new->ext[k + 24] = 4;
         new->ext[k + 25] = 1;
         new->ext[k + 26] = 4;
+    }
+    /* PDT 4.68 (12/04/2024) */
+    else if (number == 67)
+    {
+        k = list[6] * 2;
+        new->extlen = k + 30;
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < list[6]; i++)
+        {
+            l = i * 2;
+            new->ext[l] = -1;
+            new->ext[l + 1] = -4;
+        }
+        new->ext[k] = 1;
+        new->ext[k + 1] = 1;
+        new->ext[k + 2] = 1;
+        new->ext[k + 3] = 2;
+        new->ext[k + 4] = 1;
+        new->ext[k + 5] = 1;
+        new->ext[k + 6] = -4;
+        new->ext[k + 7] = 1;
+        new->ext[k + 8] = -1;
+        new->ext[k + 9] = -4;
+        new->ext[k + 10] = 1;
+        new->ext[k + 11] = -1;
+        new->ext[k + 12] = -4;
+        new->ext[k + 13] = 1;
+        new->ext[k + 14] = 1;
+        new->ext[k + 15] = 1;
+        new->ext[k + 16] = 2;
+        new->ext[k + 17] = 1;
+        new->ext[k + 18] = 1;
+        new->ext[k + 19] = 1;
+        new->ext[k + 20] = 1;
+        new->ext[k + 21] = 1;
+        new->ext[k + 22] = 1;
+        new->ext[k + 23] = 2;
+        new->ext[k + 24] = 1;
+        new->ext[k + 25] = 1;
+        new->ext[k + 26] = 1;
+        new->ext[k + 27] = 4;
+        new->ext[k + 28] = 1;
+        new->ext[k + 29] = 4;
     }
     return new;
 }
