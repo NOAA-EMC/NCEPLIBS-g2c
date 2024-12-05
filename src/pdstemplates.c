@@ -954,16 +954,16 @@ extpdstemplate(g2int number, g2int *list)
     /* PDT 4.73 (12/04/2024) */
     else if (number == 73)
     {
-        if (list[29] > 1)
+        if (list[27] > 1)
         {
-            new->extlen = (list[29] - 1) * 6;
+            new->extlen = (list[27] - 1) * 6;
             new->ext = malloc(sizeof(g2int) * new->extlen);
-            for (j = 2; j <= list[29]; j++)
+            for (j = 2; j <= list[27]; j++)
             {
                 l = (j - 2) * 6;
                 for (k = 0; k < 6; k++)
                 {
-                    new->ext[l + k] = new->map[31 + k];
+                    new->ext[l + k] = new->map[29 + k];
                 }
             }
         }
