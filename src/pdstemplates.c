@@ -293,6 +293,11 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         processed values at a horizontal level or in a horizontal layer in a continuous or
         non-continuous time interval for atmospheric chemical constituents with source or sink */
         {78, 31, 1, {1, 1, 2, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
+        /** PDT 4.79 (12/04/2024)
+        4.79: Individual ensemble forecast, control and perturbed, at a horizontal level or in a
+        horizontal layer in a continuous or non-continuous time
+        interval for atmospheric chemical constituents with source or sink */
+        {79, 34, 1, {1, 1, 2, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 };
 
 /**
@@ -994,6 +999,23 @@ extpdstemplate(g2int number, g2int *list)
                 for (k = 0; k < 6; k++)
                 {
                     new->ext[l + k] = new->map[25 + k];
+                }
+            }
+        }
+    }
+    /* PDT 4.79 (12/04/2024) */
+    else if (number == 79)
+    {
+        if (list[26] > 1)
+        {
+            new->extlen = (list[26] - 1) * 6;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[26]; j++)
+            {
+                l = (j - 2) * 6;
+                for (k = 0; k < 6; k++)
+                {
+                    new->ext[l + k] = new->map[28 + k];
                 }
             }
         }
