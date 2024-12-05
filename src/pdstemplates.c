@@ -252,6 +252,12 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         at a horizontal level or in a horizontal layer in a continuous or
         non-continuous time interval for spatio-temporal changing tiles */
         {63, 38, 1, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
+        /** PDT 4.67 (12/04/2024)
+        4.67: Average, Accumulation, and/or Extreme values or Other
+        statistically-processed values at a horizontal level or in a
+        horizontal layer in a continuous or non-continuous time interval for
+        Atmospheric Chemical Constituents based on a distribution function */
+        {67, 7, 1, {1, 1, 2, 2, 2, 2, 1}},
 };
 
 /**
@@ -763,30 +769,31 @@ extpdstemplate(g2int number, g2int *list)
     /* PDT 4.58 (12/04/2024) */
     else if (number == 58)
     {
-        new->extlen = list[6] * 18;
+        k = list[6] * 2;
+        new->extlen = k + 16;
         new->ext = malloc(sizeof(g2int) * new->extlen);
         for (i = 0; i < list[6]; i++)
         {
-            l = i * 18;
+            l = i * 2;
             new->ext[l] = -1;
             new->ext[l + 1] = -4;
-            new->ext[l + 2] = 1;
-            new->ext[l + 3] = 1;
-            new->ext[l + 4] = 1;
-            new->ext[l + 5] = 2;
-            new->ext[l + 6] = 1;
-            new->ext[l + 7] = 1;
-            new->ext[l + 8] = -4;
-            new->ext[l + 9] = 1;
-            new->ext[l + 10] = -1;
-            new->ext[l + 11] = -4;
-            new->ext[l + 12] = 1;
-            new->ext[l + 13] = -1;
-            new->ext[l + 14] = -4;
-            new->ext[l + 15] = 1;
-            new->ext[l + 16] = 1;
-            new->ext[l + 17] = 1;
         }
+        new->ext[k] = 1;
+        new->ext[k + 1] = 1;
+        new->ext[k + 2] = 1;
+        new->ext[k + 3] = 2;
+        new->ext[k + 4] = 1;
+        new->ext[k + 5] = 1;
+        new->ext[k + 6] = -4;
+        new->ext[k + 7] = 1;
+        new->ext[k + 8] = -1;
+        new->ext[k + 9] = -4;
+        new->ext[k + 10] = 1;
+        new->ext[k + 11] = -1;
+        new->ext[k + 12] = -4;
+        new->ext[k + 13] = 1;
+        new->ext[k + 14] = 1;
+        new->ext[k + 15] = 1;
     }
     /* PDT 4.62 (12/04/2024) */
     else if (number == 62)
@@ -821,6 +828,46 @@ extpdstemplate(g2int number, g2int *list)
                 }
             }
         }
+    }
+    /* PDT 4.67 (12/04/2024) */
+    else if (number == 67)
+    {
+        k = list[6] * 2;
+        new->extlen = k + 27;
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < list[6]; i++)
+        {
+            l = i * 2;
+            new->ext[l] = -1;
+            new->ext[l + 1] = -4;
+        }
+        new->ext[k] = 1;
+        new->ext[k + 1] = 1;
+        new->ext[k + 2] = 1;
+        new->ext[k + 3] = 2;
+        new->ext[k + 4] = 1;
+        new->ext[k + 5] = 1;
+        new->ext[k + 6] = -4;
+        new->ext[k + 7] = 1;
+        new->ext[k + 8] = -1;
+        new->ext[k + 9] = -4;
+        new->ext[k + 10] = 1;
+        new->ext[k + 11] = -1;
+        new->ext[k + 12] = -4;
+        new->ext[k + 13] = 2;
+        new->ext[k + 14] = 1;
+        new->ext[k + 15] = 1;
+        new->ext[k + 16] = 1;
+        new->ext[k + 17] = 1;
+        new->ext[k + 18] = 1;
+        new->ext[k + 19] = 1;
+        new->ext[k + 20] = 4;
+        new->ext[k + 21] = 1;
+        new->ext[k + 22] = 1;
+        new->ext[k + 23] = 1;
+        new->ext[k + 24] = 4;
+        new->ext[k + 25] = 1;
+        new->ext[k + 26] = 4;
     }
     return new;
 }
