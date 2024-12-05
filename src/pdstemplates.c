@@ -263,6 +263,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         or in a horizontal layer in a continuous or non-continuous time interval
         for Atmospheric Chemical Constituents based on a distribution function */
         {68, 7, 1, {1, 1, 2, 2, 2, 2, 1}},
+        /** PDT 4.70 (12/04/2024)
+        4.70: Post-processing Analysis or Forecast at a
+        horizontal level or in a horizontal layer at a point in time */
+        {70, 19, 0, {1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
 };
 
 /**
