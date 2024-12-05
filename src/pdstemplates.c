@@ -337,6 +337,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         /** PDT 4.89 (12/04/2024)
         4.89: Post-processed quantile forecasts at a horizontal level or in a horizontal layer at a point in time */
         {89, 20, 0, {1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 2}},
+        /** PDT 4.90 (12/04/2024)
+        4.90: Post-processed quantile forecasts at a horizontal level or in a horizontal layer in a continuous 
+        or non-continuous time interval */
+        {90, 34, 1, {1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 2, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 };
 
 /**
@@ -1157,6 +1161,23 @@ extpdstemplate(g2int number, g2int *list)
                 for (k = 0; k < 11; k++)
                 {
                     new->ext[l + k] = new->map[13 + k];
+                }
+            }
+        }
+    }
+    /* PDT 4.90 (12/04/2024) */
+    else if (number == 90)
+    {
+        if (list[26] > 1)
+        {
+            new->extlen = (list[26] - 1) * 6;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[26]; j++)
+            {
+                l = (j - 2) * 6;
+                for (k = 0; k < 6; k++)
+                {
+                    new->ext[l + k] = new->map[28 + k];
                 }
             }
         }
