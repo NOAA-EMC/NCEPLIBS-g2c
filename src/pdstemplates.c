@@ -349,7 +349,8 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.93: Post-processing analysis or forecast at a horizontal level or in a horizontal layer at a specified local time */
         {93, 27, 1, {1, 1, 2, 2, 1, 1, 1, 1, 1, -1, -4, 1, -1, -4, 1, 1, 2, 1, 1, 1, 1, 1, 1, -4, 1, 1, 4}},
         /** PDT 4.94 (12/04/2024)
-        4.94: Post-processing analysis or forecast at a horizontal level or in a horizontal layer at a specified local time */
+        4.94: Post-processing individual ensemble forecast, control and perturbed, at a horizontal level
+        or in a horizontal layer at a specified local time*/
         {94, 29, 1, {1, 1, 2, 2, 1, 1, 1, 1, 1, -1, -4, 1, -1, -4, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, -4, 1, 1, 4}},
 };
 
