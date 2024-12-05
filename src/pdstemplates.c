@@ -315,6 +315,11 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.83: Individual ensemble forecast, control and perturbed, at a horizontal level or in a
         horizontal layer in a continuous or non-continuous time interval for aerosol with source or sink */
         {83, 40, 1, {1, 1, 1, 2, 1, 1, -1, -4, -1, -4, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 4, 1, 4}},
+        /** PDT 4.84 (12/04/2024)
+        4.84: Average, accumulation, and/or extreme values or other statistically processed values
+        at a horizontal level or in a horizontal layer in a continuous
+        or non-continuous time interval for aerosol with source or sink */
+        {84, 39, 1, {1, 1, 2, 1, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 };
 
 /**
@@ -1067,6 +1072,23 @@ extpdstemplate(g2int number, g2int *list)
                 for (k = 0; k < 6; k++)
                 {
                     new->ext[l + k] = new->map[34 + k];
+                }
+            }
+        }
+    }
+    /* PDT 4.84 (12/04/2024) */
+    else if (number == 84)
+    {
+        if (list[31] > 1)
+        {
+            new->extlen = (list[31] - 1) * 6;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[31]; j++)
+            {
+                l = (j - 2) * 6;
+                for (k = 0; k < 6; k++)
+                {
+                    new->ext[l + k] = new->map[33 + k];
                 }
             }
         }
