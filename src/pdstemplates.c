@@ -875,7 +875,7 @@ extpdstemplate(g2int number, g2int *list)
         new->ext[k + 26] = 4;
     }
     /* PDT 4.68 (12/04/2024) */
-    else if (number == 67)
+    else if (number == 68)
     {
         k = list[6] * 2;
         new->extlen = k + 30;
