@@ -714,7 +714,7 @@ main()
                     case 73:
                         template[29] = 2;
                         break;
-                    case 74:
+                    case 78:
                         template[23] = 2;
                         break;
                     default:
