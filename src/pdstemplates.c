@@ -351,7 +351,7 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         /** PDT 4.94 (12/04/2024)
         4.94: Post-processing individual ensemble forecast, control and perturbed, at a horizontal level
         or in a horizontal layer at a specified local time*/
-        {94, 29, 1, {1, 1, 2, 2, 1, 1, 1, 1, 1, -1, -4, 1, -1, -4, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, -4, 1, 1, 4}},
+        {94, 30, 1, {1, 1, 2, 2, 1, 1, 1, 1, 1, -1, -4, 1, -1, -4, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, -4, 1, 1, 4}},
 };
 
 /**
@@ -1230,16 +1230,16 @@ extpdstemplate(g2int number, g2int *list)
     /* PDT 4.94 (12/04/2024) */
     else if (number == 94)
     {
-        if (list[17] > 1)
+        if (list[18] > 1)
         {
-            new->extlen = (list[17] - 1) * 11;
+            new->extlen = (list[18] - 1) * 11;
             new->ext = malloc(sizeof(g2int) * new->extlen);
-            for (j = 2; j <= list[17]; j++)
+            for (j = 2; j <= list[18]; j++)
             {
                 l = (j - 2) * 11;
                 for (k = 0; k < 11; k++)
                 {
-                    new->ext[l + k] = new->map[18 + k];
+                    new->ext[l + k] = new->map[19 + k];
                 }
             }
         }
