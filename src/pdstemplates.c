@@ -356,6 +356,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.95: Average, accumulation, extreme values or other statistically processed value
         at a horizontal level or in a horizontal layer at a local time */
         {95, 28, 1, {1, 1, 1, 1, 1, 1, -1, -4, 1, -1, -4, 1, 1, 4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, -4, 1, 1, 4}},
+        /** PDT 4.96 (12/04/2024)
+        4.96: Average, accumulation, extreme values or other statistically processed values of an individual ensemble forecast,
+        control and perturbed, at a horizontal level or in a horizontal layer at a local time */
+        {96, 31, 1, {1, 1, 1, 1, 1, 1, -1, -4, 1, -1, -4, 1, 1, 1, 1, 1, 4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, -4, 1, 1, 4}},
 };
 
 /**
@@ -1261,6 +1265,23 @@ extpdstemplate(g2int number, g2int *list)
                 for (k = 0; k < 11; k++)
                 {
                     new->ext[l + k] = new->map[17 + k];
+                }
+            }
+        }
+    }
+    /* PDT 4.96 (12/04/2024) */
+    else if (number == 96)
+    {
+        if (list[19] > 1)
+        {
+            new->extlen = (list[19] - 1) * 11;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[19]; j++)
+            {
+                l = (j - 2) * 11;
+                for (k = 0; k < 11; k++)
+                {
+                    new->ext[l + k] = new->map[20 + k];
                 }
             }
         }
