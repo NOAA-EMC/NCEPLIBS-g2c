@@ -291,7 +291,7 @@ g2int g2_gribend(unsigned char *cgrib);
 /* Constants to help with templates. */
 #define G2C_MAX_GDS_TEMPLATE 31        /**< Maximum number of grid templates. */
 #define G2C_MAX_GDS_TEMPLATE_MAPLEN 28 /**< Maximum grid template map length. */
-#define G2C_MAX_PDS_TEMPLATE 57        /**< Maximum number of PDS templates. */
+#define G2C_MAX_PDS_TEMPLATE 58        /**< Maximum number of PDS templates. */
 #define G2C_MAX_PDS_TEMPLATE_MAPLEN 45 /**< Maximum template map length. */
 #define G2C_MAX_DRS_TEMPLATE 10        /**< Maximum number of DRS templates. */
 #define G2C_MAX_DRS_TEMPLATE_MAPLEN 18 /**< Maximum DRS template map length. */
