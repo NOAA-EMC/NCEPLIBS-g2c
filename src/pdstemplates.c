@@ -305,7 +305,7 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         /** PDT 4.81 (12/04/2024)
         4.81: Individual ensemble forecast, control and perturbed, at a horizonal level
         or in a horizontal layer at a point in time for optical properties of aerosol with source or sink */
-        {81, 30, 0, {1, 1, 2, 1, 1, -1, -4, -1, -4, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -3, 1, -1, -4, 1, 1, 1}},
+        {81, 30, 0, {1, 1, 2, 1, 1, -1, -4, -1, -4, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
 };
 
 /**
