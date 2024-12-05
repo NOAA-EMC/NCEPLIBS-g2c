@@ -311,6 +311,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         at a horizontal level or in a horizontal layer in a continuous
         or non-continuous time interval for aerosol with source or sink */
         {82, 36, 1, {1, 1, 2, 1, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
+        /** PDT 4.83 (12/04/2024)
+        4.83: Individual ensemble forecast, control and perturbed, at a horizontal level or in a
+        horizontal layer in a continuous or non-continuous time interval for aerosol with source or sink */
+        {83, 40, 1, {1, 1, 1, 2, 1, 1, -1, -4, -1, -4, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 4, 1, 4}},
 };
 
 /**
@@ -1046,6 +1050,23 @@ extpdstemplate(g2int number, g2int *list)
                 for (k = 0; k < 6; k++)
                 {
                     new->ext[l + k] = new->map[30 + k];
+                }
+            }
+        }
+    }
+    /* PDT 4.83 (12/04/2024) */
+    else if (number == 83)
+    {
+        if (list[31] > 1)
+        {
+            new->extlen = (list[31] - 1) * 6;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[31]; j++)
+            {
+                l = (j - 2) * 6;
+                for (k = 0; k < 6; k++)
+                {
+                    new->ext[l + k] = new->map[34 + k];
                 }
             }
         }
