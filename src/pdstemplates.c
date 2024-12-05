@@ -276,6 +276,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         or other Statistically processed values at a horizontal level or in
         a horizontal layer in a continuous or non-continuous time interval */
         {72, 32, 1, {1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
+        /** PDT 4.73 (12/04/2024)
+        4.73: Post-processing Individual Ensemble Forecast, Control and Perturbed, at a
+        horizontal level or in a horizontal layer in a continuous or non-continuous time interval */
+        {73, 34, 1, {1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 1}},
 };
 
 /**
@@ -943,6 +947,23 @@ extpdstemplate(g2int number, g2int *list)
                 for (k = 0; k < 6; k++)
                 {
                     new->ext[l + k] = new->map[26 + k];
+                }
+            }
+        }
+    }
+    /* PDT 4.73 (12/04/2024) */
+    else if (number == 73)
+    {
+        if (list[29] > 1)
+        {
+            new->extlen = (list[29] - 1) * 6;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[29]; j++)
+            {
+                l = (j - 2) * 6;
+                for (k = 0; k < 6; k++)
+                {
+                    new->ext[l + k] = new->map[31 + k];
                 }
             }
         }
