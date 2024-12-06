@@ -391,6 +391,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.109: Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer at a 
         point in time for generic optical products */
         {109, 23, 0, {1, 1, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
+        /** PDT 4.110 (12/04/2024)
+        4.110: Average, accumulation, extreme values or other statistically processed values at a horizontal level or
+        in a horizontal layer in a continuous or non-continuous time interval for generic optical products */
+        {110, 34, 1, {1, 1, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 };
 
 /**
@@ -1383,6 +1387,23 @@ extpdstemplate(g2int number, g2int *list)
         for (i = 0; i < k; i++)
         {
             new->ext[j + 1 + i] = -4;
+        }
+    }
+    /* PDT 4.110 (12/04/2024) */
+    else if (number == 110)
+    {
+        if (list[26] > 1)
+        {
+            new->extlen = (list[26] - 1) * 6;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[26]; j++)
+            {
+                l = (j - 2) * 6;
+                for (k = 0; k < 6; k++)
+                {
+                    new->ext[l + k] = new->map[28 + k];
+                }
+            }
         }
     }
     return new;
