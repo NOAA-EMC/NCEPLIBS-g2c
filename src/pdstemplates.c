@@ -418,6 +418,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.117: Individual large ensemble forecast, control and perturbed, at a horizontal
         level or in a horizontal layer at a point in time */
         {117, 18, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 4, 4}},
+        /** PDT 4.118 (12/04/2024)
+        4.118: Individual large ensemble forecast, control and perturbed, at a horizontal
+        level or in a horizontal layer at a point in time */
+        {118, 32, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 4, 4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 };
 
 /**
@@ -1586,6 +1590,23 @@ extpdstemplate(g2int number, g2int *list)
         new->ext[l + 30] = 4;
         new->ext[l + 31] = 1;
         new->ext[l + 32] = 4;
+    }
+    /* PDT 4.118 (12/04/2024) */
+    else if (number == 118)
+    {
+        if (list[24] > 1)
+        {
+            new->extlen = (list[24] - 1) * 6;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[24]; j++)
+            {
+                l = (j - 2) * 6;
+                for (k = 0; k < 6; k++)
+                {
+                    new->ext[l + k] = new->map[26 + k];
+                }
+            }
+        }
     }
     return new;
 }
