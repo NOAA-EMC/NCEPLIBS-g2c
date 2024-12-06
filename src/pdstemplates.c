@@ -430,6 +430,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.120: Probability forecasts from large ensemble at a horizontal level or in a
         horizontal layer in a continuous or non-continuous time interval */
         {120, 38, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 4, 1, 1, 1, -1, -4, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
+        /** PDT 4.121 (12/04/2024)
+        4.121: Probability forecasts from large ensembles with spatiotemporal processing
+        based on focal (moving window) statistics at a horizontal level or in a horizontal layer at a point in time */
+        {121, 26, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 4, 1, 1, 1, -1, -4, -1, -4, 1, 1}},
 };
 
 /**
@@ -1631,6 +1635,25 @@ extpdstemplate(g2int number, g2int *list)
                     new->ext[l + k] = new->map[32 + k];
                 }
             }
+        }
+    }
+    /* PDT 4.121 (12/04/2024) */
+    else if (number == 121)
+    {
+        new->extlen = list[25] * 9;
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < list[25]; i++)
+        {
+            l = i * 9;
+            new->ext[l] = -4;
+            new->ext[l + 1] = 1;
+            new->ext[l + 2] = 2;
+            new->ext[l + 3] = 2;
+            new->ext[l + 4] = 1;
+            new->ext[l + 5] = 1;
+            new->ext[l + 6] = 1;
+            new->ext[l + 7] = 4;
+            new->ext[l + 8] = 4;
         }
     }
     return new;
