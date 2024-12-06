@@ -414,6 +414,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.116: Individual ensemble forecast, control and perturbed on generalized tiles at a horizontal level or in a horizontal 
         layer in a continuous or non-continuous time interval */
         {116, 7, 1, {1, 1, 1, 2, 1, 1, 1}},
+        /** PDT 4.117 (12/04/2024)
+        4.117: Individual large ensemble forecast, control and perturbed, at a horizontal
+        level or in a horizontal layer at a point in time */
+        {117, 18, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 4, 4}},
 };
 
 /**
