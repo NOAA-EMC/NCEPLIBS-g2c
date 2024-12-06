@@ -448,7 +448,7 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         /** PDT 4.127 (12/04/2024)
         4.127: Individual ensemble forecast, control and perturbed, at a horizontal
         level or in a horizontal layer in a continuous or non-continuous time interval for radionuclides */
-        {126, 50, 1, {1, 1, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
+        {127, 50, 1, {1, 1, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 };
 
 /**
