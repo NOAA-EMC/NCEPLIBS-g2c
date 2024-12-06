@@ -434,6 +434,9 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.121: Probability forecasts from large ensembles with spatiotemporal processing
         based on focal (moving window) statistics at a horizontal level or in a horizontal layer at a point in time */
         {121, 26, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 4, 1, 1, 1, -1, -4, -1, -4, 1, 1}},
+        /** PDT 4.124 (12/04/2024)
+        4.124: Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for for radionuclides */
+        {124, 32, 0, {1, 1, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
 };
 
 /**
