@@ -396,9 +396,12 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         in a horizontal layer in a continuous or non-continuous time interval for generic optical products */
         {110, 34, 1, {1, 1, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
         /** PDT 4.111 (12/04/2024)
-        4.110: Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer,
+        4.111: Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer,
         in a continuous or non-continuous interval for generic optical products */
         {111, 37, 1, {1, 1, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
+        /** PDT 4.113 (12/04/2024)
+        4.113: Generalized tiles at a horizontal level or horizontal layer at a point in time */
+        {113, 7, 1, {1, 1, 1, 2, 1, 1, 1}},
 };
 
 /**
@@ -1426,6 +1429,33 @@ extpdstemplate(g2int number, g2int *list)
                 }
             }
         }
+    }
+    /* PDT 4.113 (12/04/2024) */
+    else if (number == 113)
+    {
+        new->extlen = list[6] + 16;
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < list[6]; i++)
+        {
+            new->ext[i] = 1;
+        }
+        l = list[6]
+        new->ext[l] = 1;
+        new->ext[l + 1] = 1;
+        new->ext[l + 2] = 16;
+        new->ext[l + 3] = 1;
+        new->ext[l + 4] = 1;
+        new->ext[l + 5] = 1;
+        new->ext[l + 6] = 2;
+        new->ext[l + 7] = 1;
+        new->ext[l + 8] = 1;
+        new->ext[l + 9] = -4;
+        new->ext[l + 10] = 1;
+        new->ext[l + 11] = -1;
+        new->ext[l + 12] = -4;
+        new->ext[l + 13] = 1;
+        new->ext[l + 14] = -1;
+        new->ext[l + 15] = -4;
     }
     return new;
 }
