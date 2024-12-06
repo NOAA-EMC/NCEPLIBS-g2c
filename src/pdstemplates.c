@@ -376,6 +376,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.100: Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer at a 
         point in time for wave 2D spectra with explicit list of frequencies and directions */
         {100, 17, 1, {1, 1, 2, 2, 2, 2, 1, 1, 1, 2, 1, 1, -4, 1, 1, 1, -1}},
+        /** PDT 4.103 (12/04/2024)
+        4.103: Analysis or forecast at a horizontal level or in a horizontal layer at a point in time 
+        for waves selected by period range */
+        {103, 20, 0, {1, 1, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
 };
 
 /**
