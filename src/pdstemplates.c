@@ -422,6 +422,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.118: Individual large ensemble forecast, control and perturbed, at a horizontal
         level or in a horizontal layer at a point in time */
         {118, 32, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 4, 4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
+        /** PDT 4.119 (12/04/2024)
+        4.119: Probability forecasts from large ensemble at a horizontal level or in a
+        horizontal layer at a point in time */
+        {119, 24, 0, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 4, 1, 1, 1, -1, -4, -1, -4}},
 };
 
 /**
