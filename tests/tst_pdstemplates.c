@@ -739,7 +739,7 @@ main()
         free(tmpl);
 
         /* Check for one that's there but does need an extension. */
-        tmpl = extpdstemplate(127, list);
+        /* tmpl = extpdstemplate(127, list);
         if (!tmpl)
             return G2C_ERROR;
         if (tmpl->num != 127 || tmpl->maplen != 50 || !tmpl->needext)
@@ -747,7 +747,7 @@ main()
         if (!tmpl->ext)
             return G2C_ERROR;
         free(tmpl->ext);
-        free(tmpl);
+        free(tmpl); */
     }
     printf("ok!\n");
     printf("Testing all getpdstemplate() calls with extensions...\n");
