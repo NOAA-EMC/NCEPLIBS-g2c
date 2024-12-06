@@ -435,11 +435,16 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         based on focal (moving window) statistics at a horizontal level or in a horizontal layer at a point in time */
         {121, 26, 1, {1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 4, 1, 1, 1, -1, -4, -1, -4, 1, 1}},
         /** PDT 4.124 (12/04/2024)
-        4.124: Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for for radionuclides */
+        4.124: Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for radionuclides */
         {124, 32, 0, {1, 1, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
         /** PDT 4.125 (12/04/2024)
-        4.125: Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for for radionuclides */
+        4.125: Individual ensemble forecast, control and perturbed, at a horizontal
+        level or in a horizontal layer at a point in time for radionuclides */
         {125, 35, 0, {1, 1, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
+        /** PDT 4.126 (12/04/2024)
+        4.126: Average, accumulation, or extreme values or other statistically processed values at a horizontal level or in a horizontal 
+        layer in a continuous or non-continuous time interval for radionuclides */
+        {126, 47, 1, {1, 1, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 };
 
 /**
@@ -1660,6 +1665,23 @@ extpdstemplate(g2int number, g2int *list)
             new->ext[l + 6] = 1;
             new->ext[l + 7] = 4;
             new->ext[l + 8] = 4;
+        }
+    }
+    /* PDT 4.126 (12/04/2024) */
+    else if (number == 126)
+    {
+        if (list[39] > 1)
+        {
+            new->extlen = (list[39] - 1) * 6;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[39]; j++)
+            {
+                l = (j - 2) * 6;
+                for (k = 0; k < 6; k++)
+                {
+                    new->ext[l + k] = new->map[41 + k];
+                }
+            }
         }
     }
     return new;
