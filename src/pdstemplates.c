@@ -406,6 +406,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.114: Average, accumulation, and/or extreme values or other statistically processed values on generalized tiles at a 
         horizontal level or in a horizontal layer in a continuous or non-continuous time interval */
         {114, 7, 1, {1, 1, 1, 2, 1, 1, 1}},
+        /** PDT 4.115 (12/04/2024)
+        4.115: Individual ensemble forecast, control and perturbed on generalized tiles at a horizontal level or in a horizontal 
+        layer at a point in time */
+        {115, 7, 1, {1, 1, 1, 2, 1, 1, 1}},
 };
 
 /**
@@ -1501,6 +1505,35 @@ extpdstemplate(g2int number, g2int *list)
         new->ext[l + 27] = 4;
         new->ext[l + 28] = 1;
         new->ext[l + 29] = 4;
+    }
+    else if (number == 115)
+    {
+        new->extlen = list[6] + 19;
+        new->ext = malloc(sizeof(g2int) * new->extlen);
+        for (i = 0; i < list[6]; i++)
+        {
+            new->ext[i] = 1;
+        }
+        l = list[6];
+        new->ext[l] = 1;
+        new->ext[l + 1] = 1;
+        new->ext[l + 2] = 16;
+        new->ext[l + 3] = 1;
+        new->ext[l + 4] = 1;
+        new->ext[l + 5] = 1;
+        new->ext[l + 6] = 2;
+        new->ext[l + 7] = 1;
+        new->ext[l + 8] = 1;
+        new->ext[l + 9] = -4;
+        new->ext[l + 10] = 1;
+        new->ext[l + 11] = -1;
+        new->ext[l + 12] = -4;
+        new->ext[l + 13] = 1;
+        new->ext[l + 14] = -1;
+        new->ext[l + 15] = -4;
+        new->ext[l + 16] = 1;
+        new->ext[l + 17] = 1;
+        new->ext[l + 18] = 1;
     }
     return new;
 }
