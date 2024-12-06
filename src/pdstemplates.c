@@ -387,6 +387,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         /** PDT 4.108 (12/04/2024)
         4.108: Analysis or forecast at a horizontal level or in a horizontal layer at a point in time for generic optical products */
         {108, 20, 0, {1, 1, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4}},
+        /** PDT 4.109 (12/04/2024)
+        4.109: Individual ensemble forecast, control and perturbed, at a horizontal level or in a horizontal layer at a 
+        point in time for generic optical products */
+        {109, 23, 0, {1, 1, 1, -1, -4, -1, -4, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1}},
 };
 
 /**
