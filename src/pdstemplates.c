@@ -1439,7 +1439,7 @@ extpdstemplate(g2int number, g2int *list)
         {
             new->ext[i] = 1;
         }
-        l = list[6]
+        l = list[6];
         new->ext[l] = 1;
         new->ext[l + 1] = 1;
         new->ext[l + 2] = 16;
