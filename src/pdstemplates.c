@@ -445,6 +445,10 @@ static const struct pdstemplate templatespds[G2C_MAX_PDS_TEMPLATE] =
         4.126: Average, accumulation, or extreme values or other statistically processed values at a horizontal level or in a horizontal 
         layer in a continuous or non-continuous time interval for radionuclides */
         {126, 47, 1, {1, 1, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
+        /** PDT 4.127 (12/04/2024)
+        4.127: Individual ensemble forecast, control and perturbed, at a horizontal
+        level or in a horizontal layer in a continuous or non-continuous time interval for radionuclides */
+        {126, 50, 1, {1, 1, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, -4, 1, -1, -4, 1, -1, -4, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 4}},
 };
 
 /**
@@ -1680,6 +1684,23 @@ extpdstemplate(g2int number, g2int *list)
                 for (k = 0; k < 6; k++)
                 {
                     new->ext[l + k] = new->map[41 + k];
+                }
+            }
+        }
+    }
+    /* PDT 4.127 (12/04/2024) */
+    else if (number == 127)
+    {
+        if (list[42] > 1)
+        {
+            new->extlen = (list[42] - 1) * 6;
+            new->ext = malloc(sizeof(g2int) * new->extlen);
+            for (j = 2; j <= list[42]; j++)
+            {
+                l = (j - 2) * 6;
+                for (k = 0; k < 6; k++)
+                {
+                    new->ext[l + k] = new->map[44 + k];
                 }
             }
         }
