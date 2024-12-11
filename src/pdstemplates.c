@@ -35,6 +35,8 @@
  * 2013-08-05 | Vuong | Corrected 4.91 and added Templates 4.33,4.34,4.53,4.54
  * 2015-10-07 | Vuong | Added Templates 4.57, 4.60, 4.61 and allow a forecast time to be negative
  * 2022-10-18 | Hartnett | Added g2c_get_pds_template() and g2c_get_pds_template_extension().
+ * 2024-09-09 | Stahl | Added extension for Template 4.35
+ * 2024-12-04 | Stahl | Added 55 missing templates, including those from July 2024 WMO updates.
  *
  * @author Stephen Gilbert @date 2001-06-28
  */
