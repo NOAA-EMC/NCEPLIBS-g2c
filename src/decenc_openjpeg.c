@@ -491,7 +491,6 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
         0,
     };
     cmptparm.prec = (OPJ_UINT32)nbits;
-    cmptparm.bpp = (OPJ_UINT32)nbits;
     cmptparm.sgnd = 0;
     cmptparm.dx = 1;
     cmptparm.dy = 1;
