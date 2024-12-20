@@ -423,6 +423,8 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 
 #define G2C_JASPER_MAX_MEM @JASPER_MAX_MEM@ /**< Maximum size for the Jasper memory buffer. */
 
+#define G2C_PNG_WIDTH_MAX @PNG_WIDTH_MAX@ /**< Maximum width of PNG grid */
+#define G2C_PNG_HEIGHT_MAX @PNG_HEIGHT_MAX@ /**< Maximum height of PNG grid */
 /* Error codes for G2 API. */
 #define G2_NO_ERROR 0             /**< Function succeeded. */
 #define G2_CREATE_GRIB_VERSION -1 /**< Wrong GRIB version for g2_create(), must be 2. */

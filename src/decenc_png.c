@@ -100,7 +100,15 @@ int
 g2c_dec_png(unsigned char *pngbuf, int *width, int *height,
             unsigned char *cout)
 {
-    return dec_png(pngbuf, (g2int *)&width, (g2int *)&height, cout);
+    g2int width8 = *width, height8 = *height;
+    int ret;
+
+    ret = dec_png(pngbuf, &width8, &height8, cout);
+
+    *width = (g2int)width8;
+    *height = (g2int)height8;
+
+    return ret;
 }
 
 /**
@@ -161,6 +169,9 @@ dec_png(unsigned char *pngbuf, g2int *width, g2int *height,
 
     /* Set new custom read function. */
     png_set_read_fn(png_ptr, (png_voidp)&read_io_ptr, (png_rw_ptr)user_read_data);
+
+    /*     support for larger grids   */
+    png_set_user_limits(png_ptr, G2C_PNG_WIDTH_MAX, G2C_PNG_HEIGHT_MAX);
 
     /* Read and decode PNG stream. */
     png_read_png(png_ptr, info_ptr, PNG_TRANSFORM_IDENTITY, NULL);

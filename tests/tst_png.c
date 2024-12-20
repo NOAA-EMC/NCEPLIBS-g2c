@@ -67,6 +67,13 @@ main()
             return G2C_ERROR;
         }
 
+        /* Check that width and height are returned correctly. */
+        if (width_in != 1 || height_in != 1)
+        {
+            printf("png size mismatch: width = %d, height = %d", width_in, height_in);
+            return G2C_ERROR;
+        }
+
         for (i = 0; i < 4; i++)
             if (cout[i] != data[i])
                 return G2C_ERROR;
