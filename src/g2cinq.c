@@ -404,7 +404,7 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
  */
 int
 g2c_inq_dim_info(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
-		 char *name)
+                 char *name)
 {
     return g2c_inq_dim(g2cid, msg_num, prod_num, dim_num, len, name, NULL);
 }
