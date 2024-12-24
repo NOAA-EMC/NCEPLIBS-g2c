@@ -63,7 +63,7 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
     size_t my_msglen = 0, my_offset = 0, ipos;
 
     /* Is this an valid file ID? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+    if (g2cid < 1 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
     /* Find the open file struct. */
