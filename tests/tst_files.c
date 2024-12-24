@@ -26,6 +26,7 @@ tst_g2c_open_twice(void *t)
 
     /* g2c_set_log_level(10); */
     ret = g2c_open(WAVE_FILE, 0, &g2cid);
+    printf("g2cid %d\n", g2cid);
     if (!ret)
         ret = g2c_close(g2cid);
 
@@ -129,9 +130,9 @@ main()
             return ret;
 
 	/* Will not work, bad ID. */
-	if ((ret = g2c_find_msg2(0, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg)) != G2C_EBADID)
+	if ((ret = g2c_find_msg2(0, 0, test_buf_size[0], &bytes_to_msg, &bytes_in_msg)) != G2C_EBADID)
 	  return G2C_ERROR;
-	if ((ret = g2c_find_msg2(G2C_MAX_FILES + 1, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg)) != G2C_EBADID)
+	if ((ret = g2c_find_msg2(G2C_MAX_FILES + 1, 0, test_buf_size[0], &bytes_to_msg, &bytes_in_msg)) != G2C_EBADID)
 	  return G2C_ERROR;
 	
         for (i = 0; i < NUM_BUF_SIZE_TESTS; i++)
@@ -168,10 +169,10 @@ main()
             return G2C_ERROR;
 
 	/* Will not work, bad IDs. */
-	if ((ret = g2c_get_msg(0, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg,
+	if ((ret = g2c_get_msg(0, 0, test_buf_size[0], &bytes_to_msg, &bytes_in_msg,
 			       &cbuf)) != G2C_EBADID)
                 return G2C_ERROR;
-	if ((ret = g2c_get_msg(G2C_MAX_FILES + 1, 0, test_buf_size[i], &bytes_to_msg, &bytes_in_msg,
+	if ((ret = g2c_get_msg(G2C_MAX_FILES + 1, 0, test_buf_size[0], &bytes_to_msg, &bytes_in_msg,
 			       &cbuf)) != G2C_EBADID)
                 return G2C_ERROR;
         for (i = 0; i < NUM_BUF_SIZE_TESTS; i++)
