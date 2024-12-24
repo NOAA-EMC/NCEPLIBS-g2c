@@ -150,6 +150,8 @@ main()
                 short year;
                 short center, subcenter;
                 unsigned char master_version, local_version;
+                size_t dimlen;
+                char dimname[G2C_MAX_NAME];
                 int p;
 
                 printf("\t\tinquiring about message %d...\n", m);
@@ -202,6 +204,12 @@ main()
                     if (drs_template[p] != expected_drs_template[m][p])
                         return G2C_ERROR;
                 }
+
+                if ((ret = g2c_inq_dim(g2cid, m, 0, 0, &dimlen, dimname, NULL)))
+                    return ret;
+                /* printf("dimlen = %ld, dimname = %s\n", dimlen, dimname); */
+                if (dimlen != 151 || strcmp(dimname, "Latitude"))
+                    return G2C_ERROR;
             }
 
             /* Close the file. */

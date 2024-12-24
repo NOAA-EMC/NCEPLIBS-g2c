@@ -377,5 +377,8 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
         for (d = 0; d < dim->len; d++)
             val[d] = dim->value[d];
 
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
+
     return ret;
 }
