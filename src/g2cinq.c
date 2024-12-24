@@ -32,7 +32,7 @@ g2c_inq(int g2cid, int *num_msg)
 {
     int ret = G2C_NOERROR;
 
-    /* Is this an open GRIB2 file? */
+    /* Is this an valid file ID? */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 

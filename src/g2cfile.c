@@ -62,6 +62,10 @@ g2c_seekmsg(int g2cid, size_t skip, size_t *offset, size_t *msglen)
     size_t bytes_read = G2C_SEEKMSG_BUFSIZE;
     size_t my_msglen = 0, my_offset = 0, ipos;
 
+    /* Is this an valid file ID? */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+        return G2C_EBADID;
+
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
         return G2C_EBADID;
@@ -180,6 +184,10 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
     if (!bytes_to_msg || !bytes_in_msg)
         return G2C_EINVAL;
 
+    /* Is this an valid file ID? */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+        return G2C_EBADID;
+
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
         return G2C_EBADID;
@@ -293,6 +301,10 @@ g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg
 {
     size_t bytes_read;
     int ret = G2C_NOERROR;
+
+    /* Is this an valid file ID? */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+        return G2C_EBADID;
 
     /* Check inputs. */
     if (!bytes_to_msg || !bytes_in_msg || !cbuf || max_bytes < G2C_MIN_MAX_BYTES)
@@ -1083,6 +1095,10 @@ read_metadata(int g2cid)
     size_t bytes_to_msg, bytes_in_msg;
     int ret = G2C_NOERROR;
 
+    /* Is this an valid file ID? */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+        return G2C_EBADID;
+
     /* Find the open file struct. */
     if (g2c_file[g2cid].g2cid != g2cid)
         return G2C_EBADID;
@@ -1305,9 +1321,11 @@ free_metadata(int g2cid)
 {
     G2C_MESSAGE_INFO_T *msg;
 
-    /* Check input. */
-    if (g2cid > G2C_MAX_FILES)
+    /* Is this an valid file ID? */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
+
+    /* Check input. */
     if (g2c_file[g2cid].g2cid != g2cid)
         return G2C_EBADID;
 
@@ -1368,8 +1386,8 @@ g2c_close(int g2cid)
 {
     int ret = G2C_NOERROR;
 
-    /* Check input. */
-    if (g2cid > G2C_MAX_FILES)
+    /* Is this an valid file ID? */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
     /* If using threading, lock the mutex. */
