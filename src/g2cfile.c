@@ -185,7 +185,7 @@ g2c_find_msg2(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_m
         return G2C_EINVAL;
 
     /* Is this an valid file ID? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+    if (g2cid < 1 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
     /* Find the open file struct. */
@@ -303,7 +303,7 @@ g2c_get_msg(int g2cid, size_t skip_bytes, size_t max_bytes, size_t *bytes_to_msg
     int ret = G2C_NOERROR;
 
     /* Is this an valid file ID? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+    if (g2cid < 1 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
     /* Check inputs. */
@@ -1096,7 +1096,7 @@ read_metadata(int g2cid)
     int ret = G2C_NOERROR;
 
     /* Is this an valid file ID? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+    if (g2cid < 1 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
     /* Find the open file struct. */
@@ -1322,7 +1322,7 @@ free_metadata(int g2cid)
     G2C_MESSAGE_INFO_T *msg;
 
     /* Is this an valid file ID? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+    if (g2cid < 1 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
     /* Check input. */
@@ -1387,7 +1387,7 @@ g2c_close(int g2cid)
     int ret = G2C_NOERROR;
 
     /* Is this an valid file ID? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+    if (g2cid < 1 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
     /* If using threading, lock the mutex. */
