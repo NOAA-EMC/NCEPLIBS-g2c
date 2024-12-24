@@ -33,7 +33,7 @@ g2c_inq(int g2cid, int *num_msg)
     int ret = G2C_NOERROR;
 
     /* Is this an valid file ID? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+    if (g2cid < 1 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
     /* If using threading, lock the mutex. */
@@ -89,7 +89,7 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
 {
     G2C_MESSAGE_INFO_T *msg;
     /* Is this an open GRIB2 file? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
+    if (g2cid < 1 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
         return G2C_EBADID;
 
     /* Find the file and message. */
@@ -153,7 +153,7 @@ g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *yea
     G2C_MESSAGE_INFO_T *msg;
 
     /* Is this an open GRIB2 file? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
+    if (g2cid < 1 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
         return G2C_EBADID;
 
     /* Find the message. */
@@ -214,7 +214,7 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
     int ret = G2C_NOERROR;
 
     /* Is this an open GRIB2 file? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+    if (g2cid < 1 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
     /* If using threading, lock the mutex. */
@@ -335,7 +335,7 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
     int ret = G2C_NOERROR;
 
     /* Is this an open GRIB2 file? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+    if (g2cid < 1 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
     /* If using threading, lock the mutex. */

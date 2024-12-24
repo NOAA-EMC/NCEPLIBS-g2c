@@ -42,7 +42,7 @@ main()
             }
 
             /* These won't work - bad file ID. */
-            if (g2c_inq(-1, NULL) != G2C_EBADID)
+            if (g2c_inq(0, NULL) != G2C_EBADID)
                 return G2C_ERROR;
             if (g2c_inq(G2C_MAX_FILES + 1, NULL) != G2C_EBADID)
                 return G2C_ERROR;
@@ -60,7 +60,7 @@ main()
                 return G2C_ERROR;
 
             /* These won't work - bad file ID. */
-            if (g2c_inq_msg(-1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
+            if (g2c_inq_msg(0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
                 return G2C_ERROR;
             if (g2c_inq_msg(10, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
                 return G2C_ERROR;
@@ -163,6 +163,14 @@ main()
 
                 /* Check results. */
                 if (num_local || num_fields != 1 || discipline != (m < 4 ? 0 : 10))
+                    return G2C_ERROR;
+
+                /* Will not work, bad ID. */
+                if ((ret = g2c_inq_msg_time(0, m, &sig_ref_time, &year, &month, &day, &hour,
+                                            &minute, &second)) != G2C_EBADID)
+                    return G2C_ERROR;
+                if ((ret = g2c_inq_msg_time(G2C_MAX_FILES + 1, m, &sig_ref_time, &year, &month, &day, &hour,
+                                            &minute, &second)) != G2C_EBADID)
                     return G2C_ERROR;
 
                 /* Inquire about the date/time. */
