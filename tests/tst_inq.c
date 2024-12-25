@@ -110,7 +110,7 @@ main()
               return G2C_ERROR;
             if ((ret = g2c_inq_dim(g2cid, 0, 0, -1, &dimlen, dimname, NULL)) != G2C_EBADID)
               return G2C_ERROR;
-            
+
             /* Check each message. */
             for (m = 0; m < num_msg; m++)
             {
