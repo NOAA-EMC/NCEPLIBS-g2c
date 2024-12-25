@@ -92,7 +92,7 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
     int ret = G2C_NOERROR;
 
     /* Check input parameters. */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES || msg_num < 0)
         return G2C_EBADID;
 
     /* If using threading, lock the mutex. */
