@@ -32,13 +32,14 @@ g2c_inq(int g2cid, int *num_msg)
 {
     int ret = G2C_NOERROR;
 
-    /* Is this an open GRIB2 file? */
+    /* Check input parameters. */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
     /* If using threading, lock the mutex. */
     MUTEX_LOCK(m);
 
+    /* Find the open file. */
     if (g2c_file[g2cid].g2cid != g2cid)
         ret = G2C_EBADID;
 
@@ -88,33 +89,51 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
             unsigned char *local_version)
 {
     G2C_MESSAGE_INFO_T *msg;
-    /* Is this an open GRIB2 file? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
+    int ret = G2C_NOERROR;
+
+    /* Check input parameters. */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
 
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
+    /* Find the open file. */
+    if (g2c_file[g2cid].g2cid != g2cid)
+        ret = G2C_EBADID;
+
     /* Find the file and message. */
-    for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+    if (!ret)
     {
-        if (msg->msg_num == msg_num)
+        ret = G2C_ENOMSG;
+        for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
         {
-            if (discipline)
-                *discipline = msg->discipline;
-            if (num_fields)
-                *num_fields = msg->num_fields;
-            if (num_local)
-                *num_local = msg->num_local;
-            if (center)
-                *center = msg->center;
-            if (subcenter)
-                *subcenter = msg->subcenter;
-            if (master_version)
-                *master_version = msg->master_version;
-            if (local_version)
-                *local_version = msg->local_version;
-            return G2C_NOERROR;
+            if (msg->msg_num == msg_num)
+            {
+                if (discipline)
+                    *discipline = msg->discipline;
+                if (num_fields)
+                    *num_fields = msg->num_fields;
+                if (num_local)
+                    *num_local = msg->num_local;
+                if (center)
+                    *center = msg->center;
+                if (subcenter)
+                    *subcenter = msg->subcenter;
+                if (master_version)
+                    *master_version = msg->master_version;
+                if (local_version)
+                    *local_version = msg->local_version;
+                ret = G2C_NOERROR;
+                break;
+            }
         }
     }
-    return G2C_ENOMSG;
+    
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
+
+    return ret;
 }
 
 /**
