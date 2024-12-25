@@ -52,7 +52,7 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
     /* Find the file. */
     if (g2c_file[g2cid].g2cid != g2cid)
         ret = G2C_EBADID;
-    
+
     /* Find the message. */
     if (!ret)
     {
