@@ -18,6 +18,8 @@ main()
     printf("Testing g2c_inq()/g2c_inq_msg()/g2c_inq_prod() calls...\n");
     {
         int op;
+        size_t dimlen;
+        char dimname[G2C_MAX_NAME];
 
         for (op = 0; op < NUM_OPEN; op++)
         {
@@ -95,6 +97,20 @@ main()
             if ((ret = g2c_inq_prod(g2cid, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL)))
                 return ret;
 
+            /* Won't work, bad IDs. */
+            if ((ret = g2c_inq_dim(-1, 0, 0, 0, &dimlen, dimname, NULL)) != G2C_EBADID)
+              return G2C_ERROR;
+            if ((ret = g2c_inq_dim(G2C_MAX_FILES + 1, 0, 0, 0, &dimlen, dimname, NULL)) != G2C_EBADID)
+              return G2C_ERROR;
+            if ((ret = g2c_inq_dim(10, 0, 0, 0, &dimlen, dimname, NULL)) != G2C_EBADID)
+              return G2C_ERROR;
+            if ((ret = g2c_inq_dim(g2cid, -1, 0, 0, &dimlen, dimname, NULL)) != G2C_EBADID)
+              return G2C_ERROR;
+            if ((ret = g2c_inq_dim(g2cid, 0, -1, 0, &dimlen, dimname, NULL)) != G2C_EBADID)
+              return G2C_ERROR;
+            if ((ret = g2c_inq_dim(g2cid, 0, 0, -1, &dimlen, dimname, NULL)) != G2C_EBADID)
+              return G2C_ERROR;
+            
             /* Check each message. */
             for (m = 0; m < num_msg; m++)
             {
@@ -150,8 +166,6 @@ main()
                 short year;
                 short center, subcenter;
                 unsigned char master_version, local_version;
-                size_t dimlen;
-                char dimname[G2C_MAX_NAME];
                 int p;
 
                 printf("\t\tinquiring about message %d...\n", m);

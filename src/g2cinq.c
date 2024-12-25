@@ -334,8 +334,9 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
     int d;
     int ret = G2C_NOERROR;
 
-    /* Is this an open GRIB2 file? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES)
+    /* Are these valid IDs? */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES || msg_num < 0 ||
+        prod_num < 0 || dim_num < 0)
         return G2C_EBADID;
 
     /* If using threading, lock the mutex. */
