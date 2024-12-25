@@ -118,30 +118,32 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
     }
 
     /* Allocate a char buffer to hold the packed data. */
-    if (data && !ret)
-        if (!(buf = malloc(sizeof(char) * sec7->sec_len)))
-            ret = G2C_ENOMEM;
-
-    /* Jump to this section in the file. */
-    if (data && !ret)
-        if (fseek(g2c_file[g2cid].f, sec7->bytes_to_sec + sec7->msg->bytes_to_msg, SEEK_SET))
-            ret = G2C_ERROR;
-
-    /* Read the product into a char buffer. */
-    if (data && !ret)
-        if ((bytes_read = fread(buf, 1, sec7->sec_len, g2c_file[g2cid].f)) != sec7->sec_len)
-            ret = G2C_EFILE;
-
-    /* Unpack the char buffer into a float array, which must be
-     * allocated by the caller. */
-    if (data && !ret)
-        ret = g2c_unpack7(buf, sec3_info->grid_def, sec3->template_len, sec3->template,
-                          sec5_info->data_def, sec5->template_len, sec5->template,
-                          sec5_info->num_data_points, data);
-
-    /* Free the char buffer. */
     if (data)
+    {
+        if (!ret)
+            if (!(buf = malloc(sizeof(char) * sec7->sec_len)))
+                ret = G2C_ENOMEM;
+
+        /* Jump to this section in the file. */
+        if (!ret)
+            if (fseek(g2c_file[g2cid].f, sec7->bytes_to_sec + sec7->msg->bytes_to_msg, SEEK_SET))
+                ret = G2C_ERROR;
+
+        /* Read the product into a char buffer. */
+        if (!ret)
+            if ((bytes_read = fread(buf, 1, sec7->sec_len, g2c_file[g2cid].f)) != sec7->sec_len)
+                ret = G2C_EFILE;
+
+        /* Unpack the char buffer into a float array, which must be
+         * allocated by the caller. */
+        if (!ret)
+            ret = g2c_unpack7(buf, sec3_info->grid_def, sec3->template_len, sec3->template,
+                              sec5_info->data_def, sec5->template_len, sec5->template,
+                              sec5_info->num_data_points, data);
+
+        /* Free the char buffer. */
         free(buf);
+    }
 
     /* If using threading, unlock the mutex. */
     MUTEX_UNLOCK(m);
