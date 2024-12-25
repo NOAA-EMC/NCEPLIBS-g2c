@@ -41,12 +41,13 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
         return G2C_EBADID;
     if (msg_num < 0 || prod_num < 0)
         return G2C_EINVAL;
+
+    /* Find the file. */
     if (g2c_file[g2cid].g2cid != g2cid)
         return G2C_EBADID;
-
+    
     /* Find the message. */
     for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
-
         if (msg->msg_num == msg_num)
             break;
     if (!msg)

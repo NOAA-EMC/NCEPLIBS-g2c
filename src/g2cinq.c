@@ -386,41 +386,53 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
     MUTEX_LOCK(m);
 
     if (g2c_file[g2cid].g2cid != g2cid)
-        return G2C_EBADID;
+        ret = G2C_EBADID;
 
     /* Find the message. */
-    for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
-        if (msg->msg_num == msg_num)
-            break;
-    if (!msg)
-        return G2C_ENOMSG;
+    if (!ret)
+    {
+        for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+            if (msg->msg_num == msg_num)
+                break;
+        if (!msg)
+            ret = G2C_ENOMSG;
+    }
 
     /* Find the product. After this, sec4 will point to the
      * appropropriate section 4 G2C_SECTION_INFO_T. */
-    for (sec4 = msg->sec; sec4; sec4 = sec4->next)
-        if (sec4->sec_num == 4 && ((G2C_SECTION4_INFO_T *)sec4->sec_info)->field_num == prod_num)
-            break;
-    if (!sec4)
-        return G2C_ENOPRODUCT;
-    /* sec4_info = (G2C_SECTION4_INFO_T *)sec4->sec_info; */
+    if (!ret)
+    {
+        for (sec4 = msg->sec; sec4; sec4 = sec4->next)
+            if (sec4->sec_num == 4 && ((G2C_SECTION4_INFO_T *)sec4->sec_info)->field_num == prod_num)
+                break;
+        if (!sec4)
+            ret = G2C_ENOPRODUCT;
+        /* sec4_info = (G2C_SECTION4_INFO_T *)sec4->sec_info; */
+    }
 
     /* Find the GDS. */
-    for (sec3 = sec4->prev; sec3; sec3 = sec3->prev)
-        if (sec3->sec_num == 3)
-            break;
-    if (!sec3)
-        return G2C_ENOSECTION;
-    dim = &((G2C_SECTION3_INFO_T *)sec3->sec_info)->dim[dim_num];
+    if (!ret)
+    {
+        for (sec3 = sec4->prev; sec3; sec3 = sec3->prev)
+            if (sec3->sec_num == 3)
+                break;
+        if (!sec3)
+            ret = G2C_ENOSECTION;
+        dim = &((G2C_SECTION3_INFO_T *)sec3->sec_info)->dim[dim_num];
+    }
 
     /* Give the caller the info they want. */
-    if (len)
-        *len = dim->len;
-    if (name)
-        strncpy(name, dim->name, G2C_MAX_NAME);
-    if (val)
-        for (d = 0; d < dim->len; d++)
-            val[d] = dim->value[d];
-
+    if (!ret)
+    {
+        if (len)
+            *len = dim->len;
+        if (name)
+            strncpy(name, dim->name, G2C_MAX_NAME);
+        if (val)
+            for (d = 0; d < dim->len; d++)
+                val[d] = dim->value[d];
+    }
+    
     /* If using threading, unlock the mutex. */
     MUTEX_UNLOCK(m);
 
