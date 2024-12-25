@@ -129,7 +129,7 @@ g2c_inq_msg(int g2cid, int msg_num, unsigned char *discipline, int *num_fields,
             }
         }
     }
-    
+
     /* If using threading, unlock the mutex. */
     MUTEX_UNLOCK(m);
 
