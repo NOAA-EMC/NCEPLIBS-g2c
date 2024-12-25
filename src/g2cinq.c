@@ -173,7 +173,7 @@ g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *yea
 {
     G2C_MESSAGE_INFO_T *msg;
     int ret = G2C_NOERROR;
-    
+
     /* Check input parameters. */
     if (g2cid < 0 || g2cid > G2C_MAX_FILES)
         return G2C_EBADID;
@@ -214,7 +214,7 @@ g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *yea
             }
         }
     }
-    
+
     /* If using threading, unlock the mutex. */
     MUTEX_UNLOCK(m);
 
@@ -433,7 +433,7 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
             for (d = 0; d < dim->len; d++)
                 val[d] = dim->value[d];
     }
-    
+
     /* If using threading, unlock the mutex. */
     MUTEX_UNLOCK(m);
 
