@@ -46,6 +46,7 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
 
     /* Find the message. */
     for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+
         if (msg->msg_num == msg_num)
             break;
     if (!msg)

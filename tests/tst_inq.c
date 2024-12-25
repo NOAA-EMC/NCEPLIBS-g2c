@@ -70,7 +70,7 @@ main()
                 return G2C_ERROR;
 
             /* This won't work - bad msg number. */
-            if (g2c_inq_msg(g2cid, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
+            if (g2c_inq_msg(g2cid, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EINVAL)
                 return G2C_ERROR;
             /* This won't work - msg number won't be found. */
             if (g2c_inq_msg(g2cid, NUM_MSG, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_ENOMSG)
@@ -89,7 +89,7 @@ main()
                 return G2C_ERROR;
 
             /* This won't work - bad msg number. */
-            if (g2c_inq_prod(g2cid, -1, 0, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
+            if (g2c_inq_prod(g2cid, -1, 0, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EINVAL)
                 return G2C_ERROR;
             if (g2c_inq_prod(g2cid, NUM_MSG, 0, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_ENOMSG)
                 return G2C_ERROR;
@@ -97,7 +97,7 @@ main()
             /* These won't work - bad prod number. */
             if (g2c_inq_prod(g2cid, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_ENOPRODUCT)
                 return G2C_ERROR;
-            if (g2c_inq_prod(g2cid, 0, -1, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
+            if (g2c_inq_prod(g2cid, 0, -1, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EINVAL)
                 return G2C_ERROR;
 
             /* This works but does nothing. */
@@ -111,11 +111,11 @@ main()
                 return G2C_ERROR;
             if ((ret = g2c_inq_dim(10, 0, 0, 0, &dimlen, dimname, NULL)) != G2C_EBADID)
                 return G2C_ERROR;
-            if ((ret = g2c_inq_dim(g2cid, -1, 0, 0, &dimlen, dimname, NULL)) != G2C_EBADID)
+            if ((ret = g2c_inq_dim(g2cid, -1, 0, 0, &dimlen, dimname, NULL)) != G2C_EINVAL)
                 return G2C_ERROR;
-            if ((ret = g2c_inq_dim(g2cid, 0, -1, 0, &dimlen, dimname, NULL)) != G2C_EBADID)
+            if ((ret = g2c_inq_dim(g2cid, 0, -1, 0, &dimlen, dimname, NULL)) != G2C_EINVAL)
                 return G2C_ERROR;
-            if ((ret = g2c_inq_dim(g2cid, 0, 0, -1, &dimlen, dimname, NULL)) != G2C_EBADID)
+            if ((ret = g2c_inq_dim(g2cid, 0, 0, -1, &dimlen, dimname, NULL)) != G2C_EINVAL)
                 return G2C_ERROR;
 
             /* Check each message. */
@@ -199,7 +199,7 @@ main()
                                             &minute, &second)) != G2C_EBADID)
                     return G2C_ERROR;
                 if ((ret = g2c_inq_msg_time(g2cid, -1, &sig_ref_time, &year, &month, &day, &hour,
-                                            &minute, &second)) != G2C_EBADID)
+                                            &minute, &second)) != G2C_EINVAL)
                     return G2C_ERROR;
                 if ((ret = g2c_inq_msg_time(g2cid, 20, &sig_ref_time, &year, &month, &day, &hour,
                                             &minute, &second)) != G2C_ENOMSG)
