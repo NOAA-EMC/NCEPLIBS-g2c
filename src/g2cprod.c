@@ -9,6 +9,10 @@
 /** Global file information. */
 extern G2C_FILE_INFO_T g2c_file[G2C_MAX_FILES + 1];
 
+/** If pthreads are enabled, use externally-defined mutex for
+ * thread-safety. */
+EXTERN_MUTEX(m);
+
 /**
  * Read the data for a product.
  *
@@ -42,80 +46,105 @@ g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points, float *
     if (msg_num < 0 || prod_num < 0)
         return G2C_EINVAL;
 
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
     /* Find the file. */
     if (g2c_file[g2cid].g2cid != g2cid)
-        return G2C_EBADID;
+        ret = G2C_EBADID;
     
     /* Find the message. */
-    for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
-        if (msg->msg_num == msg_num)
-            break;
-    if (!msg)
-        return G2C_ENOMSG;
+    if (!ret)
+    {
+        for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+            if (msg->msg_num == msg_num)
+                break;
+        if (!msg)
+            ret = G2C_ENOMSG;
+    }
 
     /* Find the product. After this, sec4 will point to the
      * appropropriate section 4 G2C_SECTION_INFO_T. */
-    for (sec4 = msg->sec; sec4; sec4 = sec4->next)
-        if (sec4->sec_num == 4 && ((G2C_SECTION4_INFO_T *)sec4->sec_info)->field_num == prod_num)
-            break;
-    if (!sec4)
-        return G2C_ENOPRODUCT;
-    /* sec4_info = (G2C_SECTION4_INFO_T *)sec4->sec_info; */
+    if (!ret)
+    {
+        for (sec4 = msg->sec; sec4; sec4 = sec4->next)
+            if (sec4->sec_num == 4 && ((G2C_SECTION4_INFO_T *)sec4->sec_info)->field_num == prod_num)
+                break;
+        if (!sec4)
+            ret = G2C_ENOPRODUCT;
+        /* sec4_info = (G2C_SECTION4_INFO_T *)sec4->sec_info; */
+    }
 
     /* Find the grid definiton section, section 3. It will come
      * earlier in the list. */
-    for (sec3 = sec4; sec3; sec3 = sec3->prev)
-        if (sec3->sec_num == 3)
-            break;
-    if (!sec3)
-        return G2C_ENOSECTION;
-    sec3_info = (G2C_SECTION3_INFO_T *)sec3->sec_info;
+    if (!ret)
+    {
+        for (sec3 = sec4; sec3; sec3 = sec3->prev)
+            if (sec3->sec_num == 3)
+                break;
+        if (!sec3)
+            ret = G2C_ENOSECTION;
+        sec3_info = (G2C_SECTION3_INFO_T *)sec3->sec_info;
+    }
 
     /* Find the section 5, data representation section, to learn how
      * this product is compressed. Section 5 is after section 4 in the
      * list. */
-    for (sec5 = sec4; sec5; sec5 = sec5->next)
-        if (sec5->sec_num == 5)
-            break;
-    if (!sec5)
-        return G2C_ENOSECTION;
-    sec5_info = (G2C_SECTION5_INFO_T *)sec5->sec_info;
+    if (!ret)
+    {
+        for (sec5 = sec4; sec5; sec5 = sec5->next)
+            if (sec5->sec_num == 5)
+                break;
+        if (!sec5)
+            ret = G2C_ENOSECTION;
+        sec5_info = (G2C_SECTION5_INFO_T *)sec5->sec_info;
+    }
 
     /* Find the section 7, data section. */
-    for (sec7 = sec5; sec7; sec7 = sec7->next)
-        if (sec7->sec_num == 7)
-            break;
-    if (!sec7)
-        return G2C_ENOSECTION;
+    if (!ret)
+    {
+        for (sec7 = sec5; sec7; sec7 = sec7->next)
+            if (sec7->sec_num == 7)
+                break;
+        if (!sec7)
+            ret = G2C_ENOSECTION;
+    }
 
     /* Give the caller number of data points, if desired. */
-    if (num_data_points)
-        *num_data_points = sec5_info->num_data_points;
-
-    /* If user doesn't want data, we need go no further. */
-    if (!data)
-        return G2C_NOERROR;
+    if (!ret)
+    {
+        if (num_data_points)
+            *num_data_points = sec5_info->num_data_points;
+    }
 
     /* Allocate a char buffer to hold the packed data. */
-    if (!(buf = malloc(sizeof(char) * sec7->sec_len)))
-        return G2C_ENOMEM;
+    if (data && !ret)
+        if (!(buf = malloc(sizeof(char) * sec7->sec_len)))
+            ret = G2C_ENOMEM;
 
     /* Jump to this section in the file. */
-    if (fseek(g2c_file[g2cid].f, sec7->bytes_to_sec + sec7->msg->bytes_to_msg, SEEK_SET))
-        return G2C_ERROR;
+    if (data && !ret)
+        if (fseek(g2c_file[g2cid].f, sec7->bytes_to_sec + sec7->msg->bytes_to_msg, SEEK_SET))
+            ret = G2C_ERROR;
 
     /* Read the product into a char buffer. */
-    if ((bytes_read = fread(buf, 1, sec7->sec_len, g2c_file[g2cid].f)) != sec7->sec_len)
-        return G2C_EFILE;
+    if (data && !ret)
+        if ((bytes_read = fread(buf, 1, sec7->sec_len, g2c_file[g2cid].f)) != sec7->sec_len)
+            ret = G2C_EFILE;
 
     /* Unpack the char buffer into a float array, which must be
      * allocated by the caller. */
-    ret = g2c_unpack7(buf, sec3_info->grid_def, sec3->template_len, sec3->template,
-                      sec5_info->data_def, sec5->template_len, sec5->template,
-                      sec5_info->num_data_points, data);
+    if (data && !ret)
+        ret = g2c_unpack7(buf, sec3_info->grid_def, sec3->template_len, sec3->template,
+                          sec5_info->data_def, sec5->template_len, sec5->template,
+                          sec5_info->num_data_points, data);
 
     /* Free the char buffer. */
-    free(buf);
+    if (data)
+        free(buf);
+
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
 
     return ret;
 }

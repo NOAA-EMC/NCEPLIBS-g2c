@@ -385,6 +385,7 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
     /* If using threading, lock the mutex. */
     MUTEX_LOCK(m);
 
+    /* Find the file. */
     if (g2c_file[g2cid].g2cid != g2cid)
         ret = G2C_EBADID;
 
