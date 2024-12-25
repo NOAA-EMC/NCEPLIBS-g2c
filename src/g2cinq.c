@@ -170,34 +170,51 @@ g2c_inq_msg_time(int g2cid, int msg_num, unsigned char *sig_ref_time, short *yea
                  unsigned char *minute, unsigned char *second)
 {
     G2C_MESSAGE_INFO_T *msg;
-
-    /* Is this an open GRIB2 file? */
-    if (g2cid < 0 || g2cid > G2C_MAX_FILES || g2c_file[g2cid].g2cid != g2cid)
+    int ret = G2C_NOERROR;
+    
+    /* Check input parameters. */
+    if (g2cid < 0 || g2cid > G2C_MAX_FILES || msg_num < 0)
         return G2C_EBADID;
 
-    /* Find the message. */
-    for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
+    /* If using threading, lock the mutex. */
+    MUTEX_LOCK(m);
+
+    /* Find the open file. */
+    if (g2c_file[g2cid].g2cid != g2cid)
+        ret = G2C_EBADID;
+
+    /* Find the file and message. */
+    if (!ret)
     {
-        if (msg->msg_num == msg_num)
+        ret = G2C_ENOMSG;
+        for (msg = g2c_file[g2cid].msg; msg; msg = msg->next)
         {
-            if (sig_ref_time)
-                *sig_ref_time = msg->sig_ref_time;
-            if (year)
-                *year = msg->year;
-            if (month)
-                *month = msg->month;
-            if (day)
-                *day = msg->day;
-            if (hour)
-                *hour = msg->hour;
-            if (minute)
-                *minute = msg->minute;
-            if (second)
-                *second = msg->second;
-            return G2C_NOERROR;
+            if (msg->msg_num == msg_num)
+            {
+                if (sig_ref_time)
+                    *sig_ref_time = msg->sig_ref_time;
+                if (year)
+                    *year = msg->year;
+                if (month)
+                    *month = msg->month;
+                if (day)
+                    *day = msg->day;
+                if (hour)
+                    *hour = msg->hour;
+                if (minute)
+                    *minute = msg->minute;
+                if (second)
+                    *second = msg->second;
+                ret = G2C_NOERROR;
+                break;
+            }
         }
     }
-    return G2C_ENOMSG;
+    
+    /* If using threading, unlock the mutex. */
+    MUTEX_UNLOCK(m);
+
+    return ret;
 }
 
 /**

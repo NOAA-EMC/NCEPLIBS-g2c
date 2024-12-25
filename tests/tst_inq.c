@@ -184,6 +184,27 @@ main()
                 if (num_local || num_fields != 1 || discipline != (m < 4 ? 0 : 10))
                     return G2C_ERROR;
 
+                /* These will all fail due to bad inputs. */
+                if ((ret = g2c_inq_msg_time(-1, m, &sig_ref_time, &year, &month, &day, &hour,
+                                            &minute, &second)) != G2C_EBADID)
+                    return G2C_ERROR;
+                if ((ret = g2c_inq_msg_time(10, m, &sig_ref_time, &year, &month, &day, &hour,
+                                            &minute, &second)) != G2C_EBADID)
+                    return G2C_ERROR;
+                if ((ret = g2c_inq_msg_time(G2C_MAX_FILES + 1, m, &sig_ref_time, &year, &month, &day, &hour,
+                                            &minute, &second)) != G2C_EBADID)
+                    return G2C_ERROR;
+                if ((ret = g2c_inq_msg_time(g2cid, -1, &sig_ref_time, &year, &month, &day, &hour,
+                                            &minute, &second)) != G2C_EBADID)
+                    return G2C_ERROR;
+                if ((ret = g2c_inq_msg_time(g2cid, 20, &sig_ref_time, &year, &month, &day, &hour,
+                                            &minute, &second)) != G2C_ENOMSG)
+                    return G2C_ERROR;
+
+                /* This will work, but do nothing. */
+                if ((ret = g2c_inq_msg_time(g2cid, m, NULL, NULL, NULL, NULL, NULL, NULL, NULL)))
+                    return ret;
+                
                 /* Inquire about the date/time. */
                 if ((ret = g2c_inq_msg_time(g2cid, m, &sig_ref_time, &year, &month, &day, &hour,
                                             &minute, &second)))
