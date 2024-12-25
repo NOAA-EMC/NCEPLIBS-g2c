@@ -89,11 +89,15 @@ main()
                 return G2C_ERROR;
 
             /* This won't work - bad msg number. */
+            if (g2c_inq_prod(g2cid, -1, 0, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
+                return G2C_ERROR;
             if (g2c_inq_prod(g2cid, NUM_MSG, 0, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_ENOMSG)
                 return G2C_ERROR;
 
-            /* This won't work - bad prod number. */
+            /* These won't work - bad prod number. */
             if (g2c_inq_prod(g2cid, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_ENOPRODUCT)
+                return G2C_ERROR;
+            if (g2c_inq_prod(g2cid, 0, -1, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
                 return G2C_ERROR;
 
             /* This works but does nothing. */
@@ -204,7 +208,7 @@ main()
                 /* This will work, but do nothing. */
                 if ((ret = g2c_inq_msg_time(g2cid, m, NULL, NULL, NULL, NULL, NULL, NULL, NULL)))
                     return ret;
-                
+
                 /* Inquire about the date/time. */
                 if ((ret = g2c_inq_msg_time(g2cid, m, &sig_ref_time, &year, &month, &day, &hour,
                                             &minute, &second)))
