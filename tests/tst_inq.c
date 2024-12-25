@@ -70,8 +70,9 @@ main()
                 return G2C_ERROR;
 
             /* This won't work - bad msg number. */
-            if (g2c_inq_msg(g2cid, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_ENOMSG)
+            if (g2c_inq_msg(g2cid, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_EBADID)
                 return G2C_ERROR;
+            /* This won't work - msg number won't be found. */
             if (g2c_inq_msg(g2cid, NUM_MSG, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != G2C_ENOMSG)
                 return G2C_ERROR;
 
