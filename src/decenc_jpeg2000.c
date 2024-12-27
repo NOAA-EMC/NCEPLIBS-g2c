@@ -141,11 +141,12 @@ enc_jpeg2000(unsigned char *cin, g2int width, g2int height, g2int nbits,
 
     /* Initialize Jasper. */
 #ifdef JASPER3
+#define HUNDRED_MB 100000000
     jas_conf_clear();
     /* static jas_std_allocator_t allocator; */
     /* jas_std_allocator_init(&allocator); */
     /* jas_conf_set_allocator(JAS_CAST(jas_std_allocator_t *, &allocator)); */
-    jas_conf_set_max_mem_usage(10000000);
+    jas_conf_set_max_mem_usage(HUNDRED_MB);
     jas_conf_set_multithread(true);
     if (jas_init_library())
         return G2_JASPER_INIT;
