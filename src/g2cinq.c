@@ -344,7 +344,9 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
 }
 
 /**
- * Learn about the one of the dimensions of a GRIB2 product.
+ * Learn about the one of the dimensions of a GRIB2 product. This
+ * function will return the size, name, and values along the
+ * dimension.
  *
  * @param g2cid ID of the opened file, as from g2c_open().
  * @param msg_num Number of the message in the file, starting with the
@@ -441,7 +443,8 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
 }
 
 /**
- * Learn about the one of the dimensions of a GRIB2 product.
+ * Learn about the one of the dimensions of a GRIB2 product. This
+ * function will return the size and name of the dimension.
  *
  * @param g2cid ID of the opened file, as from g2c_open().
  * @param msg_num Number of the message in the file, starting with the
