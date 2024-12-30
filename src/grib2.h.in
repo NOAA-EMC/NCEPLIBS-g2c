@@ -318,6 +318,8 @@ int g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
                  int *drs_template_len, long long int *drs_template);
 int g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
                 char *name, float *val);
+int g2c_inq_dim_info(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
+		     char *name);
 
 /* Getting data. */
 int g2c_get_prod(int g2cid, int msg_num, int prod_num, int *num_data_points,

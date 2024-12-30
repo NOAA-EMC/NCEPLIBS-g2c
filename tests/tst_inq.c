@@ -247,6 +247,11 @@ main()
                         return G2C_ERROR;
                 }
 
+                if ((ret = g2c_inq_dim_info(g2cid, m, 0, 0, &dimlen, dimname)))
+                    return ret;
+                /* printf("dimlen = %ld, dimname = %s\n", dimlen, dimname); */
+                if (dimlen != 151 || strcmp(dimname, "Latitude"))
+                    return G2C_ERROR;
                 if ((ret = g2c_inq_dim(g2cid, m, 0, 0, &dimlen, dimname, NULL)))
                     return ret;
                 /* printf("dimlen = %ld, dimname = %s\n", dimlen, dimname); */

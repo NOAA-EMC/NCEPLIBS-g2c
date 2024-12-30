@@ -344,7 +344,9 @@ g2c_inq_prod(int g2cid, int msg_num, int prod_num, int *pds_template_len,
 }
 
 /**
- * Learn about the one of the dimensions of a GRIB2 product.
+ * Learn about the one of the dimensions of a GRIB2 product. This
+ * function will return the size, name, and values along the
+ * dimension.
  *
  * @param g2cid ID of the opened file, as from g2c_open().
  * @param msg_num Number of the message in the file, starting with the
@@ -438,4 +440,33 @@ g2c_inq_dim(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
     MUTEX_UNLOCK(m);
 
     return ret;
+}
+
+/**
+ * Learn about the one of the dimensions of a GRIB2 product. This
+ * function will return the size and name of the dimension.
+ *
+ * @param g2cid ID of the opened file, as from g2c_open().
+ * @param msg_num Number of the message in the file, starting with the
+ * first message as 0.
+ * @param prod_num Product number.
+ * @param dim_num Dimension number, with the first dimension as 0.
+ * @param len Pointer that gets the length of this dimension. Ignored if NULL.
+ * @param name Pointer that gets the name of this dimension. Must have
+ * memory of size G2C_MAX_NAME. Ignored if NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_EBADID File ID not found.
+ * - ::G2C_ENOMSG Message not found.
+ * - ::G2C_ENOPRODUCT Product not found.
+ * - ::G2C_ENOSECTION GDS not found.
+ *
+ * @author Ed Hartnett @date 10/21/22
+ */
+int
+g2c_inq_dim_info(int g2cid, int msg_num, int prod_num, int dim_num, size_t *len,
+                 char *name)
+{
+    return g2c_inq_dim(g2cid, msg_num, prod_num, dim_num, len, name, NULL);
 }
