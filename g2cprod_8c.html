@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.1.0</span>
    </div>
   </td>
  </tr>
@@ -104,6 +104,9 @@ $(document).ready(function(){initNavTree('g2cprod_8c.html',''); initResizable();
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:af762d41ed99e829c53653662192c859d" id="r_af762d41ed99e829c53653662192c859d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2cprod_8c.html#af762d41ed99e829c53653662192c859d">EXTERN_MUTEX</a> (m)</td></tr>
+<tr class="memdesc:af762d41ed99e829c53653662192c859d"><td class="mdescLeft">&#160;</td><td class="mdescRight">If pthreads are enabled, use externally-defined mutex for thread-safety.  <br /></td></tr>
+<tr class="separator:af762d41ed99e829c53653662192c859d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab63fb34d6630c4c24eca9c1c5c129fef" id="r_ab63fb34d6630c4c24eca9c1c5c129fef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2cprod_8c.html#ab63fb34d6630c4c24eca9c1c5c129fef">g2c_get_prod</a> (int g2cid, int msg_num, int prod_num, int *num_data_points, float *data)</td></tr>
 <tr class="memdesc:ab63fb34d6630c4c24eca9c1c5c129fef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the data for a product.  <br /></td></tr>
 <tr class="separator:ab63fb34d6630c4c24eca9c1c5c129fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,6 +124,26 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="g2cprod_8c_source.html">g2cprod.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="af762d41ed99e829c53653662192c859d" name="af762d41ed99e829c53653662192c859d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af762d41ed99e829c53653662192c859d">&#9670;&#160;</a></span>EXTERN_MUTEX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EXTERN_MUTEX </td>
+          <td>(</td>
+          <td class="paramtype">m&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>If pthreads are enabled, use externally-defined mutex for thread-safety. </p>
+
+</div>
+</div>
 <a id="ab63fb34d6630c4c24eca9c1c5c129fef" name="ab63fb34d6630c4c24eca9c1c5c129fef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab63fb34d6630c4c24eca9c1c5c129fef">&#9670;&#160;</a></span>g2c_get_prod()</h2>
 
@@ -183,9 +206,9 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Ed Hartnett </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Sep 28, 2022 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2cprod_8c_source.html#l00028">28</a> of file <a class="el" href="g2cprod_8c_source.html">g2cprod.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2cprod_8c_source.html#l00032">32</a> of file <a class="el" href="g2cprod_8c_source.html">g2cprod.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00138">g2c_message_info::bytes_to_msg</a>, <a class="el" href="grib2__int_8h_source.html#l00174">g2c_section_info::bytes_to_sec</a>, <a class="el" href="grib2__int_8h_source.html#l00224">g2c_section5_info::data_def</a>, <a class="el" href="grib2__int_8h_source.html#l00241">g2c_file_info::f</a>, <a class="el" href="grib2_8h_source.html#l00483">G2C_EBADID</a>, <a class="el" href="grib2_8h_source.html#l00482">G2C_EFILE</a>, <a class="el" href="grib2_8h_source.html#l00481">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00485">G2C_ENOMEM</a>, <a class="el" href="grib2_8h_source.html#l00487">G2C_ENOMSG</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOPRODUCT</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_ENOSECTION</a>, <a class="el" href="grib2_8h_source.html#l00477">G2C_ERROR</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="g2__unpack7_8c_source.html#l00259">g2c_unpack7()</a>, <a class="el" href="grib2__int_8h_source.html#l00201">g2c_section3_info::grid_def</a>, <a class="el" href="grib2__int_8h_source.html#l00176">g2c_section_info::msg</a>, <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00166">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00223">g2c_section5_info::num_data_points</a>, <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::prev</a>, <a class="el" href="grib2__int_8h_source.html#l00164">g2c_message_info::sec</a>, <a class="el" href="grib2__int_8h_source.html#l00177">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00173">g2c_section_info::sec_len</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_num</a>, <a class="el" href="grib2__int_8h_source.html#l00180">g2c_section_info::template</a>, and <a class="el" href="grib2__int_8h_source.html#l00181">g2c_section_info::template_len</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00138">g2c_message_info::bytes_to_msg</a>, <a class="el" href="grib2__int_8h_source.html#l00174">g2c_section_info::bytes_to_sec</a>, <a class="el" href="grib2__int_8h_source.html#l00224">g2c_section5_info::data_def</a>, <a class="el" href="grib2__int_8h_source.html#l00241">g2c_file_info::f</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_EBADID</a>, <a class="el" href="grib2_8h_source.html#l00490">G2C_EFILE</a>, <a class="el" href="grib2_8h_source.html#l00489">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00493">G2C_ENOMEM</a>, <a class="el" href="grib2_8h_source.html#l00495">G2C_ENOMSG</a>, <a class="el" href="grib2_8h_source.html#l00508">G2C_ENOPRODUCT</a>, <a class="el" href="grib2_8h_source.html#l00499">G2C_ENOSECTION</a>, <a class="el" href="grib2_8h_source.html#l00485">G2C_ERROR</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00484">G2C_NOERROR</a>, <a class="el" href="g2__unpack7_8c_source.html#l00259">g2c_unpack7()</a>, <a class="el" href="grib2__int_8h_source.html#l00201">g2c_section3_info::grid_def</a>, <a class="el" href="grib2__int_8h_source.html#l00176">g2c_section_info::msg</a>, <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00116">MUTEX_LOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00119">MUTEX_UNLOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00166">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00223">g2c_section5_info::num_data_points</a>, <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::prev</a>, <a class="el" href="grib2__int_8h_source.html#l00164">g2c_message_info::sec</a>, <a class="el" href="grib2__int_8h_source.html#l00177">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00173">g2c_section_info::sec_len</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_num</a>, <a class="el" href="grib2__int_8h_source.html#l00180">g2c_section_info::template</a>, and <a class="el" href="grib2__int_8h_source.html#l00181">g2c_section_info::template_len</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="g2cdegrib2_8c_source.html#l00634">g2c_degrib2()</a>.</p>
 
@@ -216,7 +239,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="g2cfile_8c_source.html#l00010">10</a> of file <a class="el" href="g2cfile_8c_source.html">g2cfile.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2cprod_8c_source.html#l00028">g2c_get_prod()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2cprod_8c_source.html#l00032">g2c_get_prod()</a>.</p>
 
 </div>
 </div>

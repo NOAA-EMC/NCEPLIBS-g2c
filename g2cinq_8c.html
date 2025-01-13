@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.1.0</span>
    </div>
   </td>
  </tr>
@@ -114,6 +114,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a8e4a8fcf8d55db639760e873013af0ab" id="r_a8e4a8fcf8d55db639760e873013af0ab"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2cinq_8c.html#a8e4a8fcf8d55db639760e873013af0ab">g2c_inq_dim</a> (int g2cid, int msg_num, int prod_num, int dim_num, size_t *len, char *name, float *val)</td></tr>
 <tr class="memdesc:a8e4a8fcf8d55db639760e873013af0ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Learn about the one of the dimensions of a GRIB2 product.  <br /></td></tr>
 <tr class="separator:a8e4a8fcf8d55db639760e873013af0ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa848aa9a840ae9697ac552ec1fc7649b" id="r_aa848aa9a840ae9697ac552ec1fc7649b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2cinq_8c.html#aa848aa9a840ae9697ac552ec1fc7649b">g2c_inq_dim_info</a> (int g2cid, int msg_num, int prod_num, int dim_num, size_t *len, char *name)</td></tr>
+<tr class="memdesc:aa848aa9a840ae9697ac552ec1fc7649b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Learn about the one of the dimensions of a GRIB2 product.  <br /></td></tr>
+<tr class="separator:aa848aa9a840ae9697ac552ec1fc7649b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a6d255355a287b253ebc369271751f4" id="r_a9a6d255355a287b253ebc369271751f4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g2cinq_8c.html#a9a6d255355a287b253ebc369271751f4">g2c_inq_msg</a> (int g2cid, int msg_num, unsigned char *discipline, int *num_fields, int *num_local, short *center, short *subcenter, unsigned char *master_version, unsigned char *local_version)</td></tr>
 <tr class="memdesc:a9a6d255355a287b253ebc369271751f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Learn about a GRIB2 message.  <br /></td></tr>
 <tr class="separator:a9a6d255355a287b253ebc369271751f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -201,7 +204,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="g2cinq_8c_source.html#l00031">31</a> of file <a class="el" href="g2cinq_8c_source.html">g2cinq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00483">G2C_EBADID</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00116">MUTEX_LOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00119">MUTEX_UNLOCK</a>, and <a class="el" href="grib2__int_8h_source.html#l00242">g2c_file_info::num_messages</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00491">G2C_EBADID</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00484">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00116">MUTEX_LOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00119">MUTEX_UNLOCK</a>, and <a class="el" href="grib2__int_8h_source.html#l00242">g2c_file_info::num_messages</a>.</p>
 
 </div>
 </div>
@@ -262,6 +265,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Learn about the one of the dimensions of a GRIB2 product. </p>
+<p>This function will return the size, name, and values along the dimension.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">g2cid</td><td>ID of the opened file, as from <a class="el" href="g2cfile_8c.html#a216f2c45794641932725b7a8b1800423" title="Open an existing GRIB2 file.">g2c_open()</a>. </td></tr>
@@ -285,9 +289,91 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Ed Hartnett </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>10/21/22 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2cinq_8c_source.html#l00328">328</a> of file <a class="el" href="g2cinq_8c_source.html">g2cinq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2cinq_8c_source.html#l00372">372</a> of file <a class="el" href="g2cinq_8c_source.html">g2cinq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00483">G2C_EBADID</a>, <a class="el" href="grib2_8h_source.html#l00487">G2C_ENOMSG</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOPRODUCT</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_ENOSECTION</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00274">G2C_MAX_NAME</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00188">g2c_dim_info::len</a>, <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00116">MUTEX_LOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00189">g2c_dim_info::name</a>, <a class="el" href="grib2__int_8h_source.html#l00166">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::prev</a>, <a class="el" href="grib2__int_8h_source.html#l00164">g2c_message_info::sec</a>, <a class="el" href="grib2__int_8h_source.html#l00177">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_num</a>, and <a class="el" href="grib2__int_8h_source.html#l00190">g2c_dim_info::value</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00491">G2C_EBADID</a>, <a class="el" href="grib2_8h_source.html#l00489">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00495">G2C_ENOMSG</a>, <a class="el" href="grib2_8h_source.html#l00508">G2C_ENOPRODUCT</a>, <a class="el" href="grib2_8h_source.html#l00499">G2C_ENOSECTION</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00274">G2C_MAX_NAME</a>, <a class="el" href="grib2_8h_source.html#l00484">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00188">g2c_dim_info::len</a>, <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00116">MUTEX_LOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00119">MUTEX_UNLOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00189">g2c_dim_info::name</a>, <a class="el" href="grib2__int_8h_source.html#l00166">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::prev</a>, <a class="el" href="grib2__int_8h_source.html#l00164">g2c_message_info::sec</a>, <a class="el" href="grib2__int_8h_source.html#l00177">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_num</a>, and <a class="el" href="grib2__int_8h_source.html#l00190">g2c_dim_info::value</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="g2cinq_8c_source.html#l00468">g2c_inq_dim_info()</a>.</p>
+
+</div>
+</div>
+<a id="aa848aa9a840ae9697ac552ec1fc7649b" name="aa848aa9a840ae9697ac552ec1fc7649b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa848aa9a840ae9697ac552ec1fc7649b">&#9670;&#160;</a></span>g2c_inq_dim_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int g2c_inq_dim_info </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>g2cid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>msg_num</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>prod_num</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dim_num</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Learn about the one of the dimensions of a GRIB2 product. </p>
+<p>This function will return the size and name of the dimension.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">g2cid</td><td>ID of the opened file, as from <a class="el" href="g2cfile_8c.html#a216f2c45794641932725b7a8b1800423" title="Open an existing GRIB2 file.">g2c_open()</a>. </td></tr>
+    <tr><td class="paramname">msg_num</td><td>Number of the message in the file, starting with the first message as 0. </td></tr>
+    <tr><td class="paramname">prod_num</td><td>Product number. </td></tr>
+    <tr><td class="paramname">dim_num</td><td>Dimension number, with the first dimension as 0. </td></tr>
+    <tr><td class="paramname">len</td><td>Pointer that gets the length of this dimension. Ignored if NULL. </td></tr>
+    <tr><td class="paramname">name</td><td>Pointer that gets the name of this dimension. Must have memory of size G2C_MAX_NAME. Ignored if NULL.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li><a class="el" href="grib2_8h.html#af837ca43cf1f95ac2d4096d3c3e35576" title="No error.">G2C_NOERROR</a> No error.</li>
+<li><a class="el" href="grib2_8h.html#af32c4bff1609a6286dbd77dd2fa0b624" title="Bad ID.">G2C_EBADID</a> File ID not found.</li>
+<li><a class="el" href="grib2_8h.html#a2a68c6a57c0aec69ab864843b3727a78" title="No GRIB message found.">G2C_ENOMSG</a> Message not found.</li>
+<li><a class="el" href="grib2_8h.html#a98305aa1e32b01875f9b6e935f5341e0" title="Product not found.">G2C_ENOPRODUCT</a> Product not found.</li>
+<li><a class="el" href="grib2_8h.html#a4dcc89afa62b38a9a0d7a4df8d9f8ca7" title="Cannot find section.">G2C_ENOSECTION</a> GDS not found.</li>
+</ul>
+</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Ed Hartnett </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>10/21/22 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="g2cinq_8c_source.html#l00468">468</a> of file <a class="el" href="g2cinq_8c_source.html">g2cinq.c</a>.</p>
+
+<p class="reference">References <a class="el" href="g2cinq_8c_source.html#l00372">g2c_inq_dim()</a>.</p>
 
 </div>
 </div>
@@ -383,9 +469,9 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Ed Hartnett </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>10/21/22 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2cinq_8c_source.html#l00086">86</a> of file <a class="el" href="g2cinq_8c_source.html">g2cinq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2cinq_8c_source.html#l00087">87</a> of file <a class="el" href="g2cinq_8c_source.html">g2cinq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00151">g2c_message_info::center</a>, <a class="el" href="grib2__int_8h_source.html#l00140">g2c_message_info::discipline</a>, <a class="el" href="grib2_8h_source.html#l00483">G2C_EBADID</a>, <a class="el" href="grib2_8h_source.html#l00487">G2C_ENOMSG</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00154">g2c_message_info::local_version</a>, <a class="el" href="grib2__int_8h_source.html#l00153">g2c_message_info::master_version</a>, <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00166">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00142">g2c_message_info::num_fields</a>, <a class="el" href="grib2__int_8h_source.html#l00143">g2c_message_info::num_local</a>, and <a class="el" href="grib2__int_8h_source.html#l00152">g2c_message_info::subcenter</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00151">g2c_message_info::center</a>, <a class="el" href="grib2__int_8h_source.html#l00140">g2c_message_info::discipline</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_EBADID</a>, <a class="el" href="grib2_8h_source.html#l00489">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00495">G2C_ENOMSG</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00484">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00154">g2c_message_info::local_version</a>, <a class="el" href="grib2__int_8h_source.html#l00153">g2c_message_info::master_version</a>, <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00116">MUTEX_LOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00119">MUTEX_UNLOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00166">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00142">g2c_message_info::num_fields</a>, <a class="el" href="grib2__int_8h_source.html#l00143">g2c_message_info::num_local</a>, and <a class="el" href="grib2__int_8h_source.html#l00152">g2c_message_info::subcenter</a>.</p>
 
 </div>
 </div>
@@ -481,9 +567,9 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Ed Hartnett </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>10/22/22 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2cinq_8c_source.html#l00149">149</a> of file <a class="el" href="g2cinq_8c_source.html">g2cinq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2cinq_8c_source.html#l00170">170</a> of file <a class="el" href="g2cinq_8c_source.html">g2cinq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00158">g2c_message_info::day</a>, <a class="el" href="grib2_8h_source.html#l00483">G2C_EBADID</a>, <a class="el" href="grib2_8h_source.html#l00487">G2C_ENOMSG</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00159">g2c_message_info::hour</a>, <a class="el" href="grib2__int_8h_source.html#l00160">g2c_message_info::minute</a>, <a class="el" href="grib2__int_8h_source.html#l00157">g2c_message_info::month</a>, <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00166">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00161">g2c_message_info::second</a>, <a class="el" href="grib2__int_8h_source.html#l00155">g2c_message_info::sig_ref_time</a>, and <a class="el" href="grib2__int_8h_source.html#l00156">g2c_message_info::year</a>.</p>
+<p class="reference">References <a class="el" href="grib2__int_8h_source.html#l00158">g2c_message_info::day</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_EBADID</a>, <a class="el" href="grib2_8h_source.html#l00489">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00495">G2C_ENOMSG</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00484">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00159">g2c_message_info::hour</a>, <a class="el" href="grib2__int_8h_source.html#l00160">g2c_message_info::minute</a>, <a class="el" href="grib2__int_8h_source.html#l00157">g2c_message_info::month</a>, <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00116">MUTEX_LOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00119">MUTEX_UNLOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00166">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00161">g2c_message_info::second</a>, <a class="el" href="grib2__int_8h_source.html#l00155">g2c_message_info::sig_ref_time</a>, and <a class="el" href="grib2__int_8h_source.html#l00156">g2c_message_info::year</a>.</p>
 
 </div>
 </div>
@@ -581,9 +667,9 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Ed Hartnett </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>10/21/22 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="g2cinq_8c_source.html#l00207">207</a> of file <a class="el" href="g2cinq_8c_source.html">g2cinq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="g2cinq_8c_source.html#l00247">247</a> of file <a class="el" href="g2cinq_8c_source.html">g2cinq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="grib2_8h_source.html#l00483">G2C_EBADID</a>, <a class="el" href="grib2_8h_source.html#l00487">G2C_ENOMSG</a>, <a class="el" href="grib2_8h_source.html#l00500">G2C_ENOPRODUCT</a>, <a class="el" href="grib2_8h_source.html#l00491">G2C_ENOSECTION</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00476">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00116">MUTEX_LOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00119">MUTEX_UNLOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00166">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::prev</a>, <a class="el" href="grib2__int_8h_source.html#l00164">g2c_message_info::sec</a>, <a class="el" href="grib2__int_8h_source.html#l00177">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_num</a>, <a class="el" href="grib2__int_8h_source.html#l00180">g2c_section_info::template</a>, and <a class="el" href="grib2__int_8h_source.html#l00181">g2c_section_info::template_len</a>.</p>
+<p class="reference">References <a class="el" href="grib2_8h_source.html#l00491">G2C_EBADID</a>, <a class="el" href="grib2_8h_source.html#l00489">G2C_EINVAL</a>, <a class="el" href="grib2_8h_source.html#l00495">G2C_ENOMSG</a>, <a class="el" href="grib2_8h_source.html#l00508">G2C_ENOPRODUCT</a>, <a class="el" href="grib2_8h_source.html#l00499">G2C_ENOSECTION</a>, <a class="el" href="g2cfile_8c_source.html#l00010">g2c_file</a>, <a class="el" href="grib2_8h_source.html#l00273">G2C_MAX_FILES</a>, <a class="el" href="grib2_8h_source.html#l00484">G2C_NOERROR</a>, <a class="el" href="grib2__int_8h_source.html#l00137">g2c_message_info::msg_num</a>, <a class="el" href="grib2__int_8h_source.html#l00116">MUTEX_LOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00119">MUTEX_UNLOCK</a>, <a class="el" href="grib2__int_8h_source.html#l00166">g2c_message_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00178">g2c_section_info::next</a>, <a class="el" href="grib2__int_8h_source.html#l00179">g2c_section_info::prev</a>, <a class="el" href="grib2__int_8h_source.html#l00164">g2c_message_info::sec</a>, <a class="el" href="grib2__int_8h_source.html#l00177">g2c_section_info::sec_info</a>, <a class="el" href="grib2__int_8h_source.html#l00175">g2c_section_info::sec_num</a>, <a class="el" href="grib2__int_8h_source.html#l00180">g2c_section_info::template</a>, and <a class="el" href="grib2__int_8h_source.html#l00181">g2c_section_info::template_len</a>.</p>
 
 </div>
 </div>
@@ -612,7 +698,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="g2cfile_8c_source.html#l00010">10</a> of file <a class="el" href="g2cfile_8c_source.html">g2cfile.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="g2cinq_8c_source.html#l00031">g2c_inq()</a>, <a class="el" href="g2cinq_8c_source.html#l00328">g2c_inq_dim()</a>, <a class="el" href="g2cinq_8c_source.html#l00086">g2c_inq_msg()</a>, <a class="el" href="g2cinq_8c_source.html#l00149">g2c_inq_msg_time()</a>, and <a class="el" href="g2cinq_8c_source.html#l00207">g2c_inq_prod()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="g2cinq_8c_source.html#l00031">g2c_inq()</a>, <a class="el" href="g2cinq_8c_source.html#l00372">g2c_inq_dim()</a>, <a class="el" href="g2cinq_8c_source.html#l00087">g2c_inq_msg()</a>, <a class="el" href="g2cinq_8c_source.html#l00170">g2c_inq_msg_time()</a>, and <a class="el" href="g2cinq_8c_source.html#l00247">g2c_inq_prod()</a>.</p>
 
 </div>
 </div>

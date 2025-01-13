@@ -3,6 +3,7 @@ var g2cinq_8c =
     [ "EXTERN_MUTEX", "g2cinq_8c.html#af762d41ed99e829c53653662192c859d", null ],
     [ "g2c_inq", "g2cinq_8c.html#a11d1277208e3ee21f2dda94effdbe41b", null ],
     [ "g2c_inq_dim", "g2cinq_8c.html#a8e4a8fcf8d55db639760e873013af0ab", null ],
+    [ "g2c_inq_dim_info", "g2cinq_8c.html#aa848aa9a840ae9697ac552ec1fc7649b", null ],
     [ "g2c_inq_msg", "g2cinq_8c.html#a9a6d255355a287b253ebc369271751f4", null ],
     [ "g2c_inq_msg_time", "g2cinq_8c.html#a914c41f0c96a57cf78f5a05525b2e8b4", null ],
     [ "g2c_inq_prod", "g2cinq_8c.html#a95a28acc597209de02502de75aac6a9e", null ],

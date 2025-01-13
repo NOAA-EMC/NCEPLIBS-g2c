@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.0.0</span>
+   <div id="projectname">NCEPLIBS-g2c<span id="projectnumber">&#160;2.1.0</span>
    </div>
   </td>
  </tr>
@@ -681,323 +681,323 @@ $(document).ready(function(){initNavTree('g2cindex_8c_source.html',''); initResi
 <div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>}</div>
 </div>
 <div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span> </div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span><span class="keywordtype">int</span></div>
-<div class="foldopen" id="foldopen00800" data-start="{" data-end="}">
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno"><a class="line" href="g2cindex_8c.html#a32a9653961314d342b211ab98a07aa0a">  800</a></span><a class="code hl_function" href="g2cindex_8c.html#a32a9653961314d342b211ab98a07aa0a">g2c_open_index1</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *index_file)</div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>{</div>
-<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>    FILE *f;</div>
-<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>    <span class="keywordtype">int</span> i, j, k;</div>
-<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>    <span class="keywordtype">char</span> date_str[<a class="code hl_define" href="g2cindex_8c.html#ab777707744dc22770af6415fc907d469">G2C_INDEX_DATE_STR_LEN</a> + 1];</div>
-<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>    <span class="keywordtype">char</span> time_str[<a class="code hl_define" href="g2cindex_8c.html#ac60c6eb3d8e8d6b31db875a2f04ca168">G2C_INDEX_TIME_STR_LEN</a> + 1];</div>
-<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>    <span class="keywordtype">int</span> skip, total_len, num_rec;</div>
-<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>    <span class="keywordtype">char</span> basename[<a class="code hl_define" href="g2cindex_8c.html#af8a1ae5ba5b9fd2dca00f97181756d94">G2C_INDEX_BASENAME_LEN</a> + 1];</div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>    <span class="keywordtype">size_t</span> file_pos = <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> * 2;</div>
-<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> pds_val[<a class="code hl_define" href="grib2__int_8h.html#a91624c9b58aaa01748a06a85c15b6c5c">G2C_INDEX1_PDS_VAL_LEN</a>];</div>
-<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> gds_val[<a class="code hl_define" href="grib2__int_8h.html#a56d5a04be7b7feb227634533413f528a">G2C_INDEX1_GDS_VAL_LEN</a>];</div>
-<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> bms_val[<a class="code hl_define" href="grib2__int_8h.html#a68960e1200741ecaacc22020d1ad2565">G2C_INDEX1_BMS_VAL_LEN</a>];</div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> bds_val[<a class="code hl_define" href="grib2__int_8h.html#a12c6feec8073278d5147ed3f451d8f26">G2C_INDEX1_BDS_VAL_LEN</a>];</div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>    <span class="keywordtype">int</span> index_version;</div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>    <span class="keywordtype">int</span> rec;</div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="grib2_8h.html#af837ca43cf1f95ac2d4096d3c3e35576">G2C_NOERROR</a>;</div>
-<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span> </div>
-<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>    <span class="comment">/* Check inputs. */</span></div>
-<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>    <span class="keywordflow">if</span> (!index_file)</div>
-<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a9abb07853bd272b8f33bb978bb805cb9">G2C_EINVAL</a>;</div>
-<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span> </div>
-<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>    <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((2, <span class="stringliteral">&quot;g2c_open_index1 index_file %s&quot;</span>, index_file));</div>
-<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span> </div>
-<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>    <span class="comment">/* If using threading, lock the mutex. */</span></div>
-<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>    <a class="code hl_define" href="grib2__int_8h.html#af1b008061fe84eb508e6aef5b2e37f52">MUTEX_LOCK</a>(m);</div>
-<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span> </div>
-<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>    <span class="comment">/* Open the index file. */</span></div>
-<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>    <span class="keywordflow">if</span> (!(f = fopen(index_file, <span class="stringliteral">&quot;rb&quot;</span>)))</div>
-<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
-<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span> </div>
-<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>    <span class="comment">/* Read header record apparently named after Steve Lord. */</span></div>
-<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>    <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cindex_8c.html#a34cdf8504ffcbd6a648d5748386bdd71">read_hdr_rec1</a>(f, &amp;i, &amp;j, &amp;k, date_str, time_str)))</div>
-<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>    <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;i %d j %d k %d date_str %s time_str %s&quot;</span>, i, j, k, date_str, time_str));</div>
+<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span><span class="keywordtype">int</span></div>
+<div class="foldopen" id="foldopen00812" data-start="{" data-end="}">
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno"><a class="line" href="g2cindex_8c.html#a32a9653961314d342b211ab98a07aa0a">  812</a></span><a class="code hl_function" href="g2cindex_8c.html#a32a9653961314d342b211ab98a07aa0a">g2c_open_index1</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *index_file)</div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>{</div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>    FILE *f;</div>
+<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>    <span class="keywordtype">int</span> i, j, k;</div>
+<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>    <span class="keywordtype">char</span> date_str[<a class="code hl_define" href="g2cindex_8c.html#ab777707744dc22770af6415fc907d469">G2C_INDEX_DATE_STR_LEN</a> + 1];</div>
+<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>    <span class="keywordtype">char</span> time_str[<a class="code hl_define" href="g2cindex_8c.html#ac60c6eb3d8e8d6b31db875a2f04ca168">G2C_INDEX_TIME_STR_LEN</a> + 1];</div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>    <span class="keywordtype">int</span> skip, total_len, num_rec;</div>
+<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>    <span class="keywordtype">char</span> basename[<a class="code hl_define" href="g2cindex_8c.html#af8a1ae5ba5b9fd2dca00f97181756d94">G2C_INDEX_BASENAME_LEN</a> + 1];</div>
+<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>    <span class="keywordtype">size_t</span> file_pos = <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> * 2;</div>
+<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> pds_val[<a class="code hl_define" href="grib2__int_8h.html#a91624c9b58aaa01748a06a85c15b6c5c">G2C_INDEX1_PDS_VAL_LEN</a>];</div>
+<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> gds_val[<a class="code hl_define" href="grib2__int_8h.html#a56d5a04be7b7feb227634533413f528a">G2C_INDEX1_GDS_VAL_LEN</a>];</div>
+<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> bms_val[<a class="code hl_define" href="grib2__int_8h.html#a68960e1200741ecaacc22020d1ad2565">G2C_INDEX1_BMS_VAL_LEN</a>];</div>
+<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> bds_val[<a class="code hl_define" href="grib2__int_8h.html#a12c6feec8073278d5147ed3f451d8f26">G2C_INDEX1_BDS_VAL_LEN</a>];</div>
+<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>    <span class="keywordtype">int</span> index_version;</div>
+<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>    <span class="keywordtype">int</span> rec;</div>
+<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="grib2_8h.html#af837ca43cf1f95ac2d4096d3c3e35576">G2C_NOERROR</a>;</div>
+<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span> </div>
+<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span>    <span class="comment">/* Check inputs. */</span></div>
+<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>    <span class="keywordflow">if</span> (!index_file)</div>
+<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a9abb07853bd272b8f33bb978bb805cb9">G2C_EINVAL</a>;</div>
+<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span> </div>
+<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>    <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((2, <span class="stringliteral">&quot;g2c_open_index1 index_file %s&quot;</span>, index_file));</div>
 <div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span> </div>
-<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>    <span class="comment">/* Read second header record. */</span></div>
-<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>    <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cindex_8c.html#a340b8aa793ffa2ad1a1debbc5e099154">read_hdr_rec2</a>(f, &amp;skip, &amp;total_len, &amp;num_rec, basename, &amp;index_version)))</div>
-<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>        <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>    <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;skip %d total_len %d num_rec %d basename %s&quot;</span>, skip, total_len, num_rec, basename));</div>
-<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span> </div>
-<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>    <span class="comment">/* Read each index record. These is one record for each message in</span></div>
-<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span><span class="comment">       the original GRIB1 file. */</span></div>
-<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>    <span class="keywordflow">for</span> (rec = 0; rec &lt; num_rec; rec++)</div>
-<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>    {</div>
-<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen;</div>
-<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> version;</div>
+<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>    <span class="comment">/* If using threading, lock the mutex. */</span></div>
+<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span>    <a class="code hl_define" href="grib2__int_8h.html#af1b008061fe84eb508e6aef5b2e37f52">MUTEX_LOCK</a>(m);</div>
+<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span> </div>
+<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>    <span class="comment">/* Open the index file. */</span></div>
+<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>    <span class="keywordflow">if</span> (!(f = fopen(index_file, <span class="stringliteral">&quot;rb&quot;</span>)))</div>
+<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
+<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span> </div>
+<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>    <span class="comment">/* Read header record apparently named after Steve Lord. */</span></div>
+<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>    <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cindex_8c.html#a34cdf8504ffcbd6a648d5748386bdd71">read_hdr_rec1</a>(f, &amp;i, &amp;j, &amp;k, date_str, time_str)))</div>
+<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>    <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;i %d j %d k %d date_str %s time_str %s&quot;</span>, i, j, k, date_str, time_str));</div>
 <div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span> </div>
-<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>        <span class="comment">/* Move to beginning of index record. */</span></div>
-<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>        <span class="keywordflow">if</span> (fseek(f, file_pos, SEEK_SET))</div>
-<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>        {</div>
-<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>            ret = <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
-<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>        }</div>
-<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span> </div>
-<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>        <span class="comment">/* Read the index1 record. */</span></div>
-<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;reading index1 record at file position %ld&quot;</span>, ftell(f)));</div>
-<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span>        <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cindex_8c.html#a3012c86f328edde808fb0c27bcbd0de2">g2c_start_index1_record</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;b2_msg, &amp;b2_pds, &amp;b2_gds,</div>
-<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span>                                           &amp;b2_bms, &amp;b2_bds, &amp;msglen, &amp;version, pds_val,</div>
-<div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span>                                           gds_val, bms_val, bds_val, NULL, NULL, NULL)))</div>
-<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span> </div>
-<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d&quot;</span>,</div>
-<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>             b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version));</div>
-<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>        printf(<span class="stringliteral">&quot;b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d\n&quot;</span>,</div>
-<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>               b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version);</div>
+<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>    <span class="comment">/* Read second header record. */</span></div>
+<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>    <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cindex_8c.html#a340b8aa793ffa2ad1a1debbc5e099154">read_hdr_rec2</a>(f, &amp;skip, &amp;total_len, &amp;num_rec, basename, &amp;index_version)))</div>
+<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>    <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;skip %d total_len %d num_rec %d basename %s&quot;</span>, skip, total_len, num_rec, basename));</div>
+<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span> </div>
+<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>    <span class="comment">/* Read each index record. These is one record for each message in</span></div>
+<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span><span class="comment">       the original GRIB1 file. */</span></div>
+<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>    <span class="keywordflow">for</span> (rec = 0; rec &lt; num_rec; rec++)</div>
+<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>    {</div>
+<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen;</div>
+<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> version;</div>
+<div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span> </div>
+<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>        <span class="comment">/* Move to beginning of index record. */</span></div>
+<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span>        <span class="keywordflow">if</span> (fseek(f, file_pos, SEEK_SET))</div>
+<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>        {</div>
+<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>            ret = <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
+<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>        }</div>
 <div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span> </div>
-<div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>        <span class="comment">/* Move the file position to the start of the next index record. */</span></div>
-<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>        file_pos += total_len;</div>
-<div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span>    } <span class="comment">/* next rec */</span></div>
-<div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span> </div>
-<div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>    <span class="comment">/* If using threading, unlock the mutex. */</span></div>
-<div class="line"><a id="l00871" name="l00871"></a><span class="lineno">  871</span>    <a class="code hl_define" href="grib2__int_8h.html#a2e449246cf2d393ed6973729785e9e0c">MUTEX_UNLOCK</a>(m);</div>
+<div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>        <span class="comment">/* Read the index1 record. */</span></div>
+<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;reading index1 record at file position %ld&quot;</span>, ftell(f)));</div>
+<div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span>        <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cindex_8c.html#a3012c86f328edde808fb0c27bcbd0de2">g2c_start_index1_record</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;b2_msg, &amp;b2_pds, &amp;b2_gds,</div>
+<div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span>                                           &amp;b2_bms, &amp;b2_bds, &amp;msglen, &amp;version, pds_val,</div>
+<div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>                                           gds_val, bms_val, bds_val, NULL, NULL, NULL)))</div>
+<div class="line"><a id="l00871" name="l00871"></a><span class="lineno">  871</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00872" name="l00872"></a><span class="lineno">  872</span> </div>
-<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>    <span class="comment">/* Close the index file. */</span></div>
-<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span>    <span class="keywordflow">if</span> (!ret)</div>
-<div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>        fclose(f);</div>
-<div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span> </div>
-<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span>}</div>
+<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d&quot;</span>,</div>
+<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span>             b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version));</div>
+<div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>        printf(<span class="stringliteral">&quot;b2_msg %d b2_pds %d b2_gds %d b2_bms %d b2_bds %d msglen %d version %d\n&quot;</span>,</div>
+<div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>               b2_msg, b2_gds, b2_pds, b2_bms, b2_bds, msglen, version);</div>
+<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span> </div>
+<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span>        <span class="comment">/* Move the file position to the start of the next index record. */</span></div>
+<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span>        file_pos += total_len;</div>
+<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>    } <span class="comment">/* next rec */</span></div>
+<div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span> </div>
+<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>    <span class="comment">/* If using threading, unlock the mutex. */</span></div>
+<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>    <a class="code hl_define" href="grib2__int_8h.html#a2e449246cf2d393ed6973729785e9e0c">MUTEX_UNLOCK</a>(m);</div>
+<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span> </div>
+<div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>    <span class="comment">/* Close the index file. */</span></div>
+<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>    <span class="keywordflow">if</span> (!ret)</div>
+<div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>        fclose(f);</div>
+<div class="line"><a id="l00888" name="l00888"></a><span class="lineno">  888</span> </div>
+<div class="line"><a id="l00889" name="l00889"></a><span class="lineno">  889</span>    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l00890" name="l00890"></a><span class="lineno">  890</span>}</div>
 </div>
-<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span> </div>
-<div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span><span class="keywordtype">int</span></div>
-<div class="foldopen" id="foldopen00902" data-start="{" data-end="}">
-<div class="line"><a id="l00902" name="l00902"></a><span class="lineno"><a class="line" href="g2cindex_8c.html#a146ebf0fbbfac18432b0c0dbe9900631">  902</a></span><a class="code hl_function" href="g2cindex_8c.html#a146ebf0fbbfac18432b0c0dbe9900631">g2c_open_index</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *data_file, <span class="keyword">const</span> <span class="keywordtype">char</span> *index_file, <span class="keywordtype">int</span> mode,</div>
-<div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span>               <span class="keywordtype">int</span> *g2cid)</div>
-<div class="line"><a id="l00904" name="l00904"></a><span class="lineno">  904</span>{</div>
-<div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>    FILE *f;</div>
-<div class="line"><a id="l00906" name="l00906"></a><span class="lineno">  906</span>    <span class="keywordtype">size_t</span> bytes_read;</div>
-<div class="line"><a id="l00907" name="l00907"></a><span class="lineno">  907</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="grib2_8h.html#af837ca43cf1f95ac2d4096d3c3e35576">G2C_NOERROR</a>;</div>
-<div class="line"><a id="l00908" name="l00908"></a><span class="lineno">  908</span> </div>
-<div class="line"><a id="l00909" name="l00909"></a><span class="lineno">  909</span>    <span class="comment">/* Check inputs. */</span></div>
-<div class="line"><a id="l00910" name="l00910"></a><span class="lineno">  910</span>    <span class="keywordflow">if</span> (!index_file || !data_file || !g2cid)</div>
-<div class="line"><a id="l00911" name="l00911"></a><span class="lineno">  911</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a9abb07853bd272b8f33bb978bb805cb9">G2C_EINVAL</a>;</div>
-<div class="line"><a id="l00912" name="l00912"></a><span class="lineno">  912</span>    <span class="keywordflow">if</span> (strlen(data_file) &gt; <a class="code hl_define" href="grib2_8h.html#a91778844b25133a0b77e345a8e1bccf8">G2C_MAX_NAME</a>)</div>
-<div class="line"><a id="l00913" name="l00913"></a><span class="lineno">  913</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a39bad0ee21628d9381fe409ec98214f1">G2C_ENAMETOOLONG</a>;</div>
-<div class="line"><a id="l00914" name="l00914"></a><span class="lineno">  914</span> </div>
-<div class="line"><a id="l00915" name="l00915"></a><span class="lineno">  915</span>    <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((2, <span class="stringliteral">&quot;g2c_open_index index_file %s&quot;</span>, index_file));</div>
-<div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span> </div>
-<div class="line"><a id="l00917" name="l00917"></a><span class="lineno">  917</span>    <span class="comment">/* Open the index file. */</span></div>
-<div class="line"><a id="l00918" name="l00918"></a><span class="lineno">  918</span>    <span class="keywordflow">if</span> (!(f = fopen(index_file, <span class="stringliteral">&quot;rb&quot;</span>)))</div>
-<div class="line"><a id="l00919" name="l00919"></a><span class="lineno">  919</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
+<div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span> </div>
+<div class="line"><a id="l00913" name="l00913"></a><span class="lineno">  913</span><span class="keywordtype">int</span></div>
+<div class="foldopen" id="foldopen00914" data-start="{" data-end="}">
+<div class="line"><a id="l00914" name="l00914"></a><span class="lineno"><a class="line" href="g2cindex_8c.html#a146ebf0fbbfac18432b0c0dbe9900631">  914</a></span><a class="code hl_function" href="g2cindex_8c.html#a146ebf0fbbfac18432b0c0dbe9900631">g2c_open_index</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *data_file, <span class="keyword">const</span> <span class="keywordtype">char</span> *index_file, <span class="keywordtype">int</span> mode,</div>
+<div class="line"><a id="l00915" name="l00915"></a><span class="lineno">  915</span>               <span class="keywordtype">int</span> *g2cid)</div>
+<div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span>{</div>
+<div class="line"><a id="l00917" name="l00917"></a><span class="lineno">  917</span>    FILE *f;</div>
+<div class="line"><a id="l00918" name="l00918"></a><span class="lineno">  918</span>    <span class="keywordtype">size_t</span> bytes_read;</div>
+<div class="line"><a id="l00919" name="l00919"></a><span class="lineno">  919</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="grib2_8h.html#af837ca43cf1f95ac2d4096d3c3e35576">G2C_NOERROR</a>;</div>
 <div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span> </div>
-<div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span>    <span class="comment">/* If using threading, lock the mutex. */</span></div>
-<div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span>    <a class="code hl_define" href="grib2__int_8h.html#af1b008061fe84eb508e6aef5b2e37f52">MUTEX_LOCK</a>(m);</div>
-<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span> </div>
-<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>    <span class="comment">/* Remember file metadata. */</span></div>
-<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span>    ret = <a class="code hl_function" href="g2cfile_8c.html#af12335d519df51c7331a8c4f343fb98a">g2c_add_file</a>(data_file, mode, g2cid);</div>
+<div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span>    <span class="comment">/* Check inputs. */</span></div>
+<div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span>    <span class="keywordflow">if</span> (!index_file || !data_file || !g2cid)</div>
+<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a9abb07853bd272b8f33bb978bb805cb9">G2C_EINVAL</a>;</div>
+<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>    <span class="keywordflow">if</span> (strlen(data_file) &gt; <a class="code hl_define" href="grib2_8h.html#a91778844b25133a0b77e345a8e1bccf8">G2C_MAX_NAME</a>)</div>
+<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a39bad0ee21628d9381fe409ec98214f1">G2C_ENAMETOOLONG</a>;</div>
 <div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span> </div>
-<div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span>    <span class="comment">/* Read the header. */</span></div>
-<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span>    <span class="keywordflow">if</span> (!ret)</div>
-<div class="line"><a id="l00929" name="l00929"></a><span class="lineno">  929</span>    {</div>
-<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span>        <span class="keywordtype">char</span> line[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> + 1];</div>
-<div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span>        <span class="keywordtype">char</span> str1[<a class="code hl_define" href="g2cindex_8c.html#abec75da2ac349d28e3f11722dff87d39">G2C_INDEX_STR1_LEN</a> + 1], date_str[<a class="code hl_define" href="g2cindex_8c.html#ab777707744dc22770af6415fc907d469">G2C_INDEX_DATE_STR_LEN</a> + 1], time_str[<a class="code hl_define" href="g2cindex_8c.html#ac60c6eb3d8e8d6b31db875a2f04ca168">G2C_INDEX_TIME_STR_LEN</a> + 1];</div>
-<div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span>        <span class="keywordtype">int</span> i, j, k;</div>
-<div class="line"><a id="l00933" name="l00933"></a><span class="lineno">  933</span>        <span class="keywordtype">int</span> skip, total_len, num_rec;</div>
-<div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span>        <span class="keywordtype">char</span> basename[<a class="code hl_define" href="g2cindex_8c.html#af8a1ae5ba5b9fd2dca00f97181756d94">G2C_INDEX_BASENAME_LEN</a> + 1];</div>
-<div class="line"><a id="l00935" name="l00935"></a><span class="lineno">  935</span>        <span class="keywordtype">size_t</span> file_pos = <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> * 2;</div>
-<div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span>        <span class="keywordtype">int</span> index_version;</div>
-<div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span>        <span class="keywordtype">int</span> rec;</div>
+<div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span>    <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((2, <span class="stringliteral">&quot;g2c_open_index index_file %s&quot;</span>, index_file));</div>
+<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span> </div>
+<div class="line"><a id="l00929" name="l00929"></a><span class="lineno">  929</span>    <span class="comment">/* Open the index file. */</span></div>
+<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span>    <span class="keywordflow">if</span> (!(f = fopen(index_file, <span class="stringliteral">&quot;rb&quot;</span>)))</div>
+<div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
+<div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span> </div>
+<div class="line"><a id="l00933" name="l00933"></a><span class="lineno">  933</span>    <span class="comment">/* If using threading, lock the mutex. */</span></div>
+<div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span>    <a class="code hl_define" href="grib2__int_8h.html#af1b008061fe84eb508e6aef5b2e37f52">MUTEX_LOCK</a>(m);</div>
+<div class="line"><a id="l00935" name="l00935"></a><span class="lineno">  935</span> </div>
+<div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span>    <span class="comment">/* Remember file metadata. */</span></div>
+<div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span>    ret = <a class="code hl_function" href="g2cfile_8c.html#af12335d519df51c7331a8c4f343fb98a">g2c_add_file</a>(data_file, mode, g2cid);</div>
 <div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span> </div>
-<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>        <span class="comment">/* Read the first line of header. */</span></div>
-<div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span>        <span class="keywordflow">if</span> ((bytes_read = fread(line, 1, <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>, f)) != <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>)</div>
-<div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span>            <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
-<div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span>        line[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>] = 0;</div>
-<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span>        <span class="comment">/* Scan the line. */</span></div>
-<div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span>        {</div>
-<div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>            <span class="keywordtype">char</span> long_date_str[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> + 1], long_time_str[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> + 1];</div>
-<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>            <span class="keywordtype">char</span> long_str1[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> + 1];</div>
-<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span> </div>
-<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span>            sscanf(line, <span class="stringliteral">&quot;%s %d %d %d %s %s GB2IX1&quot;</span>, long_str1, &amp;i, &amp;j, &amp;k, long_date_str, long_time_str);</div>
-<div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span>            memcpy(str1, long_str1, <a class="code hl_define" href="g2cindex_8c.html#abec75da2ac349d28e3f11722dff87d39">G2C_INDEX_STR1_LEN</a>);</div>
-<div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span>            date_str[<a class="code hl_define" href="g2cindex_8c.html#abec75da2ac349d28e3f11722dff87d39">G2C_INDEX_STR1_LEN</a>] = 0;</div>
-<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span>            memcpy(date_str, long_date_str, <a class="code hl_define" href="g2cindex_8c.html#ab777707744dc22770af6415fc907d469">G2C_INDEX_DATE_STR_LEN</a>);</div>
-<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span>            date_str[<a class="code hl_define" href="g2cindex_8c.html#ab777707744dc22770af6415fc907d469">G2C_INDEX_DATE_STR_LEN</a>] = 0;</div>
-<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>            memcpy(time_str, long_time_str, <a class="code hl_define" href="g2cindex_8c.html#ac60c6eb3d8e8d6b31db875a2f04ca168">G2C_INDEX_TIME_STR_LEN</a>);</div>
-<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>            time_str[<a class="code hl_define" href="g2cindex_8c.html#ac60c6eb3d8e8d6b31db875a2f04ca168">G2C_INDEX_TIME_STR_LEN</a>] = 0;</div>
-<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span>        }</div>
-<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((1, <span class="stringliteral">&quot;str1 %s i %d j %d k %d date_str %s time_str %s&quot;</span>, str1, i, j, k, date_str,</div>
-<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span>             time_str));</div>
-<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span> </div>
-<div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span>        <span class="comment">/* Read the second line of header. */</span></div>
-<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span>        <span class="keywordflow">if</span> ((bytes_read = fread(line, 1, <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>, f)) != <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>)</div>
-<div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>            <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
-<div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span>        line[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>] = 0;</div>
-<div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span>        <span class="comment">/* Scan the line. Hard! */</span></div>
-<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>        {</div>
-<div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>            <span class="keywordtype">char</span> long_basename[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> + 1];</div>
-<div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span>            sscanf(line, <span class="stringliteral">&quot;IX%dFORM: %d %d %d %s&quot;</span>, &amp;index_version, &amp;skip, &amp;total_len,</div>
-<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>                   &amp;num_rec, long_basename);</div>
-<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span>            memcpy(basename, long_basename, <a class="code hl_define" href="g2cindex_8c.html#af8a1ae5ba5b9fd2dca00f97181756d94">G2C_INDEX_BASENAME_LEN</a>);</div>
-<div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span>            basename[<a class="code hl_define" href="g2cindex_8c.html#af8a1ae5ba5b9fd2dca00f97181756d94">G2C_INDEX_BASENAME_LEN</a>] = 0;</div>
-<div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span>        }</div>
-<div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span>        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((1, <span class="stringliteral">&quot;skip %d total_len %d num_rec %d basename %s&quot;</span>, skip, total_len, num_rec, basename));</div>
-<div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span> </div>
-<div class="line"><a id="l00973" name="l00973"></a><span class="lineno">  973</span>        <span class="comment">/* Read each index record. */</span></div>
-<div class="line"><a id="l00974" name="l00974"></a><span class="lineno">  974</span>        <span class="keywordflow">for</span> (rec = 0; rec &lt; num_rec; rec++)</div>
-<div class="line"><a id="l00975" name="l00975"></a><span class="lineno">  975</span>        {</div>
-<div class="line"><a id="l00976" name="l00976"></a><span class="lineno">  976</span>            <span class="keywordtype">int</span> reclen, msgint, local, gds, pds, drs, bms, data;</div>
-<div class="line"><a id="l00977" name="l00977"></a><span class="lineno">  977</span>            <span class="keywordtype">size_t</span> local8, gds8, pds8, drs8, bms8, data8;</div>
-<div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span>            <span class="keywordtype">size_t</span> msglen, msg;</div>
-<div class="line"><a id="l00979" name="l00979"></a><span class="lineno">  979</span>            <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> version, discipline;</div>
-<div class="line"><a id="l00980" name="l00980"></a><span class="lineno">  980</span>            <span class="keywordtype">short</span> fieldnum;</div>
-<div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span> </div>
-<div class="line"><a id="l00982" name="l00982"></a><span class="lineno">  982</span>            <span class="comment">/* Move to beginning of index record. */</span></div>
-<div class="line"><a id="l00983" name="l00983"></a><span class="lineno">  983</span>            <span class="keywordflow">if</span> (fseek(f, file_pos, SEEK_SET))</div>
-<div class="line"><a id="l00984" name="l00984"></a><span class="lineno">  984</span>            {</div>
-<div class="line"><a id="l00985" name="l00985"></a><span class="lineno">  985</span>                ret = <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
-<div class="line"><a id="l00986" name="l00986"></a><span class="lineno">  986</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00987" name="l00987"></a><span class="lineno">  987</span>            }</div>
-<div class="line"><a id="l00988" name="l00988"></a><span class="lineno">  988</span> </div>
-<div class="line"><a id="l00989" name="l00989"></a><span class="lineno">  989</span>            <span class="comment">/* Read the index record. */</span></div>
-<div class="line"><a id="l00990" name="l00990"></a><span class="lineno">  990</span>            <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;reading index record at file position %ld, index_version %d&quot;</span>,</div>
-<div class="line"><a id="l00991" name="l00991"></a><span class="lineno">  991</span>                 ftell(f), index_version));</div>
-<div class="line"><a id="l00992" name="l00992"></a><span class="lineno">  992</span>            <span class="keywordflow">if</span> (index_version == 1)</div>
-<div class="line"><a id="l00993" name="l00993"></a><span class="lineno">  993</span>            {</div>
-<div class="line"><a id="l00994" name="l00994"></a><span class="lineno">  994</span>                <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cindex_8c.html#a98ff06adef664fd65de70cc2ecfb2354">g2c_start_index_record</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;reclen, &amp;msgint, &amp;local, &amp;gds, &amp;pds,</div>
-<div class="line"><a id="l00995" name="l00995"></a><span class="lineno">  995</span>                                                  &amp;drs, &amp;bms, &amp;data, &amp;msglen, &amp;version, &amp;discipline, &amp;fieldnum)))</div>
-<div class="line"><a id="l00996" name="l00996"></a><span class="lineno">  996</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00997" name="l00997"></a><span class="lineno">  997</span>                msg = msgint;</div>
-<div class="line"><a id="l00998" name="l00998"></a><span class="lineno">  998</span>                local8 = local;</div>
-<div class="line"><a id="l00999" name="l00999"></a><span class="lineno">  999</span>                gds8 = gds;</div>
-<div class="line"><a id="l01000" name="l01000"></a><span class="lineno"> 1000</span>                pds8 = pds;</div>
-<div class="line"><a id="l01001" name="l01001"></a><span class="lineno"> 1001</span>                drs8 = drs;</div>
-<div class="line"><a id="l01002" name="l01002"></a><span class="lineno"> 1002</span>                bms8 = bms;</div>
-<div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span>                data8 = data;</div>
-<div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span>            }</div>
-<div class="line"><a id="l01005" name="l01005"></a><span class="lineno"> 1005</span>            <span class="keywordflow">else</span></div>
-<div class="line"><a id="l01006" name="l01006"></a><span class="lineno"> 1006</span>            {</div>
-<div class="line"><a id="l01007" name="l01007"></a><span class="lineno"> 1007</span>                <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cindex_8c.html#a23ed7bdfd9dc8bee1884d2bd2d16d32f">g2c_start_index_record_lf</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;reclen, &amp;msg, &amp;local8, &amp;gds8, &amp;pds8,</div>
-<div class="line"><a id="l01008" name="l01008"></a><span class="lineno"> 1008</span>                                                     &amp;drs8, &amp;bms8, &amp;data8, &amp;msglen, &amp;version, &amp;discipline, &amp;fieldnum)))</div>
-<div class="line"><a id="l01009" name="l01009"></a><span class="lineno"> 1009</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01010" name="l01010"></a><span class="lineno"> 1010</span>            }</div>
-<div class="line"><a id="l01011" name="l01011"></a><span class="lineno"> 1011</span> </div>
-<div class="line"><a id="l01012" name="l01012"></a><span class="lineno"> 1012</span>            <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((1, <span class="stringliteral">&quot;reclen %d msg %ld local8 %d gds8 %d pds8 %d drs8 %d bms8 %d data8 %d &quot;</span></div>
-<div class="line"><a id="l01013" name="l01013"></a><span class="lineno"> 1013</span>                    <span class="stringliteral">&quot;msglen %ld version %d discipline %d fieldnum %d&quot;</span>,</div>
-<div class="line"><a id="l01014" name="l01014"></a><span class="lineno"> 1014</span>                 reclen, msg, local8, gds8, pds8, drs8, bms8, data8, msglen,</div>
-<div class="line"><a id="l01015" name="l01015"></a><span class="lineno"> 1015</span>                 version, discipline, fieldnum));</div>
-<div class="line"><a id="l01016" name="l01016"></a><span class="lineno"> 1016</span> </div>
-<div class="line"><a id="l01017" name="l01017"></a><span class="lineno"> 1017</span>            <span class="comment">/* Read the metadata for sections 3, 4, and 5 from</span></div>
-<div class="line"><a id="l01018" name="l01018"></a><span class="lineno"> 1018</span><span class="comment">             * the index record. */</span></div>
-<div class="line"><a id="l01019" name="l01019"></a><span class="lineno"> 1019</span>            {</div>
-<div class="line"><a id="l01020" name="l01020"></a><span class="lineno"> 1020</span>                <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> sec_len;</div>
-<div class="line"><a id="l01021" name="l01021"></a><span class="lineno"> 1021</span>                <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> sec_num;</div>
-<div class="line"><a id="l01022" name="l01022"></a><span class="lineno"> 1022</span>                <span class="keywordtype">int</span> s;</div>
-<div class="line"><a id="l01023" name="l01023"></a><span class="lineno"> 1023</span>                <a class="code hl_struct" href="grib2__int_8h.html#structg2c__message__info">G2C_MESSAGE_INFO_T</a> *msgp;</div>
-<div class="line"><a id="l01024" name="l01024"></a><span class="lineno"> 1024</span>                <span class="keywordtype">int</span> sec_id = 0;</div>
-<div class="line"><a id="l01025" name="l01025"></a><span class="lineno"> 1025</span>                <span class="keywordtype">int</span> sec8_found = 0;</div>
-<div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span> </div>
-<div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span>                <span class="comment">/* Allocate storage for message. */</span></div>
-<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span>                <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cfile_8c.html#a9474e2c676b3c163bcbd2b928fd509f3">add_msg</a>(&amp;<a class="code hl_variable" href="g2cindex_8c.html#a87fb1062e1c14b9b21b83b2d87f1656d">g2c_file</a>[*g2cid], rec, msg, msglen, 0, &amp;msgp)))</div>
-<div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span>                msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#a6ae662fc009939e70b82141e1671a0bb">discipline</a> = discipline;</div>
-<div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span>                msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#a0d4bd7411ad8858b5b691027bccd3f89">bytes_to_local</a> = local8;</div>
-<div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span>                msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#a899ef1edc1b17d6aae42a682dc97dee5">bytes_to_bms</a> = bms8;</div>
-<div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span>                msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#acd6121670e225b46e7ff7773f3c4cc19">bytes_to_data</a> = data8;</div>
-<div class="line"><a id="l01034" name="l01034"></a><span class="lineno"> 1034</span>                msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#a269f23c98537183178c3ebc9f6d915fd">master_version</a> = version;</div>
-<div class="line"><a id="l01035" name="l01035"></a><span class="lineno"> 1035</span> </div>
-<div class="line"><a id="l01036" name="l01036"></a><span class="lineno"> 1036</span>                <span class="comment">/* Read section 1. */</span></div>
-<div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span>                <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cfile_8c.html#ae7843e51976900337654503388d9a726">g2c_rw_section1_metadata</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, msgp)))</div>
-<div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span>                <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cutil_8c.html#a5bf6dfa852b0a206632d52aa666abf3a">g2c_log_section1</a>(msgp)))</div>
-<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span> </div>
-<div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span>                <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;reading section info at file position %ld&quot;</span>, ftell(f)));</div>
-<div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span> </div>
-<div class="line"><a id="l01044" name="l01044"></a><span class="lineno"> 1044</span>                <span class="comment">/* Add a new section to our list of sections. */</span></div>
-<div class="line"><a id="l01045" name="l01045"></a><span class="lineno"> 1045</span>                <span class="keywordflow">for</span> (s = 3; s &lt; 8 &amp;&amp; !sec8_found; s++)</div>
-<div class="line"><a id="l01046" name="l01046"></a><span class="lineno"> 1046</span>                {</div>
-<div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span>                    <span class="keywordtype">size_t</span> bytes_to_sec = gds8; <span class="comment">/* Correct value for section 3. */</span></div>
-<div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span> </div>
-<div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span>                    <span class="comment">/* For sections 3, 4, 5, read the section length</span></div>
-<div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span><span class="comment">                     * and number from the index record. */</span></div>
-<div class="line"><a id="l01051" name="l01051"></a><span class="lineno"> 1051</span>                    <span class="keywordflow">if</span> (s &lt; 7)</div>
-<div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span>                    {</div>
-<div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span>                        <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cio_8c.html#af13561bb1b69477285058c02d2f053b2">g2c_file_io_uint</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;sec_len)))</div>
-<div class="line"><a id="l01054" name="l01054"></a><span class="lineno"> 1054</span>                            <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span>                        <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cio_8c.html#ae839ef9885e9d311f34429e9d8c4e429">g2c_file_io_ubyte</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;sec_num)))</div>
-<div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span>                            <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span>                    }</div>
-<div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>                    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>                    {</div>
-<div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span>                        <span class="comment">/* For section 7, the length of the section is</span></div>
-<div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span><span class="comment">                         * not in the index file, but is needed for</span></div>
-<div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span><span class="comment">                         * data read operations. So we will use the</span></div>
-<div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span><span class="comment">                         * open data file and get the length of this</span></div>
-<div class="line"><a id="l01064" name="l01064"></a><span class="lineno"> 1064</span><span class="comment">                         * section. */</span></div>
-<div class="line"><a id="l01065" name="l01065"></a><span class="lineno"> 1065</span>                        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;seeking to section 7 in data file, position msgp-&gt;bytes_to_msg %ld data %ld&quot;</span>,</div>
-<div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span>                             msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#af149feb9c6a24df42c987bbadb5d2c18">bytes_to_msg</a>, data8));</div>
-<div class="line"><a id="l01067" name="l01067"></a><span class="lineno"> 1067</span>                        <span class="keywordflow">if</span> (fseek(<a class="code hl_variable" href="g2cindex_8c.html#a87fb1062e1c14b9b21b83b2d87f1656d">g2c_file</a>[*g2cid].f, msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#af149feb9c6a24df42c987bbadb5d2c18">bytes_to_msg</a> + data8, SEEK_SET))</div>
-<div class="line"><a id="l01068" name="l01068"></a><span class="lineno"> 1068</span>                        {</div>
-<div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span>                            ret = <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
-<div class="line"><a id="l01070" name="l01070"></a><span class="lineno"> 1070</span>                            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01071" name="l01071"></a><span class="lineno"> 1071</span>                        }</div>
-<div class="line"><a id="l01072" name="l01072"></a><span class="lineno"> 1072</span>                        <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cio_8c.html#af13561bb1b69477285058c02d2f053b2">g2c_file_io_uint</a>(<a class="code hl_variable" href="g2cindex_8c.html#a87fb1062e1c14b9b21b83b2d87f1656d">g2c_file</a>[*g2cid].f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;sec_len)))</div>
-<div class="line"><a id="l01073" name="l01073"></a><span class="lineno"> 1073</span>                            <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l01074" name="l01074"></a><span class="lineno"> 1074</span>                        <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cio_8c.html#ae839ef9885e9d311f34429e9d8c4e429">g2c_file_io_ubyte</a>(<a class="code hl_variable" href="g2cindex_8c.html#a87fb1062e1c14b9b21b83b2d87f1656d">g2c_file</a>[*g2cid].f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;sec_num)))</div>
-<div class="line"><a id="l01075" name="l01075"></a><span class="lineno"> 1075</span>                            <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l01076" name="l01076"></a><span class="lineno"> 1076</span>                        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;read section 7 info from data file. sec_len %d sec_num %d&quot;</span>,</div>
-<div class="line"><a id="l01077" name="l01077"></a><span class="lineno"> 1077</span>                             sec_len, sec_num));</div>
-<div class="line"><a id="l01078" name="l01078"></a><span class="lineno"> 1078</span>                    }</div>
-<div class="line"><a id="l01079" name="l01079"></a><span class="lineno"> 1079</span> </div>
-<div class="line"><a id="l01080" name="l01080"></a><span class="lineno"> 1080</span>                    <span class="comment">/* Select the value from the index record which is</span></div>
-<div class="line"><a id="l01081" name="l01081"></a><span class="lineno"> 1081</span><span class="comment">                     * the number of bytes to section s. */</span></div>
-<div class="line"><a id="l01082" name="l01082"></a><span class="lineno"> 1082</span>                    <span class="keywordflow">if</span> (sec_num == 4)</div>
-<div class="line"><a id="l01083" name="l01083"></a><span class="lineno"> 1083</span>                        bytes_to_sec = pds8;</div>
-<div class="line"><a id="l01084" name="l01084"></a><span class="lineno"> 1084</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sec_num == 5)</div>
-<div class="line"><a id="l01085" name="l01085"></a><span class="lineno"> 1085</span>                        bytes_to_sec = drs8;</div>
-<div class="line"><a id="l01086" name="l01086"></a><span class="lineno"> 1086</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sec_num == 6)</div>
-<div class="line"><a id="l01087" name="l01087"></a><span class="lineno"> 1087</span>                        bytes_to_sec = bms8;</div>
-<div class="line"><a id="l01088" name="l01088"></a><span class="lineno"> 1088</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sec_num == 7)</div>
-<div class="line"><a id="l01089" name="l01089"></a><span class="lineno"> 1089</span>                        bytes_to_sec = data8;</div>
-<div class="line"><a id="l01090" name="l01090"></a><span class="lineno"> 1090</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sec_num == 8)</div>
-<div class="line"><a id="l01091" name="l01091"></a><span class="lineno"> 1091</span>                        sec8_found++;</div>
-<div class="line"><a id="l01092" name="l01092"></a><span class="lineno"> 1092</span> </div>
-<div class="line"><a id="l01093" name="l01093"></a><span class="lineno"> 1093</span>                    <span class="comment">/* Check some stuff. */</span></div>
-<div class="line"><a id="l01094" name="l01094"></a><span class="lineno"> 1094</span>                    <span class="keywordflow">if</span> (s &lt; 6 &amp;&amp; sec_num != s)</div>
-<div class="line"><a id="l01095" name="l01095"></a><span class="lineno"> 1095</span>                    {</div>
-<div class="line"><a id="l01096" name="l01096"></a><span class="lineno"> 1096</span>                        ret = <a class="code hl_define" href="grib2_8h.html#aad36614cfd2153c4494969a2f5c3b9ed">G2C_EBADSECTION</a>;</div>
-<div class="line"><a id="l01097" name="l01097"></a><span class="lineno"> 1097</span>                        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01098" name="l01098"></a><span class="lineno"> 1098</span>                    }</div>
-<div class="line"><a id="l01099" name="l01099"></a><span class="lineno"> 1099</span>                    <span class="keywordflow">if</span> (sec_num == 4)</div>
-<div class="line"><a id="l01100" name="l01100"></a><span class="lineno"> 1100</span>                        <span class="keywordflow">if</span> (fieldnum &lt; 0) <span class="comment">/* to silence warning */</span></div>
-<div class="line"><a id="l01101" name="l01101"></a><span class="lineno"> 1101</span>                        {</div>
-<div class="line"><a id="l01102" name="l01102"></a><span class="lineno"> 1102</span>                            ret = <a class="code hl_define" href="grib2_8h.html#aad36614cfd2153c4494969a2f5c3b9ed">G2C_EBADSECTION</a>;</div>
-<div class="line"><a id="l01103" name="l01103"></a><span class="lineno"> 1103</span>                            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01104" name="l01104"></a><span class="lineno"> 1104</span>                        }</div>
-<div class="line"><a id="l01105" name="l01105"></a><span class="lineno"> 1105</span> </div>
-<div class="line"><a id="l01106" name="l01106"></a><span class="lineno"> 1106</span>                    <span class="comment">/* Read the section info from the index file,</span></div>
-<div class="line"><a id="l01107" name="l01107"></a><span class="lineno"> 1107</span><span class="comment">                     * using the same functions that read it from the</span></div>
-<div class="line"><a id="l01108" name="l01108"></a><span class="lineno"> 1108</span><span class="comment">                     * GRIB2 data file. */</span></div>
-<div class="line"><a id="l01109" name="l01109"></a><span class="lineno"> 1109</span>                    <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;about to add_section sec_id %d sec_len %d bytes_to_sec %ld sec_num %d&quot;</span>,</div>
-<div class="line"><a id="l01110" name="l01110"></a><span class="lineno"> 1110</span>                         sec_id, sec_len, bytes_to_sec, sec_num));</div>
-<div class="line"><a id="l01111" name="l01111"></a><span class="lineno"> 1111</span>                    <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cfile_8c.html#a9b77b4fddeb0b4e4d136bb7c2460b7cc">add_section</a>(f, msgp, sec_id++, sec_len, bytes_to_sec, sec_num)))</div>
-<div class="line"><a id="l01112" name="l01112"></a><span class="lineno"> 1112</span>                        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01113" name="l01113"></a><span class="lineno"> 1113</span>                } <span class="comment">/* next section */</span></div>
-<div class="line"><a id="l01114" name="l01114"></a><span class="lineno"> 1114</span> </div>
-<div class="line"><a id="l01115" name="l01115"></a><span class="lineno"> 1115</span>                <span class="comment">/* If anything went wrong, give up. */</span></div>
-<div class="line"><a id="l01116" name="l01116"></a><span class="lineno"> 1116</span>                <span class="keywordflow">if</span> (ret)</div>
-<div class="line"><a id="l01117" name="l01117"></a><span class="lineno"> 1117</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l01118" name="l01118"></a><span class="lineno"> 1118</span>            }</div>
-<div class="line"><a id="l01119" name="l01119"></a><span class="lineno"> 1119</span> </div>
-<div class="line"><a id="l01120" name="l01120"></a><span class="lineno"> 1120</span>            <span class="comment">/* Move the file position to the start of the next index record. */</span></div>
-<div class="line"><a id="l01121" name="l01121"></a><span class="lineno"> 1121</span>            file_pos += reclen;</div>
-<div class="line"><a id="l01122" name="l01122"></a><span class="lineno"> 1122</span>        } <span class="comment">/* next rec */</span></div>
-<div class="line"><a id="l01123" name="l01123"></a><span class="lineno"> 1123</span>    }</div>
-<div class="line"><a id="l01124" name="l01124"></a><span class="lineno"> 1124</span> </div>
-<div class="line"><a id="l01125" name="l01125"></a><span class="lineno"> 1125</span>    <span class="comment">/* If using threading, unlock the mutex. */</span></div>
-<div class="line"><a id="l01126" name="l01126"></a><span class="lineno"> 1126</span>    <a class="code hl_define" href="grib2__int_8h.html#a2e449246cf2d393ed6973729785e9e0c">MUTEX_UNLOCK</a>(m);</div>
-<div class="line"><a id="l01127" name="l01127"></a><span class="lineno"> 1127</span> </div>
-<div class="line"><a id="l01128" name="l01128"></a><span class="lineno"> 1128</span>    <span class="comment">/* Close the index file. */</span></div>
-<div class="line"><a id="l01129" name="l01129"></a><span class="lineno"> 1129</span>    <span class="keywordflow">if</span> (!ret)</div>
-<div class="line"><a id="l01130" name="l01130"></a><span class="lineno"> 1130</span>        fclose(f);</div>
+<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>    <span class="comment">/* Read the header. */</span></div>
+<div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span>    <span class="keywordflow">if</span> (!ret)</div>
+<div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span>    {</div>
+<div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span>        <span class="keywordtype">char</span> line[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> + 1];</div>
+<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span>        <span class="keywordtype">char</span> str1[<a class="code hl_define" href="g2cindex_8c.html#abec75da2ac349d28e3f11722dff87d39">G2C_INDEX_STR1_LEN</a> + 1], date_str[<a class="code hl_define" href="g2cindex_8c.html#ab777707744dc22770af6415fc907d469">G2C_INDEX_DATE_STR_LEN</a> + 1], time_str[<a class="code hl_define" href="g2cindex_8c.html#ac60c6eb3d8e8d6b31db875a2f04ca168">G2C_INDEX_TIME_STR_LEN</a> + 1];</div>
+<div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span>        <span class="keywordtype">int</span> i, j, k;</div>
+<div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>        <span class="keywordtype">int</span> skip, total_len, num_rec;</div>
+<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>        <span class="keywordtype">char</span> basename[<a class="code hl_define" href="g2cindex_8c.html#af8a1ae5ba5b9fd2dca00f97181756d94">G2C_INDEX_BASENAME_LEN</a> + 1];</div>
+<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span>        <span class="keywordtype">size_t</span> file_pos = <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> * 2;</div>
+<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span>        <span class="keywordtype">int</span> index_version;</div>
+<div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span>        <span class="keywordtype">int</span> rec;</div>
+<div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span> </div>
+<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span>        <span class="comment">/* Read the first line of header. */</span></div>
+<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span>        <span class="keywordflow">if</span> ((bytes_read = fread(line, 1, <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>, f)) != <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>)</div>
+<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>            <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
+<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>        line[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>] = 0;</div>
+<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span>        <span class="comment">/* Scan the line. */</span></div>
+<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>        {</div>
+<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span>            <span class="keywordtype">char</span> long_date_str[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> + 1], long_time_str[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> + 1];</div>
+<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span>            <span class="keywordtype">char</span> long_str1[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> + 1];</div>
+<div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span> </div>
+<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span>            sscanf(line, <span class="stringliteral">&quot;%s %d %d %d %s %s GB2IX1&quot;</span>, long_str1, &amp;i, &amp;j, &amp;k, long_date_str, long_time_str);</div>
+<div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span>            memcpy(str1, long_str1, <a class="code hl_define" href="g2cindex_8c.html#abec75da2ac349d28e3f11722dff87d39">G2C_INDEX_STR1_LEN</a>);</div>
+<div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span>            date_str[<a class="code hl_define" href="g2cindex_8c.html#abec75da2ac349d28e3f11722dff87d39">G2C_INDEX_STR1_LEN</a>] = 0;</div>
+<div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span>            memcpy(date_str, long_date_str, <a class="code hl_define" href="g2cindex_8c.html#ab777707744dc22770af6415fc907d469">G2C_INDEX_DATE_STR_LEN</a>);</div>
+<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>            date_str[<a class="code hl_define" href="g2cindex_8c.html#ab777707744dc22770af6415fc907d469">G2C_INDEX_DATE_STR_LEN</a>] = 0;</div>
+<div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>            memcpy(time_str, long_time_str, <a class="code hl_define" href="g2cindex_8c.html#ac60c6eb3d8e8d6b31db875a2f04ca168">G2C_INDEX_TIME_STR_LEN</a>);</div>
+<div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span>            time_str[<a class="code hl_define" href="g2cindex_8c.html#ac60c6eb3d8e8d6b31db875a2f04ca168">G2C_INDEX_TIME_STR_LEN</a>] = 0;</div>
+<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>        }</div>
+<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span>        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((1, <span class="stringliteral">&quot;str1 %s i %d j %d k %d date_str %s time_str %s&quot;</span>, str1, i, j, k, date_str,</div>
+<div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span>             time_str));</div>
+<div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span> </div>
+<div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span>        <span class="comment">/* Read the second line of header. */</span></div>
+<div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span>        <span class="keywordflow">if</span> ((bytes_read = fread(line, 1, <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>, f)) != <a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>)</div>
+<div class="line"><a id="l00973" name="l00973"></a><span class="lineno">  973</span>            <span class="keywordflow">return</span> <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
+<div class="line"><a id="l00974" name="l00974"></a><span class="lineno">  974</span>        line[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a>] = 0;</div>
+<div class="line"><a id="l00975" name="l00975"></a><span class="lineno">  975</span>        <span class="comment">/* Scan the line. Hard! */</span></div>
+<div class="line"><a id="l00976" name="l00976"></a><span class="lineno">  976</span>        {</div>
+<div class="line"><a id="l00977" name="l00977"></a><span class="lineno">  977</span>            <span class="keywordtype">char</span> long_basename[<a class="code hl_define" href="g2cindex_8c.html#a6b75cee1ad7398ff26c514a509326ac6">G2C_INDEX_HEADER_LEN</a> + 1];</div>
+<div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span>            sscanf(line, <span class="stringliteral">&quot;IX%dFORM: %d %d %d %s&quot;</span>, &amp;index_version, &amp;skip, &amp;total_len,</div>
+<div class="line"><a id="l00979" name="l00979"></a><span class="lineno">  979</span>                   &amp;num_rec, long_basename);</div>
+<div class="line"><a id="l00980" name="l00980"></a><span class="lineno">  980</span>            memcpy(basename, long_basename, <a class="code hl_define" href="g2cindex_8c.html#af8a1ae5ba5b9fd2dca00f97181756d94">G2C_INDEX_BASENAME_LEN</a>);</div>
+<div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span>            basename[<a class="code hl_define" href="g2cindex_8c.html#af8a1ae5ba5b9fd2dca00f97181756d94">G2C_INDEX_BASENAME_LEN</a>] = 0;</div>
+<div class="line"><a id="l00982" name="l00982"></a><span class="lineno">  982</span>        }</div>
+<div class="line"><a id="l00983" name="l00983"></a><span class="lineno">  983</span>        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((1, <span class="stringliteral">&quot;skip %d total_len %d num_rec %d basename %s&quot;</span>, skip, total_len, num_rec, basename));</div>
+<div class="line"><a id="l00984" name="l00984"></a><span class="lineno">  984</span> </div>
+<div class="line"><a id="l00985" name="l00985"></a><span class="lineno">  985</span>        <span class="comment">/* Read each index record. */</span></div>
+<div class="line"><a id="l00986" name="l00986"></a><span class="lineno">  986</span>        <span class="keywordflow">for</span> (rec = 0; rec &lt; num_rec; rec++)</div>
+<div class="line"><a id="l00987" name="l00987"></a><span class="lineno">  987</span>        {</div>
+<div class="line"><a id="l00988" name="l00988"></a><span class="lineno">  988</span>            <span class="keywordtype">int</span> reclen, msgint, local, gds, pds, drs, bms, data;</div>
+<div class="line"><a id="l00989" name="l00989"></a><span class="lineno">  989</span>            <span class="keywordtype">size_t</span> local8, gds8, pds8, drs8, bms8, data8;</div>
+<div class="line"><a id="l00990" name="l00990"></a><span class="lineno">  990</span>            <span class="keywordtype">size_t</span> msglen, msg;</div>
+<div class="line"><a id="l00991" name="l00991"></a><span class="lineno">  991</span>            <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> version, discipline;</div>
+<div class="line"><a id="l00992" name="l00992"></a><span class="lineno">  992</span>            <span class="keywordtype">short</span> fieldnum;</div>
+<div class="line"><a id="l00993" name="l00993"></a><span class="lineno">  993</span> </div>
+<div class="line"><a id="l00994" name="l00994"></a><span class="lineno">  994</span>            <span class="comment">/* Move to beginning of index record. */</span></div>
+<div class="line"><a id="l00995" name="l00995"></a><span class="lineno">  995</span>            <span class="keywordflow">if</span> (fseek(f, file_pos, SEEK_SET))</div>
+<div class="line"><a id="l00996" name="l00996"></a><span class="lineno">  996</span>            {</div>
+<div class="line"><a id="l00997" name="l00997"></a><span class="lineno">  997</span>                ret = <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
+<div class="line"><a id="l00998" name="l00998"></a><span class="lineno">  998</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00999" name="l00999"></a><span class="lineno">  999</span>            }</div>
+<div class="line"><a id="l01000" name="l01000"></a><span class="lineno"> 1000</span> </div>
+<div class="line"><a id="l01001" name="l01001"></a><span class="lineno"> 1001</span>            <span class="comment">/* Read the index record. */</span></div>
+<div class="line"><a id="l01002" name="l01002"></a><span class="lineno"> 1002</span>            <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;reading index record at file position %ld, index_version %d&quot;</span>,</div>
+<div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span>                 ftell(f), index_version));</div>
+<div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span>            <span class="keywordflow">if</span> (index_version == 1)</div>
+<div class="line"><a id="l01005" name="l01005"></a><span class="lineno"> 1005</span>            {</div>
+<div class="line"><a id="l01006" name="l01006"></a><span class="lineno"> 1006</span>                <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cindex_8c.html#a98ff06adef664fd65de70cc2ecfb2354">g2c_start_index_record</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;reclen, &amp;msgint, &amp;local, &amp;gds, &amp;pds,</div>
+<div class="line"><a id="l01007" name="l01007"></a><span class="lineno"> 1007</span>                                                  &amp;drs, &amp;bms, &amp;data, &amp;msglen, &amp;version, &amp;discipline, &amp;fieldnum)))</div>
+<div class="line"><a id="l01008" name="l01008"></a><span class="lineno"> 1008</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01009" name="l01009"></a><span class="lineno"> 1009</span>                msg = msgint;</div>
+<div class="line"><a id="l01010" name="l01010"></a><span class="lineno"> 1010</span>                local8 = local;</div>
+<div class="line"><a id="l01011" name="l01011"></a><span class="lineno"> 1011</span>                gds8 = gds;</div>
+<div class="line"><a id="l01012" name="l01012"></a><span class="lineno"> 1012</span>                pds8 = pds;</div>
+<div class="line"><a id="l01013" name="l01013"></a><span class="lineno"> 1013</span>                drs8 = drs;</div>
+<div class="line"><a id="l01014" name="l01014"></a><span class="lineno"> 1014</span>                bms8 = bms;</div>
+<div class="line"><a id="l01015" name="l01015"></a><span class="lineno"> 1015</span>                data8 = data;</div>
+<div class="line"><a id="l01016" name="l01016"></a><span class="lineno"> 1016</span>            }</div>
+<div class="line"><a id="l01017" name="l01017"></a><span class="lineno"> 1017</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l01018" name="l01018"></a><span class="lineno"> 1018</span>            {</div>
+<div class="line"><a id="l01019" name="l01019"></a><span class="lineno"> 1019</span>                <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cindex_8c.html#a23ed7bdfd9dc8bee1884d2bd2d16d32f">g2c_start_index_record_lf</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;reclen, &amp;msg, &amp;local8, &amp;gds8, &amp;pds8,</div>
+<div class="line"><a id="l01020" name="l01020"></a><span class="lineno"> 1020</span>                                                     &amp;drs8, &amp;bms8, &amp;data8, &amp;msglen, &amp;version, &amp;discipline, &amp;fieldnum)))</div>
+<div class="line"><a id="l01021" name="l01021"></a><span class="lineno"> 1021</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01022" name="l01022"></a><span class="lineno"> 1022</span>            }</div>
+<div class="line"><a id="l01023" name="l01023"></a><span class="lineno"> 1023</span> </div>
+<div class="line"><a id="l01024" name="l01024"></a><span class="lineno"> 1024</span>            <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((1, <span class="stringliteral">&quot;reclen %d msg %ld local8 %d gds8 %d pds8 %d drs8 %d bms8 %d data8 %d &quot;</span></div>
+<div class="line"><a id="l01025" name="l01025"></a><span class="lineno"> 1025</span>                    <span class="stringliteral">&quot;msglen %ld version %d discipline %d fieldnum %d&quot;</span>,</div>
+<div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span>                 reclen, msg, local8, gds8, pds8, drs8, bms8, data8, msglen,</div>
+<div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span>                 version, discipline, fieldnum));</div>
+<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span> </div>
+<div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span>            <span class="comment">/* Read the metadata for sections 3, 4, and 5 from</span></div>
+<div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span><span class="comment">             * the index record. */</span></div>
+<div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span>            {</div>
+<div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span>                <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> sec_len;</div>
+<div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span>                <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> sec_num;</div>
+<div class="line"><a id="l01034" name="l01034"></a><span class="lineno"> 1034</span>                <span class="keywordtype">int</span> s;</div>
+<div class="line"><a id="l01035" name="l01035"></a><span class="lineno"> 1035</span>                <a class="code hl_struct" href="grib2__int_8h.html#structg2c__message__info">G2C_MESSAGE_INFO_T</a> *msgp;</div>
+<div class="line"><a id="l01036" name="l01036"></a><span class="lineno"> 1036</span>                <span class="keywordtype">int</span> sec_id = 0;</div>
+<div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span>                <span class="keywordtype">int</span> sec8_found = 0;</div>
+<div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span> </div>
+<div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span>                <span class="comment">/* Allocate storage for message. */</span></div>
+<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>                <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cfile_8c.html#a9474e2c676b3c163bcbd2b928fd509f3">add_msg</a>(&amp;<a class="code hl_variable" href="g2cindex_8c.html#a87fb1062e1c14b9b21b83b2d87f1656d">g2c_file</a>[*g2cid], rec, msg, msglen, 0, &amp;msgp)))</div>
+<div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span>                msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#a6ae662fc009939e70b82141e1671a0bb">discipline</a> = discipline;</div>
+<div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span>                msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#a0d4bd7411ad8858b5b691027bccd3f89">bytes_to_local</a> = local8;</div>
+<div class="line"><a id="l01044" name="l01044"></a><span class="lineno"> 1044</span>                msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#a899ef1edc1b17d6aae42a682dc97dee5">bytes_to_bms</a> = bms8;</div>
+<div class="line"><a id="l01045" name="l01045"></a><span class="lineno"> 1045</span>                msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#acd6121670e225b46e7ff7773f3c4cc19">bytes_to_data</a> = data8;</div>
+<div class="line"><a id="l01046" name="l01046"></a><span class="lineno"> 1046</span>                msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#a269f23c98537183178c3ebc9f6d915fd">master_version</a> = version;</div>
+<div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span> </div>
+<div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span>                <span class="comment">/* Read section 1. */</span></div>
+<div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span>                <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cfile_8c.html#ae7843e51976900337654503388d9a726">g2c_rw_section1_metadata</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, msgp)))</div>
+<div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01051" name="l01051"></a><span class="lineno"> 1051</span>                <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cutil_8c.html#a5bf6dfa852b0a206632d52aa666abf3a">g2c_log_section1</a>(msgp)))</div>
+<div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span> </div>
+<div class="line"><a id="l01054" name="l01054"></a><span class="lineno"> 1054</span>                <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;reading section info at file position %ld&quot;</span>, ftell(f)));</div>
+<div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span> </div>
+<div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span>                <span class="comment">/* Add a new section to our list of sections. */</span></div>
+<div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span>                <span class="keywordflow">for</span> (s = 3; s &lt; 8 &amp;&amp; !sec8_found; s++)</div>
+<div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>                {</div>
+<div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>                    <span class="keywordtype">size_t</span> bytes_to_sec = gds8; <span class="comment">/* Correct value for section 3. */</span></div>
+<div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span> </div>
+<div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span>                    <span class="comment">/* For sections 3, 4, 5, read the section length</span></div>
+<div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span><span class="comment">                     * and number from the index record. */</span></div>
+<div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span>                    <span class="keywordflow">if</span> (s &lt; 7)</div>
+<div class="line"><a id="l01064" name="l01064"></a><span class="lineno"> 1064</span>                    {</div>
+<div class="line"><a id="l01065" name="l01065"></a><span class="lineno"> 1065</span>                        <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cio_8c.html#af13561bb1b69477285058c02d2f053b2">g2c_file_io_uint</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;sec_len)))</div>
+<div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span>                            <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l01067" name="l01067"></a><span class="lineno"> 1067</span>                        <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cio_8c.html#ae839ef9885e9d311f34429e9d8c4e429">g2c_file_io_ubyte</a>(f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;sec_num)))</div>
+<div class="line"><a id="l01068" name="l01068"></a><span class="lineno"> 1068</span>                            <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span>                    }</div>
+<div class="line"><a id="l01070" name="l01070"></a><span class="lineno"> 1070</span>                    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l01071" name="l01071"></a><span class="lineno"> 1071</span>                    {</div>
+<div class="line"><a id="l01072" name="l01072"></a><span class="lineno"> 1072</span>                        <span class="comment">/* For section 7, the length of the section is</span></div>
+<div class="line"><a id="l01073" name="l01073"></a><span class="lineno"> 1073</span><span class="comment">                         * not in the index file, but is needed for</span></div>
+<div class="line"><a id="l01074" name="l01074"></a><span class="lineno"> 1074</span><span class="comment">                         * data read operations. So we will use the</span></div>
+<div class="line"><a id="l01075" name="l01075"></a><span class="lineno"> 1075</span><span class="comment">                         * open data file and get the length of this</span></div>
+<div class="line"><a id="l01076" name="l01076"></a><span class="lineno"> 1076</span><span class="comment">                         * section. */</span></div>
+<div class="line"><a id="l01077" name="l01077"></a><span class="lineno"> 1077</span>                        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;seeking to section 7 in data file, position msgp-&gt;bytes_to_msg %ld data %ld&quot;</span>,</div>
+<div class="line"><a id="l01078" name="l01078"></a><span class="lineno"> 1078</span>                             msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#af149feb9c6a24df42c987bbadb5d2c18">bytes_to_msg</a>, data8));</div>
+<div class="line"><a id="l01079" name="l01079"></a><span class="lineno"> 1079</span>                        <span class="keywordflow">if</span> (fseek(<a class="code hl_variable" href="g2cindex_8c.html#a87fb1062e1c14b9b21b83b2d87f1656d">g2c_file</a>[*g2cid].f, msgp-&gt;<a class="code hl_variable" href="grib2__int_8h.html#af149feb9c6a24df42c987bbadb5d2c18">bytes_to_msg</a> + data8, SEEK_SET))</div>
+<div class="line"><a id="l01080" name="l01080"></a><span class="lineno"> 1080</span>                        {</div>
+<div class="line"><a id="l01081" name="l01081"></a><span class="lineno"> 1081</span>                            ret = <a class="code hl_define" href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a>;</div>
+<div class="line"><a id="l01082" name="l01082"></a><span class="lineno"> 1082</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01083" name="l01083"></a><span class="lineno"> 1083</span>                        }</div>
+<div class="line"><a id="l01084" name="l01084"></a><span class="lineno"> 1084</span>                        <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cio_8c.html#af13561bb1b69477285058c02d2f053b2">g2c_file_io_uint</a>(<a class="code hl_variable" href="g2cindex_8c.html#a87fb1062e1c14b9b21b83b2d87f1656d">g2c_file</a>[*g2cid].f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;sec_len)))</div>
+<div class="line"><a id="l01085" name="l01085"></a><span class="lineno"> 1085</span>                            <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l01086" name="l01086"></a><span class="lineno"> 1086</span>                        <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cio_8c.html#ae839ef9885e9d311f34429e9d8c4e429">g2c_file_io_ubyte</a>(<a class="code hl_variable" href="g2cindex_8c.html#a87fb1062e1c14b9b21b83b2d87f1656d">g2c_file</a>[*g2cid].f, <a class="code hl_define" href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a>, &amp;sec_num)))</div>
+<div class="line"><a id="l01087" name="l01087"></a><span class="lineno"> 1087</span>                            <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l01088" name="l01088"></a><span class="lineno"> 1088</span>                        <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;read section 7 info from data file. sec_len %d sec_num %d&quot;</span>,</div>
+<div class="line"><a id="l01089" name="l01089"></a><span class="lineno"> 1089</span>                             sec_len, sec_num));</div>
+<div class="line"><a id="l01090" name="l01090"></a><span class="lineno"> 1090</span>                    }</div>
+<div class="line"><a id="l01091" name="l01091"></a><span class="lineno"> 1091</span> </div>
+<div class="line"><a id="l01092" name="l01092"></a><span class="lineno"> 1092</span>                    <span class="comment">/* Select the value from the index record which is</span></div>
+<div class="line"><a id="l01093" name="l01093"></a><span class="lineno"> 1093</span><span class="comment">                     * the number of bytes to section s. */</span></div>
+<div class="line"><a id="l01094" name="l01094"></a><span class="lineno"> 1094</span>                    <span class="keywordflow">if</span> (sec_num == 4)</div>
+<div class="line"><a id="l01095" name="l01095"></a><span class="lineno"> 1095</span>                        bytes_to_sec = pds8;</div>
+<div class="line"><a id="l01096" name="l01096"></a><span class="lineno"> 1096</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sec_num == 5)</div>
+<div class="line"><a id="l01097" name="l01097"></a><span class="lineno"> 1097</span>                        bytes_to_sec = drs8;</div>
+<div class="line"><a id="l01098" name="l01098"></a><span class="lineno"> 1098</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sec_num == 6)</div>
+<div class="line"><a id="l01099" name="l01099"></a><span class="lineno"> 1099</span>                        bytes_to_sec = bms8;</div>
+<div class="line"><a id="l01100" name="l01100"></a><span class="lineno"> 1100</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sec_num == 7)</div>
+<div class="line"><a id="l01101" name="l01101"></a><span class="lineno"> 1101</span>                        bytes_to_sec = data8;</div>
+<div class="line"><a id="l01102" name="l01102"></a><span class="lineno"> 1102</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sec_num == 8)</div>
+<div class="line"><a id="l01103" name="l01103"></a><span class="lineno"> 1103</span>                        sec8_found++;</div>
+<div class="line"><a id="l01104" name="l01104"></a><span class="lineno"> 1104</span> </div>
+<div class="line"><a id="l01105" name="l01105"></a><span class="lineno"> 1105</span>                    <span class="comment">/* Check some stuff. */</span></div>
+<div class="line"><a id="l01106" name="l01106"></a><span class="lineno"> 1106</span>                    <span class="keywordflow">if</span> (s &lt; 6 &amp;&amp; sec_num != s)</div>
+<div class="line"><a id="l01107" name="l01107"></a><span class="lineno"> 1107</span>                    {</div>
+<div class="line"><a id="l01108" name="l01108"></a><span class="lineno"> 1108</span>                        ret = <a class="code hl_define" href="grib2_8h.html#aad36614cfd2153c4494969a2f5c3b9ed">G2C_EBADSECTION</a>;</div>
+<div class="line"><a id="l01109" name="l01109"></a><span class="lineno"> 1109</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01110" name="l01110"></a><span class="lineno"> 1110</span>                    }</div>
+<div class="line"><a id="l01111" name="l01111"></a><span class="lineno"> 1111</span>                    <span class="keywordflow">if</span> (sec_num == 4)</div>
+<div class="line"><a id="l01112" name="l01112"></a><span class="lineno"> 1112</span>                        <span class="keywordflow">if</span> (fieldnum &lt; 0) <span class="comment">/* to silence warning */</span></div>
+<div class="line"><a id="l01113" name="l01113"></a><span class="lineno"> 1113</span>                        {</div>
+<div class="line"><a id="l01114" name="l01114"></a><span class="lineno"> 1114</span>                            ret = <a class="code hl_define" href="grib2_8h.html#aad36614cfd2153c4494969a2f5c3b9ed">G2C_EBADSECTION</a>;</div>
+<div class="line"><a id="l01115" name="l01115"></a><span class="lineno"> 1115</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01116" name="l01116"></a><span class="lineno"> 1116</span>                        }</div>
+<div class="line"><a id="l01117" name="l01117"></a><span class="lineno"> 1117</span> </div>
+<div class="line"><a id="l01118" name="l01118"></a><span class="lineno"> 1118</span>                    <span class="comment">/* Read the section info from the index file,</span></div>
+<div class="line"><a id="l01119" name="l01119"></a><span class="lineno"> 1119</span><span class="comment">                     * using the same functions that read it from the</span></div>
+<div class="line"><a id="l01120" name="l01120"></a><span class="lineno"> 1120</span><span class="comment">                     * GRIB2 data file. */</span></div>
+<div class="line"><a id="l01121" name="l01121"></a><span class="lineno"> 1121</span>                    <a class="code hl_define" href="grib2__int_8h.html#abb35b3e9ac2b0ff8cd7c0881988940c0">LOG</a>((4, <span class="stringliteral">&quot;about to add_section sec_id %d sec_len %d bytes_to_sec %ld sec_num %d&quot;</span>,</div>
+<div class="line"><a id="l01122" name="l01122"></a><span class="lineno"> 1122</span>                         sec_id, sec_len, bytes_to_sec, sec_num));</div>
+<div class="line"><a id="l01123" name="l01123"></a><span class="lineno"> 1123</span>                    <span class="keywordflow">if</span> ((ret = <a class="code hl_function" href="g2cfile_8c.html#a9b77b4fddeb0b4e4d136bb7c2460b7cc">add_section</a>(f, msgp, sec_id++, sec_len, bytes_to_sec, sec_num)))</div>
+<div class="line"><a id="l01124" name="l01124"></a><span class="lineno"> 1124</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01125" name="l01125"></a><span class="lineno"> 1125</span>                } <span class="comment">/* next section */</span></div>
+<div class="line"><a id="l01126" name="l01126"></a><span class="lineno"> 1126</span> </div>
+<div class="line"><a id="l01127" name="l01127"></a><span class="lineno"> 1127</span>                <span class="comment">/* If anything went wrong, give up. */</span></div>
+<div class="line"><a id="l01128" name="l01128"></a><span class="lineno"> 1128</span>                <span class="keywordflow">if</span> (ret)</div>
+<div class="line"><a id="l01129" name="l01129"></a><span class="lineno"> 1129</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l01130" name="l01130"></a><span class="lineno"> 1130</span>            }</div>
 <div class="line"><a id="l01131" name="l01131"></a><span class="lineno"> 1131</span> </div>
-<div class="line"><a id="l01132" name="l01132"></a><span class="lineno"> 1132</span>    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l01133" name="l01133"></a><span class="lineno"> 1133</span>}</div>
+<div class="line"><a id="l01132" name="l01132"></a><span class="lineno"> 1132</span>            <span class="comment">/* Move the file position to the start of the next index record. */</span></div>
+<div class="line"><a id="l01133" name="l01133"></a><span class="lineno"> 1133</span>            file_pos += reclen;</div>
+<div class="line"><a id="l01134" name="l01134"></a><span class="lineno"> 1134</span>        } <span class="comment">/* next rec */</span></div>
+<div class="line"><a id="l01135" name="l01135"></a><span class="lineno"> 1135</span>    }</div>
+<div class="line"><a id="l01136" name="l01136"></a><span class="lineno"> 1136</span> </div>
+<div class="line"><a id="l01137" name="l01137"></a><span class="lineno"> 1137</span>    <span class="comment">/* If using threading, unlock the mutex. */</span></div>
+<div class="line"><a id="l01138" name="l01138"></a><span class="lineno"> 1138</span>    <a class="code hl_define" href="grib2__int_8h.html#a2e449246cf2d393ed6973729785e9e0c">MUTEX_UNLOCK</a>(m);</div>
+<div class="line"><a id="l01139" name="l01139"></a><span class="lineno"> 1139</span> </div>
+<div class="line"><a id="l01140" name="l01140"></a><span class="lineno"> 1140</span>    <span class="comment">/* Close the index file. */</span></div>
+<div class="line"><a id="l01141" name="l01141"></a><span class="lineno"> 1141</span>    <span class="keywordflow">if</span> (!ret)</div>
+<div class="line"><a id="l01142" name="l01142"></a><span class="lineno"> 1142</span>        fclose(f);</div>
+<div class="line"><a id="l01143" name="l01143"></a><span class="lineno"> 1143</span> </div>
+<div class="line"><a id="l01144" name="l01144"></a><span class="lineno"> 1144</span>    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l01145" name="l01145"></a><span class="lineno"> 1145</span>}</div>
 </div>
 <div class="ttc" id="ag2cfile_8c_html_a9474e2c676b3c163bcbd2b928fd509f3"><div class="ttname"><a href="g2cfile_8c.html#a9474e2c676b3c163bcbd2b928fd509f3">add_msg</a></div><div class="ttdeci">int add_msg(G2C_FILE_INFO_T *file, int msg_num, size_t bytes_to_msg, size_t bytes_in_msg, int read_file, G2C_MESSAGE_INFO_T **msg)</div><div class="ttdoc">Add new message to linked list.</div><div class="ttdef"><b>Definition</b> <a href="g2cfile_8c_source.html#l01017">g2cfile.c:1017</a></div></div>
 <div class="ttc" id="ag2cfile_8c_html_a9b77b4fddeb0b4e4d136bb7c2460b7cc"><div class="ttname"><a href="g2cfile_8c.html#a9b77b4fddeb0b4e4d136bb7c2460b7cc">add_section</a></div><div class="ttdeci">int add_section(FILE *f, G2C_MESSAGE_INFO_T *msg, int sec_id, unsigned int sec_len, size_t bytes_to_sec, unsigned char sec_num)</div><div class="ttdoc">Add metadata about a new section 3, 4, 5, 6, or 7.</div><div class="ttdef"><b>Definition</b> <a href="g2cfile_8c_source.html#l00794">g2cfile.c:794</a></div></div>
@@ -1007,10 +1007,10 @@ $(document).ready(function(){initNavTree('g2cindex_8c_source.html',''); initResi
 <div class="ttc" id="ag2cfile_8c_html_af7f2e7b1cc0d81f73f972feaa4fc65c0"><div class="ttname"><a href="g2cfile_8c.html#af7f2e7b1cc0d81f73f972feaa4fc65c0">g2c_rw_section3_metadata</a></div><div class="ttdeci">int g2c_rw_section3_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)</div><div class="ttdoc">Read the metadata from section 3 (Grid Definition Section) of a GRIB2 message.</div><div class="ttdef"><b>Definition</b> <a href="g2cfile_8c_source.html#l00478">g2cfile.c:478</a></div></div>
 <div class="ttc" id="ag2cfile_8c_html_af7fef1bd5fae59a765ccfa3493c20699"><div class="ttname"><a href="g2cfile_8c.html#af7fef1bd5fae59a765ccfa3493c20699">g2c_rw_section4_metadata</a></div><div class="ttdeci">int g2c_rw_section4_metadata(FILE *f, int rw_flag, G2C_SECTION_INFO_T *sec)</div><div class="ttdoc">Read or write the metadata from section 4 (Product Definition Section) of a GRIB2 message.</div><div class="ttdef"><b>Definition</b> <a href="g2cfile_8c_source.html#l00574">g2cfile.c:574</a></div></div>
 <div class="ttc" id="ag2cindex_8c_html_a0fc215277c5168f95d05faf843506eee"><div class="ttname"><a href="g2cindex_8c.html#a0fc215277c5168f95d05faf843506eee">G2C_INDEX_FIXED_LEN_2</a></div><div class="ttdeci">#define G2C_INDEX_FIXED_LEN_2</div><div class="ttdoc">Length of beginning of index record for large files.</div><div class="ttdef"><b>Definition</b> <a href="g2cindex_8c_source.html#l00029">g2cindex.c:29</a></div></div>
-<div class="ttc" id="ag2cindex_8c_html_a146ebf0fbbfac18432b0c0dbe9900631"><div class="ttname"><a href="g2cindex_8c.html#a146ebf0fbbfac18432b0c0dbe9900631">g2c_open_index</a></div><div class="ttdeci">int g2c_open_index(const char *data_file, const char *index_file, int mode, int *g2cid)</div><div class="ttdoc">Open a GRIB2 file with the help of an index file.</div><div class="ttdef"><b>Definition</b> <a href="g2cindex_8c_source.html#l00902">g2cindex.c:902</a></div></div>
+<div class="ttc" id="ag2cindex_8c_html_a146ebf0fbbfac18432b0c0dbe9900631"><div class="ttname"><a href="g2cindex_8c.html#a146ebf0fbbfac18432b0c0dbe9900631">g2c_open_index</a></div><div class="ttdeci">int g2c_open_index(const char *data_file, const char *index_file, int mode, int *g2cid)</div><div class="ttdoc">Open a GRIB2 file with the help of an index file.</div><div class="ttdef"><b>Definition</b> <a href="g2cindex_8c_source.html#l00914">g2cindex.c:914</a></div></div>
 <div class="ttc" id="ag2cindex_8c_html_a23ed7bdfd9dc8bee1884d2bd2d16d32f"><div class="ttname"><a href="g2cindex_8c.html#a23ed7bdfd9dc8bee1884d2bd2d16d32f">g2c_start_index_record_lf</a></div><div class="ttdeci">int g2c_start_index_record_lf(FILE *f, int rw_flag, int *reclen, size_t *msg, size_t *local, size_t *gds, size_t *pds, size_t *drs, size_t *bms, size_t *data, size_t *msglen, unsigned char *version, unsigned char *discipline, short *fieldnum)</div><div class="ttdoc">Read or write the start of a version 2 index record.</div><div class="ttdef"><b>Definition</b> <a href="g2cindex_8c_source.html#l00151">g2cindex.c:151</a></div></div>
 <div class="ttc" id="ag2cindex_8c_html_a3012c86f328edde808fb0c27bcbd0de2"><div class="ttname"><a href="g2cindex_8c.html#a3012c86f328edde808fb0c27bcbd0de2">g2c_start_index1_record</a></div><div class="ttdeci">int g2c_start_index1_record(FILE *f, int rw_flag, unsigned int *b2_msg, unsigned int *b2_pds, unsigned int *b2_gds, unsigned int *b2_bms, unsigned int *b2_bds, unsigned int *msglen, unsigned char *version, unsigned char *pds_val, unsigned char *gds_val, unsigned char *bms_val, unsigned char *bds_val, unsigned char *pds_val2, unsigned char *pds_val3, unsigned char *gds_val2)</div><div class="ttdoc">Read or write the start of a version 1 index record.</div><div class="ttdef"><b>Definition</b> <a href="g2cindex_8c_source.html#l00238">g2cindex.c:238</a></div></div>
-<div class="ttc" id="ag2cindex_8c_html_a32a9653961314d342b211ab98a07aa0a"><div class="ttname"><a href="g2cindex_8c.html#a32a9653961314d342b211ab98a07aa0a">g2c_open_index1</a></div><div class="ttdeci">int g2c_open_index1(const char *index_file)</div><div class="ttdoc">Open a GRIB1 index file and read the contents.</div><div class="ttdef"><b>Definition</b> <a href="g2cindex_8c_source.html#l00800">g2cindex.c:800</a></div></div>
+<div class="ttc" id="ag2cindex_8c_html_a32a9653961314d342b211ab98a07aa0a"><div class="ttname"><a href="g2cindex_8c.html#a32a9653961314d342b211ab98a07aa0a">g2c_open_index1</a></div><div class="ttdeci">int g2c_open_index1(const char *index_file)</div><div class="ttdoc">Open a GRIB1 index file and read the contents.</div><div class="ttdef"><b>Definition</b> <a href="g2cindex_8c_source.html#l00812">g2cindex.c:812</a></div></div>
 <div class="ttc" id="ag2cindex_8c_html_a340b8aa793ffa2ad1a1debbc5e099154"><div class="ttname"><a href="g2cindex_8c.html#a340b8aa793ffa2ad1a1debbc5e099154">read_hdr_rec2</a></div><div class="ttdeci">static int read_hdr_rec2(FILE *f, int *skipp, int *total_lenp, int *num_recp, char *basename, int *index_version)</div><div class="ttdoc">Read the second header record of an index file.</div><div class="ttdef"><b>Definition</b> <a href="g2cindex_8c_source.html#l00753">g2cindex.c:753</a></div></div>
 <div class="ttc" id="ag2cindex_8c_html_a34cdf8504ffcbd6a648d5748386bdd71"><div class="ttname"><a href="g2cindex_8c.html#a34cdf8504ffcbd6a648d5748386bdd71">read_hdr_rec1</a></div><div class="ttdeci">static int read_hdr_rec1(FILE *f, int *ip, int *jp, int *kp, char *date_str, char *time_str)</div><div class="ttdoc">Read the header record apparently named after Steve Lord.</div><div class="ttdef"><b>Definition</b> <a href="g2cindex_8c_source.html#l00684">g2cindex.c:684</a></div></div>
 <div class="ttc" id="ag2cindex_8c_html_a6796481f7b67f04f0d0cad3c024668d0"><div class="ttname"><a href="g2cindex_8c.html#a6796481f7b67f04f0d0cad3c024668d0">G2C_INDEX_BITMAP_BYTES</a></div><div class="ttdeci">#define G2C_INDEX_BITMAP_BYTES</div><div class="ttdoc">Length of bitmap section included in the index record.</div><div class="ttdef"><b>Definition</b> <a href="g2cindex_8c_source.html#l00023">g2cindex.c:23</a></div></div>
@@ -1031,15 +1031,15 @@ $(document).ready(function(){initNavTree('g2cindex_8c_source.html',''); initResi
 <div class="ttc" id="ag2cutil_8c_html_a5bf6dfa852b0a206632d52aa666abf3a"><div class="ttname"><a href="g2cutil_8c.html#a5bf6dfa852b0a206632d52aa666abf3a">g2c_log_section1</a></div><div class="ttdeci">int g2c_log_section1(G2C_MESSAGE_INFO_T *msg)</div><div class="ttdoc">Log section 0 information.</div><div class="ttdef"><b>Definition</b> <a href="g2cutil_8c_source.html#l00101">g2cutil.c:101</a></div></div>
 <div class="ttc" id="agrib2_8h_html_a030fe94d956425ce9723e231c7cd652e"><div class="ttname"><a href="grib2_8h.html#a030fe94d956425ce9723e231c7cd652e">G2C_MAX_FILES</a></div><div class="ttdeci">#define G2C_MAX_FILES</div><div class="ttdoc">Maximum number of open files.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00273">grib2.h:273</a></div></div>
 <div class="ttc" id="agrib2_8h_html_a0f60a9a7769c124118754c22926b5ddf"><div class="ttname"><a href="grib2_8h.html#a0f60a9a7769c124118754c22926b5ddf">G2C_NOCLOBBER</a></div><div class="ttdeci">#define G2C_NOCLOBBER</div><div class="ttdoc">Don't destroy existing file.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00278">grib2.h:278</a></div></div>
-<div class="ttc" id="agrib2_8h_html_a39bad0ee21628d9381fe409ec98214f1"><div class="ttname"><a href="grib2_8h.html#a39bad0ee21628d9381fe409ec98214f1">G2C_ENAMETOOLONG</a></div><div class="ttdeci">#define G2C_ENAMETOOLONG</div><div class="ttdoc">Name too long.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00480">grib2.h:480</a></div></div>
-<div class="ttc" id="agrib2_8h_html_a4dcc89afa62b38a9a0d7a4df8d9f8ca7"><div class="ttname"><a href="grib2_8h.html#a4dcc89afa62b38a9a0d7a4df8d9f8ca7">G2C_ENOSECTION</a></div><div class="ttdeci">#define G2C_ENOSECTION</div><div class="ttdoc">Cannot find section.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00491">grib2.h:491</a></div></div>
-<div class="ttc" id="agrib2_8h_html_a597395069e35e29288bd0f57081a0c65"><div class="ttname"><a href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a></div><div class="ttdeci">#define G2C_EFILE</div><div class="ttdoc">File I/O error.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00482">grib2.h:482</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a39bad0ee21628d9381fe409ec98214f1"><div class="ttname"><a href="grib2_8h.html#a39bad0ee21628d9381fe409ec98214f1">G2C_ENAMETOOLONG</a></div><div class="ttdeci">#define G2C_ENAMETOOLONG</div><div class="ttdoc">Name too long.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00488">grib2.h:488</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a4dcc89afa62b38a9a0d7a4df8d9f8ca7"><div class="ttname"><a href="grib2_8h.html#a4dcc89afa62b38a9a0d7a4df8d9f8ca7">G2C_ENOSECTION</a></div><div class="ttdeci">#define G2C_ENOSECTION</div><div class="ttdoc">Cannot find section.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00499">grib2.h:499</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a597395069e35e29288bd0f57081a0c65"><div class="ttname"><a href="grib2_8h.html#a597395069e35e29288bd0f57081a0c65">G2C_EFILE</a></div><div class="ttdeci">#define G2C_EFILE</div><div class="ttdoc">File I/O error.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00490">grib2.h:490</a></div></div>
 <div class="ttc" id="agrib2_8h_html_a5a043189dc1e7a58d61fb8d9b0e5092d"><div class="ttname"><a href="grib2_8h.html#a5a043189dc1e7a58d61fb8d9b0e5092d">G2C_LARGE_FILE_INDEX</a></div><div class="ttdeci">#define G2C_LARGE_FILE_INDEX</div><div class="ttdoc">Create a large file index.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00279">grib2.h:279</a></div></div>
 <div class="ttc" id="agrib2_8h_html_a91778844b25133a0b77e345a8e1bccf8"><div class="ttname"><a href="grib2_8h.html#a91778844b25133a0b77e345a8e1bccf8">G2C_MAX_NAME</a></div><div class="ttdeci">#define G2C_MAX_NAME</div><div class="ttdoc">Maximum length of a name.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00274">grib2.h:274</a></div></div>
-<div class="ttc" id="agrib2_8h_html_a9abb07853bd272b8f33bb978bb805cb9"><div class="ttname"><a href="grib2_8h.html#a9abb07853bd272b8f33bb978bb805cb9">G2C_EINVAL</a></div><div class="ttdeci">#define G2C_EINVAL</div><div class="ttdoc">Invalid input.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00481">grib2.h:481</a></div></div>
-<div class="ttc" id="agrib2_8h_html_aad36614cfd2153c4494969a2f5c3b9ed"><div class="ttname"><a href="grib2_8h.html#aad36614cfd2153c4494969a2f5c3b9ed">G2C_EBADSECTION</a></div><div class="ttdeci">#define G2C_EBADSECTION</div><div class="ttdoc">Invalid section number.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00494">grib2.h:494</a></div></div>
-<div class="ttc" id="agrib2_8h_html_af32c4bff1609a6286dbd77dd2fa0b624"><div class="ttname"><a href="grib2_8h.html#af32c4bff1609a6286dbd77dd2fa0b624">G2C_EBADID</a></div><div class="ttdeci">#define G2C_EBADID</div><div class="ttdoc">Bad ID.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00483">grib2.h:483</a></div></div>
-<div class="ttc" id="agrib2_8h_html_af837ca43cf1f95ac2d4096d3c3e35576"><div class="ttname"><a href="grib2_8h.html#af837ca43cf1f95ac2d4096d3c3e35576">G2C_NOERROR</a></div><div class="ttdeci">#define G2C_NOERROR</div><div class="ttdoc">No error.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00476">grib2.h:476</a></div></div>
+<div class="ttc" id="agrib2_8h_html_a9abb07853bd272b8f33bb978bb805cb9"><div class="ttname"><a href="grib2_8h.html#a9abb07853bd272b8f33bb978bb805cb9">G2C_EINVAL</a></div><div class="ttdeci">#define G2C_EINVAL</div><div class="ttdoc">Invalid input.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00489">grib2.h:489</a></div></div>
+<div class="ttc" id="agrib2_8h_html_aad36614cfd2153c4494969a2f5c3b9ed"><div class="ttname"><a href="grib2_8h.html#aad36614cfd2153c4494969a2f5c3b9ed">G2C_EBADSECTION</a></div><div class="ttdeci">#define G2C_EBADSECTION</div><div class="ttdoc">Invalid section number.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00502">grib2.h:502</a></div></div>
+<div class="ttc" id="agrib2_8h_html_af32c4bff1609a6286dbd77dd2fa0b624"><div class="ttname"><a href="grib2_8h.html#af32c4bff1609a6286dbd77dd2fa0b624">G2C_EBADID</a></div><div class="ttdeci">#define G2C_EBADID</div><div class="ttdoc">Bad ID.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00491">grib2.h:491</a></div></div>
+<div class="ttc" id="agrib2_8h_html_af837ca43cf1f95ac2d4096d3c3e35576"><div class="ttname"><a href="grib2_8h.html#af837ca43cf1f95ac2d4096d3c3e35576">G2C_NOERROR</a></div><div class="ttdeci">#define G2C_NOERROR</div><div class="ttdoc">No error.</div><div class="ttdef"><b>Definition</b> <a href="grib2_8h_source.html#l00484">grib2.h:484</a></div></div>
 <div class="ttc" id="agrib2__int_8h_html"><div class="ttname"><a href="grib2__int_8h.html">grib2_int.h</a></div><div class="ttdoc">Header file with internal function prototypes NCEPLIBS-g2c library.</div></div>
 <div class="ttc" id="agrib2__int_8h_html_a03dbc85724fca79a8a073e2101fdb64d"><div class="ttname"><a href="grib2__int_8h.html#a03dbc85724fca79a8a073e2101fdb64d">G2C_FILE_READ</a></div><div class="ttdeci">#define G2C_FILE_READ</div><div class="ttdoc">Read.</div><div class="ttdef"><b>Definition</b> <a href="grib2__int_8h_source.html#l00131">grib2_int.h:131</a></div></div>
 <div class="ttc" id="agrib2__int_8h_html_a0d4bd7411ad8858b5b691027bccd3f89"><div class="ttname"><a href="grib2__int_8h.html#a0d4bd7411ad8858b5b691027bccd3f89">g2c_message_info::bytes_to_local</a></div><div class="ttdeci">size_t bytes_to_local</div><div class="ttdoc">Number of bytes in the message before the (first) local section.</div><div class="ttdef"><b>Definition</b> <a href="grib2__int_8h_source.html#l00144">grib2_int.h:144</a></div></div>
