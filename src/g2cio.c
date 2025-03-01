@@ -41,7 +41,7 @@ int
 g2c_file_io(FILE *f, int write, int g2ctype, void *var)
 {
     void *void_be;
-    char *bvar = NULL;
+    signed char *bvar = NULL;
     short *svar = NULL;
     int *ivar = NULL;
     long long int *i64var = NULL;
@@ -313,7 +313,7 @@ g2c_file_io_ushort(FILE *f, int write, unsigned short *var)
  * @author Ed Hartnett 11/13/22
  */
 int
-g2c_file_io_byte(FILE *f, int write, char *var)
+g2c_file_io_byte(FILE *f, int write, signed char *var)
 {
     return g2c_file_io(f, write, G2C_BYTE, var);
 }

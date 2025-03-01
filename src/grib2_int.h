@@ -388,7 +388,7 @@ int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
 
 /* Basic file I/O. */
 int g2c_file_io(FILE *f, int write, int g2ctype, void *var);
-int g2c_file_io_byte(FILE *f, int write, char *var);
+int g2c_file_io_byte(FILE *f, int write, signed char *var);
 int g2c_file_io_ubyte(FILE *f, int write, unsigned char *var);
 int g2c_file_io_short(FILE *f, int write, short *var);
 int g2c_file_io_ushort(FILE *f, int write, unsigned short *var);

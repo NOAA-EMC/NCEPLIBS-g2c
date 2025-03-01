@@ -137,8 +137,8 @@ main()
     {
         FILE *f;
         unsigned char val = 250;
-        char neg_val = -120;
-        char val_in;
+        signed char neg_val = -120;
+        signed char val_in;
         unsigned char uval_in;
         int ret;
 
@@ -146,12 +146,21 @@ main()
         if (!(f = fopen(TEST_FILE, "wb")))
             return G2C_EFILE;
 
-        /* Write 1-byte ints, thrice. */
+        /* Write 1-byte ints. */
         if ((ret = g2c_file_io_ubyte(f, G2C_FILE_WRITE, &val)))
             return ret;
         if ((ret = g2c_file_io_byte(f, G2C_FILE_WRITE, &neg_val)))
             return ret;
         if ((ret = g2c_file_io_ubyte(f, G2C_FILE_WRITE, &val)))
+            return ret;
+        /* This fourth write mimics writing a signed char as unsigned
+         * which is the same as defining a generic char on ARM-based
+         * Linux. The variable neg_val has a value of -120, which
+         * has a bit representation of "10001000" using two's
+         * complement. Writing this in accordance with the GRIB2
+         * standard will perform some bit shifting/manipulation.
+         */
+        if ((ret = g2c_file_io_ubyte(f, G2C_FILE_WRITE, &neg_val)))
             return ret;
 
         /* Close file. */
@@ -161,7 +170,7 @@ main()
         if (!(f = fopen(TEST_FILE, "rb")))
             return G2C_EFILE;
 
-        /* Read three values. */
+        /* Read four values. */
         if ((ret = g2c_file_io_ubyte(f, G2C_FILE_READ, &uval_in)))
             return ret;
         if (uval_in != val)
@@ -174,6 +183,22 @@ main()
             return ret;
         if (uval_in != val)
             return G2C_ERROR;
+        /* Now lets read the fourth value. Recall it was a signed
+         * char (-120) written using g2c_file_io_ubyte().
+         *
+         * Now we will read using the unsigned byte function because
+         * we want to mimic read as a generic char, which is unsigned
+         * on ARM-based Linux. An unsigned char with a bit representation
+         * of "10001000" which is a value of 136.
+         */
+        if ((ret = g2c_file_io_ubyte(f, G2C_FILE_READ, &uval_in)))
+            return ret;
+        /* The test...value read in must not be equal to the original
+         * negative value; and must be equal to 136; and when cast to
+         * an unsigned char must equal the original negative value.
+         */
+        if (uval_in != neg_val && uval_in == 136 && (signed char)uval_in == neg_val)
+            return G2C_NOERROR;
 
         /* Close file. */
         fclose(f);
