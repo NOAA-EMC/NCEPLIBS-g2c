@@ -313,7 +313,7 @@ g2c_file_io_ushort(FILE *f, int write, unsigned short *var)
  * @author Ed Hartnett 11/13/22
  */
 int
-g2c_file_io_byte(FILE *f, int write, signed char *var)
+g2c_file_io_byte(FILE *f, int write, char *var)
 {
     return g2c_file_io(f, write, G2C_BYTE, var);
 }
