@@ -96,12 +96,11 @@ endif()
 # Build a C program test.
 function(g2c_build_test name)
   add_executable(${name} ${name}.c g2c_test_util.c)
-  target_link_libraries(${name} PUBLIC g2c::g2c)
-endfunction()
-
-# Build a C program test.
-function(g2c_build_test name)
-  add_executable(${name} ${name}.c g2c_test_util.c)
+  if("${name}" STREQUAL "tst_io")
+    if(CMAKE_C_COMPILER_ID MATCHES "^(GNU|Clang|AppleClang)$")
+      set_source_files_properties(${name}.c PROPERTIES COMPILE_FLAGS "-Wno-error=pointer-sign")
+    endif()
+  endif()
   target_link_libraries(${name} PUBLIC g2c::g2c)
 endfunction()
 
