@@ -328,7 +328,8 @@ int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
     if (out_is_g2int) {
         for (unsigned int i = 0; i < image->comps[0].w * image->comps[0].h; i++)
             (g2int *)outfld[i] = (g2int)(image->comps[0].data[i] & mask);
-    } else
+    }
+    else
     {
         for (unsigned int i = 0; i < image->comps[0].w * image->comps[0].h; i++)
             (int *)outfld[i] = (int)(image->comps[0].data[i] & mask);
