@@ -376,7 +376,7 @@ cleanup:
 int
 g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld)
 {
-    return int_dec_jpeg2000(injpc, bufsize, outfld, 0)
+    return int_dec_jpeg2000(injpc, bufsize, outfld, 0);
 }
 
 /**
@@ -404,7 +404,7 @@ g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld)
 int
 dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
 {
-    return int_dec_jpeg2000(injpc, bufsize, outfld, 1)
+    return int_dec_jpeg2000(injpc, bufsize, outfld, 1);
 }
 
 /**
