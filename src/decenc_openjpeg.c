@@ -259,7 +259,7 @@ opj_stream_create_default_memory_stream(opj_memory_stream *memoryStream, OPJ_BOO
  *
  * @note Requires OpenJPEG Version 2.
  *
- * @author Stephen Gilbert, Jovic
+ * @author Stephen Gilbert, Jovic, Stahl
  */
 static int
 int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
