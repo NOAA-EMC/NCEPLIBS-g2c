@@ -141,6 +141,25 @@ main()
         }
     }
     printf("ok!\n");
+    printf("Testing g2c_get_gdt_len()\n");
+    {
+        int template_number[NUM_TESTS] = {
+            0, 1, 2, 3, 4, 5, 12, 101, 140, 10, 20, 30, 31, 40, 41, 42, 43, 50, 51, 52, 53, 90, 100, 110, 120,
+            204, 32768, 32769, 1000, 1100, 1200, 13, 23, 33, 61, 62, 63, 150};
+        int expected_maplen[NUM_TESTS] = {
+            19, 22, 22, 25, 13, 16, 22, 4, 17, 19, 18, 22, 22, 19, 22, 22, 25, 5, 8, 8, 11, 21, 11, 16, 7, 19,
+            19, 21, 20, 28, 16, 23, 22, 26, 23, 23, 26, 13};
+        int maplen, t, ret;
+
+        for (t = 0; t < NUM_TESTS; t++)
+        {
+            if ((ret = g2c_get_gdt_len(template_number[t], &maplen)))
+                return ret;
+            if (maplen != expected_maplen[t])
+                return G2C_ERROR;
+        }
+    }
+    printf("ok!\n");
     printf("SUCCESS!\n");
     return 0;
 }

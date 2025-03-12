@@ -902,6 +902,16 @@ main()
                 free(tmpl);
             }
             printf("ok!\n");
+            printf("\tchecking g2c_get_pdt_len() with template %d...", number[t]);
+            {
+                int maplen, ret;
+
+                if ((ret = g2c_get_pdt_len(number[t], &maplen)))
+                    return ret;
+                if (maplen != expected_maplen[t])
+                    return G2C_ERROR;
+            }
+            printf("ok!\n");
             printf("\tchecking g2c_get_pds_template() with template %d...", number[t]);
             {
                 int maplen, needext;
