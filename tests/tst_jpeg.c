@@ -20,7 +20,6 @@ main()
 
     printf("Testing JPEG functions.\n");
     /* g2c_set_log_level(10); */
-#ifdef USE_JPEG2000
     printf("Testing enc_jpeg2000()/dec_jpeg2000() call...");
     {
         unsigned char data[DATA_LEN] = {1, 2, 3, 4};
@@ -72,7 +71,6 @@ main()
         }
     }
     printf("ok!\n");
-#endif
     {
         g2int height = 2, width = 2;
         g2int len = PACKED_LEN, ndpts = DATA_LEN;
