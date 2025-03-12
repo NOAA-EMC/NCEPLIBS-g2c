@@ -243,10 +243,14 @@ opj_stream_create_default_memory_stream(opj_memory_stream *memoryStream, OPJ_BOO
  * PROGRAM HISTORY LOG:
  * - 2002-12-02  Gilbert
  * - 2016-06-08  Jovic
+ * - 2025-03-07 Stahl | added functionality to handle g2int and int outputs
  *
  * @param injpc Input JPEG2000 code stream.
  * @param bufsize Length (in bytes) of the input JPEG2000 code stream.
- * @param outfld Output matrix of grayscale image values.
+ * @param outfld Pointer to either int or g2int array, already
+ * allocated, that gets the unpacked data.
+ * @param out_is_g2int Non-zero if the output array is of type g2int
+ * (i.e. 64-bit ints), zero if output is an int array (32-bits).
  *
  * @return
  * - 0 Successful decode
@@ -255,37 +259,10 @@ opj_stream_create_default_memory_stream(opj_memory_stream *memoryStream, OPJ_BOO
  *
  * @note Requires OpenJPEG Version 2.
  *
- * @author Alyson Stahl
+ * @author Stephen Gilbert, Jovic, Stahl
  */
-int
-g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld)
-{
-    return dec_jpeg2000(injpc, bufsize, (g2int *)outfld);
-}
-
-/**
- * This Function decodes a JPEG2000 code stream specified in the
- * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using OpenJPEG.
- *
- * PROGRAM HISTORY LOG:
- * - 2002-12-02  Gilbert
- * - 2016-06-08  Jovic
- *
- * @param injpc Input JPEG2000 code stream.
- * @param bufsize Length (in bytes) of the input JPEG2000 code stream.
- * @param outfld Output matrix of grayscale image values.
- *
- * @return
- * - 0 Successful decode
- * - -3 Error decode jpeg2000 code stream.
- * - -5 decoded image had multiple color components. Only grayscale is expected.
- *
- * @note Requires OpenJPEG Version 2.
- *
- * @author Stephen Gilbert, Jovic
- */
-int
-dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
+static int
+int_dec_jpeg2000(char *injpc, g2int bufsize, void *outfld, int out_is_g2int)
 {
     int iret = 0;
     OPJ_INT32 mask;
@@ -348,8 +325,16 @@ dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
 
     mask = (1 << image->comps[0].prec) - 1;
 
-    for (unsigned int i = 0; i < image->comps[0].w * image->comps[0].h; i++)
-        outfld[i] = (g2int)(image->comps[0].data[i] & mask);
+    if (out_is_g2int)
+    {
+        for (unsigned int i = 0; i < image->comps[0].w * image->comps[0].h; i++)
+            ((g2int *)outfld)[i] = (g2int)(image->comps[0].data[i] & mask);
+    }
+    else
+    {
+        for (unsigned int i = 0; i < image->comps[0].w * image->comps[0].h; i++)
+            ((int *)outfld)[i] = (int)(image->comps[0].data[i] & mask);
+    }
 
     if (!opj_end_decompress(codec, stream))
     {
@@ -367,6 +352,61 @@ cleanup:
         opj_image_destroy(image);
 
     return iret;
+}
+
+/**
+ * This Function decodes a JPEG2000 code stream specified in the
+ * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using OpenJPEG.
+ *
+ * PROGRAM HISTORY LOG:
+ * - 2002-12-02  Gilbert
+ * - 2016-06-08  Jovic
+ *
+ * @param injpc Input JPEG2000 code stream.
+ * @param bufsize Length (in bytes) of the input JPEG2000 code stream.
+ * @param outfld Output matrix of grayscale image values.
+ *
+ * @return
+ * - 0 Successful decode
+ * - -3 Error decode jpeg2000 code stream.
+ * - -5 decoded image had multiple color components. Only grayscale is expected.
+ *
+ * @note Requires OpenJPEG Version 2.
+ *
+ * @author Alyson Stahl
+ */
+int
+g2c_dec_jpeg2000(char *injpc, size_t bufsize, int *outfld)
+{
+    return int_dec_jpeg2000(injpc, bufsize, outfld, 0);
+}
+
+/**
+ * This Function decodes a JPEG2000 code stream specified in the
+ * JPEG2000 Part-1 standard (i.e., ISO/IEC 15444-1) using OpenJPEG.
+ *
+ * PROGRAM HISTORY LOG:
+ * - 2002-12-02  Gilbert
+ * - 2016-06-08  Jovic
+ * - 2025-03-07 Stahl | moved code to int_dec_jpeg2000() function to handle int outputs
+ *
+ * @param injpc Input JPEG2000 code stream.
+ * @param bufsize Length (in bytes) of the input JPEG2000 code stream.
+ * @param outfld Output matrix of grayscale image values.
+ *
+ * @return
+ * - 0 Successful decode
+ * - -3 Error decode jpeg2000 code stream.
+ * - -5 decoded image had multiple color components. Only grayscale is expected.
+ *
+ * @note Requires OpenJPEG Version 2.
+ *
+ * @author Stephen Gilbert, Jovic, Stahl
+ */
+int
+dec_jpeg2000(char *injpc, g2int bufsize, g2int *outfld)
+{
+    return int_dec_jpeg2000(injpc, bufsize, outfld, 1);
 }
 
 /**
