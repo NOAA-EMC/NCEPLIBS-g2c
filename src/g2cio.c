@@ -41,7 +41,7 @@ int
 g2c_file_io(FILE *f, int write, int g2ctype, void *var)
 {
     void *void_be;
-    char *bvar = NULL;
+    signed char *bvar = NULL;
     short *svar = NULL;
     int *ivar = NULL;
     long long int *i64var = NULL;
