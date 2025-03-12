@@ -414,3 +414,39 @@ g2c_get_grid_template(int grid_template_num, int *maplen, int *map, int *needext
     /* If we didn't find a template, return an error. */
     return G2C_ENOTEMPLATE;
 }
+
+/**
+ * Get initial length (number of entries) in static part of 
+ * Grid Definition Template.
+ *
+ * @param grid_template_num The Grid template number.
+ * @param maplen Pointer that gets the length of the map. Ignored if
+ * NULL.
+ *
+ * @return
+ * - ::G2C_NOERROR No error.
+ * - ::G2C_ENOTEMPLATE Template not found.
+ *
+ * @author Alyson Stahl @date 01/21/25
+ */
+int
+g2c_get_gdt_len(int grid_template_num, int *maplen)
+{
+    int j;
+
+    /* Look through the array of templates to find a matching one. */
+    for (j = 0; j < G2C_MAX_GDS_TEMPLATE; j++)
+    {
+        if (grid_template_num == templatesgrid[j].template_num)
+        {
+            if (maplen)
+                *maplen = templatesgrid[j].mapgridlen;
+
+            /* Done. */
+            return G2C_NOERROR;
+        }
+    }
+
+    /* If we didn't find a template, return an error. */
+    return G2C_ENOTEMPLATE;
+}
