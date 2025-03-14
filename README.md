@@ -77,26 +77,23 @@ Hartnett](mailto:edward.hartnett@noaa.gov)
 
 ## Building
 
-Download the tarball from the release page and unpack it, and cd into
-the main directory of the library. Then run the following commands,
-substituting your directory locations for the CMAKE_INSTALL_PREFIX
-(where the NCEPLIBS-g2c library will be installed), and the
-CMAKE_PREFIX_PATH (where the build will look for dependencies):
+```console
+git clone https://github.com/NOAA-EMC/NCEPLIBS-g2c
+cmake -S NCEPLIBS-g2c -B NCEPLIBS-g2c/build # -DCMAKE_PREFIX_PATH=/usr/local/jasper-3.0.5 -DCMAKE_INSTALL_PREFIX=/path/to/install/g2c <add'l CMake options>
+cmake --build NCEPLIBS-g2c/build --parallel 4
+ctest --test-dir NCEPLIBS-g2c/build --parallel 4 # <add'l CTest options>
+# Install to CMAKE_INSTALL_PREFIX (/usr/local by default):
+cmake --install NCEPLIBS-g2c/build
+```
 
-<pre>
-mkdir build
-cd build
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local/NCEPLIBS-g2c -DCMAKE_PREFIX_PATH=/usr/local/jasper-3.0.5 ..
-make
-make test
-make install
-</pre>
+See the [documentation](https://noaa-emc.github.io/NCEPLIBS-g2c/) for a list
+of CMake options.
 
 The NCEPLIBS-g2c library supports the PNG and JPEG2000 methods of image compression
 algorithms within the GRIB2 standard.
 
-By default the library uses Jasper for JPEG functionality, use the
-USE_OpenJPEG to use the OpenJPEG library instead.
+By default the library uses Jasper for JPEG functionality, use 
+`-DUSE_OpenJPEG=ON` to use the OpenJPEG library instead.
 
 ## References
 
