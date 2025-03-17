@@ -531,5 +531,16 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     newlen = lencurr + lensec4 + lensec5 + lensec6 + lensec7;
     sbit(cgrib, &newlen, 96, 32);
 
+    /* Prepare for a special condition.  If the last 4 bytes of the
+     * packed data are [55, 55, 55, 55], this will trick g2_gribend()
+     * into thinking the message is already complete. If this happens,
+     * encode all ones into the next byte. */
+    cgrib[newlen] = 0x00;
+    if (cgrib[newlen-1] == 0x37 && cgrib[newlen-2] == 0x37 &&
+        cgrib[newlen-3] == 0x37 && cgrib[newlen-4] == 0x37)
+    {
+        cgrib[newlen] = 0xFF;
+    }
+
     return newlen;
 }

@@ -49,9 +49,16 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
     if (cgrib[*lencurr - 4] == seven && cgrib[*lencurr - 3] == seven &&
         cgrib[*lencurr - 2] == seven && cgrib[*lencurr - 1] == seven)
     {
-        if (verbose)
-            printf("GRIB message already complete.  Cannot add new section.\n");
-        return G2C_EMSGCOMPLETE;
+        if (cgrib[*lencurr] == 0xFF)
+        {
+            return G2C_NOERROR;
+        }
+        else
+        {
+            if (verbose)
+                printf("GRIB message already complete.  Cannot add new section.\n");
+            return G2C_EMSGCOMPLETE;
+        }
     }
 
     return G2C_NOERROR;
