@@ -539,8 +539,8 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     iofst = newlen * 8;
     icheck = 0;
     sbit(cgrib, &icheck, iofst, 8);
-    if (cgrib[newlen-1] == 0x37 && cgrib[newlen-2] == 0x37 &&
-        cgrib[newlen-3] == 0x37 && cgrib[newlen-4] == 0x37)
+    if (cgrib[newlen - 1] == 0x37 && cgrib[newlen - 2] == 0x37 &&
+        cgrib[newlen - 3] == 0x37 && cgrib[newlen - 4] == 0x37)
     {
         icheck = 0xFF;
         sbit(cgrib, &icheck, iofst, 8);

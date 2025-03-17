@@ -53,14 +53,14 @@ main()
         printf("Calling g2_create()... ");
         ret = g2_create(cgrib, listsec0, listsec1);
         printf("ret = %d\n", ret);
-        if (ret != SEC0_LEN+SEC1_LEN)
+        if (ret != SEC0_LEN + SEC1_LEN)
             return G2C_ERROR;
 
         /* Add section 3. */
         printf("Calling g2_addgrid()... ");
         ret = g2_addgrid(cgrib, igds, igdstmpl, NULL, 0);
         printf("ret = %d\n", ret);
-        if (ret != SEC0_LEN+SEC1_LEN+SEC3_LEN)
+        if (ret != SEC0_LEN + SEC1_LEN + SEC3_LEN)
             return G2C_ERROR;
 
         /* Add sections 4, 5, 6, and 7. */
@@ -68,7 +68,7 @@ main()
         ret = g2_addfield(cgrib, ipdsnum, ipdstmpl, coordlist, numcoord,
                           idrsnum, idrstmpl, fld, ngrdpts, ibmap, bmap);
         printf("ret = %d\n", ret);
-        if (ret != SEC0_LEN+SEC1_LEN+SEC3_LEN+SEC4_LEN+SEC5_LEN+SEC6_LEN+SEC7_LEN)
+        if (ret != SEC0_LEN + SEC1_LEN + SEC3_LEN + SEC4_LEN + SEC5_LEN + SEC6_LEN + SEC7_LEN)
             return G2C_ERROR;
 
         /* Add section 8. */

@@ -52,7 +52,7 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
     if (cgrib[*lencurr - 4] == seven && cgrib[*lencurr - 3] == seven &&
         cgrib[*lencurr - 2] == seven && cgrib[*lencurr - 1] == seven)
     {
-        iofst = *lencurr * 8; 
+        iofst = *lencurr * 8;
         gbit(cgrib, &icheck, iofst, 8);
         if (icheck == 0xFF)
             return G2C_NOERROR;
