@@ -109,6 +109,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     g2int ibmprev, j, lcpack, ioctet, newlen, ndpts;
     g2int lensec4, lensec5, lensec6, lensec7;
     g2int issec3 = 0, isprevbmap = 0, lpos3 = 0, JJ, KK, MM;
+    g2int icheck = 0;
     g2int *coordieee;
     float *pfld;
     gtemplate *mappds, *mapdrs;
@@ -532,14 +533,17 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     sbit(cgrib, &newlen, 96, 32);
 
     /* Prepare for a special condition.  If the last 4 bytes of the
-     * packed data are [55, 55, 55, 55], this will trick g2_gribend()
+     * packed data are all 55 (0x37), this will trick g2_gribend()
      * into thinking the message is already complete. If this happens,
      * encode all ones into the next byte. */
-    cgrib[newlen] = 0x00;
+    iofst = newlen * 8;
+    icheck = 0;
+    sbit(cgrib, &icheck, iofst, 8);
     if (cgrib[newlen-1] == 0x37 && cgrib[newlen-2] == 0x37 &&
         cgrib[newlen-3] == 0x37 && cgrib[newlen-4] == 0x37)
     {
-        cgrib[newlen] = 0xFF;
+        icheck = 0xFF;
+        sbit(cgrib, &icheck, iofst, 8);
     }
 
     return newlen;

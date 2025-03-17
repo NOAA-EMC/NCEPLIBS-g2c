@@ -31,6 +31,9 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
     unsigned char B = 0x42;     /* 'B' */
     unsigned char seven = 0x37; /* '7' */
 
+    g2int icheck = 0;
+    g2int iofst = 0;
+
     assert(cgrib && lencurr);
 
     /* Check to see if beginning of GRIB message exists. */
@@ -49,16 +52,13 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
     if (cgrib[*lencurr - 4] == seven && cgrib[*lencurr - 3] == seven &&
         cgrib[*lencurr - 2] == seven && cgrib[*lencurr - 1] == seven)
     {
-        if (cgrib[*lencurr] == 0xFF)
-        {
+        iofst = *lencurr * 8; 
+        gbit(cgrib, &icheck, iofst, 8);
+        if (icheck == 0xFF)
             return G2C_NOERROR;
-        }
-        else
-        {
-            if (verbose)
-                printf("GRIB message already complete.  Cannot add new section.\n");
-            return G2C_EMSGCOMPLETE;
-        }
+        if (verbose)
+            printf("GRIB message already complete.  Cannot add new section.\n");
+        return G2C_EMSGCOMPLETE;
     }
 
     return G2C_NOERROR;
