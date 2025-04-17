@@ -95,7 +95,7 @@ algorithms within the GRIB2 standard.
 By default the library uses Jasper for JPEG functionality, use 
 `-DUSE_OpenJPEG=ON` to use the OpenJPEG library instead.
 
-NCEPLIBS-g2c is also available through Spack as '[g2c](https://github.com/spack/spack/tree/develop/var/spack/repos/builtin/packages/g2c)'.
+NCEPLIBS-g2c is also available through [Spack](https://spack.io) as '[g2c](https://github.com/spack/spack/tree/develop/var/spack/repos/builtin/packages/g2c)'.
 
 ## References
 
