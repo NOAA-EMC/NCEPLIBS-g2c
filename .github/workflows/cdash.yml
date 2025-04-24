@@ -22,7 +22,8 @@ jobs:
       uses: NOAA-EMC/ci-build-nceplibs@oneinstalldir
       with:
         jasper-version: version-4.0.0
-        key-suffix: oneinstalldir
+        key-prefix: cdash-build
+        key-suffix: oneinstalldir-1
 
     - name: CDash
       uses: NOAA-EMC/ci-cdash@develop
