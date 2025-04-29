@@ -1066,6 +1066,8 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 2, 6, 6, "DDROOF"},
     {255, 255, 2, 6, 7, "DIOWALL"},
     {255, 255, 2, 6, 8, "DDROAD"},
+    {255, 255, 0, 0, 205, "ELMELT"},
+    {255, 255, 0, 0, 206, "WETGLBT"},
 };
 
 /**
