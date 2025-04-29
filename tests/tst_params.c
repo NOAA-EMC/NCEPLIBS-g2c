@@ -5040,6 +5040,30 @@ main()
             return ret;
         if (strcmp(abbrev, "PBINFRC"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 5, 0, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ISSTMP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 5, 1, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SKSSTMP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 5, 2, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SSKSSTMP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 5, 3, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FDNSSTMP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 5, 4, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EBSSTSTD"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 5, 5, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EBSDSSTS"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
