@@ -4616,6 +4616,38 @@ main()
             return ret;
         if (strcmp(abbrev, "SLNGPIDX"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 18, 19, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DEPACTA"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 18, 20, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DEPACTE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 18, 21, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CLDACTA"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 18, 22, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CLDACTE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 18, 23, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EFFDOSER"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 18, 24, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "THYDOSER"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 18, 25, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "GAMDOSER"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 18, 26, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ACTEMM"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
