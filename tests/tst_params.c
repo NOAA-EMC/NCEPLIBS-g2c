@@ -4700,6 +4700,26 @@ main()
             return ret;
         if (strcmp(abbrev, "CITEDR"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 20, 18, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "POTHPH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 20, 78, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CEMF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 20, 79, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CNMF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 20, 80, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CDIVMF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 20, 81, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CNETS"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
