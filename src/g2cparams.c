@@ -1271,6 +1271,8 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 3, 5, 3, "FDNSSTMP"},
     {255, 255, 3, 5, 4, "EBSSTSTD"},
     {255, 255, 3, 5, 5, "EBSDSSTS"},
+    {255, 255, 3, 192, 86, "SSMS1712"},
+    {255, 255, 3, 192, 87, "SSMS1713"},    
 };
 
 /**
