@@ -4512,6 +4512,46 @@ main()
             return ret;
         if (strcmp(abbrev, "EFSH"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 4, 15, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "UVVEARTH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 4, 53, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "USWRFCS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 4, 54, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DNSWRFLX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 4, 55, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "UVALBDIF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 4, 56, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "UVALBDIR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 4, 57, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "UBALBDIRG"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 4, 58, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "UVALBDIRI"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 4, 59, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "UVBDIRV"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 4, 60, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PHOARFCS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 4, 61, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DSWRFLXCS"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;

@@ -1117,7 +1117,6 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 0, 2, 65, "NRTHTSSOD"},
     {255, 255, 0, 2, 66, "EASTTSSSR"},
     {255, 255, 0, 2, 67, "NRTHTSSSR"},
-
     {255, 255, 0, 3, 32, "SWATERVP"},
     {255, 255, 0, 3, 33, "GAMSL"},
     {255, 255, 0, 3, 34, "GHAGRD"},
@@ -1134,7 +1133,16 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 0, 3, 45, "WOBT"},
     {255, 255, 0, 3, 46, "PRESDHS"},
     {255, 255, 0, 3, 222, "EFSH"},
-
+    {255, 255, 0, 4, 15, "UVVEARTH"},
+    {255, 255, 0, 4, 53, "USWRFCS"},
+    {255, 255, 0, 4, 54, "DNSWRFLX"},
+    {255, 255, 0, 4, 55, "UVALBDIF"},
+    {255, 255, 0, 4, 56, "UVALBDIR"},
+    {255, 255, 0, 4, 57, "UBALBDIRG"},
+    {255, 255, 0, 4, 58, "UVALBDIRI"},
+    {255, 255, 0, 4, 59, "UVBDIRV"},
+    {255, 255, 0, 4, 60, "PHOARFCS"},
+    {255, 255, 0, 4, 61, "DSWRFLXCS"},
 };
 
 /**
