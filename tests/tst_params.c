@@ -5016,6 +5016,18 @@ main()
             return ret;
         if (strcmp(abbrev, "FRADPOW"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 1, 30, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "RFL04"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 1, 31, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CLDREF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 1, 32, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CLRREF"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
