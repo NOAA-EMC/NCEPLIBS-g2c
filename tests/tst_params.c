@@ -4768,6 +4768,46 @@ main()
             return ret;
         if (strcmp(abbrev, "QPFFFG"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 2, 14, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "LNDSNOWT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 2, 15, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "LDEPTH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 2, 16, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "RDEPTH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 2, 17, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FLDPDEPTH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 2, 18, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FLDPFLFR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 2, 19, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FLDPFLAR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 2, 20, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "RVERFR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 2, 21, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "RVERAR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 2, 22, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FRCRF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 2, 23, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ARCRF"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
