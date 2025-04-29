@@ -5208,6 +5208,14 @@ main()
             return ret;
         if (strcmp(abbrev, "GODAPEAK"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 1, 5, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EASTCUR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 1, 6, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NRTHCUR"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;

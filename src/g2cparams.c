@@ -1306,7 +1306,9 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 10, 0, 95, "TDMWAVE"},
     {255, 255, 10, 0, 96, "STMCREST"},
     {255, 255, 10, 0, 97, "STMWAVE"},
-    {255, 255, 10, 0, 98, "GODAPEAK"},    
+    {255, 255, 10, 0, 98, "GODAPEAK"},
+    {255, 255, 10, 1, 5, "EASTCUR"},
+    {255, 255, 10, 1, 6, "NRTHCUR"},        
 };
 
 /**
