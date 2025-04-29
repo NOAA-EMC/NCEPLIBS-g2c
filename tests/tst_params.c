@@ -4808,127 +4808,127 @@ main()
             return ret;
         if (strcmp(abbrev, "ARCRF"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 40, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 40, abbrev)))
             return ret;
         if (strcmp(abbrev, "PEVAPTRAT"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 41, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 41, abbrev)))
             return ret;
         if (strcmp(abbrev, "SMRATE"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 42, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 42, abbrev)))
             return ret;
         if (strcmp(abbrev, "WRDRATE"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 43, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 43, abbrev)))
             return ret;
         if (strcmp(abbrev, "DRAINDIR"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 44, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 44, abbrev)))
             return ret;
         if (strcmp(abbrev, "UPSAREA"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 45, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 45, abbrev)))
             return ret;
         if (strcmp(abbrev, "WETCOV"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 46, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 46, abbrev)))
             return ret;
         if (strcmp(abbrev, "WETTYPE"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 47, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 47, abbrev)))
             return ret;
         if (strcmp(abbrev, "IRRCOV"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 48, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 48, abbrev)))
             return ret;
         if (strcmp(abbrev, "CROPCOV"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 49, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 49, abbrev)))
             return ret;
         if (strcmp(abbrev, "GRASSCOV"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 50, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 50, abbrev)))
             return ret;
         if (strcmp(abbrev, "SKINRC"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 51, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 51, abbrev)))
             return ret;
         if (strcmp(abbrev, "SURFRATE"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 52, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 52, abbrev)))
             return ret;
         if (strcmp(abbrev, "SUBSRATE"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 53, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 53, abbrev)))
             return ret;
         if (strcmp(abbrev, "LOVEGCOV"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 54, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 54, abbrev)))
             return ret;
         if (strcmp(abbrev, "HIVEGCOV"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 55, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 55, abbrev)))
             return ret;
         if (strcmp(abbrev, "LAILO"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 56, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 56, abbrev)))
             return ret;
         if (strcmp(abbrev, "LAIHI"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 57, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 57, abbrev)))
             return ret;
         if (strcmp(abbrev, "TYPLOVEG"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 58, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 58, abbrev)))
             return ret;
         if (strcmp(abbrev, "TYPHIVEG"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 59, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 59, abbrev)))
             return ret;
         if (strcmp(abbrev, "NECOFLUX"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 60, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 60, abbrev)))
             return ret;
         if (strcmp(abbrev, "GROSSFLUX"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 61, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 61, abbrev)))
             return ret;
         if (strcmp(abbrev, "ECORFLUX"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 62, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 62, abbrev)))
             return ret;
         if (strcmp(abbrev, "EMISS"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 63, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 63, abbrev)))
             return ret;
         if (strcmp(abbrev, "CANTMP"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 233, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 233, abbrev)))
             return ret;
         if (strcmp(abbrev, "LANDFRC"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 234, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 234, abbrev)))
             return ret;
         if (strcmp(abbrev, "LAKEFRC"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 235, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 235, abbrev)))
             return ret;
         if (strcmp(abbrev, "PAHFLX"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 236, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 236, abbrev)))
             return ret;
         if (strcmp(abbrev, "WATERSA"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 237, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 237, abbrev)))
             return ret;
         if (strcmp(abbrev, "EIWATER"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 238, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 238, abbrev)))
             return ret;
         if (strcmp(abbrev, "PLANTTR"))
             return G2C_ERROR;
-        if ((ret = g2c_param_abbrev(2, 2, 239, abbrev)))
+        if ((ret = g2c_param_abbrev(2, 0, 239, abbrev)))
             return ret;
         if (strcmp(abbrev, "SOILSE"))
             return G2C_ERROR;
