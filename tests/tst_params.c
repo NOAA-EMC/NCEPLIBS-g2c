@@ -4608,6 +4608,10 @@ main()
             return ret;
         if (strcmp(abbrev, "MLFC"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 14, 204, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ALD2"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
