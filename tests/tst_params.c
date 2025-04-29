@@ -5276,6 +5276,78 @@ main()
             return ret;
         if (strcmp(abbrev, "FRZDATE"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 4, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DWHFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 5, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EASTWSS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 6, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NORTHWSS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 7, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "XCOMPSS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 8, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "YCOMPSS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 9, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "THERCSSH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 10, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "HALOCSSH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 11, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "STERCSSH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 12, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEASFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 13, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NETUPWFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 14, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ESURFWVEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 15, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NSURFWVEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 16, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "XSURFWVEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 17, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "YSURFWVEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 18, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "HFLUXCOR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 19, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SSHGTPARM"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 20, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DSLIBARCOR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 3, 21, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SALINITY"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
