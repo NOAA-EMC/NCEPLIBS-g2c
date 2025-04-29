@@ -1158,6 +1158,7 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 0, 7, 211, "SIGT"},
     {255, 255, 0, 7, 212, "MLFC"},
     {255, 255, 0, 14, 204, "ALD2"},
+    {255, 255, 0, 17, 5, "SLNGPIDX"},
 };
 
 /**
