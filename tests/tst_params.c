@@ -5072,6 +5072,142 @@ main()
             return ret;
         if (strcmp(abbrev, "SSMS1713"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 65, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PWPFSPAR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 66, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PWPSSPAR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 67, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PWPTSPAR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 68, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PWDFSPAR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 69, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PWDSSPAR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 70, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PWDTSPAR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 71, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PDWWAVE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 72, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PDTSWELL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 73, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WCAPFRAC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 74, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MDTSWEL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 75, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MDWWAVE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 76, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CHNCK"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 77, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WAVESPSK"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 78, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WAVEFMAG"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 79, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WAVEFDIR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 80, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "RWAVEAFW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 81, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FCVOCEAN"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 82, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "AIRDENOC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 83, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NEFW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 84, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NSOCEAN"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 85, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NEFOCEAN"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 86, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEVWAVE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 87, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WAVEMSLC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 88, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SPECWI"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 89, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EFWS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 90, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "USMFO"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 91, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "VSMFO"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 92, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WAVETEFO"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 93, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EMIWAVE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 94, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TDMCREST"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 95, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TDMWAVE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 96, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "STMCREST"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 97, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "STMWAVE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 0, 98, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "GODAPEAK"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
