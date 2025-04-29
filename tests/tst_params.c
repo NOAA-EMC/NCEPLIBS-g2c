@@ -4760,6 +4760,14 @@ main()
             return ret;
         if (strcmp(abbrev, "AHD"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 1, 196, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "QPFARI"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 1, 197, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "QPFFFG"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
