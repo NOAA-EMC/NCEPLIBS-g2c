@@ -1143,6 +1143,11 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 0, 4, 59, "UVBDIRV"},
     {255, 255, 0, 4, 60, "PHOARFCS"},
     {255, 255, 0, 4, 61, "DSWRFLXCS"},
+    {255, 255, 0, 5, 9, "NIRALBDIF"},
+    {255, 255, 0, 5, 10, "NIRALBDIR"},
+    {255, 255, 0, 5, 11, "NIRALBDIRG"},
+    {255, 255, 0, 5, 12, "NIRALBDIRI"},
+    {255, 255, 0, 5, 13, "NIRALBDIRV"},
 };
 
 /**

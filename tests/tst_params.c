@@ -4552,6 +4552,26 @@ main()
             return ret;
         if (strcmp(abbrev, "DSWRFLXCS"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 5, 9, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NIRALBDIF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 5, 10, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NIRALBDIR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 5, 11, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NIRALBDIRG"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 5, 12, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NIRALBDIRI"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 5, 13, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NIRALBDIRV"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
