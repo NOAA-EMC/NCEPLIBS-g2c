@@ -5348,6 +5348,98 @@ main()
             return ret;
         if (strcmp(abbrev, "SALINITY"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 29, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "BPEH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 30, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FWFSW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 31, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FWFC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 32, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "VSFSW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 33, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "VSFC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 34, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWTTNR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 35, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWSTNR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 36, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWTTP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 37, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWSTP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 38, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ESWVP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 39, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NSWVP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 40, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWTTBC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 41, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWSTBC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 42, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEAMVT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 43, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEAZVT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 44, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEACMVT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 45, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEACZVT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 46, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEAMMT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 47, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEAZMT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 48, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEACMMT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 49, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEACZMT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 50, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEACPSALT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 4, 51, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEACSALT"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
