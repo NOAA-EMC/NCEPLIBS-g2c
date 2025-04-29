@@ -4580,6 +4580,34 @@ main()
             return ret;
         if (strcmp(abbrev, "SUNFRAC"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 7, 20, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TIIDEX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 7, 207, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "E3KH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 7, 208, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "STPC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 7, 209, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SIGH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 7, 210, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SCCP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 7, 211, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SIGT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 7, 212, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MLFC"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
