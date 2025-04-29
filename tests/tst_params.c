@@ -4364,6 +4364,90 @@ main()
             return ret;
         if (strcmp(abbrev, "TCISSPFHW"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 47, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SFRHEAT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 48, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SFRMOIST"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 49, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WINDSTR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 50, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EWINDSTR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 51, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NWINDSTR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 52, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "UWINDSTR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 53, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "VWINDSTR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 54, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NLSRLH"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 55, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NLSRLM"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 56, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "UNWIND"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 57, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "VNWIND"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 58, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TSFCSTR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 59, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "VDIV"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 60, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DTC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 61, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DEC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 62, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EASTTSS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 63, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NRTHTSS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 64, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EASTTSSOD"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 65, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NRTHTSSOD"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 66, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EASTTSSSR"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 2, 67, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NRTHTSSSR"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
