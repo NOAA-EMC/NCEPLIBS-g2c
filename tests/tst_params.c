@@ -4948,6 +4948,74 @@ main()
             return ret;
         if (strcmp(abbrev, "MSTAVTOP"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 20, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "BURNAREA"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 21, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "BURNABAREA"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 22, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "UNBURNAREA"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 23, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FUELLOAD"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 24, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "COMBCO"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 25, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FUELMC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 26, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WFIREPOT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 27, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "LLFL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 28, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "LWFL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 29, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DLFL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 30, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DWFL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 31, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "LFMC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 32, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FDLMC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 33, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DDLMC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 34, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FDWMC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 35, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DDWMC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 4, 36, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FRADPOW"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
