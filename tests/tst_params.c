@@ -4720,6 +4720,22 @@ main()
             return ret;
         if (strcmp(abbrev, "CNETS"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 191, 4, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TCDTRACK"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 191, 5, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "HURTSV"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 191, 6, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TSTSV"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 191, 7, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TDTSV"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
