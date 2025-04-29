@@ -4244,7 +4244,6 @@ main()
             return ret;
         if (strcmp(abbrev, "DDROAD"))
             return G2C_ERROR;
-            
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
