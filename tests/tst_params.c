@@ -4448,6 +4448,70 @@ main()
             return ret;
         if (strcmp(abbrev, "NRTHTSSSR"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 32, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWATERVP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 33, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "GAMSL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 34, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "GHAGRD"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 35, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CDTMF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 36, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CETMF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 37, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CNTMF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 38, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SDFSO"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 39, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CMATMOS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 40, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CEGFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 41, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CNGFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 42, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CDWGFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 43, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CDGFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 44, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "HWBT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 45, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WOBT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 46, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PRESDHS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 3, 222, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EFSH"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
