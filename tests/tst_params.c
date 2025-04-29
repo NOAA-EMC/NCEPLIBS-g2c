@@ -5028,6 +5028,18 @@ main()
             return ret;
         if (strcmp(abbrev, "CLRREF"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 3, 0, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PBMVFRC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 3, 1, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PBLIFRC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(3, 3, 2, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PBINFRC"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;

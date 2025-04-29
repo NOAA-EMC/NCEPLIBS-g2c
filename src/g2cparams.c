@@ -1262,6 +1262,9 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 3, 1, 30, "RFL04"},
     {255, 255, 3, 1, 31, "CLDREF"},
     {255, 255, 3, 1, 32, "CLRREF"},
+    {255, 255, 3, 3, 0, "PBMVFRC"},
+    {255, 255, 3, 3, 1, "PBLIFRC"},
+    {255, 255, 3, 3, 2, "PBINFRC"},
 };
 
 /**
