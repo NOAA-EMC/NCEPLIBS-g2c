@@ -5216,6 +5216,66 @@ main()
             return ret;
         if (strcmp(abbrev, "NRTHCUR"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 14, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ALBDOICE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 15, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SICEVOL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 16, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SNVOLSI"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 17, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SICEHC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 18, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SNCEHC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 19, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ICEFTHCK"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 20, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ICEMPF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 21, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ICEMPD"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 22, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ICEMPV"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 23, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SIFTP"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 24, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "XICE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 25, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "YICE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 27, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FRZMLTPOT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 28, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MLTDATE"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(10, 2, 29, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FRZDATE"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
