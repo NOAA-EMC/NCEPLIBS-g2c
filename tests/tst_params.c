@@ -4648,6 +4648,58 @@ main()
             return ret;
         if (strcmp(abbrev, "ACTEMM"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 38, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SKYIDX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 39, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SEEINDEX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 40, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SNOWLVL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 41, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DBHEIGHT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 42, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TLBHEIGHT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 43, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TLTHEIGHT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 44, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MEANVGRTL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 45, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "MINVGRTL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 46, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NETRADFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 47, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "GLIRRTS"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 48, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PCONTT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 49, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PCONTB"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 19, 50, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "CITEDR"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
