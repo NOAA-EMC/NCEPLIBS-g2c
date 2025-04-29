@@ -4736,6 +4736,30 @@ main()
             return ret;
         if (strcmp(abbrev, "TDTSV"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 0, 17, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "RVEROW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 0, 18, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FLDPOW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 0, 19, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FLDPATHOW"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 0, 20, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WATSURF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 0, 194, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FHO"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(1, 0, 196, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "AHD"))
+            return G2C_ERROR;
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;
