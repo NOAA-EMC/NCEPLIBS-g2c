@@ -1025,7 +1025,8 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 10, 4, 21, "PRTSAL"},
     {240, 129, 0, 16, 3, "RETOP"},
     {234, 2, 1, 0, 5, "BGRUN"},
-    {235, 2, 1, 0, 6, "SSRUN"}};
+    {235, 2, 1, 0, 6, "SSRUN"},
+    {160, 130, 2, 3, 5, "SOILL"}};
 
 /**
  * Translate GRIB1 parameter to GRIB2 parameter.

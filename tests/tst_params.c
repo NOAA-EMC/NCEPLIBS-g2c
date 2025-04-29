@@ -4084,6 +4084,10 @@ main()
             return ret;
         if (strcmp(abbrev, "SSRUN"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 3, 5, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SOILL"))
+            return G2C_ERROR;
 
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
