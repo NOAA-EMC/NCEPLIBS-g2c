@@ -4208,7 +4208,43 @@ main()
             return ret;
         if (strcmp(abbrev, "SDI"))
             return G2C_ERROR;
-
+        if ((ret = g2c_param_abbrev(2, 6, 0, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "URBCOVER"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 6, 1, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ROADCOVER"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 6, 2, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "BUILDCOVER"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 6, 3, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "BUILDHGT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 6, 4, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "VZAFRAC"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 6, 5, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SDBUILDHGT"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 6, 6, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DDROOF"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 6, 7, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DIOWALL"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 6, 8, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DDROAD"))
+            return G2C_ERROR;
+            
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
             return G2C_ERROR;

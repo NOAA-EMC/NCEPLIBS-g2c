@@ -1050,7 +1050,6 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 0, 21, 20, "NRTHHFLUX"},
     {255, 255, 0, 21, 21, "PILENERGY"},
     {255, 255, 0, 21, 22, "EADYGR"},
-
     {255, 255, 0, 22, 0, "SPI"},
     {255, 255, 0, 22, 1, "SPEI"},
     {255, 255, 0, 22, 2, "SSFI"},
@@ -1058,6 +1057,15 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 0, 22, 4, "SWI"},
     {255, 255, 0, 22, 5, "SMRI"},
     {255, 255, 0, 22, 6, "SDI"},
+    {255, 255, 2, 6, 0, "URBCOVER"},
+    {255, 255, 2, 6, 1, "ROADCOVER"},
+    {255, 255, 2, 6, 2, "BUILDCOVER"},
+    {255, 255, 2, 6, 3, "BUILDHGT"},
+    {255, 255, 2, 6, 4, "VZAFRAC"},
+    {255, 255, 2, 6, 5, "SDBUILDHGT"},
+    {255, 255, 2, 6, 6, "DDROOF"},
+    {255, 255, 2, 6, 7, "DIOWALL"},
+    {255, 255, 2, 6, 8, "DDROAD"},
 };
 
 /**
