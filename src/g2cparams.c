@@ -1026,7 +1026,31 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {240, 129, 0, 16, 3, "RETOP"},
     {234, 2, 1, 0, 5, "BGRUN"},
     {235, 2, 1, 0, 6, "SSRUN"},
-    {160, 130, 2, 3, 5, "SOILL"}};
+    {160, 130, 2, 3, 5, "SOILL"},
+    {255, 255, 0, 21, 0, "POTINTENG"},
+    {255, 255, 0, 21, 1, "KINENG"},
+    {255, 255, 0, 21, 2, "TOTENG"},
+    {255, 255, 0, 21, 3, "ENTHALPY"},
+    {255, 255, 0, 21, 4, "WATENTHALPY"},
+    {255, 255, 0, 21, 5, "EASTENTFLUX"},
+    {255, 255, 0, 21, 6, "NRTHENTFLUX"},
+    {255, 255, 0, 21, 7, "EASTPOTFLUX"},
+    {255, 255, 0, 21, 8, "NRTHPOTFLUX"},
+    {255, 255, 0, 21, 9, "EASTKINFLUX"},
+    {255, 255, 0, 21, 10, "NRTHKINFLUX"},
+    {255, 255, 0, 21, 11, "EASTTOTFLUX"},
+    {255, 255, 0, 21, 12, "NRTHTOTFLUX"},
+    {255, 255, 0, 21, 13, "DIVENTFLUX"},
+    {255, 255, 0, 21, 14, "DIVPOTFLUX"},
+    {255, 255, 0, 21, 15, "DIVWPOTFLUX"},
+    {255, 255, 0, 21, 16, "DIVKENGFLUX"},
+    {255, 255, 0, 21, 17, "DIVTOTFLUX"},
+    {255, 255, 0, 21, 18, "DIVWENTFLUX"},
+    {255, 255, 0, 21, 19, "EASTHFLUX"},
+    {255, 255, 0, 21, 20, "NRTHHFLUX"},
+    {255, 255, 0, 21, 21, "PILENERGY"},
+    {255, 255, 0, 21, 22, "EADYGR"},
+};
 
 /**
  * Translate GRIB1 parameter to GRIB2 parameter.

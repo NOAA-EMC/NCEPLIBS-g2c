@@ -4088,6 +4088,98 @@ main()
             return ret;
         if (strcmp(abbrev, "SOILL"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 0, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "POTINTENG"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 1, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "KINENG"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 2, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "TOTENG"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 3, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "ENTHALPY"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 4, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "WATENTHALPY"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 5, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EASTENTFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 6, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NRTHENTFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 7, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EASTPOTFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 8, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NRTHPOTFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 9, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EASTKINFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 10, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NRTHKINFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 11, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EASTTOTFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 12, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NRTHTOTFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 13, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DIVENTFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 14, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DIVPOTFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 15, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DIVWPOTFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 16, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DIVKENGFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 17, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DIVTOTFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 18, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "DIVWENTFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 19, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EASTHFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 20, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "NRTHHFLUX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 21, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "PILENERGY"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 21, 22, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "EADYGR"))
+            return G2C_ERROR;
 
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
