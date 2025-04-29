@@ -4180,6 +4180,34 @@ main()
             return ret;
         if (strcmp(abbrev, "EADYGR"))
             return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 22, 0, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SPI"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 22, 1, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SPEI"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 22, 2, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SSFI"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 22, 3, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SRSI"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 22, 4, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SWI"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 22, 5, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SMRI"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(0, 22, 6, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SDI"))
+            return G2C_ERROR;
 
         /* This will return "UNKNOWN". */
         if (g2c_param_abbrev(0, 3000, 0, abbrev))
