@@ -1364,7 +1364,8 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 10, 4, 48, "SEACMMT"},
     {255, 255, 10, 4, 49, "SEACZMT"},
     {255, 255, 10, 4, 50, "SEACPSALT"},
-    {255, 255, 10, 4, 51, "SEACSALT"},      
+    {255, 255, 10, 4, 51, "SEACSALT"},
+    {255, 255, 10, 191, 4, "BARDSF"},      
 };
 
 /**
