@@ -1238,6 +1238,10 @@ static G2C_PARAM_T param[G2C_MAX_NOAA_PARAMS] = {
     {255, 255, 2, 0, 237, "EIWATER"},
     {255, 255, 2, 0, 238, "PLANTTR"},
     {255, 255, 2, 0, 239, "SOILSE"},
+    {255, 255, 2, 3, 28, "SNOWTMP"},
+    {255, 255, 2, 3, 29, "ICETEMP"},
+    {255, 255, 2, 3, 30, "SWET"},
+    {255, 255, 2, 3, 204, "MSTAVTOP"},    
 };
 
 /**
