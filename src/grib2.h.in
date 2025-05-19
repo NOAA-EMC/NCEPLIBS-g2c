@@ -422,7 +422,7 @@ int g2c_param_all(int param_idx, int *g1ver, int *g1val, int *g2disc, int *g2cat
 #define G2C_MAX_NUM_SECTIONS 1024      /**< Maximum number of sections that can be handled in one message. */
 
 #define G2C_MAX_NOAA_PARAMS 2000        /**< Maximum number of known parameters with NOAA abbreviations. */
-#define G2C_MAX_NOAA_ABBREV_LEN 8       /**< Maximum length of a NOAA abbreviation of a parameter. */
+#define G2C_MAX_NOAA_ABBREV_LEN 11       /**< Maximum length of a NOAA abbreviation of a parameter. */
 #define G2C_MAX_NOAA_PARAM_LINE_LEN 120 /**< Maximum length of a line in the NOAA abbreviation CSV file. */
 
 #define G2C_JASPER_MAX_MEM @JASPER_MAX_MEM@ /**< Maximum size for the Jasper memory buffer. */
