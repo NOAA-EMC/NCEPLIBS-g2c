@@ -1,0 +1,29 @@
+name: cdash
+on:
+  push:
+    branches:
+    - develop
+
+jobs:
+  cdash:
+    runs-on: ubuntu-latest
+
+    env:
+      FC: gfortran
+      CC: gcc
+      CDASH_TOKEN: ${{ secrets.CDASH_TOKEN }}
+
+    steps:
+
+    - name: "Install various dependencies with apt"
+      run: sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev
+
+    - name: "Build dependencies"
+      uses: NOAA-EMC/ci-build-nceplibs@oneinstalldir
+      with:
+        jasper-version: version-4.0.0
+        key-prefix: cdash-build
+        key-suffix: oneinstalldir-1
+
+    - name: CDash
+      uses: NOAA-EMC/ci-cdash@develop

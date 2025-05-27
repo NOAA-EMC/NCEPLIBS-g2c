@@ -31,6 +31,38 @@ redefined.
 For detailed information on GRIB2 see the [NCEP WMO GRIB2
 Documentation](https://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_doc/).
 
+## Installation
+
+```
+git clone https://github.com/NOAA-EMC/NCEPLIBS-g2c
+cmake -S NCEPLIBS-g2c -B NCEPLIBS-g2c/build # -DCMAKE_PREFIX_PATH=/usr/local/jasper-3.0.5 -DCMAKE_INSTALL_PREFIX=/path/to/install/g2c <add'l CMake options>
+cmake --build NCEPLIBS-g2c/build --parallel 4
+ctest --test-dir NCEPLIBS-g2c/build --parallel 4 # <add'l CTest options>
+# Install to CMAKE_INSTALL_PREFIX (/usr/local by default):
+cmake --install NCEPLIBS-g2c/build
+```
+
+The following CMake build options can be used to configure the build by setting them with `-D<OPTION>=<VALUE>`.
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| CMAKE_INSTALL_PREFIX | Installation path | /usr/local |
+| CMAKE_POSITION_INDEPENDENT_CODE | Enable position-independent code (PIC) for static build | OFF |
+| ENABLE_DOCS | Enable generation of doxygen-based documentation. | OFF |
+| USE_PNG | Use PNG library | ON |
+| USE_Jasper | Use Jasper library | ON |
+| USE_OpenJPEG | Use OpenJPEG library | OFF |
+| USE_AEC | Use LibAEC library | OFF |
+| BUILD_SHARED_LIBS | Build shared libraries | ON |
+| BUILD_STATIC_LIBS | Build static libraries | ON |
+| FTP_TEST_FILES | Fetch and test with files on FTP site. | OFF |
+| FTP_LARGE_TEST_FILES | Fetch and test with very large files on FTP site. | OFF |
+| FTP_EXTRA_TEST_FILES | Test with more large files fetched via FTP. | OFF |
+| LOGGING | Turn on internal logging messages. Only useful to g2c developers. | OFF |
+| PTHREADS | Turn on thread-safty with pthreads. | OFF |
+| UTILS | Build and install some utility programs. | ON |
+| BUILD_G2C | Build the g2c file-based API. | ON |
+
 ## GRIB2 File-Based API
 
 Starting with version 2.0.0 of the NCEPLIBS-g2c library, a file-based
@@ -104,6 +136,7 @@ and MSWord formats are available).
 
 ## Documentation for Previous Versions of NCEPLIBS-g2c
 
+* [NCEPLIBS-g2c Version 2.1.0](ver-2.1.0/index.html)
 * [NCEPLIBS-g2c Version 2.0.0](ver-2.0.0/index.html)
 * [NCEPLIBS-g2c Version 1.9.0](ver-1.9.0/index.html)
 * [NCEPLIBS-g2c Version 1.8.0](ver-1.8.0/index.html)
