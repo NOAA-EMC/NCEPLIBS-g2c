@@ -42,7 +42,7 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose, int from)
     unsigned char B = 0x42;     /* 'B' */
     unsigned char seven = 0x37; /* '7' */
 
-    int iret = G2C_NOERROR; /* Initialize return. */
+    int iret = 0;
     static int last_from = 0; /* Keep last value of from arg */
 
     assert(cgrib && lencurr);
