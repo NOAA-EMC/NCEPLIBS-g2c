@@ -121,7 +121,7 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
 
     /* Check for GRIB header and terminator. Translate the error codes
      * to the legacy G2 error codes. */
-    if ((ret = g2c_check_msg(cgrib, &lencurr, 1)))
+    if ((ret = g2c_check_msg(cgrib, &lencurr, 1, 3)))
     {
         if (ret == G2C_ENOTGRIB)
             return G2_ADD_MSG_INIT;
@@ -531,20 +531,6 @@ g2_addfield(unsigned char *cgrib, g2int ipdsnum, g2int *ipdstmpl,
     /*  Update current byte total of message in Section 0 */
     newlen = lencurr + lensec4 + lensec5 + lensec6 + lensec7;
     sbit(cgrib, &newlen, 96, 32);
-
-    /* Prepare for a special condition.  If the last 4 bytes of the
-     * packed data are all 55 (0x37), this will trick g2_gribend()
-     * into thinking the message is already complete. If this happens,
-     * encode all ones into the next byte. */
-    iofst = newlen * 8;
-    icheck = 0;
-    sbit(cgrib, &icheck, iofst, 8);
-    if (cgrib[newlen - 1] == 0x37 && cgrib[newlen - 2] == 0x37 &&
-        cgrib[newlen - 3] == 0x37 && cgrib[newlen - 4] == 0x37)
-    {
-        icheck = 0xFF;
-        sbit(cgrib, &icheck, iofst, 8);
-    }
 
     return newlen;
 }

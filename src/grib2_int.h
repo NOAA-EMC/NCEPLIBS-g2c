@@ -384,7 +384,7 @@ int pack_gp(g2int *kfildo, g2int *ic, g2int *nxy,
             g2int *novref, g2int *lbitref, g2int *ier);
 
 /* Check the message header and check for message termination. */
-int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose);
+int g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose, int from);
 
 /* Basic file I/O. */
 int g2c_file_io(FILE *f, int write, int g2ctype, void *var);

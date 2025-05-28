@@ -11,9 +11,19 @@
  * Check for 'GRIB' at the beginning of a GRIB message, and check to
  * see if the message is already terminated with '7777'.
  *
+ * On rare occasions, the last 4 bytes of section 7 (data section)
+ * can be the GRIB terminating string of '7777'. This function
+ * accommodates for this by tracking which function called g2c_check_msg()
+ * via the from argument (see below).
+ *
  * @param cgrib Buffer that contains the GRIB message.
  * @param lencurr Pointer that gets the length of the GRIB message.
  * @param verbose If non-zero, print any error messages to stdout.
+ * @param from Mapping of where this function was called from.
+ * - 1 = From g2_addlocal()
+ * - 2 = From g2_addgrid()
+ * - 3 = From g2_addfield()
+ * - 4 = From g2_gribend()
  *
  * @return
  * - ::G2C_NOERROR No error.
@@ -21,9 +31,10 @@
  * - ::G2C_EMSGCOMPLETE GRIB message already complete.
  *
  * @author Ed Hartnett @date Nov 11, 2021
+ * @author Eric Engle
  */
 int
-g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
+g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose, int from)
 {
     unsigned char G = 0x47;     /* 'G' */
     unsigned char R = 0x52;     /* 'R' */
@@ -31,8 +42,8 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
     unsigned char B = 0x42;     /* 'B' */
     unsigned char seven = 0x37; /* '7' */
 
-    g2int icheck = 0;
-    g2int iofst = 0;
+    int iret = G2C_NOERROR ; /* Initialize return. */
+    static int last_from = 0; /* Keep last value of from arg */
 
     assert(cgrib && lencurr);
 
@@ -42,6 +53,10 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
         if (verbose)
             printf("GRIB not found in given message. A call to routine g2_create() "
                    "is required to to initialize GRIB messge.\n");
+        /* Update last_from. */
+        MUTEX_LOCK(m); 
+        last_from = from;
+        MUTEX_UNLOCK(m); 
         return G2C_ENOTGRIB;
     }
 
@@ -52,16 +67,26 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose)
     if (cgrib[*lencurr - 4] == seven && cgrib[*lencurr - 3] == seven &&
         cgrib[*lencurr - 2] == seven && cgrib[*lencurr - 1] == seven)
     {
-        iofst = *lencurr * 8;
-        gbit(cgrib, &icheck, iofst, 8);
-        if (icheck == 0xFF)
-            return G2C_NOERROR;
-        if (verbose)
-            printf("GRIB message already complete.  Cannot add new section.\n");
-        return G2C_EMSGCOMPLETE;
+        /* Allow this to occur if this is called from g2_gribend (from = 4)
+         * and previous call was from g2_addfield where last_from = 3. */
+        if (from == 4 && last_from == 3)
+        {
+            iret = G2C_NOERROR;
+        }
+        else
+        {
+            if (verbose)
+                printf("GRIB message already complete.  Cannot add new section.\n");
+            iret = G2C_EMSGCOMPLETE;
+        }
     }
 
-    return G2C_NOERROR;
+    /* Update last_from. */
+    MUTEX_LOCK(m); 
+    last_from = from;
+    MUTEX_UNLOCK(m); 
+
+    return iret;
 }
 
 #ifdef LOGGING

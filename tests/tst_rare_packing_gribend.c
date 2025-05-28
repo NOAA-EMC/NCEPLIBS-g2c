@@ -25,7 +25,7 @@
 int
 main()
 {
-    printf("Testing g2_addfield().\n");
+    printf("Testing rare packing condition and grid end.\n");
     printf("Testing full message creation (expect and ignore error messages)...\n");
     {
         unsigned char cgrib[FULL_MSG_LEN];
