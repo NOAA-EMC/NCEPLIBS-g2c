@@ -7,6 +7,10 @@
 #include "grib2_int.h"
 #include <stdarg.h>
 
+/** If pthreads are enabled, use externally-defined mutex for
+ * thread-safety. */
+EXTERN_MUTEX(m);
+
 /**
  * Check for 'GRIB' at the beginning of a GRIB message, and check to
  * see if the message is already terminated with '7777'.
