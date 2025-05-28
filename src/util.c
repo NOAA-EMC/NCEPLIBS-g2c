@@ -42,7 +42,7 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose, int from)
     unsigned char B = 0x42;     /* 'B' */
     unsigned char seven = 0x37; /* '7' */
 
-    int iret = G2C_NOERROR ; /* Initialize return. */
+    int iret = G2C_NOERROR; /* Initialize return. */
     static int last_from = 0; /* Keep last value of from arg */
 
     assert(cgrib && lencurr);
@@ -54,9 +54,9 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose, int from)
             printf("GRIB not found in given message. A call to routine g2_create() "
                    "is required to to initialize GRIB messge.\n");
         /* Update last_from. */
-        MUTEX_LOCK(m); 
+        MUTEX_LOCK(m);
         last_from = from;
-        MUTEX_UNLOCK(m); 
+        MUTEX_UNLOCK(m);
         return G2C_ENOTGRIB;
     }
 
@@ -82,9 +82,9 @@ g2c_check_msg(unsigned char *cgrib, g2int *lencurr, int verbose, int from)
     }
 
     /* Update last_from. */
-    MUTEX_LOCK(m); 
+    MUTEX_LOCK(m);
     last_from = from;
-    MUTEX_UNLOCK(m); 
+    MUTEX_UNLOCK(m);
 
     return iret;
 }
