@@ -3612,22 +3612,22 @@ main()
             return ret;
         if (strcmp(abbrev, "LWSNWP"))
             return G2C_ERROR;
-        /* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) */
-        /*     return ret; */
-        /* if (strcmp(abbrev, "FRSTINX")) */
-        /*     return G2C_ERROR; */
-        /* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) */
-        /*     return ret; */
-        /* if (strcmp(abbrev, "SNWDEB")) */
-        /*     return G2C_ERROR; */
-        /* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) */
-        /*     return ret; */
-        /* if (strcmp(abbrev, "SHFLX")) */
-        /*     return G2C_ERROR; */
-        /* if ((ret = g2c_param_abbrev(2, 3, 23, abbrev))) */
-        /*     return ret; */
-        /* if (strcmp(abbrev, "SOILDEP")) */
-        /*     return G2C_ERROR; */
+        if ((ret = g2c_param_abbrev(2, 3, 24, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "FRSTINX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 3, 25, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SNWDEB"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 3, 26, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SHFLX"))
+            return G2C_ERROR;
+        if ((ret = g2c_param_abbrev(2, 3, 27, abbrev)))
+            return ret;
+        if (strcmp(abbrev, "SOILDEP"))
+            return G2C_ERROR;
         if ((ret = g2c_param_abbrev(2, 4, 0, abbrev)))
             return ret;
         if (strcmp(abbrev, "FIREOLK"))
