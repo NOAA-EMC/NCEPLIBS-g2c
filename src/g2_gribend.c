@@ -46,7 +46,7 @@ g2_gribend(unsigned char *cgrib)
 
     /* Check for GRIB header and terminator. Translate the error codes
      * to the legacy G2 error codes. */
-    if ((ret = g2c_check_msg(cgrib, &lencurr, 1)))
+    if ((ret = g2c_check_msg(cgrib, &lencurr, 1, 4)))
     {
         if (ret == G2C_ENOTGRIB)
             return G2_ADD_MSG_INIT;

@@ -74,7 +74,7 @@ g2_addgrid(unsigned char *cgrib, g2int *igds, g2int *igdstmpl, g2int *ideflist,
 
     /* Check for GRIB header and terminator. Translate the error codes
      * to the legacy G2 error codes. */
-    if ((ret = g2c_check_msg(cgrib, &lencurr, 1)))
+    if ((ret = g2c_check_msg(cgrib, &lencurr, 1, 2)))
     {
         if (ret == G2C_ENOTGRIB)
             return G2_ADD_MSG_INIT;
