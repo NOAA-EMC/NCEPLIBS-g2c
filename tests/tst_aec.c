@@ -156,6 +156,7 @@ main()
     printf("ok!\n");
     printf("Testing g2c_enc_aec()/g2c_dec_aec() call...");
     {
+        /** 
         unsigned char data[4] = {1, 2, 3, 4};
         unsigned char cout[200];
         int nbits = 32;
@@ -175,7 +176,7 @@ main()
         datalen = sizeof(data) / sizeof(data[0]);
         aeclen = (int *)(sizeof(cout) / sizeof(cout[0]));
 
-        /* Set AEC parameters. */
+
         ccsds_flags = CCSDS_FLAGS;
         ccsds_block_size = 16;
         ccsds_rsi = 128;
