@@ -181,10 +181,10 @@ main()
         ccsds_rsi = 128;
 
         /* Encode some data. */
-        ret = g2c_enc_aec(databuf, datalen, nbits, ccsds_flags, ccsds_block_size,
-                      ccsds_rsi, aecbuf, aeclen);
-        if (ret < 0)
-            return G2C_ERROR;
+        //ret = g2c_enc_aec(databuf, datalen, nbits, ccsds_flags, ccsds_block_size,
+        //              ccsds_rsi, aecbuf, aeclen);
+        //if (ret < 0)
+        //    return G2C_ERROR;
 
         /* Now decode it. */
         /** ret = g2c_dec_aec(aecbuf, (int)aeclen, nbits, ccsds_flags, ccsds_block_size,

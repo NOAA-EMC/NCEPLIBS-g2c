@@ -213,7 +213,7 @@ g2c_dec_aec(unsigned char *cpack, int len, int nbits, int flags,
  */
 int
 g2c_enc_aec(unsigned char *data, int ctemplen, int nbits, int flags,
-        int block_size, int rsi, unsigned char *aecbuf, int *aecbuflen)
+            int block_size, int rsi, unsigned char *aecbuf, int *aecbuflen)
 {
     g2int ctemplen8 = ctemplen, nbits8 = nbits, flags8 = flags;
     g2int block_size8 = block_size, rsi8 = rsi, aecbuflen8 = *aecbuflen;
