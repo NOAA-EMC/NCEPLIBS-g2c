@@ -217,11 +217,7 @@ g2c_enc_aec(unsigned char *data, int ctemplen, int nbits, int flags,
 {
     g2int ctemplen8 = ctemplen, nbits8 = nbits, flags8 = flags;
     g2int block_size8 = block_size, rsi8 = rsi, aecbuflen8 = *aecbuflen;
-    int ret;
 
-    ret = enc_aec(data, ctemplen8, nbits8, flags8, block_size8, rsi8,
-                  aecbuf, &aecbuflen8);
-
-    *aecbuflen = (int)aecbuflen8;
-    return ret;
+    return enc_aec(data, ctemplen8, nbits8, flags8, block_size8, rsi8,
+                   aecbuf, &aecbuflen8);
 }
