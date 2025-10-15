@@ -191,7 +191,6 @@ main()
         for (i = 0; i < datalen; i++)
             if (cout[i] != data[i])
                 return G2C_ERROR;
-
     }
     printf("SUCCESS!\n");
     return 0;
