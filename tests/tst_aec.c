@@ -183,9 +183,8 @@ main()
             return G2C_ERROR;
 
         /* Now decode it. */
-        /** 
-        ret = g2c_dec_aec(aecbuf, (int)aeclen, nbits, ccsds_flags, ccsds_block_size,
-                      ccsds_rsi, cout, datalen);
+        ret = g2c_dec_aec(aecbuf, aeclen, nbits, ccsds_flags, ccsds_block_size,
+                          ccsds_rsi, cout, datalen);
         if (ret < 0)
         {
             return G2C_ERROR;
@@ -195,7 +194,7 @@ main()
             //printf("%g %g\n",cout[i], data[i]);
             if (cout[i] != data[i])
                 return G2C_ERROR;
-        */
+
     }
     printf("SUCCESS!\n");
     return 0;
