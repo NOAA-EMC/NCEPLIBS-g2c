@@ -186,9 +186,7 @@ main()
         ret = g2c_dec_aec(aecbuf, aeclen, nbits, ccsds_flags, ccsds_block_size,
                           ccsds_rsi, cout, datalen);
         if (ret < 0)
-        {
             return G2C_ERROR;
-        }
 
         for (i = 0; i < datalen; i++)
             //printf("%g %g\n",cout[i], data[i]);
