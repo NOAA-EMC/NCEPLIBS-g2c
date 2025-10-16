@@ -148,3 +148,76 @@ enc_aec(unsigned char *data, g2int ctemplen, g2int nbits, g2int flags,
 
     return ret;
 }
+
+/**
+ * Decode an AEC code stream specified in the [CCSDS 121.0-B-3 Blue
+ * Book](https://public.ccsds.org/Pubs/121x0b3.pdf).
+ *
+ * @param cpack Pointer to buffer that holds the input AEC code
+ * stream.
+ * @param len Length (in bytes) of the buffer that holds the input
+ * AEC code stream.
+ * @param nbits CCSDS bits per sample.
+ * @param flags CCSDS compression options mask.
+ * @param block_size CCSDS block size.
+ * @param rsi CCSDS reference sample interval.
+ * @param cfld Pointer to output buffer from the AEC decoder.
+ * @param cfldlen length of output buffer.
+ *
+ * @return
+ * - >0 Length of data from AEC decoder
+ * - 0 Successful decode (AEC_OK)
+ * - -1 AEC_CONF_ERROR
+ * - -2 AEC_STREAM_ERROR
+ * - -3 AEC_DATA_ERROR
+ * - -4 AEC_MEM_ERROR
+ * - -5 AEC_RSI_OFFSETS_ERROR
+ *
+ * @author Alyson Stahl @date 10/2025
+ */
+int
+g2c_dec_aec(unsigned char *cpack, int len, int nbits, int flags,
+            int block_size, int rsi, unsigned char *cfld, int cfldlen)
+{
+    g2int len8 = len, nbits8 = nbits, flags8 = flags;
+    g2int block_size8 = block_size, rsi8 = rsi, cfldlen8 = cfldlen;
+
+    return dec_aec(cpack, len8, nbits8, flags8, block_size8, rsi8,
+                   cfld, cfldlen8);
+}
+
+/**
+ * Encode data into an AEC code stream specified in the
+ * [CCSDS 121.0-B-3 Blue Book](https://public.ccsds.org/Pubs/121x0b3.pdf).
+ *
+ * @param data Pointer to buffer that holds the input data.
+ * @param ctemplen Length (in bytes) of the buffer that holds
+ * the input data..
+ * @param nbits CCSDS bits per sample.
+ * @param flags CCSDS compression options mask.
+ * @param block_size CCSDS block size.
+ * @param rsi CCSDS reference sample interval.
+ * @param aecbuf Pointer to buffer holding the AEC encoded stream.
+ * @param aecbuflen Length of AEC code stream.
+ *
+ * @return
+ * - >0 Exact length of AEC encoded data.
+ * - 0 Successful decode (AEC_OK)
+ * - -1 AEC_CONF_ERROR
+ * - -2 AEC_STREAM_ERROR
+ * - -3 AEC_DATA_ERROR
+ * - -4 AEC_MEM_ERROR
+ * - -5 AEC_RSI_OFFSETS_ERROR
+ *
+ * @author Alyson Stahl @date 10/2025
+ */
+int
+g2c_enc_aec(unsigned char *data, int ctemplen, int nbits, int flags,
+            int block_size, int rsi, unsigned char *aecbuf, int *aecbuflen)
+{
+    g2int ctemplen8 = ctemplen, nbits8 = nbits, flags8 = flags;
+    g2int block_size8 = block_size, rsi8 = rsi, aecbuflen8 = *aecbuflen;
+
+    return enc_aec(data, ctemplen8, nbits8, flags8, block_size8, rsi8,
+                   aecbuf, &aecbuflen8);
+}

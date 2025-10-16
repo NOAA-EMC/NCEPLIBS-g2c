@@ -154,6 +154,44 @@ main()
         }
     }
     printf("ok!\n");
+    printf("Testing g2c_enc_aec()/g2c_dec_aec() call...");
+    {
+        unsigned char data[4] = {1, 2, 3, 4};
+        unsigned char cout[200];
+        int nbits = 32;
+        int datalen = 4;
+        int aeclen = 200;
+        int ccsds_flags;
+        int ccsds_block_size;
+        int ccsds_rsi;
+        unsigned char *databuf;
+        unsigned char *aecbuf;
+
+        int i, ret;
+
+        databuf = data;
+        aecbuf = cout;
+
+        ccsds_flags = CCSDS_FLAGS;
+        ccsds_block_size = 16;
+        ccsds_rsi = 128;
+
+        /* Encode some data. */
+        ret = g2c_enc_aec(databuf, datalen, nbits, ccsds_flags, ccsds_block_size,
+                          ccsds_rsi, aecbuf, &aeclen);
+        if (ret < 0)
+            return G2C_ERROR;
+
+        /* Now decode it. */
+        ret = g2c_dec_aec(aecbuf, aeclen, nbits, ccsds_flags, ccsds_block_size,
+                          ccsds_rsi, cout, datalen);
+        if (ret < 0)
+            return G2C_ERROR;
+
+        for (i = 0; i < datalen; i++)
+            if (cout[i] != data[i])
+                return G2C_ERROR;
+    }
     printf("SUCCESS!\n");
     return 0;
 }
