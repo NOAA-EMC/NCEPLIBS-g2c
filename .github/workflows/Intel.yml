@@ -26,7 +26,7 @@ jobs:
         sudo apt-get install libaec-dev libpng-dev zlib1g-dev libjpeg-dev doxygen
 
     - name: "Install Intel"
-      uses: NOAA-EMC/ci-install-intel-toolkit@develop
+      uses: NOAA-EMC/ci-install-intel-toolkit@env-setup-tweaks
       with:
         compiler-setup: ${{ matrix.compilers }}
 
