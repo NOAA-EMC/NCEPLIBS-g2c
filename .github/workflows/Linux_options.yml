@@ -6,6 +6,10 @@ on:
   pull_request:
     branches:
     - develop
+  schedule:
+    # Run monthly
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
 
 jobs:
   Linux_options:
