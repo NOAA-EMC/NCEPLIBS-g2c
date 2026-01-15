@@ -2,7 +2,7 @@
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
-
+from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import *
 
 
@@ -16,8 +16,12 @@ class G2c(CMakePackage):
     git = "https://github.com/NOAA-EMC/NCEPLIBS-g2c"
 
     maintainers("AlexanderRichert-NOAA", "Hang-Lei-NOAA", "edwardhartnett")
+    license("LGPL-3.0")
 
     version("develop", branch="develop")
+    version("2.3.0", sha256="8520a24c066500cfd0d07a05c6b7b0cb92383d1a4737cf6e79d9f4919c8e79ab")
+    version("2.2.0", sha256="cf0ac8f75aed662ccc64f4c44fbe46a70307bc27cbe95417fdfb6caf75245457")
+    version("2.1.0", sha256="74e3ef381f0339dc181bc3afaa54c98f76257508375ff664d243d76825006605")
     version("2.0.0", sha256="39c23bf1219c60101548c8525e3a879c84119558f768081779d404a8caf4cec9")
     version("1.9.0", sha256="5554276e18bdcddf387a08c2dd23f9da310c6598905df6a2a244516c22ded9aa")
     version("1.8.0", sha256="4ce9f5a7cb0950699fe08ebc5a463ab4d09ef550c050391a319308a2494f971f")
@@ -39,30 +43,27 @@ class G2c(CMakePackage):
         when="@1.7:",
     )
     variant(
-        "pthreads",
-        default=False,
-        description="Turn on thread-safety with pthreads",
-        when="@develop",
+        "pthreads", default=False, description="Turn on thread-safety with pthreads", when="@1.8:"
     )
     variant(
-        "utils",
+        "utils", default=True, description="Build and install some utility programs", when="@1.8:"
+    )
+    variant(
+        "build_v2_api",
         default=True,
-        description="Build and install some utility programs",
-        when="@develop",
-    )
-    variant(
-        "build_g2c",
-        default=False,
         description="Build new g2c API, experimental until 2.0.0 release",
-        when="@develop",
+        when="@1.8:",
     )
+
+    depends_on("c", type="build")
 
     depends_on("libaec", when="+aec")
     depends_on("libpng", when="+png")
     depends_on("jasper", when="+jasper")
     depends_on("openjpeg", when="+openjpeg")
-    depends_on("libxml2@2.9:", when="+build_g2c")
+    depends_on("libxml2@2.9:", when="+build_v2_api")
 
+    conflicts("+utils ~build_v2_api", msg="+utils requires G2C API")
     conflicts("+jasper +openjpeg", msg="Either Jasper or OpenJPEG should be used, not both")
 
     def cmake_args(self):
@@ -90,6 +91,9 @@ class G2c(CMakePackage):
         lib = find_libraries("libg2c", root=self.prefix, shared=shared, recursive=True)
         env.set("G2C_LIB", lib[0])
         env.set("G2C_INC", join_path(self.prefix, "include"))
+        
+    def patch(self):
+        filter_file(r"^(\s+find_package\(PkgConfig REQUIRED\))", r"#\1", "CMakeLists.txt")
 
     def check(self):
         with working_dir(self.build_directory):
