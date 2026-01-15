@@ -31,6 +31,12 @@ jobs:
 
     steps:
 
+    - name: Ensure cache paths exist
+      run: |
+        mkdir -p spack-build-cache
+        mkdir -p spack-root
+        touch spack-root/spack.lock
+
     - name: "Build Spack package"
       uses: NOAA-EMC/ci-test-spack-package@develop
       with:
