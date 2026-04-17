@@ -22,9 +22,9 @@ jobs:
     runs-on: ubuntu-24.04
     container:
       image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-14-mpich-x:latest
-    env:
-      CC: gcc
-      CXX: g++
+      env:
+        CC: gcc
+        CXX: g++
     
     strategy:
       fail-fast: true
