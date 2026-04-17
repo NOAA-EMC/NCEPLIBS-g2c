@@ -31,6 +31,7 @@ jobs:
       run: |
         apt-get update
         apt-get install -y libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev 
+        apt-get install -y git
 
     - name: install-format-dependencies
       if: matrix.config == 'format'      
