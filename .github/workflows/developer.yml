@@ -21,7 +21,7 @@ jobs:
   developer:
     runs-on: ubuntu-24.04
     container:
-      image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-14-mpich-x:latest
+      image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-13-mpich-x:latest
       env:
         CC: gcc
         CXX: g++
@@ -35,7 +35,7 @@ jobs:
     - name: install-dependencies
       run: |
         apt-get update
-        apt-get install -y cmake
+        apt-get install -y cmake zlib1g-dev
 
     - name: checkout
       uses: actions/checkout@v4
