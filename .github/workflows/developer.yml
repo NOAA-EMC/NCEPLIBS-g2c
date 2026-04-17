@@ -35,7 +35,7 @@ jobs:
     - name: install-dependencies
       run: |
         apt-get update
-        apt-get install -y cmake zlib1g-dev pkg-config
+        apt-get install -y cmake pkg-config libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev 
 
     - name: checkout
       uses: actions/checkout@v4
