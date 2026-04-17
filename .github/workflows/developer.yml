@@ -29,28 +29,28 @@ jobs:
     steps:
     - name: install-dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev 
+        apt-get update
+        apt-get install -y libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev 
 
     - name: install-format-dependencies
       if: matrix.config == 'format'      
       run: |
-        sudo apt-get install clang-format
+        apt-get install -y clang-format
 
     - name: install-docs-dependencies
       if: matrix.config == 'docs'      
       run: |
-        sudo apt-get install doxygen
+        apt-get install -y doxygen
 
     - name: install-memory-dependencies
       if: matrix.config == 'memcheck'      
       run: |
-        sudo apt-get install valgrind
+        apt-get install -y valgrind
 
     - name: install-code_coverage-dependencies
       if: matrix.config == 'code coverage'      
       run: |
-        sudo apt-get install clang-format
+        apt-get install -y clang-format
         python3 -m pip install gcovr
 
     - name: "Build dependencies"
