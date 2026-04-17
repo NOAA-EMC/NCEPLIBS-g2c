@@ -34,8 +34,8 @@ jobs:
     steps:
     - name: install-dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install cmake
+        apt-get update
+        apt-get install cmake
 
     - name: checkout
       uses: actions/checkout@v4
