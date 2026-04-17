@@ -20,6 +20,8 @@ concurrency:
 jobs:
   developer:
     runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-13-mpich-x:latest
     env:
       CC: gcc
       CXX: g++
@@ -30,37 +32,6 @@ jobs:
         config: ["asan", "code coverage", "memcheck", "docs", "format", "warning"]
 
     steps:
-    - name: install-dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev 
-
-    - name: install-format-dependencies
-      if: matrix.config == 'format'      
-      run: |
-        sudo apt-get install clang-format
-
-    - name: install-docs-dependencies
-      if: matrix.config == 'docs'      
-      run: |
-        sudo apt-get install doxygen
-
-    - name: install-memory-dependencies
-      if: matrix.config == 'memcheck'      
-      run: |
-        sudo apt-get install valgrind
-
-    - name: install-code_coverage-dependencies
-      if: matrix.config == 'code coverage'      
-      run: |
-        sudo apt-get install clang-format
-        python3 -m pip install gcovr
-
-    - name: "Build dependencies"
-      uses: NOAA-EMC/ci-build-nceplibs@develop
-      with:
-        jasper-version: version-4.0.0
-
     - name: checkout
       uses: actions/checkout@v4
       with:
