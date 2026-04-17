@@ -32,6 +32,11 @@ jobs:
         config: ["asan", "code coverage", "memcheck", "docs", "format", "warning"]
 
     steps:
+    - name: install-dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install cmake
+
     - name: checkout
       uses: actions/checkout@v4
       with:
