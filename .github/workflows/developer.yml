@@ -35,7 +35,7 @@ jobs:
     - name: install-dependencies
       run: |
         apt-get update
-        apt-get install -y cmake zlib1g-dev
+        apt-get install -y cmake zlib1g-dev pkg-config
 
     - name: checkout
       uses: actions/checkout@v4
