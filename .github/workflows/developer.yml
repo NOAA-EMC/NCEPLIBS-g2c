@@ -6,6 +6,11 @@ on:
   pull_request:
     branches:
     - develop
+  schedule:
+    # Run biweekly
+    - cron: '0 0 1 * *'
+    - cron: '0 0 15 * *'
+  workflow_dispatch:
 
 # Cancel in-progress workflows when pushing to a branch
 concurrency:
@@ -20,6 +25,7 @@ jobs:
       env:
         CC: gcc
         CXX: g++
+        PATH: /opt/views/view/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     
     strategy:
       fail-fast: true
@@ -30,34 +36,7 @@ jobs:
     - name: install-dependencies
       run: |
         apt-get update
-        apt-get install -y libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev 
-        apt-get install -y git
 
-    - name: install-format-dependencies
-      if: matrix.config == 'format'      
-      run: |
-        apt-get install -y clang-format
-
-    - name: install-docs-dependencies
-      if: matrix.config == 'docs'      
-      run: |
-        apt-get install -y doxygen
-
-    - name: install-memory-dependencies
-      if: matrix.config == 'memcheck'      
-      run: |
-        apt-get install -y valgrind
-
-    - name: install-code_coverage-dependencies
-      if: matrix.config == 'code coverage'      
-      run: |
-        apt-get install -y clang-format
-        python3 -m pip install gcovr
-
-    - name: "Build dependencies"
-      uses: NOAA-EMC/ci-build-nceplibs@develop
-      with:
-        jasper-version: version-4.0.0
 
     - name: checkout
       uses: actions/checkout@v4
