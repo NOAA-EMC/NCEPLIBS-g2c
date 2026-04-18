@@ -22,8 +22,8 @@ jobs:
     runs-on: ubuntu-24.04
     container:
       image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-13-mpich-x:latest
-    env:
-      PATH: /opt/views/view/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      env:
+        PATH: /opt/views/view/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     
     strategy:
       fail-fast: false
