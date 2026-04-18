@@ -23,8 +23,6 @@ jobs:
     container:
       image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-13-mpich-x:latest
     env:
-      CC: gcc
-      CXX: g++
       PATH: /opt/views/view/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     
     strategy:
@@ -36,7 +34,7 @@ jobs:
     - name: install-dependencies
       run: |
         apt-get update
-
+        apt-get install -y gcc g++
 
     - name: checkout
       uses: actions/checkout@v4
