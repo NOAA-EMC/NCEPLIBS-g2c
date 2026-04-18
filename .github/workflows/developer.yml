@@ -15,7 +15,7 @@ on:
 # Cancel in-progress workflows when pushing to a branch
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  #cancel-in-progress: true
+  cancel-in-progress: true
 
 jobs:
   developer:
@@ -26,7 +26,7 @@ jobs:
       PATH: /opt/views/view/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         config: ["asan", "code coverage", "memcheck", "docs", "format", "warning"]
 
