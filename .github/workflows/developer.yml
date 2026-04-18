@@ -34,7 +34,7 @@ jobs:
     - name: install-dependencies
       run: |
         apt-get update
-        apt-get install -y gcc g++ zlib1g-dev
+        apt-get install -y gcc g++ zlib1g-dev libpng-dev
 
     - name: checkout
       uses: actions/checkout@v4
