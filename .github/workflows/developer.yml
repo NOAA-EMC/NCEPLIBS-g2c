@@ -114,7 +114,7 @@ jobs:
       if: matrix.config == 'memcheck'
       run: |
         set -x
-        #export LD_LIBRARY_PATH="/home/runner/jasper/lib:$LD_LIBRARY_PATH"
+        export LD_LIBRARY_PATH="/opt/views/view/lib:$LD_LIBRARY_PATH"
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
           -DJasper_ROOT=/opt/views/view/bin/jasper \
