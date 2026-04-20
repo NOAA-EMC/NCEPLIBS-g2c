@@ -24,6 +24,7 @@ jobs:
 
     steps:
     - name: load env
+      shell: bash
       run: |
         source /etc/profile
 
