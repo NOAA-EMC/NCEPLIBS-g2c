@@ -23,6 +23,10 @@ jobs:
       fail-fast: false
 
     steps:
+    - name: load env
+      run: |
+        source /opt/views/view/setup-env.sh
+        
     - name: install-dependencies
       run: |
         apt-get update
