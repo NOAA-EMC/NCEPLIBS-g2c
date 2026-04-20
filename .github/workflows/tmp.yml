@@ -18,16 +18,13 @@ jobs:
     runs-on: ubuntu-24.04
     container:
       image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-13-mpich-x:latest
-    
+      env:
+        PATH: /opt/views/view/bin:/opt/spack/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+        
     strategy:
       fail-fast: false
 
     steps:
-    - name: load env
-      shell: bash
-      run: |
-        source /etc/profile
-
     - name: install-dependencies
       run: |
         apt-get update
