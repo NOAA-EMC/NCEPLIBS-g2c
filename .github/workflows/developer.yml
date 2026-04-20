@@ -33,6 +33,9 @@ jobs:
       run: |
         apt-get update
         apt-get install -y gcc g++
+        echo "$HOME"
+        ls -l $HOME
+        ls -l /home/runner
 
     - name: checkout
       uses: actions/checkout@v4
