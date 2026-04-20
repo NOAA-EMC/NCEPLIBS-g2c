@@ -26,13 +26,6 @@ jobs:
       fail-fast: false
 
     steps:
-    - name: load env
-      shell: bash
-      run: |
-        source /entrypoint.sh
-        echo "PATH=$PATH"
-        echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
-
     - name: install-dependencies
       run: |
         apt-get update
@@ -45,6 +38,7 @@ jobs:
 
     - name: build
       run: |
+        source /entrypoint.sh
         set -x
         export CC=gcc
         cd g2c
