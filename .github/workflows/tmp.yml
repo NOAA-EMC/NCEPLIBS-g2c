@@ -1,0 +1,48 @@
+name: tmp
+on:
+  push:
+    branches:
+    - develop
+  pull_request:
+    branches:
+    - develop
+
+
+# Cancel in-progress workflows when pushing to a branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  developer:
+    runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-13-mpich-x:latest
+    
+    strategy:
+      fail-fast: false
+
+    steps:
+    - name: install-dependencies
+      run: |
+        apt-get update
+        #apt-get install -y gcc g++
+
+    - name: checkout
+      uses: actions/checkout@v4
+      with:
+        path: g2c
+
+    - name: build
+      run: |
+        set -x
+        export CC=gcc
+        mkdir build && cd build
+        cmake .. -DUSE_AEC=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-g"
+        make VERBOSE=1
+
+    - name: test
+      run: |
+        cd build
+        ctest --verbose --output-on-failure --rerun-failed
+        
