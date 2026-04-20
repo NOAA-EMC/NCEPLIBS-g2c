@@ -44,7 +44,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: /home/runner/data
-        key: data-2
+        key: data-3
 
     - name: asan
       if: matrix.config == 'asan'
