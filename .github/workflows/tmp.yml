@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-24.04
     container:
       image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-13-mpich-x:latest
+      entrypoint: /entrypoint.sh
       #env:
       #  PATH: /opt/views/view/bin:/opt/spack/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       #  LD_LIBRARY_PATH: /opt/views/view/lib64:/opt/views/view/lib
@@ -38,7 +39,7 @@ jobs:
 
     - name: build
       run: |
-        source /entrypoint.sh
+        #source /entrypoint.sh
         set -x
         export CC=gcc
         cd g2c
