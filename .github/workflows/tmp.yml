@@ -20,7 +20,7 @@ jobs:
       image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-13-mpich-x:latest
       env:
         PATH: /opt/views/view/bin:/opt/spack/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-        
+
     strategy:
       fail-fast: false
 
@@ -39,6 +39,7 @@ jobs:
       run: |
         set -x
         export CC=gcc
+        cd g2c
         mkdir build && cd build
         cmake .. -DUSE_AEC=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-g"
         make VERBOSE=1
