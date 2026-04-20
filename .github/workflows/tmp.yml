@@ -28,7 +28,7 @@ jobs:
     - name: install-dependencies
       run: |
         apt-get update
-        #apt-get install -y gcc g++
+        apt-get install -y gcc g++
 
     - name: checkout
       uses: actions/checkout@v4
