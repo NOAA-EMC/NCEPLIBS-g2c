@@ -25,8 +25,8 @@ jobs:
     steps:
     - name: load env
       run: |
-        source /opt/views/view/setup-env.sh
-        
+        source /etc/profile
+
     - name: install-dependencies
       run: |
         apt-get update
