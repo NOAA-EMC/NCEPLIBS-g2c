@@ -37,18 +37,12 @@ jobs:
         path: g2c
 
     - name: build
-      shell: bash
       run: |
-        source /entrypoint.sh
+        . /entrypoint.sh
         set -x
         export CC=gcc
         cd g2c
         mkdir build && cd build
         cmake .. -DUSE_AEC=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-g"
         make VERBOSE=1
-
-    - name: test
-      run: |
-        cd build
         ctest --verbose --output-on-failure --rerun-failed
-        
