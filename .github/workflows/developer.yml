@@ -34,7 +34,7 @@ jobs:
     - name: install-dependencies
       run: |
         apt-get update
-        apt-get install -y gcc g++ zlib1g-dev libpng-dev
+        apt-get install -y gcc g++
 
     - name: checkout
       uses: actions/checkout@v4
@@ -51,11 +51,11 @@ jobs:
     - name: asan
       if: matrix.config == 'asan'
       run: |
+        . /entrypoint.sh
         set -x
         export CC=gcc
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
-          -DJasper_ROOT=/opt/views/view/bin/jasper \
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
@@ -71,10 +71,10 @@ jobs:
       if: matrix.config == 'warning'
       run: |
         set -x
+        . /entrypoint.sh
         export CC=gcc
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
-          -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper \
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
@@ -89,12 +89,10 @@ jobs:
       if: matrix.config == 'code coverage'
       run: |
         set -x
+        . /entrypoint.sh
         export CC=gcc
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
-          -DUSE_Jasper=OFF \
-          -DUSE_OpenJPEG=ON \
-          #-DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper \
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
@@ -116,10 +114,9 @@ jobs:
       if: matrix.config == 'memcheck'
       run: |
         set -x
-        #export LD_LIBRARY_PATH="/home/runner/jasper/lib:$LD_LIBRARY_PATH"
+        . /entrypoint.sh
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
-          -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper \
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
@@ -135,10 +132,9 @@ jobs:
       if: matrix.config == 'docs'
       run: |
         set -x
-        #export LD_LIBRARY_PATH="/home/runner/jasper/lib:$LD_LIBRARY_PATH"
+        . /entrypoint.sh
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
-          -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper \
           -DBUILD_G2C=ON \
           -DENABLE_DOCS=On \
           -DCMAKE_BUILD_TYPE=Debug \
