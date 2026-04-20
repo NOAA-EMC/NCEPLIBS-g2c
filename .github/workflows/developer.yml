@@ -43,7 +43,7 @@ jobs:
       id: cache-data
       uses: actions/cache@v4
       with:
-        path: ~/data
+        path: /home/runner/data
         key: data-2
 
     - name: asan
@@ -59,7 +59,7 @@ jobs:
           -DPTHREADS=ON \
           -DFTP_TEST_FILES=ON \
           -DFTP_LARGE_TEST_FILES=OFF \
-          -DTEST_FILE_DIR=~/data \
+          -DTEST_FILE_DIR=/home/runner/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         cmake --build g2c/build --parallel 2 --verbose
@@ -78,7 +78,7 @@ jobs:
           -DPTHREADS=ON \
           -DFTP_TEST_FILES=ON \
           -DFTP_LARGE_TEST_FILES=OFF \
-          -DTEST_FILE_DIR=~/data \
+          -DTEST_FILE_DIR=/home/runner/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         cmake --build g2c/build --verbose
@@ -96,7 +96,7 @@ jobs:
           -DPTHREADS=ON \
           -DFTP_TEST_FILES=ON \
           -DFTP_LARGE_TEST_FILES=OFF \
-          -DTEST_FILE_DIR=~/data \
+          -DTEST_FILE_DIR=/home/runner/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         pwd
@@ -119,7 +119,7 @@ jobs:
           -DLOGGING=On \
           -DPTHREADS=ON \
           -DFTP_TEST_FILES=ON \
-          -DTEST_FILE_DIR=~/data \
+          -DTEST_FILE_DIR=/home/runner/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         cmake --build g2c/build --parallel 2 --verbose
