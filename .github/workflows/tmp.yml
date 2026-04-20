@@ -29,7 +29,7 @@ jobs:
     - name: load env
       shell: bash
       run: |
-        ./entrypoint.sh
+        source entrypoint.sh
 
     - name: install-dependencies
       run: |
