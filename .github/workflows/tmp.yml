@@ -36,10 +36,11 @@ jobs:
     - name: build
       run: |
         . /entrypoint.sh
+        echo $GITHUB_WORKSPACE
         set -x
         export CC=gcc
         cd g2c
         mkdir build && cd build
-        cmake .. -DUSE_AEC=ON -DTEST_FILE_DIR=/home/runner/data -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-g"
+        cmake .. -DUSE_AEC=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=${{ github.workspace }}/data -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-g"
         make VERBOSE=1
         ctest --verbose --output-on-failure --rerun-failed
