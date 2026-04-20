@@ -27,6 +27,7 @@ jobs:
 
     steps:
     - name: load env
+      shell: bash
       run: |
         ./entrypoint.sh
 
