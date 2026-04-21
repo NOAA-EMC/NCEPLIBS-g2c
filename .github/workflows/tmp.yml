@@ -29,6 +29,14 @@ jobs:
         apt-get update
         apt-get install -y gcc g++
 
+    - name: load-spack-env
+      shell: bash
+      run: |
+        set -a
+        source /entrypoint.sh
+        set +a
+        env >> $GITHUB_ENV
+
     - name: checkout
       uses: actions/checkout@v4
       with:
@@ -43,7 +51,7 @@ jobs:
 
     - name: build
       run: |
-        . /entrypoint.sh
+        #. /entrypoint.sh
         set -x
         export CC=gcc
         cd g2c
