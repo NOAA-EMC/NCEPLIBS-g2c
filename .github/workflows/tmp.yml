@@ -37,6 +37,7 @@ jobs:
       run: |
         . /entrypoint.sh
         echo $GITHUB_WORKSPACE
+        curl -I https://ftp.emc.ncep.noaa.gov
         set -x
         export CC=gcc
         cd g2c
