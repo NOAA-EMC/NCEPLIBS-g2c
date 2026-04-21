@@ -162,7 +162,8 @@ jobs:
     - name: populate-data
       if: steps.cache-data.outputs.cache-hit != 'true' && matrix.config == 'warning'
       run: |
-        mkdir /root/data
+        cd /root/data
+        ls -l
         if [ -d "$GITHUB_WORKSPACE/g2c/build/tests/data" ]; then
           cp -r $GITHUB_WORKSPACE/g2c/build/tests/data/* /root/data
         elif [ -d "$GITHUB_WORKSPACE/g2c/tests/data/" ]; then
