@@ -158,8 +158,15 @@ jobs:
       if: steps.cache-data.outputs.cache-hit != 'true'
       run: |
         mkdir -p /root/data
-        cp -r $GITHUB_WORKSPACE/g2c/build/tests/data/* /root/data
+        if [ -d "$GITHUB_WORKSPACE/g2c/build/tests/data" ]; then
+          cp -r $GITHUB_WORKSPACE/g2c/build/tests/data/* /root/data
+        elif [ -d "$GITHUB_WORKSPACE/g2c/tests/data/" ]; then
+          cp -r $GITHUB_WORKSPACE/g2c/tests/data/* /root/data
+        else
+          echo "Warning: no test data directory found at either $GITHUB_WORKSPACE/g2c/tests/data or $GITHUB_WORKSPACE/g2c/build/tests/data"
+        fi
         
+
     - name: upload-test-coverage
       if: matrix.config == 'code coverage'      
       uses: actions/upload-artifact@v4
