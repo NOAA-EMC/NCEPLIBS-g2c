@@ -37,7 +37,9 @@ jobs:
         package-name: g2c
         package-variants: ${{ matrix.variants }}
         custom-recipe: spack/package.py
-        use-repo-cache: true
+        use-repo-cache: false
+        cache-spack-lock: false
+        use-common-build-cache: false
         spack-compiler: gcc
         repo-cache-key-suffix: ${{ matrix.os }}-${{ matrix.variants }}-1
 
