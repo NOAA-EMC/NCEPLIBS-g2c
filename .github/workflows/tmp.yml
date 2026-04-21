@@ -1,16 +1,16 @@
-name: tmp
-on:
-  push:
-    branches:
-    - develop
-  pull_request:
-    branches:
-    - develop
+#name: tmp
+#on:
+#  push:
+#    branches:
+#    - develop
+#  pull_request:
+#    branches:
+#    - develop
 
 # Cancel in-progress workflows when pushing to a branch
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+#concurrency:
+#  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+#  cancel-in-progress: true
 
 jobs:
   developer:

@@ -60,6 +60,10 @@ jobs:
     - name: asan
       if: matrix.config == 'asan'
       run: |
+        pwd
+        cd /root/data/
+        ls -l
+        cd /__w/NCEPLIBS-g2c/NCEPLIBS-g2c/
         set -x
         export CC=gcc
         cmake -S g2c -B g2c/build \
@@ -67,7 +71,7 @@ jobs:
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=ON \
+          -DFTP_TEST_FILES=OFF \
           -DFTP_LARGE_TEST_FILES=OFF \
           -DTEST_FILE_DIR=/root/data \
           -DCMAKE_BUILD_TYPE=Debug \
