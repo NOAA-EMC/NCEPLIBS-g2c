@@ -84,7 +84,7 @@ jobs:
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=OFF \
+          -DFTP_TEST_FILES=ON \
           -DFTP_LARGE_TEST_FILES=OFF \
           -DTEST_FILE_DIR=/home/runner/data \
           -DCMAKE_BUILD_TYPE=Debug \
