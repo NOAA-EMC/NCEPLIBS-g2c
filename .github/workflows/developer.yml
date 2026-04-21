@@ -95,6 +95,10 @@ jobs:
     - name: warning
       if: matrix.config == 'warning'
       run: |
+        pwd
+        cd /home/runner/data
+        ls -l
+        cd $GITHUB_WORKSPACE
         set -x
         export CC=gcc
         cmake -S g2c -B g2c/build \
