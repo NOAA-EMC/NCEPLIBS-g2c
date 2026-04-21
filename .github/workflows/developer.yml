@@ -43,7 +43,7 @@ jobs:
       id: cache-data
       uses: actions/cache@v4
       with:
-        path: ~/data
+        path: /root/data
         key: data-2
 
     - name: asan
