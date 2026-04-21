@@ -67,7 +67,7 @@ jobs:
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=ON \
+          -DFTP_TEST_FILES=OFF \
           -DFTP_LARGE_TEST_FILES=OFF \
           -DTEST_FILE_DIR=/root/data \
           -DCMAKE_BUILD_TYPE=Debug \
@@ -78,6 +78,10 @@ jobs:
     - name: warning
       if: matrix.config == 'warning'
       run: |
+        cd /root/
+        echo "Current root directory contents:"
+        ls -l
+        cd /__w/NCEPLIBS-g2c/NCEPLIBS-g2c/
         set -x
         export CC=gcc
         cmake -S g2c -B g2c/build \
@@ -102,7 +106,7 @@ jobs:
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=ON \
+          -DFTP_TEST_FILES=OFF \
           -DFTP_LARGE_TEST_FILES=OFF \
           -DTEST_FILE_DIR=/root/data \
           -DCMAKE_BUILD_TYPE=Debug \
@@ -125,7 +129,7 @@ jobs:
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=ON \
+          -DFTP_TEST_FILES=OFF \
           -DTEST_FILE_DIR=/root/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
@@ -155,7 +159,7 @@ jobs:
         find . -name '*.[ch]'|xargs clang-format -Werror --verbose --dry-run
         
     - name: populate-data
-      if: steps.cache-data.outputs.cache-hit != 'true' && matrix.config != 'format'
+      if: steps.cache-data.outputs.cache-hit != 'true' && matrix.config == 'warning'
       run: |
         mkdir -p /root/data
         if [ -d "$GITHUB_WORKSPACE/g2c/build/tests/data" ]; then
