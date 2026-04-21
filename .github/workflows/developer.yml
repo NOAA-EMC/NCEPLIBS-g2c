@@ -187,13 +187,7 @@ jobs:
         # create data dir and copy test data into it.
         # Prefer source test data (g2c/tests/data). Fall back to build/tests/data if present.
         mkdir -p ~/data
-        if [ -d "$GITHUB_WORKSPACE/g2c/tests/data" ]; then
-          cp -r $GITHUB_WORKSPACE/g2c/tests/data/* ~/data
-        elif [ -d "$GITHUB_WORKSPACE/g2c/build/tests/data" ]; then
-          cp -r $GITHUB_WORKSPACE/g2c/build/tests/data/* ~/data
-        else
-          echo "Warning: no test data directory found at either $GITHUB_WORKSPACE/g2c/tests/data or $GITHUB_WORKSPACE/g2c/build/tests/data"
-        fi
+        cp -r $GITHUB_WORKSPACE/g2c/build/tests/data/* ~/data
         
     - name: upload-test-coverage
       if: matrix.config == 'code coverage'      
