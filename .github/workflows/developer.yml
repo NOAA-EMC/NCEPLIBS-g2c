@@ -34,9 +34,8 @@ jobs:
         apt-get update
         apt-get install -y gcc g++
         apt-get install -y clang-format doxygen
-        apt-get install -y python3.12-venv
-        python3 -m ensurepip --upgrade
-        python3 -m pip install gcovr
+        apt-get install -y python3-venv python3-full
+        pip install gcovr
         
     - name: checkout
       uses: actions/checkout@v4
