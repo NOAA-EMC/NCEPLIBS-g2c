@@ -23,7 +23,7 @@ jobs:
     container:
       image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-14-mpich-x:latest
       volumes:
-        - /home/runner/data:/root/data
+        - /home/runner:/root
 
     strategy:
       fail-fast: false
@@ -51,6 +51,7 @@ jobs:
         path: g2c
 
     - name: cache-data
+      if: matrix.config == 'warning'
       id: cache-data
       uses: actions/cache@v4
       with:
@@ -78,10 +79,6 @@ jobs:
     - name: warning
       if: matrix.config == 'warning'
       run: |
-        cd /root/
-        echo "Current root directory contents:"
-        ls -l
-        cd /__w/NCEPLIBS-g2c/NCEPLIBS-g2c/
         set -x
         export CC=gcc
         cmake -S g2c -B g2c/build \
@@ -161,8 +158,7 @@ jobs:
     - name: populate-data
       if: steps.cache-data.outputs.cache-hit != 'true' && matrix.config == 'warning'
       run: |
-        cd /root/data
-        ls -l
+        mkdir /root/data
         if [ -d "$GITHUB_WORKSPACE/g2c/build/tests/data" ]; then
           cp -r $GITHUB_WORKSPACE/g2c/build/tests/data/* /root/data
         elif [ -d "$GITHUB_WORKSPACE/g2c/tests/data/" ]; then
