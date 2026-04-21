@@ -22,7 +22,9 @@ jobs:
     runs-on: ubuntu-24.04
     container:
       image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-14-mpich-x:latest
-    
+      volumes:
+        - /home/runner/data:/data
+
     strategy:
       fail-fast: false
       matrix:
@@ -34,8 +36,6 @@ jobs:
         apt-get update
         apt-get install -y gcc g++
         apt-get install -y clang-format doxygen gcovr
-        #apt-get install -y python3-venv python3-full
-        #pip install gcovr
         
     - name: checkout
       uses: actions/checkout@v4
@@ -46,7 +46,7 @@ jobs:
       id: cache-data
       uses: actions/cache@v4
       with:
-        path: /root/data
+        path: ~/data
         key: data-2
 
     - name: asan
@@ -60,9 +60,9 @@ jobs:
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=OFF \
+          -DFTP_TEST_FILES=ON \
           -DFTP_LARGE_TEST_FILES=OFF \
-          -DTEST_FILE_DIR=${{ github.workspace }}/data\
+          -DTEST_FILE_DIR=/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         cmake --build g2c/build --parallel 2 --verbose
