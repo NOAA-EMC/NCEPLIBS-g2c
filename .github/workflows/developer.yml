@@ -51,7 +51,6 @@ jobs:
         path: g2c
 
     - name: cache-data
-      if: matrix.config == 'warning'
       id: cache-data
       uses: actions/cache@v4
       with:
@@ -156,7 +155,7 @@ jobs:
         find . -name '*.[ch]'|xargs clang-format -Werror --verbose --dry-run
         
     - name: populate-data
-      if: steps.cache-data.outputs.cache-hit != 'true' && matrix.config == 'warning'
+      if: steps.cache-data.outputs.cache-hit != 'true'
       run: |
         mkdir /root/data
         if [ -d "$GITHUB_WORKSPACE/g2c/build/tests/data" ]; then
