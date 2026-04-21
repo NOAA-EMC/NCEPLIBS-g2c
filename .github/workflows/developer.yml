@@ -37,6 +37,14 @@ jobs:
         apt-get install -y gcc g++
         apt-get install -y clang-format doxygen gcovr
         
+    - name: load-env
+      shell: bash
+      run: |
+        set -a
+        source /entrypoint.sh
+        set +a
+        env >> $GITHUB_ENV
+
     - name: checkout
       uses: actions/checkout@v4
       with:
@@ -46,13 +54,12 @@ jobs:
       id: cache-data
       uses: actions/cache@v4
       with:
-        path: ~/data
+        path: /data
         key: data-2
 
     - name: asan
       if: matrix.config == 'asan'
       run: |
-        . /entrypoint.sh
         set -x
         export CC=gcc
         cmake -S g2c -B g2c/build \
@@ -62,7 +69,7 @@ jobs:
           -DPTHREADS=ON \
           -DFTP_TEST_FILES=ON \
           -DFTP_LARGE_TEST_FILES=OFF \
-          -DTEST_FILE_DIR=~/data \
+          -DTEST_FILE_DIR=/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         cmake --build g2c/build --parallel 2 --verbose
@@ -72,7 +79,6 @@ jobs:
       if: matrix.config == 'warning'
       run: |
         set -x
-        . /entrypoint.sh
         export CC=gcc
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
@@ -90,7 +96,6 @@ jobs:
       if: matrix.config == 'code coverage'
       run: |
         set -x
-        . /entrypoint.sh
         export CC=gcc
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
@@ -99,7 +104,7 @@ jobs:
           -DPTHREADS=ON \
           -DFTP_TEST_FILES=ON \
           -DFTP_LARGE_TEST_FILES=OFF \
-          -DTEST_FILE_DIR=~/data \
+          -DTEST_FILE_DIR=/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         pwd
@@ -115,7 +120,6 @@ jobs:
       if: matrix.config == 'memcheck'
       run: |
         set -x
-        . /entrypoint.sh
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
           -DBUILD_G2C=ON \
@@ -133,7 +137,6 @@ jobs:
       if: matrix.config == 'docs'
       run: |
         set -x
-        . /entrypoint.sh
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
           -DBUILD_G2C=ON \
@@ -156,7 +159,7 @@ jobs:
       run: |
         # create data dir and copy test data into it.
         # Prefer source test data (g2c/tests/data). Fall back to build/tests/data if present.
-        mkdir -p ~/data
+        mkdir -p /data
         if [ -d "$GITHUB_WORKSPACE/g2c/tests/data" ]; then
           cp -r $GITHUB_WORKSPACE/g2c/tests/data/* ~/data
         elif [ -d "$GITHUB_WORKSPACE/g2c/build/tests/data" ]; then

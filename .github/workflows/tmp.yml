@@ -29,7 +29,7 @@ jobs:
         apt-get update
         apt-get install -y gcc g++
 
-    - name: load-spack-env
+    - name: load-env
       shell: bash
       run: |
         set -a
