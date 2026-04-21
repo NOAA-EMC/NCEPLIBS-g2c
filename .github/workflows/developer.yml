@@ -51,7 +51,6 @@ jobs:
         path: g2c
 
     - name: cache-data
-      if: matrix.config == 'warning'
       id: cache-data
       uses: actions/cache@v4
       with:
