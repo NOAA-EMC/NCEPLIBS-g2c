@@ -1,23 +1,10 @@
-name: tmp
-on:
-  push:
-    branches:
-    - develop
-  pull_request:
-    branches:
-    - develop
-
-
-# Cancel in-progress workflows when pushing to a branch
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
-
 jobs:
   developer:
     runs-on: ubuntu-24.04
     container:
       image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-14-mpich-x:latest
+      volumes:
+        - /home/runner/data:/data
 
     strategy:
       fail-fast: false
@@ -37,7 +24,7 @@ jobs:
       id: cache-data
       uses: actions/cache@v4
       with:
-        path: ~/data
+        path: /home/runner/data
         key: data-2
 
     - name: build
@@ -47,6 +34,7 @@ jobs:
         export CC=gcc
         cd g2c
         mkdir build && cd build
-        cmake .. -DUSE_AEC=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=${{ github.workspace }}/data -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-g"
+        cmake .. -DUSE_AEC=ON -DFTP_TEST_FILES=ON -DTEST_FILE_DIR=/data \
+          -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-g"
         make VERBOSE=1
         ctest --verbose --output-on-failure --rerun-failed
