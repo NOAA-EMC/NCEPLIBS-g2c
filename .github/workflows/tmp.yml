@@ -33,11 +33,16 @@ jobs:
       with:
         path: g2c
 
+    - name: cache-data
+      id: cache-data
+      uses: actions/cache@v4
+      with:
+        path: ~/data
+        key: data-2
+
     - name: build
       run: |
         . /entrypoint.sh
-        echo $GITHUB_WORKSPACE
-        curl -I https://ftp.emc.ncep.noaa.gov
         set -x
         export CC=gcc
         cd g2c
