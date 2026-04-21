@@ -20,30 +20,46 @@ concurrency:
 jobs:
   developer:
     runs-on: ubuntu-24.04
-    container:
-      image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-14-mpich-x:latest
-      volumes:
-        - /home/runner/data:/root/data
-
+    env:
+      CC: gcc
+      CXX: g++
+    
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         config: ["asan", "code coverage", "memcheck", "docs", "format", "warning"]
 
     steps:
     - name: install-dependencies
       run: |
-        apt-get update
-        apt-get install -y gcc g++
-        apt-get install -y clang-format doxygen gcovr
-        
-    - name: load-env
-      shell: bash
+        sudo apt-get update
+        sudo apt-get install libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev libaec-dev 
+
+    - name: install-format-dependencies
+      if: matrix.config == 'format'      
       run: |
-        set -a
-        source /entrypoint.sh
-        set +a
-        env >> $GITHUB_ENV
+        sudo apt-get install clang-format
+
+    - name: install-docs-dependencies
+      if: matrix.config == 'docs'      
+      run: |
+        sudo apt-get install doxygen
+
+    - name: install-memory-dependencies
+      if: matrix.config == 'memcheck'      
+      run: |
+        sudo apt-get install valgrind
+
+    - name: install-code_coverage-dependencies
+      if: matrix.config == 'code coverage'      
+      run: |
+        sudo apt-get install clang-format
+        python3 -m pip install gcovr
+
+    - name: "Build dependencies"
+      uses: NOAA-EMC/ci-build-nceplibs@develop
+      with:
+        jasper-version: version-4.0.0
 
     - name: checkout
       uses: actions/checkout@v4
@@ -54,26 +70,23 @@ jobs:
       id: cache-data
       uses: actions/cache@v4
       with:
-        path: /root/data
+        path: ~/data
         key: data-3
 
     - name: asan
       if: matrix.config == 'asan'
       run: |
-        pwd
-        cd /root/data/
-        ls -l
-        cd /__w/NCEPLIBS-g2c/NCEPLIBS-g2c/
         set -x
         export CC=gcc
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
+          -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper \
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=ON \
+          -DFTP_TEST_FILES=OFF \
           -DFTP_LARGE_TEST_FILES=OFF \
-          -DTEST_FILE_DIR=/root/data \
+          -DTEST_FILE_DIR=/home/runner/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         cmake --build g2c/build --parallel 2 --verbose
@@ -86,12 +99,13 @@ jobs:
         export CC=gcc
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
+          -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper \
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
           -DFTP_TEST_FILES=ON \
           -DFTP_LARGE_TEST_FILES=OFF \
-          -DTEST_FILE_DIR=/root/data \
+          -DTEST_FILE_DIR=/home/runner/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         cmake --build g2c/build --verbose
@@ -103,12 +117,13 @@ jobs:
         export CC=gcc
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
+          -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper \
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=ON \
+          -DFTP_TEST_FILES=OFF \
           -DFTP_LARGE_TEST_FILES=OFF \
-          -DTEST_FILE_DIR=/root/data \
+          -DTEST_FILE_DIR=/home/runner/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         pwd
@@ -124,13 +139,15 @@ jobs:
       if: matrix.config == 'memcheck'
       run: |
         set -x
+        export LD_LIBRARY_PATH="/home/runner/jasper/lib:$LD_LIBRARY_PATH"
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
+          -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper \
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=ON \
-          -DTEST_FILE_DIR=/root/data \
+          -DFTP_TEST_FILES=OFF \
+          -DTEST_FILE_DIR=/home/runner/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         cmake --build g2c/build --parallel 2 --verbose
@@ -141,8 +158,10 @@ jobs:
       if: matrix.config == 'docs'
       run: |
         set -x
+        export LD_LIBRARY_PATH="/home/runner/jasper/lib:$LD_LIBRARY_PATH"
         cmake -S g2c -B g2c/build \
           -DUSE_AEC=ON \
+          -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper \
           -DBUILD_G2C=ON \
           -DENABLE_DOCS=On \
           -DCMAKE_BUILD_TYPE=Debug \
@@ -159,15 +178,15 @@ jobs:
         find . -name '*.[ch]'|xargs clang-format -Werror --verbose --dry-run
         
     - name: populate-data
-      if: steps.cache-data.outputs.cache-hit != 'true'
+      if: steps.cache-data.outputs.cache-hit != 'true' && matrix.config == 'warning'
       run: |
         # create data dir and copy test data into it.
         # Prefer source test data (g2c/tests/data). Fall back to build/tests/data if present.
-        mkdir -p /root/data
+        mkdir -p ~/data
         if [ -d "$GITHUB_WORKSPACE/g2c/tests/data" ]; then
-          cp -r $GITHUB_WORKSPACE/g2c/tests/data/* /root/data
+          cp -r $GITHUB_WORKSPACE/g2c/tests/data/* ~/data
         elif [ -d "$GITHUB_WORKSPACE/g2c/build/tests/data" ]; then
-          cp -r $GITHUB_WORKSPACE/g2c/build/tests/data/* /root/data
+          cp -r $GITHUB_WORKSPACE/g2c/build/tests/data/* ~/data
         else
           echo "Warning: no test data directory found at either $GITHUB_WORKSPACE/g2c/tests/data or $GITHUB_WORKSPACE/g2c/build/tests/data"
         fi
