@@ -85,7 +85,7 @@ jobs:
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=OFF \
+          -DFTP_TEST_FILES=ON \
           -DFTP_LARGE_TEST_FILES=OFF \
           -DTEST_FILE_DIR=/root/data \
           -DCMAKE_BUILD_TYPE=Debug \
@@ -102,7 +102,7 @@ jobs:
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=OFF \
+          -DFTP_TEST_FILES=ON \
           -DFTP_LARGE_TEST_FILES=OFF \
           -DTEST_FILE_DIR=/root/data \
           -DCMAKE_BUILD_TYPE=Debug \
@@ -125,7 +125,7 @@ jobs:
           -DBUILD_G2C=ON \
           -DLOGGING=On \
           -DPTHREADS=ON \
-          -DFTP_TEST_FILES=OFF \
+          -DFTP_TEST_FILES=ON \
           -DTEST_FILE_DIR=/root/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
@@ -155,7 +155,7 @@ jobs:
         find . -name '*.[ch]'|xargs clang-format -Werror --verbose --dry-run
         
     - name: populate-data
-      if: steps.cache-data.outputs.cache-hit != 'true'
+      if: steps.cache-data.outputs.cache-hit != 'true' && matrix.config != 'format'
       run: |
         mkdir -p /root/data
         if [ -d "$GITHUB_WORKSPACE/g2c/build/tests/data" ]; then
@@ -166,7 +166,6 @@ jobs:
           echo "Warning: no test data directory found at either $GITHUB_WORKSPACE/g2c/tests/data or $GITHUB_WORKSPACE/g2c/build/tests/data"
         fi
         
-
     - name: upload-test-coverage
       if: matrix.config == 'code coverage'      
       uses: actions/upload-artifact@v4
