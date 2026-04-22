@@ -26,7 +26,7 @@ jobs:
         - /home/runner:/root
 
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         config: ["asan", "code coverage", "memcheck", "docs", "format", "warning"]
 
