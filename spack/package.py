@@ -9,6 +9,7 @@ from spack_repo.builtin.build_systems.cmake import CMakePackage
 class G2c(CMakePackage):
     """This library contains C decoder/encoder routines for GRIB edition 2.
 
+
     This is part of NOAA's NCEPLIBS project."""
 
     homepage = "https://github.com/NOAA-EMC/NCEPLIBS-g2c"
