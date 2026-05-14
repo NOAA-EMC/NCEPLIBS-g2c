@@ -15,6 +15,7 @@ jobs:
   Intel:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
           - compiler: "oneapi"
