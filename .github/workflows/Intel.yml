@@ -41,10 +41,10 @@ jobs:
     - name: load-env
       shell: bash
       run: |
-        set -a
+        #set -a
         source /entrypoint.sh
-        set +a
-        env >> $GITHUB_ENV
+        #set +a
+        #env >> $GITHUB_ENV
 
     - name: checkout
       uses: actions/checkout@v4
