@@ -41,7 +41,7 @@ jobs:
       shell: bash
       run: |
         source /entrypoint.sh
-        printenv >> $GITHUB_ENV
+        env >> $GITHUB_ENV
 
     - name: checkout
       uses: actions/checkout@v4
