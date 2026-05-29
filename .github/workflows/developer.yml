@@ -40,7 +40,10 @@ jobs:
     - name: load-env
       shell: bash
       run: |
+        sed -i 's/\r$//' /entrypoint.sh
+        set -a
         source /entrypoint.sh
+        set +a
         env >> $GITHUB_ENV
 
     - name: checkout
