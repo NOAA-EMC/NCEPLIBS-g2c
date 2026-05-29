@@ -22,7 +22,7 @@ jobs:
             image: nceplibs-develop-ubuntu-24.04-oneapi-2025.3-intel-oneapi-mpi-2021.17
           - compiler: "classic"
             image: nceplibs-develop-ubuntu-24.04-classic-2023.2.1-intel-oneapi-mpi-2021.17
-    name : ${{ matrix.compiler }}
+    name: "(${{ matrix.compiler }})"
     container:
       image: ghcr.io/noaa-emc/ci-common-build-cache/${{ matrix.image }}
       volumes:
