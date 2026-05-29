@@ -38,13 +38,9 @@ jobs:
         apt-get install -y clang-format doxygen gcovr
         
     - name: load-env
-      shell: bash
+      shell: bash -l {0}
       run: |
-        sed -i 's/\r$//' /entrypoint.sh
-        set -a
-        source /entrypoint.sh
-        set +a
-        env >> $GITHUB_ENV
+        printenv >> $GITHUB_ENV
 
     - name: checkout
       uses: actions/checkout@v4
