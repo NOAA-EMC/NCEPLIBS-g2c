@@ -59,7 +59,7 @@ jobs:
 
     - name: Initialize CodeQL
       if: ${{ matrix.compiler == 'classic' }}
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         languages: cpp
         queries: +security-and-quality
