@@ -41,7 +41,8 @@ jobs:
 
     - name: "Install Intel"
       run: |
-        ./opt/install-intel.sh
+        cd /opt/
+        ./install-intel.sh
 
     - name: load-env
       shell: bash
