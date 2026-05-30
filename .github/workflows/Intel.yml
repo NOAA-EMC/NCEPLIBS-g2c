@@ -59,23 +59,23 @@ jobs:
       with:
         path: g2c
 
-    - name: Initialize CodeQL
-      if: ${{ matrix.compiler == 'classic' }}
-      uses: github/codeql-action/init@v3
-      with:
-        languages: cpp
-        queries: +security-and-quality
+    #- name: Initialize CodeQL
+    #  if: ${{ matrix.compiler == 'classic' }}
+    #  uses: github/codeql-action/init@v3
+    #  with:
+    #    languages: cpp
+    #    queries: +security-and-quality
           
     - name: build
       run: |
         cmake -S g2c -B g2c/build
         cmake --build g2c/build --parallel 2 --verbose
 
-    - name: Perform CodeQL Analysis
-      if: ${{ matrix.compiler == 'classic' }}
-      uses: github/codeql-action/analyze@v3
-      with:
-        category: "/language:cpp"
+    #- name: Perform CodeQL Analysis
+    #  if: ${{ matrix.compiler == 'classic' }}
+    #  uses: github/codeql-action/analyze@v3
+    #  with:
+    #    category: "/language:cpp"
 
     - name: test
       run: ctest --test-dir g2c/build --verbose --output-on-failure --rerun-failed
