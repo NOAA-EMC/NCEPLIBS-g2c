@@ -21,7 +21,7 @@ jobs:
   developer:
     runs-on: ubuntu-24.04
     container:
-      image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-14-mpich-x:latest
+      image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-13-mpich-x:latest
       volumes:
         - /home/runner:/root
 
@@ -43,7 +43,7 @@ jobs:
         set -a
         source /entrypoint.sh
         set +a
-        env >> $GITHUB_ENV
+        printenv | grep -E '^[a-zA-Z_][a-zA-Z0-9_]*=' >> $GITHUB_ENV
 
     - name: checkout
       uses: actions/checkout@v4
