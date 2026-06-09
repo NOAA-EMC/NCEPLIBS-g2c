@@ -63,6 +63,15 @@ jobs:
           
     - name: build
       run: |
+        if [ "${{ matrix.compiler }}" == "oneapi" ]; then
+          export CC=icx
+          export CXX=icpx
+          export FC=ifx
+        else
+          export CC=icc
+          export CXX=icpc
+          export FC=ifort
+        fi
         cmake -S g2c -B g2c/build
         cmake --build g2c/build --parallel 2 --verbose
 
