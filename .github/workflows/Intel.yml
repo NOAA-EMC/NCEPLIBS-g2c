@@ -32,7 +32,6 @@ jobs:
 
     - name: "Install Intel"
       shell: bash
-      if: ${{ matrix.compiler == 'classic' }}
       run: |
         cd /opt/
         ./install-intel.sh
