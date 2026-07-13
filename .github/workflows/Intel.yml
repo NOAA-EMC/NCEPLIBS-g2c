@@ -11,7 +11,7 @@ on:
     - cron: '0 0 1 * *'
   workflow_dispatch:
 
-jobs:
+jobs: 
   Intel:
     runs-on: ubuntu-24.04
     strategy:
