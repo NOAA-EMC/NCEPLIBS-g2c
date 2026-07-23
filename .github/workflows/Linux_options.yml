@@ -110,8 +110,7 @@ jobs:
         mkdir build
         cd build
         export CC=gcc
-        export LD_LIBRARY_PATH="/usr/include:$LD_LIBRARY_PATH"
-        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/g2c/install -DOpenJPEG_INCLUDE_DIRS="/usr/include/" ..
+        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/g2c/install -DOpenJPEG_INCLUDE_DIRS="/usr/include/openjpeg-2.5" ..
         make -j2
         ctest --verbose --output-on-failure --rerun-failed
         make install
