@@ -85,12 +85,6 @@ jobs:
           }
 
     steps:
-    - name: install-dependencies
-      run: |
-        apt-get update
-        apt-get install -y gcc
-        apt-get install -y libjpeg-dev libopenjp2-7-dev
-
     - name: load-env
       shell: bash
       run: |
@@ -100,29 +94,11 @@ jobs:
         export PATH=/usr/include:$PATH
         printenv | grep -E '^[a-zA-Z_][a-zA-Z0-9_]*=' >> $GITHUB_ENV
 
-   # - name: checkout-jasper
-   #   uses: actions/checkout@v4
-   #   with:
-   #     repository: jasper-software/jasper
-   #     path: jasper
-   #     ref: version-2.0.25
-
-   # - name: cache-jasper
-   #   id: cache-jasper
-   #   uses: actions/cache@v4
-   #   with:
-   #     path: ~/Jasper
-   #     key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}
-
-   # - name: build-jasper
-   #   if: steps.cache-jasper.outputs.cache-hit != 'true'
-   #   run: |
-   #     cd jasper
-   #     mkdir cmake_build
-   #     cd cmake_build
-   #     cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
-   #     make -j2 VERBOSE=1
-   #     make install
+    - name: install-dependencies
+      run: |
+        apt-get update
+        apt-get install -y gcc
+        apt-get install -y libjpeg-dev libopenjp2-7-dev
 
     - name: checkout
       uses: actions/checkout@v4
