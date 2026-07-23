@@ -97,7 +97,7 @@ jobs:
       run: |
         apt-get update
         apt-get install -y gcc
-        apt-get install -y libopenjp2-7 libopenjp2-7-dev
+        apt-get install -y libopenjp2-7-dev
 
     - name: checkout
       uses: actions/checkout@v4
@@ -110,7 +110,7 @@ jobs:
         mkdir build
         cd build
         export CC=gcc
-        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/g2c/install ..
+        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/g2c/install -DOpenJPEG_DIR="/usr/lib/x86_64-linux-gnu/openjpeg-2.5" ..
         make -j2
         ctest --verbose --output-on-failure --rerun-failed
         make install
