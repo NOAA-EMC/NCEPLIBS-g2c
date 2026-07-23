@@ -91,7 +91,6 @@ jobs:
         set -a
         source /entrypoint.sh
         set +a
-        export LD_LIBRARY_PATH=/usr/include:$LD_LIBRARY_PATH
         printenv | grep -E '^[a-zA-Z_][a-zA-Z0-9_]*=' >> $GITHUB_ENV
 
     - name: install-dependencies
@@ -111,7 +110,7 @@ jobs:
         mkdir build
         cd build
         export CC=gcc
-        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=~/g2c/install ..
+        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=~/g2c/install -DOpenJPEG_DIR="/usr/lib/x86_64-linux-gnu/openjpeg-2.5" ..
         make -j2
         ctest --verbose --output-on-failure --rerun-failed
         make install
