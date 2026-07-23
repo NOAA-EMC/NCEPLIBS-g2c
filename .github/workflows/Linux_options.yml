@@ -111,6 +111,8 @@ jobs:
         mkdir build
         cd build
         export CC=gcc
+        echo $PATH
+        echo $LD_LIBRARY_PATH
         cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=~/g2c/install ..
         make -j2
         ctest --verbose --output-on-failure --rerun-failed
