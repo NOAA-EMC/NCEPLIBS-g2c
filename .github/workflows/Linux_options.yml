@@ -37,15 +37,15 @@ jobs:
           }
         - {
             name: "aec_off png_off jasper_on openjpeg_off",
-            options: "-DUSE_AEC=OFF -DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+            options: "-DUSE_AEC=OFF -DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF"
           }
         - {
             name: "aec_off png_on jasper_on openjpeg_off",
-            options: "-DUSE_AEC=OFF -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+            options: "-DUSE_AEC=OFF -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF"
           }
         - {
             name: "aec_on png_on jasper_on openjpeg_off",
-            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF"
           }
         - {
             name: "aec_off png_off jasper_off openjpeg_on",
@@ -73,11 +73,11 @@ jobs:
           }
         - {
             name: "g2c",
-            options: "-DBUILD_G2C=ON -DPTHREADS=OFF -DLOGGING=ON -DJasper_ROOT=~/Jasper"
+            options: "-DBUILD_G2C=ON -DPTHREADS=OFF -DLOGGING=ON"
           }
         - {
             name: "g2c_pthreads",
-            options: "-DBUILD_G2C=ON -DPTHREADS=ON -DLOGGING=ON -DJasper_ROOT=~/Jasper"
+            options: "-DBUILD_G2C=ON -DPTHREADS=ON -DLOGGING=ON"
           }
         - {
             name: "shared",
@@ -89,6 +89,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y gcc
+        sudo apt-get install -y libopenjp2-7-dev
 
     - name: load-env
       shell: bash
