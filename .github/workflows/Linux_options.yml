@@ -97,6 +97,7 @@ jobs:
         set -a
         source /entrypoint.sh
         set +a
+        export PATH=/usr/include:$PATH
         printenv | grep -E '^[a-zA-Z_][a-zA-Z0-9_]*=' >> $GITHUB_ENV
 
    # - name: checkout-jasper
