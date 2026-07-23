@@ -110,12 +110,12 @@ jobs:
         mkdir build
         cd build
         export CC=gcc
-        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=~/g2c/install -DOpenJPEG_DIR="/usr/lib/x86_64-linux-gnu/openjpeg-2.5" ..
+        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/g2c/install ..
         make -j2
         ctest --verbose --output-on-failure --rerun-failed
         make install
         if [ "${{ matrix.config.options }}" = "-DBUILD_SHARED_LIBS=ON" ]; then
-           ls -l ~/g2c/install/lib/lib*.so || exit 1
+           ls -l $GITHUB_WORKSPACE/g2c/install/lib/lib*.so || exit 1
         else
-           ls -l ~/g2c/install/lib/lib*.a || exit 1
+           ls -l $GITHUB_WORKSPACE/g2c/install/lib/lib*.a || exit 1
         fi
