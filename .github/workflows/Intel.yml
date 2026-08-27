@@ -13,27 +13,40 @@ on:
 
 jobs:
   Intel:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
+      fail-fast: false
       matrix:
-        compilers: ["oneapi", "classic"]
+        include:
+          - compiler: "oneapi"
+            image: nceplibs-develop-ubuntu-24.04-oneapi-2025.3-intel-oneapi-mpi-2021.17
+          - compiler: "classic"
+            image: nceplibs-develop-ubuntu-24.04-classic-2023.2.1-intel-oneapi-mpi-2021.17
+    name: "(${{ matrix.compiler }})"
+    container:
+      image: ghcr.io/noaa-emc/ci-common-build-cache/${{ matrix.image }}
+      volumes:
+        - /home/runner:/root
 
     steps:
 
-    - name: install-dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install libaec-dev libpng-dev zlib1g-dev libjpeg-dev doxygen
-
     - name: "Install Intel"
-      uses: NOAA-EMC/ci-install-intel-toolkit@develop
-      with:
-        compiler-setup: ${{ matrix.compilers }}
+      shell: bash
+      run: |
+        cd /opt/
+        ./install-intel.sh
+        set -a
+        source /opt/intel/oneapi/setvars.sh
+        set +a
+        printenv | grep -E '^[a-zA-Z_][a-zA-Z0-9_]*=' >> $GITHUB_ENV
 
-    - name: "Build dependencies"
-      uses: NOAA-EMC/ci-build-nceplibs@develop
-      with:
-        jasper-version: version-2.0.25
+    - name: load-env
+      shell: bash
+      run: |
+        set -a
+        source /entrypoint.sh
+        set +a
+        printenv | grep -E '^[a-zA-Z_][a-zA-Z0-9_]*=' >> $GITHUB_ENV
 
     - name: checkout
       uses: actions/checkout@v4
@@ -41,20 +54,29 @@ jobs:
         path: g2c
 
     - name: Initialize CodeQL
-      if: ${{ matrix.compilers == 'classic' }}
-      uses: github/codeql-action/init@v2
+      if: ${{ matrix.compiler == 'classic' }}
+      uses: github/codeql-action/init@v3
       with:
         languages: cpp
         queries: +security-and-quality
           
     - name: build
       run: |
-        cmake -S g2c -B g2c/build -DJasper_ROOT=$GITHUB_WORKSPACE/nceplibs/jasper
+        if [ "${{ matrix.compiler }}" = "oneapi" ]; then
+          export CC=icx
+          export CXX=icpx
+          export FC=ifx
+        else
+          export CC=icc
+          export CXX=icpc
+          export FC=ifort
+        fi
+        cmake -S g2c -B g2c/build
         cmake --build g2c/build --parallel 2 --verbose
 
     - name: Perform CodeQL Analysis
-      if: ${{ matrix.compilers == 'classic' }}
-      uses: github/codeql-action/analyze@v2
+      if: ${{ matrix.compiler == 'classic' }}
+      uses: github/codeql-action/analyze@v3
       with:
         category: "/language:cpp"
 

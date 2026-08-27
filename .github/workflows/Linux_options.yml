@@ -13,9 +13,11 @@ on:
 
 jobs:
   Linux_options:
-    runs-on: ubuntu-latest
-    env:
-      CC: gcc
+    runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/noaa-emc/ci-common-build-cache/nceplibs-develop-ubuntu-24.04-gcc-13-mpich-x:latest
+      volumes:
+        - /home/runner:/root
 
     strategy:
       fail-fast: false
@@ -35,15 +37,15 @@ jobs:
           }
         - {
             name: "aec_off png_off jasper_on openjpeg_off",
-            options: "-DUSE_AEC=OFF -DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+            options: "-DUSE_AEC=OFF -DUSE_PNG=OFF -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF"
           }
         - {
             name: "aec_off png_on jasper_on openjpeg_off",
-            options: "-DUSE_AEC=OFF -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+            options: "-DUSE_AEC=OFF -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF"
           }
         - {
             name: "aec_on png_on jasper_on openjpeg_off",
-            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF -DJasper_ROOT=~/Jasper"
+            options: "-DUSE_AEC=ON -DUSE_PNG=ON  -DUSE_Jasper=ON  -DUSE_OpenJPEG=OFF"
           }
         - {
             name: "aec_off png_off jasper_off openjpeg_on",
@@ -71,11 +73,11 @@ jobs:
           }
         - {
             name: "g2c",
-            options: "-DBUILD_G2C=ON -DPTHREADS=OFF -DLOGGING=ON -DJasper_ROOT=~/Jasper"
+            options: "-DBUILD_G2C=ON -DPTHREADS=OFF -DLOGGING=ON"
           }
         - {
             name: "g2c_pthreads",
-            options: "-DBUILD_G2C=ON -DPTHREADS=ON -DLOGGING=ON -DJasper_ROOT=~/Jasper"
+            options: "-DBUILD_G2C=ON -DPTHREADS=ON -DLOGGING=ON"
           }
         - {
             name: "shared",
@@ -83,34 +85,19 @@ jobs:
           }
 
     steps:
+    - name: load-env
+      shell: bash
+      run: |
+        set -a
+        source /entrypoint.sh
+        set +a
+        printenv | grep -E '^[a-zA-Z_][a-zA-Z0-9_]*=' >> $GITHUB_ENV
+
     - name: install-dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install libaec-dev libpng-dev zlib1g-dev libjpeg-dev libopenjp2-7-dev
-
-    - name: checkout-jasper
-      uses: actions/checkout@v4
-      with:
-        repository: jasper-software/jasper
-        path: jasper
-        ref: version-2.0.25
-
-    - name: cache-jasper
-      id: cache-jasper
-      uses: actions/cache@v4
-      with:
-        path: ~/Jasper
-        key: jasper-${{ runner.os }}-${{ hashFiles('jasper/VERSION') }}
-
-    - name: build-jasper
-      if: steps.cache-jasper.outputs.cache-hit != 'true'
-      run: |
-        cd jasper
-        mkdir cmake_build
-        cd cmake_build
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/Jasper
-        make -j2 VERBOSE=1
-        make install
+        apt-get update
+        apt-get install -y gcc
+        apt-get install -y libopenjp2-7-dev
 
     - name: checkout
       uses: actions/checkout@v4
@@ -122,12 +109,13 @@ jobs:
         cd g2c
         mkdir build
         cd build
-        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=~/g2c/install -DCMAKE_PREFIX_PATH=~/Jasper ..
+        export CC=gcc
+        cmake ${{ matrix.config.options }} -DCMAKE_C_FLAGS="-g -fsanitize=address -Wall -Werror" -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/g2c/install -DOpenJPEG_INCLUDE_DIRS="/usr/include/openjpeg-2.5" ..
         make -j2
         ctest --verbose --output-on-failure --rerun-failed
         make install
         if [ "${{ matrix.config.options }}" = "-DBUILD_SHARED_LIBS=ON" ]; then
-           ls -l ~/g2c/install/lib/lib*.so || exit 1
+           ls -l $GITHUB_WORKSPACE/g2c/install/lib/lib*.so || exit 1
         else
-           ls -l ~/g2c/install/lib/lib*.a || exit 1
+           ls -l $GITHUB_WORKSPACE/g2c/install/lib/lib*.a || exit 1
         fi
