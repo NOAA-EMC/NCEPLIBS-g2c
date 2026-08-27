@@ -26,19 +26,10 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest"]
-        variants:
-          - "libs=shared +aec+png+jasper~openjpeg+pic+pthreads+utils+build_g2c"
-          - "libs=static ~aec~png~jasper+openjpeg~pic~pthreads~utils~build_g2c"
-        cachekey: ["libs_shared_aec_png_build_g2c", "libs_static_openjpeg_build_g2c"]
+        variants: ["libs=shared +aec+png+jasper~openjpeg+pic+pthreads+utils+build_g2c", "libs=static ~aec~png~jasper+openjpeg~pic~pthreads~utils~build_g2c"]
     runs-on: ${{ matrix.os }}
 
     steps:
-
-    - name: Ensure cache paths exist
-      run: |
-        mkdir -p spack-build-cache
-        mkdir -p spack-root
-        touch spack-root/spack.lock
 
     - name: "Build Spack package"
       uses: NOAA-EMC/ci-test-spack-package@develop
@@ -48,7 +39,7 @@ jobs:
         custom-recipe: spack/package.py
         use-repo-cache: true
         spack-compiler: gcc
-        repo-cache-key-suffix: ${{ matrix.os }}-${{ matrix.cachekey }}-1
+        repo-cache-key-suffix: ${{ matrix.os }}-${{ matrix.variants }}-1
 
   # This job validates the Spack recipe by making sure each cmake build option is represented
   recipe-check:
@@ -59,6 +50,6 @@ jobs:
     - name: recipe-check
       uses: NOAA-EMC/ci-check-spack-recipe@develop
       with:
-        recipe-file: spack/package.py
-        cmakelists-txt: CMakeLists.txt
+        recipe-file: package/spack/package.py
+        cmakelists-txt: package/CMakeLists.txt
         ignore-list: ENABLE_DOCS,FTP_TEST_FILES,FTP_LARGE_TEST_FILES,FTP_EXTRA_TEST_FILES,LOGGING
