@@ -192,6 +192,9 @@ install(
 # Install generated grib2.h header
 install(FILES ${CMAKE_BINARY_DIR}/src/grib2.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
 
+# Install internal grib2_int.h header as well (make internal header available to downstream users)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/grib2_int.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
+
 # Package config
 include(CMakePackageConfigHelpers)
 set(CONFIG_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
