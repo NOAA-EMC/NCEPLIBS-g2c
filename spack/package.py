@@ -1,8 +1,7 @@
-# Copyright Spack Project Developers. See COPYRIGHT file for details.
+# Copyright 2013-2023 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
-
-from spack_repo.builtin.build_systems.cmake import CMakePackage
 
 from spack.package import *
 from spack_repo.builtin.build_systems.cmake import CMakePackage
@@ -20,9 +19,6 @@ class G2c(CMakePackage):
     maintainers("AlexanderRichert-NOAA", "Hang-Lei-NOAA", "edwardhartnett")
 
     version("develop", branch="develop")
-    version("2.3.0", sha256="8520a24c066500cfd0d07a05c6b7b0cb92383d1a4737cf6e79d9f4919c8e79ab")
-    version("2.2.0", sha256="cf0ac8f75aed662ccc64f4c44fbe46a70307bc27cbe95417fdfb6caf75245457")
-    version("2.1.0", sha256="74e3ef381f0339dc181bc3afaa54c98f76257508375ff664d243d76825006605")
     version("2.0.0", sha256="39c23bf1219c60101548c8525e3a879c84119558f768081779d404a8caf4cec9")
     version("1.9.0", sha256="5554276e18bdcddf387a08c2dd23f9da310c6598905df6a2a244516c22ded9aa")
     version("1.8.0", sha256="4ce9f5a7cb0950699fe08ebc5a463ab4d09ef550c050391a319308a2494f971f")
@@ -30,38 +26,44 @@ class G2c(CMakePackage):
     version("1.6.4", sha256="5129a772572a358296b05fbe846bd390c6a501254588c6a223623649aefacb9d")
     version("1.6.2", sha256="b5384b48e108293d7f764cdad458ac8ce436f26be330b02c69c2a75bb7eb9a2c")
 
-    variant("aec", default=True, description="Use AEC library", when="@1.8:")
+    variant("aec", default=True, description="Use AEC library")
     variant("png", default=True, description="Use PNG library")
     variant("jasper", default=True, description="Use Jasper library")
     variant("openjpeg", default=False, description="Use OpenJPEG library")
     variant("pic", default=True, description="Build with position-independent-code")
     variant(
         "libs",
-        default="shared,static",
+        default=("shared", "static"),
         values=("shared", "static"),
         multi=True,
         description="Build shared libs, static libs or both",
         when="@1.7:",
     )
     variant(
-        "pthreads", default=False, description="Turn on thread-safety with pthreads", when="@1.8:")
+        "pthreads",
+        default=False,
+        description="Turn on thread-safety with pthreads",
+        when="@develop",
+    )
     variant(
-        "utils", default=True, description="Build and install some utility programs", when="@1.8:")
-    variant(
-        "build_v2_api",
+        "utils",
         default=True,
+        description="Build and install some utility programs",
+        when="@develop",
+    )
+    variant(
+        "build_g2c",
+        default=False,
         description="Build new g2c API, experimental until 2.0.0 release",
-        when="@1.8:")
-
-    depends_on("c", type="build")
+        when="@develop",
+    )
 
     depends_on("libaec", when="+aec")
     depends_on("libpng", when="+png")
     depends_on("jasper", when="+jasper")
     depends_on("openjpeg", when="+openjpeg")
-    depends_on("libxml2@2.9:", when="+build_v2_api")
+    depends_on("libxml2@2.9:", when="+build_g2c")
 
-    conflicts("+utils ~build_v2_api", msg="+utils requires G2C API")
     conflicts("+jasper +openjpeg", msg="Either Jasper or OpenJPEG should be used, not both")
 
     def cmake_args(self):
@@ -75,13 +77,13 @@ class G2c(CMakePackage):
             self.define_from_variant("USE_OpenJPEG", "openjpeg"),
             self.define_from_variant("PTHREADS", "pthreads"),
             self.define_from_variant("UTILS", "utils"),
-            self.define_from_variant("BUILD_G2C", "build_v2_api"),
+            self.define_from_variant("BUILD_G2C", "build_g2c"),
             self.define("BUILD_TESTING", self.run_tests),
         ]
 
         return args
 
-    def setup_run_environment(self, env: EnvironmentModifications) -> None:
+    def setup_run_environment(self, env):
         if self.spec.satisfies("@:1.6"):
             shared = False
         else:
@@ -89,9 +91,6 @@ class G2c(CMakePackage):
         lib = find_libraries("libg2c", root=self.prefix, shared=shared, recursive=True)
         env.set("G2C_LIB", lib[0])
         env.set("G2C_INC", join_path(self.prefix, "include"))
-
-    def patch(self):
-        filter_file(r"find_package\(PkgConfig REQUIRED\)", r"#find_package(PkgConfig REQUIRED)", "CMakeLists.txt")
 
     def check(self):
         with working_dir(self.build_directory):
