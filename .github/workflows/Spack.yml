@@ -30,7 +30,9 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-
+    - name: Install build dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential gcc gfortran
+  
     - name: "Build Spack package"
       uses: NOAA-EMC/ci-test-spack-package@develop
       with:
@@ -39,7 +41,7 @@ jobs:
         custom-recipe: spack/package.py
         use-repo-cache: true
         spack-compiler: gcc
-        repo-cache-key-suffix: ${{ matrix.os }}-${{ matrix.variants }}-1
+        repo-cache-key-suffix: ${{ matrix.os }}-${{ matrix.variants }}-2
 
   # This job validates the Spack recipe by making sure each cmake build option is represented
   recipe-check:
