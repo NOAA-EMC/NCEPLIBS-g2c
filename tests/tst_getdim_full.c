@@ -43,8 +43,8 @@ make_sec3(g2int tmpl_num, int maplen, const int *map,
     buf[2] = (total >> 8) & 0xff;
     buf[3] = total & 0xff;
 
-    buf[4] = 3;  /* section number */
-    buf[5] = 0;  /* source of grid definition */
+    buf[4] = 3; /* section number */
+    buf[5] = 0; /* source of grid definition */
 
     /* Number of grid points (bytes 6-9). */
     g2int npts = width * height;
@@ -70,11 +70,11 @@ make_sec3(g2int tmpl_num, int maplen, const int *map,
     }
 
     /* Helper to write a big-endian value of sz bytes at position p. */
-#define WRITE_BE(p, sz, val) \
-    do { \
-        int _b; \
-        for (_b = (sz) - 1; _b >= 0; _b--) \
-            (buf)[(p) + (sz) - 1 - _b] = ((val) >> (8 * _b)) & 0xff; \
+#define WRITE_BE(p, sz, val)                                            \
+    do {                                                               \
+        int _b;                                                        \
+        for (_b = (sz) - 1; _b >= 0; _b--)                             \
+            (buf)[(p) + (sz) - 1 - _b] = ((val) >> (8 * _b)) & 0xff;   \
     } while (0)
 
     int sz;
@@ -155,67 +155,80 @@ main()
 
     /* Template 0: width at idx 7, height at 8, iscan at 18 (1-byte field) */
     printf("Test 1: Template 0 (Lat/Lon)...");
-    if (test_template("tmpl0", 0, 19, map0, 7, 8, 18)) return 1;
+    if (test_template("tmpl0", 0, 19, map0, 7, 8, 18))
+        return 1;
     printf("ok!\n");
 
     /* Template 1: same layout as 0 */
     printf("Test 2: Template 1 (Rotated Lat/Lon)...");
-    if (test_template("tmpl1", 1, 22, map1, 7, 8, 18)) return 2;
+    if (test_template("tmpl1", 1, 22, map1, 7, 8, 18))
+        return 2;
     printf("ok!\n");
 
     /* Template 2: same layout as 0 */
     printf("Test 3: Template 2 (Stretched Lat/Lon)...");
-    if (test_template("tmpl2", 2, 22, map2, 7, 8, 18)) return 3;
+    if (test_template("tmpl2", 2, 22, map2, 7, 8, 18))
+        return 3;
     printf("ok!\n");
 
     /* Template 3: same layout as 0 */
     printf("Test 4: Template 3 (Stretched+Rotated Lat/Lon)...");
-    if (test_template("tmpl3", 3, 25, map3, 7, 8, 18)) return 4;
+    if (test_template("tmpl3", 3, 25, map3, 7, 8, 18))
+        return 4;
     printf("ok!\n");
 
     /* Template 10: Mercator — iscan at idx 15 (1-byte field) */
     printf("Test 5: Template 10 (Mercator)...");
-    if (test_template("tmpl10", 10, 19, map10, 7, 8, 15)) return 5;
+    if (test_template("tmpl10", 10, 19, map10, 7, 8, 15))
+        return 5;
     printf("ok!\n");
 
     /* Template 20: Polar Stereographic — iscan at idx 17 (1-byte field) */
     printf("Test 6: Template 20 (Polar Stereographic)...");
-    if (test_template("tmpl20", 20, 18, map20, 7, 8, 17)) return 6;
+    if (test_template("tmpl20", 20, 18, map20, 7, 8, 17))
+        return 6;
     printf("ok!\n");
 
     /* Template 30: Lambert Conformal — iscan at idx 17 (1-byte field) */
     printf("Test 7: Template 30 (Lambert Conformal)...");
-    if (test_template("tmpl30", 30, 22, map30, 7, 8, 17)) return 7;
+    if (test_template("tmpl30", 30, 22, map30, 7, 8, 17))
+        return 7;
     printf("ok!\n");
 
     /* Template 40: Gaussian — same as template 0 */
     printf("Test 8: Template 40 (Gaussian)...");
-    if (test_template("tmpl40", 40, 19, map40, 7, 8, 18)) return 8;
+    if (test_template("tmpl40", 40, 19, map40, 7, 8, 18))
+        return 8;
     printf("ok!\n");
 
     /* Template 41: Rotated Gaussian */
     printf("Test 9: Template 41 (Rotated Gaussian)...");
-    if (test_template("tmpl41", 41, 22, map41, 7, 8, 18)) return 9;
+    if (test_template("tmpl41", 41, 22, map41, 7, 8, 18))
+        return 9;
     printf("ok!\n");
 
     /* Template 42: Stretched Gaussian */
     printf("Test 10: Template 42 (Stretched Gaussian)...");
-    if (test_template("tmpl42", 42, 22, map42, 7, 8, 18)) return 10;
+    if (test_template("tmpl42", 42, 22, map42, 7, 8, 18))
+        return 10;
     printf("ok!\n");
 
     /* Template 43: Stretched+Rotated Gaussian */
     printf("Test 11: Template 43 (Stretched+Rotated Gaussian)...");
-    if (test_template("tmpl43", 43, 25, map43, 7, 8, 18)) return 11;
+    if (test_template("tmpl43", 43, 25, map43, 7, 8, 18))
+        return 11;
     printf("ok!\n");
 
     /* Template 90: Space View/Orthographic — iscan at idx 16 (1-byte field) */
     printf("Test 12: Template 90 (Space View/Orthographic)...");
-    if (test_template("tmpl90", 90, 21, map90, 7, 8, 16)) return 12;
+    if (test_template("tmpl90", 90, 21, map90, 7, 8, 16))
+        return 12;
     printf("ok!\n");
 
     /* Template 110: Equatorial Azimuthal — iscan at idx 15 (1-byte field) */
     printf("Test 13: Template 110 (Equatorial Azimuthal)...");
-    if (test_template("tmpl110", 110, 16, map110, 7, 8, 15)) return 13;
+    if (test_template("tmpl110", 110, 16, map110, 7, 8, 15))
+        return 13;
     printf("ok!\n");
 
     /* Default (unhandled template): should return width=height=iscan=0.
