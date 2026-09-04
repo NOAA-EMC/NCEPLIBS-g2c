@@ -126,32 +126,32 @@ main()
     /* Template maps from gridtemplates.c (field sizes in bytes; negative = signed). */
 
     /* Template 0: Lat/Lon — 19 fields */
-    static const int map0[] = {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1};
+    static const int map0[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1};
     /* Template 1: Rotated Lat/Lon — 22 fields */
-    static const int map1[] = {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4};
+    static const int map1[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4};
     /* Template 2: Stretched Lat/Lon — 22 fields */
-    static const int map2[] = {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,-4};
+    static const int map2[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4};
     /* Template 3: Stretched+Rotated Lat/Lon — 25 fields */
-    static const int map3[] = {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,-4,-4,4,4};
+    static const int map3[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4, -4, 4, 4};
     /* Template 10: Mercator — 19 fields */
-    static const int map10[] = {1,1,4,1,4,1,4,4,4,-4,4,1,-4,-4,4,1,4,4,4};
+    static const int map10[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, -4, 4, 1, 4, 4, 4};
     /* Template 20: Polar Stereographic — 18 fields */
-    static const int map20[] = {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1};
+    static const int map20[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1};
     /* Template 30: Lambert Conformal — 22 fields */
-    static const int map30[] = {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1,-4,-4,-4,4};
+    static const int map30[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1, -4, -4, -4, 4};
     /* Template 40-43: Gaussian (same layout as 0-3) */
-    static const int map40[] = {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1};
-    static const int map41[] = {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,4};
-    static const int map42[] = {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,-4};
-    static const int map43[] = {1,1,4,1,4,1,4,4,4,4,4,-4,4,1,-4,4,4,4,1,-4,4,-4,-4,4,4};
+    static const int map40[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1};
+    static const int map41[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, 4};
+    static const int map42[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4};
+    static const int map43[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, -4, 4, -4, -4, 4, 4};
     /* Template 90: Space View/Orthographic — 21 fields */
-    static const int map90[] = {1,1,4,1,4,1,4,4,4,-4,4,1,4,4,4,4,1,4,4,4,4};
+    static const int map90[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, 4, 4, 4, 4, 1, 4, 4, 4, 4};
     /* Template 110: Equatorial Azimuthal — 16 fields */
-    static const int map110[] = {1,1,4,1,4,1,4,4,4,-4,4,1,4,4,1,1};
+    static const int map110[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, 4, 4, 1, 1};
     /* Template 31: Albers equal area — same layout as 30 (22 fields).
      * Template 31 is defined in gridtemplates.c but NOT handled by getdim's
      * switch, so it exercises the default branch (width=height=iscan=0). */
-    static const int map31[] = {1,1,4,1,4,1,4,4,4,-4,4,1,-4,4,4,4,1,1,-4,-4,-4,4};
+    static const int map31[] = {1, 1, 4, 1, 4, 1, 4, 4, 4, -4, 4, 1, -4, 4, 4, 4, 1, 1, -4, -4, -4, 4};
 
     /* Template 0: width at idx 7, height at 8, iscan at 18 (1-byte field) */
     printf("Test 1: Template 0 (Lat/Lon)...");
