@@ -70,10 +70,11 @@ make_sec3(g2int tmpl_num, int maplen, const int *map,
     }
 
     /* Helper to write a big-endian value of sz bytes at position p. */
-#define WRITE_BE(p, sz, val) \
-    do { \
-        int _b; \
-        for (_b = (sz) - 1; _b >= 0; _b--) \
+#define WRITE_BE(p, sz, val)                                         \
+    do                                                               \
+    {                                                                \
+        int _b;                                                      \
+        for (_b = (sz) - 1; _b >= 0; _b--)                           \
             (buf)[(p) + (sz) - 1 - _b] = ((val) >> (8 * _b)) & 0xff; \
     } while (0)
 
