@@ -89,7 +89,7 @@ main()
         int t, m;
         int ret;
 
-        for (t = 1; t < NUM_TESTS; t++)
+        for (t = 0; t < NUM_TESTS; t++)
         {
             /* g2c_set_log_level(11); */
             /* Open the data file with and without the index file. */
