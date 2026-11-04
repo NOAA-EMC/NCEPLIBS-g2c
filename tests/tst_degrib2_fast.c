@@ -52,13 +52,17 @@ main()
 
         if ((ret = g2c_open(WAVE_FILE, 0, &g2cid)))
             return ret;
+        printf("g2c_open returned successfully.\n");
         if ((ret = g2c_degrib2(g2cid, FILE_NAME)))
             return ret;
+        printf("g2c_degrib2 returned successfully.\n");
         if ((ret = g2c_close(g2cid)))
             return ret;
+        printf("g2c_close returned successfully.\n");
 
         if ((ret = compare_degrib2_files2(FILE_NAME, REF_FILE)))
             return ret;
+        printf("compare_degrib2_files2 returned successfully.\n");
     }
     printf("ok!\n");
     printf("Testing g2c_open_index() to make a degrib2 file...");
