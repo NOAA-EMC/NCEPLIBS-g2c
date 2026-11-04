@@ -17,7 +17,7 @@
  * Representation Template 5.0.
  * @param ndpts The number of data values to unpack.
  * @param fld A pointer that gets the unpacked data values. fld must be
-`* allocated with at least ndpts * sizeof(float) bytes before calling
+ * allocated with at least `ndpts * sizeof(float)` bytes before calling
  * this routine.
  *
  * @return 0 for success, error code otherwise.
