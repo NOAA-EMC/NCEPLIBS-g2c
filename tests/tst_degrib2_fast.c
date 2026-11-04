@@ -37,7 +37,7 @@
   DRS TEMPLATE 5. 40 :  1092616192 0 2 11 0 0 255
   Data Values:
   Num. of Data Points =  11041   Num. of Data Undefined = 0
-( PARM= WIND ) :  MIN=               0.09999999 AVE=               5.64625025 MAX=              16.43000031
+( PARM= WIND ) :  MIN=               0.10000000 AVE=               5.64625025 MAX=              16.43000031
 */
 
 int

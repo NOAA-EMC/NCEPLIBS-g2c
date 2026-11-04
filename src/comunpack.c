@@ -54,7 +54,7 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
 
     rdieee(idrstmpl, &ref, 1);
     bscale = (float)int_power(2.0, idrstmpl[1]);
-    dscale = (float)int_power(10.0, -idrstmpl[2]);
+    dscale = (float)int_power(10.0, idrstmpl[2]);
     nbitsgref = idrstmpl[3];
     itype = idrstmpl[4];
     ngroups = idrstmpl[9];
@@ -318,7 +318,7 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
     { /* no missing values */
         for (n = 0; n < ndpts; n++)
         {
-            fld[n] = (((float)ifld[n] * bscale) + ref) * dscale;
+            fld[n] = (float)(((double)ifld[n] * bscale + ref) / dscale);
         }
     }
     else if (idrstmpl[6] == 1 || idrstmpl[6] == 2)
@@ -329,7 +329,7 @@ comunpack(unsigned char *cpack, g2int lensec, g2int idrsnum,
         {
             if (ifldmiss[n] == 0)
             {
-                fld[n] = (((float)ifld[non++] * bscale) + ref) * dscale;
+                fld[n] = (float)(((double)ifld[non++] * bscale + ref) / dscale);
             }
             else if (ifldmiss[n] == 1)
                 fld[n] = rmiss1;

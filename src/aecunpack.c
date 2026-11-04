@@ -59,7 +59,7 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
     /* Get compression parameters from data representation template array. */
     rdieee(idrstmpl, &ref, 1);
     bscale = int_power(2.0, idrstmpl[1]);
-    dscale = int_power(10.0, -idrstmpl[2]);
+    dscale = int_power(10.0, idrstmpl[2]);
     nbits = idrstmpl[3];
     ccsds_flags = idrstmpl[5];
     ccsds_block_size = idrstmpl[6];
@@ -109,12 +109,12 @@ aecunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
         if (fld_is_double)
         {
             for (j = 0; j < ndpts; j++)
-                dfld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
+                dfld[j] = ((double)ifld[j] * bscale + ref) / dscale;
         }
         else
         {
             for (j = 0; j < ndpts; j++)
-                ffld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
+                ffld[j] = (float)(((double)ifld[j] * bscale + ref) / dscale);
         }
 
         /* Clean up. */

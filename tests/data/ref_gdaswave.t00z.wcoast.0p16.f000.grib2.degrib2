@@ -18,7 +18,7 @@
   DRS TEMPLATE 5. 40 :  1092616192 0 2 11 0 0 255
   Data Values:
   Num. of Data Points =  11041   Num. of Data Undefined = 0
-( PARM= WIND ) :  MIN=               0.09999999 AVE=               5.64625025 MAX=              16.43000031
+( PARM= WIND ) :  MIN=               0.10000000 AVE=               5.64625025 MAX=              16.43000031
 
  GRIB MESSAGE  2  starts at 15255
 
@@ -60,7 +60,7 @@
   DRS TEMPLATE 5. 40 :  -1006403584 0 2 11 0 0 255
   Data Values:
   Num. of Data Points =  11041   Num. of Data Undefined = 0
-( PARM= UGRD ) :  MIN=              -5.25999975 AVE=               1.90216613 MAX=               8.88000011
+( PARM= UGRD ) :  MIN=              -5.26000023 AVE=               1.90216613 MAX=               8.88000011
 
  GRIB MESSAGE  4  starts at 53795
 
@@ -102,7 +102,7 @@
   DRS TEMPLATE 5. 40 :  1102053376 0 2 9 0 0 255
   Data Values:
   Num. of Data Points =  11041   Num. of Data Undefined = 0
-( PARM= HTSGW ) :  MIN=               0.22000000 AVE=               1.91773760 MAX=               4.04999971
+( PARM= HTSGW ) :  MIN=               0.22000000 AVE=               1.91773760 MAX=               4.05000019
 
  GRIB MESSAGE  6  starts at 79483
 
@@ -123,7 +123,7 @@
   DRS TEMPLATE 5. 40 :  1144815616 0 2 10 0 0 255
   Data Values:
   Num. of Data Points =  11041   Num. of Data Undefined = 0
-( PARM= PERPW ) :  MIN=               7.53999996 AVE=              11.81828499 MAX=              14.50999928
+( PARM= PERPW ) :  MIN=               7.53999996 AVE=              11.81828499 MAX=              14.51000023
 
  GRIB MESSAGE  7  starts at 91309
 
@@ -144,7 +144,7 @@
   DRS TEMPLATE 5. 40 :  1185159680 0 2 14 0 0 255
   Data Values:
   Num. of Data Points =  11041   Num. of Data Undefined = 0
-( PARM= DIRPW ) :  MIN=             210.04998779 AVE=             284.60992432 MAX=             309.67999268
+( PARM= DIRPW ) :  MIN=             210.05000305 AVE=             284.60992432 MAX=             309.67999268
 
  GRIB MESSAGE  8  starts at 108542
 
@@ -312,7 +312,7 @@
   DRS TEMPLATE 5. 40 :  1133510656 0 2 11 0 0 255
   Data Values:
   Num. of Data Points =  10347   Num. of Data Undefined = 0
-( PARM= SWPER ) :  MIN=               2.87999988 AVE=              10.97782326 MAX=              17.94000053
+( PARM= SWPER ) :  MIN=               2.88000011 AVE=              10.97782326 MAX=              17.94000053
 
  GRIB MESSAGE  16  starts at 205286
 
@@ -375,7 +375,7 @@
   DRS TEMPLATE 5. 40 :  1140424704 0 2 16 0 0 255
   Data Values:
   Num. of Data Points =  10955   Num. of Data Undefined = 0
-( PARM= SWDIR ) :  MIN=               4.98999977 AVE=             246.90257263 MAX=             359.88998413
+( PARM= SWDIR ) :  MIN=               4.98999977 AVE=             246.90257263 MAX=             359.89001465
 
  GRIB MESSAGE  19  starts at 259224
 
@@ -396,6 +396,6 @@
   DRS TEMPLATE 5. 40 :  1092616192 0 2 16 0 0 255
   Data Values:
   Num. of Data Points =  10347   Num. of Data Undefined = 0
-( PARM= SWDIR ) :  MIN=               0.09999999 AVE=             219.31278992 MAX=             359.94000244
+( PARM= SWDIR ) :  MIN=               0.10000000 AVE=             219.31278992 MAX=             359.94000244
   
   Total Number of Fields Found =  19
