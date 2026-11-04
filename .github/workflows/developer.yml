@@ -55,7 +55,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: /root/data
-        key: data-4
+        key: data-3
 
     - name: asan
       if: matrix.config == 'asan'
@@ -87,7 +87,7 @@ jobs:
           -DPTHREADS=ON \
           -DFTP_TEST_FILES=ON \
           -DFTP_LARGE_TEST_FILES=OFF \
-          -DTEST_FILE_DIR=/root/data \
+          #-DTEST_FILE_DIR=/root/data \
           -DCMAKE_BUILD_TYPE=Debug \
           -DCMAKE_C_FLAGS="-g"
         cmake --build g2c/build --verbose
