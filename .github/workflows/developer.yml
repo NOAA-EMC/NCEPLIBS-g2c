@@ -55,7 +55,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: /root/data
-        key: data-3
+        key: data-4
 
     - name: asan
       if: matrix.config == 'asan'
