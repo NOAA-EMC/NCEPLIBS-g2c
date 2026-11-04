@@ -5562,7 +5562,7 @@
   DRS TEMPLATE 5. 40 :  1122369536 0 2 11 0 0 255
   Data Values:
   Num. of Data Points =  11041   Num. of Data Undefined = 0
-( PARM= WIND ) :  MIN=               1.14999998 AVE=               5.94999027 MAX=              14.82999992
+( PARM= WIND ) :  MIN=               1.14999998 AVE=               5.95000362 MAX=              14.82999992
 
  GRIB MESSAGE  266  starts at 4065767
 
