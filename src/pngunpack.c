@@ -51,7 +51,7 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
 
     rdieee(idrstmpl, &ref, 1);
     bscale = int_power(2.0, idrstmpl[1]);
-    dscale = int_power(10.0, -idrstmpl[2]);
+    dscale = int_power(10.0, idrstmpl[2]);
     nbits = idrstmpl[3];
     LOG((2, "bscale %g dscale %g nbits %ld", bscale, dscale, nbits));
 
@@ -82,9 +82,9 @@ pngunpack_int(unsigned char *cpack, g2int len, g2int *idrstmpl, g2int ndpts,
         for (j = 0; j < ndpts; j++)
         {
             if (fld_is_double)
-                dfld[j] = (((double)ifld[j] * bscale) + ref) * dscale;
+                dfld[j] = ((double)ifld[j] * bscale + ref) / dscale;
             else
-                ffld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
+                ffld[j] = (float)(((double)ifld[j] * bscale + ref) / dscale);
         }
         free(ctemp);
         free(ifld);

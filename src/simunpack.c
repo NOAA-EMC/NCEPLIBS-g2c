@@ -38,7 +38,7 @@ simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, float *fld)
 
     rdieee(idrstmpl, &ref, 1);
     bscale = int_power(2.0, idrstmpl[1]);
-    dscale = int_power(10.0, -idrstmpl[2]);
+    dscale = int_power(10.0, idrstmpl[2]);
     nbits = idrstmpl[3];
 
     if (!(ifld = calloc(ndpts, sizeof(g2int))))
@@ -54,7 +54,7 @@ simunpack(unsigned char *cpack, g2int *idrstmpl, g2int ndpts, float *fld)
     {
         gbits(cpack, ifld, 0, nbits, 0, ndpts);
         for (j = 0; j < ndpts; j++)
-            fld[j] = (((float)ifld[j] * bscale) + ref) * dscale;
+            fld[j] = (float)(((double)ifld[j] * bscale + ref) / dscale);
     }
     else
     {
